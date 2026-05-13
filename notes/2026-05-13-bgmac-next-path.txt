@@ -1,0 +1,5 @@
+bgmac source exists: bgmac.c, bgmac-platform.c, bgmac-bcma.c.
+Current kernel does not show BGMAC enabled.
+Existing BMIPS path has BCM6368_ENETSW and B53 enabled.
+TC7200U CFE says: Using GMAC0, phy 0; Switch detected: 53125.
+Next experiment: enable CONFIG_BGMAC and CONFIG_BGMAC_PLATFORM, then add minimal GMAC0 DTS node once register/IRQ requirements are confirmed.
