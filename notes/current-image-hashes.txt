@@ -1,0 +1,5 @@
+Wed May 13 21:58:35 CEST 2026
+617c3683e3d678531bcf7baa26ae02fe5335fc8e22c1f66e689b412b42014860  /mnt/c/tftp/openwrt-ps-brcm.bin
+617c3683e3d678531bcf7baa26ae02fe5335fc8e22c1f66e689b412b42014860  /mnt/c/tftp/openwrt-ps-irqfallback.bin
+-rwxrwxrwx 1 mgta29 mgta29 5.5M May 13 21:49 /mnt/c/tftp/openwrt-ps-brcm.bin
+-rwxrwxrwx 1 mgta29 mgta29 5.5M May 13 21:49 /mnt/c/tftp/openwrt-ps-irqfallback.bin
