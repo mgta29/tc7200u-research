@@ -1,0 +1,6 @@
+2ae4afb92e4df065e88d61bcbac9f693c6a853e1ff349e09d3c8e5cfae4ac513  artifacts/openwrt-ps-brcm-5696426.bin
+2ae4afb92e4df065e88d61bcbac9f693c6a853e1ff349e09d3c8e5cfae4ac513  /mnt/c/tftp/openwrt-ps-brcm.bin
+2ae4afb92e4df065e88d61bcbac9f693c6a853e1ff349e09d3c8e5cfae4ac513  /mnt/c/tftp/openwrt-initramfs.bin
+Recovered from HCS failure by restoring the 5696426-byte CFE-accepted image.
+The earlier 5697264-byte file caused: HCS failed on Image 3 Program Header.
+Current CFE filename is /mnt/c/tftp/openwrt-initramfs.bin.
