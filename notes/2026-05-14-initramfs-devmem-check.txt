@@ -1,0 +1,8 @@
+Initramfs check 2026-05-14 00:01
+Image: openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin
+Size: 5697264 bytes
+SHA256: 6d2906bd17692e7a3db882236d9f8e004ed90c4a66998a8e8de81e9ac822e3f6
+Kernel config confirms CONFIG_DEVMEM=y and STRICT_DEVMEM disabled.
+BusyBox config confirms CONFIG_BUSYBOX_CONFIG_DEVMEM=y.
+DTB currently contains serial and BCM3380 L2 IRQ controllers only; no Ethernet/MDIO/switch/NAND/SPI nodes yet.
+DTB warning remains: serial node name serial@14e00520 should later become serial@14e00500.
