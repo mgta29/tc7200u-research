@@ -1,0 +1,2 @@
+OpenWrt .config has CONFIG_KERNEL_DEVMEM=y and CONFIG_BUSYBOX_CONFIG_DEVMEM=y.
+target/linux/prepare did not generate build_dir kernel .config; next step is target/linux/compile to force kernel config generation.
