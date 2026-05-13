@@ -1,0 +1,9 @@
+Ethernet status after successful RAM boot:
+- Only lo exists in /sys/class/net.
+- No eth0.
+- No dmesg matches for eth/enet/mdio/phy/b53/dsa.
+- Current TC7200U DTS only enables UART.
+- Kernel has BCM6368_ENETSW, MDIO_BUS_MUX_BCM6368, NET_DSA, and B53 built in.
+- CFE reports: Using GMAC0, phy 0; Switch detected: 53125.
+Next research target:
+- Add minimal Ethernet/MDIO/B53 description or identify correct BCM3383 GMAC driver.
