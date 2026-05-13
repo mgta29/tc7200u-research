@@ -1,0 +1,41 @@
+{
+  "device": "Technicolor TC7200.U",
+  "soc": "Broadcom BCM3383Z-B0",
+  "bootloader": {
+    "version": "2.4.0alpha18p1",
+    "observed_network": {
+      "switch": "BCM53125",
+      "phy": 0,
+      "mac": "GMAC0",
+      "link": "1G full"
+    }
+  },
+  "openwrt_boot": {
+    "kernel": "Linux 6.12.87",
+    "machine": "Technicolor TC7200.U",
+    "status": "boots to OpenWrt shell",
+    "console": "ttyS0",
+    "network_interfaces": ["lo only"],
+    "ethernet_probe_messages": "none observed"
+  },
+  "devmem_test": {
+    "proc_devices_mem": true,
+    "dev_mem_initially_missing": true,
+    "dev_mem_created_with": "mknod /dev/mem c 1 1; chmod 600 /dev/mem",
+    "created_node": "crw------- root root 1,1 /dev/mem",
+    "test_address": "0xb4e00500",
+    "result": "busybox devmem failed: No such device or address",
+    "interpretation": "The /dev/mem node exists but this running kernel cannot map the tested MMIO address. Do not rely on devmem for register discovery in this image."
+  },
+  "proc_config": {
+    "path": "/proc/config.gz",
+    "status": "missing",
+    "interpretation": "CONFIG_IKCONFIG_PROC is not available in this image, so runtime kernel config cannot be read from the modem."
+  },
+  "important_address_note": {
+    "cfe_uses_kseg1_virtual": "0xb4e00500",
+    "linux_devmem_should_use_physical": "0x14e00500",
+    "unsafe_cfe_address": "0xb51f8048 caused CFE bus-error crash"
+  },
+  "next_action": "Stop devmem path if physical 0x14e00500 also fails. Use kernel-side printk/ioremap register logging or CFE-safe reads instead."
+}
