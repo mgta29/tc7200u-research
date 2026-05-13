@@ -1,0 +1,107 @@
+/dts-v1/;
+
+/ {
+	#address-cells = <0x01>;
+	#size-cells = <0x01>;
+	compatible = "technicolor,tc7200u\0brcm,bcm3384-viper\0brcm,bcm33843-viper";
+	model = "Technicolor TC7200.U";
+
+	memory@0 {
+		device_type = "memory";
+		reg = <0x6000000 0x2000000 0xe000000 0x2000000>;
+	};
+
+	cpus {
+		#address-cells = <0x01>;
+		#size-cells = <0x00>;
+		mips-hpt-frequency = <0x11e1a300>;
+
+		cpu@0 {
+			compatible = "brcm,bmips4350";
+			device_type = "cpu";
+			reg = <0x00>;
+		};
+	};
+
+	cpu_intc {
+		#address-cells = <0x00>;
+		compatible = "mti,cpu-interrupt-controller";
+		interrupt-controller;
+		#interrupt-cells = <0x01>;
+		phandle = <0x01>;
+	};
+
+	clocks {
+
+		periph_clk {
+			compatible = "fixed-clock";
+			#clock-cells = <0x00>;
+			clock-frequency = <0x337f980>;
+			phandle = <0x03>;
+		};
+	};
+
+	aliases {
+		uart0 = "/ubus/serial@14e00520";
+	};
+
+	ubus {
+		#address-cells = <0x01>;
+		#size-cells = <0x01>;
+		compatible = "brcm,ubus\0simple-bus";
+		ranges;
+
+		periph_intc@14e00048 {
+			compatible = "brcm,bcm3380-l2-intc";
+			reg = <0x14e00048 0x04 0x14e0004c 0x04 0x14e00350 0x04 0x14e00354 0x04>;
+			interrupt-controller;
+			#interrupt-cells = <0x01>;
+			interrupt-parent = <0x01>;
+			interrupts = <0x04>;
+			phandle = <0x02>;
+		};
+
+		cmips_intc@151f8048 {
+			compatible = "brcm,bcm3380-l2-intc";
+			reg = <0x151f8048 0x04 0x151f804c 0x04>;
+			interrupt-controller;
+			#interrupt-cells = <0x01>;
+			interrupt-parent = <0x02>;
+			interrupts = <0x1e>;
+			brcm,int-map-mask = <0xffffffff>;
+		};
+
+		serial@14e00520 {
+			compatible = "brcm,bcm6345-uart";
+			reg = <0x14e00500 0x18>;
+			interrupt-parent = <0x02>;
+			interrupts = <0x02>;
+			clocks = <0x03>;
+			status = "okay";
+		};
+
+		usb@15400300 {
+			compatible = "brcm,bcm3384-ehci\0generic-ehci";
+			reg = <0x15400300 0x100>;
+			big-endian;
+			interrupt-parent = <0x02>;
+			interrupts = <0x29>;
+			status = "disabled";
+		};
+
+		usb@15400400 {
+			compatible = "brcm,bcm3384-ohci\0generic-ohci";
+			reg = <0x15400400 0x100>;
+			big-endian;
+			no-big-frame-no;
+			interrupt-parent = <0x02>;
+			interrupts = <0x28>;
+			status = "disabled";
+		};
+	};
+
+	chosen {
+		bootargs = "console=ttyS0,115200 earlycon";
+		stdout-path = "/ubus/serial@14e00520";
+	};
+};

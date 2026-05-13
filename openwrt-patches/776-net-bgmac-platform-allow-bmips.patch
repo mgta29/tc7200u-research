@@ -1,0 +1,9 @@
+--- a/drivers/net/ethernet/broadcom/Kconfig
++++ b/drivers/net/ethernet/broadcom/Kconfig
+@@ -199,7 +199,7 @@ config BGMAC_PLATFORM
+ 	tristate "Broadcom iProc GBit platform support"
+-	depends on ARCH_BCM_IPROC || COMPILE_TEST
++	depends on ARCH_BCM_IPROC || BMIPS_GENERIC || COMPILE_TEST
+ 	select BGMAC
+ 	select PHYLIB
+ 	select FIXED_PHY
