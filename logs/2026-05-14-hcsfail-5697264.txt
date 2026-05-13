@@ -1,3 +1,4 @@
-6d2906bd17692e7a3db882236d9f8e004ed90c4a66998a8e8de81e9ac822e3f6  artifacts/openwrt-initramfs-HCSFAIL-5697264.bin
-CFE received 5697264 bytes, then failed: HCS failed on Image 3 Program Header.
-Device returned to CFE. No flash write was done. Bad file preserved as artifacts/openwrt-initramfs-HCSFAIL-5697264.bin.
+2ae4afb92e4df065e88d61bcbac9f693c6a853e1ff349e09d3c8e5cfae4ac513  artifacts/openwrt-initramfs-HCSFAIL-5697264.bin
+CFE received 5697264 bytes and failed before execution with: HCS failed on Image 3 Program Header.
+This means CFE rejected the Broadcom image header checksum. Kernel did not start. No flash write was done.
+Keep this failed image for binary comparison against the previous CFE-accepted images.
