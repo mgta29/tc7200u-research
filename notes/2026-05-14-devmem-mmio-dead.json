@@ -1,0 +1,44 @@
+{
+  "event": "devmem_mmio_dead",
+  "device": "Technicolor TC7200.U",
+  "soc": "BCM3383Z-B0",
+  "boot_status": "OpenWrt initramfs boots to shell",
+  "working": {
+    "kernel_boot": true,
+    "serial_console": true,
+    "irq_controller": "BCM3380 L2 interrupt controller registers",
+    "uart": "14e00500.serial ttyS0"
+  },
+  "not_working": {
+    "network": "no eth, no mdio, no b53, no dsa, only lo",
+    "mtd": "no /proc/mtd entries",
+    "proc_config": "/proc/config.gz missing",
+    "devmem": "character device can be created but MMIO read fails"
+  },
+  "devmem_observed": {
+    "proc_devices_contains_mem": true,
+    "manual_node": "mknod /dev/mem c 1 1; chmod 600 /dev/mem",
+    "kseg1_address_test": "0xb4e00500",
+    "kseg1_result": "No such device or address",
+    "physical_address_test": "0x14e00500",
+    "physical_result": "pending or failed",
+    "decision": "do not continue register discovery via /dev/mem"
+  },
+  "cfe_observed": {
+    "switch": "BCM53125",
+    "phy": 0,
+    "mac": "GMAC0",
+    "link": "1G full",
+    "safe_reads": {
+      "0xb4e00048": "00000000",
+      "0xb4e0004c": "00000000",
+      "0xb4e00350": "00006220",
+      "0xb4e00354": "00000000",
+      "0xb4e00500": "00e53704"
+    },
+    "unsafe_read": {
+      "0xb51f8048": "CFE bus error crash"
+    }
+  },
+  "next_plan": "add kernel-side MMIO printk logger or add DTS ethernet nodes; do not rely on userspace devmem"
+}
