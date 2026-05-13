@@ -1,0 +1,56 @@
+{
+  "device": "Technicolor TC7200.U",
+  "soc": "Broadcom BCM3383Z-B0 / BMIPS4350",
+  "boot_method": "CFE TFTP RAM boot",
+  "accepted_image": {
+    "filename_requested_by_cfe": "openwrt-ps-irqfallback.bin",
+    "received_bytes": 5696426,
+    "program_header": {
+      "signature": "a825",
+      "file_length": 5696334,
+      "load_address": "0x82000000",
+      "internal_filename": "openwrt-initramfs.bin",
+      "hcs": "1b46",
+      "crc": "f0b0a5b5"
+    },
+    "result": "Boots successfully to OpenWrt shell"
+  },
+  "rejected_image": {
+    "received_bytes": 5697264,
+    "error": "HCS failed on Image 3 Program Header",
+    "result": "Rejected by CFE before boot"
+  },
+  "linux_boot_observations": {
+    "kernel": "Linux 6.12.87",
+    "machine": "Technicolor TC7200.U",
+    "serial": {
+      "mmio": "0x14e00500",
+      "irq": 8,
+      "driver": "bcm63xx_uart"
+    },
+    "interrupt_controller": {
+      "periph_intc": "registered BCM3380 L2 intc at /ubus/periph_intc@14e00048",
+      "cmips_intc": "registered BCM3380 L2 intc at /ubus/cmips_intc@151f8048"
+    },
+    "network": {
+      "interfaces": ["lo"],
+      "eth_present": false,
+      "mdio_present": false,
+      "b53_present": false,
+      "dsa_present": false
+    },
+    "mtd": {
+      "proc_mtd_empty": true
+    }
+  },
+  "devmem_test": {
+    "proc_devices_mem": "1 mem",
+    "manual_mknod": "mknod /dev/mem c 1 1; chmod 600 /dev/mem",
+    "devmem_result": "busybox devmem fails with: can't open '/dev/mem': No such device or address",
+    "conclusion": "mknod alone is not enough; the booted accepted image does not provide usable /dev/mem"
+  },
+  "next_action": {
+    "primary": "Use CFE Read memory menu to read MMIO registers, or fix Broadcom program header HCS for the devmem-enabled image.",
+    "do_not_do": "Do not flash. Continue RAM boot only."
+  }
+}
