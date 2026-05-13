@@ -1,0 +1,23 @@
+OpenWrt live probe after successful console boot:
+
+/proc/iomem:
+00010000-013b87ff : System RAM
+06000000-07ffffff : System RAM
+0e000000-0fffffff : System RAM
+14e00500-14e00517 : 14e00500.serial serial@14e00520
+
+/proc/interrupts:
+7: timer
+8: periph_intc@14e00048 hwirq 2 14e00500.serial
+ERR: 2
+
+/proc/mtd is empty.
+
+Platform devices:
+14e00048.periph_intc
+151f8048.cmips_intc
+14e00500.serial
+ubus
+Fixed MDIO bus.0
+
+Conclusion: TC7200U initramfs boots, BCM3380 L2 interrupt controller works, serial uses real IRQ, but DTS currently only exposes UART. Next: add MMIO read tool and identify GMAC0 register base.
