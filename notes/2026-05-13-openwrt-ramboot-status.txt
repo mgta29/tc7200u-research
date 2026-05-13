@@ -1,0 +1,6 @@
+Normal OpenWrt RAM boot works.
+Serial fixed by CONFIG_BCM7120_L2_IRQ=y.
+BCM3380 L2 interrupt controller registers.
+UART ttyS0 maps to Linux IRQ 8.
+Serial login works.
+Ethernet currently missing: only lo exists, no eth0/mdio/b53/dsa probe.
