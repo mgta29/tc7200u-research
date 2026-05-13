@@ -1,0 +1,7 @@
+Normal RAM boot works.
+Serial console works.
+CONFIG_BCM7120_L2_IRQ=y fixed UART RX.
+BCM3380 L2 intc registered.
+ttyS0 maps to Linux IRQ 8.
+OpenWrt shell reached: root@(none):~#
+Ethernet missing: only lo exists; no eth0, no mdio, no b53, no dsa probe.
