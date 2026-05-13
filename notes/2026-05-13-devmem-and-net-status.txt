@@ -1,0 +1,27 @@
+TC7200.U OpenWrt research status
+
+Boot:
+- initramfs boots successfully from CFE TFTP.
+- Serial console works on ttyS0.
+- BCM3380 L2 interrupt controller is now registered.
+- UART uses periph_intc IRQ path, not the previous fallback.
+
+Current runtime state:
+- /sys/class/net only shows lo.
+- No eth/enet/mdio/b53/dsa messages yet.
+- /proc/mtd is empty.
+- /dev/mem is missing in runtime image.
+- busybox devmem applet exists in userland config, but cannot work until kernel CONFIG_DEVMEM is enabled.
+
+Important config finding:
+- OpenWrt .config had CONFIG_KERNEL_DEVMEM disabled.
+- Kernel build .config showed CONFIG_DEVMEM disabled.
+- Next build should enable CONFIG_KERNEL_DEVMEM and keep STRICT_DEVMEM disabled.
+
+Next experiment:
+- Rebuild clean after enabling KERNEL_DEVMEM.
+- Boot new image.
+- Test:
+  ls -l /dev/mem
+  busybox devmem 0x14e00048 32
+- Then inspect BCM3383/3384 register areas for GMAC/MDIO/switch mapping.

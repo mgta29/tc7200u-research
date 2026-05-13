@@ -1,0 +1,16 @@
+.config:# CONFIG_KERNEL_DEVMEM is not set
+.config:CONFIG_BUSYBOX_CONFIG_DEVMEM=y
+target/linux/bmips/config-6.12:CONFIG_BCM7120_L2_IRQ=y
+target/linux/bmips/config-6.12:CONFIG_BGMAC=y
+target/linux/bmips/config-6.12:CONFIG_BGMAC_PLATFORM=y
+build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:CONFIG_B53=y
+build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:CONFIG_B53_SPI_DRIVER=y
+build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:CONFIG_B53_MDIO_DRIVER=y
+build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:CONFIG_B53_MMAP_DRIVER=y
+build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:# CONFIG_B53_SRAB_DRIVER is not set
+build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:# CONFIG_B53_SERDES is not set
+build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:# CONFIG_B53_QUIRK_IMP_RGMII_IMPLIES_DELAYS is not set
+build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:CONFIG_BCM6368_ENETSW=y
+build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:CONFIG_BGMAC=y
+build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:CONFIG_BGMAC_PLATFORM=y
+build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:CONFIG_BCM7120_L2_IRQ=y

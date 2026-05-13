@@ -1,0 +1,22 @@
+// SPDX-License-Identifier: GPL-2.0
+/dts-v1/;
+
+#include "bcm3384_viper.dtsi"
+
+/ {
+	compatible = "technicolor,tc7200u", "brcm,bcm3384-viper", "brcm,bcm33843-viper";
+	model = "Technicolor TC7200.U";
+
+	chosen {
+		bootargs = "console=ttyS0,115200 earlycon";
+		stdout-path = &uart0;
+	};
+};
+
+&uart0 {
+	reg = <0x14e00500 0x18>;
+	interrupt-parent = <&periph_intc>;
+	interrupts = <2>;
+	clocks = <&periph_clk>;
+	status = "okay";
+};
