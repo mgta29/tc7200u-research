@@ -1,0 +1,4 @@
+CFE forced TFTP filename: openwrt-ps-irqfallback.bin
+Resolution: copied known CFE-accepted image openwrt-ps-brcm.bin to /mnt/c/tftp/openwrt-ps-irqfallback.bin.
+Do not rename inside CFE; serve the filename CFE asks for.
+2ae4afb92e4df065e88d61bcbac9f693c6a853e1ff349e09d3c8e5cfae4ac513  /mnt/c/tftp/openwrt-ps-irqfallback.bin
