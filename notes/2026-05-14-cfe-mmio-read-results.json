@@ -1,0 +1,56 @@
+{
+  "device": "Technicolor TC7200.U",
+  "soc": "Broadcom BCM3383Z-B0 / BCM3384 Viper family",
+  "context": "CFE read memory test using KSEG1 uncached virtual addresses",
+  "reason": "CFE rejects physical MMIO addresses below 0x80000000, so physical addresses were converted using physical + 0xA0000000.",
+  "results": [
+    {
+      "physical": "0x14e00048",
+      "cfe_address": "0xb4e00048",
+      "value_hex": "0x00000000",
+      "value_dec": 0,
+      "status": "read_ok"
+    },
+    {
+      "physical": "0x14e0004c",
+      "cfe_address": "0xb4e0004c",
+      "value_hex": "0x00000000",
+      "value_dec": 0,
+      "status": "read_ok"
+    },
+    {
+      "physical": "0x14e00350",
+      "cfe_address": "0xb4e00350",
+      "value_hex": "0x00006220",
+      "value_dec": 25120,
+      "status": "read_ok"
+    },
+    {
+      "physical": "0x14e00354",
+      "cfe_address": "0xb4e00354",
+      "value_hex": "0x00000000",
+      "value_dec": 0,
+      "status": "read_ok"
+    },
+    {
+      "physical": "0x14e00500",
+      "cfe_address": "0xb4e00500",
+      "value_hex": "0x00e53704",
+      "value_dec": 15021828,
+      "status": "read_ok",
+      "meaning": "UART0 MMIO base is reachable"
+    },
+    {
+      "physical": "0x151f8048",
+      "cfe_address": "0xb51f8048",
+      "status": "bus_error_crash",
+      "meaning": "CMIPS interrupt-controller area is not safe to read from CFE; avoid this address for now"
+    }
+  ],
+  "conclusion": {
+    "periph_intc": "reachable",
+    "uart0": "reachable",
+    "cmips_intc": "unsafe_from_cfe",
+    "next_focus": "Do not chase cmips_intc. Continue with periph_intc, MTD/NAND/SPI, then Ethernet GMAC0/register discovery."
+  }
+}
