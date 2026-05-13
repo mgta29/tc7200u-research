@@ -1,0 +1,23 @@
+diff --git a/target/linux/bmips/image/bcm63268.mk b/target/linux/bmips/image/bcm63268.mk
+index 49fc8626cd..97fd3eb187 100644
+--- a/target/linux/bmips/image/bcm63268.mk
++++ b/target/linux/bmips/image/bcm63268.mk
+@@ -154,3 +154,18 @@ define Device/smartrg_sr505n
+     kmod-leds-bcm6328
+ endef
+ TARGET_DEVICES += smartrg_sr505n
++
++define Device/technicolor_tc7200u
++  DEVICE_VENDOR := Technicolor
++  DEVICE_MODEL := TC7200.U
++  CHIP_ID := 3383
++  SOC := bcm3383
++  DEVICE_DTS := bcm3383-technicolor-tc7200u
++  DEVICE_PACKAGES :=
++  DEVICE_LOADADDR := 0x84010000
++  KERNEL_INITRAMFS := kernel-bin | append-dtb | lzma | loader-lzma bin
++  KERNEL_INITRAMFS_SUFFIX := .bin
++  IMAGES :=
++endef
++TARGET_DEVICES += technicolor_tc7200u
++
