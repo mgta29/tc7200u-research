@@ -1,0 +1,21 @@
+Expanded CMIPS MMIO probe booted successfully.
+
+Observed tc7200u-mmio values:
+0x14e00048 -> 0x00000000
+0x14e0004c -> 0x00002000
+0x14e00350 -> 0x00006220
+0x14e00354 -> 0x00000000
+0x14e00500 -> 0x00e53704
+0x151f8000 -> 0xb51f8000
+0x151f8010 -> 0xb51f8010
+0x151f8040 -> 0xb51f8040
+0x151f8048 -> 0xb51f8048
+0x151f804c -> 0xb51f804c
+0x151f8050 -> 0xb51f8050
+
+Interrupt state after boot:
+serial IRQ: periph_intc@14e00048 hwirq 2
+ERR: 8
+
+Conclusion:
+Expanded CMIPS addresses are safe to ioremap/read, but returned values look like address echo/fallback rather than useful decoded interrupt-controller state.
