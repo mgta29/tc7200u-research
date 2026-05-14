@@ -36,7 +36,7 @@ Index: linux-6.12.87/arch/mips/bmips/setup.c
 +	return val;
 +}
 +
-+static int __init tc7200u_mmio_boot_log(void)
++static int __init __used tc7200u_mmio_boot_log(void)
 +{
 +	static const phys_addr_t addrs[] __initconst = {
 +		0x14e00048,
