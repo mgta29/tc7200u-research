@@ -1,0 +1,253 @@
+target/linux/bmips/dts/bcm6328-sercomm-ad1018.dts:48:		nvmem-cells = <&macaddr_cferom_6a0 1>;
+target/linux/bmips/dts/bcm6328-sercomm-ad1018.dts:79:	nvmem-cells = <&macaddr_cferom_6a0 0>;
+target/linux/bmips/dts/bcm6328-sercomm-ad1018.dts:193:				label = "cferom";
+target/linux/bmips/dts/bcm6328-sercomm-ad1018.dts:202:					macaddr_cferom_6a0: macaddr@6a0 {
+target/linux/bmips/dts/bcm6328-sercomm-ad1018.dts:217:				label = "cferam1";
+target/linux/bmips/dts/bcm6328-sercomm-ad1018.dts:223:				label = "cferam2";
+target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts.bak.1778672532:4:#include "bcm3384_viper.dtsi"
+target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts.bak.1778672532:7:	compatible = "technicolor,tc7200u", "brcm,bcm3384-viper", "brcm,bcm33843-viper";
+target/linux/bmips/dts/bcm6369-netgear-evg2000.dts:96:		nvmem-cells = <&macaddr_cfe_6a0 1>;
+target/linux/bmips/dts/bcm6369-netgear-evg2000.dts:111:	nvmem-cells = <&macaddr_cfe_6a0 0>;
+target/linux/bmips/dts/bcm6369-netgear-evg2000.dts:202:				macaddr_cfe_6a0: macaddr@6a0 {
+target/linux/bmips/dts/bcm63168-comtrend-vr-3032u.dts:43:	nvmem-cells = <&macaddr_cferom_6a0>;
+target/linux/bmips/dts/bcm63168-comtrend-vr-3032u.dts:173:				label = "cferom";
+target/linux/bmips/dts/bcm63168-comtrend-vr-3032u.dts:182:					macaddr_cferom_6a0: macaddr@6a0 {
+target/linux/bmips/dts/bcm6328-nucom-r5010unv2.dts:41:		nvmem-cells = <&macaddr_cfe_6a0 1>;
+target/linux/bmips/dts/bcm6328-nucom-r5010unv2.dts:55:	nvmem-cells = <&macaddr_cfe_6a0 0>;
+target/linux/bmips/dts/bcm6328-nucom-r5010unv2.dts:75:				label = "cfe";
+target/linux/bmips/dts/bcm6328-nucom-r5010unv2.dts:84:					macaddr_cfe_6a0: macaddr@6a0 {
+target/linux/bmips/dts/bcm6328-arcadyan-ar7516.dts:39:		nvmem-cells = <&macaddr_cfe_6a0 1>;
+target/linux/bmips/dts/bcm6328-arcadyan-ar7516.dts:53:	nvmem-cells = <&macaddr_cfe_6a0 0>;
+target/linux/bmips/dts/bcm6328-arcadyan-ar7516.dts:73:				label = "cfe";
+target/linux/bmips/dts/bcm6328-arcadyan-ar7516.dts:82:					macaddr_cfe_6a0: macaddr@6a0 {
+target/linux/bmips/dts/bcm63168-actiontec-t1200h.dts:114:	nvmem-cells = <&macaddr_cferom_6a0>;
+target/linux/bmips/dts/bcm63168-actiontec-t1200h.dts:184:				label = "cferom";
+target/linux/bmips/dts/bcm63168-actiontec-t1200h.dts:193:					macaddr_cferom_6a0: macaddr@6a0 {
+target/linux/bmips/dts/bcm6362-netgear-dgnd3700-v2.dts:66:	nvmem-cells = <&macaddr_cferom_6a0>;
+target/linux/bmips/dts/bcm6362-netgear-dgnd3700-v2.dts:219:				label = "cferom";
+target/linux/bmips/dts/bcm6362-netgear-dgnd3700-v2.dts:228:					macaddr_cferom_6a0: macaddr@6a0 {
+target/linux/bmips/dts/bcm6362-netgear-dgnd3700-v2.dts:238:				brcm,cferam = "cfe";
+target/linux/bmips/dts/bcm6362-huawei-hg253s-v2.dts:64:	nvmem-cells = <&macaddr_cferom_6a0>;
+target/linux/bmips/dts/bcm6362-huawei-hg253s-v2.dts:165:				label = "cferom";
+target/linux/bmips/dts/bcm6362-huawei-hg253s-v2.dts:174:					macaddr_cferom_6a0: macaddr@6a0 {
+target/linux/bmips/dts/bcm6328-dlink-dsl-2750b-b1.dts:115:	nvmem-cells = <&macaddr_cfe_6a0 0>;
+target/linux/bmips/dts/bcm6328-dlink-dsl-2750b-b1.dts:136:				label = "cfe";
+target/linux/bmips/dts/bcm6328-dlink-dsl-2750b-b1.dts:144:					macaddr_cfe_6a0: macaddr@6a0 {
+target/linux/bmips/dts/bcm6328-dlink-dsl-2750b-b1.dts:201:			nvmem-cells = <&macaddr_cfe_6a0 1>, <&cal_data_1000>;
+target/linux/bmips/dts/bcm6368-comtrend-vr-3025u.dts:66:		nvmem-cells = <&macaddr_cfe_6a0 1>;
+target/linux/bmips/dts/bcm6368-comtrend-vr-3025u.dts:86:	nvmem-cells = <&macaddr_cfe_6a0 0>;
+target/linux/bmips/dts/bcm6368-comtrend-vr-3025u.dts:116:				macaddr_cfe_6a0: macaddr@6a0 {
+target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts.bak.1778686490:4:#include "bcm3384_viper.dtsi"
+target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts.bak.1778686490:7:	compatible = "technicolor,tc7200u", "brcm,bcm3384-viper", "brcm,bcm33843-viper";
+target/linux/bmips/dts/bcm6358-huawei-hg556a-b.dts:56:		nvmem-cells = <&macaddr_cfe_6a0 1>;
+target/linux/bmips/dts/bcm6368-actiontec-r1000h.dts:90:	nvmem-cells = <&macaddr_cfe_6a0>;
+target/linux/bmips/dts/bcm6368-actiontec-r1000h.dts:194:				macaddr_cfe_6a0: macaddr@6a0 {
+target/linux/bmips/dts/bcm6328-innacomm-w3400v6.dts:41:		nvmem-cells = <&macaddr_cfe_6a0 1>;
+target/linux/bmips/dts/bcm6328-innacomm-w3400v6.dts:51:	nvmem-cells = <&macaddr_cfe_6a0 0>;
+target/linux/bmips/dts/bcm6328-innacomm-w3400v6.dts:72:				label = "cfe";
+target/linux/bmips/dts/bcm6328-innacomm-w3400v6.dts:80:					macaddr_cfe_6a0: macaddr@6a0 {
+target/linux/bmips/dts/bcm63167-sercomm-h500-s.dtsi:42:	nvmem-cells = <&macaddr_cferom_6a0>;
+target/linux/bmips/dts/bcm63167-sercomm-h500-s.dtsi:191:				label = "cferom";
+target/linux/bmips/dts/bcm63167-sercomm-h500-s.dtsi:200:					macaddr_cferom_6a0: macaddr@6a0 {
+target/linux/bmips/dts/bcm63167-sercomm-h500-s.dtsi:213:				label = "cferam1";
+target/linux/bmips/dts/bcm63167-sercomm-h500-s.dtsi:219:				label = "cferam2";
+target/linux/bmips/dts/bcm3384_viper.dtsi:5:	compatible = "brcm,bcm3384-viper", "brcm,bcm33843-viper";
+target/linux/bmips/dts/bcm3384_viper.dtsi:91:			compatible = "brcm,bcm3384-ehci", "generic-ehci";
+target/linux/bmips/dts/bcm3384_viper.dtsi:100:			compatible = "brcm,bcm3384-ohci", "generic-ohci";
+target/linux/bmips/dts/bcm6358-huawei-hg556a-c.dts:50:		nvmem-cells = <&macaddr_cfe_6a0 1>;
+target/linux/bmips/dts/bcm6328-comtrend-ar-5387un.dts:34:		nvmem-cells = <&macaddr_cfe_6a0 1>;
+target/linux/bmips/dts/bcm6328-comtrend-ar-5387un.dts:72:	nvmem-cells = <&macaddr_cfe_6a0 0>;
+target/linux/bmips/dts/bcm6328-comtrend-ar-5387un.dts:93:				label = "cfe";
+target/linux/bmips/dts/bcm6328-comtrend-ar-5387un.dts:101:					macaddr_cfe_6a0: macaddr@6a0 {
+target/linux/bmips/dts/bcm6318-tp-link-td-w8968-v3.dts:48:		nvmem-cells = <&macaddr_cfe_6a0 1>;
+target/linux/bmips/dts/bcm6318-tp-link-td-w8968-v3.dts:62:	nvmem-cells = <&macaddr_cfe_6a0 0>;
+target/linux/bmips/dts/bcm6318-tp-link-td-w8968-v3.dts:83:				label = "cfe";
+target/linux/bmips/dts/bcm6318-tp-link-td-w8968-v3.dts:91:					macaddr_cfe_6a0: macaddr@6a0 {
+target/linux/bmips/dts/bcm6368-observa-vh4032n.dts:88:		nvmem-cells = <&macaddr_cfe_6a0 1>;
+target/linux/bmips/dts/bcm6368-observa-vh4032n.dts:128:	nvmem-cells = <&macaddr_cfe_6a0 0>;
+target/linux/bmips/dts/bcm6368-observa-vh4032n.dts:167:				macaddr_cfe_6a0: macaddr@6a0 {
+target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts.noirq.1778657853:4:#include "bcm3384_viper.dtsi"
+target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts.noirq.1778657853:7:	compatible = "technicolor,tc7200u", "brcm,bcm3384-viper", "brcm,bcm33843-viper";
+target/linux/bmips/dts/bcm63168-sagem-fast-3864-op.dts:104:	nvmem-cells = <&macaddr_cferom_6a0>;
+target/linux/bmips/dts/bcm63168-sagem-fast-3864-op.dts:222:				label = "cferom_nvram";
+target/linux/bmips/dts/bcm63168-sagem-fast-3864-op.dts:231:					macaddr_cferom_6a0: macaddr@6a0 {
+target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts:4:#include "bcm3384_viper.dtsi"
+target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts:7:	compatible = "technicolor,tc7200u", "brcm,bcm3384-viper", "brcm,bcm33843-viper";
+target/linux/bmips/dts/bcm6358-huawei-hg556a.dtsi:92:	nvmem-cells = <&macaddr_cfe_6a0 0>;
+target/linux/bmips/dts/bcm6358-huawei-hg556a.dtsi:173:			label = "cfe";
+target/linux/bmips/dts/bcm6358-huawei-hg556a.dtsi:182:				macaddr_cfe_6a0: macaddr@6a0 {
+target/linux/bmips/dts/bcm6368-comtrend-vr-3025un.dts:66:		nvmem-cells = <&macaddr_cfe_6a0 1>;
+target/linux/bmips/dts/bcm6368-comtrend-vr-3025un.dts:86:	nvmem-cells = <&macaddr_cfe_6a0 0>;
+target/linux/bmips/dts/bcm6368-comtrend-vr-3025un.dts:116:				macaddr_cfe_6a0: macaddr@6a0 {
+target/linux/bmips/dts/bcm6328-inteno-xg6846.dts:106:				label = "cfe";
+target/linux/bmips/dts/bcm6328-inteno-xg6846.dts:115:					macaddr_cfe_6a0: macaddr@6a0 {
+target/linux/bmips/dts/bcm6328-inteno-xg6846.dts:143:	nvmem-cells = <&macaddr_cfe_6a0>;
+target/linux/bmips/dts/bcm6358-huawei-hg553.dts:95:		nvmem-cells = <&macaddr_cfe_6a0 1>;
+target/linux/bmips/dts/bcm6358-huawei-hg553.dts:109:	nvmem-cells = <&macaddr_cfe_6a0 0>;
+target/linux/bmips/dts/bcm6358-huawei-hg553.dts:190:			label = "cfe";
+target/linux/bmips/dts/bcm6358-huawei-hg553.dts:199:				macaddr_cfe_6a0: macaddr@6a0 {
+target/linux/bmips/dts/bcm6368-netgear-dgnd3700.dtsi:117:	nvmem-cells = <&macaddr_cfe_6a0>;
+target/linux/bmips/dts/bcm6368-netgear-dgnd3700.dtsi:224:				macaddr_cfe_6a0: macaddr@6a0 {
+target/linux/bmips/dts/bcm63169-comtrend-vg-8050.dts:43:	nvmem-cells = <&macaddr_cferom_6a0>;
+target/linux/bmips/dts/bcm63169-comtrend-vg-8050.dts:189:				label = "cferom";
+target/linux/bmips/dts/bcm63169-comtrend-vg-8050.dts:198:					macaddr_cferom_6a0: macaddr@6a0 {
+target/linux/bmips/dts/bcm6328-comtrend-ar-5381u.dts:34:		nvmem-cells = <&macaddr_cfe_6a0 1>;
+target/linux/bmips/dts/bcm6328-comtrend-ar-5381u.dts:54:	nvmem-cells = <&macaddr_cfe_6a0 0>;
+target/linux/bmips/dts/bcm6328-comtrend-ar-5381u.dts:75:				label = "cfe";
+target/linux/bmips/dts/bcm6328-comtrend-ar-5381u.dts:83:					macaddr_cfe_6a0: macaddr@6a0 {
+target/linux/bmips/dts/bcm63168-smartrg-sr505n.dts:50:	nvmem-cells = <&macaddr_cfe_6a0>;
+target/linux/bmips/dts/bcm63168-smartrg-sr505n.dts:70:				label = "cfe";
+target/linux/bmips/dts/bcm63168-smartrg-sr505n.dts:79:					macaddr_cfe_6a0: macaddr@6a0 {
+target/linux/bmips/dts/bcm6369-comtrend-wap-5813n.dts:87:		nvmem-cells = <&macaddr_cfe_6a0 1>;
+target/linux/bmips/dts/bcm6369-comtrend-wap-5813n.dts:107:	nvmem-cells = <&macaddr_cfe_6a0 0>;
+target/linux/bmips/dts/bcm6369-comtrend-wap-5813n.dts:182:				macaddr_cfe_6a0: macaddr@6a0 {
+target/linux/bmips/dts/bcm63168-sercomm-shg2500.dts:49:		nvmem-cells = <&macaddr_cferom_6a0 1>;
+target/linux/bmips/dts/bcm63168-sercomm-shg2500.dts:63:	nvmem-cells = <&macaddr_cferom_6a0 0>;
+target/linux/bmips/dts/bcm63168-sercomm-shg2500.dts:198:				label = "cferom";
+target/linux/bmips/dts/bcm63168-sercomm-shg2500.dts:207:					macaddr_cferom_6a0: macaddr@6a0 {
+target/linux/bmips/dts/bcm63168-sercomm-shg2500.dts:222:				label = "cferam1";
+target/linux/bmips/dts/bcm63168-sercomm-shg2500.dts:228:				label = "cferam2";
+target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts.bad.1778655605:4:#include "bcm3384_viper.dtsi"
+target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts.bad.1778655605:7:	compatible = "technicolor,tc7200u", "brcm,bcm3384-viper", "brcm,bcm33843-viper";
+target/linux/bmips/dts/bcm6358-huawei-hg556a-a.dts:56:		nvmem-cells = <&macaddr_cfe_6a0 1>;
+target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts.bak.1778653802:4:#include "bcm3384_viper.dtsi"
+target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts.bak.1778653802:7:	compatible = "technicolor,tc7200u", "brcm,bcm3384-viper", "brcm,bcm33843-viper";
+target/linux/bmips/dts/bcm6318-comtrend-ar-5315u.dts:41:		nvmem-cells = <&macaddr_cfe_6a0 1>;
+target/linux/bmips/dts/bcm6318-comtrend-ar-5315u.dts:66:	nvmem-cells = <&macaddr_cfe_6a0 0>;
+target/linux/bmips/dts/bcm6318-comtrend-ar-5315u.dts:87:				label = "cfe";
+target/linux/bmips/dts/bcm6318-comtrend-ar-5315u.dts:95:					macaddr_cfe_6a0: macaddr@6a0 {
+target/linux/bmips/image/Makefile:49:define Build/lzma-cfe
+target/linux/bmips/image/Makefile:88:define Build/cfe-bin
+target/linux/bmips/image/Makefile:99:define Build/cfe-bin-uboot
+target/linux/bmips/image/Makefile:113:define Build/cfe-jffs2
+target/linux/bmips/image/Makefile:126:define Build/cfe-jffs2-cferam
+target/linux/bmips/image/Makefile:129:	rm -rf $@-cferam
+target/linux/bmips/image/Makefile:130:	mkdir -p $@-cferam
+target/linux/bmips/image/Makefile:132:	# CFE ROM checks JFFS2 dirent version of cferam.
+target/linux/bmips/image/Makefile:136:	# will have version 0 and let cferam be the second (version 1).
+target/linux/bmips/image/Makefile:137:	touch $@-cferam/1-openwrt
+target/linux/bmips/image/Makefile:138:	# Add cferam as the last file in the JFFS2 partition
+target/linux/bmips/image/Makefile:139:	cp $(STAGING_DIR_IMAGE)/bcm63xx-cfe/$(CFE_RAM_FILE) $@-cferam/$(CFE_RAM_JFFS2_NAME)
+target/linux/bmips/image/Makefile:144:	# 2) cferam.000 (version 1, ino 3)
+target/linux/bmips/image/Makefile:145:	$(call Build/cfe-jffs2,$@-cferam)
+target/linux/bmips/image/Makefile:151:	$(if $(CFE_PART_ID),$(call Build/cfe-part-tag))
+target/linux/bmips/image/Makefile:158:define Build/cfe-jffs2-kernel
+target/linux/bmips/image/Makefile:166:	# will have version 0 and let cferam be the second (version 1).
+target/linux/bmips/image/Makefile:170:	# the JFFS2 ino of cferam entry on the first JFFS2 partition.
+target/linux/bmips/image/Makefile:171:	# CFE RAM won't be able to find vmlinux if cferam has the same
+target/linux/bmips/image/Makefile:175:	$(TOPDIR)/scripts/cfe-bin-header.py \
+target/linux/bmips/image/Makefile:186:	$(call Build/cfe-jffs2,$@-kernel)
+target/linux/bmips/image/Makefile:189:define Build/cfe-part-tag
+target/linux/bmips/image/Makefile:192:	$(TOPDIR)/scripts/cfe-partition-tag.py \
+target/linux/bmips/image/Makefile:205:define Build/cfe-sercomm-crypto
+target/linux/bmips/image/Makefile:220:define Build/cfe-sercomm-load
+target/linux/bmips/image/Makefile:235:define Build/cfe-sercomm-part
+target/linux/bmips/image/Makefile:246:	$(call Build/cfe-jffs2,$@-rootfs_lib)
+target/linux/bmips/image/Makefile:258:define Build/cfe-wfi-tag
+target/linux/bmips/image/Makefile:259:	$(TOPDIR)/scripts/cfe-wfi-tag.py \
+target/linux/bmips/image/Makefile:280:define Device/bcm63xx-cfe
+target/linux/bmips/image/Makefile:285:  IMAGES := cfe.bin sysupgrade.bin
+target/linux/bmips/image/Makefile:286:  IMAGE/cfe.bin := \
+target/linux/bmips/image/Makefile:287:    cfe-bin $$$$(if $$$$(FLASH_MB),--pad $$$$(shell expr $$$$(FLASH_MB) / 2))
+target/linux/bmips/image/Makefile:288:  IMAGE/sysupgrade.bin := cfe-bin | append-metadata
+target/linux/bmips/image/Makefile:298:define Device/bcm63xx-cfe-legacy
+target/linux/bmips/image/Makefile:299:  $(Device/bcm63xx-cfe)
+target/linux/bmips/image/Makefile:300:  KERNEL := kernel-bin | append-dtb | relocate-kernel | lzma-cfe
+target/linux/bmips/image/Makefile:307:define Device/bcm63xx-cfe-uboot
+target/linux/bmips/image/Makefile:308:  $(Device/bcm63xx-cfe)
+target/linux/bmips/image/Makefile:310:  IMAGE/cfe.bin := cfe-bin-uboot | pad-to $$$$$$$$(($$(BLOCKSIZE))) | \
+target/linux/bmips/image/Makefile:313:  IMAGE/sysupgrade.bin := cfe-bin-uboot | pad-to $$$$$$$$(($$(BLOCKSIZE))) | \
+target/linux/bmips/image/Makefile:318:# CFE expects a single JFFS2 partition with cferam and kernel. However,
+target/linux/bmips/image/Makefile:319:# it's possible to fool CFE into properly loading both cferam and kernel
+target/linux/bmips/image/Makefile:321:# cfe-jffs2-cferam and cfe-jffs2-kernel).
+target/linux/bmips/image/Makefile:322:# Separate JFFS2 partitions allow upgrading openwrt without reflashing cferam
+target/linux/bmips/image/Makefile:326:  KERNEL := kernel-bin | append-dtb | relocate-kernel | lzma | cfe-jffs2-kernel
+target/linux/bmips/image/Makefile:329:  IMAGES := cfe.bin sysupgrade.bin
+target/linux/bmips/image/Makefile:330:  IMAGE/cfe.bin := append-kernel | pad-to $$$$(KERNEL_SIZE) |\
+target/linux/bmips/image/Makefile:331:    cfe-jffs2-cferam | append-ubi | cfe-wfi-tag
+target/linux/bmips/image/Makefile:348:  $(Device/bcm63xx-cfe)
+target/linux/bmips/image/Makefile:351:  IMAGE/factory.chk := cfe-bin | netgear-chk
+target/linux/bmips/image/Makefile:360:    cfe-sercomm-part | gzip | cfe-sercomm-load | cfe-sercomm-crypto
+target/linux/bmips/image/bcm63268.mk:9:  CFE_RAM_FILE := actiontec,t1200h/cferam.000
+target/linux/bmips/image/bcm63268.mk:10:  CFE_RAM_JFFS2_NAME := cferam.000
+target/linux/bmips/image/bcm63268.mk:28:  CFE_RAM_FILE := comtrend,vg-8050/cferam.000
+target/linux/bmips/image/bcm63268.mk:29:  CFE_RAM_JFFS2_NAME := cferam.000
+target/linux/bmips/image/bcm63268.mk:47:  CFE_RAM_FILE := comtrend,vr-3032u/cferam.000
+target/linux/bmips/image/bcm63268.mk:48:  CFE_RAM_JFFS2_NAME := cferam.000
+target/linux/bmips/image/bcm63268.mk:67:  CFE_RAM_FILE := sagem,fast-3864-op/cferam.000
+target/linux/bmips/image/bcm63268.mk:68:  CFE_RAM_JFFS2_NAME := cferam.000
+target/linux/bmips/image/bcm63268.mk:87:  KERNEL := kernel-bin | append-dtb | lzma | cfe-jffs2-kernel
+target/linux/bmips/image/bcm63268.mk:108:  KERNEL := kernel-bin | append-dtb | lzma | cfe-jffs2-kernel
+target/linux/bmips/image/bcm63268.mk:128:  KERNEL := kernel-bin | append-dtb | lzma | cfe-jffs2-kernel
+target/linux/bmips/image/bcm63268.mk:145:  $(Device/bcm63xx-cfe)
+target/linux/bmips/image/bcm63268.mk:158:define Device/technicolor_tc7200u
+target/linux/bmips/image/bcm63268.mk:162:  SOC := bcm3383
+target/linux/bmips/image/bcm63268.mk:163:  DEVICE_DTS := bcm3383-technicolor-tc7200u
+target/linux/bmips/image/bcm63268.mk:170:TARGET_DEVICES += technicolor_tc7200u
+target/linux/bmips/image/bcm6358.mk:4:  $(Device/bcm63xx-cfe-legacy)
+target/linux/bmips/image/bcm6358.mk:17:  $(Device/bcm63xx-cfe-legacy)
+target/linux/bmips/image/bcm6358.mk:31:  $(Device/bcm63xx-cfe-legacy)
+target/linux/bmips/image/bcm6358.mk:45:  $(Device/bcm63xx-cfe-legacy)
+target/linux/bmips/image/bcm6368.mk:4:  $(Device/bcm63xx-cfe)
+target/linux/bmips/image/bcm6368.mk:19:  $(Device/bcm63xx-cfe)
+target/linux/bmips/image/bcm6368.mk:33:  $(Device/bcm63xx-cfe)
+target/linux/bmips/image/bcm6368.mk:46:  $(Device/bcm63xx-cfe)
+target/linux/bmips/image/bcm6368.mk:106:  $(Device/bcm63xx-cfe)
+target/linux/bmips/image/bcm6328.mk:4:  $(Device/bcm63xx-cfe)
+target/linux/bmips/image/bcm6328.mk:17:  $(Device/bcm63xx-cfe)
+target/linux/bmips/image/bcm6328.mk:30:  $(Device/bcm63xx-cfe)
+target/linux/bmips/image/bcm6328.mk:43:  $(Device/bcm63xx-cfe)
+target/linux/bmips/image/bcm6328.mk:55:  IMAGES := cfe-EU.bin cfe-AU.bin
+target/linux/bmips/image/bcm6328.mk:56:  IMAGE/cfe-AU.bin := cfe-bin --signature2 "4.06.01.AUF1" --pad 4
+target/linux/bmips/image/bcm6328.mk:57:  IMAGE/cfe-EU.bin := cfe-bin --signature2 "4.06.01.EUF1" --pad 4
+target/linux/bmips/image/bcm6328.mk:64:  $(Device/bcm63xx-cfe)
+target/linux/bmips/image/bcm6328.mk:76:  $(Device/bcm63xx-cfe-uboot)
+target/linux/bmips/image/bcm6328.mk:90:  $(Device/bcm63xx-cfe)
+target/linux/bmips/image/bcm63268.mk.bak.1778650873:9:  CFE_RAM_FILE := actiontec,t1200h/cferam.000
+target/linux/bmips/image/bcm63268.mk.bak.1778650873:10:  CFE_RAM_JFFS2_NAME := cferam.000
+target/linux/bmips/image/bcm63268.mk.bak.1778650873:28:  CFE_RAM_FILE := comtrend,vg-8050/cferam.000
+target/linux/bmips/image/bcm63268.mk.bak.1778650873:29:  CFE_RAM_JFFS2_NAME := cferam.000
+target/linux/bmips/image/bcm63268.mk.bak.1778650873:47:  CFE_RAM_FILE := comtrend,vr-3032u/cferam.000
+target/linux/bmips/image/bcm63268.mk.bak.1778650873:48:  CFE_RAM_JFFS2_NAME := cferam.000
+target/linux/bmips/image/bcm63268.mk.bak.1778650873:67:  CFE_RAM_FILE := sagem,fast-3864-op/cferam.000
+target/linux/bmips/image/bcm63268.mk.bak.1778650873:68:  CFE_RAM_JFFS2_NAME := cferam.000
+target/linux/bmips/image/bcm63268.mk.bak.1778650873:87:  KERNEL := kernel-bin | append-dtb | lzma | cfe-jffs2-kernel
+target/linux/bmips/image/bcm63268.mk.bak.1778650873:108:  KERNEL := kernel-bin | append-dtb | lzma | cfe-jffs2-kernel
+target/linux/bmips/image/bcm63268.mk.bak.1778650873:128:  KERNEL := kernel-bin | append-dtb | lzma | cfe-jffs2-kernel
+target/linux/bmips/image/bcm63268.mk.bak.1778650873:145:  $(Device/bcm63xx-cfe)
+target/linux/bmips/image/bcm63268.mk.bak.1778650873:158:define Device/technicolor_tc7200u
+target/linux/bmips/image/bcm63268.mk.bak.1778650873:162:  SOC := bcm3383
+target/linux/bmips/image/bcm63268.mk.bak.1778650873:163:  DEVICE_DTS := bcm3383-technicolor-tc7200u
+target/linux/bmips/image/bcm63268.mk.bak.1778650873:170:TARGET_DEVICES += technicolor_tc7200u
+target/linux/bmips/image/bcm6362.mk:6:  IMAGE/flash.bin := append-kernel | pad-to $$$$(KERNEL_SIZE) | cfe-jffs2-cferam | append-ubi
+target/linux/bmips/image/bcm6362.mk:13:  CFE_RAM_FILE := huawei,hg253s-v2/cferam.000
+target/linux/bmips/image/bcm6362.mk:14:  CFE_RAM_JFFS2_NAME := cferam.000
+target/linux/bmips/image/bcm6362.mk:31:  CFE_RAM_FILE := netgear,dgnd3700-v2/cferam
+target/linux/bmips/image/bcm6362.mk:32:  CFE_RAM_JFFS2_NAME := cferam
+target/linux/bmips/image/bcm6318.mk:4:  $(Device/bcm63xx-cfe)
+target/linux/bmips/image/bcm6318.mk:17:  $(Device/bcm63xx-cfe)
+target/linux/bmips/image/bcm63268.mk.bak-tc7200u:9:  CFE_RAM_FILE := actiontec,t1200h/cferam.000
+target/linux/bmips/image/bcm63268.mk.bak-tc7200u:10:  CFE_RAM_JFFS2_NAME := cferam.000
+target/linux/bmips/image/bcm63268.mk.bak-tc7200u:28:  CFE_RAM_FILE := comtrend,vg-8050/cferam.000
+target/linux/bmips/image/bcm63268.mk.bak-tc7200u:29:  CFE_RAM_JFFS2_NAME := cferam.000
+target/linux/bmips/image/bcm63268.mk.bak-tc7200u:47:  CFE_RAM_FILE := comtrend,vr-3032u/cferam.000
+target/linux/bmips/image/bcm63268.mk.bak-tc7200u:48:  CFE_RAM_JFFS2_NAME := cferam.000
+target/linux/bmips/image/bcm63268.mk.bak-tc7200u:67:  CFE_RAM_FILE := sagem,fast-3864-op/cferam.000
+target/linux/bmips/image/bcm63268.mk.bak-tc7200u:68:  CFE_RAM_JFFS2_NAME := cferam.000
+target/linux/bmips/image/bcm63268.mk.bak-tc7200u:87:  KERNEL := kernel-bin | append-dtb | lzma | cfe-jffs2-kernel
+target/linux/bmips/image/bcm63268.mk.bak-tc7200u:108:  KERNEL := kernel-bin | append-dtb | lzma | cfe-jffs2-kernel
+target/linux/bmips/image/bcm63268.mk.bak-tc7200u:128:  KERNEL := kernel-bin | append-dtb | lzma | cfe-jffs2-kernel
+target/linux/bmips/image/bcm63268.mk.bak-tc7200u:145:  $(Device/bcm63xx-cfe)
+target/linux/bmips/patches-6.12/910-tc7200u-mmio-boot-log.patch:8: #include <asm/fw/cfe/cfe_api.h>
+target/linux/bmips/patches-6.12/910-tc7200u-mmio-boot-log.patch:19:+static u32 __init tc7200u_mmio_read32(phys_addr_t addr, bool *ok)
+target/linux/bmips/patches-6.12/910-tc7200u-mmio-boot-log.patch:39:+static int __init tc7200u_mmio_boot_log(void)
+target/linux/bmips/patches-6.12/910-tc7200u-mmio-boot-log.patch:50:+	if (!of_machine_is_compatible("technicolor,tc7200u"))
+target/linux/bmips/patches-6.12/910-tc7200u-mmio-boot-log.patch:53:+	pr_info("tc7200u-mmio: known-safe boot probe begin\n");
+target/linux/bmips/patches-6.12/910-tc7200u-mmio-boot-log.patch:58:+		u32 val = tc7200u_mmio_read32(addr, &ok);
+target/linux/bmips/patches-6.12/910-tc7200u-mmio-boot-log.patch:61:+			pr_info("tc7200u-mmio: phys 0x%08llx raw32 0x%08x\n",
+target/linux/bmips/patches-6.12/910-tc7200u-mmio-boot-log.patch:64:+			pr_info("tc7200u-mmio: phys 0x%08llx ioremap failed\n",
+target/linux/bmips/patches-6.12/910-tc7200u-mmio-boot-log.patch:68:+	pr_info("tc7200u-mmio: known-safe boot probe end\n");
+target/linux/bmips/patches-6.12/910-tc7200u-mmio-boot-log.patch:72:+arch_initcall(tc7200u_mmio_boot_log);
+scripts/brcmImage.pl:59:  -x <cfelen>	: length of cfe, default ".sprintf('0x%x', $arg{x})."
+scripts/mkhash.c:303:	ctx->c = 0x98badcfe;
+tools/mkimage/patches/030-allow-to-use-different-magic.patch:1:From f3d2056b81b7a92d28402c22736534d84fe23cfe Mon Sep 17 00:00:00 2001
