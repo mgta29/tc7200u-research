@@ -1,0 +1,17 @@
+Ethernet-related kernel config is present in the OpenWrt bmips/bcm63268 build.
+
+Confirmed:
+- CONFIG_BGMAC=y
+- CONFIG_BGMAC_PLATFORM=y
+- CONFIG_B53=y
+- CONFIG_B53_MDIO_DRIVER=y
+- CONFIG_B53_MMAP_DRIVER=y
+- CONFIG_B53_SPI_DRIVER=y
+- CONFIG_NET_DSA=y
+- CONFIG_NET_DSA_TAG_BRCM=y
+- CONFIG_NET_DSA_TAG_BRCM_LEGACY=y
+- CONFIG_NET_DSA_TAG_BRCM_PREPEND=y
+
+Runtime still shows only lo, so Ethernet is currently blocked by missing or incomplete DTS/platform device description, not by missing kernel driver config.
+
+Next target: identify safe GMAC/BGMAC base address, IRQ, MDIO/switch connection, then add minimal DTS nodes.
