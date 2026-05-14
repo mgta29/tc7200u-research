@@ -1,0 +1,78 @@
+{
+  "device": {
+    "model": "Technicolor TC7200.U",
+    "soc": "BCM3383Z-B0",
+    "cpu": "Broadcom BMIPS4350",
+    "bootloader": "CFE 2.4.0alpha18p1"
+  },
+  "image": {
+    "tftp_filename_used_by_cfe": "openwrt-ps-irqfallback.bin",
+    "received_bytes": 5696426,
+    "program_header_signature": "a825",
+    "file_length": 5696334,
+    "load_address": "0x82000000",
+    "embedded_filename": "openwrt-initramfs.bin",
+    "hcs": "1b46",
+    "crc": "f0b0a5b5",
+    "status": "HCS passed; CFE executed Image 4; kernel booted successfully"
+  },
+  "kernel": {
+    "version": "Linux 6.12.87",
+    "openwrt_revision": "r34427-6865d489d2",
+    "machine": "Technicolor TC7200.U",
+    "console": "ttyS0,115200",
+    "earlycon": "bcm63xx_uart0 at MMIO 0x14e00500"
+  },
+  "runtime_findings": {
+    "boot_status": "OpenWrt shell reached",
+    "network_devices": ["lo"],
+    "ethernet_status": "No Ethernet device registered",
+    "platform_devices": [
+      "14e00048.periph_intc",
+      "151f8048.cmips_intc",
+      "14e00500.serial",
+      "ubus",
+      "Fixed MDIO bus.0"
+    ],
+    "iomem": [
+      "00010000-013b88bf System RAM",
+      "06000000-07ffffff System RAM",
+      "0e000000-0fffffff System RAM",
+      "14e00500-14e00517 serial"
+    ],
+    "interrupts": {
+      "timer": "MIPS IRQ 7",
+      "serial": "periph_intc IRQ 2 mapped as Linux IRQ 8",
+      "errors": 2
+    },
+    "devmem": {
+      "char_major_registered": true,
+      "proc_devices_has_mem": true,
+      "dev_node_present_by_default": false,
+      "manual_mknod_result_previous_test": "node can be created but MMIO access through /dev/mem returned No such device or address"
+    },
+    "mtd": {
+      "status": "No MTD partitions registered in this initramfs boot"
+    }
+  },
+  "important_negative_results": [
+    "No eth0",
+    "No enet logs",
+    "No mdio logs except Fixed MDIO bus.0 platform presence",
+    "No b53/dsa switch registration",
+    "No NAND/SPI MTD device registration",
+    "DTS currently exposes only intc, serial, disabled USB, and ubus-related nodes"
+  ],
+  "known_bad_image": {
+    "received_bytes": 5697776,
+    "failure": "HCS failed on Image 3 Program Header",
+    "action": "Do not use until image header generation is fixed"
+  },
+  "next_work": [
+    "Preserve 5696426-byte irqfallback image as known-good rescue image",
+    "Do not rely on /dev/mem from Linux for MMIO probing on this kernel path",
+    "Add controlled kernel-side boot printk MMIO probe instead of userland devmem",
+    "Fix patch formatting for 910-tc7200u-mmio-boot-log.patch before rebuilding",
+    "Do not replace C:\\tftp\\openwrt-ps-irqfallback.bin with HCS-failing builds"
+  ]
+}
