@@ -1,0 +1,4 @@
+Restored known-good irqfallback image after HCS-failed MMIO logger image.
+Source: artifacts/openwrt-ps-irqfallback-GOOD-5696426.bin
+Target: /mnt/c/tftp/openwrt-ps-irqfallback.bin
+Expected CFE receive size: 5696426 bytes
