@@ -1,0 +1,30 @@
+{
+  "test": "openwrt-ps-irqfallback-lzma16m",
+  "purpose": "Test smaller LZMA/16M image through CFE TFTP without flashing",
+  "staged_cfe_filename": "C:\\\\tftp\\\\openwrt-ps-irqfallback.bin",
+  "source_filename": "openwrt-ps-irqfallback-lzma16m.bin",
+  "size_bytes": 5684200,
+  "header": {
+    "signature": "a825",
+    "control": "0000",
+    "major_rev": "0100",
+    "minor_rev": "04ff",
+    "file_length_bytes": 5684108,
+    "load_address": "0x82000000",
+    "embedded_filename": "openwrt-initramfs.bin",
+    "hcs": "f445",
+    "crc": "6972317e"
+  },
+  "sha256": "ef94354b38e919c8b642c481c1160bd9463e0facf345cd072e8591f88aeac383",
+  "known_good_rescue": {
+    "filename": "openwrt-ps-irqfallback-before-lzma16m-test.bin",
+    "previous_size_bytes": 5696426,
+    "status": "backed up before staging test image"
+  },
+  "test_rules": [
+    "TFTP boot only",
+    "Do not flash",
+    "If HCS fails, restore previous known-good 5696426-byte image",
+    "If kernel boots, capture /proc/iomem, /proc/interrupts, platform devices, ip link, and dmesg filters"
+  ]
+}
