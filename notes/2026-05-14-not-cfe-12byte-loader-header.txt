@@ -1,0 +1,3 @@
+This is not a valid TC7200U CFE TFTP image.
+It starts with a 12-byte loader header from scripts/cfe-bin-header.py, not the required a825 Program Header.
+Do not boot this file.
