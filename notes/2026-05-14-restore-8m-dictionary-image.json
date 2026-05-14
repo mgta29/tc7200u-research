@@ -1,0 +1,17 @@
+{
+  "decision": "restore previous 8 MiB dictionary irqfallback image",
+  "reason": "16 MiB dictionary image boots but kernel decompression is slower; 8 MiB dictionary image is preferred for repeated TFTP tests",
+  "restored_cfe_filename": "C:\\\\tftp\\\\openwrt-ps-irqfallback.bin",
+  "restored_from": "artifacts/openwrt-ps-irqfallback-before-lzma16m-test.bin",
+  "expected_size_bytes": 5696426,
+  "known_status": {
+    "cfe_hcs": "passed",
+    "kernel": "boots to OpenWrt shell",
+    "ethernet": "not active yet; only lo visible"
+  },
+  "rejected_for_now": {
+    "filename": "openwrt-ps-irqfallback-lzma16m.bin",
+    "size_bytes": 5684200,
+    "reason": "slower decompression"
+  }
+}
