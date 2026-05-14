@@ -1,0 +1,19 @@
+Ethernet driver direction after source inspection:
+
+bgmac-platform.c only matches:
+- brcm,amac
+- brcm,nsp-amac
+- brcm,ns2-amac
+
+So a TC7200U GMAC node must either use compatible = "brcm,amac" for probing, or bgmac-platform must be patched to accept a BCM3383/BCM3384 compatible.
+
+bcm6368-enetsw exists and supports brcm,bcm6318-enetsw, brcm,bcm6328-enetsw, brcm,bcm6362-enetsw, brcm,bcm6368-enetsw, brcm,bcm63268-enetsw.
+
+But TC7200U CFE reports:
+- Switch detected: 53125
+- ProbePhy: Found PHY 0, MDIO on MAC 0, data on MAC 0
+- Using GMAC0, phy 0
+
+Current working hypothesis:
+- TC7200U uses GMAC0/AMAC plus BCM53125/B53 switch over MDIO.
+- Do not use bcm6368-enetsw first unless GMAC/AMAC path fails or register discovery contradicts this.
