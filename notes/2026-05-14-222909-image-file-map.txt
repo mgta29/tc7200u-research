@@ -1,0 +1,12 @@
+RAW=bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin
+-rwxr-xr-x 1 mgta29 mgta29 5.5M 2026-05-14 22:20 bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin
+103ea238f74d4cba034fed4266ef1448af1f80286bbae640c1730fdb7cdb9a25  bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin
+
+TFTP_OUT=/mnt/c/tftp/openwrt-ps-irqfallback.bin
+-rwxrwxrwx 1 mgta29 mgta29 5.5M 2026-05-14 22:23 /mnt/c/tftp/openwrt-ps-irqfallback.bin
+35d402883425392380c83d4e13dc09b9d493cf68c68b9808f3032e6550517dc0  /mnt/c/tftp/openwrt-ps-irqfallback.bin
+
+TFTP request filename expected by CFE/server: openwrt-ps-irqfallback.bin
+Internal CFE Program Header filename: openwrt-initramfs.bin
+CFE load address: 0x82000000
+Kernel runtime entry/decompress target observed: 0x80010000
