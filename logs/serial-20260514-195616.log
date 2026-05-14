@@ -1,0 +1,32 @@
+Script started on 2026-05-14 19:56:16+02:00 [COMMAND="sudo picocom -b 115200 -f n /dev/ttyUSB0" TERM="xterm-256color" TTY="/dev/pts/1" COLUMNS="120" LINES="30"]
+[sudo] password for mgta29: 
+Sorry, try again.
+[sudo] password for mgta29: 
+picocom v3.1
+
+port is        : /dev/ttyUSB0
+flowcontrol    : none
+baudrate is    : 115200
+parity is      : none
+databits are   : 8
+stopbits are   : 1
+escape is      : C-a
+local echo is  : no
+noinit is      : no
+noreset is     : no
+hangup is      : no
+nolock is      : no
+send_cmd is    : sz -vv
+receive_cmd is : rz -vv -E
+imap is        : 
+omap is        : 
+emap is        : crcrlf,delbs,
+logfile is     : none
+initstring     : none
+exit_after is  : not set
+exit is        : no
+
+
+FATAL: cannot open /dev/ttyUSB0: No such file or directory
+
+Script done on 2026-05-14 19:56:31+02:00 [COMMAND_EXIT_CODE="1"]

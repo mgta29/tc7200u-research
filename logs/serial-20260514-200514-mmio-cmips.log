@@ -538,3 +538,11 @@ gre0mio_boot_log\|arch_initcall(tc7200u_mmio_boot_log"
 grep -Rns "tc7200u_mmio_boot_log\|arch_initcall(tc7200u_mmio_boot_log"
 -ash: syntax error: unexpected "("
 root@(none):~# 
+root@OpenWrt:~# ip link
+1: lo: <LOOPBACK> mtu 65536 qdisc noop state DOWN qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+root@OpenWrt:~# [  635.895155] urngd: v1.0.2 started.
+root@OpenWrt:~# ip link[J
+1: lo: <LOOPBACK> mtu 65536 qdisc noop state DOWN qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+root@OpenWrt:~# 

@@ -1,0 +1,65 @@
+WARNING: Makefile 'package/boot/arm-trusted-firmware-microchipsw/Makefile' has a build dependency on 'ruby/host', which does not exist
+WARNING: Makefile 'package/utils/audit/Makefile' has a dependency on 'libev', which does not exist
+WARNING: Makefile 'package/utils/busybox/Makefile' has a dependency on 'libpam', which does not exist
+WARNING: Makefile 'package/utils/busybox/Makefile' has a dependency on 'libtirpc', which does not exist
+WARNING: Makefile 'package/utils/busybox/Makefile' has a dependency on 'libpam', which does not exist
+WARNING: Makefile 'package/utils/busybox/Makefile' has a dependency on 'libtirpc', which does not exist
+WARNING: Makefile 'package/utils/busybox/Makefile' has a build dependency on 'libpam', which does not exist
+WARNING: Makefile 'package/boot/kexec-tools/Makefile' has a dependency on 'liblzma', which does not exist
+WARNING: Makefile 'package/boot/kexec-tools/Makefile' has a dependency on 'libzstd', which does not exist
+WARNING: Makefile 'package/network/services/lldpd/Makefile' has a dependency on 'libnetsnmp', which does not exist
+WARNING: Makefile 'package/utils/policycoreutils/Makefile' has a dependency on 'libpam', which does not exist
+WARNING: Makefile 'package/utils/policycoreutils/Makefile' has a dependency on 'libpam', which does not exist
+WARNING: Makefile 'package/utils/policycoreutils/Makefile' has a build dependency on 'libpam', which does not exist
+make[2]: Entering directory '/home/mgta29/src/openwrt/scripts/config'
+make[2]: 'conf' is up to date.
+make[2]: Leaving directory '/home/mgta29/src/openwrt/scripts/config'
+make[1]: Entering directory '/home/mgta29/src/openwrt'
++ mkdir -p /home/mgta29/src/openwrt/staging_dir/target-mips_mips32_musl
++ cd /home/mgta29/src/openwrt/staging_dir/target-mips_mips32_musl
++ mkdir -p bin lib stamp usr/include usr/lib
+mkdir -p /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/stamp
+touch /home/mgta29/src/openwrt/staging_dir/target-mips_mips32_musl/.prepared
+make[2]: Entering directory '/home/mgta29/src/openwrt/target/linux'
+make[3]: Entering directory '/home/mgta29/src/openwrt/target/linux/bmips'
+rm -f /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/localversion
+/home/mgta29/src/openwrt/scripts/kconfig.pl  + + /home/mgta29/src/openwrt/target/linux/generic/config-6.12 /home/mgta29/src/openwrt/target/linux/bmips/config-6.12 /home/mgta29/src/openwrt/target/linux/bmips/bcm63268/config-6.12 > /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config.target
+awk '/^(#[[:space:]]+)?CONFIG_KERNEL/{sub("CONFIG_KERNEL_","CONFIG_");print}' /home/mgta29/src/openwrt/.config >> /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config.target
+echo "# CONFIG_KALLSYMS_EXTRA_PASS is not set" >> /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config.target
+echo "# CONFIG_KALLSYMS_ALL is not set" >> /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config.target
+echo "CONFIG_KALLSYMS_UNCOMPRESSED=y" >> /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config.target
+/home/mgta29/src/openwrt/scripts/package-metadata.pl kconfig /home/mgta29/src/openwrt/tmp/.packageinfo /home/mgta29/src/openwrt/.config 6.12 > /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config.override
+/home/mgta29/src/openwrt/scripts/kconfig.pl 'm+' '+' /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config.target /dev/null /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config.override > /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config.set
+mv /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config.set /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config.old
+grep -v INITRAMFS /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config.old > /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config.set
+echo 'CONFIG_INITRAMFS_SOURCE=""' >> /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config.set
+echo '# CONFIG_INITRAMFS_FORCE is not set' >> /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config.set
+echo "# CONFIG_INITRAMFS_PRESERVE_MTIME is not set" >> /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config.set
+rm -rf /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/modules
+cmp -s /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config.set /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config.prev || { cp /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config.set /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config; cp /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config.set /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config.prev; }
+export MAKEFLAGS= ; [ -d /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/user_headers ] || make -C /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87 KCFLAGS="-fmacro-prefix-map=/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl=target-mips_mips32_musl -fno-caller-saves " HOSTCFLAGS="-O2 -I/home/mgta29/src/openwrt/staging_dir/host/include -Wall -Wmissing-prototypes -Wstrict-prototypes" CROSS_COMPILE="mips-openwrt-linux-musl-" ARCH="mips" KBUILD_HAVE_NLS=no KBUILD_BUILD_USER="" KBUILD_BUILD_HOST="" KBUILD_BUILD_TIMESTAMP="Tue May 12 23:59:29 2026" KBUILD_BUILD_VERSION="0" KBUILD_HOSTLDFLAGS="-L/home/mgta29/src/openwrt/staging_dir/host/lib" CONFIG_SHELL="bash" V=''  cmd_syscalls=  CC="mips-openwrt-linux-musl-gcc" KERNELRELEASE=6.12.87  INSTALL_HDR_PATH=/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/user_headers headers_install
+grep '=[ym]' /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config.set | LC_ALL=C sort | /home/mgta29/src/openwrt/staging_dir/host/bin/mkhash md5 > /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.vermagic
+touch /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.configured
+rm -f /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/vmlinux /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/System.map
+make -C /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87 KCFLAGS="-fmacro-prefix-map=/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl=target-mips_mips32_musl -fno-caller-saves " HOSTCFLAGS="-O2 -I/home/mgta29/src/openwrt/staging_dir/host/include -Wall -Wmissing-prototypes -Wstrict-prototypes" CROSS_COMPILE="mips-openwrt-linux-musl-" ARCH="mips" KBUILD_HAVE_NLS=no KBUILD_BUILD_USER="" KBUILD_BUILD_HOST="" KBUILD_BUILD_TIMESTAMP="Tue May 12 23:59:29 2026" KBUILD_BUILD_VERSION="0" KBUILD_HOSTLDFLAGS="-L/home/mgta29/src/openwrt/staging_dir/host/lib" CONFIG_SHELL="bash" V=''  cmd_syscalls=  CC="mips-openwrt-linux-musl-gcc" KERNELRELEASE=6.12.87 all modules
+make[4]: Entering directory '/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87'
+  CC      arch/mips/bmips/setup.o
+arch/mips/bmips/setup.c:579:19: error: 'tc7200u_mmio_boot_log' defined but not used [-Werror=unused-function]
+  579 | static int __init tc7200u_mmio_boot_log(void)
+      |                   ^~~~~~~~~~~~~~~~~~~~~
+cc1: all warnings being treated as errors
+make[8]: *** [scripts/Makefile.build:229: arch/mips/bmips/setup.o] Error 1
+make[7]: *** [scripts/Makefile.build:466: arch/mips/bmips] Error 2
+make[6]: *** [scripts/Makefile.build:466: arch/mips] Error 2
+make[5]: *** [/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/Makefile:1956: .] Error 2
+make[4]: *** [Makefile:224: __sub-make] Error 2
+make[4]: Leaving directory '/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87'
+make[3]: *** [Makefile:24: /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.modules] Error 2
+make[3]: Leaving directory '/home/mgta29/src/openwrt/target/linux/bmips'
+make[2]: *** [Makefile:12: compile] Error 2
+make[2]: Leaving directory '/home/mgta29/src/openwrt/target/linux'
+time: target/linux/compile#0.67#0.14#0.79
+    ERROR: target/linux failed to build.
+make[1]: *** [target/Makefile:32: target/linux/compile] Error 1
+make[1]: Leaving directory '/home/mgta29/src/openwrt'
+make: *** [/home/mgta29/src/openwrt/include/toplevel.mk:233: target/linux/compile] Error 2
