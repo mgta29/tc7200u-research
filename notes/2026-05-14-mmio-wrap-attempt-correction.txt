@@ -1,0 +1,4 @@
+Correction: commit 8830e23 did not stage the MMIO logger image.
+The wrapper command failed because scripts/cfe-bin-header.py does not accept --input/--output/--name.
+The staged artifact was still the old known-good 5696426 image: HCS 1b46, CRC f0b0a5b5.
+Next task: use the correct CFE a825 wrapper path, likely staging_dir/host/bin/imagetag, not raw copy.
