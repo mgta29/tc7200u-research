@@ -1,0 +1,3858 @@
+Script started on 2026-05-13 21:49:47+02:00 [COMMAND="sudo picocom -b 115200 -f n /dev/ttyUSB0" TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="102" LINES="57"]
+[sudo] password for mgta29: 
+picocom v3.1
+
+port is        : /dev/ttyUSB0
+flowcontrol    : none
+baudrate is    : 115200
+parity is      : none
+databits are   : 8
+stopbits are   : 1
+escape is      : C-a
+local echo is  : no
+noinit is      : no
+noreset is     : no
+hangup is      : no
+nolock is      : no
+send_cmd is    : sz -vv
+receive_cmd is : rz -vv -E
+imap is        : 
+omap is        : 
+emap is        : crcrlf,delbs,
+logfile is     : none
+initstring     : none
+exit_after is  : not set
+exit is        : no
+
+Type [C-a] [C-h] to see available commands
+Terminal ready
+g
+-ash: g: not found
+root@OpenWrt:~# ю
+BCM3383A2 
+Sync: 0 
+MemSize:            128 M
+Chip ID:     BCM3383Z-B0
+
+BootLoader Version: 2.4.0alpha18p1 Pre-release Gnu spiboot dual-flash reduced DDR drive linux
+Build Date: Aug 14 2012
+Build Time: 09:48:58
+SPI flash ID 0xc22014, size 1MB, block size 64KB, write buffer 256, flags 0x0
+NAND flash: Device size 64 MB, Block size 16 KB, Page size 512 B
+Cust key size 128
+parameter offset is 43872
+
+Signature/PID: a825
+
+Switch detected: 53125
+ProbePhy: Found PHY 0, MDIO on MAC 0, data on MAC 0
+Using GMAC0, phy 0
+
+Enet link up: 1G full
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+TFTP Get Selected
+
+Destination: a5f00000
+
+Destination: a5f00000
+Starting TFTP of openwrt-ps-irqfallback.bin from 192.168.77.2
+Getting openwrt-ps-irqfallback.bin using octet mode
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+Tftp timeout...
+Tftp timeout...
+Tftp timeout...
+Received packet for invalid session...
+....................................................................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+........................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+.........................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+...............................................................................................................................................................................................................................................................................................Received packet for invalid session...
+.....................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
+Tftp complete
+Received 5688699 bytes
+
+Image 3 Program Header:
+   Signature: a825
+     Control: 0000
+   Major Rev: 0100
+   Minor Rev: 04ff
+  Build Time: 2026/5/13 19:49:33 Z
+ File Length: 5688607 bytes
+Load Address: 82000000
+    Filename: openwrt-initramfs.bin
+         HCS: 3f37
+         CRC: 0138e1f4
+
+Bypassing CRC Verifiction on Image 4...
+CRC time = 332
+Loading non-compressed image 4...
+Target Address: 0x82000000
+Length: 5688607
+Reading flash map at ff30, size 192
+Successfully restored flash map from SPI flash!
+Copying partition table to 0x83fffc04 180
+Copying partition table to 0x80000904 180
+
+Executing Image 4...
+
+
+
+
+OpenWrt kernel loader for BMIPS
+Copyright (C) 2011 Gabor Juhos <juhosg@openwrt.org>
+Copyright (C) 2014 Jonas Gorski <jogo@openwrt.org>
+Copyright (C) 2020 Alvaro Fernandez Rojas <noltari@gmail.com>
+Decompressing kernel... done!
+blasting from 0x80010000 to 0x012644ab (0x80010000 - 0x812744b0)
+Starting kernel at 80010000...
+
+[    0.000000] Linux version 6.12.87 (mgta29@CerberusNB) (mips-openwrt-linux-musl-gcc (OpenWrt GCC 14.3.0 r34427-6865d489d2) 14.3.0, GNU ld (GNU Binutils) 2.44) #0 SMP Tue May 12 23:59:29 2026
+[    0.000000] CPU0 revision is: 0002a080 (Broadcom BMIPS4350)
+[    0.000000] MIPS: machine is Technicolor TC7200.U
+[    0.000000] earlycon: bcm63xx_uart0 at MMIO 0x14e00500 (options '')
+[    0.000000] printk: legacy bootconsole [bcm63xx_uart0] enabled
+[    0.000000] Kernel sections are not in the memory maps
+[    0.000000] Wasting 576 bytes for tracking 16 unused pages
+[    0.000000] Initrd not found or empty - disabling initrd
+[    0.000000] OF: reserved mem: Reserved memory: No reserved-memory node in the DT
+[    0.000000] Primary instruction cache 64kB, VIPT, 4-way, linesize 16 bytes.
+[    0.000000] Primary data cache 32kB, 2-way, VIPT, cache aliases, linesize 16 bytes
+[    0.000000] Zone ranges:
+[    0.000000]   Normal   [mem 0x0000000000010000-0x000000000fffffff]
+[    0.000000] Movable zone start for each node
+[    0.000000] Early memory node ranges
+[    0.000000]   node   0: [mem 0x0000000000010000-0x00000000013b7fff]
+[    0.000000]   node   0: [mem 0x0000000006000000-0x0000000007ffffff]
+[    0.000000]   node   0: [mem 0x000000000e000000-0x000000000fffffff]
+[    0.000000] Initmem setup node 0 [mem 0x0000000000010000-0x000000000fffffff]
+[    0.000000] On node 0, zone Normal: 16 pages in unavailable ranges
+[    0.000000] On node 0, zone Normal: 19528 pages in unavailable ranges
+[    0.000000] On node 0, zone Normal: 24576 pages in unavailable ranges
+[    0.000000] percpu: Embedded 12 pages/cpu s19664 r8192 d21296 u49152
+[    0.000000] Kernel command line: console=ttyS0,115200 earlycon
+[    0.000000] Dentry cache hash table entries: 8192 (order: 3, 32768 bytes, linear)
+[    0.000000] Inode-cache hash table entries: 4096 (order: 2, 16384 bytes, linear)
+[    0.000000] Built 1 zonelists, mobility grouping on.  Total pages: 21416
+[    0.000000] mem auto-init: stack:off, heap alloc:off, heap free:off
+[    0.000000] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=1, Nodes=1
+[    0.000000] rcu: Hierarchical RCU implementation.
+[    0.000000] rcu: 	RCU restricting CPUs from NR_CPUS=2 to nr_cpu_ids=1.
+[    0.000000] 	Tracing variant of Tasks RCU enabled.
+[    0.000000] rcu: RCU calculated value of scheduler-enlistment delay is 10 jiffies.
+[    0.000000] rcu: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=1
+[    0.000000] RCU Tasks Trace: Setting shift to 0 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=1.
+[    0.000000] NR_IRQS: 256
+[    0.000000] rcu: srcu_init: Setting srcu_struct sizes based on contention.
+[    0.000000] clocksource: MIPS: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 6370868154 ns
+[    0.000106] sched_clock: 32 bits at 300MHz, resolution 3ns, wraps every 7158278654ns
+[    0.019217] Calibrating delay loop... 4.42 BogoMIPS (lpj=22144)
+[    0.160722] pid_max: default: 32768 minimum: 301
+[    2.905421] Mount-cache hash table entries: 1024 (order: 0, 4096 bytes, linear)
+[    2.917140] Mountpoint-cache hash table entries: 1024 (order: 0, 4096 bytes, linear)
+[    5.034658] rcu: Hierarchical SRCU implementation.
+[    5.042276] rcu: 	Max phase no-delay instances is 1000.
+[    5.147134] smp: Bringing up secondary CPUs ...
+[    5.154453] smp: Brought up 1 node, 1 CPU
+[    5.182293] Memory: 62500K/85664K available (8362K kernel code, 650K rwdata, 1768K rodata, 9116K init, 226K bss, 22544K reserved, 0K cma-reserved)
+[    5.458016] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 19112604462750000 ns
+[    5.473330] futex hash table entries: 256 (order: 2, 16384 bytes, linear)
+[    7.265663] pinctrl core: initialized pinctrl subsystem
+[    7.987160] NET: Registered PF_NETLINK/PF_ROUTE protocol family
+[    9.956293] clocksource: Switched to clocksource MIPS
+[   12.812199] NET: Registered PF_INET protocol family
+[   12.852874] IP idents hash table entries: 2048 (order: 2, 16384 bytes, linear)
+[   13.002716] tcp_listen_portaddr_hash hash table entries: 512 (order: 0, 4096 bytes, linear)
+[   13.019212] Table-perturb hash table entries: 65536 (order: 6, 262144 bytes, linear)
+[   13.032137] TCP established hash table entries: 1024 (order: 0, 4096 bytes, linear)
+[   13.050281] TCP bind hash table entries: 1024 (order: 2, 16384 bytes, linear)
+[   13.068394] TCP: Hash tables configured (established 1024 bind 1024)
+[   13.158931] MPTCP token hash table entries: 256 (order: 0, 4096 bytes, linear)
+[   13.219254] UDP hash table entries: 256 (order: 1, 8192 bytes, linear)
+[   13.238176] UDP-Lite hash table entries: 256 (order: 1, 8192 bytes, linear)
+[   13.402995] NET: Registered PF_UNIX/PF_LOCAL protocol family
+[   13.421366] PCI: CLS 0 bytes, default 16
+[   17.501158] workingset: timestamp_bits=14 max_order=14 bucket_order=0
+[   18.242610] squashfs: version 4.0 (2009/01/31) Phillip Lougher
+[   18.252451] jffs2: version 2.2 (NAND) (SUMMARY) (LZMA) (RTIME) (CMODE_PRIORITY) (c) 2001-2006 Red Hat, Inc.
+[   21.353030] irq_bcm7120_l2: registered BCM3380 L2 intc (/ubus/periph_intc@14e00048, parent IRQ(s): 1)
+[   21.398034] irq_bcm7120_l2: registered BCM3380 L2 intc (/ubus/cmips_intc@151f8048, parent IRQ(s): 1)
+[   21.639220] 14e00500.serial: ttyS0 at MMIO 0x14e00500 (irq = 8, base_baud = 1687500) is a bcm63xx_uart
+[   21.656638] printk: legacy console [ttyS0] enabled
+[   21.656638] printk: legacy console [ttyS0] enabled
+[   21.671005] printk: legacy bootconsole [bcm63xx_uart0] disabled
+[   21.671005] printk: legacy bootconsole [bcm63xx_uart0] disabled
+[   23.391552] NET: Registered PF_INET6 protocol family
+[   24.732101] Segment Routing with IPv6
+[   24.753492] In-situ OAM (IOAM) with IPv6
+[   24.777290] NET: Registered PF_PACKET protocol family
+[   25.107829] 8021q: 802.1Q VLAN Support v1.8
+[   32.409755] clk: Disabling unused clocks
+[   32.416934] PM: genpd: Disabling unused power domains
+[   37.720575] Freeing unused kernel image (initmem) memory: 9116K
+[   37.730309] This architecture does not have kernel memory protection.
+[   37.740793] Run /init as init process
+
+[   71.132025] init: Console is alive
+[   72.422896] kmodloader: loading kernel modules from /etc/modules-boot.d/*
+[   72.663715] gpio_button_hotplug: loading out-of-tree module taints kernel.
+[   72.873315] kmodloader: done loading kernel modules from /etc/modules-boot.d/*
+[   73.006576] init: - preinit -
+[  100.391430] random: crng init done
+
+
+Press the [f] key and hit [enter] to enter failsafe mode
+Press the [1], [2], [3] or [4] key and hit [enter] to select the debug level
+
+[  149.202677] procd: - early -
+[  152.383874] procd: - ubus -
+[  154.821561] procd: - init -
+Please press Enter to activate this console.
+
+login[344]: root login on 'ttyS0'
+
+
+BusyBox v1.37.0 (2026-01-02 17:07:02 UTC) built-in shell (ash)
+
+  _______                     ________        __
+ |       |.-----.-----.-----.|  |  |  |.----.|  |_
+ |   -   ||  _  |  -__|     ||  |  |  ||   _||   _|
+ |_______||   __|_____|__|__||________||__|  |____|
+          |__| W I R E L E S S   F R E E D O M
+ -----------------------------------------------------
+ OpenWrt SNAPSHOT, r34427-6865d489d2
+ -----------------------------------------------------
+
+ === WARNING! =====================================
+ There is no root password defined on this device!
+ Use the "passwd" command to set up a new password
+ in order to prevent unauthorized SSH logins.
+ --------------------------------------------------
+
+root@(none):~# ls
+root@(none):~# [  201.807028] ttyS ttyS0: 1 input overrun(s)
+dmesg | grep -Ei 'bcm|eth|enetb53|dsa|irq|serial' > /tmp/tc7200u-
+dmesg-net.txt; cat /tmp/tc7200u-dmesg-net.txt
+[    0.000000] earlycon: bcm63xx_uart0 at MMIO 0x14e00500 (options '')
+[    0.000000] printk: legacy bootconsole [bcm63xx_uart0] enabled
+[    0.000000] NR_IRQS: 256
+[   21.353030] irq_bcm7120_l2: registered BCM3380 L2 intc (/ubus/periph_intc@14e00048, parent IRQ(s): 1)
+[   21.398034] irq_bcm7120_l2: registered BCM3380 L2 intc (/ubus/cmips_intc@151f8048, parent IRQ(s): 1)
+[   21.639220] 14e00500.serial: ttyS0 at MMIO 0x14e00500 (irq = 8, base_baud = 1687500) is a bcm63xx_uart
+[   21.671005] printk: legacy bootconsole [bcm63xx_uart0] disabled
+root@(none):~# [  223.187141] ttyS ttyS0: 1 input overrun(s)
+dmesg | grep -Ei 'bcm|eth|enet|switch|mdiobserial' > /tmp/tc7200u
+-dmesg-net.txt; cat /tmp/tc7200u-dmesg-net.txt
+[  237.423329] kmodloader: loading kernel modules from /etc/modules.d/*
+[    0.000000] earlycon: bcm63xx_uart0 at MMIO 0x14e00500 (options '')
+[    0.000000] printk: legacy bootconsole [bcm63xx_uart0] enabled
+[    9.956293] clocksource: Switched to clocksource MIPS
+[   21.353030] irq_bcm7120_l2: registered BCM3380 L2 intc (/ubus/periph_intc@14e00048, parent IRQ(s): 1)
+[   21.398034] irq_bcm7120_l2: registered BCM3380 L2 intc (/ubus/cmips_intc@151f8048, parent IRQ(s): 1)
+[   21.639220] 14e00500.serial: ttyS0 at MMIO 0x14e00500 (irq = 8, base_baud = 1687500) is a bcm63xx_uart
+[   21.671005] printk: legacy bootconsole [bcm63xx_uart0] disabled
+root@(none):~# [  247.870450] PPP generic driver version 2.4.2
+[  248.258666] NET: Registered PF_PPPOX protocol family
+[  249.264804] kmodloader: done loading kernel modules from /etc/modules.d/*
+
+root@(none):~# [  260.168356] ttyS ttyS0: 1 input overrun(s)
+ecm|eth|enet|switch|mdio|phy|b53|dsa|irq|serial' > /tmp/tc7200u-d
+mesg-net.txt; cat /tmp/tt[1Aroot@(none):~# dmesg | grep -Ei 'bcm|eth|enet|switch|mdiobserial' > /tmp/tc7200u
+-dmesg-net.txt; cat /tmp/tc7200u-dmesg-net.txt[J[1Aroot@(none):~# dmesg | grep -Ei 'bcm|eth|enetb53|dsa|irq|serial' > /tmp/tc7200u-
+dmesg-net.txt; cat /tmp/tc7200u-dmesg-net.txt[J[1Aroot@(none):~# dmesg | grep -Ei 'bcm|eth|enet|switch|mdiobserial' > /tmp/tc7200u
+-dmesg-net.txt; cat /tmp/tc7200u-dmesg-net.txt[J[1Aroot@(none):~# ecm|eth|enet|switch|mdio|phy|b53|dsa|irq|serial' > /tmp/tc7200u-d
+mesg-net.txt; cat /tmp/tt[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[1A[79C[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[Jdmesg | grep -Ei 'bcm|eth|enet|switch|mdio|phy|b53|dsa|irq|serial
+'
+[    0.000000] earlycon: bcm63xx_uart0 at MMIO 0x14e00500 (options '')
+[    0.000000] printk: legacy bootconsole [bcm63xx_uart0] enabled
+[    0.000000] NR_IRQS: 256
+[    9.956293] clocksource: Switched to clocksource MIPS
+[   21.353030] irq_bcm7120_l2: registered BCM3380 L2 intc (/ubus/periph_intc@14e00048, parent IRQ(s): 1)
+[   21.398034] irq_bcm7120_l2: registered BCM3380 L2 intc (/ubus/cmips_intc@151f8048, parent IRQ(s): 1)
+[   21.639220] 14e00500.serial: ttyS0 at MMIO 0x14e00500 (irq = 8, base_baud = 1687500) is a bcm63xx_uart
+[   21.671005] printk: legacy bootconsole [bcm63xx_uart0] disabled
+root@(none):~# [  299.747091] ttyS ttyS0: 2 input overrun(s)
+dmeEm|eth|enet|switch|mdio|phy|b53|dsa|irq|serial' > /tmp/tc7200u
+-dmesg-net.txtdmesg | grep -Ei 'bcm|eth|enet|switch|mdio|phy|b53|dsa|irq|serial'
+ > /tmp/tc7200u-dmesg-net.txt[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[1A[79C[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[1A[79C[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J
+root@(none):~# dm[  322.777906] ttyS ttyS0: 1 input overrun(s)
+esgitch|mdio|phy|b53|dsa|irq|serial' > /tmp/tc7200u-dmesg-net.t
+xt
+> ^C
+
+root@(none):~# dmeEm|eth|enet|
+> root@(none):~# dm[  322.777906] ttyS ttyS0: 1 input overrun(s)
+-ash: syntax error: unexpected word (expecting ")")
+root@(none):~# esgitch|mdio|phy|b53|dsa|irq|serial' > /tmp/tc7200u-dmesg-net.t
+> xt
+> > ^C
+> 
+> root@(none):~#
+> 
+> ^C
+
+root@(none):~# ip l
+1: lo: <LOOPBACK> mtu 65536 qdisc noop state DOWN qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+root@(none):~# ip l
+1: lo: <LOOPBACK> mtu 65536 qdisc noop state DOWN qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+root@(none):~# ip a
+1: lo: <LOOPBACK> mtu 65536 qdisc noop state DOWN qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+root@(none):~# ls /sys/class/net
+[1;36mlo[m
+root@(none):~# cat /etc/config/network
+
+config interface 'loopback'
+	option device 'lo'
+	option proto 'static'
+	list ipaddr '127.0.0.1/8'
+
+config globals 'globals'
+	option dhcp_default_duid 'auto'
+	option ula_prefix 'fd69:e8e5:10e4::/48'
+
+config device
+	option name 'br-lan'
+	option type 'bridge'
+	list ports 'eth0'
+
+config interface 'lan'
+	option device 'br-lan'
+	option proto 'static'
+	list ipaddr '192.168.1.1/24'
+	option ip6assign '60'
+
+root@(none):~# dmesg | grep -i eth
+root@(none):~# dm[  424.736979] ttyS ttyS0: 1 input overrun(s)
+ee[J[J[J[J
+root@(none):~# dmesg | grep -i enet
+root@(none):~# dmesg | grep -i mdio
+root@(none):~# dmesg | grep -i phy
+root@(none):~# dmesg | grep -i b53
+root@(none):~# dmesg | grep -i dsa
+root@(none):~# dmesg | grep -i bcm
+[    0.000000] earlycon: bcm63xx_uart0 at MMIO 0x14e00500 (options '')
+[    0.000000] printk: legacy bootconsole [bcm63xx_uart0] enabled
+[   21.353030] irq_bcm7120_l2: registered BCM3380 L2 intc (/ubus/periph_intc@14e00048, parent IRQ(s): 1)
+[   21.398034] irq_bcm7120_l2: registered BCM3380 L2 intc (/ubus/cmips_intc@151f8048, parent IRQ(s): 1)
+[   21.639220] 14e00500.serial: ttyS0 at MMIO 0x14e00500 (irq = 8, base_baud = 1687500) is a bcm63xx_uart
+[   21.671005] printk: legacy bootconsole [bcm63xx_uart0] disabled
+root@(none):~# [  665.131454] urngd: v1.0.2 started.
+
+root@OpenWrt:~# lc
+-ash: lc: not found
+root@OpenWrt:~# ls
+root@OpenWrt:~# cd
+root@OpenWrt:~# root@OpenWrt:~# cd[Jroot@OpenWrt:~# ls[Jroot@OpenWrt:~# lc[Jroot@OpenWrt:~# dmesg | grep -i bcm[Jroot@OpenWrt:~# dmesg | grep -i dsa[Jroot@OpenWrt:~# dmesg | grep -i b53[Jroot@OpenWrt:~# dmesg | grep -i phy[Jroot@OpenWrt:~# dmesg | grep -i mdio[Jroot@OpenWrt:~# dmesg | grep -i enet[Jroot@OpenWrt:~# dmesg | grep -i eth[Jroot@OpenWrt:~# cat /etc/config/network[J
+
+config interface 'loopback'
+	option device 'lo'
+	option proto 'static'
+	list ipaddr '127.0.0.1/8'
+
+config globals 'globals'
+	option dhcp_default_duid '0004bfd8502c644c45b6ad61567713555e24'
+	option ula_prefix 'fd69:e8e5:10e4::/48'
+
+config device
+	option name 'br-lan'
+	option type 'bridge'
+	list ports 'eth0'
+
+config interface 'lan'
+	option device 'br-lan'
+	option proto 'static'
+	list ipaddr '192.168.1.1/24'
+	option ip6assign '60'
+
+root@OpenWrt:~# cat /proc/iomem
+00010000-013b87ff : System RAM
+  00010000-0083abcf : Kernel code
+  0083abd0-00a987ff : Kernel data
+  01380000-013b87ff : Kernel bss
+06000000-07ffffff : System RAM
+0e000000-0fffffff : System RAM
+14e00500-14e00517 : 14e00500.serial serial@14e00520
+root@OpenWrt:~# cat /proc/interrupts
+           CPU0       
+  0:          0      MIPS   0  smp_ipi0
+  1:          0      MIPS   1  smp_ipi1
+  7:     101439      MIPS   7  timer
+  8:       6045  periph_intc@14e00048   2  14e00500.serial
+ERR:          2
+root@OpenWrt:~# cat /proc/mtd
+dev:    size   erasesize  name
+root@OpenWrt:~# ls /sys/bus/platform/devices
+[1;36m14e00048.periph_intc[m  [1;36m151f8048.cmips_intc[m   [1;36mubus[m
+[1;36m14e00500.serial[m       [1;36mFixed MDIO bus.0[m
+root@OpenWrt:~# busybox --list | grep devmem
+-list: applet not found
+root@OpenWrt:~# dmesg | grep -Ei 'irq|serial|mtd|nand|spi|enet|eth|mdio|b53|dsa|
+switch'
+[    0.000000] NR_IRQS: 256
+[    9.956293] clocksource: Switched to clocksource MIPS
+[   18.252451] jffs2: version 2.2 (NAND) (SUMMARY) (LZMA) (RTIME) (CMODE_PRIORITY) (c) 2001-2006 Red Hat, Inc.
+[   21.353030] irq_bcm7120_l2: registered BCM3380 L2 intc (/ubus/periph_intc@14e00048, parent IRQ(s): 1)
+[   21.398034] irq_bcm7120_l2: registered BCM3380 L2 intc (/ubus/cmips_intc@151f8048, parent IRQ(s): 1)
+[   21.639220] 14e00500.serial: ttyS0 at MMIO 0x14e00500 (irq = 8, base_baud = 1687500) is a bcm63xx_uart
+root@OpenWrt:~# я
+BCM3383A2 
+Sync: 0 
+MemSize:            128 M
+Chip ID:     BCM3383Z-B0
+
+BootLoader Version: 2.4.0alpha18p1 Pre-release Gnu spiboot dual-flash reduced DDR drive linux
+Build Date: Aug 14 2012
+Build Time: 09:48:58
+SPI flash ID 0xc22014, size 1MB, block size 64KB, write buffer 256, flags 0x0
+NAND flash: Device size 64 MB, Block size 16 KB, Page size 512 B
+Cust key size 128
+parameter offset is 43872
+
+Signature/PID: a825
+
+Switch detected: 53125
+ProbePhy: Found PHY 0, MDIO on MAC 0, data on MAC 0
+Using GMAC0, phy 0
+
+Enet link up: 1G full
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+TFTP Get Selected
+
+Destination: a5f00000
+
+Destination: a5f00000
+Starting TFTP of openwrt-ps-irqfallback.bin from 192.168.77.2
+Getting openwrt-ps-irqfallback.bin using octet mode
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+Tftp timeout...
+Tftp timeout...
+Tftp timeout...
+.......................................................Received packet for invalid session...
+.............................................................................................................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+.............................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+.........................................................................................................................................................................................................................Received packet for invalid session...
+...............................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
+Tftp complete
+Received 5688699 bytes
+
+Image 3 Program Header:
+   Signature: a825
+     Control: 0000
+   Major Rev: 0100
+   Minor Rev: 04ff
+  Build Time: 2026/5/13 19:49:33 Z
+ File Length: 5688607 bytes
+Load Address: 82000000
+    Filename: openwrt-initramfs.bin
+         HCS: 3f37
+         CRC: 0138e1f4
+
+Bypassing CRC Verifiction on Image 4...
+CRC time = 309
+Loading non-compressed image 4...
+Target Address: 0x82000000
+Length: 5688607
+Reading flash map at ff30, size 192
+Successfully restored flash map from SPI flash!
+Copying partition table to 0x83fffc04 180
+Copying partition table to 0x80000904 180
+
+Executing Image 4...
+
+
+
+
+OpenWrt kernel loader for BMIPS
+Copyright (C) 2011 Gabor Juhos <juhosg@openwrt.org>
+Copyright (C) 2014 Jonas Gorski <jogo@openwrt.org>
+Copyright (C) 2020 Alvaro Fernandez Rojas <noltari@gmail.com>
+Decompressing kernel... done!
+blasting from 0x80010000 to 0x012644ab (0x80010000 - 0x812744b0)
+Starting kernel at 80010000...
+
+[    0.000000] Linux version 6.12.87 (mgta29@CerberusNB) (mips-openwrt-linux-musl-gcc (OpenWrt GCC 14.3.0 r34427-6865d489d2) 14.3.0, GNU ld (GNU Binutils) 2.44) #0 SMP Tue May 12 23:59:29 2026
+[    0.000000] CPU0 revision is: 0002a080 (Broadcom BMIPS4350)
+[    0.000000] MIPS: machine is Technicolor TC7200.U
+[    0.000000] earlycon: bcm63xx_uart0 at MMIO 0x14e00500 (options '')
+[    0.000000] printk: legacy bootconsole [bcm63xx_uart0] enabled
+[    0.000000] Kernel sections are not in the memory maps
+[    0.000000] Wasting 576 bytes for tracking 16 unused pages
+[    0.000000] Initrd not found or empty - disabling initrd
+[    0.000000] OF: reserved mem: Reserved memory: No reserved-memory node in the DT
+[    0.000000] Primary instruction cache 64kB, VIPT, 4-way, linesize 16 bytes.
+[    0.000000] Primary data cache 32kB, 2-way, VIPT, cache aliases, linesize 16 bytes
+[    0.000000] Zone ranges:
+[    0.000000]   Normal   [mem 0x0000000000010000-0x000000000fffffff]
+[    0.000000] Movable zone start for each node
+[    0.000000] Early memory node ranges
+[    0.000000]   node   0: [mem 0x0000000000010000-0x00000000013b7fff]
+[    0.000000]   node   0: [mem 0x0000000006000000-0x0000000007ffffff]
+[    0.000000]   node   0: [mem 0x000000000e000000-0x000000000fffffff]
+[    0.000000] Initmem setup node 0 [mem 0x0000000000010000-0x000000000fffffff]
+[    0.000000] On node 0, zone Normal: 16 pages in unavailable ranges
+[    0.000000] On node 0, zone Normal: 19528 pages in unavailable ranges
+[    0.000000] On node 0, zone Normal: 24576 pages in unavailable ranges
+[    0.000000] percpu: Embedded 12 pages/cpu s19664 r8192 d21296 u49152
+[    0.000000] Kernel command line: console=ttyS0,115200 earlycon
+[    0.000000] Dentry cache hash table entries: 8192 (order: 3, 32768 bytes, linear)
+[    0.000000] Inode-cache hash table entries: 4096 (order: 2, 16384 bytes, linear)
+[    0.000000] Built 1 zonelists, mobility grouping on.  Total pages: 21416
+[    0.000000] mem auto-init: stack:off, heap alloc:off, heap free:off
+[    0.000000] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=1, Nodes=1
+[    0.000000] rcu: Hierarchical RCU implementation.
+[    0.000000] rcu: 	RCU restricting CPUs from NR_CPUS=2 to nr_cpu_ids=1.
+[    0.000000] 	Tracing variant of Tasks RCU enabled.
+[    0.000000] rcu: RCU calculated value of scheduler-enlistment delay is 10 jiffies.
+[    0.000000] rcu: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=1
+[    0.000000] RCU Tasks Trace: Setting shift to 0 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=1.
+[    0.000000] NR_IRQS: 256
+[    0.000000] rcu: srcu_init: Setting srcu_struct sizes based on contention.
+[    0.000000] clocksource: MIPS: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 6370868154 ns
+[    0.000107] sched_clock: 32 bits at 300MHz, resolution 3ns, wraps every 7158278654ns
+[    0.019220] Calibrating delay loop... 4.42 BogoMIPS (lpj=22144)
+[    0.160723] pid_max: default: 32768 minimum: 301
+[    2.905286] Mount-cache hash table entries: 1024 (order: 0, 4096 bytes, linear)
+[    2.917009] Mountpoint-cache hash table entries: 1024 (order: 0, 4096 bytes, linear)
+[    5.036668] rcu: Hierarchical SRCU implementation.
+[    5.044286] rcu: 	Max phase no-delay instances is 1000.
+[    5.148317] smp: Bringing up secondary CPUs ...
+[    5.155641] smp: Brought up 1 node, 1 CPU
+[    5.183606] Memory: 62500K/85664K available (8362K kernel code, 650K rwdata, 1768K rodata, 9116K init, 226K bss, 22544K reserved, 0K cma-reserved)
+[    5.459065] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 19112604462750000 ns
+[    5.474607] futex hash table entries: 256 (order: 2, 16384 bytes, linear)
+[    7.266564] pinctrl core: initialized pinctrl subsystem
+[    7.988073] NET: Registered PF_NETLINK/PF_ROUTE protocol family
+[    9.957354] clocksource: Switched to clocksource MIPS
+[   12.813149] NET: Registered PF_INET protocol family
+[   12.853814] IP idents hash table entries: 2048 (order: 2, 16384 bytes, linear)
+[   13.003607] tcp_listen_portaddr_hash hash table entries: 512 (order: 0, 4096 bytes, linear)
+[   13.020100] Table-perturb hash table entries: 65536 (order: 6, 262144 bytes, linear)
+[   13.033016] TCP established hash table entries: 1024 (order: 0, 4096 bytes, linear)
+[   13.051341] TCP bind hash table entries: 1024 (order: 2, 16384 bytes, linear)
+[   13.069273] TCP: Hash tables configured (established 1024 bind 1024)
+[   13.159983] MPTCP token hash table entries: 256 (order: 0, 4096 bytes, linear)
+[   13.220298] UDP hash table entries: 256 (order: 1, 8192 bytes, linear)
+[   13.239035] UDP-Lite hash table entries: 256 (order: 1, 8192 bytes, linear)
+[   13.403842] NET: Registered PF_UNIX/PF_LOCAL protocol family
+[   13.422196] PCI: CLS 0 bytes, default 16
+[   17.521561] workingset: timestamp_bits=14 max_order=14 bucket_order=0
+[   18.262867] squashfs: version 4.0 (2009/01/31) Phillip Lougher
+[   18.272888] jffs2: version 2.2 (NAND) (SUMMARY) (LZMA) (RTIME) (CMODE_PRIORITY) (c) 2001-2006 Red Hat, Inc.
+[   21.392465] irq_bcm7120_l2: registered BCM3380 L2 intc (/ubus/periph_intc@14e00048, parent IRQ(s): 1)
+[   21.435714] irq_bcm7120_l2: registered BCM3380 L2 intc (/ubus/cmips_intc@151f8048, parent IRQ(s): 1)
+[   21.678452] 14e00500.serial: ttyS0 at MMIO 0x14e00500 (irq = 8, base_baud = 1687500) is a bcm63xx_uart
+[   21.694577] printk: legacy console [ttyS0] enabled
+[   21.694577] printk: legacy console [ttyS0] enabled
+[   21.710522] printk: legacy bootconsole [bcm63xx_uart0] disabled
+[   21.710522] printk: legacy bootconsole [bcm63xx_uart0] disabled
+[   23.449231] NET: Registered PF_INET6 protocol family
+[   24.803394] Segment Routing with IPv6
+[   24.824084] In-situ OAM (IOAM) with IPv6
+[   24.847760] NET: Registered PF_PACKET protocol family
+[   25.175694] 8021q: 802.1Q VLAN Support v1.8
+[   32.473543] clk: Disabling unused clocks
+[   32.481063] PM: genpd: Disabling unused power domains
+[   37.724790] Freeing unused kernel image (initmem) memory: 9116K
+[   37.734508] This architecture does not have kernel memory protection.
+[   37.745184] Run /init as init process
+[   71.142370] init: Console is alive
+[   72.442693] kmodloader: loading kernel modules from /etc/modules-boot.d/*
+[   72.673198] gpio_button_hotplug: loading out-of-tree module taints kernel.
+[   72.853831] kmodloader: done loading kernel modules from /etc/modules-boot.d/*
+[   73.004603] init: - preinit -
+[  100.212554] random: crng init done
+Press the [f] key and hit [enter] to enter failsafe mode
+Press the [1], [2], [3] or [4] key and hit [enter] to select the debug level
+
+[  147.495689] procd: - early -
+[  150.631895] procd: - ubus -
+[  153.092777] procd: - init -
+Please press Enter to activate this console.
+login[331]: root login on 'ttyS0'
+
+
+BusyBox v1.37.0 (2026-01-02 17:07:02 UTC) built-in shell (ash)
+
+  _______                     ________        __
+ |       |.-----.-----.-----.|  |  |  |.----.|  |_
+ |   -   ||  _  |  -__|     ||  |  |  ||   _||   _|
+ |_______||   __|_____|__|__||________||__|  |____|
+          |__| W I R E L E S S   F R E E D O M
+ -----------------------------------------------------
+ OpenWrt SNAPSHOT, r34427-6865d489d2
+ -----------------------------------------------------
+
+ === WARNING! =====================================
+ There is no root password defined on this device!
+ Use the "passwd" command to set up a new password
+ in order to prevent unauthorized SSH logins.
+ --------------------------------------------------
+
+root@(none):~# [  228.722037] kmodloader: loading kernel modules from /etc/modules.d/*
+[  238.669045] PPP generic driver version 2.4.2
+[  239.050131] NET: Registered PF_PPPOX protocol family
+[  240.073500] kmodloader: done loading kernel modules from /etc/modules.d/*
+
+root@OpenWrt:~# [  631.083978] urngd: v1.0.2 started.
+
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# b[ 1806.177949] ttyS ttyS0: 1 input overrun(s)
+us-7[J[J[J[J[J
+root@OpenWrt:~# busybox --list | grep devmem
+-list: applet not found
+root@OpenWrt:~# [ 1827.518079] ttyS ttyS0: 1 input overrun(s)
+devx
+-ash: devx: not found
+root@OpenWrt:~# devmem 0x14e00048 32
+-ash: devmem: not found
+root@OpenWrt:~# busybox --list | grep devmem
+-list: applet not found
+root@OpenWrt:~# ls -l /dev/mem /dev/kmem 2>/dev/null; command -v dd; command -v 
+od; command -v hexdump
+/bin/dd
+/usr/bin/hexdump
+root@OpenWrt:~# [ 1958.371704] ttyS ttyS0: 1 input overrun(s)
+dd if=/dev/mem bs=4 skip=$((0x14e00048/4)) count=2 2>/tmp/dd.err
+ | od -An -tr
+-ash: od: not found
+root@OpenWrt:~# [ 1962.628718] ttyS ttyS0: 1 input overrun(s)
+dd if=/dev/mem bs=4 skip=$((0x14e00048/4)) cnrr | od -An -tx4; c
+at /tmp/dd.err[ 1965.973143] ttyS ttyS0: 1 input overrun(s)
+dd if=/dev/mem bs=4 skip=$((0x14e00048/4)) count=2 2>/tmp/dd.r; ca
+t /tmp/dd.err
+-ash: od: not found
+BusyBox v1.37.0 (2026-01-02 17:07:02 UTC) multi-call binary.
+
+Usage: dd [if=FILE] [of=FILE] [ibs=N obs=N/bs=N] [count=N] [skip=N] [seek=N]
+	[conv=notrunc|noerror|sync|fsync]
+	[iflag=skip_bytes|count_bytes|fullblock|direct] [oflag=seek_bytes|append|direct]
+
+Copy a file with converting and formatting
+
+	if=FILE		Read from FILE instead of stdin
+	of=FILE		Write to FILE instead of stdout
+	bs=N		Read and write N bytes at a time
+	ibs=N		Read N bytes at a time
+	obs=N		Write N bytes at a time
+	count=N		Copy only N input blocks
+	skip=N		Skip N input blocks
+	seek=N		Skip N output blocks
+	conv=notrunc	Don't truncate output file
+	conv=noerror	Continue after read errors
+	conv=sync	Pad blocks with zeros
+	conv=fsync	Physically write data out before finishing
+	conv=swab	Swap every pair of bytes
+	iflag=skip_bytes	skip=N is in bytes
+	iflag=count_bytes	count=N is in bytes
+	oflag=seek_bytes	seek=N is in bytes
+	iflag=direct	O_DIRECT input
+	oflag=direct	O_DIRECT output
+	iflag=fullblock	Read full blocks
+	oflag=append	Open output in append mode
+
+N may be suffixed by c (1), w (2), b (512), kB (1000), k (1024), MB, M, GB, G
+dd: can't open '/dev/mem': No such file or directory
+root@OpenWrt:~# ю
+BCM3383A2 
+Sync: 0 
+MemSize:            128 M
+Chip ID:     BCM3383Z-B0
+
+BootLoader Version: 2.4.0alpha18p1 Pre-release Gnu spiboot dual-flash reduced DDR drive мя
+BCM3383A2 
+Sync: 0 
+MemSize:            128 M
+Chip ID:     BCM3383Z-B0
+
+BootLoader Version: 2.4.0alpha18p1 Pre-release Gnu spiboot dual-flash reduced DDR drive linux
+Build Date: Aug 14 2012
+Build Time: 09:48:58
+SPI flash ID 0xc22014, size 1MB, block size 64KB, write buffer 256, flags 0x0
+NAND flash: Device size 64 MB, Block size 16 KB, Page size 512 B
+Cust key size 128
+parameter offset is 43872
+
+Signature/PID: a825
+
+Switch detected: 53125
+ProbePhy: Found PHY 0, MDIO on MAC 0, data on MAC 0
+Using GMAC0, phy 0
+
+Enet link up: 1G full
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+TFTP Get Selected
+
+Destination: a5f00000
+
+Destination: a5f00000
+Starting TFTP of openwrt-ps-irqfallback.bin from 192.168.77.2
+Getting openwrt-ps-irqfallback.bin using octet mode
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+Tftp timeout...
+Tftp timeout...
+Received packet for invalid session...
+Tftp timeout...
+......................................................................................................................................................................................................................................................................................Received packet for invalid session...
+.........................................................................................................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+......................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+...............................................................................................................................................................................................................................................................Received packet for invalid session...
+.....................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
+Tftp complete
+Received 5688699 bytes
+
+Image 3 Program Header:
+   Signature: a825
+     Control: 0000
+   Major Rev: 0100
+   Minor Rev: 04ff
+  Build Time: 2026/5/13 19:49:33 Z
+ File Length: 5688607 bytes
+Load Address: 82000000
+    Filename: openwrt-initramfs.bin
+         HCS: 3f37
+         CRC: 0138e1f4
+
+Bypassing CRC Verifiction on Image 4...
+CRC time = 321
+Loading non-compressed image 4...
+Target Address: 0x82000000
+Length: 5688607
+Reading flash map at ff30, size 192
+Successfully restored flash map from SPI flash!
+Copying partition table to 0x83fffc04 180
+Copying partition table to 0x80000904 180
+
+Executing Image 4...
+
+
+
+
+OpenWrt kernel loader for BMIPS
+Copyright (C) 2011 Gabor Juhos <juhosg@openwrt.org>
+Copyright (C) 2014 Jonas Gorski <jogo@openwrt.org>
+Copyright (C) 2020 Alvaro Fernandez Rojas <noltari@gmail.com>
+Decompressing kernel... ю
+BCM3383A2 
+Sync: 0 
+MemSize:            128 M
+Chip ID:     BCM3383Z-B0
+
+BootLoader Version: 2.4.0alpha18p1 Pre-release Gnu spiboot dual-flash reduced DDR drive linux
+Build Date: Aug 14 2012
+Build Time: 09:48:58
+SPI flash ID 0xc22014, size 1MB, block size 64KB, write buffer 256, flags 0x0
+NAND flash: Device size 64 MB, Block size 16 KB, Page size 512 B
+Cust key size 128
+parameter offset is 43872
+
+Signature/PID: a825
+
+Switch detected: 53125
+ProbePhy: Found PHY 0, MDIO on MAC 0, data on MAC 0
+Using GMAC0, phy 0
+
+Enet link up: 1G full
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+Received packet for invalid session...
+
+BCM3383A2 
+Sync: 0 
+MemSize:            128 M
+Chip ID:     BCM3383Z-B0
+
+BootLoader Version: 2.4.0alpha18p1 Pre-release Gnu spiboot dual-flash reduced DDR drive linux
+Build Date: Aug 14 2012
+Build Time: 09:48:58
+SPI flash ID 0xc22014, size 1MB, block size 64KB, write buffer 256, flags 0x0
+NAND flash: Device size 64 MB, Block size 16 KB, Page size 512 B
+Cust key size 128
+parameter offset is 43872
+
+Signature/PID: a825
+
+Switch detected: 53125
+ProbePhy: Found PHY 0, MDIO on MAC 0, data on MAC 0
+Using GMAC0, phy 0
+
+Enet link up: 1G full
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+TFTP Get Selected
+
+Destination: a5f00000
+
+Destination: a5f00000
+Starting TFTP of openwrt-ps-irqfallback.bin from 192.168.77.2
+Getting openwrt-ps-irqfallback.bin using octet mode
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+Tftp timeout...
+Tftp timeout...
+Received packet for invalid session...
+..................................................................................Received packet for invalid session...
+..............................................................................................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+..........................................................................................................................................................................................................................................................................................Received packet for invalid session...
+...................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+............................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+....................................................................................................................................................................................................................................................................................................................................................................................................
+Tftp complete
+Received 5696426 bytes
+
+Image 3 Program Header:
+   Signature: a825
+     Control: 0000
+   Major Rev: 0100
+   Minor Rev: 04ff
+  Build Time: 2026/5/13 21:00:32 Z
+ File Length: 5696334 bytes
+Load Address: 82000000
+    Filename: openwrt-initramfs.bin
+         HCS: 1b46
+         CRC: f0b0a5b5
+
+Bypassing CRC Verifiction on Image 4...
+CRC time = 313
+Loading non-compressed image 4...
+Target Address: 0x82000000
+Length: 5696334
+Reading flash map at ff30, size 192
+Successfully restored flash map from SPI flash!
+Copying partition table to 0x83fffc04 180
+Copying partition table to 0x80000904 180
+
+Executing Image 4...
+
+
+
+
+OpenWrt kernel loader for BMIPS
+Copyright (C) 2011 Gabor Juhos <juhosg@openwrt.org>
+Copyright (C) 2014 Jonas Gorski <jogo@openwrt.org>
+Copyright (C) 2020 Alvaro Fernandez Rojas <noltari@gmail.com>
+Decompressing kernel... done!
+blasting from 0x80010000 to 0x0126a4ab (0x80010000 - 0x8127a4b0)
+Starting kernel at 80010000...
+
+[    0.000000] Linux version 6.12.87 (mgta29@CerberusNB) (mips-openwrt-linux-musl-gcc (OpenWrt GCC 14.3.0 r34427-6865d489d2) 14.3.0, GNU ld (GNU Binutils) 2.44) #0 SMP Tue May 12 23:59:29 2026
+[    0.000000] CPU0 revision is: 0002a080 (Broadcom BMIPS4350)
+[    0.000000] MIPS: machine is Technicolor TC7200.U
+[    0.000000] earlycon: bcm63xx_uart0 at MMIO 0x14e00500 (options '')
+[    0.000000] printk: legacy bootconsole [bcm63xx_uart0] enabled
+[    0.000000] Kernel sections are not in the memory maps
+[    0.000000] Wasting 576 bytes for tracking 16 unused pages
+[    0.000000] Initrd not found or empty - disabling initrd
+[    0.000000] OF: reserved mem: Reserved memory: No reserved-memory node in the DT
+[    0.000000] Primary instruction cache 64kB, VIPT, 4-way, linesize 16 bytes.
+[    0.000000] Primary data cache 32kB, 2-way, VIPT, cache aliases, linesize 16 bytes
+[    0.000000] Zone ranges:
+[    0.000000]   Normal   [mem 0x0000000000010000-0x000000000fffffff]
+[    0.000000] Movable zone start for each node
+[    0.000000] Early memory node ranges
+[    0.000000]   node   0: [mem 0x0000000000010000-0x00000000013b7fff]
+[    0.000000]   node   0: [mem 0x0000000006000000-0x0000000007ffffff]
+[    0.000000]   node   0: [mem 0x000000000e000000-0x000000000fffffff]
+[    0.000000] Initmem setup node 0 [mem 0x0000000000010000-0x000000000fffffff]
+[    0.000000] On node 0, zone Normal: 16 pages in unavailable ranges
+[    0.000000] On node 0, zone Normal: 19528 pages in unavailable ranges
+[    0.000000] On node 0, zone Normal: 24576 pages in unavailable ranges
+[    0.000000] percpu: Embedded 12 pages/cpu s19664 r8192 d21296 u49152
+[    0.000000] Kernel command line: console=ttyS0,115200 earlycon
+[    0.000000] Dentry cache hash table entries: 8192 (order: 3, 32768 bytes, linear)
+[    0.000000] Inode-cache hash table entries: 4096 (order: 2, 16384 bytes, linear)
+[    0.000000] Built 1 zonelists, mobility grouping on.  Total pages: 21416
+[    0.000000] mem auto-init: stack:off, heap alloc:off, heap free:off
+[    0.000000] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=1, Nodes=1
+[    0.000000] rcu: Hierarchical RCU implementation.
+[    0.000000] rcu: 	RCU restricting CPUs from NR_CPUS=2 to nr_cpu_ids=1.
+[    0.000000] 	Tracing variant of Tasks RCU enabled.
+[    0.000000] rcu: RCU calculated value of scheduler-enlistment delay is 10 jiffies.
+[    0.000000] rcu: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=1
+[    0.000000] RCU Tasks Trace: Setting shift to 0 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=1.
+[    0.000000] NR_IRQS: 256
+[    0.000000] rcu: srcu_init: Setting srcu_struct sizes based on contention.
+[    0.000000] clocksource: MIPS: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 6370868154 ns
+[    0.000106] sched_clock: 32 bits at 300MHz, resolution 3ns, wraps every 7158278654ns
+[    0.019181] Calibrating delay loop... 4.42 BogoMIPS (lpj=22144)
+[    0.160668] pid_max: default: 32768 minimum: 301
+[    2.906982] Mount-cache hash table entries: 1024 (order: 0, 4096 bytes, linear)
+[    2.918702] Mountpoint-cache hash table entries: 1024 (order: 0, 4096 bytes, linear)
+[    5.039784] rcu: Hierarchical SRCU implementation.
+[    5.047397] rcu: 	Max phase no-delay instances is 1000.
+[    5.151750] smp: Bringing up secondary CPUs ...
+[    5.159067] smp: Brought up 1 node, 1 CPU
+[    5.187011] Memory: 62500K/85664K available (8375K kernel code, 658K rwdata, 1772K rodata, 9092K init, 226K bss, 22544K reserved, 0K cma-reserved)
+[    5.461956] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 19112604462750000 ns
+[    5.477468] futex hash table entries: 256 (order: 2, 16384 bytes, linear)
+[    7.267924] pinctrl core: initialized pinctrl subsystem
+[    7.989085] NET: Registered PF_NETLINK/PF_ROUTE protocol family
+[    9.960939] clocksource: Switched to clocksource MIPS
+[   12.815831] NET: Registered PF_INET protocol family
+[   12.856467] IP idents hash table entries: 2048 (order: 2, 16384 bytes, linear)
+[   13.006146] tcp_listen_portaddr_hash hash table entries: 512 (order: 0, 4096 bytes, linear)
+[   13.022730] Table-perturb hash table entries: 65536 (order: 6, 262144 bytes, linear)
+[   13.035634] TCP established hash table entries: 1024 (order: 0, 4096 bytes, linear)
+[   13.054377] TCP bind hash table entries: 1024 (order: 2, 16384 bytes, linear)
+[   13.072271] TCP: Hash tables configured (established 1024 bind 1024)
+[   13.163536] MPTCP token hash table entries: 256 (order: 0, 4096 bytes, linear)
+[   13.223885] UDP hash table entries: 256 (order: 1, 8192 bytes, linear)
+[   13.242470] UDP-Lite hash table entries: 256 (order: 1, 8192 bytes, linear)
+[   13.406895] NET: Registered PF_UNIX/PF_LOCAL protocol family
+[   13.425259] PCI: CLS 0 bytes, default 16
+[   17.517305] workingset: timestamp_bits=14 max_order=14 bucket_order=0
+[   18.260519] squashfs: version 4.0 (2009/01/31) Phillip Lougher
+[   18.269149] jffs2: version 2.2 (NAND) (SUMMARY) (LZMA) (RTIME) (CMODE_PRIORITY) (c) 2001-2006 Red Hat, Inc.
+[   21.374909] irq_bcm7120_l2: registered BCM3380 L2 intc (/ubus/periph_intc@14e00048, parent IRQ(s): 1)
+[   21.418385] irq_bcm7120_l2: registered BCM3380 L2 intc (/ubus/cmips_intc@151f8048, parent IRQ(s): 1)
+[   21.660624] 14e00500.serial: ttyS0 at MMIO 0x14e00500 (irq = 8, base_baud = 1687500) is a bcm63xx_uart
+[   21.676928] printk: legacy console [ttyS0] enabled
+[   21.676928] printk: legacy console [ttyS0] enabled
+[   21.692704] printk: legacy bootconsole [bcm63xx_uart0] disabled
+[   21.692704] printk: legacy bootconsole [bcm63xx_uart0] disabled
+[   23.441622] NET: Registered PF_INET6 protocol family
+[   24.797966] Segment Routing with IPv6
+[   24.818511] In-situ OAM (IOAM) with IPv6
+[   24.842400] NET: Registered PF_PACKET protocol family
+[   25.166480] 8021q: 802.1Q VLAN Support v1.8
+[   32.477192] clk: Disabling unused clocks
+[   32.484328] PM: genpd: Disabling unused power domains
+[   37.871366] Freeing unused kernel image (initmem) memory: 9092K
+[   37.880994] This architecture does not have kernel memory protection.
+[   37.891462] Run /init as init process
+[   71.459131] init: Console is alive
+[   72.767758] kmodloader: loading kernel modules from /etc/modules-boot.d/*
+[   73.000988] gpio_button_hotplug: loading out-of-tree module taints kernel.
+[   73.195152] kmodloader: done loading kernel modules from /etc/modules-boot.d/*
+[   73.331253] init: - preinit -
+
+[  100.775502] random: crng init done
+
+Press the [f] key and hit [enter] to enter failsafe mode
+Press the [1], [2], [3] or [4] key and hit [enter] to select the debug level
+[  149.083887] procd: - early -
+[  152.208863] procd: - ubus -
+[  154.718154] procd: - init -
+Please press Enter to activate this console.
+
+login[330]: root login on 'ttyS0'
+
+
+BusyBox v1.37.0 (2026-01-02 17:07:02 UTC) built-in shell (ash)
+
+  _______                     ________        __
+ |       |.-----.-----.-----.|  |  |  |.----.|  |_
+ |   -   ||  _  |  -__|     ||  |  |  ||   _||   _|
+ |_______||   __|_____|__|__||________||__|  |____|
+          |__| W I R E L E S S   F R E E D O M
+ -----------------------------------------------------
+ OpenWrt SNAPSHOT, r34427-6865d489d2
+ -----------------------------------------------------
+
+ === WARNING! =====================================
+ There is no root password defined on this device!
+ Use the "passwd" command to set up a new password
+ in order to prevent unauthorized SSH logins.
+ --------------------------------------------------
+
+root@(none):~# 
+root@(none):~# [  207.176633] ttyS ttyS0: 1 input overrun(s)
+ls -ox d032
+ls: unrecognized option: o
+BusyBox v1.37.0 (2026-01-02 17:07:02 UTC) multi-call binary.
+
+Usage: ls [-1AaCxdLHRFplinshrSXvctu] [-w WIDTH] [FILE]...
+
+List directory contents
+
+	-1	One column output
+	-a	Include names starting with .
+	-A	Like -a, but exclude . and ..
+	-x	List by lines
+	-d	List directory names, not contents
+	-L	Follow symlinks
+	-H	Follow symlinks on command line
+	-R	Recurse
+	-p	Append / to directory names
+	-F	Append indicator (one of */=@|) to names
+	-l	Long format
+	-i	List inode numbers
+	-n	List numeric UIDs and GIDs instead of names
+	-s	List allocated blocks
+	-lc	List ctime
+	-lu	List atime
+	--full-time	List full date/time
+	-h	Human readable sizes (1K 243M 2G)
+	--group-directories-first
+	-S	Sort by size
+	-X	Sort by extension
+	-v	Sort by version
+	-t	Sort by mtime
+	-tc	Sort by ctime
+	-tu	Sort by atime
+	-r	Reverse sort order
+	-w N	Format N columns wide
+	--color[={always,never,auto}]
+root@(none):~# [  218.712159] ttyS ttyS0: 2 input overrun(s)
+ls -l /dev/mem; busybom48 32
+ls: /dev/mem: No such file or directory
+-ash: busybom48: not found
+root@(none):~# [  231.708134] kmodloader: loading kernel modules from /etc/modules.d/*
+[  241.662301] PPP generic driver version 2.4.2
+[  242.052835] NET: Registered PF_PPPOX protocol family
+[  243.097868] kmodloader: done loading kernel modules from /etc/modules.d/*
+ls -l /dev/mem
+ls: /dev/mem: No such file or directory
+root@(none):~# ls -l /dev/mem
+ls: /dev/mem: No such file or directory
+root@(none):~# busybox devmem 0x14e00048 32
+devmem: can't open '/dev/mem': No such file or directory
+root@(none):~# 
+root@OpenWrt:~# [  633.314808] urngd: v1.0.2 started.
+reboot
+root@OpenWrt:~# root@OpenWrt:~# reboot[Jroot@OpenWrt:~# busybox devmem 0x14e00048 32[J
+devmem: can't open '/dev/mem': No such file or directory
+root@OpenWrt:~# ю
+BCM3383A2 
+Sync: 0 
+MemSize:            128 M
+Chip ID:     BCM3383Z-B0
+
+BootLoader Version: 2.4.0alpha18p1 Pre-release Gnu spiboot dual-flash reduced DDR drive linux
+Build Date: Aug 14 2012
+Build Time: 09:48:58
+SPI flash ID 0xc22014, size 1MB, block size 64KB, write buffer 256, flags 0x0
+NAND flash: Device size 64 MB, Block size 16 KB, Page size 512 B
+Cust key size 128
+parameter offset is 43872
+
+Signature/PID: a825
+
+Switch detected: 53125
+ProbePhy: Found PHY 0, MDIO on MAC 0, data on MAC 0
+Using GMAC0, phy 0
+
+Enet link up: 1G full
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+
+BCM3383A2 
+Sync: 0 
+MemSize:            128 M
+Chip ID:     BCM3383Z-B0
+
+BootLoader Version: 2.4.0alpha18p1 Pre-release Gnu spiboot dual-flash reduced DDR drive linux
+Build Date: Aug 14 2012
+Build Time: 09:48:58
+SPI flash ID 0xc22014, size 1MB, block size 64KB, write buffer 256, flags 0x0
+NAND flash: Device size 64 MB, Block size 16 KB, Page size 512 B
+Cust key size 128
+parameter offset is 43872
+
+Signature/PID: a825
+
+Switch detected: 53125
+ProbePhy: Found PHY 0, MDIO on MAC 0, data on MAC 0
+Using GMAC0, phy 0
+
+Enet link up: 1G full
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+
+BCM3383A2 
+Sync: 0 
+MemSize:            128 M
+Chip ID:     BCM3383Z-B0
+
+BootLoader Version: 2.4.0alpha18p1 Pre-release Gnu spiboot dual-flash reduced DDR drive linux
+Build Date: Aug 14 2012
+Build Time: 09:48:58
+SPI flash ID 0xc22014, size 1MB, block size 64KB, write buffer 256, flags 0x0
+NAND flash: Device size 64 MB, Block size 16 KB, Page size 512 B
+Cust key size 128
+parameter offset is 43872
+
+Signature/PID: a825
+
+Switch detected: 53125
+ProbePhy: Found PHY 0, MDIO on MAC 0, data on MAC 0
+Using GMAC0, phy 0
+
+Enet link up: 1G full
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+TFTP Get Selected
+
+Destination: a5f00000
+
+Destination: a5f00000
+Starting TFTP of openwrt-ps-irqfallback.bin from 192.168.77.2
+Getting openwrt-ps-irqfallback.bin using octet mode
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+Tftp timeout...
+Tftp timeout...
+............................................................................................................Received packet for invalid session...
+.....................................Received packet for invalid session...
+..........................Received packet for invalid session...
+.............................................................................Received packet for invalid session...
+...........................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+.......................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+.................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+.....................................................................................................................................................................................................................................................................................Received packet for invalid session...
+.............................................................................................................................................................................................................................................................................................................................................................................................................................................
+Tftp complete
+Received 5696426 bytes
+
+Image 3 Program Header:
+   Signature: a825
+     Control: 0000
+   Major Rev: 0100
+   Minor Rev: 04ff
+  Build Time: 2026/5/13 21:00:32 Z
+ File Length: 5696334 bytes
+Load Address: 82000000
+    Filename: openwrt-initramfs.bin
+         HCS: 1b46
+         CRC: f0b0a5b5
+
+Bypassing CRC Verifiction on Image 4...
+CRC time = 338
+Loading non-compressed image 4...
+Target Address: 0x82000000
+Length: 5696334
+Reading flash map at ff30, size 192
+Successfully restored flash map from SPI flash!
+Copying partition table to 0x83fffc04 180
+Copying partition table to 0x80000904 180
+
+Executing Image 4...
+
+
+
+
+OpenWrt kernel loader for BMIPS
+Copyright (C) 2011 Gabor Juhos <juhosg@openwrt.org>
+Copyright (C) 2014 Jonas Gorski <jogo@openwrt.org>
+Copyright (C) 2020 Alvaro Fernandez Rojas <noltari@gmail.com>
+Decompressing kernel... done!
+blasting from 0x80010000 to 0x0126a4ab (0x80010000 - 0x8127a4b0)
+Starting kernel at 80010000...
+
+[    0.000000] Linux version 6.12.87 (mgta29@CerberusNB) (mips-openwrt-linux-musl-gcc (OpenWrt GCC 14.3.0 r34427-6865d489d2) 14.3.0, GNU ld (GNU Binutils) 2.44) #0 SMP Tue May 12 23:59:29 2026
+[    0.000000] CPU0 revision is: 0002a080 (Broadcom BMIPS4350)
+[    0.000000] MIPS: machine is Technicolor TC7200.U
+[    0.000000] earlycon: bcm63xx_uart0 at MMIO 0x14e00500 (options '')
+[    0.000000] printk: legacy bootconsole [bcm63xx_uart0] enabled
+[    0.000000] Kernel sections are not in the memory maps
+[    0.000000] Wasting 576 bytes for tracking 16 unused pages
+[    0.000000] Initrd not found or empty - disabling initrd
+[    0.000000] OF: reserved mem: Reserved memory: No reserved-memory node in the DT
+[    0.000000] Primary instruction cache 64kB, VIPT, 4-way, linesize 16 bytes.
+[    0.000000] Primary data cache 32kB, 2-way, VIPT, cache aliases, linesize 16 bytes
+[    0.000000] Zone ranges:
+[    0.000000]   Normal   [mem 0x0000000000010000-0x000000000fffffff]
+[    0.000000] Movable zone start for each node
+[    0.000000] Early memory node ranges
+[    0.000000]   node   0: [mem 0x0000000000010000-0x00000000013b7fff]
+[    0.000000]   node   0: [mem 0x0000000006000000-0x0000000007ffffff]
+[    0.000000]   node   0: [mem 0x000000000e000000-0x000000000fffffff]
+[    0.000000] Initmem setup node 0 [mem 0x0000000000010000-0x000000000fffffff]
+[    0.000000] On node 0, zone Normal: 16 pages in unavailable ranges
+[    0.000000] On node 0, zone Normal: 19528 pages in unavailable ranges
+[    0.000000] On node 0, zone Normal: 24576 pages in unavailable ranges
+[    0.000000] percpu: Embedded 12 pages/cpu s19664 r8192 d21296 u49152
+[    0.000000] Kernel command line: console=ttyS0,115200 earlycon
+[    0.000000] Dentry cache hash table entries: 8192 (order: 3, 32768 bytes, linear)
+[    0.000000] Inode-cache hash table entries: 4096 (order: 2, 16384 bytes, linear)
+[    0.000000] Built 1 zonelists, mobility grouping on.  Total pages: 21416
+[    0.000000] mem auto-init: stack:off, heap alloc:off, heap free:off
+[    0.000000] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=1, Nodes=1
+[    0.000000] rcu: Hierarchical RCU implementation.
+[    0.000000] rcu: 	RCU restricting CPUs from NR_CPUS=2 to nr_cpu_ids=1.
+[    0.000000] 	Tracing variant of Tasks RCU enabled.
+[    0.000000] rcu: RCU calculated value of scheduler-enlistment delay is 10 jiffies.
+[    0.000000] rcu: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=1
+[    0.000000] RCU Tasks Trace: Setting shift to 0 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=1.
+[    0.000000] NR_IRQS: 256
+[    0.000000] rcu: srcu_init: Setting srcu_struct sizes based on contention.
+[    0.000000] clocksource: MIPS: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 6370868154 ns
+[    0.000107] sched_clock: 32 bits at 300MHz, resolution 3ns, wraps every 7158278654ns
+[    0.019187] Calibrating delay loop... 4.42 BogoMIPS (lpj=22144)
+[    0.160672] pid_max: default: 32768 minimum: 301
+[    2.906833] Mount-cache hash table entries: 1024 (order: 0, 4096 bytes, linear)
+[    2.918547] Mountpoint-cache hash table entries: 1024 (order: 0, 4096 bytes, linear)
+[    5.038646] rcu: Hierarchical SRCU implementation.
+[    5.046344] rcu: 	Max phase no-delay instances is 1000.
+[    5.151570] smp: Bringing up secondary CPUs ...
+[    5.158879] smp: Brought up 1 node, 1 CPU
+[    5.187022] Memory: 62500K/85664K available (8375K kernel code, 658K rwdata, 1772K rodata, 9092K init, 226K bss, 22544K reserved, 0K cma-reserved)
+[    5.461854] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 19112604462750000 ns
+[    5.477410] futex hash table entries: 256 (order: 2, 16384 bytes, linear)
+[    7.267930] pinctrl core: initialized pinctrl subsystem
+[    7.988882] NET: Registered PF_NETLINK/PF_ROUTE protocol family
+[    9.960635] clocksource: Switched to clocksource MIPS
+[   12.815442] NET: Registered PF_INET protocol family
+[   12.856065] IP idents hash table entries: 2048 (order: 2, 16384 bytes, linear)
+[   13.005712] tcp_listen_portaddr_hash hash table entries: 512 (order: 0, 4096 bytes, linear)
+[   13.022110] Table-perturb hash table entries: 65536 (order: 6, 262144 bytes, linear)
+[   13.035229] TCP established hash table entries: 1024 (order: 0, 4096 bytes, linear)
+[   13.053926] TCP bind hash table entries: 1024 (order: 2, 16384 bytes, linear)
+[   13.071812] TCP: Hash tables configured (established 1024 bind 1024)
+[   13.163080] MPTCP token hash table entries: 256 (order: 0, 4096 bytes, linear)
+[   13.223435] UDP hash table entries: 256 (order: 1, 8192 bytes, linear)
+[   13.242017] UDP-Lite hash table entries: 256 (order: 1, 8192 bytes, linear)
+[   13.406427] NET: Registered PF_UNIX/PF_LOCAL protocol family
+[   13.424790] PCI: CLS 0 bytes, default 16
+[   17.452780] workingset: timestamp_bits=14 max_order=14 bucket_order=0
+[   18.194394] squashfs: version 4.0 (2009/01/31) Phillip Lougher
+[   18.204243] jffs2: version 2.2 (NAND) (SUMMARY) (LZMA) (RTIME) (CMODE_PRIORITY) (c) 2001-2006 Red Hat, Inc.
+[   21.314006] irq_bcm7120_l2: registered BCM3380 L2 intc (/ubus/periph_intc@14e00048, parent IRQ(s): 1)
+[   21.357575] irq_bcm7120_l2: registered BCM3380 L2 intc (/ubus/cmips_intc@151f8048, parent IRQ(s): 1)
+[   21.604760] 14e00500.serial: ttyS0 at MMIO 0x14e00500 (irq = 8, base_baud = 1687500) is a bcm63xx_uart
+[   21.621990] printk: legacy console [ttyS0] enabled
+[   21.621990] printk: legacy console [ttyS0] enabled
+[   21.636353] printk: legacy bootconsole [bcm63xx_uart0] disabled
+[   21.636353] printk: legacy bootconsole [bcm63xx_uart0] disabled
+[   23.381490] NET: Registered PF_INET6 protocol family
+[   24.712989] Segment Routing with IPv6
+[   24.734403] In-situ OAM (IOAM) with IPv6
+[   24.756897] NET: Registered PF_PACKET protocol family
+[   25.078591] 8021q: 802.1Q VLAN Support v1.8
+[   32.418515] clk: Disabling unused clocks
+[   32.426045] PM: genpd: Disabling unused power domains
+[   37.873548] Freeing unused kernel image (initmem) memory: 9092K
+[   37.883452] This architecture does not have kernel memory protection.
+[   37.893736] Run /init as init process
+[   71.463007] init: Console is alive
+[   72.765064] kmodloader: loading kernel modules from /etc/modules-boot.d/*
+[   72.998297] gpio_button_hotplug: loading out-of-tree module taints kernel.
+[   73.188192] kmodloader: done loading kernel modules from /etc/modules-boot.d/*
+[   73.325858] init: - preinit -
+
+[  100.715160] random: crng init done
+Press the [f] key and hit [enter] to enter failsafe mode
+Press the [1], [2], [3] or [4] key and hit [enter] to select the debug level
+[  148.737100] procd: - early -
+[  151.898789] procd: - ubus -
+[  154.360116] procd: - init -
+Please press Enter to activate this console.
+
+login[329]: root login on 'ttyS0'
+
+
+BusyBox v1.37.0 (2026-01-02 17:07:02 UTC) built-in shell (ash)
+
+  _______                     ________        __
+ |       |.-----.-----.-----.|  |  |  |.----.|  |_
+ |   -   ||  _  |  -__|     ||  |  |  ||   _||   _|
+ |_______||   __|_____|__|__||________||__|  |____|
+          |__| W I R E L E S S   F R E E D O M
+ -----------------------------------------------------
+ OpenWrt SNAPSHOT, r34427-6865d489d2
+ -----------------------------------------------------
+
+ === WARNING! =====================================
+ There is no root password defined on this device!
+ Use the "passwd" command to set up a new password
+ in order to prevent unauthorized SSH logins.
+ --------------------------------------------------
+
+root@(none):~# [  230.272583] kmodloader: loading kernel modules from /etc/modules.d/*
+[  240.211932] PPP generic driver version 2.4.2
+[  240.602469] NET: Registered PF_PPPOX protocol family
+[  241.652386] kmodloader: done loading kernel modules from /etc/modules.d/*
+
+root@(none):~# ls -l /dev/mem
+ls: /dev/mem: No such file or directory
+root@(none):~# root@(none):~# ls -l /dev/mem[J
+ls: /dev/mem: No such file or directory
+root@(none):~# 
+BCM3383A2 
+Sync: 0 
+MemSize:            128 M
+Chip ID:     BCM3383Z-B0
+
+BootLoader Version: 2.4.0alpha18p1 Pre-release Gnu spiboot dual-flash reduced DDR drive linux
+Build Date: Aug 14 2012
+Build Time: 09:48:58
+SPI flash ID 0xc22014, size 1MB, block size 64KB, write buffer 256, flags 0x0
+NAND flash: Device size 64 MB, Block size 16 KB, Page size 512 B
+Cust key size 128
+parameter offset is 43872
+
+Signature/PID: a825
+
+Switch detected: 53125
+ProbePhy: Found PHY 0, MDIO on MAC 0, data on MAC 0
+Using GMAC0, phy 0
+
+Enet link up: 1G full
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+Received packet for invalid session...
+Received packet for invalid session...
+TFTP Get Selected
+
+Destination: a5f00000
+
+Destination: a5f00000
+Starting TFTP of openwrt-ps-irqfallback.bin from 192.168.77.2
+Getting openwrt-ps-irqfallback.bin using octet mode
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+....Received packet for invalid session...
+.......................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+.............................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+........................................................................................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+.............................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
+Tftp complete
+Received 5696426 bytes
+
+Image 3 Program Header:
+   Signature: a825
+     Control: 0000
+   Major Rev: 0100
+   Minor Rev: 04ff
+  Build Time: 2026/5/13 21:00:32 Z
+ File Length: 5696334 bytes
+Load Address: 82000000
+    Filename: openwrt-initramfs.bin
+         HCS: 1b46
+         CRC: f0b0a5b5
+
+Bypassing CRC Verifiction on Image 4...
+CRC time = 315
+Loading non-compressed image 4...
+Target Address: 0x82000000
+Length: 5696334
+Reading flash map at ff30, size 192
+Successfully restored flash map from SPI flash!
+Copying partition table to 0x83fffc04 180
+Copying partition table to 0x80000904 180
+
+Executing Image 4...
+
+
+
+
+OpenWrt kernel loader for BMIPS
+Copyright (C) 2011 Gabor Juhos <juhosg@openwrt.org>
+Copyright (C) 2014 Jonas Gorski <jogo@openwrt.org>
+Copyright (C) 2020 Alvaro Fernandez Rojas <noltari@gmail.com>
+Decompressing kernel... ю
+BCM3383A2 
+Sync: 0 
+MemSize:            128 M
+Chip ID:     BCM3383Z-B0
+
+BootLoader Version: 2.4.0alpha18p1 Pre-release Gnu spiboot dual-flash reduced DDR drive linux
+Build Date: Aug 14 2012
+Build Time: 09:48:58
+SPI flash ID 0xc22014, size 1MB, block size 64KB, write buffer 256, flags 0x0
+NAND flash: Device size 64 MB, Block size 16 KB, Page size 512 B
+Cust key size 128
+parameter offset is 43872
+
+Signature/PID: a825
+
+Switch detected: 53125
+ProbePhy: Found PHY 0, MDIO on MAC 0, data on MAC 0
+Using GMAC0, phy 0
+
+Enet link up: 1G full
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+TFTP Get Selected
+
+Destination: a5f00000
+
+Destination: a5f00000
+Starting TFTP of openwrt-ps-irqfallback.bin from 192.168.77.2
+Getting openwrt-ps-irqfallback.bin using octet mode
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+...................................................................................................................................Received packet for invalid session...
+....................................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+......................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+...................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+.............................................................................................................................................................................................................................................................................................................
+Tftp complete
+Received 5696426 bytes
+
+Image 3 Program Header:
+   Signature: a825
+     Control: 0000
+   Major Rev: 0100
+   Minor Rev: 04ff
+  Build Time: 2026/5/13 21:00:32 Z
+ File Length: 5696334 bytes
+Load Address: 82000000
+    Filename: openwrt-initramfs.bin
+         HCS: 1b46
+         CRC: f0b0a5b5
+
+Bypassing CRC Verifiction on Image 4...
+CRC time = 311
+Loading non-compressed image 4...
+Target Address: 0x82000000
+Length: 5696334
+Reading flash map at ff30, size 192
+Successfully restored flash map from SPI flash!
+Copying partition table to 0x83fffc04 180
+Copying partition table to 0x80000904 180
+
+Executing Image 4...
+
+
+
+
+OpenWrt kernel loader for BMIPS
+Copyright (C) 2011 Gabor Juhos <juhosg@openwrt.org>
+Copyright (C) 2014 Jonas Gorski <jogo@openwrt.org>
+Copyright (C) 2020 Alvaro Fernandez Rojas <noltari@gmail.com>
+Decompressing kernel... done!
+blasting from 0x80010000 to 0x0126a4ab (0x80010000 - 0x8127a4b0)
+Starting kernel at 80010000...
+
+[    0.000000] Linux version 6.12.87 (mgta29@CerberusNB) (mips-openwrt-linux-musl-gcc (OpenWrt GCC 14.3.0 r34427-6865d489d2) 14.3.0, GNU ld (GNU Binutils) 2.44) #0 SMP Tue May 12 23:59:29 2026
+[    0.000000] CPU0 revision is: 0002a080 (Broadcom BMIPS4350)
+[    0.000000] MIPS: machine is Technicolor TC7200.U
+[    0.000000] earlycon: bcm63xx_uart0 at MMIO 0x14e00500 (options '')
+[    0.000000] printk: legacy bootconsole [bcm63xx_uart0] enabled
+[    0.000000] Kernel sections are not in the memory maps
+[    0.000000] Wasting 576 bytes for tracking 16 unused pages
+[    0.000000] Initrd not found or empty - disabling initrd
+[    0.000000] OF: reserved mem: Reserved memory: No reserved-memory node in the DT
+[    0.000000] Primary instruction cache 64kB, VIPT, 4-way, linesize 16 bytes.
+[    0.000000] Primary data cache 32kB, 2-way, VIPT, cache aliases, linesize 16 bytes
+[    0.000000] Zone ranges:
+[    0.000000]   Normal   [mem 0x0000000000010000-0x000000000fffffff]
+[    0.000000] Movable zone start for each node
+[    0.000000] Early memory node ranges
+[    0.000000]   node   0: [mem 0x0000000000010000-0x00000000013b7fff]
+[    0.000000]   node   0: [mem 0x0000000006000000-0x0000000007ffffff]
+[    0.000000]   node   0: [mem 0x000000000e000000-0x000000000fffffff]
+[    0.000000] Initmem setup node 0 [mem 0x0000000000010000-0x000000000fffffff]
+[    0.000000] On node 0, zone Normal: 16 pages in unavailable ranges
+[    0.000000] On node 0, zone Normal: 19528 pages in unavailable ranges
+[    0.000000] On node 0, zone Normal: 24576 pages in unavailable ranges
+[    0.000000] percpu: Embedded 12 pages/cpu s19664 r8192 d21296 u49152
+[    0.000000] Kernel command line: console=ttyS0,115200 earlycon
+[    0.000000] Dentry cache hash table entries: 8192 (order: 3, 32768 bytes, linear)
+[    0.000000] Inode-cache hash table entries: 4096 (order: 2, 16384 bytes, linear)
+[    0.000000] Built 1 zonelists, mobility grouping on.  Total pages: 21416
+[    0.000000] mem auto-init: stack:off, heap alloc:off, heap free:off
+[    0.000000] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=1, Nodes=1
+[    0.000000] rcu: Hierarchical RCU implementation.
+[    0.000000] rcu: 	RCU restricting CPUs from NR_CPUS=2 to nr_cpu_ids=1.
+[    0.000000] 	Tracing variant of Tasks RCU enabled.
+[    0.000000] rcu: RCU calculated value of scheduler-enlistment delay is 10 jiffies.
+[    0.000000] rcu: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=1
+[    0.000000] RCU Tasks Trace: Setting shift to 0 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=1.
+[    0.000000] NR_IRQS: 256
+[    0.000000] rcu: srcu_init: Setting srcu_struct sizes based on contention.
+[    0.000000] clocksource: MIPS: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 6370868154 ns
+[    0.000106] sched_clock: 32 bits at 300MHz, resolution 3ns, wraps every 7158278654ns
+[    0.019177] Calibrating delay loop... 4.42 BogoMIPS (lpj=22144)
+[    0.160660] pid_max: default: 32768 minimum: 301
+[    2.906203] Mount-cache hash table entries: 1024 (order: 0, 4096 bytes, linear)
+[    2.917913] Mountpoint-cache hash table entries: 1024 (order: 0, 4096 bytes, linear)
+[    5.037539] rcu: Hierarchical SRCU implementation.
+[    5.045230] rcu: 	Max phase no-delay instances is 1000.
+[    5.150381] smp: Bringing up secondary CPUs ...
+[    5.157689] smp: Brought up 1 node, 1 CPU
+[    5.185820] Memory: 62500K/85664K available (8375K kernel code, 658K rwdata, 1772K rodata, 9092K init, 226K bss, 22544K reserved, 0K cma-reserved)
+[    5.460543] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 19112604462750000 ns
+[    5.476095] futex hash table entries: 256 (order: 2, 16384 bytes, linear)
+[    7.266139] pinctrl core: initialized pinctrl subsystem
+[    7.986752] NET: Registered PF_NETLINK/PF_ROUTE protocol family
+[    9.956995] clocksource: Switched to clocksource MIPS
+[   12.811427] NET: Registered PF_INET protocol family
+[   12.852050] IP idents hash table entries: 2048 (order: 2, 16384 bytes, linear)
+[   13.001657] tcp_listen_portaddr_hash hash table entries: 512 (order: 0, 4096 bytes, linear)
+[   13.018054] Table-perturb hash table entries: 65536 (order: 6, 262144 bytes, linear)
+[   13.031165] TCP established hash table entries: 1024 (order: 0, 4096 bytes, linear)
+[   13.049855] TCP bind hash table entries: 1024 (order: 2, 16384 bytes, linear)
+[   13.067745] TCP: Hash tables configured (established 1024 bind 1024)
+[   13.158982] MPTCP token hash table entries: 256 (order: 0, 4096 bytes, linear)
+[   13.219322] UDP hash table entries: 256 (order: 1, 8192 bytes, linear)
+[   13.237898] UDP-Lite hash table entries: 256 (order: 1, 8192 bytes, linear)
+[   13.402331] NET: Registered PF_UNIX/PF_LOCAL protocol family
+[   13.420694] PCI: CLS 0 bytes, default 16
+[   17.450042] workingset: timestamp_bits=14 max_order=14 bucket_order=0
+[   18.191413] squashfs: version 4.0 (2009/01/31) Phillip Lougher
+[   18.201263] jffs2: version 2.2 (NAND) (SUMMARY) (LZMA) (RTIME) (CMODE_PRIORITY) (c) 2001-2006 Red Hat, Inc.
+[   21.300554] irq_bcm7120_l2: registered BCM3380 L2 intc (/ubus/periph_intc@14e00048, parent IRQ(s): 1)
+[   21.344134] irq_bcm7120_l2: registered BCM3380 L2 intc (/ubus/cmips_intc@151f8048, parent IRQ(s): 1)
+[   21.591302] 14e00500.serial: ttyS0 at MMIO 0x14e00500 (irq = 8, base_baud = 1687500) is a bcm63xx_uart
+[   21.608330] printk: legacy console [ttyS0] enabled
+[   21.608330] printk: legacy console [ttyS0] enabled
+[   21.622879] printk: legacy bootconsole [bcm63xx_uart0] disabled
+[   21.622879] printk: legacy bootconsole [bcm63xx_uart0] disabled
+[   23.353638] NET: Registered PF_INET6 protocol family
+[   24.699102] Segment Routing with IPv6
+[   24.719821] In-situ OAM (IOAM) with IPv6
+[   24.742913] NET: Registered PF_PACKET protocol family
+[   25.064795] 8021q: 802.1Q VLAN Support v1.8
+[   32.404745] clk: Disabling unused clocks
+[   32.412192] PM: genpd: Disabling unused power domains
+[   37.861442] Freeing unused kernel image (initmem) memory: 9092K
+[   37.871265] This architecture does not have kernel memory protection.
+[   37.881551] Run /init as init process
+[   71.369671] init: Console is alive
+[   72.691931] kmodloader: loading kernel modules from /etc/modules-boot.d/*
+[   72.928608] gpio_button_hotplug: loading out-of-tree module taints kernel.
+[   73.113766] kmodloader: done loading kernel modules from /etc/modules-boot.d/*
+[   73.267356] init: - preinit -
+[  100.671575] random: crng init done
+Press the [f] key and hit [enter] to enter failsafe mode
+Press the [1], [2], [3] or [4] key and hit [enter] to select the debug level
+[  148.333508] procd: - early -
+[  151.464764] procd: - ubus -
+[  153.892013] procd: - init -
+Please press Enter to activate this console.
+[  224.120091] kmodloader: loading kernel modules from /etc/modules.d/*
+[  234.068293] PPP generic driver version 2.4.2
+[  234.418906] NET: Registered PF_PPPOX protocol family
+[  235.490436] kmodloader: done loading kernel modules from /etc/modules.d/*
+ю
+BCM3383A2 
+Sync: 0 
+MemSize:            128 M
+Chip ID:     BCM3383Z-B0
+
+BootLoader Version: 2.4.0alpha18p1 Pre-release Gnu spiboot dual-flash reduced DDR drive linux
+Build Date: Aug 14 2012
+Build Time: 09:48:58
+SPI flash ID 0xc22014, size 1MB, block size 64KB, write buffer 256, flags 0x0
+NAND flash: Device size 64 MB, Block size 16 KB, Page size 512 B
+Cust key size 128
+parameter offset is 43872
+
+Signature/PID: a825
+
+Switch detected: 53125
+ProbePhy: Found PHY 0, MDIO on MAC 0, data on MAC 0
+Using GMAC0, phy 0
+
+Enet link up: 1G full
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+
+BCM3383A2 
+Sync: 0 
+MemSize:            128 M
+Chip ID:     BCM3383Z-B0
+
+BootLoader Version: 2.4.0alpha18p1 Pre-release Gnu spiboot dual-flash reduced DDR drive linux
+Build Date: Aug 14 2012
+Build Time: 09:48:58
+SPI flash ID 0xc22014, size 1MB, block size 64KB, write buffer 256, flags 0x0
+NAND flash: Device size 64 MB, Block size 16 KB, Page size 512 B
+Cust key size 128
+parameter offset is 43872
+
+Signature/PID: a825
+
+Switch detected: 53125
+ProbePhy: Found PHY 0, MDIO on MAC 0, data on MAC 0
+Using GMAC0, phy 0
+
+Enet link up: 1G full
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+TFTP Get Selected
+
+Destination: a5f00000
+
+Destination: a5f00000
+Starting TFTP of openwrt-ps-irqfallback.bin from 192.168.77.2
+Getting openwrt-ps-irqfallback.bin using octet mode
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+Tftp timeout...
+Tftp timeout...
+Received packet for invalid session...
+Received packet for invalid session...
+Tftp timeout...
+.............................................................Received packet for invalid session...
+............................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+.....................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+................................................................................................................................................................................Received packet for invalid session...
+.....................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+..........................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
+Tftp complete
+Received 5697264 bytes
+HCS failed on Image 3 Program Header
+
+BCM3383A2 
+Sync: 0 
+MemSize:            128 M
+Chip ID:     BCM3383Z-B0
+
+BootLoader Version: 2.4.0alpha18p1 Pre-release Gnu spiboot dual-flash reduced DDR drive linux
+Build Date: Aug 14 2012
+Build Time: 09:48:58
+SPI flash ID 0xc22014, size 1MB, block size 64KB, write buffer 256, flags 0x0
+NAND flash: Device size 64 MB, Block size 16 KB, Page size 512 B
+Cust key size 128
+parameter offset is 43872
+
+Signature/PID: a825
+
+Switch detected: 53125
+ProbePhy: Found PHY 0, MDIO on MAC 0, data on MAC 0
+Using GMAC0, phy 0
+
+Enet link up: 1G full
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+TFTP Get Selected
+
+Destination: a5f00000
+
+Destination: a5f00000
+Starting TFTP of openwrt-ps-irqfallback.bin from 192.168.77.2
+Getting openwrt-ps-irqfallback.bin using octet mode
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+.............................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+...................................................................................................................................................Received packet for invalid session...
+..................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+.........................................................................................................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+.......................................................................................................................................................................................Received packet for invalid session...
+...........................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+................................................................................................................................
+Tftp complete
+Received 5697264 bytes
+HCS failed on Image 3 Program Header
+
+BCM3383A2 
+Sync: 0 
+MemSize:            128 M
+Chip ID:     BCM3383Z-B0
+
+BootLoader Version: 2.4.0alpha18p1 Pre-release Gnu spiboot dual-flash reduced DDR drive linux
+Build Date: Aug 14 2012
+Build Time: 09:48:58
+SPI flash ID 0xc22014, size 1MB, block size 64KB, write buffer 256, flags 0x0
+NAND flash: Device size 64 MB, Block size 16 KB, Page size 512 B
+Cust key size 128
+parameter offset is 43872
+
+Signature/PID: a825
+
+Switch detected: 53125
+ProbePhy: Found PHY 0, MDIO on MAC 0, data on MAC 0
+Using GMAC0, phy 0
+
+Enet link up: 1G full
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Unrecognized command.
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+я
+BCM3383A2 
+Sync: 0 
+MemSize:            128 M
+Chip ID:     BCM3383Z-B0
+
+BootLoader Version: 2.4.0alpha18p1 Pre-release Gnu spiboot dual-flash reduced DDR drive linux
+Build Date: Aug 14 2012
+Build Time: 09:48:58
+SPI flash ID 0xc22014, size 1MB, block size 64KB, write buffer 256, flags 0x0
+NAND flash: Device size 64 MB, Block size 16 KB, Page size 512 B
+Cust key size 128
+parameter offset is 43872
+
+Signature/PID: a825
+
+Switch detected: 53125
+ProbePhy: Found PHY 0, MDIO on MAC 0, data on MAC 0
+Using GMAC0, phy 0
+
+Enet link up: 1G full
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+
+BCM3383A2 
+Sync: 0 
+MemSize:            128 M
+Chip ID:     BCM3383Z-B0
+
+BootLoader Version: 2.4.0alpha18p1 Pre-release Gnu spiboot dual-flash reduced DDR drive linux
+Build Date: Aug 14 2012
+Build Time: 09:48:58
+SPI flash ID 0xc22014, size 1MB, block size 64KB, write buffer 256, flags 0x0
+NAND flash: Device size 64 MB, Block size 16 KB, Page size 512 B
+Cust key size 128
+parameter offset is 43872
+
+Signature/PID: a825
+
+Switch detected: 53125
+ProbePhy: Found PHY 0, MDIO on MAC 0, data on MAC 0
+Using GMAC0, phy 0
+
+Enet link up: 1G full
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+TFTP Get Selected
+
+Destination: a5f00000
+
+Destination: a5f00000
+Starting TFTP of openwrt-ps-irqfallback.bin from 192.168.77.2
+Getting openwrt-ps-irqfallback.bin using octet mode
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+Tftp timeout...
+Received packet for invalid session...
+Tftp timeout...
+..................................................................................................................................................................................................................................................Received packet for invalid session...
+........................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+..................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+..........................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+.......................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
+Tftp complete
+Received 5696426 bytes
+
+Image 3 Program Header:
+   Signature: a825
+     Control: 0000
+   Major Rev: 0100
+   Minor Rev: 04ff
+  Build Time: 2026/5/13 21:00:32 Z
+ File Length: 5696334 bytes
+Load Address: 82000000
+    Filename: openwrt-initramfs.bin
+         HCS: 1b46
+         CRC: f0b0a5b5
+
+Bypassing CRC Verifiction on Image 4...
+CRC time = 316
+Loading non-compressed image 4...
+Target Address: 0x82000000
+Length: 5696334
+Reading flash map at ff30, size 192
+Successfully restored flash map from SPI flash!
+Copying partition table to 0x83fffc04 180
+Copying partition table to 0x80000904 180
+
+Executing Image 4...
+
+
+
+
+OpenWrt kernel loader for BMIPS
+Copyright (C) 2011 Gabor Juhos <juhosg@openwrt.org>
+Copyright (C) 2014 Jonas Gorski <jogo@openwrt.org>
+Copyright (C) 2020 Alvaro Fernandez Rojas <noltari@gmail.com>
+Decompressing kernel... done!
+blasting from 0x80010000 to 0x0126a4ab (0x80010000 - 0x8127a4b0)
+Starting kernel at 80010000...
+
+[    0.000000] Linux version 6.12.87 (mgta29@CerberusNB) (mips-openwrt-linux-musl-gcc (OpenWrt GCC 14.3.0 r34427-6865d489d2) 14.3.0, GNU ld (GNU Binutils) 2.44) #0 SMP Tue May 12 23:59:29 2026
+[    0.000000] CPU0 revision is: 0002a080 (Broadcom BMIPS4350)
+[    0.000000] MIPS: machine is Technicolor TC7200.U
+[    0.000000] earlycon: bcm63xx_uart0 at MMIO 0x14e00500 (options '')
+[    0.000000] printk: legacy bootconsole [bcm63xx_uart0] enabled
+[    0.000000] Kernel sections are not in the memory maps
+[    0.000000] Wasting 576 bytes for tracking 16 unused pages
+[    0.000000] Initrd not found or empty - disabling initrd
+[    0.000000] OF: reserved mem: Reserved memory: No reserved-memory node in the DT
+[    0.000000] Primary instruction cache 64kB, VIPT, 4-way, linesize 16 bytes.
+[    0.000000] Primary data cache 32kB, 2-way, VIPT, cache aliases, linesize 16 bytes
+[    0.000000] Zone ranges:
+[    0.000000]   Normal   [mem 0x0000000000010000-0x000000000fffffff]
+[    0.000000] Movable zone start for each node
+[    0.000000] Early memory node ranges
+[    0.000000]   node   0: [mem 0x0000000000010000-0x00000000013b7fff]
+[    0.000000]   node   0: [mem 0x0000000006000000-0x0000000007ffffff]
+[    0.000000]   node   0: [mem 0x000000000e000000-0x000000000fffffff]
+[    0.000000] Initmem setup node 0 [mem 0x0000000000010000-0x000000000fffffff]
+[    0.000000] On node 0, zone Normal: 16 pages in unavailable ranges
+[    0.000000] On node 0, zone Normal: 19528 pages in unavailable ranges
+[    0.000000] On node 0, zone Normal: 24576 pages in unavailable ranges
+[    0.000000] percpu: Embedded 12 pages/cpu s19664 r8192 d21296 u49152
+[    0.000000] Kernel command line: console=ttyS0,115200 earlycon
+[    0.000000] Dentry cache hash table entries: 8192 (order: 3, 32768 bytes, linear)
+[    0.000000] Inode-cache hash table entries: 4096 (order: 2, 16384 bytes, linear)
+[    0.000000] Built 1 zonelists, mobility grouping on.  Total pages: 21416
+[    0.000000] mem auto-init: stack:off, heap alloc:off, heap free:off
+[    0.000000] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=1, Nodes=1
+[    0.000000] rcu: Hierarchical RCU implementation.
+[    0.000000] rcu: 	RCU restricting CPUs from NR_CPUS=2 to nr_cpu_ids=1.
+[    0.000000] 	Tracing variant of Tasks RCU enabled.
+[    0.000000] rcu: RCU calculated value of scheduler-enlistment delay is 10 jiffies.
+[    0.000000] rcu: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=1
+[    0.000000] RCU Tasks Trace: Setting shift to 0 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=1.
+[    0.000000] NR_IRQS: 256
+[    0.000000] rcu: srcu_init: Setting srcu_struct sizes based on contention.
+[    0.000000] clocksource: MIPS: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 6370868154 ns
+[    0.000107] sched_clock: 32 bits at 300MHz, resolution 3ns, wraps every 7158278654ns
+[    0.019185] Calibrating delay loop... 4.42 BogoMIPS (lpj=22144)
+[    0.160669] pid_max: default: 32768 minimum: 301
+[    2.905067] Mount-cache hash table entries: 1024 (order: 0, 4096 bytes, linear)
+[    2.916781] Mountpoint-cache hash table entries: 1024 (order: 0, 4096 bytes, linear)
+[    5.037450] rcu: Hierarchical SRCU implementation.
+[    5.045064] rcu: 	Max phase no-delay instances is 1000.
+[    5.149454] smp: Bringing up secondary CPUs ...
+[    5.156776] smp: Brought up 1 node, 1 CPU
+[    5.184715] Memory: 62500K/85664K available (8375K kernel code, 658K rwdata, 1772K rodata, 9092K init, 226K bss, 22544K reserved, 0K cma-reserved)
+[    5.459529] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 19112604462750000 ns
+[    5.475037] futex hash table entries: 256 (order: 2, 16384 bytes, linear)
+[    7.265218] pinctrl core: initialized pinctrl subsystem
+[    7.986265] NET: Registered PF_NETLINK/PF_ROUTE protocol family
+[    9.957602] clocksource: Switched to clocksource MIPS
+[   12.812031] NET: Registered PF_INET protocol family
+[   12.852655] IP idents hash table entries: 2048 (order: 2, 16384 bytes, linear)
+[   13.002283] tcp_listen_portaddr_hash hash table entries: 512 (order: 0, 4096 bytes, linear)
+[   13.018675] Table-perturb hash table entries: 65536 (order: 6, 262144 bytes, linear)
+[   13.031743] TCP established hash table entries: 1024 (order: 0, 4096 bytes, linear)
+[   13.050492] TCP bind hash table entries: 1024 (order: 2, 16384 bytes, linear)
+[   13.068376] TCP: Hash tables configured (established 1024 bind 1024)
+[   13.159628] MPTCP token hash table entries: 256 (order: 0, 4096 bytes, linear)
+[   13.219966] UDP hash table entries: 256 (order: 1, 8192 bytes, linear)
+[   13.238547] UDP-Lite hash table entries: 256 (order: 1, 8192 bytes, linear)
+[   13.402941] NET: Registered PF_UNIX/PF_LOCAL protocol family
+[   13.421308] PCI: CLS 0 bytes, default 16
+[   17.502004] workingset: timestamp_bits=14 max_order=14 bucket_order=0
+[   18.243924] squashfs: version 4.0 (2009/01/31) Phillip Lougher
+[   18.253956] jffs2: version 2.2 (NAND) (SUMMARY) (LZMA) (RTIME) (CMODE_PRIORITY) (c) 2001-2006 Red Hat, Inc.
+[   21.352871] irq_bcm7120_l2: registered BCM3380 L2 intc (/ubus/periph_intc@14e00048, parent IRQ(s): 1)
+[   21.397888] irq_bcm7120_l2: registered BCM3380 L2 intc (/ubus/cmips_intc@151f8048, parent IRQ(s): 1)
+[   21.639328] 14e00500.serial: ttyS0 at MMIO 0x14e00500 (irq = 8, base_baud = 1687500) is a bcm63xx_uart
+[   21.655445] printk: legacy console [ttyS0] enabled
+[   21.655445] printk: legacy console [ttyS0] enabled
+[   21.671009] printk: legacy bootconsole [bcm63xx_uart0] disabled
+[   21.671009] printk: legacy bootconsole [bcm63xx_uart0] disabled
+[   23.419360] NET: Registered PF_INET6 protocol family
+[   24.784495] Segment Routing with IPv6
+[   24.805136] In-situ OAM (IOAM) with IPv6
+[   24.828851] NET: Registered PF_PACKET protocol family
+[   25.149846] 8021q: 802.1Q VLAN Support v1.8
+[   32.461881] clk: Disabling unused clocks
+[   32.469195] PM: genpd: Disabling unused power domains
+[   37.860543] Freeing unused kernel image (initmem) memory: 9092K
+[   37.871070] This architecture does not have kernel memory protection.
+[   37.881269] Run /init as init process
+[   71.423668] init: Console is alive
+[   72.733525] kmodloader: loading kernel modules from /etc/modules-boot.d/*
+[   72.973631] gpio_button_hotplug: loading out-of-tree module taints kernel.
+[   73.174725] kmodloader: done loading kernel modules from /etc/modules-boot.d/*
+[   73.305705] init: - preinit -
+[  100.742904] random: crng init done
+Press the [f] key and hit [enter] to enter failsafe mode
+Press the [1], [2], [3] or [4] key and hit [enter] to select the debug level
+[  148.470458] procd: - early -
+[  151.622778] procd: - ubus -
+[  154.082470] procd: - init -
+Please press Enter to activate this console.
+
+login[328]: root login on 'ttyS0'
+
+
+BusyBox v1.37.0 (2026-01-02 17:07:02 UTC) built-in shell (ash)
+
+  _______                     ________        __
+ |       |.-----.-----.-----.|  |  |  |.----.|  |_
+ |   -   ||  _  |  -__|     ||  |  |  ||   _||   _|
+ |_______||   __|_____|__|__||________||__|  |____|
+          |__| W I R E L E S S   F R E E D O M
+ -----------------------------------------------------
+ OpenWrt SNAPSHOT, r34427-6865d489d2
+ -----------------------------------------------------
+
+ === WARNING! =====================================
+ There is no root password defined on this device!
+ Use the "passwd" command to set up a new password
+ in order to prevent unauthorized SSH logins.
+ --------------------------------------------------
+
+root@(none):~# ls -l /dev/mem
+ls: /dev/mem: No such file or directory
+root@(none):~# [  230.700515] kmodloader: loading kernel modules from /etc/modules.d/*
+[  240.608748] PPP generic driver version 2.4.2
+[  240.969560] NET: Registered PF_PPPOX protocol family
+[  242.002202] kmodloader: done loading kernel modules from /etc/modules.d/*
+
+root@(none):~# root@(none):~# ls -l /dev/mem[J
+ls: /dev/mem: No such file or directory
+root@(none):~# 
+root@(none):~# 
+root@OpenWrt:~# root@OpenWrt:~# ls -l /dev/mem[J
+ls: /dev/mem: No such file or directory
+root@OpenWrt:~# [  623.217147] urngd: v1.0.2 started.
+root@OpenWrt:~# ls -l /dev/mem[J
+ls: /dev/mem: No such file or directory
+root@OpenWrt:~# 
+root@OpenWrt:~# [  652.419250] ttyS ttyS0: 1 input overrun(s)
+gre_DEVMEM|IO_STRICT_DEVMEM' /proc/config.gz 2>/dev/null || zcat
+ /proc/config.gz | grep -E 'DEVMEM|STRICT_DEVMEM|IO_STRICT_DEVMEM'
+> ^C
+
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/devices | grep mem
+  1 mem
+root@OpenWrt:~# mknod /dev/mem c 1 1; chmod 600 /dev/mem; ls -l /dev/mem
+crw-------    1 root     root        1,   1 Jan  1 00:11 [1;35m/dev/mem[m
+root@OpenWrt:~# busybox devmem 0x14e00048 32
+devmem: can't open '/dev/mem': No such device or address
+root@OpenWrt:~# busybox devmem 0x14e0004c 32
+devmem: can't open '/dev/mem': No such device or address
+root@OpenWrt:~# bus[  750.537777] ttyS ttyS0: 1 input overrun(s)
+00350 32
+-ash: bus00350: not found
+root@OpenWrt:~# [  755.070290] ttyS ttyS0: 1 input overrun(s)
+busy busx00350 32
+-ash: busy: not found
+root@OpenWrt:~# [  758.809000] ttyS ttyS0: 2 input overrun(s)
+busy 
+-ash: busy: not found
+root@OpenWrt:~# [  761.285546] ttyS ttyS0: 1 input overrun(s)
+bus000350 32
+-ash: bus000350: not found
+root@OpenWrt:~# busybox devmem 0x14e00354 32
+devmem: can't open '/dev/mem': No such device or address
+root@OpenWrt:~# cat /proc/devices
+Character devices:
+  1 mem
+  4 ttyS
+  5 /dev/tty
+  5 /dev/console
+  5 /dev/ptmx
+ 10 misc
+ 90 mtd
+108 ppp
+128 ptm
+136 pts
+253 watchdog
+254 gpiochip
+
+Block devices:
+ 31 mtdblock
+254 ubiblock
+259 blkext
+root@OpenWrt:~# ls -l /dev/mem
+crw-------    1 root     root        1,   1 Jan  1 00:11 [1;35m/dev/mem[m
+root@OpenWrt:~# я
+BCM3383A2 
+Sync: 0 
+MemSize:            128 M
+Chip ID:     BCM3383Z-B0
+
+BootLoader Version: 2.4.0alpha18p1 Pre-release Gnu spiboot dual-flash reduced DDR drive linux
+Build Date: Aug 14 2012
+Build Time: 09:48:58
+SPI flash ID 0xc22014, size 1MB, block size 64KB, write buffer 256, flags 0x0
+NAND flash: Device size 64 MB, Block size 16 KB, Page size 512 B
+Cust key size 128
+parameter offset is 43872
+
+Signature/PID: a825
+
+Switch detected: 53125
+ProbePhy: Found PHY 0, MDIO on MAC 0, data on MAC 0
+Using GMAC0, phy 0
+
+Enet link up: 1G full
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+Read memory.  Hex address: 0x14e00048
+Address is less than 0x80000000.  Ignoring.
+Read memory.  Hex address: 0x14e0004c
+Address is less than 0x80000000.  Ignoring.
+Read memory.  Hex address: 0x14e00350
+Address is less than 0x80000000.  Ignoring.
+Read memory.  Hex address: 0x14e00354
+Address is less than 0x80000000.  Ignoring.
+Read memory.  Hex address: 0xb4e00048
+Value at b4e00048: 00000000 (hex)  0 (dec)
+
+Read memory.  Hex address: 0xb4e0004c
+Value at b4e0004c: 00000000 (hex)  0 (dec)
+
+Read memory.  Hex address: 0xb4e00350
+Value at b4e00350: 00006220 (hex)  25120 (dec)
+
+Read memory.  Hex address: 0xb4e00354
+Value at b4e00354: 00000000 (hex)  0 (dec)
+
+Read memory.  Hex address: 0xb4e00500
+Value at b4e00500: 00e53704 (hex)  15021828 (dec)
+
+Read memory.  Hex address: 0xb51f8048
+
+******************** CRASH ********************
+
+EXCEPTION TYPE: 7/Bus error (load/store)
+TP0
+r00/00 = 00000000 r01/at = 83f90000 r02/v0 = 00000001 r03/v1 = b51f8048 
+r04/a0 = 83f8e3f0 r05/a1 = b51f8048 r06/a2 = b51f8048 r07/a3 = 00000000 
+r08/t0 = 00000073 r09/t1 = 0000003a r10/t2 = 00000020 r11/t3 = 00000000 
+r12/t4 = 733a2000 r13/t5 = 0000017c r14/t6 = 00000000 r15/t7 = 00000000 
+r16/s0 = 7fffffff r17/s1 = 00000000 r18/s2 = 1dcd6500 r19/s3 = 0337f980 
+r20/s4 = 94210084 r21/s5 = 000063d8 r22/s6 = 32528d35 r23/s7 = 0000fc14 
+r24/t8 = 00000002 r25/t9 = 00001021 r26/k0 = 32528d35 r27/k1 = 83f8b16c 
+r28/gp = 50562ecb r29/sp = 87ffff40 r30/fp = 00000215 r31/ra = 83f86f04 
+
+pc   : 0x83f86efc		sr  : 0x00000002
+cause: 0x8000801c		addr: 0x00000000
+ю
+BCM3383A2 
+Sync: 0 
+MemSize:            128 M
+Chip ID:     BCM3383Z-B0
+
+BootLoader Version: 2.4.0alpha18p1 Pre-release Gnu spiboot dual-flash reduced DDR drive linux
+Build Date: Aug 14 2012
+Build Time: 09:48:58
+SPI flash ID 0xc22014, size 1MB, block size 64KB, write buffer 256, flags 0x0
+NAND flash: Device size 64 MB, Block size 16 KB, Page size 512 B
+Cust key size 128
+parameter offset is 43872
+
+Signature/PID: a825
+
+Switch detected: 53125
+ProbePhy: Found PHY 0, MDIO on MAC 0, data on MAC 0
+Using GMAC0, phy 0
+
+Enet link up: 1G full
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+TFTP Get Selected
+
+Destination: a5f00000
+
+Destination: a5f00000
+Starting TFTP of openwrt-ps-irqfallback.bin from 192.168.77.2
+Getting openwrt-ps-irqfallback.bin using octet mode
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+................Received packet for invalid session...
+..............................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+......................................................................................................................................................................................................................................................Received packet for invalid session...
+.........................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
+Tftp complete
+Received 5696426 bytes
+
+Image 3 Program Header:
+   Signature: a825
+     Control: 0000
+   Major Rev: 0100
+   Minor Rev: 04ff
+  Build Time: 2026/5/13 21:00:32 Z
+ File Length: 5696334 bytes
+Load Address: 82000000
+    Filename: openwrt-initramfs.bin
+         HCS: 1b46
+         CRC: f0b0a5b5
+
+Bypassing CRC Verifiction on Image 4...
+CRC time = 311
+Loading non-compressed image 4...
+Target Address: 0x82000000
+Length: 5696334
+Reading flash map at ff30, size 192
+Successfully restored flash map from SPI flash!
+Copying partition table to 0x83fffc04 180
+Copying partition table to 0x80000904 180
+
+Executing Image 4...
+
+
+
+
+OpenWrt kernel loader for BMIPS
+Copyright (C) 2011 Gabor Juhos <juhosg@openwrt.org>
+Copyright (C) 2014 Jonas Gorski <jogo@openwrt.org>
+Copyright (C) 2020 Alvaro Fernandez Rojas <noltari@gmail.com>
+Decompressing kernel... done!
+blasting from 0x80010000 to 0x0126a4ab (0x80010000 - 0x8127a4b0)
+Starting kernel at 80010000...
+
+[    0.000000] Linux version 6.12.87 (mgta29@CerberusNB) (mips-openwrt-linux-musl-gcc (OpenWrt GCC 14.3.0 r34427-6865d489d2) 14.3.0, GNU ld (GNU Binutils) 2.44) #0 SMP Tue May 12 23:59:29 2026
+[    0.000000] CPU0 revision is: 0002a080 (Broadcom BMIPS4350)
+[    0.000000] MIPS: machine is Technicolor TC7200.U
+[    0.000000] earlycon: bcm63xx_uart0 at MMIO 0x14e00500 (options '')
+[    0.000000] printk: legacy bootconsole [bcm63xx_uart0] enabled
+[    0.000000] Kernel sections are not in the memory maps
+[    0.000000] Wasting 576 bytes for tracking 16 unused pages
+[    0.000000] Initrd not found or empty - disabling initrd
+[    0.000000] OF: reserved mem: Reserved memory: No reserved-memory node in the DT
+[    0.000000] Primary instruction cache 64kB, VIPT, 4-way, linesize 16 bytes.
+[    0.000000] Primary data cache 32kB, 2-way, VIPT, cache aliases, linesize 16 bytes
+[    0.000000] Zone ranges:
+[    0.000000]   Normal   [mem 0x0000000000010000-0x000000000fffffff]
+[    0.000000] Movable zone start for each node
+[    0.000000] Early memory node ranges
+[    0.000000]   node   0: [mem 0x0000000000010000-0x00000000013b7fff]
+[    0.000000]   node   0: [mem 0x0000000006000000-0x0000000007ffffff]
+[    0.000000]   node   0: [mem 0x000000000e000000-0x000000000fffffff]
+[    0.000000] Initmem setup node 0 [mem 0x0000000000010000-0x000000000fffffff]
+[    0.000000] On node 0, zone Normal: 16 pages in unavailable ranges
+[    0.000000] On node 0, zone Normal: 19528 pages in unavailable ranges
+[    0.000000] On node 0, zone Normal: 24576 pages in unavailable ranges
+[    0.000000] percpu: Embedded 12 pages/cpu s19664 r8192 d21296 u49152
+[    0.000000] Kernel command line: console=ttyS0,115200 earlycon
+[    0.000000] Dentry cache hash table entries: 8192 (order: 3, 32768 bytes, linear)
+[    0.000000] Inode-cache hash table entries: 4096 (order: 2, 16384 bytes, linear)
+[    0.000000] Built 1 zonelists, mobility grouping on.  Total pages: 21416
+[    0.000000] mem auto-init: stack:off, heap alloc:off, heap free:off
+[    0.000000] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=1, Nodes=1
+[    0.000000] rcu: Hierarchical RCU implementation.
+[    0.000000] rcu: 	RCU restricting CPUs from NR_CPUS=2 to nr_cpu_ids=1.
+[    0.000000] 	Tracing variant of Tasks RCU enabled.
+[    0.000000] rcu: RCU calculated value of scheduler-enlistment delay is 10 jiffies.
+[    0.000000] rcu: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=1
+[    0.000000] RCU Tasks Trace: Setting shift to 0 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=1.
+[    0.000000] NR_IRQS: 256
+[    0.000000] rcu: srcu_init: Setting srcu_struct sizes based on contention.
+[    0.000000] clocksource: MIPS: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 6370868154 ns
+[    0.000106] sched_clock: 32 bits at 300MHz, resolution 3ns, wraps every 7158278654ns
+[    0.019185] Calibrating delay loop... 4.42 BogoMIPS (lpj=22144)
+[    0.160661] pid_max: default: 32768 minimum: 301
+[    2.906000] Mount-cache hash table entries: 1024 (order: 0, 4096 bytes, linear)
+[    2.917707] Mountpoint-cache hash table entries: 1024 (order: 0, 4096 bytes, linear)
+[    5.038477] rcu: Hierarchical SRCU implementation.
+[    5.046089] rcu: 	Max phase no-delay instances is 1000.
+[    5.150540] smp: Bringing up secondary CPUs ...
+[    5.157856] smp: Brought up 1 node, 1 CPU
+[    5.185787] Memory: 62500K/85664K available (8375K kernel code, 658K rwdata, 1772K rodata, 9092K init, 226K bss, 22544K reserved, 0K cma-reserved)
+[    5.460560] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 19112604462750000 ns
+[    5.476063] futex hash table entries: 256 (order: 2, 16384 bytes, linear)
+[    7.265887] pinctrl core: initialized pinctrl subsystem
+[    7.986624] NET: Registered PF_NETLINK/PF_ROUTE protocol family
+[    9.957297] clocksource: Switched to clocksource MIPS
+[   12.811196] NET: Registered PF_INET protocol family
+[   12.851994] IP idents hash table entries: 2048 (order: 2, 16384 bytes, linear)
+[   13.001392] tcp_listen_portaddr_hash hash table entries: 512 (order: 0, 4096 bytes, linear)
+[   13.017967] Table-perturb hash table entries: 65536 (order: 6, 262144 bytes, linear)
+[   13.030855] TCP established hash table entries: 1024 (order: 0, 4096 bytes, linear)
+[   13.049585] TCP bind hash table entries: 1024 (order: 2, 16384 bytes, linear)
+[   13.067655] TCP: Hash tables configured (established 1024 bind 1024)
+[   13.158704] MPTCP token hash table entries: 256 (order: 0, 4096 bytes, linear)
+[   13.219005] UDP hash table entries: 256 (order: 1, 8192 bytes, linear)
+[   13.237757] UDP-Lite hash table entries: 256 (order: 1, 8192 bytes, linear)
+[   13.402131] NET: Registered PF_UNIX/PF_LOCAL protocol family
+[   13.420311] PCI: CLS 0 bytes, default 16
+[   17.493725] workingset: timestamp_bits=14 max_order=14 bucket_order=0
+[   18.237535] squashfs: version 4.0 (2009/01/31) Phillip Lougher
+[   18.247381] jffs2: version 2.2 (NAND) (SUMMARY) (LZMA) (RTIME) (CMODE_PRIORITY) (c) 2001-2006 Red Hat, Inc.
+[   21.361431] irq_bcm7120_l2: registered BCM3380 L2 intc (/ubus/periph_intc@14e00048, parent IRQ(s): 1)
+[   21.405016] irq_bcm7120_l2: registered BCM3380 L2 intc (/ubus/cmips_intc@151f8048, parent IRQ(s): 1)
+[   21.647124] 14e00500.serial: ttyS0 at MMIO 0x14e00500 (irq = 8, base_baud = 1687500) is a bcm63xx_uart
+[   21.663243] printk: legacy console [ttyS0] enabled
+[   21.663243] printk: legacy console [ttyS0] enabled
+[   21.679000] printk: legacy bootconsole [bcm63xx_uart0] disabled
+[   21.679000] printk: legacy bootconsole [bcm63xx_uart0] disabled
+[   23.432409] NET: Registered PF_INET6 protocol family
+[   24.798534] Segment Routing with IPv6
+[   24.819043] In-situ OAM (IOAM) with IPv6
+[   24.841710] NET: Registered PF_PACKET protocol family
+[   25.168240] 8021q: 802.1Q VLAN Support v1.8
+[   32.442421] clk: Disabling unused clocks
+[   32.449746] PM: genpd: Disabling unused power domains
+[   37.881936] Freeing unused kernel image (initmem) memory: 9092K
+[   37.891846] This architecture does not have kernel memory protection.
+[   37.902140] Run /init as init process
+
+[   71.523715] init: Console is alive
+[   72.854353] kmodloader: loading kernel modules from /etc/modules-boot.d/*
+[   73.094872] gpio_button_hotplug: loading out-of-tree module taints kernel.
+[   73.308625] kmodloader: done loading kernel modules from /etc/modules-boot.d/*
+[   73.439925] init: - preinit -
+[  100.841882] random: crng init done
+
+Press the [f] key and hit [enter] to enter failsafe mode
+Press the [1], [2], [3] or [4] key and hit [enter] to select the debug level
+
+[  149.231306] procd: - early -
+[  152.375312] procd: - ubus -
+[  154.852184] procd: - init -
+Please press Enter to activate this console.
+[  224.929049] kmodloader: loading kernel modules from /etc/modules.d/*
+[  234.838587] PPP generic driver version 2.4.2
+[  235.199151] NET: Registered PF_PPPOX protocol family
+[  236.233194] kmodloader: done loading kernel modules from /etc/modules.d/*
+
+login[331]: root login on 'ttyS0'
+
+
+BusyBox v1.37.0 (2026-01-02 17:07:02 UTC) built-in shell (ash)
+
+  _______                     ________        __
+ |       |.-----.-----.-----.|  |  |  |.----.|  |_
+ |   -   ||  _  |  -__|     ||  |  |  ||   _||   _|
+ |_______||   __|_____|__|__||________||__|  |____|
+          |__| W I R E L E S S   F R E E D O M
+ -----------------------------------------------------
+ OpenWrt SNAPSHOT, r34427-6865d489d2
+ -----------------------------------------------------
+
+ === WARNING! =====================================
+ There is no root password defined on this device!
+ Use the "passwd" command to set up a new password
+ in order to prevent unauthorized SSH logins.
+ --------------------------------------------------
+
+root@(none):~# [  301.112684] ttyS ttyS0: 1 input overrun(s)
+zcat /proc/config.gz | grep -E 'CONFIG_DEVMEM|CONFIG_STRICT_DEVME
+M|CONFIG_IO_STRICT_DEVMEM|CONFIG_EVKMEM'
+zcat: /proc/config.gz: No such file or directory
+root@(none):~# zcat /proc/config.gz|grep DEVMEM
+zcat: /proc/config.gz: No such file or directory
+root@(none):~# [  396.308036] ttyS ttyS0: 1 input overrun(s)
+zcatT
+-ash: zcatT: not found
+root@(none):~# zcat /proc/config.gz|grep STRICT
+zcat: /proc/config.gz: No such file or directory
+root@(none):~# zcat /proc/config.gz|grep KCORE
+zcat: /proc/config.gz: No such file or directory
+root@(none):~# [  420.412880] ttyS ttyS0: 1 input overrun(s)
+zcazn|grep DEVKMEM
+-ash: zcazn: not found
+root@(none):~# zcat /proc/config.gz|grep DEVKMEM
+zcat: /proc/config.gz: No such file or directory
+root@(none):~# ls -l /proc/config.gz
+ls: /proc/config.gz: No such file or directory
+root@(none):~# 
+root@OpenWrt:~# cat /proc/devices|grep mem
+  1 mem
+root@OpenWrt:~# ls -l /dev/mem
+ls: /dev/mem: No such file or directory
+root@OpenWrt:~# mknod /dev/mem c 1 1
+root@OpenWrt:~# chmod 600 /dev/mem
+root@OpenWrt:~# ls -l /dev/mem
+crw-------    1 root     root        1,   1 Jan  1 00:08 [1;35m/dev/mem[m
+root@OpenWrt:~# bu[  534.168974] ttyS ttyS0: 1 input overrun(s)
+sy0500 32^C
+
+root@OpenWrt:~# busybox devmem 0xb4e00500 32
+devmem: can't open '/dev/mem': No such device or address
+root@OpenWrt:~# busybox devmem 0x14e00500 32
+devmem: can't open '/dev/mem': No such device or address
+root@OpenWrt:~# busybox devmem 0x14e00500 32
+devmem: can't open '/dev/mem': No such device or address
+root@OpenWrt:~# [  631.490831] urngd: v1.0.2 started.
+root@OpenWrt:~# busybox devmem 0x14e00500 32[Jroot@OpenWrt:~# [Jroot@OpenWrt:~# busybox devmem 0x14e00500 32[J
+devmem: can't open '/dev/mem': No such device or address
+root@OpenWrt:~# busybox devmem 0x14e00500 32
+devmem: can't open '/dev/mem': No such device or address
+root@OpenWrt:~# 
+root@OpenWrt:~# root@OpenWrt:~# busybox devmem 0x14e00500 32[J
+devmem: can't open '/dev/mem': No such device or address
+root@OpenWrt:~# 
+root@OpenWrt:~# top
+[H[JMem: 19064K used, 53148K free, 9248K shrd, 0K buff, 9248K cached
+CPU:  63% usr  36% sys   0% nic   0% idle   0% io   0% irq   0% sirq
+Load average: 1.22 1.93 2.12 3/45 913
+[7m  PID  PPID USER     STAT   VSZ %VSZ %CPU COMMAND[m
+  911   863 root     R     1352   2%  53% /usr/bin/dropbearkey -t rsa -f /tmp/tm
+  913   331 root     R     1596   2%  43% top
+    1     0 root     S     1808   2%   1% /sbin/procd
+   16     2 root     IW       0   0%   1% [rcu_sched]
+  859     1 root     S     2552   4%   0% {dnsmasq} /sbin/ujail -t 5 -n dnsmasq 
+  707     1 logd     S     2096   3%   0% /sbin/logd -S 128
+  863     1 root     S     1856   3%   0% {S19dropbear} /bin/sh /etc/rc.common /
+  861   859 dnsmasq  S     1684   2%   0% /usr/sbin/dnsmasq -C /var/etc/dnsmasq.
+  331     1 root     S     1588   2%   0% -ash
+  329     1 ubus     S     1296   2%   0% /sbin/ubusd
+  365     1 root     S     1208   2%   0% /sbin/urngd
+    9     2 root     IW       0   0%   0% [kworker/0:0-eve]
+   25     2 root     SW       0   0%   0% [kcompactd0]
+   47     2 root     IW       0   0%   0% [kworker/u4:3-ev]
+  655     2 root     IW       0   0%   0% [kworker/u4:2-ev]
+  907     2 root     IW       0   0%   0% [kworker/u4:0-ev]
+    2     0 root     SW       0   0%   0% [kthreadd]
+   15     2 root     SW       0   0%   0% [ksoftirqd/0]
+   20     2 root     SW       0   0%   0% [cpuhp/0]
+   10     2 root     IW<      0   0%   0% [kworker/0:0H-ev][H[JMem: 19064K used, 53148K free, 9248K shrd, 0K buff, 9248K cached
+CPU:  91% usr   8% sys   0% nic   0% idle   0% io   0% irq   0% sirq
+Load average: 1.20 1.92 2.11 2/46 914
+[7m  PID  PPID USER     STAT   VSZ %VSZ %CPU COMMAND[m
+  911   863 root     R     1352   2%  85% /usr/bin/dropbearkey -t rsa -f /tmp/tm
+  913   331 root     R     1596   2%  11% top
+   16     2 root     IW       0   0%   1% [rcu_sched]
+  707     1 logd     S     2096   3%   1% /sbin/logd -S 128
+    1     0 root     S     1808   2%   1% /sbin/procd
+    9     2 root     IW       0   0%   0% [kworker/0:0-eve]
+   25     2 root     SW       0   0%   0% [kcompactd0]
+   47     2 root     IW       0   0%   0% [kworker/u4:3-ev]
+  655     2 root     IW       0   0%   0% [kworker/u4:2-ev]
+  859     1 root     S     2552   4%   0% {dnsmasq} /sbin/ujail -t 5 -n dnsmasq 
+  863     1 root     S     1856   3%   0% {S19dropbear} /bin/sh /etc/rc.common /
+  861   859 dnsmasq  S     1684   2%   0% /usr/sbin/dnsmasq -C /var/etc/dnsmasq.
+  331     1 root     S     1588   2%   0% -ash
+  329     1 ubus     S     1296   2%   0% /sbin/ubusd
+  365     1 root     S     1208   2%   0% /sbin/urngd
+  907     2 root     IW       0   0%   0% [kworker/u4:0-ev]
+    2     0 root     SW       0   0%   0% [kthreadd]
+   15     2 root     SW       0   0%   0% [ksoftirqd/0]
+   20     2 root     SW       0   0%   0% [cpuhp/0]
+   10     2 root     IW<      0   0%   0% [kworker/0:0H-ev][H[JMem: 19064K used, 53148K free, 9248K shrd, 0K buff, 9248K cached
+CPU:  91% usr   8% sys   0% nic   0% idle   0% io   0% irq   0% sirq
+Load average: 1.18 1.90 2.10 2/46 914
+[7m  PID  PPID USER     STAT   VSZ %VSZ %CPU COMMAND[m
+  911   863 root     R     1352   2%  85% /usr/bin/dropbearkey -t rsa -f /tmp/tm
+  913   331 root     R     1596   2%  11% top
+  707     1 logd     S     2096   3%   1% /sbin/logd -S 128
+   16     2 root     IW       0   0%   1% [rcu_sched]
+    1     0 root     R     1808   2%   1% /sbin/procd
+    9     2 root     IW       0   0%   0% [kworker/0:0-mm_]
+   25     2 root     SW       0   0%   0% [kcompactd0]
+  859     1 root     S     2552   4%   0% {dnsmasq} /sbin/ujail -t 5 -n dnsmasq 
+  863     1 root     S     1856   3%   0% {S19dropbear} /bin/sh /etc/rc.common /
+  861   859 dnsmasq  S     1684   2%   0% /usr/sbin/dnsmasq -C /var/etc/dnsmasq.
+  331     1 root     S     1588   2%   0% -ash
+  329     1 ubus     S     1296   2%   0% /sbin/ubusd
+  365     1 root     S     1208   2%   0% /sbin/urngd
+   47     2 root     IW       0   0%   0% [kworker/u4:3-ev]
+  655     2 root     IW       0   0%   0% [kworker/u4:2-ev]
+  907     2 root     IW       0   0%   0% [kworker/u4:0-ev]
+    2     0 root     SW       0   0%   0% [kthreadd]
+   15     2 root     SW       0   0%   0% [ksoftirqd/0]
+   20     2 root     SW       0   0%   0% [cpuhp/0]
+   10     2 root     IW<      0   0%   0% [kworker/0:0H-ev]^C
+root@OpenWrt:~# ю
+BCM3383A2 
+Sync: 0 
+MemSize:            128 M
+Chip ID:     BCM3383Z-B0
+
+BootLoader Version: 2.4.0alpha18p1 Pre-release Gnu spiboot dual-flash reduced DDR drive linux
+Build Date: Aug 14 2012
+Build Time: 09:48:58
+SPI flash ID 0xc22014, size 1MB, block size 64KB, write buf6, flags 0x0
+NAND flash: Device MB, Block size 16 KB, Page size 512 B
+Cust key size 128
+paramoffset is 43872
+
+Signature/PID: a825
+
+Switch detected: 53125
+ProbePhy: Found PHY 0, MDIO on MAC 0, data on MAC 0
+Using GMAC0, phy 0
+
+Enet link up: 1G full
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+TFTP Get Selected
+
+Destination: a5f00000
+
+Destination: a5f00000
+Starting TFTP of openwrt-ps-irqfallback.bin from 192.168.77.2
+Getting openwrt-ps-irqfallback.bin using octet mode
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+............................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+.............................................................................................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+..................................................................................................................................................................................................................................................Received packet for invalid session...
+.........................................................................................................................................................................................................................................Received packet for invalid session...
+..........................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
+Tftp complete
+Received 5697776 bytes
+HCS failed on Image 3 Program Header
+
+BCM3383A2 
+Sync: 0 
+MemSize:            128 M
+Chip ID:     BCM3383Z-B0
+
+BootLoader Version: 2.4.0alpha18p1 Pre-release Gnu spiboot dual-flash reduced DDR drive linux
+Build Date: Aug 14 2012
+Build Time: 09:48:58
+SPI flash ID 0xc22014, size 1MB, block size 64KB, write buffer 256, flags 0x0
+NAND flash: Device size 64 MB, Block size 16 KB, Page size 512 B
+Cust key size 128
+parameter offset is 43872
+
+Signature/PID: a825
+
+Switch detected: 53125
+ProbePhy: Found PHY 0, MDIO on MAC 0, data on MAC 0
+Using GMAC0, phy 0
+
+Enet link up: 1G full
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Unrecognized command.
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+
+BCM3383A2 
+Sync: 0 
+MemSize:            128 M
+Chip ID:     BCM3383Z-B0
+
+BootLoader Version: 2.4.0alpha18p1 Pre-release Gnu spiboot dual-flash reduced DDR drive linux
+Build Date: Aug 14 2012
+Build Time: 09:48:58
+SPI flash ID 0xc22014, size 1MB, block size 64KB, write buffer 256, flags 0x0
+NAND flash: Device size 64 MB, Block size 16 KB, Page size 512 B
+Cust key size 128
+parameter offset is 43872
+
+Signature/PID: a825
+
+Switch detected: 53125
+ProbePhy: Found PHY 0, MDIO on MAC 0, data on MAC 0
+Using GMAC0, phy 0
+
+Enet link up: 1G full
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+TFTP Get Selected
+
+Destination: a5f00000
+
+Destination: a5f00000
+Starting TFTP of openwrt-ps-irqfallback.bin from 192.168.77.2
+Getting openwrt-ps-irqfallback.bin using octet mode
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init eth
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+Tftp timeout...
+Tftp timeout...
+...............Received packet for invalid session...
+..................................................................................................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+..............................................................................................................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+.......................................................................................Received packet for invalid session...
+...........................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+............................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+Received packet for invalid session...
+................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
+Tftp complete
+Received 5696426 bytes
+
+Image 3 Program Header:
+   Signature: a825
+     Control: 0000
+   Major Rev: 0100
+   Minor Rev: 04ff
+  Build Time: 2026/5/13 21:00:32 Z
+ File Length: 5696334 bytes
+Load Address: 82000000
+    Filename: openwrt-initramfs.bin
+         HCS: 1b46
+         CRC: f0b0a5b5
+
+Bypassing CRC Verifiction on Image 4...
+CRC time = 316
+Loading non-compressed image 4...
+Target Address: 0x82000000
+Length: 5696334
+Reading flash map at ff30, size 192
+Successfully restored flash map from SPI flash!
+Copying partition table to 0x83fffc04 180
+Copying partition table to 0x80000904 180
+
+Executing Image 4...
+
+
+
+
+OpenWrt kernel loader for BMIPS
+Copyright (C) 2011 Gabor Juhos <juhosg@openwrt.org>
+Copyright (C) 2014 Jonas Gorski <jogo@openwrt.org>
+Copyright (C) 2020 Alvaro Fernandez Rojas <noltari@gmail.com>
+Decompressing kernel... done!
+blasting from 0x80010000 to 0x0126a4ab (0x80010000 - 0x8127a4b0)
+Starting kernel at 80010000...
+
+[    0.000000] Linux version 6.12.87 (mgta29@CerberusNB) (mips-openwrt-linux-musl-gcc (OpenWrt GCC 14.3.0 r34427-6865d489d2) 14.3.0, GNU ld (GNU Binutils) 2.44) #0 SMP Tue May 12 23:59:29 2026
+[    0.000000] CPU0 revision is: 0002a080 (Broadcom BMIPS4350)
+[    0.000000] MIPS: machine is Technicolor TC7200.U
+[    0.000000] earlycon: bcm63xx_uart0 at MMIO 0x14e00500 (options '')
+[    0.000000] printk: legacy bootconsole [bcm63xx_uart0] enabled
+[    0.000000] Kernel sections are not in the memory maps
+[    0.000000] Wasting 576 bytes for tracking 16 unused pages
+[    0.000000] Initrd not found or empty - disabling initrd
+[    0.000000] OF: reserved mem: Reserved memory: No reserved-memory node in the DT
+[    0.000000] Primary instruction cache 64kB, VIPT, 4-way, linesize 16 bytes.
+[    0.000000] Primary data cache 32kB, 2-way, VIPT, cache aliases, linesize 16 bytes
+[    0.000000] Zone ranges:
+[    0.000000]   Normal   [mem 0x0000000000010000-0x000000000fffffff]
+[    0.000000] Movable zone start for each node
+[    0.000000] Early memory node ranges
+[    0.000000]   node   0: [mem 0x0000000000010000-0x00000000013b7fff]
+[    0.000000]   node   0: [mem 0x0000000006000000-0x0000000007ffffff]
+[    0.000000]   node   0: [mem 0x000000000e000000-0x000000000fffffff]
+[    0.000000] Initmem setup node 0 [mem 0x0000000000010000-0x000000000fffffff]
+[    0.000000] On node 0, zone Normal: 16 pages in unavailable ranges
+[    0.000000] On node 0, zone Normal: 19528 pages in unavailable ranges
+[    0.000000] On node 0, zone Normal: 24576 pages in unavailable ranges
+[    0.000000] percpu: Embedded 12 pages/cpu s19664 r8192 d21296 u49152
+[    0.000000] Kernel command line: console=ttyS0,115200 earlycon
+[    0.000000] Dentry cache hash table entries: 8192 (order: 3, 32768 bytes, linear)
+[    0.000000] Inode-cache hash table entries: 4096 (order: 2, 16384 bytes, linear)
+[    0.000000] Built 1 zonelists, mobility grouping on.  Total pages: 21416
+[    0.000000] mem auto-init: stack:off, heap alloc:off, heap free:off
+[    0.000000] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=1, Nodes=1
+[    0.000000] rcu: Hierarchical RCU implementation.
+[    0.000000] rcu: 	RCU restricting CPUs from NR_CPUS=2 to nr_cpu_ids=1.
+[    0.000000] 	Tracing variant of Tasks RCU enabled.
+[    0.000000] rcu: RCU calculated value of scheduler-enlistment delay is 10 jiffies.
+[    0.000000] rcu: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=1
+[    0.000000] RCU Tasks Trace: Setting shift to 0 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=1.
+[    0.000000] NR_IRQS: 256
+[    0.000000] rcu: srcu_init: Setting srcu_struct sizes based on contention.
+[    0.000000] clocksource: MIPS: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 6370868154 ns
+[    0.000107] sched_clock: 32 bits at 300MHz, resolution 3ns, wraps every 7158278654ns
+[    0.019179] Calibrating delay loop... 4.42 BogoMIPS (lpj=22144)
+[    0.160661] pid_max: default: 32768 minimum: 301
+[    2.905861] Mount-cache hash table entries: 1024 (order: 0, 4096 bytes, linear)
+[    2.917572] Mountpoint-cache hash table entries: 1024 (order: 0, 4096 bytes, linear)
+[    5.038430] rcu: Hierarchical SRCU implementation.
+[    5.046045] rcu: 	Max phase no-delay instances is 1000.
+[    5.150537] smp: Bringing up secondary CPUs ...
+[    5.157850] smp: Brought up 1 node, 1 CPU
+[    5.185794] Memory: 62500K/85664K available (8375K kernel code, 658K rwdata, 1772K rodata, 9092K init, 226K bss, 22544K reserved, 0K cma-reserved)
+[    5.460638] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 19112604462750000 ns
+[    5.476148] futex hash table entries: 256 (order: 2, 16384 bytes, linear)
+[    7.266419] pinctrl core: initialized pinctrl subsystem
+[    7.987329] NET: Registered PF_NETLINK/PF_ROUTE protocol family
+[    9.958813] clocksource: Switched to clocksource MIPS
+[   12.813314] NET: Registered PF_INET protocol family
+[   12.854118] IP idents hash table entries: 2048 (order: 2, 16384 bytes, linear)
+[   13.003575] tcp_listen_portaddr_hash hash table entries: 512 (order: 0, 4096 bytes, linear)
+[   13.020157] Table-perturb hasytes, linear)
+[   13.033064] TC[   13.051796] TCP bind hash table entries: 1024 (order: 2, 16384 bytes, linear)
+[   13.069863] TCP: Hash tables configured (established 1024 bind 1024)
+[   13.160932] MPTCP token hash table entries: 256 (order: 0, 4096 bytes, linear)
+[   13.221254] UDP hash table entries: 256 (order: 1, 8192 bytes, linear)
+[   13.240017] UDP-Lite hash table entries: 256 (order: 1, 8192 bytes, linear)
+[   13.404228] NET: Registered PF_UNIX/PF_LOCAL protocol family
+[   13.422595] PCI: CLS 0 bytes, default 16
+[   17.496234] workingset: timestamp_bits=14 max_order=14 bucket_order=0
+[   18.236427] squashfs: version 4.0 (2009/01/31) Phillip Lougher
+[   18.246266] jffs2: version 2.2 (NAND) (SUMMARY) (LZMA) (RTIME) (CMODE_PRIORITY) (c) 2001-2006 Red Hat, Inc.
+[   21.350763] irq_bcm7120_l2: registered BCM3380 L2 intc (/ubus/periph_intc@14e00048, parent IRQ(s): 1)
+[   21.394670] irq_bcm7120_l2: registered BCM3380 L2 intc (/ubus/cmips_intc@151f8048, parent IRQ(s): 1)
+[   21.635709] 14e00500.serial: ttyS0 at MMIO 0x14e00500 (irq = 8, base_baud = 1687500) is a bcm63xx_uart
+[   21.653032] printk: legacy console [ttyS0] enabled
+[   21.653032] printk: legacy console [ttyS0] enabled
+[   21.668593] printk: legacy bootconsole [bcm63xx_uart0] disabled
+[   21.668593] printk: legacy bootconsole [bcm63xx_uart0] disabled
+[   23.380405] NET: Registered PF_INET6 protocol family
+[   24.741625] Segment Routing with IPv6
+[   24.762297] In-situ OAM (IOAM) with IPv6
+[   24.785476] NET: Registered PF_PACKET protocol family
+[   25.090716] 8021q: 802.1Q VLAN Support v1.8
+[   32.441897] clk: Disabling unused clocks
+[   32.449045] PM: genpd: Disabling unused power domains
+[   37.864374] Freeing unused kernel image (initmem) memory: 9092K
+[   37.875121] This architecture does not have kernel memory protection.
+[   37.885324] Run /init as init process
+[   71.431755] init: Console is alive
+[   72.743164] kmodloader: loading kernel modules from /etc/modules-boot.d/*
+[   72.981515] gpio_button_hotplug: loading out-of-tree module taints kernel.
+[   73.165496] kmodloader: done loading kernel modules from /etc/modules-boot.d/*
+[   73.306414] init: - preinit -
+[  100.643440] random: crng init done
+Press the [f] key and hit [enter] to enter failsafe mode
+Press the [1], [2], [3] or [4] key and hit [enter] to select the debug level
+[  148.242559] procd: - early -
+[  151.366322] procd: - ubus -
+[  153.852225] procd: - init -
+Please press Enter to activate this console.
+
+
+login[328]: root login on 'ttyS0'
+
+
+BusyBox v1.37.0 (2026-01-02 17:07:02 UTC) built-in shell (ash)
+
+  _______                     ________        __
+ |       |.-----.-----.-----.|  |  |  |.----.|  |_
+ |   -   ||  _  |  -__|     ||  |  |  ||   _||   _|
+ |_______||   __|_____|__|__||________||__|  |____|
+          |__| W I R E L E S S   F R E E D O M
+ -----------------------------------------------------
+ OpenWrt SNAPSHOT, r34427-6865d489d2
+ -----------------------------------------------------
+
+ === WARNING! =====================================
+ There is no root password defined on this device!
+ Use the "passwd" command to set up a new password
+ in order to prevent unauthorized SSH logins.
+ --------------------------------------------------
+
+root@(none):~# cat /proc/iomem
+00010000-013b88bf : System RAM
+  00010000-0083dc8f : Kernel code
+  0083dc90-00a9ea3f : Kernel data
+  01380000-013b88bf : Kernel bss
+06000000-07ffffff : System RAM
+0e000000-0fffffff : System RAM
+14e00500-14e00517 : 14e00500.serial serial@14e00520
+root@(none):~# cat /proc/interrupts
+           CPU0       
+  0:          0      MIPS   0  smp_ipi0
+  1:          0      MIPS   1  smp_ipi1
+  7:      20488      MIPS   7  timer
+  8:        211  periph_intc@14e00048   2  14e00500.serial
+ERR:          2
+root@(none):~# ls /sys/bus/platform/devices
+[1;36m14e00048.periph_intc[m  [1;36m151f8048.cmips_intc[m   [1;36mubus[m
+[1;36m14e00500.serial[m       [1;36mFixed MDIO bus.0[m
+root@(none):~# ip link
+1: lo: <LOOPBACK> mtu 65536 qdisc noop state DOWN qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+root@(none):~# cat /proc/devices | grep mem
+  1 mem
+root@(none):~# ls -l /dev/mem[  233.553051] kmodloader: loading kernel modules from /etc/modules.d/*
+
+ls: /dev/mem: No such file or directory
+root@(none):~# dmesg | grep -Ei 'mmio|bcm|irq|serial|eth|enet|mdio|phy|b53|dsa|s
+witch|mtd|nand|spi'
+[    0.000000] earlycon: bcm63xx_uart0 at MMIO 0x14e00500 (options '')
+[    0.000000] printk: legacy bootconsole [bcm63xx_uart0] enabled
+[  245.821708] PPP generic driver version 2.4.2
+[  246.320039] NET: Registered PF_PPPOX protocol family
+[  247.742334] kmodloader: done loading kernel modules from /etc/modules.d/*
+[    0.000000] NR_IRQS: 256
+[    9.958813] clocksource: Switched to clocksource MIPS
+[   18.246266] jffs2: version 2.2 (NAND) (SUMMARY) (LZMA) (RTIME) (CMODE_PRIORITY) (c) 2001-2006 Red Hat, Inc.
+[   21.350763] irq_bcm7120_l2: registered BCM3380 L2 intc (/ubus/periph_intc@14e00048, parent IRQ(s): 1)
+[   21.394670] irq_bcm7120_l2: registered BCM3380 L2 intc (/ubus/cmips_intc@151f8048, parent IRQ(s): 1)
+[   21.635709] 14e00500.serial: ttyS0 at MMIO 0x14e00500 (irq = 8, base_baud = 1687500) is a bcm63xx_uart
+[   21.668593] printk: legacy bootconsole [bcm63xx_uart0] disabled
+root@(none):~# 
+root@(none):~# [  638.345934] urngd: v1.0.2 started.
+я
+BCM3383A2 
+Sync: 0 
+MemSize:            128 M
+Chip ID:     BCM3383Z-B0
+
+BootLoader Version: 2.4.0alpha18p1 Pre-release Gnu spiboot dual-flash reduced DDR drive linux
+Build Date: Aug 14 2012
+Build Time: 09:48:58
+SPI flash ID 0xc22014, size 1MB, block size 64KB, write buffer 256, flags 0x0
+NAND flash: Device size 64 MB, Block size 16 KB, Page size 512 B
+Cust key size 128
+parameter offset is 43872
+
+Signature/PID: a825
+
+Switch detected: 53125
+ProbePhy: Found PHY 0, MDIO on MAC 0, data on MAC 0
+Using GMAC0, phy 0
+
+Enet link up: 1G full
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+TFTP Get Selected
+
+Destination: a5f00000
+
+Destination: a5f00000
+Starting TFTP of openwrt-ps-irqfallback.bin from 192.168.77.2
+Getting openwrt-ps-irqfallback.bin using octet mode
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+....................................................................................................................................................................................................Received packet for invalid session...
+...............................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+................................................................................................................................................................................................................................................................Received packet for invalid session...
+....................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
+Tftp complete
+Received 5684200 bytes
+
+Image 3 Program Header:
+   Signature: a825
+     Control: 0000
+   Major Rev: 0100
+   Minor Rev: 04ff
+  Build Time: 2026/5/13 21:00:32 Z
+ File Length: 5684108 bytes
+Load Address: 82000000
+    Filename: openwrt-initramfs.bin
+         HCS: f445
+         CRC: 6972317e
+
+Bypassing CRC Verifiction on Image 4...
+CRC time = 322
+Loading non-compressed image 4...
+Target Address: 0x82000000
+Length: 5684108
+Reading flash map at ff30, size 192
+Successfully restored flash map from SPI flash!
+Copying partition table to 0x83fffc04 180
+Copying partition table to 0x80000904 180
+
+Executing Image 4...
+
+
+
+
+OpenWrt kernel loader for BMIPS
+Copyright (C) 2011 Gabor Juhos <juhosg@openwrt.org>
+Copyright (C) 2014 Jonas Gorski <jogo@openwrt.org>
+Copyright (C) 2020 Alvaro Fernandez Rojas <noltari@gmail.com>
+Decompressing kernel... done!
+blasting from 0x80010000 to 0x0126a4ab (0x80010000 - 0x8127a4b0)
+Starting kernel at 80010000...
+
+[    0.000000] Linux version 6.12.87 (mgta29@CerberusNB) (mips-openwrt-linux-musl-gcc (OpenWrt GCC 14.3.0 r34427-6865d489d2) 14.3.0, GNU ld (GNU Binutils) 2.44) #0 SMP Tue May 12 23:59:29 2026
+[    0.000000] CPU0 revision is: 0002a080 (Broadcom BMIPS4350)
+[    0.000000] MIPS: machine is Technicolor TC7200.U
+[    0.000000] earlycon: bcm63xx_uart0 at MMIO 0x14e00500 (options '')
+[    0.000000] printk: legacy bootconsole [bcm63xx_uart0] enabled
+[    0.000000] Kernel sections are not in the memory maps
+[    0.000000] Wasting 576 bytes for tracking 16 unused pages
+[    0.000000] Initrd not found or empty - disabling initrd
+[    0.000000] OF: reserved mem: Reserved memory: No reserved-memory node in the DT
+[    0.000000] Primary instruction cache 64kB, VIPT, 4-way, linesize 16 bytes.
+[    0.000000] Primary data cache 32kB, 2-way, VIPT, cache aliases, linesize 16 bytes
+[    0.000000] Zone ranges:
+[    0.000000]   Normal   [mem 0x0000000000010000-0x000000000fffffff]
+[    0.000000] Movable zone start for each node
+[    0.000000] Early memory node ranges
+[    0.000000]   node   0: [mem 0x0000000000010000-0x00000000013b7fff]
+[    0.000000]   node   0: [mem 0x0000000006000000-0x0000000007ffffff]
+[    0.000000]   node   0: [mem 0x000000000e000000-0x000000000fffffff]
+[    0.000000] Initmem setup node 0 [mem 0x0000000000010000-0x000000000fffffff]
+[    0.000000] On node 0, zone Normal: 16 pages in unavailable ranges
+[    0.000000] On node 0, zone Normal: 19528 pages in unavailable ranges
+[    0.000000] On node 0, zone Normal: 24576 pages in unavailable ranges
+[    0.000000] percpu: Embedded 12 pages/cpu s19664 r8192 d21296 u49152
+[    0.000000] Kernel command line: console=ttyS0,115200 earlycon
+[    0.000000] Dentry cache hash table entries: 8192 (order: 3, 32768 bytes, linear)
+[    0.000000] Inode-cache hash table entries: 4096 (order: 2, 16384 bytes, linear)
+[    0.000000] Built 1 zonelists, mobility grouping on.  Total pages: 21416
+[    0.000000] mem auto-init: stack:off, heap alloc:off, heap free:off
+[    0.000000] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=1, Nodes=1
+[    0.000000] rcu: Hierarchical RCU implementation.
+[    0.000000] rcu: 	RCU restricting CPUs from NR_CPUS=2 to nr_cpu_ids=1.
+[    0.000000] 	Tracing variant of Tasks RCU enabled.
+[    0.000000] rcu: RCU calculated value of scheduler-enlistment delay is 10 jiffies.
+[    0.000000] rcu: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=1
+[    0.000000] RCU Tasks Trace: Setting shift to 0 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=1.
+[    0.000000] NR_IRQS: 256
+[    0.000000] rcu: srcu_init: Setting srcu_struct sizes based on contention.
+[    0.000000] clocksource: MIPS: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 6370868154 ns
+[    0.000106] sched_clock: 32 bits at 300MHz, resolution 3ns, wraps every 7158278654ns
+[    0.019195] Calibrating delay loop... 4.42 BogoMIPS (lpj=22144)
+[    0.160682] pid_max: default: 32768 minimum: 301
+[    2.907659] Mount-cache hash table entries: 1024 (order: 0, 4096 bytes, linear)
+[    2.919370] Mountpoint-cache hash table entries: 1024 (order: 0, 4096 bytes, linear)
+[    5.041582] rcu: Hierarchical SRCU implementation.
+[    5.049192] rcu: 	Max phase no-delay instances is 1000.
+[    5.153724] smp: Bringing up secondary CPUs ...
+[    5.161037] smp: Brought up 1 node, 1 CPU
+[    5.188977] Memory: 62500K/85664K available (8375K kernel code, 658K rwdata, 1772K rodata, 9092K init, 226K bss, 22544K reserved, 0K cma-reserved)
+[    5.464008] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 19112604462750000 ns
+[    5.479511] futex hash table entries: 256 (order: 2, 16384 bytes, linear)
+[    7.270447] pinctrl core: initialized pinctrl subsystem
+[    7.991799] NET: Registered PF_NETLINK/PF_ROUTE protocol family
+[    9.964201] clocksource: Switched to clocksource MIPS
+[   12.819696] NET: Registered PF_INET protocol family
+[   12.860510] IP idents hash table entries: 2048 (order: 2, 16384 bytes, linear)
+[   13.010221] tcp_listen_portaddr_hash hash table entries: 512 (order: 0, 4096 bytes, linear)
+[   13.026706] Table-perturb hash table entries: 65536 (order: 6, 262144 bytes, linear)
+[   13.039605] TCP established hash table entries: 1024 (order: 0, 4096 bytes, linear)
+[   13.058523] TCP bind hash table entries: 1024 (order: 2, 16384 bytes, linear)
+[   13.076331] TCP: Hash tables configured (established 1024 bind 1024)
+[   13.167628] MPTCP token hash table entries: 256 (order: 0, 4096 bytes, linear)
+[   13.227995] UDP hash table entries: 256 (order: 1, 8192 bytes, linear)
+[   13.246581] UDP-Lite hash table entries: 256 (order: 1, 8192 bytes, linear)
+[   13.411096] NET: Registered PF_UNIX/PF_LOCAL protocol family
+[   13.429463] PCI: CLS 0 bytes, default 16
+[   17.496050] workingset: timestamp_bits=14 max_order=14 bucket_order=0
+[   18.237295] squashfs: version 4.0 (2009/01/31) Phillip Lougher
+[   18.247134] jffs2: version 2.2 (NAND) (SUMMARY) (LZMA) (RTIME) (CMODE_PRIORITY) (c) 2001-2006 Red Hat, Inc.
+[   21.358519] irq_bcm7120_l2: registered BCM3380 L2 intc (/ubus/periph_intc@14e00048, parent IRQ(s): 1)
+[   21.402153] irq_bcm7120_l2: registered BCM3380 L2 intc (/ubus/cmips_intc@151f8048, parent IRQ(s): 1)
+[   21.644603] 14e00500.serial: ttyS0 at MMIO 0x14e00500 (irq = 8, base_baud = 1687500) is a bcm63xx_uart
+[   21.660719] printk: legacy console [ttyS0] enabled
+[   21.660719] printk: legacy console [ttyS0] enabled
+[   21.676466] printk: legacy bootconsole [bcm63xx_uart0] disabled
+[   21.676466] printk: legacy bootconsole [bcm63xx_uart0] disabled
+[   23.406232] NET: Registered PF_INET6 protocol family
+[   24.750804] Segment Routing with IPv6
+[   24.771489] In-situ OAM (IOAM) with IPv6
+[   24.795400] NET: Registered PF_PACKET protocol family
+[   25.128391] 8021q: 802.1Q VLAN Support v1.8
+[   32.480737] clk: Disabling unused clocks
+[   32.488073] PM: genpd: Disabling unused power domains
+[   37.907748] Freeing unused kernel image (initmem) memory: 9092K
+[   37.917462] This architecture does not have kernel memory protection.
+[   37.927748] Run /init as init process
+[   71.534460] init: Console is alive
+[   72.836439] kmodloader: loading kernel modules from /etc/modules-boot.d/*
+[   73.085042] gpio_button_hotplug: loading out-of-tree module taints kernel.
+[   73.271600] kmodloader: done loading kernel modules from /etc/modules-boot.d/*
+[   73.410765] init: - preinit -
+
+[  100.778895] random: crng init done
+
+
+Press the [f] key and hit [enter] to enter failsafe mode
+Press the [1], [2], [3] or [4] key and hit [enter] to select the debug level
+
+[  149.869580] procd: - early -
+[  153.001322] procd: - ubus -
+[  155.486326] procd: - init -
+Please press Enter to activate this console.
+
+login[332]: root login on 'ttyS0'
+
+
+BusyBox v1.37.0 (2026-01-02 17:07:02 UTC) built-in shell (ash)
+
+  _______                     ________        __
+ |       |.-----.-----.-----.|  |  |  |.----.|  |_
+ |   -   ||  _  |  -__|     ||  |  |  ||   _||   _|
+ |_______||   __|_____|__|__||________||__|  |____|
+          |__| W I R E L E S S   F R E E D O M
+ -----------------------------------------------------
+ OpenWrt SNAPSHOT, r34427-6865d489d2
+ -----------------------------------------------------
+
+ === WARNING! =====================================
+ There is no root password defined on this device!
+ Use the "passwd" command to set up a new password
+ in order to prevent unauthorized SSH logins.
+ --------------------------------------------------
+
+root@(none):~# cat /proc/iomem
+00010000-013b88bf : System RAM
+  00010000-0083dc8f : Kernel code
+  0083dc90-00a9ea3f : Kernel data
+  01380000-013b88bf : Kernel bss
+06000000-07ffffff : System RAM
+0e000000-0fffffff : System RAM
+14e00500-14e00517 : 14e00500.serial serial@14e00520
+root@(none):~# cat /proc/interrupts
+           CPU0       
+  0:          0      MIPS   0  smp_ipi0
+  1:          0      MIPS   1  smp_ipi1
+  7:      21618      MIPS   7  timer
+  8:        220  periph_intc@14e00048   2  14e00500.serial
+ERR:          2
+root@(none):~# ls[  220.785510] ttyS ttyS0: 1 input overrun(s)
+ /devices
+ls: /devices: No such file or directory
+root@(none):~# ls /sys/bus/platform/devices
+[1;36m14e00048.periph_intc[m  [1;36m151f8048.cmips_intc[m   [1;36mubus[m
+[1;36m14e00500.serial[m       [1;36mFixed MDIO bus.0[m
+root@(none):~# [  233.817232] kmodloader: loading kernel modules from /etc/modules.d/*
+ip link
+1: lo: <LOOPBACK> mtu 65536 qdisc noop state DOWN qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+root@(none):~# [  244.275503] PPP generic driver version 2.4.2
+[  244.625479] NET: Registered PF_PPPOX protocol family
+[  245.669256] kmodloader: done loading kernel modules from /etc/modules.d/*
+[  250.144480] ttyS ttyS0: 1 input overrun(s)
+dmesmrial|eth|enet|mdio|phy|b53|dsa|switch|mtd|nand|spi|lzma|init
+|memory'
+> ^C
+
+root@(none):~# [  625.726204] urngd: v1.0.2 started.
+
+Terminating...
+Thanks for using picocom
+
+Script done on 2026-05-14 02:26:29+02:00 [COMMAND_EXIT_CODE="0"]

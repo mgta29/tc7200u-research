@@ -1,0 +1,8 @@
+Known-good 8M irqfallback baseline booted after restoring from HCS-failed MMIO image.
+Runtime result:
+- /proc/iomem only exposes System RAM and serial MMIO at 14e00500-14e00517.
+- /proc/interrupts only shows MIPS timer and serial IRQ through periph_intc@14e00048.
+- /sys/bus/platform/devices remains limited to interrupt controllers, serial, ubus, and Fixed MDIO bus.0.
+- ip link only shows lo.
+- dmesg has no tc7200u-mmio lines, as expected for restored non-MMIO baseline.
+Conclusion: known-good image is restored; MMIO logger image was not tested because CFE rejected it at HCS.
