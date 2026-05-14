@@ -1,0 +1,64 @@
+TC7200U image manifest
+date_utc=2026-05-14T22:09:44Z
+
+OpenWrt dir: /home/mgta29/src/openwrt
+Raw OpenWrt initramfs: /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin
+-rwxr-xr-x 1 mgta29 mgta29 5.5M 2026-05-15 00:09 /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin
+795aefe6bf4de81584e31bece94cf195702c73f0ae3f56e005852eff8648ae71  /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin
+5697865 /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin
+
+Uncompressed kernel object: /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/vmlinux
+-rwxr-xr-x 1 mgta29 mgta29 61M 2026-05-15 00:09 /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/vmlinux
+7fb2b302f253cdd420226bc84ea98abaa1302c870bf8dc54c49626fd9b221429  /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/vmlinux
+
+Wrapped CFE/TFTP image: /mnt/c/tftp/openwrt-ps-irqfallback.bin
+-rwxrwxrwx 1 mgta29 mgta29 5.5M 2026-05-15 00:09 /mnt/c/tftp/openwrt-ps-irqfallback.bin
+db7f1229b37cdc8d7df00950881fb5197dae77979d3458b9ebdf2ca5e5ecc0d4  /mnt/c/tftp/openwrt-ps-irqfallback.bin
+5697957 /mnt/c/tftp/openwrt-ps-irqfallback.bin
+
+TFTP server filename: openwrt-ps-irqfallback.bin
+Internal a825 header filename: openwrt-initramfs.bin
+CFE load address: 0x82000000
+Kernel runtime/decompress target observed: 0x80010000
+
+Header decode:
+signature=0xa825
+control=0x0000
+major=0x0100
+minor=0x04ff
+build_time=0x6a04e670
+payload_size=5697865
+load_addr=0x82000000
+name=openwrt-initramfs.bin
+hcs=0x77b0
+crc=0x00000000
+total_size=5697957
+size_ok=True
+
+Recipe lines:
+/home/mgta29/src/openwrt/target/linux/bmips/image/Makefile:9:LZMA_TEXT_START := 0x82000000		# RAM start + 32M
+/home/mgta29/src/openwrt/target/linux/bmips/image/Makefile:28:		LZMA_TEXT_START=$(LOADER_ENTRY)
+/home/mgta29/src/openwrt/target/linux/bmips/image/Makefile:32:define Build/loader-lzma
+/home/mgta29/src/openwrt/target/linux/bmips/image/Makefile:34:	$(MAKE) -C lzma-loader \
+/home/mgta29/src/openwrt/target/linux/bmips/image/Makefile:41:		LZMA_TEXT_START=$(LZMA_TEXT_START) \
+/home/mgta29/src/openwrt/target/linux/bmips/image/Makefile:49:define Build/lzma-cfe
+/home/mgta29/src/openwrt/target/linux/bmips/image/Makefile:51:	# Also I think lzma has a bug cause it generates different output depending on
+/home/mgta29/src/openwrt/target/linux/bmips/image/Makefile:54:	$(call Build/lzma-no-dict,-d22 -fb64 -a1)
+/home/mgta29/src/openwrt/target/linux/bmips/image/Makefile:101:	$(call Build/lzma)
+/home/mgta29/src/openwrt/target/linux/bmips/image/Makefile:102:	mv $@ $@.uboot.lzma
+/home/mgta29/src/openwrt/target/linux/bmips/image/Makefile:104:	$(STAGING_DIR_HOST)/bin/imagetag -i $@.uboot.lzma -f $@.dummyfs \
+/home/mgta29/src/openwrt/target/linux/bmips/image/Makefile:109:	rm $@.uboot.lzma
+/home/mgta29/src/openwrt/target/linux/bmips/image/Makefile:282:  KERNEL := kernel-bin | append-dtb | relocate-kernel | lzma
+/home/mgta29/src/openwrt/target/linux/bmips/image/Makefile:283:  KERNEL_INITRAMFS := kernel-bin | append-dtb | lzma | loader-lzma elf
+/home/mgta29/src/openwrt/target/linux/bmips/image/Makefile:284:  KERNEL_INITRAMFS_SUFFIX := .elf
+/home/mgta29/src/openwrt/target/linux/bmips/image/Makefile:300:  KERNEL := kernel-bin | append-dtb | relocate-kernel | lzma-cfe
+/home/mgta29/src/openwrt/target/linux/bmips/image/Makefile:306:# load big kernels even with the lzma loader tricks.
+/home/mgta29/src/openwrt/target/linux/bmips/image/Makefile:309:  KERNEL := kernel-bin | append-dtb | lzma | uImage lzma
+/home/mgta29/src/openwrt/target/linux/bmips/image/Makefile:326:  KERNEL := kernel-bin | append-dtb | relocate-kernel | lzma | cfe-jffs2-kernel
+/home/mgta29/src/openwrt/target/linux/bmips/image/Makefile:327:  KERNEL_INITRAMFS := kernel-bin | append-dtb | lzma | loader-lzma elf
+/home/mgta29/src/openwrt/target/linux/bmips/image/Makefile:328:  KERNEL_INITRAMFS_SUFFIX := .elf
+/home/mgta29/src/openwrt/target/linux/bmips/image/bcm63268.mk:87:  KERNEL := kernel-bin | append-dtb | lzma | cfe-jffs2-kernel
+/home/mgta29/src/openwrt/target/linux/bmips/image/bcm63268.mk:108:  KERNEL := kernel-bin | append-dtb | lzma | cfe-jffs2-kernel
+/home/mgta29/src/openwrt/target/linux/bmips/image/bcm63268.mk:128:  KERNEL := kernel-bin | append-dtb | lzma | cfe-jffs2-kernel
+/home/mgta29/src/openwrt/target/linux/bmips/image/bcm63268.mk:166:  KERNEL_INITRAMFS := kernel-bin | append-dtb | lzma | loader-lzma bin
+/home/mgta29/src/openwrt/target/linux/bmips/image/bcm63268.mk:167:  KERNEL_INITRAMFS_SUFFIX := .bin
