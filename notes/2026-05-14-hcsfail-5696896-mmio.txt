@@ -1,0 +1,3 @@
+HCS failed before kernel start.
+Received 5696896 bytes.
+This does not test kernel MMIO logger because CFE rejected image header.
