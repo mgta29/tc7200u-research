@@ -3,13 +3,15 @@ set -euo pipefail
 
 OWRT="${OWRT:-$HOME/src/openwrt}"
 RESEARCH="${RESEARCH:-$HOME/tc7200u-research}"
-export RESEARCH_NOTES_DIR="${RESEARCH_NOTES_DIR:-$RESEARCH/research/notes/generated}"
+RESEARCH_NOTES_DIR="${RESEARCH_NOTES_DIR:-$RESEARCH/research/notes/generated}"
 RAW="$OWRT/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin"
 WRAPPED="/mnt/c/tftp/openwrt-ps-irqfallback.bin"
+A825WRAP="$RESEARCH/scripts/tc7200u-a825-wrap.py"
 JOBS="${JOBS:-$(nproc 2>/dev/null || echo 1)}"
 TS="$(date +%Y-%m-%d-%H%M%S)"
 
 mkdir -p "$RESEARCH_NOTES_DIR"
+mkdir -p "$(dirname "$WRAPPED")"
 
 latest_vmlinux() {
 	find "$OWRT/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268" -path '*/linux-*/vmlinux' -type f -printf '%T@ %p\n' 2>/dev/null | sort -n | tail -1 | cut -d' ' -f2-
@@ -26,6 +28,11 @@ run_logged() {
 	fi
 }
 
+if [ ! -x "$A825WRAP" ]; then
+	echo "FAIL: missing executable wrapper: $A825WRAP" >&2
+	exit 1
+fi
+
 VMLINUX="$(latest_vmlinux || true)"
 
 need_build=0
@@ -41,35 +48,77 @@ if [ "$need_build" = "1" ]; then
 	run_logged "$RESEARCH_NOTES_DIR/${TS}-make-install.log" make -j"$JOBS" target/linux/install V=s
 fi
 
-cd "$RESEARCH"
+if [ ! -f "$RAW" ]; then
+	echo "FAIL: raw initramfs missing after build: $RAW" >&2
+	exit 1
+fi
 
 wrap_log="$RESEARCH_NOTES_DIR/${TS}-wrap.log"
-if ! scripts/tc7200u-wrap-current-openwrt.sh >"$wrap_log" 2>&1; then
-	echo "FAIL: wrap failed: $wrap_log" >&2
-	tail -80 "$wrap_log" >&2 || true
-	exit 1
-fi
-
-if ! grep -q '^size_ok=True$' "$wrap_log"; then
-	echo "FAIL: size_ok=True not found in wrap manifest output: $wrap_log" >&2
-	tail -80 "$wrap_log" >&2 || true
-	exit 1
-fi
-
-echo "CHECK OK: size_ok=True"
+run_logged "$wrap_log" "$A825WRAP" --input "$RAW" --output "$WRAPPED"
+sync
 
 verify_log="$RESEARCH_NOTES_DIR/${TS}-verify.log"
-if ! scripts/tc7200u-verify-a825-image.py --raw "$RAW" --wrapped "$WRAPPED" >"$verify_log" 2>&1; then
+if ! python3 - "$RAW" "$WRAPPED" >"$verify_log" 2>&1 <<'PY'
+import hashlib
+import struct
+import sys
+from pathlib import Path
+
+HEADER_SIZE = 92
+raw = Path(sys.argv[1])
+wrapped = Path(sys.argv[2])
+
+raw_bytes = raw.read_bytes()
+wrapped_bytes = wrapped.read_bytes()
+
+if len(wrapped_bytes) < HEADER_SIZE:
+    raise SystemExit("FAIL: wrapped image is smaller than 92-byte a825 header")
+
+hdr = wrapped_bytes[:HEADER_SIZE]
+payload = wrapped_bytes[HEADER_SIZE:]
+
+sig, control, major, minor = struct.unpack(">HHHH", hdr[0:8])
+build_time, file_len, load_addr = struct.unpack(">III", hdr[8:20])
+filename = hdr[20:84].split(b"\x00", 1)[0]
+hcs = struct.unpack(">H", hdr[84:86])[0]
+crc = struct.unpack(">I", hdr[88:92])[0]
+
+failures = []
+
+if sig != 0xA825:
+    failures.append(f"signature is 0x{sig:04x}, expected 0xa825")
+if file_len != len(raw_bytes):
+    failures.append(f"header file length is {file_len}, raw size is {len(raw_bytes)}")
+if len(wrapped_bytes) != len(raw_bytes) + HEADER_SIZE:
+    failures.append(f"wrapped size is {len(wrapped_bytes)}, expected {len(raw_bytes) + HEADER_SIZE}")
+if load_addr != 0x82000000:
+    failures.append(f"load address is 0x{load_addr:08x}, expected 0x82000000")
+if filename != b"openwrt-initramfs.bin":
+    failures.append(f"filename is {filename!r}, expected b'openwrt-initramfs.bin'")
+if payload != raw_bytes:
+    failures.append("payload after 92-byte header does not exactly match raw image")
+
+print(f"signature=0x{sig:04x}")
+print(f"payload_size={file_len}")
+print(f"total_size={len(wrapped_bytes)}")
+print(f"size_ok={len(wrapped_bytes) == file_len + HEADER_SIZE}")
+print(f"raw_sha256={hashlib.sha256(raw_bytes).hexdigest()}")
+print(f"wrapped_sha256={hashlib.sha256(wrapped_bytes).hexdigest()}")
+
+if failures:
+    for failure in failures:
+        print(f"FAIL: {failure}")
+    raise SystemExit(1)
+
+print("OK: wrapped a825 image matches raw payload and expected header fields")
+PY
+then
 	echo "FAIL: verify failed: $verify_log" >&2
 	cat "$verify_log" >&2
 	exit 1
 fi
 
-if ! grep -q '^OK: wrapped a825 image matches raw payload and expected header fields$' "$verify_log"; then
-	echo "FAIL: verifier success line missing: $verify_log" >&2
-	cat "$verify_log" >&2
-	exit 1
-fi
-
+grep -q '^size_ok=True$' "$verify_log"
+echo "CHECK OK: size_ok=True"
 grep -m1 '^OK: wrapped a825 image matches raw payload and expected header fields$' "$verify_log"
 echo "AUTO: ready for cfe-tftp. Only TFTP /mnt/c/tftp/openwrt-ps-irqfallback.bin."
