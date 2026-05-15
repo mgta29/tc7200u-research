@@ -22,3 +22,5 @@ At CFE menu, press: g
 [TIMER] root@(none):~# at +578.673s
 
 [TIMER] Kernel panic at +653.173s
+
+Stopped.
