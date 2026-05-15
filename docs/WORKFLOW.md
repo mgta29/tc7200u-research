@@ -6,6 +6,10 @@
 build OpenWrt -> wrap initramfs -> verify size_ok=True -> TFTP fixed filename
 ```
 
+## Test result rule
+
+Every boot test, DTS/kernel test, package test, TFTP result, serial-log finding, and hardware-discovery result must be committed and pushed to git after capture. Do not leave test results only in chat, terminal scrollback, or untracked local files.
+
 ## Main helper commands
 
 ```sh
