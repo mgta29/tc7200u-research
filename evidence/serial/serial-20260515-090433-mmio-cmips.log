@@ -1,0 +1,30 @@
+Script started on 2026-05-15 09:04:33+02:00 [COMMAND="sudo picocom -b 115200 -f n /dev/ttyUSB0" TERM="xterm-256color" TTY="/dev/pts/5" COLUMNS="120" LINES="26"]
+[sudo] password for mgta29: 
+picocom v3.1
+
+port is        : /dev/ttyUSB0
+flowcontrol    : none
+baudrate is    : 115200
+parity is      : none
+databits are   : 8
+stopbits are   : 1
+escape is      : C-a
+local echo is  : no
+noinit is      : no
+noreset is     : no
+hangup is      : no
+nolock is      : no
+send_cmd is    : sz -vv
+receive_cmd is : rz -vv -E
+imap is        : 
+omap is        : 
+emap is        : crcrlf,delbs,
+logfile is     : none
+initstring     : none
+exit_after is  : not set
+exit is        : no
+
+
+FATAL: cannot lock /dev/ttyUSB0: Resource temporarily unavailable
+
+Script done on 2026-05-15 09:04:41+02:00 [COMMAND_EXIT_CODE="1"]

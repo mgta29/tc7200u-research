@@ -30,7 +30,7 @@ Do not work on:
 
 1. Read [Safety](SAFETY.md).
 2. Confirm the active TFTP file is still `/mnt/c/tftp/openwrt-ps-irqfallback.bin`.
-3. Preserve `artifacts/rescue/openwrt-ps-irqfallback-GOOD-5696426.bin`.
+3. Preserve all images under `artifacts/rescue/`.
 4. Build OpenWrt first.
 5. Wrap with `scripts/tc7200u-wrap-current-openwrt.sh`.
 6. TFTP only if the manifest reports `size_ok=True`.

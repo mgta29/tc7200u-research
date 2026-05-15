@@ -31,6 +31,7 @@
 - `artifacts/invalid/`: failed or unsafe comparison images.
 - `evidence/serial/`: serial boot logs.
 - `evidence/cfe/`: CFE, recovery, and HCS logs.
+- `evidence/network-scans/`: LAN, modem, and CFE/TFTP network scans.
 - `evidence/snapshots/`: DTS/config/source snapshots.
 - `research/notes/`: raw notes by topic.
 - `patches/`: current, archived, and disabled OpenWrt patch copies.

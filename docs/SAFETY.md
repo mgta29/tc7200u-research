@@ -10,7 +10,20 @@
 
 ## Known-good rescue image
 
-Path:
+Current known-good RAM boot image:
+
+```text
+artifacts/rescue/openwrt-tc7200u-known-good-ramboot-20260515-125821.bin
+```
+
+Facts:
+
+- Size: `5097194` bytes.
+- SHA256:
+  `14b05d771147ab37c388894cd5a66fc2bed230176068902d4444ce29ef1fb8ae`.
+- Result: OpenWrt booted to userspace.
+
+Original A825 rescue baseline:
 
 ```text
 artifacts/rescue/openwrt-ps-irqfallback-GOOD-5696426.bin

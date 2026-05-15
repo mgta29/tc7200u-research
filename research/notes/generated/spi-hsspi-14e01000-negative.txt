@@ -1,0 +1,13 @@
+TC7200.U SPI test result:
+
+DTS node:
+- bcm6328-hsspi at 0x14e01000
+- flash@0 compatible jedec,spi-nor
+
+Boot result:
+- Kernel reached Linux.
+- bcm63xx-hsspi driver loaded.
+- spi-nor returned invalid JEDEC bytes:
+  e1 10 0a 61 10 0a
+- System later crashed with unaligned kernel access during unpack_to_rootfs.
+- Conclusion: this SPI-NOR node/config is unsafe. Do not flash. RAM-boot test only.

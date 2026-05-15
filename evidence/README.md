@@ -5,22 +5,18 @@ form.
 
 ## Layout
 
-- `serial/`: serial boot logs and runtime collection logs.
+- `serial/`: serial boot logs, picocom captures, and runtime collection logs.
 - `cfe/`: CFE filename, HCS failure, and recovery notes.
+- `network-scans/`: LAN, modem, and CFE/TFTP network scan evidence.
 - `snapshots/`: DTS, config, and OpenWrt source snapshots.
 - `backups/`: backups made before OpenWrt image makefile edits.
 
-## Old path map
+## Current snapshot highlights
 
-| Old path | New path |
-|---|---|
-| `logs/serial-*` | `evidence/serial/` |
-| `logs/2026-05-14-cfe-forced-filename.txt` | `evidence/cfe/` |
-| `logs/2026-05-14-hcsfail-5697264.txt` | `evidence/cfe/` |
-| `logs/2026-05-14-image-recovery.txt` | `evidence/cfe/` |
-| `snapshots/` | `evidence/snapshots/` |
-| `artifacts/current-openwrt/` | `evidence/snapshots/current-openwrt/` |
-| `backup/openwrt-image-mk-backups/` | `evidence/backups/openwrt-image-mk-backups/` |
+- `evidence/snapshots/current-openwrt/bcm3383-technicolor-tc7200u-known-good-20260515-125821.dts`
+- `evidence/snapshots/current-openwrt/bcm3383-technicolor-tc7200u.dts`
+- `evidence/snapshots/current-openwrt/bcm3384_viper.dtsi`
+- `evidence/snapshots/current-openwrt/kernel-config-6.12.87.txt`
 
 Keep new serial and CFE logs here unless a helper script writes a generated
 summary to `research/notes/generated/`.

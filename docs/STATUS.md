@@ -11,7 +11,13 @@ system.
 ## Working
 
 - RAM/TFTP boot works with the known-good rescue image:
+  - `artifacts/rescue/openwrt-tc7200u-known-good-ramboot-20260515-125821.bin`
+  - Size: `5097194` bytes
+  - SHA256:
+    `14b05d771147ab37c388894cd5a66fc2bed230176068902d4444ce29ef1fb8ae`
+- The original A825 rescue baseline is preserved:
   - `artifacts/rescue/openwrt-ps-irqfallback-GOOD-5696426.bin`
+  - Size: `5696426` bytes
   - SHA256:
     `2ae4afb92e4df065e88d61bcbac9f693c6a853e1ff349e09d3c8e5cfae4ac513`
 - OpenWrt reaches a shell over serial on `ttyS0`.
@@ -71,8 +77,8 @@ then add BCM53125/B53 switch wiring after the diagnostic result is understood.
 
 ## Recommended next work
 
-1. Keep `artifacts/rescue/openwrt-ps-irqfallback-GOOD-5696426.bin` frozen as the
-   rescue baseline.
+1. Keep the known-good images under `artifacts/rescue/` frozen as rescue
+   baselines.
 2. Do not overwrite the rescue image in `/mnt/c/tftp`.
 3. Keep generated wrap manifests and state captures under
    `research/notes/generated/`.

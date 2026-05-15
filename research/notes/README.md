@@ -12,21 +12,12 @@ topic folder. Generated helper output should go to `generated/`.
 - `builds/`: OpenWrt compile/install/build logs.
 - `plans/`: active or historical research plans.
 - `source-research/`: notes from public firmware/source repositories.
-- `generated/`: wrapper manifests, state captures, and generated hashes.
-
-## Old path map
-
-| Old path | New path |
-|---|---|
-| `notes/*.txt` and `notes/*.md` | `research/notes/<topic>/` |
-| `notes/plans/` | `research/notes/plans/` |
-| `notes/research/` | `research/notes/source-research/` |
-| `notes/runtime/` | `research/notes/runtime-probes/` |
-| `notes/*wrap-manifest.txt` | `research/notes/generated/` |
-| `notes/*current-state.txt` | `research/notes/generated/` |
+- `generated/`: wrapper manifests, state captures, generated hashes, and
+  one-off measurement output.
 
 ## Current high-signal notes
 
+- `source-research/2026-05-15-tc7200-similar-firmware.md`
 - `source-research/2026-05-15-linux-technicolor-genet-finding.md`
 - `runtime-probes/2026-05-15-genet-internal-phy-link-down.md`
 - `runtime-probes/2026-05-15-bcmgenet-12c00000-negative-result.md`

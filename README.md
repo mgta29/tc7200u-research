@@ -18,9 +18,11 @@ Start here:
 Hard safety facts:
 
 - Active TFTP filename remains `/mnt/c/tftp/openwrt-ps-irqfallback.bin`.
-- Known-good rescue image is
+- Current known-good RAM boot image is
+  `artifacts/rescue/openwrt-tc7200u-known-good-ramboot-20260515-125821.bin`.
+- Original A825 rescue image is
   `artifacts/rescue/openwrt-ps-irqfallback-GOOD-5696426.bin`.
-- Known-good SHA256 is
+- Original A825 rescue SHA256 is
   `2ae4afb92e4df065e88d61bcbac9f693c6a853e1ff349e09d3c8e5cfae4ac513`.
 - Only TFTP after the wrapper manifest says `size_ok=True`.
 - RAM boot only. Do not flash.
