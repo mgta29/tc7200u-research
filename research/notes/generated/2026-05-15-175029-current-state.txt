@@ -1,0 +1,105 @@
+# TC7200U current state
+
+2026-05-15T17:50:29+02:00
+
+## Important files
+ls: cannot access '/home/mgta29/src/openwrt/target/linux/bmips/patches-6.12/910-tc7200u-mmio-boot-log.patch': No such file or directory
+-rwxr-xr-x 1 mgta29 mgta29 4.9M 2026-05-15 17:37 /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin
+-rw-r--r-- 1 mgta29 mgta29  14K 2026-05-15 15:52 /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/arch/mips/bmips/setup.c
+-rwxr-xr-x 1 mgta29 mgta29  59M 2026-05-15 17:36 /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/vmlinux
+-rw-r--r-- 1 mgta29 mgta29 2.1K 2026-05-15 17:35 /home/mgta29/src/openwrt/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+-rw-r--r-- 1 mgta29 mgta29 2.2K 2026-05-15 13:35 /home/mgta29/src/openwrt/target/linux/bmips/dts/bcm3384_viper.dtsi
+-rwxrwxrwx 1 mgta29 mgta29 4.9M 2026-05-15 17:37 /mnt/c/tftp/openwrt-ps-irqfallback.bin
+
+## SHA256
+6c14be6d5f14c4dbbf325cd09e52065096c97831deb77deb03a6a3a7e289529b  /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin
+398fafa663dd9bad0938c5cc2b6dde6339428eb3c66c351318caa6d2c28483b5  /mnt/c/tftp/openwrt-ps-irqfallback.bin
+f20b1f0d2809ad5c0057e81b0022acff54fbdf16062addde6be4c564d1a4385e  /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/vmlinux
+366d150c7a4a268289f28b88f1918b401deebc36b6f9acd55d6ed72c72a6074a  /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/arch/mips/bmips/setup.c
+sha256sum: /home/mgta29/src/openwrt/target/linux/bmips/patches-6.12/910-tc7200u-mmio-boot-log.patch: No such file or directory
+8ce57091c3207408759cee6dd512c8ce1cec8855f0f0ca30a1e102697ec9d0a9  /home/mgta29/src/openwrt/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+9c569004b5eaa6cc515fee8fc486164cfbdef76bb87f382c386e2b87f3ad9696  /home/mgta29/src/openwrt/target/linux/bmips/dts/bcm3384_viper.dtsi
+
+## A825 verification
+/home/mgta29/tc7200u-research/scripts/tc7200u-capture-current-state.sh: 32: /home/mgta29/tc7200u-research/scripts/tc7200u-verify-a825-image.py: not found
+
+## MMIO strings in object/vmlinux/raw
+
+
+
+## Current MMIO probe list in build source
+
+## Current MMIO probe list in persistent patch
+grep: /home/mgta29/src/openwrt/target/linux/bmips/patches-6.12/910-tc7200u-mmio-boot-log.patch: No such file or directory
+
+## Network-related config
+/home/mgta29/src/openwrt/target/linux/bmips/config-6.12:2:CONFIG_BGMAC=y
+/home/mgta29/src/openwrt/target/linux/bmips/config-6.12:3:CONFIG_BGMAC_PLATFORM=y
+/home/mgta29/src/openwrt/target/linux/bmips/bcm63268/config-6.12:7:CONFIG_B53=y
+/home/mgta29/src/openwrt/target/linux/bmips/bcm63268/config-6.12:8:CONFIG_B53_MDIO_DRIVER=y
+/home/mgta29/src/openwrt/target/linux/bmips/bcm63268/config-6.12:9:CONFIG_B53_MMAP_DRIVER=y
+/home/mgta29/src/openwrt/target/linux/bmips/bcm63268/config-6.12:10:# CONFIG_B53_QUIRK_IMP_RGMII_IMPLIES_DELAYS is not set
+/home/mgta29/src/openwrt/target/linux/bmips/bcm63268/config-6.12:11:CONFIG_B53_SPI_DRIVER=y
+/home/mgta29/src/openwrt/target/linux/bmips/bcm63268/config-6.12:184:CONFIG_NET_DSA=y
+/home/mgta29/src/openwrt/target/linux/bmips/bcm63268/config-6.12:185:CONFIG_NET_DSA_TAG_BRCM=y
+/home/mgta29/src/openwrt/target/linux/bmips/bcm63268/config-6.12:186:CONFIG_NET_DSA_TAG_BRCM_COMMON=y
+/home/mgta29/src/openwrt/target/linux/bmips/bcm63268/config-6.12:187:CONFIG_NET_DSA_TAG_BRCM_LEGACY=y
+/home/mgta29/src/openwrt/target/linux/bmips/bcm63268/config-6.12:188:CONFIG_NET_DSA_TAG_BRCM_LEGACY_FCS=y
+/home/mgta29/src/openwrt/target/linux/bmips/bcm63268/config-6.12:189:CONFIG_NET_DSA_TAG_BRCM_PREPEND=y
+/home/mgta29/src/openwrt/target/linux/bmips/bcm63268/config-6.12:190:CONFIG_NET_DSA_TAG_NONE=y
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:770:CONFIG_NET_DSA=y
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:771:CONFIG_NET_DSA_TAG_NONE=y
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:772:# CONFIG_NET_DSA_TAG_AR9331 is not set
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:773:CONFIG_NET_DSA_TAG_BRCM_COMMON=y
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:774:CONFIG_NET_DSA_TAG_BRCM=y
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:775:CONFIG_NET_DSA_TAG_BRCM_LEGACY=y
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:776:CONFIG_NET_DSA_TAG_BRCM_LEGACY_FCS=y
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:777:CONFIG_NET_DSA_TAG_BRCM_PREPEND=y
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:778:# CONFIG_NET_DSA_TAG_HELLCREEK is not set
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:779:# CONFIG_NET_DSA_TAG_GSWIP is not set
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:780:# CONFIG_NET_DSA_TAG_DSA is not set
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:781:# CONFIG_NET_DSA_TAG_EDSA is not set
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:782:# CONFIG_NET_DSA_TAG_MTK is not set
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:783:# CONFIG_NET_DSA_TAG_MXL_862XX is not set
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:784:# CONFIG_NET_DSA_TAG_MXL_862XX_8021Q is not set
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:785:# CONFIG_NET_DSA_TAG_KSZ is not set
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:786:# CONFIG_NET_DSA_TAG_OCELOT is not set
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:787:# CONFIG_NET_DSA_TAG_OCELOT_8021Q is not set
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:788:# CONFIG_NET_DSA_TAG_QCA is not set
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:789:# CONFIG_NET_DSA_TAG_RTL4_A is not set
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:790:# CONFIG_NET_DSA_TAG_RTL8_4 is not set
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:791:# CONFIG_NET_DSA_TAG_RZN1_A5PSW is not set
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:792:# CONFIG_NET_DSA_TAG_LAN9303 is not set
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:793:# CONFIG_NET_DSA_TAG_SJA1105 is not set
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:794:# CONFIG_NET_DSA_TAG_TRAILER is not set
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:795:# CONFIG_NET_DSA_TAG_VSC73XX_8021Q is not set
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:796:# CONFIG_NET_DSA_TAG_XRS700X is not set
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:1400:CONFIG_B53=y
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:1401:CONFIG_B53_SPI_DRIVER=y
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:1402:CONFIG_B53_MDIO_DRIVER=y
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:1403:CONFIG_B53_MMAP_DRIVER=y
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:1404:# CONFIG_B53_SRAB_DRIVER is not set
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:1405:# CONFIG_B53_SERDES is not set
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:1406:# CONFIG_B53_QUIRK_IMP_RGMII_IMPLIES_DELAYS is not set
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:1407:# CONFIG_NET_DSA_BCM_SF2 is not set
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:1408:# CONFIG_NET_DSA_LOOP is not set
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:1409:# CONFIG_NET_DSA_LANTIQ_GSWIP is not set
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:1410:# CONFIG_NET_DSA_MT7530 is not set
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:1411:# CONFIG_NET_DSA_MV88E6060 is not set
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:1412:# CONFIG_NET_DSA_MICROCHIP_KSZ_COMMON is not set
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:1413:# CONFIG_NET_DSA_MV88E6XXX is not set
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:1414:# CONFIG_NET_DSA_MXL862 is not set
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:1415:# CONFIG_NET_DSA_MSCC_OCELOT_EXT is not set
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:1416:# CONFIG_NET_DSA_MSCC_SEVILLE is not set
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:1417:# CONFIG_NET_DSA_AR9331 is not set
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:1418:# CONFIG_NET_DSA_QCA8K is not set
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:1419:# CONFIG_NET_DSA_SJA1105 is not set
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:1420:# CONFIG_NET_DSA_XRS700X_MDIO is not set
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:1421:# CONFIG_NET_DSA_REALTEK is not set
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:1422:# CONFIG_NET_DSA_KS8995 is not set
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:1423:# CONFIG_NET_DSA_SMSC_LAN9303_MDIO is not set
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:1424:# CONFIG_NET_DSA_VITESSE_VSC73XX_SPI is not set
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:1425:# CONFIG_NET_DSA_VITESSE_VSC73XX_PLATFORM is not set
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:1464:CONFIG_BGMAC=y
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:1465:CONFIG_BGMAC_PLATFORM=y
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:1710:CONFIG_MDIO_BCM_UNIMAC=y

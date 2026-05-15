@@ -1,0 +1,7 @@
+signature=0xa825
+payload_size=5097343
+total_size=5097435
+size_ok=True
+raw_sha256=6c14be6d5f14c4dbbf325cd09e52065096c97831deb77deb03a6a3a7e289529b
+wrapped_sha256=398fafa663dd9bad0938c5cc2b6dde6339428eb3c66c351318caa6d2c28483b5
+OK: wrapped a825 image matches raw payload and expected header fields
