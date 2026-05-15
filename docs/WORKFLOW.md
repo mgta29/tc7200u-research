@@ -17,18 +17,18 @@ cd ~/tc7200u-research
 scripts/tc7200u paths
 scripts/tc7200u status
 scripts/tc7200u wrap
-scripts/tc7200u check
-scripts/tc7200u verify
 scripts/tc7200u state
-scripts/tc7200u rules
 ```
 
-`wrap`, `check`, and `verify` all use the current safe build/wrap/verify flow.
-They write the active CFE/TFTP image to:
+`wrap` is the normal safe build/wrap/verify flow. It writes the active CFE/TFTP
+image to:
 
 ```text
 /mnt/c/tftp/openwrt-ps-irqfallback.bin
 ```
+
+`check`, `verify`, and `build` are kept as compatibility subcommands, but they
+currently run the same safe flow as `wrap`. Normal usage should call `tcwrap`.
 
 Generated manifests and state captures go to:
 
@@ -49,11 +49,8 @@ Interactive WSL sessions should use these aliases:
 ```sh
 alias tc='~/tc7200u-research/scripts/tc7200u'
 alias tcwrap='~/tc7200u-research/scripts/tc7200u wrap'
-alias tccheck='~/tc7200u-research/scripts/tc7200u check'
-alias tcverify='~/tc7200u-research/scripts/tc7200u verify'
 alias tcstate='~/tc7200u-research/scripts/tc7200u state'
 alias tcstatus='~/tc7200u-research/scripts/tc7200u status'
-alias tcrules='~/tc7200u-research/scripts/tc7200u rules'
 alias tcresearch='cd ~/tc7200u-research'
 alias tcopenwrt='cd ~/src/openwrt'
 alias cfe-tftp='/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -NoProfile -ExecutionPolicy Bypass -File C:\\tftp\\start-cfe-tftp-77.ps1'
@@ -66,11 +63,8 @@ Common resume commands:
 tcresearch
 tcstatus
 tcwrap
-tccheck
-tcverify
-tcstate
-tcrules
 cfe-tftp
+tcstate
 ```
 
 ## Manual build and wrap
@@ -78,6 +72,7 @@ cfe-tftp
 ```sh
 tcresearch
 tcwrap
+cfe-tftp
 tcstate
 ```
 

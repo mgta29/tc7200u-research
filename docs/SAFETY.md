@@ -43,8 +43,14 @@ Facts:
 1. Build OpenWrt first.
 2. Run `tcwrap` or `scripts/tc7200u wrap`.
 3. Confirm the generated manifest says `size_ok=True`.
-4. Serve only `/mnt/c/tftp/openwrt-ps-irqfallback.bin`.
+4. Start the one-shot TFTP server with `cfe-tftp`.
 5. Let CFE request `openwrt-ps-irqfallback.bin`; do not rename it inside CFE.
+
+The server must serve only:
+
+```text
+/mnt/c/tftp/openwrt-ps-irqfallback.bin
+```
 
 Generated wrap manifests now go to:
 

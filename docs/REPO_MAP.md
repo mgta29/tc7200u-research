@@ -25,10 +25,13 @@
 
 - `tcresearch`: enter the research repo.
 - `tcstatus`: show git and helper status.
-- `tcwrap`, `tccheck`, `tcverify`: run the safe build/wrap/verify flow.
-- `tcstate`: capture current build/image state.
-- `tcrules`: print RAM-boot safety rules.
+- `tcwrap`: run the safe build/wrap/verify flow.
 - `cfe-tftp`: start the one-shot CFE TFTP server.
+- `tcstate`: capture current build/image state.
+
+`tc check`, `tc verify`, and `tc build` remain compatibility subcommands, but
+they currently run the same safe flow as `tc wrap`. Use `tc rules` directly if
+the RAM-boot rules need to be printed.
 
 ## Organized evidence
 

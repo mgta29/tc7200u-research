@@ -13,7 +13,8 @@ shift || true
 case "$cmd" in
   help|-h|--help)
     echo "TC7200.U helper"
-    echo "Commands: help paths status wrap build check verify state rules"
+    echo "Commands: help paths status wrap state rules"
+    echo "Compatibility: build, check, and verify currently run the same safe flow as wrap"
     ;;
   paths)
     echo "RESEARCH=$RESEARCH"
