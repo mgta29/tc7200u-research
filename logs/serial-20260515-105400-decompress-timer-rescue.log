@@ -231,4 +231,45 @@ BusyBox v1.37.0 (2026-01-02 17:07:02 UTC) built-in shell (ash)
  in order to prevent unauthorized SSH logins.
  --------------------------------------------------
 
-root@(none):~# 
+root@(none):~# [  231.256664] kmodloader: loading kernel modules from /etc/modules.d/*
+[  246.706916] Instruction bus error, epc == 8e03f0f0, ra == 80010244
+[  246.716153] Oops[#1]:
+[  246.720464] CPU: 0 UID: 0 PID: 453 Comm: kmodloader Tainted: G           O       6.12.87 #0
+[  246.733123] Tainted: [O]=OOT_MODULE
+[  246.738501] Hardware name: Technicolor TC7200.U
+[  246.745164] $ 0   : 00000000 10009300 00000000 842bfcfd
+[  246.756700] $ 4   : 80900000 8e03f000 00000010 8624bcf0
+[  246.768332] $ 8   : 00000001 00000000 000001ce 86248f00
+[  246.779814] $12   : 00000001 00000000 00000210 0000004d
+[  246.791247] $16   : 8e03f0f0 86c18c00 80a20000 00000000
+[  246.802876] $20   : 81390000 77dcbbac 0003e93c 00010000
+[  246.814526] $24   : 00000000 000022cf                  
+[  246.825860] $28   : 86ada000 86adbe00 00010001 80010244
+[  246.837537] Hi    : 0000d6b6
+[  246.842260] Lo    : 00006b5b
+[  246.846997] epc   : 8e03f0f0 init_module+0x0/0x134 [nf_tables]
+[  246.859070] ra    : 80010244 do_one_initcall+0x50/0x2d4
+[  246.867528] Status: 10009303	KERNEL EXL IE 
+[  246.876378] Cause : 00800018 (ExcCode 06)
+[  246.882616] PrId  : 0002a080 (Broadcom BMIPS4350)
+[  246.889597] Modules linked in: nf_tables(+) nf_nat nf_flow_table nf_conntrack slhc nfnetlink nf_reject_ipv6 nf_reject_ipv4 nf_log_syslog nf_defrag_ipv6 nf_defrag_ipv4 libcrc32c crc_ccitt gpio_button_hotplug(O) crc32c_generic
+[  246.927577] Process kmodloader (pid: 453, threadinfo=01f7852f, task=ce477e76, tls=77ed9dfc)
+[  246.939940] Stack : 86adbe50 86e6c100 86248ec0 8007e1f8 00000000 00000000 86dfc000 00000032
+[  246.958741]         86dfe567 01000000 00000000 00000000 00000000 00000000 6b65726e 656c0000
+[  246.977430]         00000000 00000000 00000000 86c18c00 00000000 86b1a3c0 00000000 842bfcfd
+[  246.996053]         86b1a3c0 86c18c00 0003e93c 00000000 c028093c 800c29b0 0000e93c 00000000
+[  247.014844]         0003e93c 00000000 c028093c 77dcbbac 0000e93c 00000000 0003e93c 800c4d24
+[  247.033611]         ...
+[  247.038988] Call Trace:
+[  247.043044] [<8e03f0f0>] init_module+0x0/0x134 [nf_tables]
+[  247.056205] [<80010244>] do_one_initcall+0x50/0x2d4
+[  247.064461] [<800c29b0>] do_init_module+0x5c/0x234
+[  247.073103] [<800c4d24>] sys_init_module+0x170/0x22c
+[  247.082017] [<8001ff98>] syscall_common+0x34/0x58
+[  247.090265] 
+[  247.093164] Code: 86e6a700  86e6a700  86e6a700 <86e6a700> 86e6a700  86e6a700  86e6a700  86e6a700  86e6a700 
+[  247.120448] 
+[  247.124522] ---[ end trace 0000000000000000 ]---
+[  247.132598] Kernel panic - not syncing: Fatal exception
+[  247.140899] Rebooting in 1 seconds..
+[  249.116220] Reboot failed -- System halted
