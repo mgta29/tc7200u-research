@@ -1,0 +1,26 @@
+
+Logging serial to: /home/mgta29/tc7200u-research/logs/serial-20260515-105400-decompress-timer-rescue.log
+Interactive mode: press keys normally. Ctrl+C to stop.
+At CFE menu, press: g
+
+[TIMER] Tftp complete at +23.670s
+
+[TIMER] Executing Image 4 at +24.286s
+
+[TIMER] Decompressing kernel... at +24.309s
+
+[TIMER] done! at +414.953s
+[TIMER] decompress_duration=390.645s
+
+[TIMER] blasting from at +414.953s
+
+[TIMER] Starting kernel at +416.228s
+[TIMER] decompress_to_start_kernel=391.919s
+
+[TIMER] Run /init as init process at +456.790s
+
+[TIMER] root@(none):~# at +578.673s
+
+[TIMER] Kernel panic at +653.173s
+
+Stopped.

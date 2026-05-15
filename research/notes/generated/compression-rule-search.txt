@@ -1,0 +1,285 @@
+target/linux/bmips/bcm6318/config-6.12:55:CONFIG_CRYPTO_LZO=y
+target/linux/bmips/bcm6318/config-6.12:56:CONFIG_CRYPTO_ZSTD=y
+target/linux/bmips/bcm6318/config-6.12:85:CONFIG_FW_LOADER_PAGED_BUF=y
+target/linux/bmips/bcm6318/config-6.12:86:CONFIG_FW_LOADER_SYSFS=y
+target/linux/bmips/bcm6318/config-6.12:130:CONFIG_LZO_COMPRESS=y
+target/linux/bmips/bcm6318/config-6.12:131:CONFIG_LZO_DECOMPRESS=y
+target/linux/bmips/bcm6318/config-6.12:143:# CONFIG_MIPS_CMDLINE_FROM_BOOTLOADER is not set
+target/linux/bmips/bcm6318/config-6.12:286:CONFIG_ZSTD_COMMON=y
+target/linux/bmips/bcm6318/config-6.12:287:CONFIG_ZSTD_COMPRESS=y
+target/linux/bmips/bcm6318/config-6.12:288:CONFIG_ZSTD_DECOMPRESS=y
+target/linux/bmips/bcm63268/config-6.12:56:CONFIG_CRYPTO_LZO=y
+target/linux/bmips/bcm63268/config-6.12:57:CONFIG_CRYPTO_ZSTD=y
+target/linux/bmips/bcm63268/config-6.12:86:CONFIG_FW_LOADER_PAGED_BUF=y
+target/linux/bmips/bcm63268/config-6.12:87:CONFIG_FW_LOADER_SYSFS=y
+target/linux/bmips/bcm63268/config-6.12:133:CONFIG_LZO_COMPRESS=y
+target/linux/bmips/bcm63268/config-6.12:134:CONFIG_LZO_DECOMPRESS=y
+target/linux/bmips/bcm63268/config-6.12:146:# CONFIG_MIPS_CMDLINE_FROM_BOOTLOADER is not set
+target/linux/bmips/bcm63268/config-6.12:301:CONFIG_ZSTD_COMMON=y
+target/linux/bmips/bcm63268/config-6.12:302:CONFIG_ZSTD_COMPRESS=y
+target/linux/bmips/bcm63268/config-6.12:303:CONFIG_ZSTD_DECOMPRESS=y
+target/linux/bmips/bcm6328/config-6.12:56:CONFIG_CRYPTO_LZO=y
+target/linux/bmips/bcm6328/config-6.12:57:CONFIG_CRYPTO_ZSTD=y
+target/linux/bmips/bcm6328/config-6.12:86:CONFIG_FW_LOADER_PAGED_BUF=y
+target/linux/bmips/bcm6328/config-6.12:87:CONFIG_FW_LOADER_SYSFS=y
+target/linux/bmips/bcm6328/config-6.12:131:CONFIG_LZO_COMPRESS=y
+target/linux/bmips/bcm6328/config-6.12:132:CONFIG_LZO_DECOMPRESS=y
+target/linux/bmips/bcm6328/config-6.12:144:# CONFIG_MIPS_CMDLINE_FROM_BOOTLOADER is not set
+target/linux/bmips/bcm6328/config-6.12:300:CONFIG_ZSTD_COMMON=y
+target/linux/bmips/bcm6328/config-6.12:301:CONFIG_ZSTD_COMPRESS=y
+target/linux/bmips/bcm6328/config-6.12:302:CONFIG_ZSTD_DECOMPRESS=y
+target/linux/bmips/bcm6358/config-6.12:54:CONFIG_CRYPTO_LZO=y
+target/linux/bmips/bcm6358/config-6.12:55:CONFIG_CRYPTO_ZSTD=y
+target/linux/bmips/bcm6358/config-6.12:84:CONFIG_FW_LOADER_PAGED_BUF=y
+target/linux/bmips/bcm6358/config-6.12:85:CONFIG_FW_LOADER_SYSFS=y
+target/linux/bmips/bcm6358/config-6.12:129:CONFIG_LZO_COMPRESS=y
+target/linux/bmips/bcm6358/config-6.12:130:CONFIG_LZO_DECOMPRESS=y
+target/linux/bmips/bcm6358/config-6.12:141:# CONFIG_MIPS_CMDLINE_FROM_BOOTLOADER is not set
+target/linux/bmips/bcm6358/config-6.12:280:CONFIG_ZSTD_COMMON=y
+target/linux/bmips/bcm6358/config-6.12:281:CONFIG_ZSTD_COMPRESS=y
+target/linux/bmips/bcm6358/config-6.12:282:CONFIG_ZSTD_DECOMPRESS=y
+target/linux/bmips/bcm6362/config-6.12:56:CONFIG_CRYPTO_LZO=y
+target/linux/bmips/bcm6362/config-6.12:57:CONFIG_CRYPTO_ZSTD=y
+target/linux/bmips/bcm6362/config-6.12:86:CONFIG_FW_LOADER_PAGED_BUF=y
+target/linux/bmips/bcm6362/config-6.12:87:CONFIG_FW_LOADER_SYSFS=y
+target/linux/bmips/bcm6362/config-6.12:133:CONFIG_LZO_COMPRESS=y
+target/linux/bmips/bcm6362/config-6.12:134:CONFIG_LZO_DECOMPRESS=y
+target/linux/bmips/bcm6362/config-6.12:146:# CONFIG_MIPS_CMDLINE_FROM_BOOTLOADER is not set
+target/linux/bmips/bcm6362/config-6.12:301:CONFIG_ZSTD_COMMON=y
+target/linux/bmips/bcm6362/config-6.12:302:CONFIG_ZSTD_COMPRESS=y
+target/linux/bmips/bcm6362/config-6.12:303:CONFIG_ZSTD_DECOMPRESS=y
+target/linux/bmips/bcm6368/config-6.12:56:CONFIG_CRYPTO_LZO=y
+target/linux/bmips/bcm6368/config-6.12:57:CONFIG_CRYPTO_ZSTD=y
+target/linux/bmips/bcm6368/config-6.12:86:CONFIG_FW_LOADER_PAGED_BUF=y
+target/linux/bmips/bcm6368/config-6.12:87:CONFIG_FW_LOADER_SYSFS=y
+target/linux/bmips/bcm6368/config-6.12:133:CONFIG_LZO_COMPRESS=y
+target/linux/bmips/bcm6368/config-6.12:134:CONFIG_LZO_DECOMPRESS=y
+target/linux/bmips/bcm6368/config-6.12:146:# CONFIG_MIPS_CMDLINE_FROM_BOOTLOADER is not set
+target/linux/bmips/bcm6368/config-6.12:297:CONFIG_ZSTD_COMMON=y
+target/linux/bmips/bcm6368/config-6.12:298:CONFIG_ZSTD_COMPRESS=y
+target/linux/bmips/bcm6368/config-6.12:299:CONFIG_ZSTD_DECOMPRESS=y
+target/linux/bmips/dts/bcm3384_viper.dtsi:10:		/* Typical ranges.  The bootloader should fill these in. */
+target/linux/bmips/image/Makefile:8:LOADER_ENTRY := 0x81000000		# RAM start + 16M, for relocate
+target/linux/bmips/image/Makefile:9:LZMA_TEXT_START := 0x82000000		# RAM start + 32M
+target/linux/bmips/image/Makefile:28:		LZMA_TEXT_START=$(LOADER_ENTRY)
+target/linux/bmips/image/Makefile:32:define Build/loader-lzma
+target/linux/bmips/image/Makefile:34:	$(MAKE) -C lzma-loader \
+target/linux/bmips/image/Makefile:38:		LOADER_ADDR=$(if $(DEVICE_LOADADDR),$(DEVICE_LOADADDR),$(LOADER_ENTRY)) \
+target/linux/bmips/image/Makefile:39:		LOADER_DATA="$@" \
+target/linux/bmips/image/Makefile:40:		LOADER_NAME="$(notdir $@)" \
+target/linux/bmips/image/Makefile:41:		LZMA_TEXT_START=$(LZMA_TEXT_START) \
+target/linux/bmips/image/Makefile:44:		compile loader.$(1)
+target/linux/bmips/image/Makefile:49:define Build/lzma-cfe
+target/linux/bmips/image/Makefile:50:	# CFE is a LZMA nazi! It took me hours to find out the parameters!
+target/linux/bmips/image/Makefile:51:	# Also I think lzma has a bug cause it generates different output depending on
+target/linux/bmips/image/Makefile:54:	$(call Build/lzma-no-dict,-d22 -fb64 -a1)
+target/linux/bmips/image/Makefile:67:		dd if=$(KDIR)/relocate/loader.bin bs=32 conv=sync && \
+target/linux/bmips/image/Makefile:91:		--entry $(LOADER_ENTRY) --load-addr $(LOADER_ENTRY) \
+target/linux/bmips/image/Makefile:101:	$(call Build/lzma)
+target/linux/bmips/image/Makefile:102:	mv $@ $@.uboot.lzma
+target/linux/bmips/image/Makefile:104:	$(STAGING_DIR_HOST)/bin/imagetag -i $@.uboot.lzma -f $@.dummyfs \
+target/linux/bmips/image/Makefile:109:	rm $@.uboot.lzma
+target/linux/bmips/image/Makefile:178:		--load-addr $(if $(DEVICE_LOADADDR),$(DEVICE_LOADADDR),$(LOADER_ENTRY)) \
+target/linux/bmips/image/Makefile:179:		--entry-addr $(if $(DEVICE_LOADADDR),$(DEVICE_LOADADDR),$(LOADER_ENTRY))
+target/linux/bmips/image/Makefile:282:  KERNEL := kernel-bin | append-dtb | relocate-kernel | lzma
+target/linux/bmips/image/Makefile:283:  KERNEL_INITRAMFS := kernel-bin | append-dtb | lzma | loader-lzma elf
+target/linux/bmips/image/Makefile:297:# Legacy CFEs with specific LZMA parameters and no length
+target/linux/bmips/image/Makefile:300:  KERNEL := kernel-bin | append-dtb | relocate-kernel | lzma-cfe
+target/linux/bmips/image/Makefile:306:# load big kernels even with the lzma loader tricks.
+target/linux/bmips/image/Makefile:309:  KERNEL := kernel-bin | append-dtb | lzma | uImage lzma
+target/linux/bmips/image/Makefile:326:  KERNEL := kernel-bin | append-dtb | relocate-kernel | lzma | cfe-jffs2-kernel
+target/linux/bmips/image/Makefile:327:  KERNEL_INITRAMFS := kernel-bin | append-dtb | lzma | loader-lzma elf
+target/linux/bmips/image/Makefile:360:    cfe-sercomm-part | gzip | cfe-sercomm-load | cfe-sercomm-crypto
+target/linux/bmips/image/Makefile:367:ATH9K_PACKAGES := kmod-ath9k kmod-owl-loader wpad-basic-mbedtls
+target/linux/bmips/image/bcm63268.mk:87:  KERNEL := kernel-bin | append-dtb | lzma | cfe-jffs2-kernel
+target/linux/bmips/image/bcm63268.mk:108:  KERNEL := kernel-bin | append-dtb | lzma | cfe-jffs2-kernel
+target/linux/bmips/image/bcm63268.mk:128:  KERNEL := kernel-bin | append-dtb | lzma | cfe-jffs2-kernel
+target/linux/bmips/image/bcm63268.mk:166:  KERNEL_INITRAMFS := kernel-bin | append-dtb | lzma | loader-lzma bin
+target/linux/bmips/image/lzma-loader/Makefile:12:LZMA_TEXT_START	:= 0x80a00000
+target/linux/bmips/image/lzma-loader/Makefile:13:LOADER		:= loader.bin
+target/linux/bmips/image/lzma-loader/Makefile:14:LOADER_NAME	:= $(basename $(notdir $(LOADER)))
+target/linux/bmips/image/lzma-loader/Makefile:15:LOADER_DATA 	:=
+target/linux/bmips/image/lzma-loader/Makefile:41:LOADER_BIN	:= $(TARGET_DIR)/$(LOADER_NAME).bin
+target/linux/bmips/image/lzma-loader/Makefile:42:LOADER_ELF	:= $(TARGET_DIR)/$(LOADER_NAME).elf
+target/linux/bmips/image/lzma-loader/Makefile:44:PKG_NAME := lzma-loader
+target/linux/bmips/image/lzma-loader/Makefile:47:.PHONY : loader-compile loader.bin loader.elf
+target/linux/bmips/image/lzma-loader/Makefile:54:loader-compile: $(PKG_BUILD_DIR)/.prepared
+target/linux/bmips/image/lzma-loader/Makefile:56:		LZMA_TEXT_START=$(LZMA_TEXT_START) \
+target/linux/bmips/image/lzma-loader/Makefile:57:		LOADER_DATA=$(LOADER_DATA) \
+target/linux/bmips/image/lzma-loader/Makefile:61:loader.elf: $(PKG_BUILD_DIR)/loader.elf
+target/linux/bmips/image/lzma-loader/Makefile:62:	$(CP) $< $(LOADER_ELF)
+target/linux/bmips/image/lzma-loader/Makefile:64:loader.bin: $(PKG_BUILD_DIR)/loader.bin
+target/linux/bmips/image/lzma-loader/Makefile:65:	$(CP) $< $(LOADER_BIN)
+target/linux/bmips/image/lzma-loader/Makefile:69:compile: loader-compile
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.c:2:  LzmaDecode.c
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.c:3:  LZMA Decoder (optimized for Speed version)
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.c:5:  LZMA SDK 4.40 Copyright (c) 1999-2006 Igor Pavlov (2006-05-01)
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.c:8:  LZMA SDK is licensed under two licenses:
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.c:22:#include "LzmaDecode.h"
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.c:36:#ifdef _LZMA_IN_CB
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.c:39:  { SizeT size; int result = InCallback->Read(InCallback, &Buffer, &size); if (result != LZMA_RESULT_OK) return result; \
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.c:40:  BufferLim = Buffer + size; if (size == 0) return LZMA_RESULT_DATA_ERROR; }}
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.c:46:#define RC_TEST { if (Buffer == BufferLim) return LZMA_RESULT_DATA_ERROR; }
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.c:116:#if Literal != LZMA_BASE_SIZE
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.c:120:int LzmaDecodeProperties(CLzmaProperties *propsRes, const unsigned char *propsData, int size)
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.c:123:  if (size < LZMA_PROPERTIES_SIZE)
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.c:124:    return LZMA_RESULT_DATA_ERROR;
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.c:127:    return LZMA_RESULT_DATA_ERROR;
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.c:140:  #ifdef _LZMA_OUT_READ
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.c:150:  return LZMA_RESULT_OK;
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.c:153:#define kLzmaStreamWasFinishedId (-1)
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.c:155:int LzmaDecode(CLzmaDecoderState *vs,
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.c:156:    #ifdef _LZMA_IN_CB
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.c:157:    ILzmaInCallback *InCallback,
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.c:170:  #ifdef _LZMA_OUT_READ
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.c:174:  #ifdef _LZMA_IN_CB
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.c:193:  #ifndef _LZMA_IN_CB
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.c:197:  if (len == kLzmaStreamWasFinishedId)
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.c:198:    return LZMA_RESULT_OK;
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.c:207:  if (len == kLzmaNeedInitId)
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.c:210:      UInt32 numProbs = Literal + ((UInt32)LZMA_LIT_SIZE << (lc + vs->Properties.lp));
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.c:220:      #ifdef _LZMA_IN_CB
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.c:243:  #else /* if !_LZMA_OUT_READ */
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.c:253:  #ifndef _LZMA_IN_CB
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.c:260:    UInt32 numProbs = Literal + ((UInt32)LZMA_LIT_SIZE << (lc + vs->Properties.lp));
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.c:265:  #ifdef _LZMA_IN_CB
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.c:271:  #endif /* _LZMA_OUT_READ */
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.c:279:        #ifdef _LZMA_OUT_READ
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.c:290:      prob = p + Literal + (LZMA_LIT_SIZE *
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.c:293:        #ifdef _LZMA_OUT_READ
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.c:302:        #ifdef _LZMA_OUT_READ
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.c:329:      #ifdef _LZMA_OUT_READ
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.c:364:            #ifdef _LZMA_OUT_READ
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.c:369:            #ifdef _LZMA_OUT_READ
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.c:374:              return LZMA_RESULT_DATA_ERROR;
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.c:377:            #ifdef _LZMA_OUT_READ
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.c:389:            #ifdef _LZMA_OUT_READ
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.c:520:          len = kLzmaStreamWasFinishedId;
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.c:526:      #ifdef _LZMA_OUT_READ
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.c:531:        return LZMA_RESULT_DATA_ERROR;
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.c:533:      #ifdef _LZMA_OUT_READ
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.c:542:        #ifdef _LZMA_OUT_READ
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.c:561:  #ifdef _LZMA_OUT_READ
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.c:576:  #ifdef _LZMA_IN_CB
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.c:583:  return LZMA_RESULT_OK;
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.h:2:  LzmaDecode.h
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.h:3:  LZMA Decoder interface
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.h:5:  LZMA SDK 4.40 Copyright (c) 1999-2006 Igor Pavlov (2006-05-01)
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.h:8:  LZMA SDK is licensed under two licenses:
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.h:22:#ifndef __LZMADECODE_H
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.h:23:#define __LZMADECODE_H
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.h:25:#include "LzmaTypes.h"
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.h:27:/* #define _LZMA_IN_CB */
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.h:30:/* #define _LZMA_OUT_READ */
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.h:33:/* #define _LZMA_PROB32 */
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.h:37:/* #define _LZMA_LOC_OPT */
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.h:40:#ifdef _LZMA_PROB32
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.h:46:#define LZMA_RESULT_OK 0
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.h:47:#define LZMA_RESULT_DATA_ERROR 1
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.h:49:#ifdef _LZMA_IN_CB
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.h:50:typedef struct _ILzmaInCallback
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.h:53:} ILzmaInCallback;
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.h:56:#define LZMA_BASE_SIZE 1846
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.h:57:#define LZMA_LIT_SIZE 768
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.h:59:#define LZMA_PROPERTIES_SIZE 5
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.h:61:typedef struct _CLzmaProperties
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.h:66:  #ifdef _LZMA_OUT_READ
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.h:69:}CLzmaProperties;
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.h:71:int LzmaDecodeProperties(CLzmaProperties *propsRes, const unsigned char *propsData, int size);
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.h:73:#define LzmaGetNumProbs(Properties) (LZMA_BASE_SIZE + (LZMA_LIT_SIZE << ((Properties)->lc + (Properties)->lp)))
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.h:75:#define kLzmaNeedInitId (-2)
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.h:77:typedef struct _CLzmaDecoderState
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.h:79:  CLzmaProperties Properties;
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.h:82:  #ifdef _LZMA_IN_CB
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.h:87:  #ifdef _LZMA_OUT_READ
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.h:99:} CLzmaDecoderState;
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.h:101:#ifdef _LZMA_OUT_READ
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.h:102:#define LzmaDecoderInit(vs) { (vs)->RemainLen = kLzmaNeedInitId; }
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.h:105:int LzmaDecode(CLzmaDecoderState *vs,
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.h:106:    #ifdef _LZMA_IN_CB
+target/linux/bmips/image/lzma-loader/src/LzmaDecode.h:107:    ILzmaInCallback *inCallback,
+target/linux/bmips/image/lzma-loader/src/LzmaTypes.h:2:LzmaTypes.h
+target/linux/bmips/image/lzma-loader/src/LzmaTypes.h:4:Types for LZMA Decoder
+target/linux/bmips/image/lzma-loader/src/LzmaTypes.h:7:This file is part of LZMA SDK 4.40 (2006-05-01)
+target/linux/bmips/image/lzma-loader/src/LzmaTypes.h:10:#ifndef __LZMATYPES_H
+target/linux/bmips/image/lzma-loader/src/LzmaTypes.h:11:#define __LZMATYPES_H
+target/linux/bmips/image/lzma-loader/src/LzmaTypes.h:25:#ifdef _LZMA_UINT32_IS_ULONG
+target/linux/bmips/image/lzma-loader/src/LzmaTypes.h:32:/* #define _LZMA_NO_SYSTEM_SIZE_T */
+target/linux/bmips/image/lzma-loader/src/LzmaTypes.h:37:#ifdef _LZMA_NO_SYSTEM_SIZE_T
+target/linux/bmips/image/lzma-loader/src/Makefile:4:# Makefile for the LZMA compressed kernel loader for BMIPS based boards
+target/linux/bmips/image/lzma-loader/src/Makefile:10:# Some parts of this file was based on the OpenWrt specific lzma-loader
+target/linux/bmips/image/lzma-loader/src/Makefile:17:LOADER_ADDR	:=
+target/linux/bmips/image/lzma-loader/src/Makefile:19:LZMA_TEXT_START	:= 0x80a00000
+target/linux/bmips/image/lzma-loader/src/Makefile:20:LOADER_DATA	:=
+target/linux/bmips/image/lzma-loader/src/Makefile:36:CFLAGS		+= -D_LZMA_PROB32
+target/linux/bmips/image/lzma-loader/src/Makefile:42:LDFLAGS		+= -e startup -T loader.lds -Ttext $(LZMA_TEXT_START)
+target/linux/bmips/image/lzma-loader/src/Makefile:46:OBJECTS		:= head.o loader.o cache.o board.o printf.o LzmaDecode.o
+target/linux/bmips/image/lzma-loader/src/Makefile:48:ifneq ($(strip $(LOADER_DATA)),)
+target/linux/bmips/image/lzma-loader/src/Makefile:50:CFLAGS		+= -DLZMA_WRAPPER=1 -DLOADADDR=$(KERNEL_ADDR)
+target/linux/bmips/image/lzma-loader/src/Makefile:54:all: loader.elf
+target/linux/bmips/image/lzma-loader/src/Makefile:67:data.o: $(LOADER_DATA)
+target/linux/bmips/image/lzma-loader/src/Makefile:68:	$(LD) -r -b binary --oformat $(O_FORMAT) -T lzma-data.lds -o $@ $<
+target/linux/bmips/image/lzma-loader/src/Makefile:70:loader: $(OBJECTS)
+target/linux/bmips/image/lzma-loader/src/Makefile:73:loader.bin: loader
+target/linux/bmips/image/lzma-loader/src/Makefile:76:loader2.o: loader.bin
+target/linux/bmips/image/lzma-loader/src/Makefile:79:loader.elf: loader2.o
+target/linux/bmips/image/lzma-loader/src/Makefile:80:	$(LD) -e startup -T loader2.lds -Ttext $(LOADER_ADDR) -o $@ $<
+target/linux/bmips/image/lzma-loader/src/Makefile:85:	rm -f loader *.elf *.bin *.o
+target/linux/bmips/image/lzma-loader/src/cache.c:3: * LZMA compressed kernel loader for Atheros AR7XXX/AR9XXX based boards
+target/linux/bmips/image/lzma-loader/src/cache.h:3: * LZMA compressed kernel loader for Atheros AR7XXX/AR9XXX based boards
+target/linux/bmips/image/lzma-loader/src/config.h:3: * LZMA compressed kernel loader for Atheros AR7XXX/AR9XXX based boards
+target/linux/bmips/image/lzma-loader/src/head.S:3: * LZMA compressed kernel loader for Atheros AR7XXX/AR9XXX based boards
+target/linux/bmips/image/lzma-loader/src/head.S:7: * Some parts of this code was based on the OpenWrt specific lzma-loader
+target/linux/bmips/image/lzma-loader/src/head.S:113:	la	t0, loader_main
+target/linux/bmips/image/lzma-loader/src/loader.c:3: * LZMA compressed kernel loader for Atheros AR7XXX/AR9XXX based boards
+target/linux/bmips/image/lzma-loader/src/loader.c:7: * Some parts of this code was based on the OpenWrt specific lzma-loader
+target/linux/bmips/image/lzma-loader/src/loader.c:25:#include "LzmaDecode.h"
+target/linux/bmips/image/lzma-loader/src/loader.c:32:#undef LZMA_DEBUG
+target/linux/bmips/image/lzma-loader/src/loader.c:34:#ifdef LZMA_DEBUG
+target/linux/bmips/image/lzma-loader/src/loader.c:44:static CLzmaDecoderState lzma_state;
+target/linux/bmips/image/lzma-loader/src/loader.c:45:static unsigned char *lzma_data;
+target/linux/bmips/image/lzma-loader/src/loader.c:46:static unsigned long lzma_datasize;
+target/linux/bmips/image/lzma-loader/src/loader.c:47:static unsigned long lzma_outsize;
+target/linux/bmips/image/lzma-loader/src/loader.c:56:static __inline__ unsigned char lzma_get_byte(void)
+target/linux/bmips/image/lzma-loader/src/loader.c:60:	lzma_datasize--;
+target/linux/bmips/image/lzma-loader/src/loader.c:61:	c = *lzma_data++;
+target/linux/bmips/image/lzma-loader/src/loader.c:66:static int lzma_init_props(void)
+target/linux/bmips/image/lzma-loader/src/loader.c:68:	unsigned char props[LZMA_PROPERTIES_SIZE];
+target/linux/bmips/image/lzma-loader/src/loader.c:72:	/* read lzma properties */
+target/linux/bmips/image/lzma-loader/src/loader.c:73:	for (i = 0; i < LZMA_PROPERTIES_SIZE; i++)
+target/linux/bmips/image/lzma-loader/src/loader.c:74:		props[i] = lzma_get_byte();
+target/linux/bmips/image/lzma-loader/src/loader.c:77:	lzma_outsize = ((SizeT) lzma_get_byte()) +
+target/linux/bmips/image/lzma-loader/src/loader.c:78:		       ((SizeT) lzma_get_byte() << 8) +
+target/linux/bmips/image/lzma-loader/src/loader.c:79:		       ((SizeT) lzma_get_byte() << 16) +
+target/linux/bmips/image/lzma-loader/src/loader.c:80:		       ((SizeT) lzma_get_byte() << 24);
+target/linux/bmips/image/lzma-loader/src/loader.c:84:		lzma_get_byte();
+target/linux/bmips/image/lzma-loader/src/loader.c:86:	res = LzmaDecodeProperties(&lzma_state.Properties, props,
+target/linux/bmips/image/lzma-loader/src/loader.c:87:					LZMA_PROPERTIES_SIZE);
+target/linux/bmips/image/lzma-loader/src/loader.c:91:static int lzma_decompress(unsigned char *outStream)
+target/linux/bmips/image/lzma-loader/src/loader.c:96:	lzma_state.Probs = (CProb *) workspace;
+target/linux/bmips/image/lzma-loader/src/loader.c:98:	ret = LzmaDecode(&lzma_state, lzma_data, lzma_datasize, &ip, outStream,
+target/linux/bmips/image/lzma-loader/src/loader.c:99:			 lzma_outsize, &op);
+target/linux/bmips/image/lzma-loader/src/loader.c:101:	if (ret != LZMA_RESULT_OK) {
+target/linux/bmips/image/lzma-loader/src/loader.c:104:		DBG("LzmaDecode error %d at %08x, osize:%d ip:%d op:%d\n",
+target/linux/bmips/image/lzma-loader/src/loader.c:105:		    ret, lzma_data + ip, lzma_outsize, ip, op);
+target/linux/bmips/image/lzma-loader/src/loader.c:108:			DBG("%02x ", lzma_data[ip + i]);
+target/linux/bmips/image/lzma-loader/src/loader.c:116:static void lzma_init_data(void)
+target/linux/bmips/image/lzma-loader/src/loader.c:118:	extern unsigned char _lzma_data_start[];
+target/linux/bmips/image/lzma-loader/src/loader.c:119:	extern unsigned char _lzma_data_end[];
+target/linux/bmips/image/lzma-loader/src/loader.c:122:	lzma_data = _lzma_data_start;
+target/linux/bmips/image/lzma-loader/src/loader.c:123:	lzma_datasize = _lzma_data_end - _lzma_data_start;
+target/linux/bmips/image/lzma-loader/src/loader.c:126:void loader_main(unsigned long reg_a0, unsigned long reg_a1,
+target/linux/bmips/image/lzma-loader/src/loader.c:133:	printf("\n\nOpenWrt kernel loader for BMIPS\n");
+target/linux/bmips/image/lzma-loader/src/loader.c:138:	lzma_init_data();
+target/linux/bmips/image/lzma-loader/src/loader.c:140:	res = lzma_init_props();
+target/linux/bmips/image/lzma-loader/src/loader.c:141:	if (res != LZMA_RESULT_OK) {
+target/linux/bmips/image/lzma-loader/src/loader.c:142:		printf("Incorrect LZMA stream properties!\n");
+target/linux/bmips/image/lzma-loader/src/loader.c:146:	printf("Decompressing kernel... ");
+target/linux/bmips/image/lzma-loader/src/loader.c:148:	res = lzma_decompress((unsigned char *) kernel_la);
+target/linux/bmips/image/lzma-loader/src/loader.c:149:	if (res != LZMA_RESULT_OK) {
+target/linux/bmips/image/lzma-loader/src/loader.c:152:		case LZMA_RESULT_DATA_ERROR:
+target/linux/bmips/image/lzma-loader/src/loader.c:163:	flush_cache(kernel_la, lzma_outsize);
+target/linux/bmips/image/lzma-loader/src/loader.lds:11:		*(.data.lzma)
+target/linux/bmips/image/lzma-loader/src/lzma-data.lds:5:	.data.lzma : {
+target/linux/bmips/image/lzma-loader/src/lzma-data.lds:6:		_lzma_data_start = .;
+target/linux/bmips/image/lzma-loader/src/lzma-data.lds:8:		_lzma_data_end = .;

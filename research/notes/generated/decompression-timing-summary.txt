@@ -1,0 +1,21 @@
+TC7200.U decompression timing summary
+
+Rebuilt UART-only image:
+- wrapped size: 5717126 bytes
+- decompress_duration: 337.821s
+- boots to shell
+
+Known-good rescue image:
+- wrapped size: 5696426 bytes
+- decompress_duration: 336.738s
+- boots to shell
+
+Difference:
+- rescue is 1.083s faster
+- approx 0.32% difference
+
+Conclusion:
+- decompression speed is effectively the same
+- 20700 byte image size difference is not meaningful for decompression time
+- image size/decompression is not the cause of the enetsw /init crash
+- continue investigation on bcm6368-enetsw probe/resource/memory corruption
