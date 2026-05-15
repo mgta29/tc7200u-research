@@ -1,0 +1,2 @@
+# Nmap 7.94SVN scan initiated Wed May 13 06:55:22 2026 as: nmap -Pn -sS -sV -p- --open -T4 --min-rate 3000 -oA tc7200_skip_full_tcp 192.168.1.1
+# Nmap done at Wed May 13 06:56:06 2026 -- 1 IP address (1 host up) scanned in 43.96 seconds

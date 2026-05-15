@@ -1,0 +1,4 @@
+# Nmap 7.94SVN scan initiated Wed May 13 05:51:37 2026 as: nmap -sS -sV -p- --open -T4 --min-rate 3000 -oA lan_full_tcp_scan 192.168.1.2/24
+Host: 192.168.1.2 ()	Status: Up
+Host: 192.168.1.2 ()	Ports: 135/open/tcp//msrpc//Microsoft Windows RPC/, 445/open/tcp//microsoft-ds?///, 3240/open/tcp//triomotion?///, 49668/open/tcp//msrpc//Microsoft Windows RPC/	Ignored State: filtered (65531)
+# Nmap done at Wed May 13 05:53:15 2026 -- 256 IP addresses (1 host up) scanned in 98.46 seconds

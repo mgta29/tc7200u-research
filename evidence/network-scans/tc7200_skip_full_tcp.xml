@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.94SVN scan initiated Wed May 13 06:55:22 2026 as: nmap -Pn -sS -sV -p- -&#45;open -T4 -&#45;min-rate 3000 -oA tc7200_skip_full_tcp 192.168.1.1 -->
+<nmaprun scanner="nmap" args="nmap -Pn -sS -sV -p- -&#45;open -T4 -&#45;min-rate 3000 -oA tc7200_skip_full_tcp 192.168.1.1" start="1778648122" startstr="Wed May 13 06:55:22 2026" version="7.94SVN" xmloutputversion="1.05">
+<scaninfo type="syn" protocol="tcp" numservices="65535" services="1-65535"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<taskprogress task="SYN Stealth Scan" time="1778648131" percent="20.23" remaining="36" etc="1778648166"/>
+<runstats><finished time="1778648166" timestr="Wed May 13 06:56:06 2026" summary="Nmap done at Wed May 13 06:56:06 2026; 1 IP address (1 host up) scanned in 43.96 seconds" elapsed="43.96" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>

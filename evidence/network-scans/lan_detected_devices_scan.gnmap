@@ -1,0 +1,4 @@
+# Nmap 7.94SVN scan initiated Wed May 13 05:57:00 2026 as: nmap -sS -sV --open -T4 -iL lan_ips.txt -oA lan_detected_devices_scan
+Host: 192.168.89.1 ()	Status: Up
+Host: 192.168.89.1 ()	Ports: 22/open/tcp//ssh//Dropbear sshd (protocol 2.0)/, 53/open/tcp//domain//Cloudflare public DNS/, 80/open/tcp//http///, 443/open/tcp//ssl|https///, 445/open/tcp//netbios-ssn//Samba smbd 3.X - 4.X (workgroup: WORKGROUP)/, 7007/open/tcp//ssl|afs3-bos?///, 49161/open/tcp//unknown///
+# Nmap done at Wed May 13 06:00:05 2026 -- 30 IP addresses (2 hosts up) scanned in 185.25 seconds

@@ -1,0 +1,2 @@
+# Nmap 7.94SVN scan initiated Wed May 13 06:32:56 2026 as: nmap -Pn -sS -sV -p- --open -T4 --min-rate 3000 -oA modem_full_tcp 192.168.1.1
+# Nmap done at Wed May 13 06:33:40 2026 -- 1 IP address (1 host up) scanned in 43.97 seconds

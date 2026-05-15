@@ -1,0 +1,178 @@
+þ
+BCM3383A2 
+Sync: 0 
+MemSize:            128 M
+Chip ID:     BCM3383Z-B0
+
+BootLoader Version: 2.4.0alpha18p1 Pre-release Gnu spiboot dual-flash reduced DDR drive linux
+Build Date: Aug 14 2012
+Build Time: 09:48:58
+SPI flash ID 0xc22014, size 1MB, block size 64KB, write buffer 256, flags 0x0
+NAND flash: Device size 64 MB, Block size 16 KB, Page size 512 B
+Cust key size 128
+parameter offset is 43872
+
+Signature/PID: a825
+
+Reading flash map at ff30, size 192
+Successfully restored flash map from SPI flash!
+NandFlashRead: Reading offset 0x19c0000, length 0x5c
+
+Image 1 Program Header:
+   Signature: a825
+     Control: 0005
+   Major Rev: 0100
+   Minor Rev: 04ff
+  Build Time: 2016/1/22 01:58:51 Z
+ File Length: 5597352 bytes
+Load Address: 80004000
+    Filename: TC7200U-D6.02.29-160119-F-1C1.bin
+         HCS: 0421
+         CRC: bcb59d3d
+
+Found image 1 at offset 1ac0000
+NandFlashRead: Reading offset 0x2080000, length 0x5c
+NandFlashRead: Reading offset 0x2740000, length 0x5c
+
+Image 3 Program Header:
+   Signature: a825
+     Control: 0005
+   Major Rev: 0100
+   Minor Rev: 04ff
+  Build Time: 2016/1/22 02:00:09 Z
+ File Length: 1507236 bytes
+Load Address: 84010000
+    Filename: LNXD6.02.29-kernel-20160122.bin
+         HCS: ca06
+         CRC: a1cc5c2b
+
+Found image 3 at offset 2840000
+
+Enter '1', '2', or 'p' within 2 seconds or take default...
+. 
+
+Board IP Address  [0.0.0.0]:           
+Board IP Mask     [255.255.255.0]:     
+Board IP Gateway  [0.0.0.0]:           
+Board MAC Address [00:10:18:ff:ff:ff]: 
+
+Internal/External phy? (e/i/a)[a] i
+Switch detected: 53125
+ProbePhy: Found PHY 0, MDIO on MAC 1, data on MAC 1
+Using GMAC1, phy 0
+
+Enet link up: 1G full
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+Unrecognized command.
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+Enter sector offset in SPI flash: lp
+Error: Expected offset
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+Unrecognized command.
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+Board IP Address  [0.0.0.0]:           192.168.1.1
+Board IP Mask     [255.255.255.0]:     
+Board IP Gateway  [0.0.0.0]:           
+Board MAC Address [00:10:18:ff:ff:ff]: 
+
+Internal/External phy? (e/i/a)[i] 
+Switch detected: 53125
+ProbePhy: Found PHY 0, MDIO on MAC 1, data on MAC 1
+Using GMAC1, phy 0
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+
