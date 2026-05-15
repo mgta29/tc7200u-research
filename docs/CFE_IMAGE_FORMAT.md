@@ -23,9 +23,10 @@ Known fields:
 
 Scripts:
 
+- `scripts/tc7200u`
+- `scripts/tc7200u-auto-build-install-wrap.sh`
 - `scripts/tc7200u-a825-wrap.py`
 - `scripts/tc7200u-verify-a825-image.py`
-- `scripts/tc7200u-wrap-current-openwrt.sh`
 
 Generated wrap manifests are written to:
 
@@ -36,7 +37,7 @@ research/notes/generated/
 Override:
 
 ```sh
-RESEARCH_NOTES_DIR=/path/to/notes scripts/tc7200u-wrap-current-openwrt.sh
+RESEARCH_NOTES_DIR=/path/to/notes scripts/tc7200u wrap
 ```
 
 ## Known-good image

@@ -41,7 +41,7 @@ Facts:
 ## Safe build, wrap, TFTP flow
 
 1. Build OpenWrt first.
-2. Run `scripts/tc7200u-wrap-current-openwrt.sh`.
+2. Run `tcwrap` or `scripts/tc7200u wrap`.
 3. Confirm the generated manifest says `size_ok=True`.
 4. Serve only `/mnt/c/tftp/openwrt-ps-irqfallback.bin`.
 5. Let CFE request `openwrt-ps-irqfallback.bin`; do not rename it inside CFE.
@@ -55,7 +55,7 @@ research/notes/generated/
 Override when needed:
 
 ```sh
-RESEARCH_NOTES_DIR=/tmp/tc7200u-notes scripts/tc7200u-wrap-current-openwrt.sh
+RESEARCH_NOTES_DIR=/tmp/tc7200u-notes scripts/tc7200u wrap
 ```
 
 ## Invalid or risky image classes

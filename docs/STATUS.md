@@ -31,6 +31,8 @@ system.
   - payload load address: `0x82000000`
   - internal header filename: `openwrt-initramfs.bin`
 - Local wrapper and verifier scripts exist:
+  - `scripts/tc7200u`
+  - `scripts/tc7200u-auto-build-install-wrap.sh`
   - `scripts/tc7200u-a825-wrap.py`
   - `scripts/tc7200u-verify-a825-image.py`
 - Kernel-side MMIO probing with `ioremap()` and `printk()` works and is

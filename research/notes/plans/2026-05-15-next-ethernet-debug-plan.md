@@ -93,9 +93,9 @@ Keep DTS baseline unchanged.
 Build and wrap through the normal safe path:
 
 ```sh
-cd ~/src/openwrt; make target/linux/compile V=s
-cd ~/src/openwrt; make target/linux/install V=s
-cd ~/tc7200u-research; scripts/tc7200u-wrap-current-openwrt.sh
+cd ~/tc7200u-research
+scripts/tc7200u wrap
+scripts/tc7200u state
 ```
 
 Only TFTP if the wrapper manifest reports:

@@ -15,14 +15,20 @@
 
 - `scripts/tc7200u`: master command dispatcher.
 - `scripts/tc7200u-auto-build-install-wrap.sh`: build/install/wrap/check flow.
-- `scripts/tc7200u-wrap-current-openwrt.sh`: wrap current OpenWrt initramfs.
 - `scripts/tc7200u-a825-wrap.py`: A825 header writer.
 - `scripts/tc7200u-verify-a825-image.py`: A825 image verifier.
 - `scripts/tc7200u-capture-current-state.sh`: state capture helper.
+- `scripts/tc7200u-ensure-debug-packages.sh`: debug package config helper.
+- `tools/serial-decompress-timer.py`: interactive serial timing logger.
 
-## Obsolete scripts
+## Normal aliases
 
-- `scripts/obsolete/make_tc7200u_ps_brcm.py`: old experiment; wrong output filename.
+- `tcresearch`: enter the research repo.
+- `tcstatus`: show git and helper status.
+- `tcwrap`, `tccheck`, `tcverify`: run the safe build/wrap/verify flow.
+- `tcstate`: capture current build/image state.
+- `tcrules`: print RAM-boot safety rules.
+- `cfe-tftp`: start the one-shot CFE TFTP server.
 
 ## Organized evidence
 

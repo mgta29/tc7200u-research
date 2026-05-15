@@ -15,11 +15,19 @@ Worthy test results must be committed and pushed to git after capture. A result 
 ```sh
 cd ~/tc7200u-research
 scripts/tc7200u paths
+scripts/tc7200u status
 scripts/tc7200u wrap
 scripts/tc7200u check
 scripts/tc7200u verify
 scripts/tc7200u state
 scripts/tc7200u rules
+```
+
+`wrap`, `check`, and `verify` all use the current safe build/wrap/verify flow.
+They write the active CFE/TFTP image to:
+
+```text
+/mnt/c/tftp/openwrt-ps-irqfallback.bin
 ```
 
 Generated manifests and state captures go to:
@@ -68,12 +76,9 @@ cfe-tftp
 ## Manual build and wrap
 
 ```sh
-cd ~/src/openwrt
-make target/linux/compile V=s
-make target/linux/install V=s
-
-cd ~/tc7200u-research
-scripts/tc7200u-wrap-current-openwrt.sh
+tcresearch
+tcwrap
+tcstate
 ```
 
 Required success marker:

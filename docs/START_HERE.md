@@ -32,7 +32,7 @@ Do not work on:
 2. Confirm the active TFTP file is still `/mnt/c/tftp/openwrt-ps-irqfallback.bin`.
 3. Preserve all images under `artifacts/rescue/`.
 4. Build OpenWrt first.
-5. Wrap with `scripts/tc7200u-wrap-current-openwrt.sh`.
+5. Wrap with `tcwrap` or `scripts/tc7200u wrap`.
 6. TFTP only if the manifest reports `size_ok=True`.
 7. Keep all tests RAM boot only.
 8. Save generated captures under `research/notes/generated/`.
@@ -57,12 +57,10 @@ Use these notes as the starting evidence:
 ## Current commands
 
 ```sh
-cd ~/src/openwrt
-make target/linux/compile V=s
-make target/linux/install V=s
-
-cd ~/tc7200u-research
-scripts/tc7200u-wrap-current-openwrt.sh
+tcresearch
+tcstatus
+tcwrap
+tcstate
 ```
 
 Only continue to CFE/TFTP when the wrapper output contains:
