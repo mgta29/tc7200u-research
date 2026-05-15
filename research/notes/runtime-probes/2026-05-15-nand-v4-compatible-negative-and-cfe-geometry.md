@@ -10,7 +10,11 @@ interrupt-parent = <&periph_intc>;
 
 The image booted successfully over RAM/TFTP.
 
-CFE evidence
+## CFE evidence
+
+CFE reported:
+
+```text
 BCM3383A2
 MemSize: 128 M
 Chip ID: BCM3383Z-B0
@@ -19,7 +23,9 @@ NAND flash: Device size 64 MB, Block size 16 KB, Page size 512 B
 Switch detected: 53125
 ProbePhy: Found PHY 0, MDIO on MAC 0, data on MAC 0
 Using GMAC0, phy 0
-OpenWrt result
+```
+
+## OpenWrt result
 brcm,nand-bcm6368
 brcm,brcmnand-v4.0
 brcm,brcmnand
@@ -30,7 +36,9 @@ nand: No NAND device found
 
 cat /proc/mtd
 dev:    size   erasesize  name
-Conclusion
+```
+
+## Conclusion
 
 Changing the compatible string from brcm,brcmnand-v5.0 to brcm,brcmnand-v4.0 does not solve NAND detection.
 
