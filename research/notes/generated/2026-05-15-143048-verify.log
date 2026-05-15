@@ -1,0 +1,18 @@
+raw=/home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin
+wrapped=/mnt/c/tftp/openwrt-ps-irqfallback.bin
+raw_size=5097342
+wrapped_size=5097434
+signature=0xa825
+control=0x0000
+major=0x0100
+minor=0x04ff
+build_time=0x6a04e670
+file_length=5097342
+load_address=0x82000000
+filename=openwrt-initramfs.bin
+hcs=0x3d13
+crc=0x00000000
+raw_sha256=9d48904e89af60b683d092650085b8f47b2316b1492a954318c38c8b1c7216e1
+wrapped_sha256=7bb534e4fcb54801bffa6cbd4a62c67e185e60f92f2fba191ef9e08055ce0f71
+
+OK: wrapped a825 image matches raw payload and expected header fields
