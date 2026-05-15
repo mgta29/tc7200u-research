@@ -4,16 +4,13 @@
 
 DTS test image used:
 
-- compatible: brcm,nand-bcm6368 + brcm,brcmnand-v4.0 + brcm,brcmnand
-- interrupt-parent: periph_intc
+```dts
+compatible = "brcm,nand-bcm6368", "brcm,brcmnand-v4.0", "brcm,brcmnand";
+interrupt-parent = <&periph_intc>;
 
 The image booted successfully over RAM/TFTP.
 
-## CFE evidence
-
-CFE reported:
-
-```text
+CFE evidence
 BCM3383A2
 MemSize: 128 M
 Chip ID: BCM3383Z-B0
