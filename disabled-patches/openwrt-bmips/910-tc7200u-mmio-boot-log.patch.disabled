@@ -1,0 +1,91 @@
+Index: linux-6.12.87/arch/mips/bmips/setup.c
+===================================================================
+--- linux-6.12.87.orig/arch/mips/bmips/setup.c
++++ linux-6.12.87/arch/mips/bmips/setup.c
+@@ -29,6 +29,7 @@
+ #include <asm/time.h>
+ #include <asm/traps.h>
+ #include <asm/fw/cfe/cfe_api.h>
++#include <linux/printk.h>
+ 
+ #define RELO_NORMAL_VEC		BIT(18)
+ 
+@@ -553,3 +554,60 @@ static int __init plat_dev_init(void)
+ }
+ 
+ arch_initcall(plat_dev_init);
++
++
++static u32 __init tc7200u_mmio_read32(phys_addr_t addr, bool *ok)
++{
++	void __iomem *base;
++	phys_addr_t page = addr & ~(phys_addr_t)0xfff;
++	unsigned long off = (unsigned long)(addr & 0xfff);
++	u32 val = 0xffffffff;
++
++	*ok = false;
++
++	base = ioremap(page, 0x1000);
++	if (!base)
++		return val;
++
++	val = __raw_readl((u8 __iomem *)base + off);
++	iounmap(base);
++
++	*ok = true;
++	return val;
++}
++
++static int __init __used tc7200u_mmio_boot_log(void)
++{
++	static const phys_addr_t addrs[] __initconst = {
++		0x14e00048,
++		0x14e0004c,
++		0x14e00350,
++		0x14e00354,
++		0x14e00500,
++		0x151f8000,
++		0x151f8010,
++		0x151f8040,
++		0x151f8048,
++		0x151f804c,
++		0x151f8050,
++		0x14e01000,
++		0x14e01100,
++		0x14e01200,
++		0x14e02000,
++		0x14e02100,
++		0x14e02200,
++		0x15100000,
++		0x15101000,
++		0x15102000,
++		0x15110000,
++		0x15111000,
++		0x15112000,
++	};
++	int i;
++
++	if (!of_machine_is_compatible("technicolor,tc7200u"))
++		return 0;
++
++	pr_info("tc7200u-mmio: known-safe boot probe begin\n");
++
++	for (i = 0; i < ARRAY_SIZE(addrs); i++) {
++		bool ok;
++		phys_addr_t addr = addrs[i];
++		u32 val = tc7200u_mmio_read32(addr, &ok);
++
++		if (ok)
++			pr_info("tc7200u-mmio: phys 0x%08llx raw32 0x%08x\n",
++				(unsigned long long)addr, val);
++		else
++			pr_info("tc7200u-mmio: phys 0x%08llx ioremap failed\n",
++				(unsigned long long)addr);
++	}
++
++	pr_info("tc7200u-mmio: known-safe boot probe end\n");
++
++	return 0;
++}
++arch_initcall(tc7200u_mmio_boot_log);
++
