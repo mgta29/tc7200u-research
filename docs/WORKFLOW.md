@@ -8,7 +8,7 @@ build OpenWrt -> wrap initramfs -> verify size_ok=True -> TFTP fixed filename
 
 ## Test result rule
 
-Every boot test, DTS/kernel test, package test, TFTP result, serial-log finding, and hardware-discovery result must be committed and pushed to git after capture. Do not leave test results only in chat, terminal scrollback, or untracked local files.
+Worthy test results must be committed and pushed to git after capture. A result is worthy when it changes the known state, confirms or disproves a hypothesis, affects the next DTS/kernel/package step, documents a boot/TFTP failure or success, captures a new serial-log finding, or prevents repeating the same test. Trivial repeats that add no new information do not need a separate commit.
 
 ## Main helper commands
 
