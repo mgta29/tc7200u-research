@@ -1,0 +1,4 @@
+Ethernet status update:
+GENET 12c00000 was negative: invalid GPHY 0x0000 / link down.
+bcm6368-enetsw 14e01000 retest is already done; do not repeat as next step.
+Next Ethernet direction: follow CFE clue: Switch detected 53125, MDIO on MAC0, data on MAC0, GMAC0 phy0.
