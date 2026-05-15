@@ -1,0 +1,1003 @@
+# ~/src wide small-page NAND search
+2026-05-15T20:24:07+02:00
+
+./openwrt/package/system/mtd/src/fis.c:47:static int fis_erasesize = 0;
+./openwrt/package/system/mtd/src/fis.c:53:		munmap(fis_desc, fis_erasesize);
+./openwrt/package/system/mtd/src/fis.c:79:	fis_erasesize = erasesize;
+./openwrt/package/system/mtd/src/fis.c:80:	desc = mmap(NULL, erasesize, PROT_READ|PROT_WRITE, MAP_SHARED|MAP_LOCKED, fis_fd, 0);
+./openwrt/package/system/mtd/src/fis.c:113:	end = (char *) end + fis_erasesize;
+./openwrt/package/system/mtd/src/fis.c:160:	end = (char *) desc + fis_erasesize;
+./openwrt/package/system/mtd/src/fis.c:238:	msync(fis_desc, fis_erasesize, MS_SYNC|MS_INVALIDATE);
+./openwrt/package/system/mtd/src/mtd.c:94:int erasesize = 0;
+./openwrt/package/system/mtd/src/mtd.c:148:	erasesize = mtdInfo.erasesize;
+./openwrt/package/system/mtd/src/mtd.c:176:	mtdEraseInfo.length = erasesize;
+./openwrt/package/system/mtd/src/mtd.c:265:			buf = malloc(erasesize);
+./openwrt/package/system/mtd/src/mtd.c:334:	mtdEraseInfo.length = erasesize;
+./openwrt/package/system/mtd/src/mtd.c:338:		 mtdEraseInfo.start += erasesize) {
+./openwrt/package/system/mtd/src/mtd.c:376:	buf = malloc(erasesize);
+./openwrt/package/system/mtd/src/mtd.c:381:		int len = (size > erasesize) ? (erasesize) : (size);
+./openwrt/package/system/mtd/src/mtd.c:584:		while (buflen < erasesize) {
+./openwrt/package/system/mtd/src/mtd.c:585:			r = read(imagefd, buf + buflen, erasesize - buflen);
+./openwrt/package/system/mtd/src/mtd.c:607:		if (buflen < erasesize) {
+./openwrt/package/system/mtd/src/mtd.c:609:			memset(&buf[buflen], 0xff, erasesize - buflen);
+./openwrt/package/system/mtd/src/mtd.c:610:			buflen = erasesize;
+./openwrt/package/system/mtd/src/mtd.c:660:					skip_bad_blocks += erasesize;
+./openwrt/package/system/mtd/src/mtd.c:661:					e += erasesize;
+./openwrt/package/system/mtd/src/mtd.c:664:					lseek(fd, erasesize, SEEK_CUR);
+./openwrt/package/system/mtd/src/mtd.c:687:				e += erasesize;
+./openwrt/package/system/mtd/src/mtd.h:15:extern int erasesize;
+./openwrt/package/system/mtd/src/linksys_bootcount.c:45: * not mtd_info_user.writesize (often 1 on NOR devices).
+./openwrt/package/system/mtd/src/linksys_bootcount.c:98:	if (mtd_info.writesize < BC_OFFSET_INCREMENT_MIN) {
+./openwrt/package/system/mtd/src/linksys_bootcount.c:101:		DLOG_DEBUG("Offset increment set to %i for writesize of %i",
+./openwrt/package/system/mtd/src/linksys_bootcount.c:102:			   bc_offset_increment, mtd_info.writesize);
+./openwrt/package/system/mtd/src/linksys_bootcount.c:105:		bc_offset_increment = mtd_info.writesize;
+./openwrt/package/system/mtd/src/linksys_bootcount.c:177:	/* Assumes bc_offset_increment is a multiple of mtd_info.writesize */
+./openwrt/package/system/mtd/src/wrg.c:141:	block_offset = offset & ~(erasesize - 1);
+./openwrt/package/system/mtd/src/wrg.c:150:	if (block_offset + erasesize > mtdsize) {
+./openwrt/package/system/mtd/src/wrg.c:156:	first_block = malloc(erasesize);
+./openwrt/package/system/mtd/src/wrg.c:162:	res = pread(fd, first_block, erasesize, block_offset);
+./openwrt/package/system/mtd/src/wrg.c:163:	if (res != erasesize) {
+./openwrt/package/system/mtd/src/wrg.c:195:	if (pwrite(fd, first_block, erasesize, block_offset) != erasesize) {
+./openwrt/package/system/mtd/src/tpl_ramips_recoveryflag.c:46:	args = malloc(erasesize);
+./openwrt/package/system/mtd/src/tpl_ramips_recoveryflag.c:60:	pread(fd, args, erasesize, 0);
+./openwrt/package/system/mtd/src/tpl_ramips_recoveryflag.c:73:	erase_info.length = erasesize;
+./openwrt/package/system/mtd/src/tpl_ramips_recoveryflag.c:84:	ret = pwrite(fd, args, erasesize, 0);
+./openwrt/package/system/mtd/src/trx.c:181:		data_size = erasesize - TRX_CRC32_DATA_OFFSET;
+./openwrt/package/system/mtd/src/trx.c:183:	block_offset = offset & ~(erasesize - 1);
+./openwrt/package/system/mtd/src/trx.c:191:	first_block = malloc(erasesize);
+./openwrt/package/system/mtd/src/trx.c:197:	res = pread(fd, first_block, erasesize, block_offset);
+./openwrt/package/system/mtd/src/trx.c:198:	if (res != erasesize) {
+./openwrt/package/system/mtd/src/trx.c:217:		size_t read_block_offset = data_offset & ~(erasesize - 1);
+./openwrt/package/system/mtd/src/trx.c:220:		read_chunk = erasesize - (data_offset & (erasesize - 1));
+./openwrt/package/system/mtd/src/trx.c:257:	if (pwrite(fd, first_block, erasesize, block_offset) != erasesize) {
+./openwrt/package/system/mtd/src/jffs2.c:53:	if ((ofs % size == 0) && (ofs < erasesize))
+./openwrt/package/system/mtd/src/jffs2.c:56:	if (ofs < erasesize) {
+./openwrt/package/system/mtd/src/jffs2.c:60:	ofs = ofs % erasesize;
+./openwrt/package/system/mtd/src/jffs2.c:66:			mtdofs += erasesize;
+./openwrt/package/system/mtd/src/jffs2.c:69:			lseek(outfd, erasesize, SEEK_CUR);
+./openwrt/package/system/mtd/src/jffs2.c:72:		write(outfd, buf, erasesize);
+./openwrt/package/system/mtd/src/jffs2.c:73:		mtdofs += erasesize;
+./openwrt/package/system/mtd/src/jffs2.c:79:	return erasesize - (ofs % erasesize);
+./openwrt/package/system/mtd/src/jffs2.c:84:	if (ofs + len > erasesize) {
+./openwrt/package/system/mtd/src/jffs2.c:85:		pad(erasesize);
+./openwrt/package/system/mtd/src/jffs2.c:104:	if (ofs - erasesize < sizeof(struct jffs2_raw_dirent) + strlen(name))
+./openwrt/package/system/mtd/src/jffs2.c:105:		pad(erasesize);
+./openwrt/package/system/mtd/src/jffs2.c:140:		pad(erasesize);
+./openwrt/package/system/mtd/src/jffs2.c:211:			pad(erasesize);
+./openwrt/package/system/mtd/src/jffs2.c:244:	buf = malloc(erasesize);
+./openwrt/package/system/mtd/src/jffs2.c:249:	pad(erasesize);
+./openwrt/package/system/mtd/src/jffs2.c:253:	pad(erasesize);
+./openwrt/package/system/mtd/src/jffs2.c:264:	while (ofs < erasesize) {
+./openwrt/package/system/mtd/src/jffs2.c:297:	buf = malloc(erasesize);
+./openwrt/package/system/mtd/src/jffs2.c:311:		if (read(outfd, buf, erasesize) != erasesize) {
+./openwrt/package/system/mtd/src/jffs2.c:315:		mtdofs += erasesize;
+./openwrt/package/system/mtd/src/jffs2.c:336:	mtdofs -= erasesize;
+./openwrt/package/system/mtd/src/jffs2.c:348:	pad(erasesize);
+./openwrt/package/system/mtd/src/jffs2.c:352:	pad(erasesize);
+./openwrt/package/system/mtd/src/imagetag.c:308:	block_offset = offset & ~(erasesize - 1);
+./openwrt/package/system/mtd/src/imagetag.c:317:	if (block_offset + erasesize > mtdsize) {
+./openwrt/package/system/mtd/src/imagetag.c:322:	buf = malloc(erasesize);
+./openwrt/package/system/mtd/src/imagetag.c:328:	res = pread(fd, buf, erasesize, block_offset);
+./openwrt/package/system/mtd/src/imagetag.c:329:	if (res != erasesize) {
+./openwrt/package/system/mtd/src/imagetag.c:398:	if (pwrite(fd, buf, erasesize, block_offset) != erasesize) {
+./openwrt/package/system/mtd/src/jffs2.h:56:#define JFFS2_FEATURE_RWCOMPAT_COPY 0x4000
+./openwrt/package/system/mtd/src/wrgg.c:119:	block_offset = offset & ~(erasesize - 1);
+./openwrt/package/system/mtd/src/wrgg.c:128:	if (block_offset + erasesize > mtdsize) {
+./openwrt/package/system/mtd/src/wrgg.c:134:	first_block = malloc(erasesize);
+./openwrt/package/system/mtd/src/wrgg.c:140:	res = pread(fd, first_block, erasesize, block_offset);
+./openwrt/package/system/mtd/src/wrgg.c:141:	if (res != erasesize) {
+./openwrt/package/system/mtd/src/wrgg.c:176:	if (pwrite(fd, first_block, erasesize, block_offset) != erasesize) {
+./openwrt/package/system/mtd/src/seama.c:121:	block_offset = offset & ~(erasesize - 1);
+./openwrt/package/system/mtd/src/seama.c:130:	if (block_offset + erasesize > mtdsize) {
+./openwrt/package/system/mtd/src/seama.c:136:	first_block = malloc(erasesize);
+./openwrt/package/system/mtd/src/seama.c:142:	res = pread(fd, first_block, erasesize, block_offset);
+./openwrt/package/system/mtd/src/seama.c:143:	if (res != erasesize) {
+./openwrt/package/system/mtd/src/seama.c:174:	if (pwrite(fd, first_block, erasesize, block_offset) != erasesize) {
+./openwrt/package/boot/uboot-d1/patches/0058-riscv-Add-CONFIG_TARGET_SUN20I.patch:77:+	default 0x40000000 if RISCV
+./openwrt/package/boot/uboot-d1/patches/0059-riscv-dts-Add-Allwinner-D1-devicetrees.patch:1226:+			reg = <0x10000000 0x4000000>;
+./openwrt/package/boot/uboot-d1/patches/0032-sunxi-binman-Move-BL31-and-SCP-firmware-addresses-to.patch:27:-#define BL31_ADDR 0x40000000
+./openwrt/package/boot/uboot-d1/patches/0032-sunxi-binman-Move-BL31-and-SCP-firmware-addresses-to.patch:87:+	default 0x40000000 if MACH_SUN50I_H616
+./openwrt/package/boot/uboot-d1/patches/0027-env-sunxi-Replace-ARCH_SUNXI-with-BOARD_SUNXI.patch:54: 	default 0x40000 if ENV_IS_IN_SPI_FLASH && ARCH_ZYNQMP
+./openwrt/package/boot/uboot-d1/patches/0027-env-sunxi-Replace-ARCH_SUNXI-with-BOARD_SUNXI.patch:62: 	default 0x40000 if ARCH_ZYNQMP || ARCH_VERSAL || ARCH_VERSAL_NET
+./openwrt/package/boot/uboot-rockchip/patches/103-rockchip-rk3588-generic-Enable-support-for-RK3582.patch:61: CONFIG_SPL_MAX_SIZE=0x40000
+./openwrt/package/boot/uboot-rockchip/patches/105-2-board-rockchip-add-LinkEase-EasePi-R1.patch:62:+CONFIG_SPL_MAX_SIZE=0x40000
+./openwrt/package/boot/uboot-rockchip/patches/107-board-rockchip-add-HINLINK-H28K.patch:47:+CONFIG_SPL_MAX_SIZE=0x40000
+./openwrt/package/boot/uboot-rockchip/patches/106-board-rockchip-add-HINLINK-H66K-H68K.patch:73:+CONFIG_SPL_MAX_SIZE=0x40000
+./openwrt/package/boot/uboot-rockchip/patches/106-board-rockchip-add-HINLINK-H66K-H68K.patch:150:+CONFIG_SPL_MAX_SIZE=0x40000
+./openwrt/package/boot/uboot-rockchip/patches/104-rockchip-rk3588s-rock-5c-Add-support-for-ROCK-5C-Lit.patch:32: CONFIG_SPL_MAX_SIZE=0x40000
+./openwrt/package/boot/uboot-mxs/patches/001-add-i2se-duckbill.patch:464:+CONFIG_SYS_TEXT_BASE=0x40002000
+./openwrt/package/boot/uboot-mxs/patches/001-add-i2se-duckbill.patch:498:+CONFIG_ENV_OFFSET_REDUND=0x40000
+./openwrt/package/boot/uboot-mxs/patches/001-add-i2se-duckbill.patch:524:+#define PHYS_SDRAM_1			0x40000000	/* Base address */
+./openwrt/package/boot/uboot-mxs/patches/001-add-i2se-duckbill.patch:525:+#define PHYS_SDRAM_1_SIZE		0x40000000	/* Max 1 GB RAM */
+./openwrt/package/boot/uboot-kirkwood/patches/010-pogoplug_v4.patch:568:+CONFIG_MTDPARTS_DEFAULT="mtdparts=orion_nand:0x1c0000(uboot),0x40000(uboot_env),0x7e00000(ubi)"
+./openwrt/package/boot/uboot-kirkwood/patches/151-arm-kirkwood-add-CheckPoint-L-50-device.patch:841:+CONFIG_MTDPARTS_DEFAULT="mtdparts=orion_nand:0xc0000@0x0(u-boot)ro,0x40000@0xc0000(bootldr-env),0x7900000@0x100000(ubi),0x800000@0x7a00000(kernel-2),0x7100000@0x8200000(rootfs-2),0x7900000@0xf300000(default_sw),0x1800000@0x16c00000(logs),0x100000@0x18400000(preset_cfg),0x100000@0x18500000(adsl),-@0x18600000(storage)"
+./openwrt/package/boot/uboot-kirkwood/patches/170-sheevaplug.patch:18:-	"x_bootcmd_kernel=nand read 0x6400000 0x100000 0x400000\0" \
+./openwrt/package/boot/uboot-sifiveu/patches/0005-riscv-dts-Add-few-PMU-events.patch:31:+			riscv,event-to-mhpmevent = <0x05 0x00000000 0x4000
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/apm821xx:12:	ubootenv_add_uci_config "/dev/mtd1" "0x0" "0x4000" "0x4000" "1"
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/apm821xx:13:	ubootenv_add_uci_config "/dev/mtd2" "0x0" "0x4000" "0x4000" "1"
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/apm821xx:21:	ubootenv_add_uci_config "/dev/mtd1" "0x0" "0x4000" "0x4000" "4"
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/apm821xx:24:	ubootenv_add_uci_config "/dev/mtd0" "0x40000" "0x20000" "0x20000" "1"
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/realtek:12:	ubootenv_add_mtd "u-boot-env" "0x0" "0x40000" "0x10000"
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/realtek:13:	ubootenv_add_sys_mtd "u-boot-env2" "0x0" "0x40000" "0x10000"
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/imx_cortexa9:43:		ubootenv_add_uci_config /dev/mtd1 0x0 0x20000 0x40000
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/imx_cortexa9:44:		ubootenv_add_uci_config /dev/mtd1 0x80000 0x20000 0x40000
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/ramips:120:	ubootenv_add_uci_sys_config "/dev/mtd1" "0x40000" "0x40000" "0x20000"
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/ramips:124:	ubootenv_add_mtd "u-boot-env" "0x4000" "0x1000" "0x1000"
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/ramips:141:	ubootenv_add_uci_sys_config "/dev/mtd2" "0x0" "0x4000" "0x20000"
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/ramips:147:	ubootenv_add_uci_sys_config "/dev/mtd2" "0x0" "0x4000" "0x10000"
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/ramips:151:	ubootenv_add_uci_sys_config "/dev/mtd9" "0x0" "0x4000" "0x10000"
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/kirkwood:34:	ubootenv_add_uci_config "/dev/mtd1" "0x0" "0x4000" "0x4000"
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/mvebu:29:		ubootenv_add_uci_config "/dev/mtd0" "0xc0000" "0x10000" "0x40000"
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/mvebu:57:	ubootenv_add_uci_config "/dev/mtd1" "0x0" "0x20000" "0x40000"
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/mvebu:60:	ubootenv_add_uci_config "/dev/mtd1" "0x0" "0x40000" "0x20000"
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/ipq40xx:41:	ubootenv_add_uci_config "/dev/mtd8" "0x0" "0x40000" "0x20000"
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/ipq40xx:49:	ubootenv_add_uci_config "/dev/mtd7" "0x0" "0x40000" "0x20000"
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/ipq40xx:52:	ubootenv_add_uci_config "/dev/mtd6" "0x0" "0x40000" "0x10000"
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/qualcommax_ipq50xx:16:	ubootenv_add_mtd "0:appsblenv" "0x0" "0x40000" "0x20000"
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/qualcommax_ipq50xx:19:	ubootenv_add_mtd "0:APPSBLENV" "0x0" "0x40000" "0x20000"
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/qualcommax_ipq50xx:26:	ubootenv_add_mtd "u_env" "0x0" "0x40000" "0x20000"
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/mediatek_mt7622:50:	ubootenv_add_mtd "u-boot-env" "0x0" "0x4000" "0x1000"
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/mediatek_mt7622:57:	ubootenv_add_uci_config "/dev/mtd3" "0x0" "0x10000" "0x40000"
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/mediatek_mt7622:58:	ubootenv_add_uci_sys_config "/dev/mtd4" "0x0" "0x10000" "0x40000"
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/ipq806x:24:		# size is fixed to 0x40000 in u-boot
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/ipq806x:25:		ubootenv_size=0x40000
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/ipq806x:36:	ubootenv_add_uci_config "/dev/mtd9" "0x0" "0x40000" "0x20000"
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/qualcommax_ipq807x:20:		# size is fixed to 0x40000 in u-boot
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/qualcommax_ipq807x:21:		ubootenv_size=0x40000
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/qualcommax_ipq807x:54:	ubootenv_add_mtd "0:appsblenv" "0x0" "0x40000" "0x20000"
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/qualcommax_ipq807x:60:	ubootenv_add_mtd "0:appsblenv" "0x0" "0x40000" "0x40000"
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/qualcommax_ipq807x:66:	ubootenv_add_mtd "u_env" "0x0" "0x40000" "0x20000"
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/qualcommax_ipq807x:69:	ubootenv_add_mtd "u_env" "0x0" "0x40000" "0x40000"
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/qualcommax_ipq807x:72:	ubootenv_add_mmc "0:APPSBLENV" "" "0x0" "0x40000" "0x400" "0x100"
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/qualcommax_ipq807x:81:	ubootenv_add_mmc "0:APPSBLENV" "" "0x0" "0x40000" "0x40000" "1"
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/lantiq:20:	ubootenv_add_uci_config "/dev/mtd2" "0x0" "0x4000" "0x4000" "1"
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/mxs:17:	ubootenv_add_uci_config "/dev/mmcblk0" "0x40000" "0x20000"
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/mxs:20:	ubootenv_add_uci_config "/dev/mmcblk0" "0x40000" "0x4000"
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/qualcommax_ipq60xx:26:	ubootenv_add_mtd "u_env" "0x0" "0x40000" "0x20000"
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/qualcommax_ipq60xx:33:	ubootenv_add_mmc "0:APPSBLENV" "" "0x0" "0x40000" "0x20000"
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/qualcommax_ipq60xx:44:	ubootenv_add_mtd "0:appsblenv" "0x0" "0x40000" "0x20000"
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/qualcommbe_ipq95xx:12:	ubootenv_add_mmc "0:APPSBLENV" "" "0x0" "0x40000" "0x40000"
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/ath79:117:	ubootenv_add_uci_config "/dev/mtd1" "0x0" "0x40000" "0x10000"
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/ath79:123:	ubootenv_add_uci_config "/dev/mtd2" "0x0" "0x1000" "0x4000" "1"
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/ath79:124:	ubootenv_add_uci_config "/dev/mtd3" "0x0" "0x1000" "0x4000" "1"
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/ath79:143:	ubootenv_add_uci_config "/dev/mtd1" "0x0" "0x40000" "0x20000"
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/ath79:155:	ubootenv_add_uci_config "/dev/mtd1" "0x0" "0x40000" "0x40000"
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/ath79:164:	ubootenv_add_uci_config "/dev/mtd5" "0x0" "0x40000" "0x40000"
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/ath79:168:	ubootenv_add_uci_config "/dev/mtd2" "0x0" "0x40000" "0x10000"
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/mediatek_filogic:15:	ubootenv_add_mmc "ubootenv" "${1:-mmcblk0}" "0x0" "0x40000" "0x40000" "1"
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/mediatek_filogic:16:	ubootenv_add_mmc "ubootenv" "${1:-mmcblk0}" "0x40000" "0x40000" "0x40000" "1"
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/mediatek_filogic:128:	ubootenv_add_uci_config "/dev/mtd1" "0x0" "0x40000" "0x40000"
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/mediatek_filogic:163:	ubootenv_add_mtd "u-boot-env" "0x0" "0x20000" "0x40000" "2"
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/mediatek_filogic:168:	ubootenv_add_sys_mtd "u-boot-env" "0x0" "0x20000" "0x40000" "2"
+./openwrt/package/boot/uboot-tools/uboot-envtools/files/mediatek_filogic:171:	ubootenv_add_uci_config "/dev/ubootenv" "0x0" "0x4000" "0x4000" "1"
+./openwrt/package/boot/uboot-ath79/patches/401-mips-ath79-add-support-for-NEC-QCA9558-Aterm-series.patch:194:+CONFIG_SYS_MALLOC_LEN=0x40000
+./openwrt/package/boot/uboot-ath79/patches/401-mips-ath79-add-support-for-NEC-QCA9558-Aterm-series.patch:203:+CONFIG_MIPS_RELOCATION_TABLE_SIZE=0x4000
+./openwrt/package/boot/uboot-ath79/patches/400-ath79-add-support-for-NEC-AR9344-Aterm-series.patch:213:+CONFIG_SYS_MALLOC_LEN=0x40000
+./openwrt/package/boot/uboot-ath79/patches/400-ath79-add-support-for-NEC-AR9344-Aterm-series.patch:222:+CONFIG_MIPS_RELOCATION_TABLE_SIZE=0x4000
+./openwrt/package/boot/uboot-ath79/patches/400-ath79-add-support-for-NEC-AR9344-Aterm-series.patch:277:+CONFIG_SYS_MALLOC_LEN=0x40000
+./openwrt/package/boot/uboot-ath79/patches/400-ath79-add-support-for-NEC-AR9344-Aterm-series.patch:287:+CONFIG_MIPS_RELOCATION_TABLE_SIZE=0x4000
+./openwrt/package/boot/uboot-lantiq/patches/0112-MIPS-add-board-support-for-Arcadyan-VGV7510KW22.patch:188:+#define	MC_CCR16_VALUE	0x40000
+./openwrt/package/boot/uboot-lantiq/patches/0107-MIPS-add-board-support-for-ZyXEL-P-2812HNU-Fx.patch:75:+#define	MC_CCR16_VALUE	0x40000
+./openwrt/package/boot/uboot-lantiq/patches/0107-MIPS-add-board-support-for-ZyXEL-P-2812HNU-Fx.patch:264:+#define CONFIG_SYS_NAND_U_BOOT_OFFS	0x4000
+./openwrt/package/boot/uboot-lantiq/patches/0116-MIPS-add-board-support-for-BT-Home-Hub-5A.patch:196:+#define	MC_CCR16_VALUE	0x40000
+./openwrt/package/boot/uboot-lantiq/patches/0020-MIPS-lantiq-add-NAND-SPL-support.patch:113:+ * BOOT CFG 06 only (address cycle based probing, 2KB or 512B page size)
+./openwrt/package/boot/uboot-lantiq/patches/0101-MIPS-add-board-support-for-Easy-80920.patch:67:+#define	MC_CCR16_VALUE	0x40000
+./openwrt/package/boot/uboot-lantiq/patches/0101-MIPS-add-board-support-for-Easy-80920.patch:310:+#define CONFIG_SYS_NAND_U_BOOT_OFFS	0x4000
+./openwrt/package/boot/uboot-lantiq/patches/0014-MIPS-add-support-for-Lantiq-XWAY-SoCs.patch:337:+#define LTQ_RCU_RST_REQ_VALUE		0x40000008
+./openwrt/package/boot/uboot-lantiq/patches/0014-MIPS-add-support-for-Lantiq-XWAY-SoCs.patch:3300:+#define CONFIG_SYS_INIT_SP_OFFSET	0x4000
+./openwrt/package/boot/uboot-lantiq/patches/0114-MIPS-add-board-support-for-Arcadyan-VGV7519.patch:68:+#define	MC_CCR16_VALUE	0x40000
+./openwrt/package/boot/uboot-lantiq/patches/0033-MIPS-lantiq-reduce-stack-size.patch:41:-#define CONFIG_SYS_INIT_SP_OFFSET	0x4000
+./openwrt/package/boot/uboot-lantiq/patches/0105-MIPS-add-board-support-for-AVM-FritzBox-3370.patch:75:+#define	MC_CCR16_VALUE	0x40000
+./openwrt/package/boot/uboot-mediatek/patches/454-add-glinet-x3000.patch:24:+		reg = <0x40000000 0x20000000>;
+./openwrt/package/boot/uboot-mediatek/patches/454-add-glinet-x3000.patch:157:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/454-add-glinet-x3000.patch:160:+CONFIG_ENV_OFFSET=0x400000
+./openwrt/package/boot/uboot-mediatek/patches/445-add-netis-nx31.patch:10:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/445-add-netis-nx31.patch:142:+		reg = <0x40000000 0x10000000>;
+./openwrt/package/boot/uboot-mediatek/patches/452-add-xiaomi-redmi-ax6s.patch:55:+		reg = <0x40000000 0x8000000>;
+./openwrt/package/boot/uboot-mediatek/patches/452-add-xiaomi-redmi-ax6s.patch:203:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/449-add-cudy_wbr3000uax-v1.patch:10:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/449-add-cudy_wbr3000uax-v1.patch:139:+		reg = <0x40000000 0x20000000>;
+./openwrt/package/boot/uboot-mediatek/patches/449-add-cudy_wbr3000uax-v1.patch:278:+				reg = <0x380000 0x40000>;
+./openwrt/package/boot/uboot-mediatek/patches/502-add-bazis-ax3000wm.patch:10:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/502-add-bazis-ax3000wm.patch:142:+		reg = <0x40000000 0x10000000>;
+./openwrt/package/boot/uboot-mediatek/patches/466-add-imou-hx21.patch:10:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/466-add-imou-hx21.patch:139:+		reg = <0x40000000 0x10000000>;
+./openwrt/package/boot/uboot-mediatek/patches/433-add-qihoo_360t7.patch:10:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/433-add-qihoo_360t7.patch:159:+		reg = <0x40000000 0x10000000>;
+./openwrt/package/boot/uboot-mediatek/patches/108-dts-arm64-mt7981-rfb-add-mtd-partitions.patch:35:+				reg = <0x580000 0x4000000>;
+./openwrt/package/boot/uboot-mediatek/patches/108-dts-arm64-mt7981-rfb-add-mtd-partitions.patch:58:+				reg = <0x40000 0x0010000>;
+./openwrt/package/boot/uboot-mediatek/patches/108-dts-arm64-mt7981-rfb-add-mtd-partitions.patch:134:+				reg = <0x580000 0x4000000>;
+./openwrt/package/boot/uboot-mediatek/patches/432-add-tplink-xdr608x.patch:10:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/432-add-tplink-xdr608x.patch:146:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/432-add-tplink-xdr608x.patch:282:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/432-add-tplink-xdr608x.patch:436:+		reg = <0x40000000 0x20000000>;
+./openwrt/package/boot/uboot-mediatek/patches/441-add-jdcloud_re-cp-03.patch:10:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/441-add-jdcloud_re-cp-03.patch:12:+CONFIG_ENV_SIZE=0x40000
+./openwrt/package/boot/uboot-mediatek/patches/441-add-jdcloud_re-cp-03.patch:13:+CONFIG_ENV_OFFSET=0x400000
+./openwrt/package/boot/uboot-mediatek/patches/441-add-jdcloud_re-cp-03.patch:142:+		reg = <0x40000000 0x40000000>;
+./openwrt/package/boot/uboot-mediatek/patches/440-add-xiaomi_mi-router-ax3000t.patch:10:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/440-add-xiaomi_mi-router-ax3000t.patch:143:+		reg = <0x40000000 0x10000000>;
+./openwrt/package/boot/uboot-mediatek/patches/440-add-xiaomi_mi-router-ax3000t.patch:262:+				reg = <0x100000 0x40000>;
+./openwrt/package/boot/uboot-mediatek/patches/440-add-xiaomi_mi-router-ax3000t.patch:267:+				reg = <0x140000 0x40000>;
+./openwrt/package/boot/uboot-mediatek/patches/440-add-xiaomi_mi-router-ax3000t.patch:282:+				reg = <0x580000 0x40000>;
+./openwrt/package/boot/uboot-mediatek/patches/440-add-xiaomi_mi-router-ax3000t.patch:287:+				reg = <0x5c0000 0x40000>;
+./openwrt/package/boot/uboot-mediatek/patches/440-add-xiaomi_mi-router-ax3000t.patch:297:+				reg = <0x7600000 0x40000>;
+./openwrt/package/boot/uboot-mediatek/patches/100-02-mtd-mtk-snand-add-support-for-SPL.patch:69:+	uint32_t off = offs, writesize_mask = cinfo.pagesize - 1;
+./openwrt/package/boot/uboot-mediatek/patches/100-02-mtd-mtk-snand-add-support-for-SPL.patch:79:+		leading = off & writesize_mask;
+./openwrt/package/boot/uboot-mediatek/patches/431-add-xiaomi_redmi-ax6000.patch:10:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/431-add-xiaomi_redmi-ax6000.patch:140:+		reg = <0x40000000 0x20000000>;
+./openwrt/package/boot/uboot-mediatek/patches/431-add-xiaomi_redmi-ax6000.patch:248:+				reg = <0x100000 0x40000>;
+./openwrt/package/boot/uboot-mediatek/patches/431-add-xiaomi_redmi-ax6000.patch:253:+				reg = <0x140000 0x40000>;
+./openwrt/package/boot/uboot-mediatek/patches/436-add-glinet-mt6000.patch:23:+		reg = <0x40000000 0x40000000>;
+./openwrt/package/boot/uboot-mediatek/patches/436-add-glinet-mt6000.patch:144:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/436-add-glinet-mt6000.patch:147:+CONFIG_ENV_OFFSET=0x400000
+./openwrt/package/boot/uboot-mediatek/patches/445-add-netis-nx32u.patch:10:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/445-add-netis-nx32u.patch:143:+		reg = <0x40000000 0x10000000>;
+./openwrt/package/boot/uboot-mediatek/patches/420-add-support-for-RAVPower-RP-WD009.patch:57:+		reg = <0x0 0x4000000>;
+./openwrt/package/boot/uboot-mediatek/patches/420-add-support-for-RAVPower-RP-WD009.patch:205:+#define CFG_SYS_INIT_SP_OFFSET		0x400000
+./openwrt/package/boot/uboot-mediatek/patches/160-net-phy-add-support-for-Airoha-ethernet-PHY-driver.patch:580:+    airoha_pbus_write(mbus, pbus_addr, 0x1C08, 0x40000040);
+./openwrt/package/boot/uboot-mediatek/patches/160-net-phy-add-support-for-Airoha-ethernet-PHY-driver.patch:1061:+#define EN8811H_MD32_DM_SIZE	0x4000
+./openwrt/package/boot/uboot-mediatek/patches/468-add-cudy_wr3000h-v1.patch:9:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/468-add-cudy_wr3000h-v1.patch:135:+		reg = <0x40000000 0x10000000>;
+./openwrt/package/boot/uboot-mediatek/patches/468-add-cudy_wr3000h-v1.patch:238:+				reg = <0x380000 0x40000>;
+./openwrt/package/boot/uboot-mediatek/patches/453-add-openwrt-one.patch:26:+		reg = <0x40000000 0x10000000>;
+./openwrt/package/boot/uboot-mediatek/patches/453-add-openwrt-one.patch:188:+				reg = <0x40000 0x00C0000>;
+./openwrt/package/boot/uboot-mediatek/patches/453-add-openwrt-one.patch:216:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/453-add-openwrt-one.patch:349:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/453-add-openwrt-one.patch:478:+bl2_mtd_write=mtd erase bl2-nor &&  mtd write bl2-nor $loadaddr 0x0 0x40000
+./openwrt/package/boot/uboot-mediatek/patches/453-add-openwrt-one.patch:512:+recovery_write_bl2=mtd erase bl2 && for offset in 0x0 0x40000 0x80000; do mtd write bl2 $loadaddr $offset 0x40000 ; done
+./openwrt/package/boot/uboot-mediatek/patches/453-add-openwrt-one.patch:574:+snand_write_bl2=mtd erase bl2 && for offset in 0x0 0x40000 0x80000 0xc0000 ; do mtd write bl2 $loadaddr $offset 0x40000 ; done
+./openwrt/package/boot/uboot-mediatek/patches/447-add-konka_komi-a31.patch:10:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/447-add-konka_komi-a31.patch:139:+		reg = <0x40000000 0x10000000>;
+./openwrt/package/boot/uboot-mediatek/patches/451-add-tplink-xtr8488.patch:10:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/451-add-tplink-xtr8488.patch:164:+		reg = <0x40000000 0x40000000>;
+./openwrt/package/boot/uboot-mediatek/patches/451-add-tplink-xtr8488.patch:312:+				reg = <0x100000 0x40000>;
+./openwrt/package/boot/uboot-mediatek/patches/451-add-tplink-xtr8488.patch:317:+				reg = <0x140000 0x40000>;
+./openwrt/package/boot/uboot-mediatek/patches/456-add-arcadyan-mozart.patch:10:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/456-add-arcadyan-mozart.patch:12:+CONFIG_ENV_SIZE=0x40000
+./openwrt/package/boot/uboot-mediatek/patches/456-add-arcadyan-mozart.patch:13:+CONFIG_ENV_OFFSET=0x400000
+./openwrt/package/boot/uboot-mediatek/patches/456-add-arcadyan-mozart.patch:205:+		reg = <0 0x40000000 0 0x40000000>;
+./openwrt/package/boot/uboot-mediatek/patches/461-add-netis-nx30v2.patch:21:+		reg = <0x40000000 0x10000000>;
+./openwrt/package/boot/uboot-mediatek/patches/461-add-netis-nx30v2.patch:173:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/421-zbtlink_zbt-wg3526-16m.patch:16:+CONFIG_SPL_SYS_MALLOC_F_LEN=0x40000
+./openwrt/package/boot/uboot-mediatek/patches/421-zbtlink_zbt-wg3526-16m.patch:244:+				reg = <0x40000 0x10000>;
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:249:+	return addr >> ni->erasesize_shift;
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:259:+	return (uint64_t)ba << ni->erasesize_shift;
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:268:+	return (size + ni->lower.erasesize - 1) >> ni->erasesize_shift;
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:426:+				  ni->page_cache + ni->lower.writesize,
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:431:+	return ni->page_cache[ni->lower.writesize] != 0xff;
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:461:+	for (off = 0; off < ni->lower.erasesize; off += ni->lower.writesize) {
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:463:+				     ni->page_cache + ni->lower.writesize,
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:785:+	for (off = 0; off < ni->lower.erasesize; off += ni->lower.writesize) {
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:870:+	if (size > ni->lower.writesize)
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:875:+	for (off = 0; off < ni->lower.erasesize; off += ni->lower.writesize) {
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:977:+		leading = off & ni->writesize_mask;
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:978:+		chunksize = ni->lower.writesize - leading;
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:982:+		if (chunksize == ni->lower.writesize) {
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:1027:+		leading = off & ni->writesize_mask;
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:1028:+		chunksize = ni->lower.writesize - leading;
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:1084:+		if (chunksize > ni->lower.erasesize)
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:1085:+			chunksize = ni->lower.erasesize;
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:1444:+	uint32_t info_table_erasesize = size2blk(ni, ni->info_table_size);
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:1451:+					  info_table_erasesize);
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:1538:+					  info_table_erasesize);
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:1818:+	ni->signature.block_size = ni->lower.erasesize;
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:1819:+	ni->signature.page_size = ni->lower.writesize;
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:1948:+		if (chunksize > ni->lower.erasesize)
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:1949:+			chunksize = ni->lower.erasesize;
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:2235:+	block_count = ni->lower.size >> ni->erasesize_shift;
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:2254:+		for (off = 0; off < ni->lower.erasesize;
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:2255:+		     off += ni->lower.writesize) {
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:2303:+	if (!nld->erasesize || !is_power_of_2(nld->erasesize)) {
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:2305:+			       "Block size %u is not valid\n", nld->erasesize);
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:2309:+	if (!nld->writesize || !is_power_of_2(nld->writesize)) {
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:2311:+			       "Page size %u is not valid\n", nld->writesize);
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:2360:+	block_count = nmbm_lldiv(nld->size, nld->erasesize);
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:2368:+				     nld->writesize);
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:2369:+	info_table_size += NMBM_ALIGN(state_table_size, nld->writesize);
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:2370:+	info_table_size += NMBM_ALIGN(mapping_table_size, nld->writesize);
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:2373:+		nld->writesize + nld->oobsize + sizeof(struct nmbm_instance);
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:2385:+	pages_per_block = ni->lower.erasesize / ni->lower.writesize;
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:2386:+	blocks_per_chip = nmbm_lldiv(ni->lower.size, ni->lower.erasesize);
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:2388:+	ni->rawpage_size = ni->lower.writesize + ni->lower.oobsize;
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:2392:+	ni->writesize_mask = ni->lower.writesize - 1;
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:2393:+	ni->erasesize_mask = ni->lower.erasesize - 1;
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:2395:+	ni->writesize_shift = ffs(ni->lower.writesize) - 1;
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:2396:+	ni->erasesize_shift = ffs(ni->lower.erasesize) - 1;
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:2399:+	ni->block_count = ni->lower.size >> ni->erasesize_shift;
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:2407:+					 ni->lower.writesize);
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:2411:+					  ni->lower.writesize);
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:2415:+					  ni->lower.writesize);
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:2492:+	    ni->signature.block_size != nld->erasesize ||
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:2493:+	    ni->signature.page_size != nld->writesize ||
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:2662:+	offset = addr & ni->erasesize_mask;
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:2762:+		leading = off & ni->writesize_mask;
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:2763:+		chunksize = ni->lower.writesize - leading;
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:2767:+		if (chunksize == ni->lower.writesize) {
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:2823:+	offset = addr & ni->erasesize_mask;
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:2870:+	offset = addr & ni->erasesize_mask;
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:3002:+		leading = off & ni->writesize_mask;
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:3003:+		chunksize = ni->lower.writesize - leading;
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:3007:+		if (chunksize == ni->lower.writesize) {
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:3113:+	return (uint64_t)ni->data_block_count << ni->erasesize_shift;
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:3301:+	uint32_t writesize_mask;
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:3302:+	uint32_t erasesize_mask;
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:3303:+	uint16_t writesize_shift;
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:3304:+	uint16_t erasesize_shift;
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:3467:+	uint32_t erasesize;
+./openwrt/package/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:3468:+	uint32_t writesize;
+./openwrt/package/boot/uboot-mediatek/patches/100-11-env-add-support-for-NMBM-upper-MTD-layer.patch:200:+		ops.len = min(len, (size_t)mtd->writesize);
+./openwrt/package/boot/uboot-mediatek/patches/100-11-env-add-support-for-NMBM-upper-MTD-layer.patch:207:+		buf += mtd->writesize;
+./openwrt/package/boot/uboot-mediatek/patches/100-11-env-add-support-for-NMBM-upper-MTD-layer.patch:208:+		len -= mtd->writesize;
+./openwrt/package/boot/uboot-mediatek/patches/100-11-env-add-support-for-NMBM-upper-MTD-layer.patch:209:+		offset += mtd->writesize;
+./openwrt/package/boot/uboot-mediatek/patches/100-10-cmd-add-a-new-command-for-NAND-flash-debugging.patch:116:+	printf("  - block size:        0x%x bytes\n", mtd->erasesize);
+./openwrt/package/boot/uboot-mediatek/patches/100-10-cmd-add-a-new-command-for-NAND-flash-debugging.patch:117:+	printf("  - page size:         0x%x bytes\n", mtd->writesize);
+./openwrt/package/boot/uboot-mediatek/patches/100-10-cmd-add-a-new-command-for-NAND-flash-debugging.patch:358:+	off &= ~(u64)mtd->writesize_mask;
+./openwrt/package/boot/uboot-mediatek/patches/100-10-cmd-add-a-new-command-for-NAND-flash-debugging.patch:360:+	buf = malloc(mtd->writesize + mtd->oobsize);
+./openwrt/package/boot/uboot-mediatek/patches/100-10-cmd-add-a-new-command-for-NAND-flash-debugging.patch:367:+	io_op.len = mtd->writesize;
+./openwrt/package/boot/uboot-mediatek/patches/100-10-cmd-add-a-new-command-for-NAND-flash-debugging.patch:370:+	io_op.oobbuf = buf + mtd->writesize;
+./openwrt/package/boot/uboot-mediatek/patches/100-10-cmd-add-a-new-command-for-NAND-flash-debugging.patch:380:+	dump_buf(buf, mtd->writesize, off);
+./openwrt/package/boot/uboot-mediatek/patches/100-10-cmd-add-a-new-command-for-NAND-flash-debugging.patch:384:+	dump_buf(buf + mtd->writesize, mtd->oobsize, 0);
+./openwrt/package/boot/uboot-mediatek/patches/100-10-cmd-add-a-new-command-for-NAND-flash-debugging.patch:404:+		off += mtd->erasesize;
+./openwrt/package/boot/uboot-mediatek/patches/100-10-cmd-add-a-new-command-for-NAND-flash-debugging.patch:431:+	off &= ~(u64)mtd->erasesize_mask;
+./openwrt/package/boot/uboot-mediatek/patches/100-10-cmd-add-a-new-command-for-NAND-flash-debugging.patch:474:+	if (col >= mtd->writesize + mtd->oobsize) {
+./openwrt/package/boot/uboot-mediatek/patches/100-10-cmd-add-a-new-command-for-NAND-flash-debugging.patch:476:+		       mtd->writesize + mtd->oobsize);
+./openwrt/package/boot/uboot-mediatek/patches/100-10-cmd-add-a-new-command-for-NAND-flash-debugging.patch:491:+	off &= ~(u64)mtd->writesize_mask;
+./openwrt/package/boot/uboot-mediatek/patches/100-10-cmd-add-a-new-command-for-NAND-flash-debugging.patch:493:+	buf = malloc(mtd->writesize + mtd->oobsize);
+./openwrt/package/boot/uboot-mediatek/patches/100-10-cmd-add-a-new-command-for-NAND-flash-debugging.patch:500:+	io_op.len = mtd->writesize;
+./openwrt/package/boot/uboot-mediatek/patches/100-10-cmd-add-a-new-command-for-NAND-flash-debugging.patch:503:+	io_op.oobbuf = buf + mtd->writesize;
+./openwrt/package/boot/uboot-mediatek/patches/100-10-cmd-add-a-new-command-for-NAND-flash-debugging.patch:522:+	io_op.len = mtd->writesize;
+./openwrt/package/boot/uboot-mediatek/patches/100-10-cmd-add-a-new-command-for-NAND-flash-debugging.patch:525:+	io_op.oobbuf = buf + mtd->writesize;
+./openwrt/package/boot/uboot-mediatek/patches/100-10-cmd-add-a-new-command-for-NAND-flash-debugging.patch:536:+	io_op.len = mtd->writesize;
+./openwrt/package/boot/uboot-mediatek/patches/100-10-cmd-add-a-new-command-for-NAND-flash-debugging.patch:539:+	io_op.oobbuf = buf + mtd->writesize;
+./openwrt/package/boot/uboot-mediatek/patches/100-10-cmd-add-a-new-command-for-NAND-flash-debugging.patch:637:+	off &= ~(u64)mtd->erasesize_mask;
+./openwrt/package/boot/uboot-mediatek/patches/100-10-cmd-add-a-new-command-for-NAND-flash-debugging.patch:638:+	end = (end + mtd->erasesize_mask) & (~(u64)mtd->erasesize_mask);
+./openwrt/package/boot/uboot-mediatek/patches/100-10-cmd-add-a-new-command-for-NAND-flash-debugging.patch:650:+				off += mtd->erasesize;
+./openwrt/package/boot/uboot-mediatek/patches/100-10-cmd-add-a-new-command-for-NAND-flash-debugging.patch:666:+		ei.len = mtd->erasesize;
+./openwrt/package/boot/uboot-mediatek/patches/100-10-cmd-add-a-new-command-for-NAND-flash-debugging.patch:675:+		off += mtd->erasesize;
+./openwrt/package/boot/uboot-mediatek/patches/100-10-cmd-add-a-new-command-for-NAND-flash-debugging.patch:676:+		size -= mtd->erasesize;
+./openwrt/package/boot/uboot-mediatek/patches/100-10-cmd-add-a-new-command-for-NAND-flash-debugging.patch:792:+	buf = malloc(mtd->writesize);
+./openwrt/package/boot/uboot-mediatek/patches/100-10-cmd-add-a-new-command-for-NAND-flash-debugging.patch:802:+		if (checkbad || !(off & mtd->erasesize_mask)) {
+./openwrt/package/boot/uboot-mediatek/patches/100-10-cmd-add-a-new-command-for-NAND-flash-debugging.patch:803:+			offp = off & ~(u64)mtd->erasesize_mask;
+./openwrt/package/boot/uboot-mediatek/patches/100-10-cmd-add-a-new-command-for-NAND-flash-debugging.patch:810:+					off += mtd->erasesize;
+./openwrt/package/boot/uboot-mediatek/patches/100-10-cmd-add-a-new-command-for-NAND-flash-debugging.patch:826:+		padding = off & mtd->writesize_mask;
+./openwrt/package/boot/uboot-mediatek/patches/100-10-cmd-add-a-new-command-for-NAND-flash-debugging.patch:827:+		chksz = mtd->writesize - padding;
+./openwrt/package/boot/uboot-mediatek/patches/100-10-cmd-add-a-new-command-for-NAND-flash-debugging.patch:830:+		offp = off & ~(u64)mtd->writesize_mask;
+./openwrt/package/boot/uboot-mediatek/patches/100-10-cmd-add-a-new-command-for-NAND-flash-debugging.patch:834:+		io_op.len = mtd->writesize;
+./openwrt/package/boot/uboot-mediatek/patches/100-10-cmd-add-a-new-command-for-NAND-flash-debugging.patch:836:+		if (chksz < mtd->writesize)
+./openwrt/package/boot/uboot-mediatek/patches/100-10-cmd-add-a-new-command-for-NAND-flash-debugging.patch:846:+			if (chksz < mtd->writesize)
+./openwrt/package/boot/uboot-mediatek/patches/100-10-cmd-add-a-new-command-for-NAND-flash-debugging.patch:849:+			if (chksz < mtd->writesize) {
+./openwrt/package/boot/uboot-mediatek/patches/100-10-cmd-add-a-new-command-for-NAND-flash-debugging.patch:850:+				memset(buf, 0xff, mtd->writesize);
+./openwrt/package/boot/uboot-mediatek/patches/100-10-cmd-add-a-new-command-for-NAND-flash-debugging.patch:952:+			if (part->offset + count * mtd->writesize > part->size) {
+./openwrt/package/boot/uboot-mediatek/patches/100-10-cmd-add-a-new-command-for-NAND-flash-debugging.patch:963:+			off &= ~(u64)mtd->writesize_mask;
+./openwrt/package/boot/uboot-mediatek/patches/100-10-cmd-add-a-new-command-for-NAND-flash-debugging.patch:966:+			if (part->offset + off + count * mtd->writesize > part->size) {
+./openwrt/package/boot/uboot-mediatek/patches/100-10-cmd-add-a-new-command-for-NAND-flash-debugging.patch:986:+		off &= ~(u64)mtd->writesize_mask;
+./openwrt/package/boot/uboot-mediatek/patches/100-10-cmd-add-a-new-command-for-NAND-flash-debugging.patch:994:+		if (off + count * mtd->writesize > mtd->size) {
+./openwrt/package/boot/uboot-mediatek/patches/100-10-cmd-add-a-new-command-for-NAND-flash-debugging.patch:1002:+	       off + count * mtd->writesize - 1, mtd->oobsize, count);
+./openwrt/package/boot/uboot-mediatek/patches/100-10-cmd-add-a-new-command-for-NAND-flash-debugging.patch:1005:+		if (checkbad || !(off & mtd->erasesize_mask)) {
+./openwrt/package/boot/uboot-mediatek/patches/100-10-cmd-add-a-new-command-for-NAND-flash-debugging.patch:1006:+			offp = off & ~(u64)mtd->erasesize_mask;
+./openwrt/package/boot/uboot-mediatek/patches/100-10-cmd-add-a-new-command-for-NAND-flash-debugging.patch:1013:+					off += mtd->erasesize;
+./openwrt/package/boot/uboot-mediatek/patches/100-10-cmd-add-a-new-command-for-NAND-flash-debugging.patch:1038:+		io_op.len = mtd->writesize;
+./openwrt/package/boot/uboot-mediatek/patches/100-10-cmd-add-a-new-command-for-NAND-flash-debugging.patch:1041:+		io_op.oobbuf = io_op.datbuf + mtd->writesize;
+./openwrt/package/boot/uboot-mediatek/patches/100-10-cmd-add-a-new-command-for-NAND-flash-debugging.patch:1048:+			if (is_empty_page((void *)addr, mtd->writesize + mtd->oobsize) && !writeff)
+./openwrt/package/boot/uboot-mediatek/patches/100-10-cmd-add-a-new-command-for-NAND-flash-debugging.patch:1058:+		addr += mtd->writesize + mtd->oobsize;
+./openwrt/package/boot/uboot-mediatek/patches/100-10-cmd-add-a-new-command-for-NAND-flash-debugging.patch:1059:+		off += mtd->writesize;
+./openwrt/package/boot/uboot-mediatek/patches/468-add-cudy_wr3000p-v1.patch:9:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/468-add-cudy_wr3000p-v1.patch:135:+		reg = <0x40000000 0x20000000>;
+./openwrt/package/boot/uboot-mediatek/patches/468-add-cudy_wr3000p-v1.patch:238:+				reg = <0x380000 0x40000>;
+./openwrt/package/boot/uboot-mediatek/patches/458-add-GatoNetworks-GDSP.patch:38:+		reg = <0x40000000 0x10000000>;
+./openwrt/package/boot/uboot-mediatek/patches/458-add-GatoNetworks-GDSP.patch:156:+				reg = <0x40000 0x0010000>;
+./openwrt/package/boot/uboot-mediatek/patches/458-add-GatoNetworks-GDSP.patch:263:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/400-update-bpir2-defconfig.patch:3:@@ -7,34 +7,67 @@ CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/400-update-bpir2-defconfig.patch:14: CONFIG_SYS_BOOTM_LEN=0x4000000
+./openwrt/package/boot/uboot-mediatek/patches/430-add-bpi-r3.patch:10:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/430-add-bpi-r3.patch:12:+CONFIG_ENV_SIZE=0x40000
+./openwrt/package/boot/uboot-mediatek/patches/430-add-bpi-r3.patch:13:+CONFIG_ENV_OFFSET=0x400000
+./openwrt/package/boot/uboot-mediatek/patches/430-add-bpi-r3.patch:155:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/430-add-bpi-r3.patch:299:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/430-add-bpi-r3.patch:301:+CONFIG_ENV_SIZE=0x40000
+./openwrt/package/boot/uboot-mediatek/patches/430-add-bpi-r3.patch:302:+CONFIG_ENV_OFFSET=0x400000
+./openwrt/package/boot/uboot-mediatek/patches/430-add-bpi-r3.patch:444:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/430-add-bpi-r3.patch:631:+sdmmc_read_emmc_install=part start mmc 0 install part_addr && setexpr offset $part_addr + 0x3800 && mmc read $loadaddr $offset 0x4000
+./openwrt/package/boot/uboot-mediatek/patches/430-add-bpi-r3.patch:634:+snand_write_bl2=mtd erase bl2 0x0 0x100000 && mtd write bl2 $loadaddr 0x0 0x40000 && mtd write bl2 $loadaddr 0x40000 0x40000 && mtd write bl2 $loadaddr 0x80000 0x40000 && mtd write bl2 $loadaddr 0xc0000 0x40000
+./openwrt/package/boot/uboot-mediatek/patches/430-add-bpi-r3.patch:775:+snand_write_bl2=mtd erase bl2 0x0 0x100000 && mtd write bl2 $loadaddr 0x0 0x40000 && mtd write bl2 $loadaddr 0x40000 0x40000 && mtd write bl2 $loadaddr 0x80000 0x40000 && mtd write bl2 $loadaddr 0xc0000 0x40000
+./openwrt/package/boot/uboot-mediatek/patches/444-add-abt_asr3000.patch:10:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/444-add-abt_asr3000.patch:139:+		reg = <0x40000000 0x10000000>;
+./openwrt/package/boot/uboot-mediatek/patches/434-add-xiaomi_mi-router-wr30u.patch:10:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/434-add-xiaomi_mi-router-wr30u.patch:164:+		reg = <0x40000000 0x10000000>;
+./openwrt/package/boot/uboot-mediatek/patches/434-add-xiaomi_mi-router-wr30u.patch:312:+				reg = <0x100000 0x40000>;
+./openwrt/package/boot/uboot-mediatek/patches/434-add-xiaomi_mi-router-wr30u.patch:317:+				reg = <0x140000 0x40000>;
+./openwrt/package/boot/uboot-mediatek/patches/434-add-xiaomi_mi-router-wr30u.patch:332:+				reg = <0x580000 0x40000>;
+./openwrt/package/boot/uboot-mediatek/patches/434-add-xiaomi_mi-router-wr30u.patch:337:+				reg = <0x5c0000 0x40000>;
+./openwrt/package/boot/uboot-mediatek/patches/434-add-xiaomi_mi-router-wr30u.patch:347:+				reg = <0x7600000 0x40000>;
+./openwrt/package/boot/uboot-mediatek/patches/401-update-u7623-defconfig.patch:3:@@ -7,32 +7,65 @@ CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/401-update-u7623-defconfig.patch:14: CONFIG_SYS_BOOTM_LEN=0x4000000
+./openwrt/package/boot/uboot-mediatek/patches/470-add-bpi-r4-lite.patch:10:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/470-add-bpi-r4-lite.patch:82:+CONFIG_ENV_SIZE=0x40000
+./openwrt/package/boot/uboot-mediatek/patches/470-add-bpi-r4-lite.patch:83:+CONFIG_ENV_OFFSET=0x400000
+./openwrt/package/boot/uboot-mediatek/patches/470-add-bpi-r4-lite.patch:172:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/470-add-bpi-r4-lite.patch:335:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/470-add-bpi-r4-lite.patch:407:+CONFIG_ENV_SIZE=0x40000
+./openwrt/package/boot/uboot-mediatek/patches/470-add-bpi-r4-lite.patch:408:+CONFIG_ENV_OFFSET=0x400000
+./openwrt/package/boot/uboot-mediatek/patches/470-add-bpi-r4-lite.patch:497:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/470-add-bpi-r4-lite.patch:705:+sdmmc_read_emmc_install=part start mmc 0 install part_addr && setexpr offset $part_addr + 0x3800 && mmc read $loadaddr $offset 0x4000
+./openwrt/package/boot/uboot-mediatek/patches/470-add-bpi-r4-lite.patch:1078:+				reg = <0x0 0x40000>;
+./openwrt/package/boot/uboot-mediatek/patches/470-add-bpi-r4-lite.patch:1083:+				reg = <0x40000 0x40000>;
+./openwrt/package/boot/uboot-mediatek/patches/470-add-bpi-r4-lite.patch:1287:+				reg = <0x0 0x40000>;
+./openwrt/package/boot/uboot-mediatek/patches/470-add-bpi-r4-lite.patch:1292:+				reg = <0x40000 0x40000>;
+./openwrt/package/boot/uboot-mediatek/patches/107-configs-add-useful-options-to-mt7981-rfb.patch:108: CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/107-configs-add-useful-options-to-mt7981-rfb.patch:307:@@ -7,37 +8,74 @@ CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/107-configs-add-useful-options-to-mt7981-rfb.patch:409: CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/107-configs-add-useful-options-to-mt7981-rfb.patch:411:+CONFIG_ENV_SIZE=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/429-add-netcore-n60.patch:10:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/429-add-netcore-n60.patch:164:+		reg = <0x40000000 0x20000000>;
+./openwrt/package/boot/uboot-mediatek/patches/100-09-mtd-mtk-snand-add-NMBM-support-for-SPL.patch:118:+	nld.erasesize = cinfo.blocksize;
+./openwrt/package/boot/uboot-mediatek/patches/100-09-mtd-mtk-snand-add-NMBM-support-for-SPL.patch:119:+	nld.writesize = cinfo.pagesize;
+./openwrt/package/boot/uboot-mediatek/patches/442-add-bpi-r3-mini.patch:10:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/442-add-bpi-r3-mini.patch:12:+CONFIG_ENV_SIZE=0x40000
+./openwrt/package/boot/uboot-mediatek/patches/442-add-bpi-r3-mini.patch:13:+CONFIG_ENV_OFFSET=0x400000
+./openwrt/package/boot/uboot-mediatek/patches/442-add-bpi-r3-mini.patch:162:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/442-add-bpi-r3-mini.patch:347:+snand_write_bl2=mtd erase bl2 && mtd write bl2 $loadaddr 0x0 0x40000 && mtd write bl2 $loadaddr 0x40000 0x40000 && mtd write bl2 $loadaddr 0x80000 0x40000 && mtd write bl2 $loadaddr 0xc0000 0x40000
+./openwrt/package/boot/uboot-mediatek/patches/442-add-bpi-r3-mini.patch:447:+		reg = <0x40000000 0x80000000>;
+./openwrt/package/boot/uboot-mediatek/patches/402-update-bananapi-bpi-r64-device-tree.patch:20: 		reg = <0x40000000 0x40000000>;
+./openwrt/package/boot/uboot-mediatek/patches/455-add-qihoo_360t7-ubi.patch:10:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/455-add-qihoo_360t7-ubi.patch:143:+		reg = <0x40000000 0x10000000>;
+./openwrt/package/boot/uboot-mediatek/patches/410-add-linksys-e8450.patch:9:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/410-add-linksys-e8450.patch:193:+		reg = <0x40000000 0x20000000>;
+./openwrt/package/boot/uboot-mediatek/patches/410-add-linksys-e8450.patch:390:+snand_write_bl2=mtd erase bl2 && mtd write spi-nand0 $loadaddr 0x0 0x20000 && mtd write spi-nand0 $loadaddr 0x20000 0x20000 && mtd write spi-nand0 $loadaddr 0x40000 0x20000 && mtd write spi-nand0 $loadaddr 0x60000 0x20000
+./openwrt/package/boot/uboot-mediatek/patches/100-05-mtd-nmbm-add-support-for-mtd.patch:100:+		ops.len = nm->lower->writesize;
+./openwrt/package/boot/uboot-mediatek/patches/100-05-mtd-nmbm-add-support-for-mtd.patch:159:+		ops.len = nm->lower->writesize;
+./openwrt/package/boot/uboot-mediatek/patches/100-05-mtd-nmbm-add-support-for-mtd.patch:179:+	ei.len = nm->lower->erasesize;
+./openwrt/package/boot/uboot-mediatek/patches/100-05-mtd-nmbm-add-support-for-mtd.patch:269:+	col = addr & nm->lower->writesize_mask;
+./openwrt/package/boot/uboot-mediatek/patches/100-05-mtd-nmbm-add-support-for-mtd.patch:270:+	addr &= ~nm->lower->writesize_mask;
+./openwrt/package/boot/uboot-mediatek/patches/100-05-mtd-nmbm-add-support-for-mtd.patch:277:+	oobcache = ooblen ? nm->page_cache + nm->lower->writesize : NULL;
+./openwrt/package/boot/uboot-mediatek/patches/100-05-mtd-nmbm-add-support-for-mtd.patch:300:+			chklen = nm->lower->writesize - col;
+./openwrt/package/boot/uboot-mediatek/patches/100-05-mtd-nmbm-add-support-for-mtd.patch:324:+		addr += nm->lower->writesize;
+./openwrt/package/boot/uboot-mediatek/patches/100-05-mtd-nmbm-add-support-for-mtd.patch:384:+	    ops->ooboffs + ops->ooblen > ((mtd->size >> mtd->writesize_shift) -
+./openwrt/package/boot/uboot-mediatek/patches/100-05-mtd-nmbm-add-support-for-mtd.patch:385:+	    (from >> mtd->writesize_shift)) * maxooblen)) {
+./openwrt/package/boot/uboot-mediatek/patches/100-05-mtd-nmbm-add-support-for-mtd.patch:402:+	col = addr & nm->lower->writesize_mask;
+./openwrt/package/boot/uboot-mediatek/patches/100-05-mtd-nmbm-add-support-for-mtd.patch:403:+	addr &= ~nm->lower->writesize_mask;
+./openwrt/package/boot/uboot-mediatek/patches/100-05-mtd-nmbm-add-support-for-mtd.patch:410:+	oobcache = ooblen ? nm->page_cache + nm->lower->writesize : NULL;
+./openwrt/package/boot/uboot-mediatek/patches/100-05-mtd-nmbm-add-support-for-mtd.patch:420:+			chklen = nm->lower->writesize - col;
+./openwrt/package/boot/uboot-mediatek/patches/100-05-mtd-nmbm-add-support-for-mtd.patch:428:+			       nm->lower->writesize - col - chklen);
+./openwrt/package/boot/uboot-mediatek/patches/100-05-mtd-nmbm-add-support-for-mtd.patch:455:+		addr += nm->lower->writesize;
+./openwrt/package/boot/uboot-mediatek/patches/100-05-mtd-nmbm-add-support-for-mtd.patch:513:+	    ops->ooboffs + ops->ooblen > ((mtd->size >> mtd->writesize_shift) -
+./openwrt/package/boot/uboot-mediatek/patches/100-05-mtd-nmbm-add-support-for-mtd.patch:514:+	    (to >> mtd->writesize_shift)) * maxooblen)) {
+./openwrt/package/boot/uboot-mediatek/patches/100-05-mtd-nmbm-add-support-for-mtd.patch:555:+	nm = calloc(sizeof(*nm) + lower->writesize + lower->oobsize + namelen + 1, 1);
+./openwrt/package/boot/uboot-mediatek/patches/100-05-mtd-nmbm-add-support-for-mtd.patch:573:+	nld.erasesize = lower->erasesize;
+./openwrt/package/boot/uboot-mediatek/patches/100-05-mtd-nmbm-add-support-for-mtd.patch:574:+	nld.writesize = lower->writesize;
+./openwrt/package/boot/uboot-mediatek/patches/100-05-mtd-nmbm-add-support-for-mtd.patch:610:+	mtd->size = (uint64_t)ni->data_block_count * ni->lower.erasesize;
+./openwrt/package/boot/uboot-mediatek/patches/100-05-mtd-nmbm-add-support-for-mtd.patch:611:+	mtd->erasesize = lower->erasesize;
+./openwrt/package/boot/uboot-mediatek/patches/100-05-mtd-nmbm-add-support-for-mtd.patch:612:+	mtd->writesize = lower->writesize;
+./openwrt/package/boot/uboot-mediatek/patches/100-05-mtd-nmbm-add-support-for-mtd.patch:613:+	mtd->writebufsize = lower->writesize;
+./openwrt/package/boot/uboot-mediatek/patches/100-05-mtd-nmbm-add-support-for-mtd.patch:617:+	mtd->erasesize_shift = lower->erasesize_shift;
+./openwrt/package/boot/uboot-mediatek/patches/100-05-mtd-nmbm-add-support-for-mtd.patch:618:+	mtd->writesize_shift = lower->writesize_shift;
+./openwrt/package/boot/uboot-mediatek/patches/100-05-mtd-nmbm-add-support-for-mtd.patch:619:+	mtd->erasesize_mask = lower->erasesize_mask;
+./openwrt/package/boot/uboot-mediatek/patches/100-05-mtd-nmbm-add-support-for-mtd.patch:620:+	mtd->writesize_mask = lower->writesize_mask;
+./openwrt/package/boot/uboot-mediatek/patches/100-05-mtd-nmbm-add-support-for-mtd.patch:861:+			       (uint64_t)i << nm->ni->erasesize_shift);
+./openwrt/package/boot/uboot-mediatek/patches/100-05-mtd-nmbm-add-support-for-mtd.patch:865:+			       (uint64_t)i << nm->ni->erasesize_shift);
+./openwrt/package/boot/uboot-mediatek/patches/100-05-mtd-nmbm-add-support-for-mtd.patch:876:+			       (uint64_t)i << nm->ni->erasesize_shift);
+./openwrt/package/boot/uboot-mediatek/patches/446-add-cmcc_a10.patch:10:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/446-add-cmcc_a10.patch:138:+		reg = <0x40000000 0x10000000>;
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:249:+	uint32_t erasesize;
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:250:+	uint32_t writesize;
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:262:+	uint32_t writesize_mask;
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:263:+	uint32_t writesize_shift;
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:264:+	uint32_t erasesize_mask;
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:265:+	uint32_t erasesize_shift;
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:532:+			      snf->writesize, snf->oobsize);
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:741:+	uint8_t *oob = snf->page_cache + snf->writesize;
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:1349:+	start_addr = instr->addr & (~mtd->erasesize_mask);
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:1351:+	if (end_addr & mtd->erasesize_mask) {
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:1352:+		end_addr = (end_addr + mtd->erasesize_mask) &
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:1353:+			   (~mtd->erasesize_mask);
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:1375:+		start_addr += mtd->erasesize;
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:1398:+	col = addr & mtd->writesize_mask;
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:1399:+	addr &= ~mtd->writesize_mask;
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:1406:+	oobcache = ooblen ? msm->page_cache + mtd->writesize : NULL;
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:1437:+			chklen = mtd->writesize - col;
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:1461:+		addr += mtd->writesize;
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:1506:+	    ops->ooboffs + ops->ooblen > ((mtd->size >> mtd->writesize_shift) -
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:1507:+	    (from >> mtd->writesize_shift)) * maxooblen)) {
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:1526:+	col = addr & mtd->writesize_mask;
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:1527:+	addr &= ~mtd->writesize_mask;
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:1534:+	oobcache = ooblen ? msm->page_cache + mtd->writesize : NULL;
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:1544:+			chklen = mtd->writesize - col;
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:1552:+			       mtd->writesize - col - chklen);
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:1586:+		addr += mtd->writesize;
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:1631:+	    ops->ooboffs + ops->ooblen > ((mtd->size >> mtd->writesize_shift) -
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:1632:+	    (to >> mtd->writesize_shift)) * maxooblen)) {
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:1780:+	mtd->erasesize = msm->cinfo.blocksize;
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:1781:+	mtd->writesize = msm->cinfo.pagesize;
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:1782:+	mtd->writebufsize = mtd->writesize;
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:2298:+		   &snf->page_cache[snf->writesize]);
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:2308:+	buf_bbm_pos = snf->writesize -
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:2310:+	fdm_bbm_pos = snf->writesize +
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:2337:+	fdm_bbm_pos1 = snf->writesize;
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:2338:+	fdm_bbm_pos2 = snf->writesize +
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:2652:+	pages_per_block = 1 << (snf->erasesize_shift - snf->writesize_shift);
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:2655:+		return 1 << (snf->writesize_shift + 1);
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:2719:+	uint8_t *oob = snf->page_cache + snf->writesize;
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:2795:+	len = snf->writesize + snf->oobsize;
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:2853:+		mtk_snand_read_fdm(snf, snf->page_cache + snf->writesize);
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:2917:+	page = die_addr >> snf->writesize_shift;
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:2962:+				memcpy(buf, snf->page_cache, snf->writesize);
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:2966:+				memcpy(oob, snf->page_cache + snf->writesize,
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:2975:+			memcpy(buf, snf->page_cache, snf->writesize);
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:2979:+			memcpy(oob, snf->page_cache + snf->writesize,
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:3040:+		mtk_snand_write_fdm(snf, snf->page_cache + snf->writesize);
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:3065:+	len = snf->writesize + snf->oobsize;
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:3141:+	memset(snf->page_cache, 0xff, snf->writesize + snf->oobsize);
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:3173:+		for (i = 0; i < snf->writesize; i++) {
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:3203:+	page = die_addr >> snf->writesize_shift;
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:3224:+			       snf->writesize + snf->oobsize);
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:3227:+				memcpy(snf->page_cache, buf, snf->writesize);
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:3230:+				memcpy(snf->page_cache + snf->writesize, oob,
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:3235:+		memset(snf->page_cache, 0xff, snf->writesize + snf->oobsize);
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:3237:+			memcpy(snf->page_cache, buf, snf->writesize);
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:3240:+			memcpy(snf->page_cache + snf->writesize, oob,
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:3302:+	block = die_addr >> snf->erasesize_shift;
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:3303:+	page = block << (snf->erasesize_shift - snf->writesize_shift);
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:3362:+	addr &= ~snf->erasesize_mask;
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:3383:+	memset(snf->buf_cache, 0, snf->writesize + snf->oobsize);
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:3386:+				       snf->buf_cache + snf->writesize, true,
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:3398:+	addr &= ~snf->erasesize_mask;
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:3512:+	info->blocksize = snf->erasesize;
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:3513:+	info->pagesize = snf->writesize;
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:3568:+		      "Page size %u+%u is not supported\n", snf->writesize,
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:3587:+	switch (snf->writesize) {
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:3614:+			      snf->writesize);
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:3721:+	snf->writesize = memorg->pagesize;
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:3723:+	snf->erasesize = snf->writesize * memorg->pages_per_block;
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:3724:+	snf->die_size = (uint64_t)snf->erasesize * memorg->blocks_per_die;
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:3728:+	snf->writesize_mask = snf->writesize - 1;
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:3729:+	snf->erasesize_mask = snf->erasesize - 1;
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:3732:+	snf->writesize_shift = ffs(snf->writesize) - 1;
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:3733:+	snf->erasesize_shift = ffs(snf->erasesize) - 1;
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:3752:+	snf->ecc_steps = snf->writesize / snf->nfi_soc->sector_size;
+./openwrt/package/boot/uboot-mediatek/patches/100-01-drivers-mtd-add-support-for-MediaTek-SPI-NAND-flash-.patch:3755:+			      snf->writesize);
+./openwrt/package/boot/uboot-mediatek/patches/438-add-jcg_q30-pro.patch:10:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/438-add-jcg_q30-pro.patch:159:+		reg = <0x40000000 0x10000000>;
+./openwrt/package/boot/uboot-mediatek/patches/460-add-routerich-ax3000.patch:10:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/460-add-routerich-ax3000.patch:142:+		reg = <0x40000000 0x10000000>;
+./openwrt/package/boot/uboot-mediatek/patches/412-add-ubnt-unifi-6-lr.patch:9:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/412-add-ubnt-unifi-6-lr.patch:10:+CONFIG_ENV_SIZE=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/412-add-ubnt-unifi-6-lr.patch:128:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/412-add-ubnt-unifi-6-lr.patch:129:+CONFIG_ENV_SIZE=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/412-add-ubnt-unifi-6-lr.patch:246:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/412-add-ubnt-unifi-6-lr.patch:247:+CONFIG_ENV_SIZE=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/412-add-ubnt-unifi-6-lr.patch:382:+		reg = <0x40000000 0x20000000>;
+./openwrt/package/boot/uboot-mediatek/patches/412-add-ubnt-unifi-6-lr.patch:401:+		reg = <0x40000000 0x20000000>;
+./openwrt/package/boot/uboot-mediatek/patches/412-add-ubnt-unifi-6-lr.patch:578:+		reg = <0x40000000 0x20000000>;
+./openwrt/package/boot/uboot-mediatek/patches/412-add-ubnt-unifi-6-lr.patch:597:+		reg = <0x40000000 0x20000000>;
+./openwrt/package/boot/uboot-mediatek/patches/106-configs-sync-mt7981-rfb-storage.patch:17: CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/106-configs-sync-mt7981-rfb-storage.patch:45:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/471-add-zyzel-wx5600-t0.patch:12:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/471-add-zyzel-wx5600-t0.patch:186:+		reg = <0x40000000 0x20000000>;
+./openwrt/package/boot/uboot-mediatek/patches/468-add-cudy_wr3000e-v1.patch:9:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/468-add-cudy_wr3000e-v1.patch:135:+		reg = <0x40000000 0x10000000>;
+./openwrt/package/boot/uboot-mediatek/patches/468-add-cudy_wr3000e-v1.patch:238:+				reg = <0x380000 0x40000>;
+./openwrt/package/boot/uboot-mediatek/patches/105-configs-add-usefull-stuff-to-mt7988-rfb.patch:10: CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/105-configs-add-usefull-stuff-to-mt7988-rfb.patch:12:+CONFIG_ENV_SIZE=0x40000
+./openwrt/package/boot/uboot-mediatek/patches/105-configs-add-usefull-stuff-to-mt7988-rfb.patch:13:+CONFIG_ENV_OFFSET=0x400000
+./openwrt/package/boot/uboot-mediatek/patches/105-configs-add-usefull-stuff-to-mt7988-rfb.patch:149: CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/462-add-netcore-n60-pro.patch:10:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/462-add-netcore-n60-pro.patch:164:+		reg = <0x40000000 0x20000000>;
+./openwrt/package/boot/uboot-mediatek/patches/465-add-acer_predator-w6x.patch:24:+		reg = <0x40000000 0x20000000>;
+./openwrt/package/boot/uboot-mediatek/patches/465-add-acer_predator-w6x.patch:163:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/404-add-bananapi_bpi-r64_defconfigs.patch:9:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/404-add-bananapi_bpi-r64_defconfigs.patch:12:+CONFIG_ENV_OFFSET=0x400000
+./openwrt/package/boot/uboot-mediatek/patches/404-add-bananapi_bpi-r64_defconfigs.patch:203:+snand_write_bl2=mtd erase bl2 && mtd write bl2 $loadaddr 0x0 0x20000 && mtd write bl2 $loadaddr 0x20000 0x20000 && mtd write bl2 $loadaddr 0x40000 0x20000 && mtd write bl2 $loadaddr 0x60000 0x20000
+./openwrt/package/boot/uboot-mediatek/patches/404-add-bananapi_bpi-r64_defconfigs.patch:228:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/404-add-bananapi_bpi-r64_defconfigs.patch:231:+CONFIG_ENV_OFFSET=0x400000
+./openwrt/package/boot/uboot-mediatek/patches/404-add-bananapi_bpi-r64_defconfigs.patch:411:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/404-add-bananapi_bpi-r64_defconfigs.patch:562:+snand_write_bl2=mtd erase bl2 && mtd write bl2 $loadaddr 0x0 0x20000 && mtd write bl2 $loadaddr 0x20000 0x20000 && mtd write bl2 $loadaddr 0x40000 0x20000 && mtd write bl2 $loadaddr 0x60000 0x20000
+./openwrt/package/boot/uboot-mediatek/patches/461-add-asus-zenwifi-bt8.patch:10:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/461-add-asus-zenwifi-bt8.patch:222:+		reg = <0 0x40000000 0 0x10000000>;
+./openwrt/package/boot/uboot-mediatek/patches/459-add-mercusys-mr90x-v1.patch:10:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/459-add-mercusys-mr90x-v1.patch:143:+		reg = <0x40000000 0x20000000>;
+./openwrt/package/boot/uboot-mediatek/patches/459-add-mercusys-mr90x-v1.patch:336:+snand_write_bl2=mtd erase bl2 && mtd write bl2 $loadaddr 0x0 0x40000
+./openwrt/package/boot/uboot-mediatek/patches/463-add-snr-snr-cpe-ax2.patch:10:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/463-add-snr-snr-cpe-ax2.patch:142:+		reg = <0x40000000 0x10000000>;
+./openwrt/package/boot/uboot-mediatek/patches/103-03-mt7986-enable-pstore.patch:26:+			reg = <0x43000000 0x40000>;
+./openwrt/package/boot/uboot-mediatek/patches/467-add-routerich-be7200.patch:10:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/467-add-routerich-be7200.patch:362:+				reg = <0x180000 0x400000>;
+./openwrt/package/boot/uboot-mediatek/patches/450-add-bpi-r4.patch:10:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/450-add-bpi-r4.patch:12:+CONFIG_ENV_SIZE=0x40000
+./openwrt/package/boot/uboot-mediatek/patches/450-add-bpi-r4.patch:13:+CONFIG_ENV_OFFSET=0x400000
+./openwrt/package/boot/uboot-mediatek/patches/450-add-bpi-r4.patch:157:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/450-add-bpi-r4.patch:159:+CONFIG_ENV_SIZE=0x40000
+./openwrt/package/boot/uboot-mediatek/patches/450-add-bpi-r4.patch:160:+CONFIG_ENV_OFFSET=0x400000
+./openwrt/package/boot/uboot-mediatek/patches/450-add-bpi-r4.patch:303:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/450-add-bpi-r4.patch:490:+sdmmc_read_emmc_install=part start mmc 0 install part_addr && setexpr offset $part_addr + 0x3800 && mmc read $loadaddr $offset 0x4000
+./openwrt/package/boot/uboot-mediatek/patches/450-add-bpi-r4.patch:666:+		reg = <0 0x40000000 0 0x10000000>;
+./openwrt/package/boot/uboot-mediatek/patches/450-add-bpi-r4.patch:899:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/450-add-bpi-r4.patch:901:+CONFIG_ENV_SIZE=0x40000
+./openwrt/package/boot/uboot-mediatek/patches/450-add-bpi-r4.patch:902:+CONFIG_ENV_OFFSET=0x400000
+./openwrt/package/boot/uboot-mediatek/patches/450-add-bpi-r4.patch:1046:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/450-add-bpi-r4.patch:1048:+CONFIG_ENV_SIZE=0x40000
+./openwrt/package/boot/uboot-mediatek/patches/450-add-bpi-r4.patch:1049:+CONFIG_ENV_OFFSET=0x400000
+./openwrt/package/boot/uboot-mediatek/patches/450-add-bpi-r4.patch:1192:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/450-add-bpi-r4.patch:1440:+sdmmc_read_emmc_install=part start mmc 0 install part_addr && setexpr offset $part_addr + 0x3800 && mmc read $loadaddr $offset 0x4000
+./openwrt/package/boot/uboot-mediatek/patches/443-add-nokia_ea0326gmp.patch:10:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/443-add-nokia_ea0326gmp.patch:139:+		reg = <0x40000000 0x10000000>;
+./openwrt/package/boot/uboot-mediatek/patches/448-add-comfast_cf-wr632ax.patch:24:+		reg = <0x40000000 0x20000000>;
+./openwrt/package/boot/uboot-mediatek/patches/448-add-comfast_cf-wr632ax.patch:166:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/439-add-zyxel_ex5601-t0.patch:10:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/439-add-zyxel_ex5601-t0.patch:164:+		reg = <0x40000000 0x20000000>;
+./openwrt/package/boot/uboot-mediatek/patches/100-17-board-mt7981-add-reference-board-using-new-spi-nand-.patch:172:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/437-add-cmcc_rax3000m.patch:10:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/437-add-cmcc_rax3000m.patch:12:+CONFIG_ENV_SIZE=0x40000
+./openwrt/package/boot/uboot-mediatek/patches/437-add-cmcc_rax3000m.patch:13:+CONFIG_ENV_OFFSET=0x400000
+./openwrt/package/boot/uboot-mediatek/patches/437-add-cmcc_rax3000m.patch:141:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/437-add-cmcc_rax3000m.patch:290:+		reg = <0x40000000 0x20000000>;
+./openwrt/package/boot/uboot-mediatek/patches/445-add-cudy_tr3000-v1.patch:10:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/445-add-cudy_tr3000-v1.patch:139:+		reg = <0x40000000 0x20000000>;
+./openwrt/package/boot/uboot-mediatek/patches/445-add-cudy_tr3000-v1.patch:254:+				reg = <0x380000 0x40000>;
+./openwrt/package/boot/uboot-mediatek/patches/468-add-cudy_wr3000s-v1.patch:9:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/468-add-cudy_wr3000s-v1.patch:135:+		reg = <0x40000000 0x10000000>;
+./openwrt/package/boot/uboot-mediatek/patches/468-add-cudy_wr3000s-v1.patch:238:+				reg = <0x380000 0x40000>;
+./openwrt/package/boot/uboot-mediatek/patches/435-add-h3c_magic-nx30-pro.patch:10:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/435-add-h3c_magic-nx30-pro.patch:159:+		reg = <0x40000000 0x10000000>;
+./openwrt/package/boot/uboot-mediatek/patches/435-add-h3c_magic-nx30-pro.patch:311:+				reg = <0x0580000 0x4000000>;
+./openwrt/package/boot/uboot-mediatek/patches/464-add-GL.iNet-GL-MT2500-Brume2.patch:39:+		reg = <0x40000000 0x40000000>;
+./openwrt/package/boot/uboot-mediatek/patches/464-add-GL.iNet-GL-MT2500-Brume2.patch:148:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-mediatek/patches/464-add-GL.iNet-GL-MT2500-Brume2.patch:151:+CONFIG_ENV_OFFSET=0x400000
+./openwrt/package/boot/tfa-layerscape/patches/004-plat-nxp-restore-ls1012afrdm-support.patch:160:+QSPI_FLASH_SZ   :=      0x4000000
+./openwrt/package/boot/uboot-mvebu/patches/102-arm-mvebu-add-support-for-MikroTik-RB5009UG-S-IN.patch:70:+		reg = <0x0 0x0 0x0 0x40000000>;
+./openwrt/package/boot/uboot-sunxi/patches/404-sunxi-add-support-for-MYIR-MYD113X-boards.patch:92:+				reg = <0x0 0x400000>;
+./openwrt/package/boot/uboot-airoha/patches/400-add-nokia-valyrian.patch:10:+		reg = <0x0 0x80000000 0x0 0x40000000>;
+./openwrt/package/boot/uboot-airoha/patches/400-add-nokia-valyrian.patch:95:+				reg = <0x11300000 0x40000000>;
+./openwrt/package/boot/uboot-airoha/patches/400-add-nokia-valyrian.patch:117:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-airoha/patches/903-arm-airoha-enable-position-independent-code.patch:25: CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-airoha/patches/903-arm-airoha-enable-position-independent-code.patch:36: CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-airoha/patches/903-arm-airoha-enable-position-independent-code.patch:47: CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-airoha/patches/300-airoha-add-support-for-Airoha-AN7583-SoC.patch:135:+			reg = <0x0 0x80000000 0x0 0x40000>;
+./openwrt/package/boot/uboot-airoha/patches/300-airoha-add-support-for-Airoha-AN7583-SoC.patch:436:+			ranges = <0x02000000 0 0x20000000 0x0 0x20000000 0 0x4000000>;
+./openwrt/package/boot/uboot-airoha/patches/300-airoha-add-support-for-Airoha-AN7583-SoC.patch:476:+			ranges = <0x02000000 0 0x24000000 0x0 0x24000000 0 0x4000000>;
+./openwrt/package/boot/uboot-airoha/patches/300-airoha-add-support-for-Airoha-AN7583-SoC.patch:662:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-airoha/patches/300-airoha-add-support-for-Airoha-AN7583-SoC.patch:664:+CONFIG_ENV_SIZE=0x4000
+./openwrt/package/boot/uboot-airoha/patches/301-arm-an7583-sync-init-code-with-an7581.patch:71:+		.size = 0x40000000UL,
+./openwrt/package/boot/uboot-airoha/patches/999-airoha-add-gemtek-w1700k.patch:55:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-airoha/patches/999-airoha-add-gemtek-w1700k.patch:57:+CONFIG_ENV_SIZE=0x4000
+./openwrt/package/boot/uboot-airoha/patches/900-airoha-enable-UBI-support-and-define-default-partiti.patch:166: CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/package/boot/uboot-airoha/patches/900-airoha-enable-UBI-support-and-define-default-partiti.patch:168: CONFIG_ENV_SIZE=0x4000
+./openwrt/package/kernel/mac80211/patches/brcm/870-04-rpi-6.12-brcmfmac-non-upstream-support-DS1-exit-firmware-re-download.patch:621:+#define D11_SHM_BASE_ADDR		(D11_AXI_BASE_ADDR + 0x4000)
+./openwrt/package/kernel/mac80211/patches/brcm/870-04-rpi-6.12-brcmfmac-non-upstream-support-DS1-exit-firmware-re-download.patch:629:+#define D11_MACCONTROL_REG_WAKE		0x4000000
+./openwrt/package/kernel/lantiq/vrx518_ep/src/aca.c:719:	wr32(0x4000, HT_GCLK_ENABLE);
+./openwrt/package/kernel/lantiq/ltq-ptm/src/ifxmips_ptm_ppe_ar9.h:39:#define PPE_REG_ADDR(x)                 ((volatile unsigned int*)(IFX_PPE + (((x) + 0x4000) << 2)))
+./openwrt/package/kernel/lantiq/ltq-ptm/src/ifxmips_ptm_ppe_ar9.h:82:                                                                   (((__sb_addr) >= 0x4000) && ((__sb_addr) <= 0x4BFF)) ? SB_RAM4_ADDR((__sb_addr) - 0x4000) :   \
+./openwrt/package/kernel/lantiq/ltq-ptm/src/ifxmips_ptm_ppe_amazon_se.h:39:#define PPE_REG_ADDR(x)                         ((volatile unsigned int*)(IFX_PPE + (((x) + 0x4000) << 2)))
+./openwrt/package/kernel/lantiq/ltq-ptm/src/ifxmips_ptm_ppe_vr9.h:65:                                                                   (((__sb_addr) >= 0x4000) && ((__sb_addr) <= 0x4FFF)) ? SB_RAM2_ADDR((__sb_addr) - 0x4000) :  \
+./openwrt/package/kernel/lantiq/ltq-ptm/src/ifxmips_ptm_ppe_danube.h:39:#define PPE_REG_ADDR(x)                 ((volatile unsigned int*)(IFX_PPE + (((x) + 0x4000) << 2)))
+./openwrt/package/kernel/lantiq/ltq-atm/src/ifxmips_atm_ppe_vr9.h:67:                                                                   (((__sb_addr) >= 0x4000) && ((__sb_addr) <= 0x4FFF)) ? SB_RAM2_ADDR((__sb_addr) - 0x4000) :  \
+./openwrt/package/kernel/lantiq/ltq-atm/src/ifxmips_atm_ppe_ar9.h:41:#define PPE_REG_ADDR(x)                 ((volatile unsigned int*)(IFX_PPE + (((x) + 0x4000) << 2)))
+./openwrt/package/kernel/lantiq/ltq-atm/src/ifxmips_atm_ppe_ar9.h:84:                                                                   (((__sb_addr) >= 0x4000) && ((__sb_addr) <= 0x4BFF)) ? SB_RAM4_ADDR((__sb_addr) - 0x4000) :  \
+./openwrt/package/kernel/lantiq/ltq-atm/src/ifxmips_atm_ppe_danube.h:41:#define PPE_REG_ADDR(x)                 ((volatile unsigned int*)(IFX_PPE + (((x) + 0x4000) << 2)))
+./openwrt/package/kernel/lantiq/ltq-atm/src/ifxmips_atm_ppe_amazon_se.h:41:#define PPE_REG_ADDR(x)                 ((volatile unsigned int*)(IFX_PPE + (((x) + 0x4000) << 2)))
+./openwrt/package/kernel/lantiq/ltq-atm/src/ltq_atm.c:1083:	//  In A1, RAM from 0x80000000 to 0x0x8007FFFF was corrupted with fixed pattern 0x00000000 0x40000000.
+./openwrt/package/kernel/lantiq/ltq-adsl-mei/src/drv_mei_cpe.c:97:#define LTQ_RCU_RST_ALL      0x40000000
+./openwrt/package/kernel/lantiq/ltq-adsl-mei/src/drv_mei_cpe.c:702:		/* 0x4000 translate to  about 16 ms@111M, so should be enough */
+./openwrt/package/kernel/lantiq/ltq-adsl-mei/src/drv_mei_cpe.c:703:		if (i == 0x4000)
+./openwrt/package/base-files/files/lib/functions/system.sh:190:	local first dev size erasesize name
+./openwrt/package/base-files/files/lib/functions/system.sh:191:	while read dev size erasesize name; do
+./openwrt/package/network/config/wifi-scripts/files-ucode/usr/share/ucode/wifi/hostapd.uc:342:		if (vht_capab & 0x400000 && config.htc_vht)
+./openwrt/package/network/config/wifi-scripts/files/lib/netifd/wireless/mac80211.sh:371:			HTC-VHT:0x400000::$htc_vht \
+./openwrt/package/network/services/ead/src/aes.c:738:	0x10000000, 0x20000000, 0x40000000, 0x80000000,
+./openwrt/package/utils/bcm4908img/src/bcm4908img.c:51:#define WFI_NAND512_FLASH		5
+./openwrt/package/utils/bcm4908img/src/bcm4908img.c:700:#define JFFS2_FEATURE_RWCOMPAT_COPY 0x4000
+./openwrt/package/utils/zyxel-bootconfig/src/zyxel-bootconfig.c:140:	args = calloc(1, mtd->mtd_info.erasesize);
+./openwrt/package/utils/zyxel-bootconfig/src/zyxel-bootconfig.c:148:	pread(mtd->fd, args, mtd->mtd_info.erasesize, 0);
+./openwrt/package/utils/zyxel-bootconfig/src/zyxel-bootconfig.c:172:	args = calloc(1, mtd->mtd_info.erasesize);
+./openwrt/package/utils/zyxel-bootconfig/src/zyxel-bootconfig.c:180:	pread(mtd->fd, args, mtd->mtd_info.erasesize, 0);
+./openwrt/package/utils/zyxel-bootconfig/src/zyxel-bootconfig.c:193:	erase_info.length = mtd->mtd_info.erasesize;
+./openwrt/package/utils/zyxel-bootconfig/src/zyxel-bootconfig.c:205:	if (pwrite(mtd->fd, args, mtd->mtd_info.erasesize, 0) != mtd->mtd_info.erasesize) {
+./openwrt/package/utils/fritz-tools/src/fritz_tffs_nand_read.c:428:	blocksize = info.erasesize;
+./openwrt/package/utils/fritz-tools/src/fritz_tffs_nand_read.c:442:		if (pos % info.erasesize == 0) {
+./openwrt/tools/mklibs/include/elf.h:1277:#define EF_MIPS_ARCH_5	    0x40000000	/* -mips5 code.  */
+./openwrt/tools/mklibs/include/elf.h:1287:#define E_MIPS_ARCH_5	  0x40000000	/* -mips5 code.  */
+./openwrt/tools/mklibs/include/elf.h:1345:#define SHF_MIPS_ADDR	 0x40000000
+./openwrt/tools/mklibs/include/elf.h:1420:#define OEX_FPDBUG	0x40000	/* Force floating point debug mode?  */
+./openwrt/tools/mklibs/include/elf.h:1650:#define SHF_PARISC_HUGE		0x40000000 /* Section far from gp.  */
+./openwrt/tools/include/elf.h:1023:#define	DF_1_NOCOMMON   0x40000000
+./openwrt/tools/include/elf.h:1697:#define EF_MIPS_ARCH_5		0x40000000 /* -mips5 code.  */
+./openwrt/tools/include/elf.h:1768:#define SHF_MIPS_ADDR		0x40000000
+./openwrt/tools/include/elf.h:1844:#define OEX_FPDBUG	0x40000	/* Force floating point debug mode?  */
+./openwrt/tools/include/elf.h:2198:#define SHF_PARISC_HUGE		0x40000000 /* Section far from gp.  */
+./openwrt/tools/include/elf.h:2763:#define PF_ARM_ABS		0x40000000 /* Absolute segment.  */
+./openwrt/include/image-commands.mk:11:$(patsubst %-256k,0x40000,$(patsubst %-128k,0x20000,$(patsubst %-64k,0x10000,$(patsubst squashfs%,0x4,$(patsubst root.%,%,$(1))))))
+./openwrt/include/image-commands.mk:297:	$(eval kern_size=$(if $(KERNEL_SIZE),$(KERNEL_SIZE),0x400000))
+./openwrt/include/image-commands.mk:789:		-k $(IMAGE_KERNEL) -r $(IMAGE_ROOTFS) -o $@.new -j -X 0x40000 \
+./openwrt/feeds/base/system/mtd/src/fis.c:47:static int fis_erasesize = 0;
+./openwrt/feeds/base/system/mtd/src/fis.c:53:		munmap(fis_desc, fis_erasesize);
+./openwrt/feeds/base/system/mtd/src/fis.c:79:	fis_erasesize = erasesize;
+./openwrt/feeds/base/system/mtd/src/fis.c:80:	desc = mmap(NULL, erasesize, PROT_READ|PROT_WRITE, MAP_SHARED|MAP_LOCKED, fis_fd, 0);
+./openwrt/feeds/base/system/mtd/src/fis.c:113:	end = (char *) end + fis_erasesize;
+./openwrt/feeds/base/system/mtd/src/fis.c:160:	end = (char *) desc + fis_erasesize;
+./openwrt/feeds/base/system/mtd/src/fis.c:238:	msync(fis_desc, fis_erasesize, MS_SYNC|MS_INVALIDATE);
+./openwrt/feeds/base/system/mtd/src/mtd.c:94:int erasesize = 0;
+./openwrt/feeds/base/system/mtd/src/mtd.c:148:	erasesize = mtdInfo.erasesize;
+./openwrt/feeds/base/system/mtd/src/mtd.c:176:	mtdEraseInfo.length = erasesize;
+./openwrt/feeds/base/system/mtd/src/mtd.c:265:			buf = malloc(erasesize);
+./openwrt/feeds/base/system/mtd/src/mtd.c:334:	mtdEraseInfo.length = erasesize;
+./openwrt/feeds/base/system/mtd/src/mtd.c:338:		 mtdEraseInfo.start += erasesize) {
+./openwrt/feeds/base/system/mtd/src/mtd.c:376:	buf = malloc(erasesize);
+./openwrt/feeds/base/system/mtd/src/mtd.c:381:		int len = (size > erasesize) ? (erasesize) : (size);
+./openwrt/feeds/base/system/mtd/src/mtd.c:584:		while (buflen < erasesize) {
+./openwrt/feeds/base/system/mtd/src/mtd.c:585:			r = read(imagefd, buf + buflen, erasesize - buflen);
+./openwrt/feeds/base/system/mtd/src/mtd.c:607:		if (buflen < erasesize) {
+./openwrt/feeds/base/system/mtd/src/mtd.c:609:			memset(&buf[buflen], 0xff, erasesize - buflen);
+./openwrt/feeds/base/system/mtd/src/mtd.c:610:			buflen = erasesize;
+./openwrt/feeds/base/system/mtd/src/mtd.c:660:					skip_bad_blocks += erasesize;
+./openwrt/feeds/base/system/mtd/src/mtd.c:661:					e += erasesize;
+./openwrt/feeds/base/system/mtd/src/mtd.c:664:					lseek(fd, erasesize, SEEK_CUR);
+./openwrt/feeds/base/system/mtd/src/mtd.c:687:				e += erasesize;
+./openwrt/feeds/base/system/mtd/src/mtd.h:15:extern int erasesize;
+./openwrt/feeds/base/system/mtd/src/linksys_bootcount.c:45: * not mtd_info_user.writesize (often 1 on NOR devices).
+./openwrt/feeds/base/system/mtd/src/linksys_bootcount.c:98:	if (mtd_info.writesize < BC_OFFSET_INCREMENT_MIN) {
+./openwrt/feeds/base/system/mtd/src/linksys_bootcount.c:101:		DLOG_DEBUG("Offset increment set to %i for writesize of %i",
+./openwrt/feeds/base/system/mtd/src/linksys_bootcount.c:102:			   bc_offset_increment, mtd_info.writesize);
+./openwrt/feeds/base/system/mtd/src/linksys_bootcount.c:105:		bc_offset_increment = mtd_info.writesize;
+./openwrt/feeds/base/system/mtd/src/linksys_bootcount.c:177:	/* Assumes bc_offset_increment is a multiple of mtd_info.writesize */
+./openwrt/feeds/base/system/mtd/src/wrg.c:141:	block_offset = offset & ~(erasesize - 1);
+./openwrt/feeds/base/system/mtd/src/wrg.c:150:	if (block_offset + erasesize > mtdsize) {
+./openwrt/feeds/base/system/mtd/src/wrg.c:156:	first_block = malloc(erasesize);
+./openwrt/feeds/base/system/mtd/src/wrg.c:162:	res = pread(fd, first_block, erasesize, block_offset);
+./openwrt/feeds/base/system/mtd/src/wrg.c:163:	if (res != erasesize) {
+./openwrt/feeds/base/system/mtd/src/wrg.c:195:	if (pwrite(fd, first_block, erasesize, block_offset) != erasesize) {
+./openwrt/feeds/base/system/mtd/src/tpl_ramips_recoveryflag.c:46:	args = malloc(erasesize);
+./openwrt/feeds/base/system/mtd/src/tpl_ramips_recoveryflag.c:60:	pread(fd, args, erasesize, 0);
+./openwrt/feeds/base/system/mtd/src/tpl_ramips_recoveryflag.c:73:	erase_info.length = erasesize;
+./openwrt/feeds/base/system/mtd/src/tpl_ramips_recoveryflag.c:84:	ret = pwrite(fd, args, erasesize, 0);
+./openwrt/feeds/base/system/mtd/src/trx.c:181:		data_size = erasesize - TRX_CRC32_DATA_OFFSET;
+./openwrt/feeds/base/system/mtd/src/trx.c:183:	block_offset = offset & ~(erasesize - 1);
+./openwrt/feeds/base/system/mtd/src/trx.c:191:	first_block = malloc(erasesize);
+./openwrt/feeds/base/system/mtd/src/trx.c:197:	res = pread(fd, first_block, erasesize, block_offset);
+./openwrt/feeds/base/system/mtd/src/trx.c:198:	if (res != erasesize) {
+./openwrt/feeds/base/system/mtd/src/trx.c:217:		size_t read_block_offset = data_offset & ~(erasesize - 1);
+./openwrt/feeds/base/system/mtd/src/trx.c:220:		read_chunk = erasesize - (data_offset & (erasesize - 1));
+./openwrt/feeds/base/system/mtd/src/trx.c:257:	if (pwrite(fd, first_block, erasesize, block_offset) != erasesize) {
+./openwrt/feeds/base/system/mtd/src/jffs2.c:53:	if ((ofs % size == 0) && (ofs < erasesize))
+./openwrt/feeds/base/system/mtd/src/jffs2.c:56:	if (ofs < erasesize) {
+./openwrt/feeds/base/system/mtd/src/jffs2.c:60:	ofs = ofs % erasesize;
+./openwrt/feeds/base/system/mtd/src/jffs2.c:66:			mtdofs += erasesize;
+./openwrt/feeds/base/system/mtd/src/jffs2.c:69:			lseek(outfd, erasesize, SEEK_CUR);
+./openwrt/feeds/base/system/mtd/src/jffs2.c:72:		write(outfd, buf, erasesize);
+./openwrt/feeds/base/system/mtd/src/jffs2.c:73:		mtdofs += erasesize;
+./openwrt/feeds/base/system/mtd/src/jffs2.c:79:	return erasesize - (ofs % erasesize);
+./openwrt/feeds/base/system/mtd/src/jffs2.c:84:	if (ofs + len > erasesize) {
+./openwrt/feeds/base/system/mtd/src/jffs2.c:85:		pad(erasesize);
+./openwrt/feeds/base/system/mtd/src/jffs2.c:104:	if (ofs - erasesize < sizeof(struct jffs2_raw_dirent) + strlen(name))
+./openwrt/feeds/base/system/mtd/src/jffs2.c:105:		pad(erasesize);
+./openwrt/feeds/base/system/mtd/src/jffs2.c:140:		pad(erasesize);
+./openwrt/feeds/base/system/mtd/src/jffs2.c:211:			pad(erasesize);
+./openwrt/feeds/base/system/mtd/src/jffs2.c:244:	buf = malloc(erasesize);
+./openwrt/feeds/base/system/mtd/src/jffs2.c:249:	pad(erasesize);
+./openwrt/feeds/base/system/mtd/src/jffs2.c:253:	pad(erasesize);
+./openwrt/feeds/base/system/mtd/src/jffs2.c:264:	while (ofs < erasesize) {
+./openwrt/feeds/base/system/mtd/src/jffs2.c:297:	buf = malloc(erasesize);
+./openwrt/feeds/base/system/mtd/src/jffs2.c:311:		if (read(outfd, buf, erasesize) != erasesize) {
+./openwrt/feeds/base/system/mtd/src/jffs2.c:315:		mtdofs += erasesize;
+./openwrt/feeds/base/system/mtd/src/jffs2.c:336:	mtdofs -= erasesize;
+./openwrt/feeds/base/system/mtd/src/jffs2.c:348:	pad(erasesize);
+./openwrt/feeds/base/system/mtd/src/jffs2.c:352:	pad(erasesize);
+./openwrt/feeds/base/system/mtd/src/imagetag.c:308:	block_offset = offset & ~(erasesize - 1);
+./openwrt/feeds/base/system/mtd/src/imagetag.c:317:	if (block_offset + erasesize > mtdsize) {
+./openwrt/feeds/base/system/mtd/src/imagetag.c:322:	buf = malloc(erasesize);
+./openwrt/feeds/base/system/mtd/src/imagetag.c:328:	res = pread(fd, buf, erasesize, block_offset);
+./openwrt/feeds/base/system/mtd/src/imagetag.c:329:	if (res != erasesize) {
+./openwrt/feeds/base/system/mtd/src/imagetag.c:398:	if (pwrite(fd, buf, erasesize, block_offset) != erasesize) {
+./openwrt/feeds/base/system/mtd/src/jffs2.h:56:#define JFFS2_FEATURE_RWCOMPAT_COPY 0x4000
+./openwrt/feeds/base/system/mtd/src/wrgg.c:119:	block_offset = offset & ~(erasesize - 1);
+./openwrt/feeds/base/system/mtd/src/wrgg.c:128:	if (block_offset + erasesize > mtdsize) {
+./openwrt/feeds/base/system/mtd/src/wrgg.c:134:	first_block = malloc(erasesize);
+./openwrt/feeds/base/system/mtd/src/wrgg.c:140:	res = pread(fd, first_block, erasesize, block_offset);
+./openwrt/feeds/base/system/mtd/src/wrgg.c:141:	if (res != erasesize) {
+./openwrt/feeds/base/system/mtd/src/wrgg.c:176:	if (pwrite(fd, first_block, erasesize, block_offset) != erasesize) {
+./openwrt/feeds/base/system/mtd/src/seama.c:121:	block_offset = offset & ~(erasesize - 1);
+./openwrt/feeds/base/system/mtd/src/seama.c:130:	if (block_offset + erasesize > mtdsize) {
+./openwrt/feeds/base/system/mtd/src/seama.c:136:	first_block = malloc(erasesize);
+./openwrt/feeds/base/system/mtd/src/seama.c:142:	res = pread(fd, first_block, erasesize, block_offset);
+./openwrt/feeds/base/system/mtd/src/seama.c:143:	if (res != erasesize) {
+./openwrt/feeds/base/system/mtd/src/seama.c:174:	if (pwrite(fd, first_block, erasesize, block_offset) != erasesize) {
+./openwrt/feeds/base/boot/uboot-d1/patches/0058-riscv-Add-CONFIG_TARGET_SUN20I.patch:77:+	default 0x40000000 if RISCV
+./openwrt/feeds/base/boot/uboot-d1/patches/0059-riscv-dts-Add-Allwinner-D1-devicetrees.patch:1226:+			reg = <0x10000000 0x4000000>;
+./openwrt/feeds/base/boot/uboot-d1/patches/0032-sunxi-binman-Move-BL31-and-SCP-firmware-addresses-to.patch:27:-#define BL31_ADDR 0x40000000
+./openwrt/feeds/base/boot/uboot-d1/patches/0032-sunxi-binman-Move-BL31-and-SCP-firmware-addresses-to.patch:87:+	default 0x40000000 if MACH_SUN50I_H616
+./openwrt/feeds/base/boot/uboot-d1/patches/0027-env-sunxi-Replace-ARCH_SUNXI-with-BOARD_SUNXI.patch:54: 	default 0x40000 if ENV_IS_IN_SPI_FLASH && ARCH_ZYNQMP
+./openwrt/feeds/base/boot/uboot-d1/patches/0027-env-sunxi-Replace-ARCH_SUNXI-with-BOARD_SUNXI.patch:62: 	default 0x40000 if ARCH_ZYNQMP || ARCH_VERSAL || ARCH_VERSAL_NET
+./openwrt/feeds/base/boot/uboot-rockchip/patches/103-rockchip-rk3588-generic-Enable-support-for-RK3582.patch:61: CONFIG_SPL_MAX_SIZE=0x40000
+./openwrt/feeds/base/boot/uboot-rockchip/patches/105-2-board-rockchip-add-LinkEase-EasePi-R1.patch:62:+CONFIG_SPL_MAX_SIZE=0x40000
+./openwrt/feeds/base/boot/uboot-rockchip/patches/107-board-rockchip-add-HINLINK-H28K.patch:47:+CONFIG_SPL_MAX_SIZE=0x40000
+./openwrt/feeds/base/boot/uboot-rockchip/patches/106-board-rockchip-add-HINLINK-H66K-H68K.patch:73:+CONFIG_SPL_MAX_SIZE=0x40000
+./openwrt/feeds/base/boot/uboot-rockchip/patches/106-board-rockchip-add-HINLINK-H66K-H68K.patch:150:+CONFIG_SPL_MAX_SIZE=0x40000
+./openwrt/feeds/base/boot/uboot-rockchip/patches/104-rockchip-rk3588s-rock-5c-Add-support-for-ROCK-5C-Lit.patch:32: CONFIG_SPL_MAX_SIZE=0x40000
+./openwrt/feeds/base/boot/uboot-mxs/patches/001-add-i2se-duckbill.patch:464:+CONFIG_SYS_TEXT_BASE=0x40002000
+./openwrt/feeds/base/boot/uboot-mxs/patches/001-add-i2se-duckbill.patch:498:+CONFIG_ENV_OFFSET_REDUND=0x40000
+./openwrt/feeds/base/boot/uboot-mxs/patches/001-add-i2se-duckbill.patch:524:+#define PHYS_SDRAM_1			0x40000000	/* Base address */
+./openwrt/feeds/base/boot/uboot-mxs/patches/001-add-i2se-duckbill.patch:525:+#define PHYS_SDRAM_1_SIZE		0x40000000	/* Max 1 GB RAM */
+./openwrt/feeds/base/boot/uboot-kirkwood/patches/010-pogoplug_v4.patch:568:+CONFIG_MTDPARTS_DEFAULT="mtdparts=orion_nand:0x1c0000(uboot),0x40000(uboot_env),0x7e00000(ubi)"
+./openwrt/feeds/base/boot/uboot-kirkwood/patches/151-arm-kirkwood-add-CheckPoint-L-50-device.patch:841:+CONFIG_MTDPARTS_DEFAULT="mtdparts=orion_nand:0xc0000@0x0(u-boot)ro,0x40000@0xc0000(bootldr-env),0x7900000@0x100000(ubi),0x800000@0x7a00000(kernel-2),0x7100000@0x8200000(rootfs-2),0x7900000@0xf300000(default_sw),0x1800000@0x16c00000(logs),0x100000@0x18400000(preset_cfg),0x100000@0x18500000(adsl),-@0x18600000(storage)"
+./openwrt/feeds/base/boot/uboot-kirkwood/patches/170-sheevaplug.patch:18:-	"x_bootcmd_kernel=nand read 0x6400000 0x100000 0x400000\0" \
+./openwrt/feeds/base/boot/uboot-sifiveu/patches/0005-riscv-dts-Add-few-PMU-events.patch:31:+			riscv,event-to-mhpmevent = <0x05 0x00000000 0x4000
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/apm821xx:12:	ubootenv_add_uci_config "/dev/mtd1" "0x0" "0x4000" "0x4000" "1"
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/apm821xx:13:	ubootenv_add_uci_config "/dev/mtd2" "0x0" "0x4000" "0x4000" "1"
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/apm821xx:21:	ubootenv_add_uci_config "/dev/mtd1" "0x0" "0x4000" "0x4000" "4"
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/apm821xx:24:	ubootenv_add_uci_config "/dev/mtd0" "0x40000" "0x20000" "0x20000" "1"
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/realtek:12:	ubootenv_add_mtd "u-boot-env" "0x0" "0x40000" "0x10000"
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/realtek:13:	ubootenv_add_sys_mtd "u-boot-env2" "0x0" "0x40000" "0x10000"
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/imx_cortexa9:43:		ubootenv_add_uci_config /dev/mtd1 0x0 0x20000 0x40000
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/imx_cortexa9:44:		ubootenv_add_uci_config /dev/mtd1 0x80000 0x20000 0x40000
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/ramips:120:	ubootenv_add_uci_sys_config "/dev/mtd1" "0x40000" "0x40000" "0x20000"
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/ramips:124:	ubootenv_add_mtd "u-boot-env" "0x4000" "0x1000" "0x1000"
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/ramips:141:	ubootenv_add_uci_sys_config "/dev/mtd2" "0x0" "0x4000" "0x20000"
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/ramips:147:	ubootenv_add_uci_sys_config "/dev/mtd2" "0x0" "0x4000" "0x10000"
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/ramips:151:	ubootenv_add_uci_sys_config "/dev/mtd9" "0x0" "0x4000" "0x10000"
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/kirkwood:34:	ubootenv_add_uci_config "/dev/mtd1" "0x0" "0x4000" "0x4000"
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/mvebu:29:		ubootenv_add_uci_config "/dev/mtd0" "0xc0000" "0x10000" "0x40000"
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/mvebu:57:	ubootenv_add_uci_config "/dev/mtd1" "0x0" "0x20000" "0x40000"
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/mvebu:60:	ubootenv_add_uci_config "/dev/mtd1" "0x0" "0x40000" "0x20000"
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/ipq40xx:41:	ubootenv_add_uci_config "/dev/mtd8" "0x0" "0x40000" "0x20000"
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/ipq40xx:49:	ubootenv_add_uci_config "/dev/mtd7" "0x0" "0x40000" "0x20000"
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/ipq40xx:52:	ubootenv_add_uci_config "/dev/mtd6" "0x0" "0x40000" "0x10000"
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/qualcommax_ipq50xx:16:	ubootenv_add_mtd "0:appsblenv" "0x0" "0x40000" "0x20000"
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/qualcommax_ipq50xx:19:	ubootenv_add_mtd "0:APPSBLENV" "0x0" "0x40000" "0x20000"
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/qualcommax_ipq50xx:26:	ubootenv_add_mtd "u_env" "0x0" "0x40000" "0x20000"
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/mediatek_mt7622:50:	ubootenv_add_mtd "u-boot-env" "0x0" "0x4000" "0x1000"
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/mediatek_mt7622:57:	ubootenv_add_uci_config "/dev/mtd3" "0x0" "0x10000" "0x40000"
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/mediatek_mt7622:58:	ubootenv_add_uci_sys_config "/dev/mtd4" "0x0" "0x10000" "0x40000"
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/ipq806x:24:		# size is fixed to 0x40000 in u-boot
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/ipq806x:25:		ubootenv_size=0x40000
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/ipq806x:36:	ubootenv_add_uci_config "/dev/mtd9" "0x0" "0x40000" "0x20000"
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/qualcommax_ipq807x:20:		# size is fixed to 0x40000 in u-boot
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/qualcommax_ipq807x:21:		ubootenv_size=0x40000
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/qualcommax_ipq807x:54:	ubootenv_add_mtd "0:appsblenv" "0x0" "0x40000" "0x20000"
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/qualcommax_ipq807x:60:	ubootenv_add_mtd "0:appsblenv" "0x0" "0x40000" "0x40000"
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/qualcommax_ipq807x:66:	ubootenv_add_mtd "u_env" "0x0" "0x40000" "0x20000"
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/qualcommax_ipq807x:69:	ubootenv_add_mtd "u_env" "0x0" "0x40000" "0x40000"
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/qualcommax_ipq807x:72:	ubootenv_add_mmc "0:APPSBLENV" "" "0x0" "0x40000" "0x400" "0x100"
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/qualcommax_ipq807x:81:	ubootenv_add_mmc "0:APPSBLENV" "" "0x0" "0x40000" "0x40000" "1"
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/lantiq:20:	ubootenv_add_uci_config "/dev/mtd2" "0x0" "0x4000" "0x4000" "1"
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/mxs:17:	ubootenv_add_uci_config "/dev/mmcblk0" "0x40000" "0x20000"
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/mxs:20:	ubootenv_add_uci_config "/dev/mmcblk0" "0x40000" "0x4000"
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/qualcommax_ipq60xx:26:	ubootenv_add_mtd "u_env" "0x0" "0x40000" "0x20000"
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/qualcommax_ipq60xx:33:	ubootenv_add_mmc "0:APPSBLENV" "" "0x0" "0x40000" "0x20000"
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/qualcommax_ipq60xx:44:	ubootenv_add_mtd "0:appsblenv" "0x0" "0x40000" "0x20000"
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/qualcommbe_ipq95xx:12:	ubootenv_add_mmc "0:APPSBLENV" "" "0x0" "0x40000" "0x40000"
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/ath79:117:	ubootenv_add_uci_config "/dev/mtd1" "0x0" "0x40000" "0x10000"
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/ath79:123:	ubootenv_add_uci_config "/dev/mtd2" "0x0" "0x1000" "0x4000" "1"
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/ath79:124:	ubootenv_add_uci_config "/dev/mtd3" "0x0" "0x1000" "0x4000" "1"
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/ath79:143:	ubootenv_add_uci_config "/dev/mtd1" "0x0" "0x40000" "0x20000"
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/ath79:155:	ubootenv_add_uci_config "/dev/mtd1" "0x0" "0x40000" "0x40000"
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/ath79:164:	ubootenv_add_uci_config "/dev/mtd5" "0x0" "0x40000" "0x40000"
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/ath79:168:	ubootenv_add_uci_config "/dev/mtd2" "0x0" "0x40000" "0x10000"
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/mediatek_filogic:15:	ubootenv_add_mmc "ubootenv" "${1:-mmcblk0}" "0x0" "0x40000" "0x40000" "1"
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/mediatek_filogic:16:	ubootenv_add_mmc "ubootenv" "${1:-mmcblk0}" "0x40000" "0x40000" "0x40000" "1"
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/mediatek_filogic:128:	ubootenv_add_uci_config "/dev/mtd1" "0x0" "0x40000" "0x40000"
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/mediatek_filogic:163:	ubootenv_add_mtd "u-boot-env" "0x0" "0x20000" "0x40000" "2"
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/mediatek_filogic:168:	ubootenv_add_sys_mtd "u-boot-env" "0x0" "0x20000" "0x40000" "2"
+./openwrt/feeds/base/boot/uboot-tools/uboot-envtools/files/mediatek_filogic:171:	ubootenv_add_uci_config "/dev/ubootenv" "0x0" "0x4000" "0x4000" "1"
+./openwrt/feeds/base/boot/uboot-ath79/patches/401-mips-ath79-add-support-for-NEC-QCA9558-Aterm-series.patch:194:+CONFIG_SYS_MALLOC_LEN=0x40000
+./openwrt/feeds/base/boot/uboot-ath79/patches/401-mips-ath79-add-support-for-NEC-QCA9558-Aterm-series.patch:203:+CONFIG_MIPS_RELOCATION_TABLE_SIZE=0x4000
+./openwrt/feeds/base/boot/uboot-ath79/patches/400-ath79-add-support-for-NEC-AR9344-Aterm-series.patch:213:+CONFIG_SYS_MALLOC_LEN=0x40000
+./openwrt/feeds/base/boot/uboot-ath79/patches/400-ath79-add-support-for-NEC-AR9344-Aterm-series.patch:222:+CONFIG_MIPS_RELOCATION_TABLE_SIZE=0x4000
+./openwrt/feeds/base/boot/uboot-ath79/patches/400-ath79-add-support-for-NEC-AR9344-Aterm-series.patch:277:+CONFIG_SYS_MALLOC_LEN=0x40000
+./openwrt/feeds/base/boot/uboot-ath79/patches/400-ath79-add-support-for-NEC-AR9344-Aterm-series.patch:287:+CONFIG_MIPS_RELOCATION_TABLE_SIZE=0x4000
+./openwrt/feeds/base/boot/uboot-lantiq/patches/0112-MIPS-add-board-support-for-Arcadyan-VGV7510KW22.patch:188:+#define	MC_CCR16_VALUE	0x40000
+./openwrt/feeds/base/boot/uboot-lantiq/patches/0107-MIPS-add-board-support-for-ZyXEL-P-2812HNU-Fx.patch:75:+#define	MC_CCR16_VALUE	0x40000
+./openwrt/feeds/base/boot/uboot-lantiq/patches/0107-MIPS-add-board-support-for-ZyXEL-P-2812HNU-Fx.patch:264:+#define CONFIG_SYS_NAND_U_BOOT_OFFS	0x4000
+./openwrt/feeds/base/boot/uboot-lantiq/patches/0116-MIPS-add-board-support-for-BT-Home-Hub-5A.patch:196:+#define	MC_CCR16_VALUE	0x40000
+./openwrt/feeds/base/boot/uboot-lantiq/patches/0020-MIPS-lantiq-add-NAND-SPL-support.patch:113:+ * BOOT CFG 06 only (address cycle based probing, 2KB or 512B page size)
+./openwrt/feeds/base/boot/uboot-lantiq/patches/0101-MIPS-add-board-support-for-Easy-80920.patch:67:+#define	MC_CCR16_VALUE	0x40000
+./openwrt/feeds/base/boot/uboot-lantiq/patches/0101-MIPS-add-board-support-for-Easy-80920.patch:310:+#define CONFIG_SYS_NAND_U_BOOT_OFFS	0x4000
+./openwrt/feeds/base/boot/uboot-lantiq/patches/0014-MIPS-add-support-for-Lantiq-XWAY-SoCs.patch:337:+#define LTQ_RCU_RST_REQ_VALUE		0x40000008
+./openwrt/feeds/base/boot/uboot-lantiq/patches/0014-MIPS-add-support-for-Lantiq-XWAY-SoCs.patch:3300:+#define CONFIG_SYS_INIT_SP_OFFSET	0x4000
+./openwrt/feeds/base/boot/uboot-lantiq/patches/0114-MIPS-add-board-support-for-Arcadyan-VGV7519.patch:68:+#define	MC_CCR16_VALUE	0x40000
+./openwrt/feeds/base/boot/uboot-lantiq/patches/0033-MIPS-lantiq-reduce-stack-size.patch:41:-#define CONFIG_SYS_INIT_SP_OFFSET	0x4000
+./openwrt/feeds/base/boot/uboot-lantiq/patches/0105-MIPS-add-board-support-for-AVM-FritzBox-3370.patch:75:+#define	MC_CCR16_VALUE	0x40000
+./openwrt/feeds/base/boot/uboot-mediatek/patches/454-add-glinet-x3000.patch:24:+		reg = <0x40000000 0x20000000>;
+./openwrt/feeds/base/boot/uboot-mediatek/patches/454-add-glinet-x3000.patch:157:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/feeds/base/boot/uboot-mediatek/patches/454-add-glinet-x3000.patch:160:+CONFIG_ENV_OFFSET=0x400000
+./openwrt/feeds/base/boot/uboot-mediatek/patches/445-add-netis-nx31.patch:10:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/feeds/base/boot/uboot-mediatek/patches/445-add-netis-nx31.patch:142:+		reg = <0x40000000 0x10000000>;
+./openwrt/feeds/base/boot/uboot-mediatek/patches/452-add-xiaomi-redmi-ax6s.patch:55:+		reg = <0x40000000 0x8000000>;
+./openwrt/feeds/base/boot/uboot-mediatek/patches/452-add-xiaomi-redmi-ax6s.patch:203:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/feeds/base/boot/uboot-mediatek/patches/449-add-cudy_wbr3000uax-v1.patch:10:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/feeds/base/boot/uboot-mediatek/patches/449-add-cudy_wbr3000uax-v1.patch:139:+		reg = <0x40000000 0x20000000>;
+./openwrt/feeds/base/boot/uboot-mediatek/patches/449-add-cudy_wbr3000uax-v1.patch:278:+				reg = <0x380000 0x40000>;
+./openwrt/feeds/base/boot/uboot-mediatek/patches/502-add-bazis-ax3000wm.patch:10:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/feeds/base/boot/uboot-mediatek/patches/502-add-bazis-ax3000wm.patch:142:+		reg = <0x40000000 0x10000000>;
+./openwrt/feeds/base/boot/uboot-mediatek/patches/466-add-imou-hx21.patch:10:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/feeds/base/boot/uboot-mediatek/patches/466-add-imou-hx21.patch:139:+		reg = <0x40000000 0x10000000>;
+./openwrt/feeds/base/boot/uboot-mediatek/patches/433-add-qihoo_360t7.patch:10:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/feeds/base/boot/uboot-mediatek/patches/433-add-qihoo_360t7.patch:159:+		reg = <0x40000000 0x10000000>;
+./openwrt/feeds/base/boot/uboot-mediatek/patches/108-dts-arm64-mt7981-rfb-add-mtd-partitions.patch:35:+				reg = <0x580000 0x4000000>;
+./openwrt/feeds/base/boot/uboot-mediatek/patches/108-dts-arm64-mt7981-rfb-add-mtd-partitions.patch:58:+				reg = <0x40000 0x0010000>;
+./openwrt/feeds/base/boot/uboot-mediatek/patches/108-dts-arm64-mt7981-rfb-add-mtd-partitions.patch:134:+				reg = <0x580000 0x4000000>;
+./openwrt/feeds/base/boot/uboot-mediatek/patches/432-add-tplink-xdr608x.patch:10:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/feeds/base/boot/uboot-mediatek/patches/432-add-tplink-xdr608x.patch:146:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/feeds/base/boot/uboot-mediatek/patches/432-add-tplink-xdr608x.patch:282:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/feeds/base/boot/uboot-mediatek/patches/432-add-tplink-xdr608x.patch:436:+		reg = <0x40000000 0x20000000>;
+./openwrt/feeds/base/boot/uboot-mediatek/patches/441-add-jdcloud_re-cp-03.patch:10:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/feeds/base/boot/uboot-mediatek/patches/441-add-jdcloud_re-cp-03.patch:12:+CONFIG_ENV_SIZE=0x40000
+./openwrt/feeds/base/boot/uboot-mediatek/patches/441-add-jdcloud_re-cp-03.patch:13:+CONFIG_ENV_OFFSET=0x400000
+./openwrt/feeds/base/boot/uboot-mediatek/patches/441-add-jdcloud_re-cp-03.patch:142:+		reg = <0x40000000 0x40000000>;
+./openwrt/feeds/base/boot/uboot-mediatek/patches/440-add-xiaomi_mi-router-ax3000t.patch:10:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/feeds/base/boot/uboot-mediatek/patches/440-add-xiaomi_mi-router-ax3000t.patch:143:+		reg = <0x40000000 0x10000000>;
+./openwrt/feeds/base/boot/uboot-mediatek/patches/440-add-xiaomi_mi-router-ax3000t.patch:262:+				reg = <0x100000 0x40000>;
+./openwrt/feeds/base/boot/uboot-mediatek/patches/440-add-xiaomi_mi-router-ax3000t.patch:267:+				reg = <0x140000 0x40000>;
+./openwrt/feeds/base/boot/uboot-mediatek/patches/440-add-xiaomi_mi-router-ax3000t.patch:282:+				reg = <0x580000 0x40000>;
+./openwrt/feeds/base/boot/uboot-mediatek/patches/440-add-xiaomi_mi-router-ax3000t.patch:287:+				reg = <0x5c0000 0x40000>;
+./openwrt/feeds/base/boot/uboot-mediatek/patches/440-add-xiaomi_mi-router-ax3000t.patch:297:+				reg = <0x7600000 0x40000>;
+./openwrt/feeds/base/boot/uboot-mediatek/patches/100-02-mtd-mtk-snand-add-support-for-SPL.patch:69:+	uint32_t off = offs, writesize_mask = cinfo.pagesize - 1;
+./openwrt/feeds/base/boot/uboot-mediatek/patches/100-02-mtd-mtk-snand-add-support-for-SPL.patch:79:+		leading = off & writesize_mask;
+./openwrt/feeds/base/boot/uboot-mediatek/patches/431-add-xiaomi_redmi-ax6000.patch:10:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/feeds/base/boot/uboot-mediatek/patches/431-add-xiaomi_redmi-ax6000.patch:140:+		reg = <0x40000000 0x20000000>;
+./openwrt/feeds/base/boot/uboot-mediatek/patches/431-add-xiaomi_redmi-ax6000.patch:248:+				reg = <0x100000 0x40000>;
+./openwrt/feeds/base/boot/uboot-mediatek/patches/431-add-xiaomi_redmi-ax6000.patch:253:+				reg = <0x140000 0x40000>;
+./openwrt/feeds/base/boot/uboot-mediatek/patches/436-add-glinet-mt6000.patch:23:+		reg = <0x40000000 0x40000000>;
+./openwrt/feeds/base/boot/uboot-mediatek/patches/436-add-glinet-mt6000.patch:144:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/feeds/base/boot/uboot-mediatek/patches/436-add-glinet-mt6000.patch:147:+CONFIG_ENV_OFFSET=0x400000
+./openwrt/feeds/base/boot/uboot-mediatek/patches/445-add-netis-nx32u.patch:10:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/feeds/base/boot/uboot-mediatek/patches/445-add-netis-nx32u.patch:143:+		reg = <0x40000000 0x10000000>;
+./openwrt/feeds/base/boot/uboot-mediatek/patches/420-add-support-for-RAVPower-RP-WD009.patch:57:+		reg = <0x0 0x4000000>;
+./openwrt/feeds/base/boot/uboot-mediatek/patches/420-add-support-for-RAVPower-RP-WD009.patch:205:+#define CFG_SYS_INIT_SP_OFFSET		0x400000
+./openwrt/feeds/base/boot/uboot-mediatek/patches/160-net-phy-add-support-for-Airoha-ethernet-PHY-driver.patch:580:+    airoha_pbus_write(mbus, pbus_addr, 0x1C08, 0x40000040);
+./openwrt/feeds/base/boot/uboot-mediatek/patches/160-net-phy-add-support-for-Airoha-ethernet-PHY-driver.patch:1061:+#define EN8811H_MD32_DM_SIZE	0x4000
+./openwrt/feeds/base/boot/uboot-mediatek/patches/468-add-cudy_wr3000h-v1.patch:9:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/feeds/base/boot/uboot-mediatek/patches/468-add-cudy_wr3000h-v1.patch:135:+		reg = <0x40000000 0x10000000>;
+./openwrt/feeds/base/boot/uboot-mediatek/patches/468-add-cudy_wr3000h-v1.patch:238:+				reg = <0x380000 0x40000>;
+./openwrt/feeds/base/boot/uboot-mediatek/patches/453-add-openwrt-one.patch:26:+		reg = <0x40000000 0x10000000>;
+./openwrt/feeds/base/boot/uboot-mediatek/patches/453-add-openwrt-one.patch:188:+				reg = <0x40000 0x00C0000>;
+./openwrt/feeds/base/boot/uboot-mediatek/patches/453-add-openwrt-one.patch:216:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/feeds/base/boot/uboot-mediatek/patches/453-add-openwrt-one.patch:349:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/feeds/base/boot/uboot-mediatek/patches/453-add-openwrt-one.patch:478:+bl2_mtd_write=mtd erase bl2-nor &&  mtd write bl2-nor $loadaddr 0x0 0x40000
+./openwrt/feeds/base/boot/uboot-mediatek/patches/453-add-openwrt-one.patch:512:+recovery_write_bl2=mtd erase bl2 && for offset in 0x0 0x40000 0x80000; do mtd write bl2 $loadaddr $offset 0x40000 ; done
+./openwrt/feeds/base/boot/uboot-mediatek/patches/453-add-openwrt-one.patch:574:+snand_write_bl2=mtd erase bl2 && for offset in 0x0 0x40000 0x80000 0xc0000 ; do mtd write bl2 $loadaddr $offset 0x40000 ; done
+./openwrt/feeds/base/boot/uboot-mediatek/patches/447-add-konka_komi-a31.patch:10:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/feeds/base/boot/uboot-mediatek/patches/447-add-konka_komi-a31.patch:139:+		reg = <0x40000000 0x10000000>;
+./openwrt/feeds/base/boot/uboot-mediatek/patches/451-add-tplink-xtr8488.patch:10:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/feeds/base/boot/uboot-mediatek/patches/451-add-tplink-xtr8488.patch:164:+		reg = <0x40000000 0x40000000>;
+./openwrt/feeds/base/boot/uboot-mediatek/patches/451-add-tplink-xtr8488.patch:312:+				reg = <0x100000 0x40000>;
+./openwrt/feeds/base/boot/uboot-mediatek/patches/451-add-tplink-xtr8488.patch:317:+				reg = <0x140000 0x40000>;
+./openwrt/feeds/base/boot/uboot-mediatek/patches/456-add-arcadyan-mozart.patch:10:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/feeds/base/boot/uboot-mediatek/patches/456-add-arcadyan-mozart.patch:12:+CONFIG_ENV_SIZE=0x40000
+./openwrt/feeds/base/boot/uboot-mediatek/patches/456-add-arcadyan-mozart.patch:13:+CONFIG_ENV_OFFSET=0x400000
+./openwrt/feeds/base/boot/uboot-mediatek/patches/456-add-arcadyan-mozart.patch:205:+		reg = <0 0x40000000 0 0x40000000>;
+./openwrt/feeds/base/boot/uboot-mediatek/patches/461-add-netis-nx30v2.patch:21:+		reg = <0x40000000 0x10000000>;
+./openwrt/feeds/base/boot/uboot-mediatek/patches/461-add-netis-nx30v2.patch:173:+CONFIG_SYS_MALLOC_F_LEN=0x4000
+./openwrt/feeds/base/boot/uboot-mediatek/patches/421-zbtlink_zbt-wg3526-16m.patch:16:+CONFIG_SPL_SYS_MALLOC_F_LEN=0x40000
+./openwrt/feeds/base/boot/uboot-mediatek/patches/421-zbtlink_zbt-wg3526-16m.patch:244:+				reg = <0x40000 0x10000>;
+./openwrt/feeds/base/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:249:+	return addr >> ni->erasesize_shift;
+./openwrt/feeds/base/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:259:+	return (uint64_t)ba << ni->erasesize_shift;
+./openwrt/feeds/base/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:268:+	return (size + ni->lower.erasesize - 1) >> ni->erasesize_shift;
+./openwrt/feeds/base/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:426:+				  ni->page_cache + ni->lower.writesize,
+./openwrt/feeds/base/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:431:+	return ni->page_cache[ni->lower.writesize] != 0xff;
+./openwrt/feeds/base/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:461:+	for (off = 0; off < ni->lower.erasesize; off += ni->lower.writesize) {
+./openwrt/feeds/base/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:463:+				     ni->page_cache + ni->lower.writesize,
+./openwrt/feeds/base/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:785:+	for (off = 0; off < ni->lower.erasesize; off += ni->lower.writesize) {
+./openwrt/feeds/base/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:870:+	if (size > ni->lower.writesize)
+./openwrt/feeds/base/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:875:+	for (off = 0; off < ni->lower.erasesize; off += ni->lower.writesize) {
+./openwrt/feeds/base/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:977:+		leading = off & ni->writesize_mask;
+./openwrt/feeds/base/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:978:+		chunksize = ni->lower.writesize - leading;
+./openwrt/feeds/base/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:982:+		if (chunksize == ni->lower.writesize) {
+./openwrt/feeds/base/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:1027:+		leading = off & ni->writesize_mask;
+./openwrt/feeds/base/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:1028:+		chunksize = ni->lower.writesize - leading;
+./openwrt/feeds/base/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:1084:+		if (chunksize > ni->lower.erasesize)
+./openwrt/feeds/base/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:1085:+			chunksize = ni->lower.erasesize;
+./openwrt/feeds/base/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:1444:+	uint32_t info_table_erasesize = size2blk(ni, ni->info_table_size);
+./openwrt/feeds/base/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:1451:+					  info_table_erasesize);
+./openwrt/feeds/base/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:1538:+					  info_table_erasesize);
+./openwrt/feeds/base/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:1818:+	ni->signature.block_size = ni->lower.erasesize;
+./openwrt/feeds/base/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:1819:+	ni->signature.page_size = ni->lower.writesize;
+./openwrt/feeds/base/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:1948:+		if (chunksize > ni->lower.erasesize)
+./openwrt/feeds/base/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:1949:+			chunksize = ni->lower.erasesize;
+./openwrt/feeds/base/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:2235:+	block_count = ni->lower.size >> ni->erasesize_shift;
+./openwrt/feeds/base/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:2254:+		for (off = 0; off < ni->lower.erasesize;
+./openwrt/feeds/base/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:2255:+		     off += ni->lower.writesize) {
+./openwrt/feeds/base/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:2303:+	if (!nld->erasesize || !is_power_of_2(nld->erasesize)) {
+./openwrt/feeds/base/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:2305:+			       "Block size %u is not valid\n", nld->erasesize);
+./openwrt/feeds/base/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:2309:+	if (!nld->writesize || !is_power_of_2(nld->writesize)) {
+./openwrt/feeds/base/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:2311:+			       "Page size %u is not valid\n", nld->writesize);
+./openwrt/feeds/base/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:2360:+	block_count = nmbm_lldiv(nld->size, nld->erasesize);
+./openwrt/feeds/base/boot/uboot-mediatek/patches/100-04-mtd-add-core-facility-code-of-NMBM.patch:2368:+				     nld->writesize);
