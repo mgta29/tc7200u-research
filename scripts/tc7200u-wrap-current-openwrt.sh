@@ -2,11 +2,13 @@
 set -euo pipefail
 
 OWRT="${OWRT:-$HOME/src/openwrt}"
+RESEARCH="${RESEARCH:-$HOME/tc7200u-research}"
+RESEARCH_NOTES_DIR="${RESEARCH_NOTES_DIR:-$RESEARCH/research/notes/generated}"
 RAW="$OWRT/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin"
 VML="$OWRT/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/vmlinux"
 OUT="${OUT:-/mnt/c/tftp/openwrt-ps-irqfallback.bin}"
-WRAP="$HOME/tc7200u-research/scripts/tc7200u-a825-wrap.py"
-MAN="$HOME/tc7200u-research/notes/$(date +%F-%H%M%S)-wrap-manifest.txt"
+WRAP="$RESEARCH/scripts/tc7200u-a825-wrap.py"
+MAN="$RESEARCH_NOTES_DIR/$(date +%F-%H%M%S)-wrap-manifest.txt"
 
 cd "$OWRT"
 
@@ -28,6 +30,7 @@ if [ "$VML" -nt "$RAW" ]; then
 fi
 
 mkdir -p "$(dirname "$OUT")"
+mkdir -p "$RESEARCH_NOTES_DIR"
 "$WRAP" --input "$RAW" --output "$OUT"
 sync
 

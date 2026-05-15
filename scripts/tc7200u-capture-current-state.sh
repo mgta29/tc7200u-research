@@ -2,7 +2,8 @@
 set -eu
 
 OPENWRT="$HOME/src/openwrt"
-RESEARCH="$HOME/tc7200u-research"
+RESEARCH="${RESEARCH:-$HOME/tc7200u-research}"
+RESEARCH_NOTES_DIR="${RESEARCH_NOTES_DIR:-$RESEARCH/research/notes/generated}"
 RAW="$OPENWRT/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin"
 WRAPPED="/mnt/c/tftp/openwrt-ps-irqfallback.bin"
 VMLINUX="$OPENWRT/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/vmlinux"
@@ -12,9 +13,9 @@ DTS="$OPENWRT/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts"
 DTSI="$OPENWRT/target/linux/bmips/dts/bcm3384_viper.dtsi"
 
 TS="$(date +%Y-%m-%d-%H%M%S)"
-OUT="$RESEARCH/notes/${TS}-current-state.txt"
+OUT="$RESEARCH_NOTES_DIR/${TS}-current-state.txt"
 
-mkdir -p "$RESEARCH/notes"
+mkdir -p "$RESEARCH_NOTES_DIR"
 
 {
     echo "# TC7200U current state"

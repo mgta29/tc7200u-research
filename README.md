@@ -1,47 +1,35 @@
 # Technicolor TC7200.U / BCM3383 OpenWrt research
 
-Device:
-- Technicolor TC7200.U
-- Broadcom BCM3383Z-B0 / BMIPS4350
-- RAM: 128 MB
-- NAND: 64 MB
-- SPI flash: 1 MB
-- Switch detected by CFE: BCM53125
-- CFE signature/PID: a825
+This repository preserves TC7200.U OpenWrt bring-up evidence, scripts, boot
+artifacts, and notes. The current priority is fast, safe resumption of RAM boot
+debugging.
 
-Known CFE network:
-- Modem/CFE: 192.168.77.1
-- TFTP server/PC: 192.168.77.2
-- TFTP filename forced by CFE: openwrt-ps-irqfallback.bin
+Start here:
 
-Image / CFE state:
-- Known-good RAM image: artifacts/openwrt-ps-irqfallback-GOOD-5696426.bin
-- Known-good received size: 5696426 bytes
-- Known-good ProgramStore signature/PID: a825
-- Known-good load address: 0x82000000
-- Known-good result: HCS passed; CFE executed Image 4; OpenWrt booted to userspace
-- Known-bad image size: 5697264 bytes
-- Known-bad result: HCS failed on Image 3 Program Header; kernel did not start; no flash write was done
-- Do not replace /mnt/c/tftp/openwrt-ps-irqfallback.bin with HCS-failing builds
+- [Start Here](docs/START_HERE.md): current state and next action.
+- [Safety](docs/SAFETY.md): RAM boot, CFE/TFTP, and no-flash rules.
+- [Status](docs/STATUS.md): working state, blockers, and recommended work.
+- [Ethernet](docs/ETHERNET.md): GENET direction, failed paths, and next test.
+- [CFE Image Format](docs/CFE_IMAGE_FORMAT.md): A825 wrapper and HCS notes.
+- [Workflow](docs/WORKFLOW.md): build, wrap, verify, and TFTP checklist.
+- [Paths](docs/PATHS.md): local paths used by scripts and notes.
+- [Repo Map](docs/REPO_MAP.md): repository layout.
 
-Safe build/wrap/TFTP rule:
-- Always build OpenWrt first.
-- Always run scripts/tc7200u-wrap-current-openwrt.sh.
-- Only TFTP /mnt/c/tftp/openwrt-ps-irqfallback.bin after the wrapper manifest says size_ok=True.
-- Do not rename the file inside CFE; serve the filename CFE asks for.
+Hard safety facts:
 
-Important finding:
-- Serial TX worked from kernel.
-- Serial RX did not work until BCM3380/BCM7120 L2 interrupt controller support was enabled.
-- Required kernel config:
-  CONFIG_BCM7120_L2_IRQ=y
+- Active TFTP filename remains `/mnt/c/tftp/openwrt-ps-irqfallback.bin`.
+- Known-good rescue image is
+  `artifacts/rescue/openwrt-ps-irqfallback-GOOD-5696426.bin`.
+- Known-good SHA256 is
+  `2ae4afb92e4df065e88d61bcbac9f693c6a853e1ff349e09d3c8e5cfae4ac513`.
+- Only TFTP after the wrapper manifest says `size_ok=True`.
+- RAM boot only. Do not flash.
 
-Proof:
-- CFE serial input works: pressing p prints flash map.
-- USB-TTL loopback works.
-- OpenWrt RX test received typed input:
-  TC7200U-RXTEST: RX: abc7
+Top-level layout:
 
-Do not flash yet:
-- RAM boot only for now.
-- Avoid CFE d/s/e/E/X until serial, LAN, and recovery are confirmed.
+- `artifacts/`: rescue image, test images, and invalid comparison images.
+- `docs/`: curated status, safety, workflow, path, and topic docs.
+- `evidence/`: serial logs, CFE logs, snapshots, and backups.
+- `patches/`: OpenWrt patch copies and disabled patch history.
+- `research/notes/`: raw notes grouped by topic.
+- `scripts/`: local helper scripts for wrapping, verification, and state capture.

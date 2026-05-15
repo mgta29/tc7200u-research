@@ -3,6 +3,7 @@ set -euo pipefail
 
 OWRT="${OWRT:-$HOME/src/openwrt}"
 RESEARCH="${RESEARCH:-$HOME/tc7200u-research}"
+export RESEARCH_NOTES_DIR="${RESEARCH_NOTES_DIR:-$RESEARCH/research/notes/generated}"
 RAW="$OWRT/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin"
 WRAPPED="/mnt/c/tftp/openwrt-ps-irqfallback.bin"
 

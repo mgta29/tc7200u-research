@@ -7,7 +7,7 @@
 | OpenWrt source/build tree | `~/src/openwrt` |
 | Research repo | `~/tc7200u-research` |
 | Windows TFTP root | `/mnt/c/tftp` |
-| Serial logs | `~/tc7200u-logs` |
+| External serial logs, if used | `~/tc7200u-logs` |
 
 ## OpenWrt build outputs
 
@@ -27,13 +27,19 @@
 |---|---|
 | Active CFE/TFTP image | `/mnt/c/tftp/openwrt-ps-irqfallback.bin` |
 | A825 wrapper script | `~/tc7200u-research/scripts/tc7200u-a825-wrap.py` |
+| Wrapper manifest output | `~/tc7200u-research/research/notes/generated/` |
 
 ## Research repo storage
 
 | Purpose | Path |
 |---|---|
-| Bootable/tested artifacts | `~/tc7200u-research/artifacts/` |
-| Serial boot logs | `~/tc7200u-research/logs/` |
-| Notes / manifests / summaries | `~/tc7200u-research/notes/` |
+| Rescue image | `~/tc7200u-research/artifacts/rescue/` |
+| Test images | `~/tc7200u-research/artifacts/test-images/` |
+| Invalid comparison images | `~/tc7200u-research/artifacts/invalid/` |
+| Serial boot logs | `~/tc7200u-research/evidence/serial/` |
+| CFE and recovery logs | `~/tc7200u-research/evidence/cfe/` |
+| DTS/config/source snapshots | `~/tc7200u-research/evidence/snapshots/` |
+| Notes and summaries | `~/tc7200u-research/research/notes/` |
+| Generated manifests and captures | `~/tc7200u-research/research/notes/generated/` |
 | Research helper scripts | `~/tc7200u-research/scripts/` |
-| OpenWrt patch copies | `~/tc7200u-research/patches/openwrt-bmips/` |
+| OpenWrt patch copies | `~/tc7200u-research/patches/` |

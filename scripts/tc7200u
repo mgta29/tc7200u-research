@@ -2,6 +2,7 @@
 set -euo pipefail
 
 RESEARCH="${RESEARCH:-$HOME/tc7200u-research}"
+RESEARCH_NOTES_DIR="${RESEARCH_NOTES_DIR:-$RESEARCH/research/notes/generated}"
 OWRT="${OWRT:-$HOME/src/openwrt}"
 RAW="$OWRT/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin"
 WRAPPED="/mnt/c/tftp/openwrt-ps-irqfallback.bin"
@@ -16,6 +17,7 @@ case "$cmd" in
     ;;
   paths)
     echo "RESEARCH=$RESEARCH"
+    echo "RESEARCH_NOTES_DIR=$RESEARCH_NOTES_DIR"
     echo "OWRT=$OWRT"
     echo "RAW=$RAW"
     echo "WRAPPED=$WRAPPED"
