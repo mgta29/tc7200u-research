@@ -1,0 +1,8 @@
+
+Logging serial to: /home/mgta29/tc7200u-research/logs/serial-20260515-104248-decompress-timer-rescue.log
+Interactive mode: press keys normally. Ctrl+C to stop.
+At CFE menu, press: g
+
+[TIMER] root@(none):~# at +4.167s
+
+Stopped.
