@@ -1,0 +1,26 @@
+TC7200.U netfilter-free RAM research image result
+
+Baseline UART-only:
+- wrapped size: 5717126 bytes
+- decompress_duration: 337.821s
+- boots to shell
+
+Netfilter-free trim:
+- wrapped size: 5097441 bytes
+- decompress_duration: 299.499s
+- boots to shell
+- /etc/modules.d load completed without nf_tables/nf_defrag panic
+
+Improvement:
+- size saved: 619685 bytes
+- decompression time saved: 38.322s
+- approx 11.34% faster decompression
+
+Rejected tests:
+- lzma -d16: larger, slower, later panic
+- nftables-only trim: tiny size gain, no decompression gain, later nf_defrag_ipv6 panic
+
+Conclusion:
+- Best current optimization is package/module trim, not LZMA parameter tuning.
+- Keep netfilter-free image as RAM research baseline.
+- Do not use this as final router firmware; firewall/NAT must be restored later for normal router use.
