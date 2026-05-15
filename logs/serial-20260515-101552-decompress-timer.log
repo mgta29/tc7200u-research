@@ -1,0 +1,95 @@
+Unrecognized command.
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+TFTP Get Selected
+
+Destination: a5f00000
+
+Destination: a5f00000
+Starting TFTP of openwrt-ps-irqfallback.bin from 192.168.77.2
+Getting openwrt-ps-irqfallback.bin using octet mode
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+Tftp timeout...
+Tftp timeout...
+Tftp timeout...
+Tftp timeout...
+Tftp timeout...
+...................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+.......Received packet for invalid session...
+.............................................................................................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+........Received packet for invalid session...
+...................................................................................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+.Received packet for invalid session...
+....................................................................................................................
+Tftp complete
+Received 5717126 bytes
+
+Image 3 Program Header:
+   Signature: a825
+     Control: 0000
+   Major Rev: 0100
+   Minor Rev: 04ff
+  Build Time: 2026/5/13 21:00:32 Z
+ File Length: 5717034 bytes
+Load Address: 82000000
+    Filename: openwrt-initramfs.bin
+         HCS: c835
+         CRC: 00000000
+
+Bypassing CRC Verifiction on Image 4...
+CRC time = 316
+Loading non-compressed image 4...
+Target Address: 0x82000000
+Length: 5717034
+Reading flash map at ff30, size 192
+Successfully restored flash map from SPI flash!
+Copying partition table to 0x83fffc04 180
+Copying partition table to 0x80000904 180
+
+Executing Image 4...
+
+
+
+
+OpenWrt kernel loader for BMIPS
+Copyright (C) 2011 Gabor Juhos <juhosg@openwrt.org>
+Copyright (C) 2014 Jonas Gorski <jogo@openwrt.org>
+Copyright (C) 2020 Alvaro Fernandez Rojas <noltari@gmail.com>
+Decompressing kernel... 
