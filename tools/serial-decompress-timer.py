@@ -76,6 +76,9 @@ def main():
                 if sys.stdin.fileno() in readable:
                     ch = sys.stdin.buffer.read(1)
                     if ch:
+                        # Local escape: Ctrl+C stops logger instead of sending ^C to serial.
+                        if ch == b"\x03":
+                            raise KeyboardInterrupt
                         if ch == b"\n":
                             ch = b"\r"
                         ser.write(ch)
