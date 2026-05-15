@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+RESEARCH="${RESEARCH:-$HOME/tc7200u-research}"
+RESEARCH_NOTES_DIR="${RESEARCH_NOTES_DIR:-$RESEARCH/research/notes/generated}"
+OWRT="${OWRT:-$HOME/src/openwrt}"
+RAW="$OWRT/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin"
+WRAPPED="/mnt/c/tftp/openwrt-ps-irqfallback.bin"
+
+cmd="${1:-help}"
+shift || true
+
+case "$cmd" in
+  help|-h|--help)
+    echo "TC7200.U helper"
+    echo "Commands: help paths status wrap check verify state rules"
+    ;;
+  paths)
+    echo "RESEARCH=$RESEARCH"
+    echo "RESEARCH_NOTES_DIR=$RESEARCH_NOTES_DIR"
+    echo "OWRT=$OWRT"
+    echo "RAW=$RAW"
+    echo "WRAPPED=$WRAPPED"
+    ;;
+  status)
+    cd "$RESEARCH"
+    echo "== git =="
+    git status --short || true
+    echo
+    echo "== scripts =="
+    find scripts -maxdepth 2 -type f | sort
+    ;;
+  wrap|build)
+    cd "$RESEARCH"
+    exec scripts/tc7200u-auto-build-install-wrap.sh "$@"
+    ;;
+  check)
+    cd "$RESEARCH"
+    scripts/tc7200u-wrap-current-openwrt.sh | tee /tmp/tc7200u-wrap-check.txt
+    grep -q 'size_ok=True' /tmp/tc7200u-wrap-check.txt
+    echo "CHECK OK: size_ok=True"
+    ;;
+  verify)
+    cd "$RESEARCH"
+    exec scripts/tc7200u-verify-a825-image.py --raw "$RAW" --wrapped "$WRAPPED" "$@"
+    ;;
+  state)
+    cd "$RESEARCH"
+    exec scripts/tc7200u-capture-current-state.sh "$@"
+    ;;
+  rules)
+    echo "1. Always build OpenWrt first."
+    echo "2. Always run scripts/tc7200u-wrap-current-openwrt.sh."
+    echo "3. Only TFTP /mnt/c/tftp/openwrt-ps-irqfallback.bin after size_ok=True."
+    echo "4. Do not rename openwrt-ps-irqfallback.bin."
+    echo "5. Use short one-line commands on TTL serial."
+    ;;
+  *)
+    echo "ERROR: unknown command: $cmd" >&2
+    echo "Run: tc help" >&2
+    exit 2
+    ;;
+esac
