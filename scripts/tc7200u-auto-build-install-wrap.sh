@@ -6,47 +6,70 @@ RESEARCH="${RESEARCH:-$HOME/tc7200u-research}"
 export RESEARCH_NOTES_DIR="${RESEARCH_NOTES_DIR:-$RESEARCH/research/notes/generated}"
 RAW="$OWRT/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin"
 WRAPPED="/mnt/c/tftp/openwrt-ps-irqfallback.bin"
+JOBS="${JOBS:-$(nproc 2>/dev/null || echo 1)}"
+TS="$(date +%Y-%m-%d-%H%M%S)"
+
+mkdir -p "$RESEARCH_NOTES_DIR"
 
 latest_vmlinux() {
 	find "$OWRT/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268" -path '*/linux-*/vmlinux' -type f -printf '%T@ %p\n' 2>/dev/null | sort -n | tail -1 | cut -d' ' -f2-
+}
+
+run_logged() {
+	local log="$1"
+	shift
+	if ! "$@" >"$log" 2>&1; then
+		echo "FAIL: command failed: $*" >&2
+		echo "FAIL: log: $log" >&2
+		tail -80 "$log" >&2 || true
+		exit 1
+	fi
 }
 
 VMLINUX="$(latest_vmlinux || true)"
 
 need_build=0
 if [ ! -f "$RAW" ]; then
-	echo "AUTO: raw initramfs missing; building OpenWrt target/linux."
 	need_build=1
 elif [ -n "$VMLINUX" ] && [ "$VMLINUX" -nt "$RAW" ]; then
-	echo "AUTO: vmlinux is newer than raw initramfs; rebuilding target/linux."
 	need_build=1
 fi
 
 if [ "$need_build" = "1" ]; then
 	cd "$OWRT"
-	make target/linux/compile V=s
-	make target/linux/install V=s
-fi
-
-need_wrap=0
-if [ ! -f "$WRAPPED" ]; then
-	echo "AUTO: wrapped TFTP image missing; wrapping."
-	need_wrap=1
-elif [ "$RAW" -nt "$WRAPPED" ]; then
-	echo "AUTO: wrapped TFTP image is older than raw initramfs; re-wrapping."
-	need_wrap=1
-else
-	echo "AUTO: wrapped TFTP image is current."
+	run_logged "$RESEARCH_NOTES_DIR/${TS}-make-compile.log" make -j"$JOBS" target/linux/compile V=s
+	run_logged "$RESEARCH_NOTES_DIR/${TS}-make-install.log" make -j"$JOBS" target/linux/install V=s
 fi
 
 cd "$RESEARCH"
-if [ "$need_wrap" = "1" ]; then
-	out="$(scripts/tc7200u-wrap-current-openwrt.sh)"
-	printf '%s\n' "$out"
-	printf '%s\n' "$out" | grep -q 'size_ok=True'
-else
-	scripts/tc7200u-wrap-current-openwrt.sh | tee /tmp/tc7200u-wrap-check.txt
-	grep -q 'size_ok=True' /tmp/tc7200u-wrap-check.txt
+
+wrap_log="$RESEARCH_NOTES_DIR/${TS}-wrap.log"
+if ! scripts/tc7200u-wrap-current-openwrt.sh >"$wrap_log" 2>&1; then
+	echo "FAIL: wrap failed: $wrap_log" >&2
+	tail -80 "$wrap_log" >&2 || true
+	exit 1
 fi
 
+if ! grep -q '^size_ok=True$' "$wrap_log"; then
+	echo "FAIL: size_ok=True not found in wrap manifest output: $wrap_log" >&2
+	tail -80 "$wrap_log" >&2 || true
+	exit 1
+fi
+
+echo "CHECK OK: size_ok=True"
+
+verify_log="$RESEARCH_NOTES_DIR/${TS}-verify.log"
+if ! scripts/tc7200u-verify-a825-image.py --raw "$RAW" --wrapped "$WRAPPED" >"$verify_log" 2>&1; then
+	echo "FAIL: verify failed: $verify_log" >&2
+	cat "$verify_log" >&2
+	exit 1
+fi
+
+if ! grep -q '^OK: wrapped a825 image matches raw payload and expected header fields$' "$verify_log"; then
+	echo "FAIL: verifier success line missing: $verify_log" >&2
+	cat "$verify_log" >&2
+	exit 1
+fi
+
+grep -m1 '^OK: wrapped a825 image matches raw payload and expected header fields$' "$verify_log"
 echo "AUTO: ready for cfe-tftp. Only TFTP /mnt/c/tftp/openwrt-ps-irqfallback.bin."

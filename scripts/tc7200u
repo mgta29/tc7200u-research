@@ -13,7 +13,7 @@ shift || true
 case "$cmd" in
   help|-h|--help)
     echo "TC7200.U helper"
-    echo "Commands: help paths status wrap check verify state rules"
+    echo "Commands: help paths status wrap build check verify state rules"
     ;;
   paths)
     echo "RESEARCH=$RESEARCH"
@@ -28,30 +28,20 @@ case "$cmd" in
     git status --short || true
     echo
     echo "== scripts =="
-    find scripts -maxdepth 2 -type f | sort
+    find scripts -maxdepth 3 -type f | sort
     ;;
-  wrap|build)
+  wrap|build|check|verify)
     cd "$RESEARCH"
     exec scripts/tc7200u-auto-build-install-wrap.sh "$@"
-    ;;
-  check)
-    cd "$RESEARCH"
-    scripts/tc7200u-wrap-current-openwrt.sh | tee /tmp/tc7200u-wrap-check.txt
-    grep -q 'size_ok=True' /tmp/tc7200u-wrap-check.txt
-    echo "CHECK OK: size_ok=True"
-    ;;
-  verify)
-    cd "$RESEARCH"
-    exec scripts/tc7200u-verify-a825-image.py --raw "$RAW" --wrapped "$WRAPPED" "$@"
     ;;
   state)
     cd "$RESEARCH"
     exec scripts/tc7200u-capture-current-state.sh "$@"
     ;;
   rules)
-    echo "1. Always build OpenWrt first."
-    echo "2. Always run scripts/tc7200u-wrap-current-openwrt.sh."
-    echo "3. Only TFTP /mnt/c/tftp/openwrt-ps-irqfallback.bin after size_ok=True."
+    echo "1. Build OpenWrt first when source/build output changed."
+    echo "2. Run tcwrap."
+    echo "3. Only TFTP /mnt/c/tftp/openwrt-ps-irqfallback.bin after CHECK OK: size_ok=True."
     echo "4. Do not rename openwrt-ps-irqfallback.bin."
     echo "5. Use short one-line commands on TTL serial."
     ;;
