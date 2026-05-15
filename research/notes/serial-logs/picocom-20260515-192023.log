@@ -1,0 +1,496 @@
+þ
+BCM3383A2 
+Sync: 0 
+MemSize:            128 M
+Chip ID:     BCM3383Z-B0
+
+BootLoader Version: 2.4.0alpha18p1 Pre-release Gnu spiboot dual-flash reduced DDR drive linux
+Build Date: Aug 14 2012
+Build Time: 09:48:58
+SPI flash ID 0xc22014, size 1MB, block size 64KB, write buffer 256, flags 0x0
+NAND flash: Device size 64 MB, Block size 16 KB, Page size 512 B
+Cust key size 128
+parameter offset is 43872
+
+Signature/PID: a825
+
+Switch detected: 53125
+ProbePhy: Found PHY 0, MDIO on MAC 0, data on MAC 0
+Using GMAC0, phy 0
+
+Enet link up: 1G full
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+TFTP Get Selected
+
+Destination: a5f00000
+
+Destination: a5f00000
+Starting TFTP of openwrt-ps-irqfallback.bin from 192.168.77.2
+Getting openwrt-ps-irqfallback.bin using octet mode
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+Tftp timeout...
+Tftp timeout...
+............................................................................................................................................Received packet for invalid session...
+......................................................................................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+..................................................................................................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+...........................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+........................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+............................................................Received packet for invalid session...
+..........................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
+Tftp complete
+Received 6416725 bytes
+
+Image 3 Program Header:
+   Signature: a825
+     Control: 0000
+   Major Rev: 0100
+   Minor Rev: 04ff
+  Build Time: 2026/5/13 21:00:32 Z
+ File Length: 6416633 bytes
+Load Address: 82000000
+    Filename: openwrt-initramfs.bin
+         HCS: a26e
+         CRC: 00000000
+
+Bypassing CRC Verifiction on Image 4...
+CRC time = 311
+Loading non-compressed image 4...
+Target Address: 0x82000000
+Length: 6416633
+Reading flash map at ff30, size 192
+Successfully restored flash map from SPI flash!
+Copying partition table to 0x83fffc04 180
+Copying partition table to 0x80000904 180
+
+Executing Image 4...
+
+
+
+
+OpenWrt kernel loader for BMIPS
+Copyright (C) 2011 Gabor Juhos <juhosg@openwrt.org>
+Copyright (C) 2014 Jonas Gorski <jogo@openwrt.org>
+Copyright (C) 2020 Alvaro Fernandez Rojas <noltari@gmail.com>
+Decompressing kernel... done!
+blasting from 0x80010000 to 0x015907f9 (0x80010000 - 0x815a0800)
+Starting kernel at 80010000...
+
+[    0.000000] Linux version 6.12.87 (mgta29@CerberusNB) (mips-openwrt-linux-musl-gcc (OpenWrt GCC 14.3.0 r34427-6865d489d2) 14.3.0, GNU ld (GNU Binutils) 2.44) #0 SMP Fri May 15 11:26:37 2026
+[    0.000000] CPU0 revision is: 0002a080 (Broadcom BMIPS4350)
+[    0.000000] MIPS: machine is Technicolor TC7200.U
+[    0.000000] earlycon: bcm63xx_uart0 at MMIO 0x14e00500 (options '')
+[    0.000000] printk: legacy bootconsole [bcm63xx_uart0] enabled
+[    0.000000] Kernel sections are not in the memory maps
+[    0.000000] Wasting 576 bytes for tracking 16 unused pages
+[    0.000000] Initrd not found or empty - disabling initrd
+[    0.000000] OF: reserved mem: Reserved memory: No reserved-memory node in the DT
+[    0.000000] Primary instruction cache 64kB, VIPT, 4-way, linesize 16 bytes.
+[    0.000000] Primary data cache 32kB, 2-way, VIPT, cache aliases, linesize 16 bytes
+[    0.000000] Zone ranges:
+[    0.000000]   Normal   [mem 0x0000000000010000-0x000000000fffffff]
+[    0.000000] Movable zone start for each node
+[    0.000000] Early memory node ranges
+[    0.000000]   node   0: [mem 0x0000000000010000-0x00000000016d7fff]
+[    0.000000]   node   0: [mem 0x0000000006000000-0x0000000007ffffff]
+[    0.000000]   node   0: [mem 0x000000000e000000-0x000000000fffffff]
+[    0.000000] Initmem setup node 0 [mem 0x0000000000010000-0x000000000fffffff]
+[    0.000000] On node 0, zone Normal: 16 pages in unavailable ranges
+[    0.000000] On node 0, zone Normal: 18728 pages in unavailable ranges
+[    0.000000] On node 0, zone Normal: 24576 pages in unavailable ranges
+[    0.000000] percpu: Embedded 12 pages/cpu s19664 r8192 d21296 u49152
+[    0.000000] Kernel command line: console=ttyS0,115200 earlycon
+[    0.000000] Dentry cache hash table entries: 8192 (order: 3, 32768 bytes, linear)
+[    0.000000] Inode-cache hash table entries: 4096 (order: 2, 16384 bytes, linear)
+[    0.000000] Built 1 zonelists, mobility grouping on.  Total pages: 22216
+[    0.000000] mem auto-init: stack:off, heap alloc:off, heap free:off
+[    0.000000] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=1, Nodes=1
+[    0.000000] rcu: Hierarchical RCU implementation.
+[    0.000000] rcu: 	RCU restricting CPUs from NR_CPUS=2 to nr_cpu_ids=1.
+[    0.000000] 	Tracing variant of Tasks RCU enabled.
+[    0.000000] rcu: RCU calculated value of scheduler-enlistment delay is 10 jiffies.
+[    0.000000] rcu: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=1
+[    0.000000] RCU Tasks Trace: Setting shift to 0 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=1.
+[    0.000000] NR_IRQS: 256
+[    0.000000] rcu: srcu_init: Setting srcu_struct sizes based on contention.
+[    0.000000] clocksource: MIPS: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 6370868154 ns
+[    0.000107] sched_clock: 32 bits at 300MHz, resolution 3ns, wraps every 7158278654ns
+[    0.019190] Calibrating delay loop... 4.42 BogoMIPS (lpj=22144)
+[    0.160684] pid_max: default: 32768 minimum: 301
+[    2.914487] Mount-cache hash table entries: 1024 (order: 0, 4096 bytes, linear)
+[    2.926207] Mountpoint-cache hash table entries: 1024 (order: 0, 4096 bytes, linear)
+[    5.049336] rcu: Hierarchical SRCU implementation.
+[    5.056957] rcu: 	Max phase no-delay instances is 1000.
+[    5.160947] smp: Bringing up secondary CPUs ...
+[    5.168271] smp: Brought up 1 node, 1 CPU
+[    5.196195] Memory: 62496K/88864K available (8392K kernel code, 663K rwdata, 1788K rodata, 12252K init, 224K bss, 25748K reserved, 0K cma-reserved)
+[    5.515583] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 19112604462750000 ns
+[    5.531098] futex hash table entries: 256 (order: 2, 16384 bytes, linear)
+[    7.324641] pinctrl core: initialized pinctrl subsystem
+[    8.030461] NET: Registered PF_NETLINK/PF_ROUTE protocol family
+[   10.146636] clocksource: Switched to clocksource MIPS
+[   13.016930] NET: Registered PF_INET protocol family
+[   13.061924] IP idents hash table entries: 2048 (order: 2, 16384 bytes, linear)
+[   13.209078] tcp_listen_portaddr_hash hash table entries: 512 (order: 0, 4096 bytes, linear)
+[   13.224398] Table-perturb hash table entries: 65536 (order: 6, 262144 bytes, linear)
+[   13.238698] TCP established hash table entries: 1024 (order: 0, 4096 bytes, linear)
+[   13.256645] TCP bind hash table entries: 1024 (order: 2, 16384 bytes, linear)
+[   13.273347] TCP: Hash tables configured (established 1024 bind 1024)
+[   13.369543] MPTCP token hash table entries: 256 (order: 0, 4096 bytes, linear)
+[   13.429832] UDP hash table entries: 256 (order: 1, 8192 bytes, linear)
+[   13.443077] UDP-Lite hash table entries: 256 (order: 1, 8192 bytes, linear)
+[   13.609020] NET: Registered PF_UNIX/PF_LOCAL protocol family
+[   13.621108] PCI: CLS 0 bytes, default 16
+[   17.763030] workingset: timestamp_bits=14 max_order=14 bucket_order=0
+[   18.510913] squashfs: version 4.0 (2009/01/31) Phillip Lougher
+[   18.520756] jffs2: version 2.2 (NAND) (SUMMARY) (LZMA) (RTIME) (CMODE_PRIORITY) (c) 2001-2006 Red Hat, Inc.
+[   21.636769] irq_bcm7120_l2: registered BCM3380 L2 intc (/ubus/periph_intc@14e00048, parent IRQ(s): 1)
+[   21.680352] irq_bcm7120_l2: registered BCM3380 L2 intc (/ubus/cmips_intc@151f8048, parent IRQ(s): 1)
+[   21.736410] irq_bcm7120_l2: registered BCM3380 L2 intc (/ubus/iop_intc@14e00050, parent IRQ(s): 1)
+[   21.981826] 14e00500.serial: ttyS0 at MMIO 0x14e00500 (irq = 8, base_baud = 1687500) is a bcm63xx_uart
+[   21.997944] printk: legacy console [ttyS0] enabled
+[   21.997944] printk: legacy console [ttyS0] enabled
+[   22.012780] printk: legacy bootconsole [bcm63xx_uart0] disabled
+[   22.012780] printk: legacy bootconsole [bcm63xx_uart0] disabled
+[   23.859222] bcm6368_nand 14e02200.nand: timeout waiting for command 0x9
+[   23.871178] bcm6368_nand 14e02200.nand: intfc status c0000000
+[   23.881143] nand: No NAND device found
+[   24.242768] bcmgenet 12c00000.ethernet: GENET 1.0 EPHY: 0x0000
+[   24.253013] bcmgenet: Invalid GPHY revision detected: 0x0000
+[   24.263819] bcmgenet 12c00000.ethernet: using random Ethernet MAC
+[   24.281065] bcmgenet 12c00000.ethernet: unable to find MDIO bus node
+[   24.390166] unimac-mdio unimac-mdio.-19: Broadcom UniMAC MDIO bus
+[   34.687887] NET: Registered PF_INET6 protocol family
+[   35.249172] Segment Routing with IPv6
+[   35.269953] In-situ OAM (IOAM) with IPv6
+[   35.292491] NET: Registered PF_PACKET protocol family
+[   35.336539] 8021q: 802.1Q VLAN Support v1.8
+[   40.088711] clk: Disabling unused clocks
+[   40.094651] PM: genpd: Disabling unused power domains
+[   41.730816] Freeing unused kernel image (initmem) memory: 12252K
+[   41.740648] This architecture does not have kernel memory protection.
+[   41.750946] Run /init as init process
+[   75.843330] init: Console is alive
+[   76.528502] kmodloader: loading kernel modules from /etc/modules-boot.d/*
+[   76.712838] kmodloader: done loading kernel modules from /etc/modules-boot.d/*
+[   76.824701] init: - preinit -
+[  104.261559] random: crng init done
+[  135.496889] bcmgenet 12c00000.ethernet: configuring instance for external RGMII (no delay)
+[  135.601269] bcmgenet 12c00000.ethernet eth0: Link is Up - 1Gbps/Full - flow control off
+[  137.897018] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2200 ms
+[  139.926508] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+Press the [f] key and hit [enter] to enter failsafe mode
+Press the [1], [2], [3] or [4] key and hit [enter] to select the debug level
+[  141.946466] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[  143.966347] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[  145.996436] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[  148.026160] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[  150.056417] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[  152.937081] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2230 ms
+[  154.956433] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[  156.976366] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[  166.906840] bcmgenet 12c00000.ethernet eth0: Link is Down
+[  167.973554] procd: - early -
+[  171.281930] procd: - ubus -
+[  173.743950] procd: - init -
+Please press Enter to activate this console.
+[  242.299843] kmodloader: loading kernel modules from /etc/modules.d/*
+[  243.327690] PPP generic driver version 2.4.2
+[  243.667862] NET: Registered PF_PPPOX protocol family
+[  244.330344] kmodloader: done loading kernel modules from /etc/modules.d/*
+[  642.462599] urngd: v1.0.2 started.
+
+
+
+BusyBox v1.37.0 (2026-01-02 17:07:02 UTC) built-in shell (ash)
+
+  _______                     ________        __
+ |       |.-----.-----.-----.|  |  |  |.----.|  |_
+ |   -   ||  _  |  -__|     ||  |  |  ||   _||   _|
+ |_______||   __|_____|__|__||________||__|  |____|
+          |__| W I R E L E S S   F R E E D O M
+ -----------------------------------------------------
+ OpenWrt SNAPSHOT, r34428-ded2d0b714
+ -----------------------------------------------------
+
+ === WARNING! =====================================
+ There is no root password defined on this device!
+ Use the "passwd" command to set up a new password
+ in order to prevent unauthorized SSH logins.
+ --------------------------------------------------
+
+root@OpenWrt:~# ip [ 1392.167609] ttyS ttyS0: 1 input overrun(s)
+0
+Object "0" is unknown, try "ip help".
+root@OpenWrt:~# [ 1394.987950] ttyS ttyS0: 1 input overrun(s)
+ip l0[J[J[J[J[Jip link set eth0 down
+root@OpenWrt:~# tr '\0' '\n' < /proc/device-tree/ubus/nand@14e02200/compatible
+brcm,nand-bcm6368
+brcm,brcmnand-v4.0
+brcm,brcmnand
+root@OpenWrt:~# [ 1410.616775] ttyS ttyS0: 1 input overrun(s)
+dme |bcm6368'[J[J[J[J[J[J[J[J[J[J[J[J[Jdmesg | grep -Ei 'nand|mtd|brcm|bcm6368'
+[   18.520756] jffs2: version 2.2 (NAND) (SUMMARY) (LZMA) (RTIME) (CMODE_PRIORITY) (c) 2001-2006 Red Hat, Inc.
+[   23.859222] bcm6368_nand 14e02200.nand: timeout waiting for command 0x9
+[   23.871178] bcm6368_nand 14e02200.nand: intfc status c0000000
+[   23.881143] nand: No NAND device found
+root@OpenWrt:~# cat /proc/mtd
+dev:    size   erasesize  name
+root@OpenWrt:~# [ 3007.174654] bcmgenet 12c00000.ethernet: configuring instance for external RGMII (no delay)
+[ 3007.377051] bcmgenet 12c00000.ethernet eth0: Link is Up - 1Gbps/Full - flow control off
+[ 3008.258659] br-lan: port 1(eth0) entered blocking state
+[ 3008.268249] br-lan: port 1(eth0) entered disabled state
+[ 3008.279190] bcmgenet 12c00000.ethernet eth0: entered allmulticast mode
+[ 3008.316716] bcmgenet 12c00000.ethernet eth0: entered promiscuous mode
+[ 3009.310273] br-lan: port 1(eth0) entered blocking state
+[ 3009.319647] br-lan: port 1(eth0) entered forwarding state
+
+root@OpenWrt:~# ping 192.168.77.2
+PING 192.168.77.2 (192.168.77.2): 56 data bytes
+ping: sendto: Network unreachable
+root@OpenWrt:~# ip addr
+1: [1;36mlo: [0m<LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback [1;33m00:00:00:00:00:00[0m brd [1;33m00:00:00:00:00:00[0m
+    inet [1;35m127.0.0.1[0m/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 [1;94m::1[0m/128 scope host proto kernel_lo 
+       valid_lft forever preferred_lft forever
+2: [1;36meth0: [0m<BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq master br-lan state [1;32mUP [0mgroup default qlen 1000
+    link/ether [1;33mc6:12:38:08:89:8c[0m brd [1;33mff:ff:ff:ff:ff:ff[0m
+3: [1;36mbr-lan: [0m<BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state [1;32mUP [0mgroup default qlen 1000
+    link/ether [1;33mc6:12:38:08:89:8c[0m brd [1;33mff:ff:ff:ff:ff:ff[0m
+    inet [1;35m192.168.1.1[0m/24 brd [1;35m192.168.1.255 [0mscope global br-lan
+       valid_lft forever preferred_lft forever
+    inet6 [1;94mfd8f:3189:e1a7::1[0m/60 scope global noprefixroute 
+       valid_lft forever preferred_lft forever
+    inet6 [1;94mfe80::c412:38ff:fe08:898c[0m/64 scope link proto kernel_ll 
+       valid_lft forever preferred_lft forever
+root@OpenWrt:~# ip route
+[1;35m192.168.1.0/24 [0mdev [1;36mbr-lan [0mproto kernel scope link src [1;35m192.168.1.1 [0m
+root@OpenWrt:~# brctl show 2>/dev/null
+bridge name	bridge id		STP enabled	interfaces
+br-lan		7fff.c6123808898c	no		eth0
+root@OpenWrt:~# cat /etc/config/network
+
+config interface 'loopback'
+	option device 'lo'
+	option proto 'static'
+	list ipaddr '127.0.0.1/8'
+
+config globals 'globals'
+	option dhcp_default_duid '00041893ebf0373f469382771fb879921efe'
+	option ula_prefix 'fd8f:3189:e1a7::/48'
+
+config device
+	option name 'br-lan'
+	option type 'bridge'
+	list ports 'eth0'
+
+config interface 'lan'
+	option device 'br-lan'
+	option proto 'static'
+	list ipaddr '192.168.1.1/24'
+	option ip6assign '60'
+
+root@OpenWrt:~# ip addr flush dev br-lan
+root@OpenWrt:~# ip addr add 192.168.77.1/24 dev br-lan
+root@OpenWrt:~# [ 3117.562101] ttyS ttyS0: 1 input overrun(s)
+ip n[J[J[J[Jip link set br-lan up
+root@OpenWrt:~# ip link set eth0 up
+root@OpenWrt:~# ping -c 3 192.168.77.2
+PING 192.168.77.2 (192.168.77.2): 56 data bytes
+
+--- 192.168.77.2 ping statistics ---
+3 packets transmitted, 0 packets received, 100% packet loss
+root@OpenWrt:~# ip addr flush dev eth0
+root@OpenWrt:~# ip addr add 192.168.77.1/24 dev eth0
+root@OpenWrt:~# ip link set eth0 up
+root@OpenWrt:~# ping -c 3 192.168.77.2
+PING 192.168.77.2 (192.168.77.2): 56 data bytes
+
+--- 192.168.77.2 ping statistics ---
+3 packets transmitted, 0 packets received, 100% packet loss
+root@OpenWrt:~# ip neigh
+[1;35m192.168.77.2 [0mdev [1;36mbr-lan [0mFAILED 
+root@OpenWrt:~# [ 3201.987132] ttyS ttyS0: 1 input overrun(s)
+cat /proc/interrupts | grep -g|irq'
+> ^C
+
+root@OpenWrt:~# cat /proc/interrupts | grep -Ei 'genet|eth|12c|irq'
+ 16:          0  periph_intc@14e00048  16  eth0
+ 17:          0  periph_intc@14e00048  17  eth0
+root@OpenWrt:~# ethtool eth0
+Settings for eth0:
+	Supported ports: [ TP MII ]
+	Supported link modes:   1000baseT/Full 
+	Supported pause frame use: Symmetric Receive-only
+	Supports auto-negotiation: Yes
+	Supported FEC modes: Not reported
+	Advertised link modes:  1000baseT/Full 
+	Advertised pause frame use: Symmetric Receive-only
+	Advertised auto-negotiation: Yes
+	Advertised FEC modes: Not reported
+	Link partner advertised link modes:  1000baseT/Full 
+	Link partner advertised pause frame use: No
+	Link partner advertised auto-negotiation: No
+	Link partner advertised FEC modes: Not reported
+	Speed: 1000Mb/s
+	Duplex: Full
+	Port: MII
+	PHYAD: 0
+	Transceiver: external
+	Auto-negotiation: on
+	Supports Wake-on: d
+	Wake-on: d
+	Current message level: 0x00000007 (7)
+			       drv probe link
+	Link detected: yes
+root@OpenWrt:~# ethtool -S eth0
+NIC statistics:
+     rx_packets: 0
+     tx_packets: 10
+     rx_bytes: 0
+     tx_bytes: 3715
+     rx_errors: 0
+     tx_errors: 10
+     rx_dropped: 0
+     tx_dropped: 0
+     multicast: 0
+     rx_64_octets: 2998927360
+     rx_65_127_oct: 2998927360
+     rx_128_255_oct: 2998927360
+     rx_256_511_oct: 2998927360
+     rx_512_1023_oct: 2998927360
+     rx_1024_1518_oct: 2998927360
+     rx_vlan_1519_1522_oct: 2998927360
+     rx_1522_2047_oct: 2998927360
+     rx_2048_4095_oct: 2998927360
+     rx_4096_9216_oct: 2998927360
+     rx_pkts: 2998927360
+     rx_bytes: 2998927360
+     rx_multicast: 2998927360
+     rx_broadcast: 2998927360
+     rx_fcs: 2998927360
+     rx_control: 2998927360
+     rx_pause: 2998927360
+     rx_unknown: 2998927360
+     rx_align: 2998927360
+     rx_outrange: 2998927360
+     rx_code: 2998927360
+     rx_carrier: 2998927360
+     rx_oversize: 2998927360
+     rx_jabber: 2998927360
+     rx_mtu_err: 2998927360
+     rx_good_pkts: 2998927360
+     rx_unicast: 2998927360
+     rx_ppp: 2998927360
+     rx_crc: 2998927360
+     tx_64_octets: 2998927360
+     tx_65_127_oct: 2998927360
+     tx_128_255_oct: 2998927360
+     tx_256_511_oct: 2998927360
+     tx_512_1023_oct: 2998927360
+     tx_1024_1518_oct: 2998927360
+     tx_vlan_1519_1522_oct: 2998927360
+     tx_1522_2047_oct: 2998927360
+     tx_2048_4095_oct: 2998927360
+     tx_4096_9216_oct: 2998927360
+     tx_pkts: 2998927360
+     tx_multicast: 2998927360
+     tx_broadcast: 2998927360
+     tx_pause: 2998927360
+     tx_control: 2998927360
+     tx_fcs_err: 2998927360
+     tx_oversize: 2998927360
+     tx_defer: 2998927360
+     tx_excess_defer: 2998927360
+     tx_single_col: 2998927360
+     tx_multi_col: 2998927360
+     tx_late_col: 2998927360
+     tx_excess_col: 2998927360
+     tx_frags: 2998927360
+     tx_total_col: 2998927360
+     tx_jabber: 2998927360
+     tx_bytes: 2998927360
+     tx_good_pkts: 2998927360
+     tx_unicast: 2998927360
+     rx_runt_pkts: 2998927360
+     rx_runt_valid_fcs: 2998927360
+     rx_runt_inval_fcs_align: 2998927360
+     rx_runt_bytes: 2998927360
+     rbuf_ovflow_cnt: 1564
+     rbuf_err_cnt: 1588
+     mdf_err_cnt: 1592
+     alloc_rx_buff_failed: 0
+     rx_dma_failed: 0
+     tx_dma_failed: 0
+     tx_realloc_tsb: 0
+     tx_realloc_tsb_failed: 0
+     txq0_packets: 0
+     txq0_bytes: 0
+     rxq0_bytes: 0
+     rxq0_packets: 0
+     rxq0_errors: 0
+     rxq0_dropped: 0
+     txq1_packets: 0
+     txq1_bytes: 0
+     rxq1_bytes: 0
+     rxq1_packets: 0
+     rxq1_errors: 0
+     rxq1_dropped: 0
+     txq2_packets: 0
+     txq2_bytes: 0
+     rxq2_bytes: 0
+     rxq2_packets: 0
+     rxq2_errors: 0
+     rxq2_dropped: 0
+     txq3_packets: 0
+     txq3_bytes: 0
+     rxq3_bytes: 0
+     rxq3_packets: 0
+     rxq3_errors: 0
+     rxq3_dropped: 0
+     txq16_packets: 10
+     txq16_bytes: 3715
+     rxq16_bytes: 0
+     rxq16_packets: 0
+     rxq16_errors: 0
+     rxq16_dropped: 0
+root@OpenWrt:~# 
