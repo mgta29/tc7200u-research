@@ -35,8 +35,22 @@ fi
 
 VMLINUX="$(latest_vmlinux || true)"
 
+config_before="$RESEARCH_NOTES_DIR/${TS}-openwrt-config-before-debug-packages"
+config_after="$RESEARCH_NOTES_DIR/${TS}-openwrt-config-after-debug-packages"
+cp "$OWRT/.config" "$config_before"
+
+run_logged "$RESEARCH_NOTES_DIR/${TS}-ensure-debug-packages.log" "$RESEARCH/scripts/tc7200u-ensure-debug-packages.sh"
+
+cp "$OWRT/.config" "$config_after"
+
 need_build=0
+if ! cmp -s "$config_before" "$config_after"; then
+	need_build=1
+fi
+
 if [ ! -f "$RAW" ]; then
+	need_build=1
+elif [ "$OWRT/.config" -nt "$RAW" ]; then
 	need_build=1
 elif [ -n "$VMLINUX" ] && [ "$VMLINUX" -nt "$RAW" ]; then
 	need_build=1
@@ -44,8 +58,7 @@ fi
 
 if [ "$need_build" = "1" ]; then
 	cd "$OWRT"
-	run_logged "$RESEARCH_NOTES_DIR/${TS}-make-compile.log" make -j"$JOBS" target/linux/compile V=s
-	run_logged "$RESEARCH_NOTES_DIR/${TS}-make-install.log" make -j"$JOBS" target/linux/install V=s
+	run_logged "$RESEARCH_NOTES_DIR/${TS}-make-full-image.log" make -j"$JOBS" V=s
 fi
 
 if [ ! -f "$RAW" ]; then
