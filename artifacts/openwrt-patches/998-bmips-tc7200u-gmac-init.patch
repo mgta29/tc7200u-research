@@ -1,0 +1,77 @@
+--- a/arch/mips/bmips/setup.c
++++ b/arch/mips/bmips/setup.c
+@@ -9,6 +9,7 @@
+ 
+ #include <linux/init.h>
+ #include <linux/bitops.h>
++#include <linux/delay.h>
+ #include <linux/memblock.h>
+ #include <linux/ioport.h>
+ #include <linux/kernel.h>
+@@ -144,6 +145,58 @@
+ 	bmips_smp_enabled = 0;
+ }
+ 
++
++#define TC7200U_GPIO_MUX_REG		((void __iomem *)CKSEG1ADDR(0x14e001c0))
++#define TC7200U_CLK_CTRL_LOW		((void __iomem *)CKSEG1ADDR(0x14e00004))
++#define TC7200U_CLK_CTRL_HIGH		((void __iomem *)CKSEG1ADDR(0x14e00008))
++#define TC7200U_SOFT_RESETB_LOW		((void __iomem *)CKSEG1ADDR(0x14e0008c))
++
++static void tc7200u_bcm3383_gmac_init(void)
++{
++	u32 val;
++
++	/*
++	 * Vendor bcm3383_pinmux_select(10):
++	 * bcm3383_mux_data[10] = { word = 0, mask = 7, shift = 15, val = 5 }
++	 */
++	val = __raw_readl(TC7200U_GPIO_MUX_REG);
++	val &= ~(0x7 << 15);
++	val |= (0x5 << 15);
++	__raw_writel(val, TC7200U_GPIO_MUX_REG);
++
++	/*
++	 * Vendor bcm3383_init_gmac():
++	 * clear soft_resetb_low bits 6 and 8
++	 * enable clk_ctrl_low bit 6
++	 * enable clk_ctrl_high bit 8
++	 * wait 200 ms
++	 * set soft_resetb_low bits 6 and 8
++	 */
++	val = __raw_readl(TC7200U_SOFT_RESETB_LOW);
++	val &= ~((1 << 6) | (1 << 8));
++	__raw_writel(val, TC7200U_SOFT_RESETB_LOW);
++
++	val = __raw_readl(TC7200U_CLK_CTRL_LOW);
++	val |= (1 << 6);
++	__raw_writel(val, TC7200U_CLK_CTRL_LOW);
++
++	val = __raw_readl(TC7200U_CLK_CTRL_HIGH);
++	val |= (1 << 8);
++	__raw_writel(val, TC7200U_CLK_CTRL_HIGH);
++
++	mdelay(200);
++
++	val = __raw_readl(TC7200U_SOFT_RESETB_LOW);
++	val |= ((1 << 6) | (1 << 8));
++	__raw_writel(val, TC7200U_SOFT_RESETB_LOW);
++}
++
++static void tc7200u_quirks(void)
++{
++	bcm3384_viper_quirks();
++	tc7200u_bcm3383_gmac_init();
++}
++
+ static void bcm63xx_fixup_cpu1(void)
+ {
+ 	/*
+@@ -193,6 +246,7 @@
+ 
+ static const struct bmips_quirk bmips_quirk_list[] = {
+ 	{ "brcm,bcm3368",		&bcm6358_quirks			},
++	{ "technicolor,tc7200u",	&tc7200u_quirks			},
+ 	{ "brcm,bcm3384-viper",		&bcm3384_viper_quirks		},
+ 	{ "brcm,bcm33843-viper",	&bcm3384_viper_quirks		},
+ 	{ "brcm,bcm6328",		&bcm6328_quirks			},
