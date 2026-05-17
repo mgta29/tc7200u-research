@@ -1,0 +1,329 @@
+linux-technicolor-tc7200/arch/m68k/atari/ataints.c:203:		enat_cpld = (unsigned char *)ioremap((ATARI_ETHERNAT_PHYS_ADDR+0x23), 0x2);
+linux-technicolor-tc7200/arch/m68k/atari/ataints.c:223:		enat_cpld = (unsigned char *)ioremap((ATARI_ETHERNAT_PHYS_ADDR+0x23), 0x2);
+linux-technicolor-tc7200/arch/m68k/atari/ataints.c:234:		enat_cpld = (unsigned char *)ioremap((ATARI_ETHERNAT_PHYS_ADDR+0x23), 0x2);
+linux-technicolor-tc7200/arch/m68k/atari/stram.c:120:		pr_debug("atari_stram pool: kernel not in ST-RAM, using ioremap!\n");
+linux-technicolor-tc7200/arch/m68k/atari/stram.c:124:		stram_virt_offset = (unsigned long) ioremap(stram_pool.start,
+linux-technicolor-tc7200/arch/m68k/atari/config.c:889:		enatc_virt = (unsigned char *)ioremap((ATARI_ETHERNAT_PHYS_ADDR+0x23), 0xf);
+linux-technicolor-tc7200/arch/m68k/atari/config.c:902:		enec_virt = (unsigned char *)ioremap((ATARI_ETHERNEC_PHYS_ADDR), 0xf);
+linux-technicolor-tc7200/arch/m68k/kernel/syscalltable.S:186:	.long sys_mremap
+linux-technicolor-tc7200/arch/m68k/kernel/syscalltable.S:275:	.long sys_remap_file_pages
+linux-technicolor-tc7200/arch/m68k/kernel/dma.c:132:		unsigned long offset, size_t size, enum dma_data_direction dir,
+linux-technicolor-tc7200/arch/m68k/kernel/dma.c:135:	dma_addr_t handle = page_to_phys(page) + offset;
+linux-technicolor-tc7200/arch/m68k/include/uapi/asm/unistd.h:171:#define __NR_mremap		163
+linux-technicolor-tc7200/arch/m68k/include/uapi/asm/unistd.h:260:#define __NR_remap_file_pages	252
+linux-technicolor-tc7200/arch/m68k/include/asm/mmu_context.h:110:	/* Search for a valid TLB entry, if one is found, don't remap */
+linux-technicolor-tc7200/arch/m68k/include/asm/sun3mmu.h:164:extern void __iomem *sun3_ioremap(unsigned long phys, unsigned long size,
+linux-technicolor-tc7200/arch/m68k/include/asm/raw_io.h:24:extern void __iomem *__ioremap(unsigned long physaddr, unsigned long size,
+linux-technicolor-tc7200/arch/m68k/include/asm/zorro.h:18:static inline void __iomem *z_remap_nocache_ser(unsigned long physaddr,
+linux-technicolor-tc7200/arch/m68k/include/asm/zorro.h:21:	return __ioremap(physaddr, size, IOMAP_NOCACHE_SER);
+linux-technicolor-tc7200/arch/m68k/include/asm/zorro.h:24:static inline void __iomem *z_remap_nocache_nonser(unsigned long physaddr,
+linux-technicolor-tc7200/arch/m68k/include/asm/zorro.h:27:	return __ioremap(physaddr, size, IOMAP_NOCACHE_NONSER);
+linux-technicolor-tc7200/arch/m68k/include/asm/zorro.h:30:static inline void __iomem *z_remap_writethrough(unsigned long physaddr,
+linux-technicolor-tc7200/arch/m68k/include/asm/zorro.h:33:	return __ioremap(physaddr, size, IOMAP_WRITETHROUGH);
+linux-technicolor-tc7200/arch/m68k/include/asm/zorro.h:35:static inline void __iomem *z_remap_fullcache(unsigned long physaddr,
+linux-technicolor-tc7200/arch/m68k/include/asm/zorro.h:38:	return __ioremap(physaddr, size, IOMAP_FULL_CACHING);
+linux-technicolor-tc7200/arch/m68k/include/asm/zorro.h:43:#define z_ioremap z_remap_nocache_ser
+linux-technicolor-tc7200/arch/m68k/include/asm/io_mm.h:442: * These should be valid on any ioremap()ed region
+linux-technicolor-tc7200/arch/m68k/include/asm/io_mm.h:463:static inline void __iomem *ioremap(unsigned long physaddr, unsigned long size)
+linux-technicolor-tc7200/arch/m68k/include/asm/io_mm.h:465:	return __ioremap(physaddr, size, IOMAP_NOCACHE_SER);
+linux-technicolor-tc7200/arch/m68k/include/asm/io_mm.h:467:static inline void __iomem *ioremap_nocache(unsigned long physaddr, unsigned long size)
+linux-technicolor-tc7200/arch/m68k/include/asm/io_mm.h:469:	return __ioremap(physaddr, size, IOMAP_NOCACHE_SER);
+linux-technicolor-tc7200/arch/m68k/include/asm/io_mm.h:471:#define ioremap_uc ioremap_nocache
+linux-technicolor-tc7200/arch/m68k/include/asm/io_mm.h:472:static inline void __iomem *ioremap_wt(unsigned long physaddr,
+linux-technicolor-tc7200/arch/m68k/include/asm/io_mm.h:475:	return __ioremap(physaddr, size, IOMAP_WRITETHROUGH);
+linux-technicolor-tc7200/arch/m68k/include/asm/io_mm.h:477:static inline void __iomem *ioremap_fullcache(unsigned long physaddr,
+linux-technicolor-tc7200/arch/m68k/include/asm/io_mm.h:480:	return __ioremap(physaddr, size, IOMAP_FULL_CACHING);
+linux-technicolor-tc7200/arch/m68k/include/asm/nubus.h:18:static inline void *nubus_remap_nocache_ser(unsigned long physaddr,
+linux-technicolor-tc7200/arch/m68k/include/asm/nubus.h:21:	return __ioremap(physaddr, size, IOMAP_NOCACHE_SER);
+linux-technicolor-tc7200/arch/m68k/include/asm/nubus.h:24:static inline void *nubus_remap_nocache_nonser(unsigned long physaddr,
+linux-technicolor-tc7200/arch/m68k/include/asm/nubus.h:27:	return __ioremap(physaddr, size, IOMAP_NOCACHE_NONSER);
+linux-technicolor-tc7200/arch/m68k/include/asm/nubus.h:30:static inline void *nbus_remap_writethrough(unsigned long physaddr,
+linux-technicolor-tc7200/arch/m68k/include/asm/nubus.h:33:	return __ioremap(physaddr, size, IOMAP_WRITETHROUGH);
+linux-technicolor-tc7200/arch/m68k/include/asm/nubus.h:36:static inline void *nubus_remap_fullcache(unsigned long physaddr,
+linux-technicolor-tc7200/arch/m68k/include/asm/nubus.h:39:	return __ioremap(physaddr, size, IOMAP_FULL_CACHING);
+linux-technicolor-tc7200/arch/m68k/include/asm/nubus.h:44:#define nubus_ioremap nubus_remap_nocache_ser
+linux-technicolor-tc7200/arch/m68k/include/asm/dma.h:48:extern unsigned int dma_base_addr[MAX_M68K_DMA_CHANNELS];
+linux-technicolor-tc7200/arch/m68k/include/asm/dma.h:133:  dmawp = (unsigned short *) dma_base_addr[dmanr];
+linux-technicolor-tc7200/arch/m68k/include/asm/dma.h:146:  dmawp = (unsigned short *) dma_base_addr[dmanr];
+linux-technicolor-tc7200/arch/m68k/include/asm/dma.h:147:  dmapb = (unsigned char *) dma_base_addr[dmanr];
+linux-technicolor-tc7200/arch/m68k/include/asm/dma.h:179:  dmabp = (unsigned char *) dma_base_addr[dmanr];
+linux-technicolor-tc7200/arch/m68k/include/asm/dma.h:180:  dmawp = (unsigned short *) dma_base_addr[dmanr];
+linux-technicolor-tc7200/arch/m68k/include/asm/dma.h:221:  dmawp = (unsigned short *) dma_base_addr[dmanr];
+linux-technicolor-tc7200/arch/m68k/include/asm/dma.h:222:  dmalp = (unsigned int *) dma_base_addr[dmanr];
+linux-technicolor-tc7200/arch/m68k/include/asm/dma.h:269:  dmawp = (unsigned short *) dma_base_addr[dmanr];
+linux-technicolor-tc7200/arch/m68k/include/asm/dma.h:288:  dmawp = (unsigned short *) dma_base_addr[dmanr];
+linux-technicolor-tc7200/arch/m68k/include/asm/dma.h:326:  dmalp = (unsigned int *) dma_base_addr[dmanr];
+linux-technicolor-tc7200/arch/m68k/include/asm/dma.h:338:  dmalp = (unsigned int *) dma_base_addr[dmanr];
+linux-technicolor-tc7200/arch/m68k/include/asm/dma.h:369:  dmalp = (unsigned int *) dma_base_addr[dmanr];
+linux-technicolor-tc7200/arch/m68k/include/asm/dma.h:370:  dmawp = (unsigned short *) dma_base_addr[dmanr];
+linux-technicolor-tc7200/arch/m68k/include/asm/dma.h:406:  dmalp = (unsigned int *) dma_base_addr[dmanr];
+linux-technicolor-tc7200/arch/m68k/include/asm/dma.h:455:  dmalp = (unsigned int *) dma_base_addr[dmanr];
+linux-technicolor-tc7200/arch/m68k/include/asm/dma.h:474:  dmalp = (unsigned int *) dma_base_addr[dmanr];
+linux-technicolor-tc7200/arch/m68k/include/asm/io_no.h:146:static inline void *__ioremap(unsigned long physaddr, unsigned long size, int cacheflag)
+linux-technicolor-tc7200/arch/m68k/include/asm/io_no.h:150:static inline void *ioremap(unsigned long physaddr, unsigned long size)
+linux-technicolor-tc7200/arch/m68k/include/asm/io_no.h:152:	return __ioremap(physaddr, size, IOMAP_NOCACHE_SER);
+linux-technicolor-tc7200/arch/m68k/include/asm/io_no.h:154:static inline void *ioremap_nocache(unsigned long physaddr, unsigned long size)
+linux-technicolor-tc7200/arch/m68k/include/asm/io_no.h:156:	return __ioremap(physaddr, size, IOMAP_NOCACHE_SER);
+linux-technicolor-tc7200/arch/m68k/include/asm/io_no.h:158:static inline void *ioremap_wt(unsigned long physaddr, unsigned long size)
+linux-technicolor-tc7200/arch/m68k/include/asm/io_no.h:160:	return __ioremap(physaddr, size, IOMAP_WRITETHROUGH);
+linux-technicolor-tc7200/arch/m68k/include/asm/io_no.h:162:static inline void *ioremap_fullcache(unsigned long physaddr, unsigned long size)
+linux-technicolor-tc7200/arch/m68k/include/asm/io_no.h:164:	return __ioremap(physaddr, size, IOMAP_FULL_CACHING);
+linux-technicolor-tc7200/arch/m68k/coldfire/pci.c:304:	iospace = (unsigned long) ioremap(PCI_IO_PA, PCI_IO_SIZE);
+linux-technicolor-tc7200/arch/m68k/coldfire/dma.c:23:unsigned int dma_base_addr[MAX_M68K_DMA_CHANNELS] = {
+linux-technicolor-tc7200/arch/m68k/coldfire/dma.c:37:EXPORT_SYMBOL(dma_base_addr);
+linux-technicolor-tc7200/arch/m68k/sun3/dvma.c:34://	pr_info("dvma_remap: addr %lx -> %lx pte %08lx\n", kaddr, vaddr, pte);
+linux-technicolor-tc7200/arch/m68k/mm/kmap.c:105:void __iomem *__ioremap(unsigned long physaddr, unsigned long size, int cacheflag)
+linux-technicolor-tc7200/arch/m68k/mm/kmap.c:129:	printk("ioremap: 0x%lx,0x%lx(%d) - ", physaddr, size, cacheflag);
+linux-technicolor-tc7200/arch/m68k/mm/kmap.c:195:			printk("ioremap: no mem for pmd_dir\n");
+linux-technicolor-tc7200/arch/m68k/mm/kmap.c:207:				printk("ioremap: no mem for pte_dir\n");
+linux-technicolor-tc7200/arch/m68k/mm/kmap.c:224:EXPORT_SYMBOL(__ioremap);
+linux-technicolor-tc7200/arch/m68k/mm/kmap.c:227: * Unmap an ioremap()ed region again
+linux-technicolor-tc7200/arch/m68k/mm/memory.c:69:	 * page can hold 8 pointer tables.  The page is remapped in
+linux-technicolor-tc7200/arch/m68k/mm/sun3kmap.c:64:void __iomem *sun3_ioremap(unsigned long phys, unsigned long size,
+linux-technicolor-tc7200/arch/m68k/mm/sun3kmap.c:84:	pr_info("ioremap: got virt %p size %lx(%lx)\n", area->addr, size,
+linux-technicolor-tc7200/arch/m68k/mm/sun3kmap.c:109:EXPORT_SYMBOL(sun3_ioremap);
+linux-technicolor-tc7200/arch/m68k/mm/sun3kmap.c:112:void __iomem *__ioremap(unsigned long phys, unsigned long size, int cache)
+linux-technicolor-tc7200/arch/m68k/mm/sun3kmap.c:115:	return sun3_ioremap(phys, size, SUN3_PAGE_TYPE_IO);
+linux-technicolor-tc7200/arch/m68k/mm/sun3kmap.c:118:EXPORT_SYMBOL(__ioremap);
+linux-technicolor-tc7200/arch/alpha/kernel/proto.h:192:__alpha_remap_area_pages(unsigned long address, unsigned long phys_addr,
+linux-technicolor-tc7200/arch/alpha/kernel/proto.h:199:	return ioremap_page_range(address, address + size, phys_addr, prot);
+linux-technicolor-tc7200/arch/alpha/kernel/pci.c:99:			if (pci && pci->dma_base + pci->size >= 0xfff00000UL)
+linux-technicolor-tc7200/arch/alpha/kernel/pci.c:100:				pci->size = 0xfff00000UL - pci->dma_base;
+linux-technicolor-tc7200/arch/alpha/kernel/pci.c:324:		sg_base = hose->sg_pci ? hose->sg_pci->dma_base : ~0;
+linux-technicolor-tc7200/arch/alpha/kernel/core_marvel.c:288:		hose->sg_isa->dma_base | wbase_m_ena | wbase_m_sg;
+linux-technicolor-tc7200/arch/alpha/kernel/core_marvel.c:306:		hose->sg_pci->dma_base | wbase_m_ena | wbase_m_sg;
+linux-technicolor-tc7200/arch/alpha/kernel/core_marvel.c:678:marvel_ioremap(unsigned long addr, unsigned long size)
+linux-technicolor-tc7200/arch/alpha/kernel/core_marvel.c:721:	    baddr >= (unsigned long)hose->sg_pci->dma_base &&
+linux-technicolor-tc7200/arch/alpha/kernel/core_marvel.c:722:	    last < (unsigned long)hose->sg_pci->dma_base + hose->sg_pci->size) {
+linux-technicolor-tc7200/arch/alpha/kernel/core_marvel.c:727:		baddr -= hose->sg_pci->dma_base;
+linux-technicolor-tc7200/arch/alpha/kernel/core_marvel.c:728:		last -= hose->sg_pci->dma_base;
+linux-technicolor-tc7200/arch/alpha/kernel/core_marvel.c:745:				printk("ioremap failed... pte not valid...\n");
+linux-technicolor-tc7200/arch/alpha/kernel/core_marvel.c:751:			if (__alpha_remap_area_pages(vaddr,
+linux-technicolor-tc7200/arch/alpha/kernel/core_marvel.c:831:EXPORT_SYMBOL(marvel_ioremap);
+linux-technicolor-tc7200/arch/alpha/kernel/core_marvel.c:921:		aper->arena->dma_base + aper->pg_start * PAGE_SIZE;
+linux-technicolor-tc7200/arch/alpha/kernel/core_marvel.c:1033:	unsigned long baddr = addr - aper->arena->dma_base;
+linux-technicolor-tc7200/arch/alpha/kernel/core_mcpcia.c:373:	*(vuip)MCPCIA_W0_BASE(mid) = hose->sg_isa->dma_base | 3;
+linux-technicolor-tc7200/arch/alpha/kernel/core_mcpcia.c:377:	*(vuip)MCPCIA_W1_BASE(mid) = hose->sg_pci->dma_base | 3;
+linux-technicolor-tc7200/arch/alpha/kernel/systbls.S:362:	.quad sys_mremap
+linux-technicolor-tc7200/arch/alpha/kernel/systbls.S:431:	.quad sys_remap_file_pages		/* 410 */
+linux-technicolor-tc7200/arch/alpha/kernel/core_apecs.c:357:	*(vuip)APECS_IOC_PB2R = hose->sg_isa->dma_base | 0x000c0000;
+linux-technicolor-tc7200/arch/alpha/kernel/core_lca.c:282:	*(vulp)LCA_IOC_W_BASE0 = hose->sg_isa->dma_base | (3UL << 32);
+linux-technicolor-tc7200/arch/alpha/kernel/core_wildfire.c:118:	pci->pci_window[0].wbase.csr = hose->sg_isa->dma_base | 3;
+linux-technicolor-tc7200/arch/alpha/kernel/core_wildfire.c:130:	pci->pci_window[3].wbase.csr = hose->sg_pci->dma_base | 3;
+linux-technicolor-tc7200/arch/alpha/kernel/traps.c:695: * needs to be remapped to preserve non-finite values
+linux-technicolor-tc7200/arch/alpha/kernel/core_titan.c:324:	port->wsba[0].csr = hose->sg_isa->dma_base | 3;
+linux-technicolor-tc7200/arch/alpha/kernel/core_titan.c:332:	port->wsba[2].csr = hose->sg_pci->dma_base | 3;
+linux-technicolor-tc7200/arch/alpha/kernel/core_titan.c:453:titan_ioremap(unsigned long addr, unsigned long size)
+linux-technicolor-tc7200/arch/alpha/kernel/core_titan.c:494:	    baddr >= (unsigned long)hose->sg_pci->dma_base &&
+linux-technicolor-tc7200/arch/alpha/kernel/core_titan.c:495:	    last < (unsigned long)hose->sg_pci->dma_base + hose->sg_pci->size){
+linux-technicolor-tc7200/arch/alpha/kernel/core_titan.c:500:		baddr -= hose->sg_pci->dma_base;
+linux-technicolor-tc7200/arch/alpha/kernel/core_titan.c:501:		last -= hose->sg_pci->dma_base;
+linux-technicolor-tc7200/arch/alpha/kernel/core_titan.c:510:			printk("ioremap failed... no vm_area...\n");
+linux-technicolor-tc7200/arch/alpha/kernel/core_titan.c:520:				printk("ioremap failed... pte not valid...\n");
+linux-technicolor-tc7200/arch/alpha/kernel/core_titan.c:526:			if (__alpha_remap_area_pages(vaddr,
+linux-technicolor-tc7200/arch/alpha/kernel/core_titan.c:529:				printk("FAILED to remap_area_pages...\n");
+linux-technicolor-tc7200/arch/alpha/kernel/core_titan.c:566:EXPORT_SYMBOL(titan_ioremap);
+linux-technicolor-tc7200/arch/alpha/kernel/core_titan.c:608:		aper->arena->dma_base + aper->pg_start * PAGE_SIZE;
+linux-technicolor-tc7200/arch/alpha/kernel/core_titan.c:698:	unsigned long baddr = addr - aper->arena->dma_base;
+linux-technicolor-tc7200/arch/alpha/kernel/pci-sysfs.c:30:	return io_remap_pfn_range(vma, vma->vm_start, vma->vm_pgoff,
+linux-technicolor-tc7200/arch/alpha/kernel/machvec_impl.h:94:	.mv_ioremap =		CAT(low,_ioremap),			\
+linux-technicolor-tc7200/arch/alpha/kernel/pci_iommu.c:58:iommu_arena_new_node(int nid, struct pci_controller *hose, dma_addr_t base,
+linux-technicolor-tc7200/arch/alpha/kernel/pci_iommu.c:101:	arena->dma_base = base;
+linux-technicolor-tc7200/arch/alpha/kernel/pci_iommu.c:113:iommu_arena_new(struct pci_controller *hose, dma_addr_t base,
+linux-technicolor-tc7200/arch/alpha/kernel/pci_iommu.c:130:	base = arena->dma_base >> PAGE_SHIFT;
+linux-technicolor-tc7200/arch/alpha/kernel/pci_iommu.c:227:	dma_addr_t dac_offset = alpha_mv.pci_dac_offset;
+linux-technicolor-tc7200/arch/alpha/kernel/pci_iommu.c:235:	if ((dac_offset & dev->dma_mask) != dac_offset)
+linux-technicolor-tc7200/arch/alpha/kernel/pci_iommu.c:267:	if (paddr + size + __direct_map_base - 1 <= max_dma
+linux-technicolor-tc7200/arch/alpha/kernel/pci_iommu.c:297:	if (!arena || arena->dma_base + arena->size - 1 > max_dma)
+linux-technicolor-tc7200/arch/alpha/kernel/pci_iommu.c:316:	ret = arena->dma_base + dma_ofs * PAGE_SIZE;
+linux-technicolor-tc7200/arch/alpha/kernel/pci_iommu.c:382:	if (dma_addr >= __direct_map_base
+linux-technicolor-tc7200/arch/alpha/kernel/pci_iommu.c:383:	    && dma_addr < __direct_map_base + __direct_map_size) {
+linux-technicolor-tc7200/arch/alpha/kernel/pci_iommu.c:399:	if (!arena || dma_addr < arena->dma_base)
+linux-technicolor-tc7200/arch/alpha/kernel/pci_iommu.c:402:	dma_ofs = (dma_addr - arena->dma_base) >> PAGE_SHIFT;
+linux-technicolor-tc7200/arch/alpha/kernel/pci_iommu.c:406:		       dma_addr, arena->dma_base, arena->size);
+linux-technicolor-tc7200/arch/alpha/kernel/pci_iommu.c:568:	    && paddr + size + __direct_map_base - 1 <= max_dma
+linux-technicolor-tc7200/arch/alpha/kernel/pci_iommu.c:570:		out->dma_address = paddr + __direct_map_base;
+linux-technicolor-tc7200/arch/alpha/kernel/pci_iommu.c:582:		out->dma_address = paddr + alpha_mv.pci_dac_offset;
+linux-technicolor-tc7200/arch/alpha/kernel/pci_iommu.c:608:	out->dma_address = arena->dma_base + dma_ofs*PAGE_SIZE + paddr;
+linux-technicolor-tc7200/arch/alpha/kernel/pci_iommu.c:687:		if (!arena || arena->dma_base + arena->size - 1 > max_dma)
+linux-technicolor-tc7200/arch/alpha/kernel/pci_iommu.c:750:	if (!arena || arena->dma_base + arena->size - 1 > max_dma)
+linux-technicolor-tc7200/arch/alpha/kernel/pci_iommu.c:787:		ofs = (addr - arena->dma_base) >> PAGE_SHIFT;
+linux-technicolor-tc7200/arch/alpha/kernel/pci_iommu.c:798:	if ((fend - arena->dma_base) >> PAGE_SHIFT >= arena->next_entry)
+linux-technicolor-tc7200/arch/alpha/kernel/pci_iommu.c:826:	if (arena && arena->dma_base + arena->size - 1 <= mask)
+linux-technicolor-tc7200/arch/alpha/kernel/pci_iommu.c:829:	if (arena && arena->dma_base + arena->size - 1 <= mask)
+linux-technicolor-tc7200/arch/alpha/kernel/pci_impl.h:139:	dma_addr_t dma_base;
+linux-technicolor-tc7200/arch/alpha/kernel/core_tsunami.c:332:	pchip->wsba[0].csr = hose->sg_isa->dma_base | 3;
+linux-technicolor-tc7200/arch/alpha/kernel/core_tsunami.c:336:	pchip->wsba[1].csr = hose->sg_pci->dma_base | 3;
+linux-technicolor-tc7200/arch/alpha/kernel/core_tsunami.c:361:tsunami_ioremap(unsigned long addr, unsigned long size)
+linux-technicolor-tc7200/arch/alpha/kernel/core_tsunami.c:369:EXPORT_SYMBOL(tsunami_ioremap);
+linux-technicolor-tc7200/arch/alpha/kernel/core_cia.c:309:	bus_addr = cia_ioremap(CIA_BROKEN_TBIA_BASE, 32768 * 4);
+linux-technicolor-tc7200/arch/alpha/kernel/core_cia.c:371:	addr0 = arena->dma_base;
+linux-technicolor-tc7200/arch/alpha/kernel/core_cia.c:390:	bus_addr = cia_ioremap(addr0, 8*PAGE_SIZE);
+linux-technicolor-tc7200/arch/alpha/kernel/core_cia.c:731:	*(vip)CIA_IOC_PCI_W0_BASE = hose->sg_isa->dma_base | 3;
+linux-technicolor-tc7200/arch/alpha/kernel/core_irongate.c:315:irongate_ioremap(unsigned long addr, unsigned long size)
+linux-technicolor-tc7200/arch/alpha/kernel/core_irongate.c:341:		 * Not found - assume legacy ioremap
+linux-technicolor-tc7200/arch/alpha/kernel/core_irongate.c:355:		printk("AGP ioremap failed... addr not page aligned (0x%lx)\n",
+linux-technicolor-tc7200/arch/alpha/kernel/core_irongate.c:363:	printk("irongate_ioremap(0x%lx, 0x%lx)\n", addr, size);
+linux-technicolor-tc7200/arch/alpha/kernel/core_irongate.c:364:	printk("irongate_ioremap:  gart_bus_addr  0x%lx\n", gart_bus_addr);
+linux-technicolor-tc7200/arch/alpha/kernel/core_irongate.c:365:	printk("irongate_ioremap:  gart_aper_size 0x%lx\n", gart_aper_size);
+linux-technicolor-tc7200/arch/alpha/kernel/core_irongate.c:366:	printk("irongate_ioremap:  mmio_regs      %p\n", mmio_regs);
+linux-technicolor-tc7200/arch/alpha/kernel/core_irongate.c:367:	printk("irongate_ioremap:  gatt_pages     %p\n", gatt_pages);
+linux-technicolor-tc7200/arch/alpha/kernel/core_irongate.c:373:		printk("irongate_ioremap:  cur_gatt %p pte 0x%x\n",
+linux-technicolor-tc7200/arch/alpha/kernel/core_irongate.c:391:		if (__alpha_remap_area_pages(vaddr,
+linux-technicolor-tc7200/arch/alpha/kernel/core_irongate.c:393:			printk("AGP ioremap: FAILED to map...\n");
+linux-technicolor-tc7200/arch/alpha/kernel/core_irongate.c:403:	printk("irongate_ioremap(0x%lx, 0x%lx) returning 0x%lx\n",
+linux-technicolor-tc7200/arch/alpha/kernel/core_irongate.c:408:EXPORT_SYMBOL(irongate_ioremap);
+linux-technicolor-tc7200/arch/alpha/include/uapi/asm/unistd.h:69:#define __NR_osf_mremap		 65	/* not implemented */
+linux-technicolor-tc7200/arch/alpha/include/uapi/asm/unistd.h:302:#define __NR_mremap			341
+linux-technicolor-tc7200/arch/alpha/include/uapi/asm/unistd.h:374:#define __NR_remap_file_pages		410
+linux-technicolor-tc7200/arch/alpha/include/asm/vga.h:80:#define VGA_MAP_MEM(x,s)	((unsigned long) ioremap(x, s))
+linux-technicolor-tc7200/arch/alpha/include/asm/core_wildfire.h:285:__EXTERN_INLINE void __iomem *wildfire_ioremap(unsigned long addr, 
+linux-technicolor-tc7200/arch/alpha/include/asm/core_irongate.h:202:extern void __iomem *irongate_ioremap(unsigned long addr, unsigned long size);
+linux-technicolor-tc7200/arch/alpha/include/asm/io_trivial.h:2:   of the hard work has been done by ioremap and ioportmap, and that
+linux-technicolor-tc7200/arch/alpha/include/asm/core_t2.h:554:__EXTERN_INLINE void __iomem *t2_ioremap(unsigned long addr, 
+linux-technicolor-tc7200/arch/alpha/include/asm/core_tsunami.h:267: * The canonical non-remaped I/O and MEM addresses have these values
+linux-technicolor-tc7200/arch/alpha/include/asm/core_tsunami.h:306:extern void __iomem *tsunami_ioremap(unsigned long addr, unsigned long size);
+linux-technicolor-tc7200/arch/alpha/include/asm/machvec.h:67:	void __iomem *(*mv_ioremap)(unsigned long, unsigned long);
+linux-technicolor-tc7200/arch/alpha/include/asm/jensen.h:287:__EXTERN_INLINE void __iomem *jensen_ioremap(unsigned long addr,
+linux-technicolor-tc7200/arch/alpha/include/asm/core_apecs.h:479:__EXTERN_INLINE void __iomem *apecs_ioremap(unsigned long addr,
+linux-technicolor-tc7200/arch/alpha/include/asm/core_titan.h:308: * The canonical non-remaped I/O and MEM addresses have these values
+linux-technicolor-tc7200/arch/alpha/include/asm/core_titan.h:383:extern void __iomem *titan_ioremap(unsigned long addr, unsigned long size);
+linux-technicolor-tc7200/arch/alpha/include/asm/io.h:182:static inline void __iomem *generic_ioremap(unsigned long a, unsigned long s)
+linux-technicolor-tc7200/arch/alpha/include/asm/io.h:184:	return alpha_mv.mv_ioremap(a, s);
+linux-technicolor-tc7200/arch/alpha/include/asm/io.h:285:static inline void __iomem *ioremap(unsigned long port, unsigned long size)
+linux-technicolor-tc7200/arch/alpha/include/asm/io.h:287:	return IO_CONCAT(__IO_PREFIX,ioremap) (port, size);
+linux-technicolor-tc7200/arch/alpha/include/asm/io.h:290:static inline void __iomem *__ioremap(unsigned long port, unsigned long size,
+linux-technicolor-tc7200/arch/alpha/include/asm/io.h:293:	return ioremap(port, size);
+linux-technicolor-tc7200/arch/alpha/include/asm/io.h:296:static inline void __iomem * ioremap_nocache(unsigned long offset,
+linux-technicolor-tc7200/arch/alpha/include/asm/io.h:299:	return ioremap(offset, size);
+linux-technicolor-tc7200/arch/alpha/include/asm/io.h:302:#define ioremap_uc ioremap_nocache
+linux-technicolor-tc7200/arch/alpha/include/asm/core_marvel.h:347:extern void __iomem *marvel_ioremap(unsigned long addr, unsigned long size);
+linux-technicolor-tc7200/arch/alpha/include/asm/core_polaris.h:78:__EXTERN_INLINE void __iomem *polaris_ioremap(unsigned long addr,
+linux-technicolor-tc7200/arch/alpha/include/asm/core_lca.h:325:__EXTERN_INLINE void __iomem *lca_ioremap(unsigned long addr,
+linux-technicolor-tc7200/arch/alpha/include/asm/agp_backend.h:22:		dma_addr_t bus_base;
+linux-technicolor-tc7200/arch/alpha/include/asm/core_mcpcia.h:178: * The canonical non-remaped I/O and MEM addresses have these values
+linux-technicolor-tc7200/arch/alpha/include/asm/core_mcpcia.h:343:__EXTERN_INLINE void __iomem *mcpcia_ioremap(unsigned long addr,
+linux-technicolor-tc7200/arch/alpha/include/asm/core_cia.h:427:__EXTERN_INLINE void __iomem *cia_ioremap(unsigned long addr,
+linux-technicolor-tc7200/arch/alpha/include/asm/core_cia.h:448:__EXTERN_INLINE void __iomem *cia_bwx_ioremap(unsigned long addr,
+linux-technicolor-tc7200/arch/alpha/mm/init.c:155:		/* Tell the console whither it is to be remapped. */
+linux-technicolor-tc7200/arch/alpha/mm/init.c:171:	   these to actually remap the console.  There is an assumption
+linux-technicolor-tc7200/arch/alpha/mm/init.c:191:		static struct vm_struct console_remap_vm;
+linux-technicolor-tc7200/arch/alpha/mm/init.c:201:		console_remap_vm.flags = VM_ALLOC;
+linux-technicolor-tc7200/arch/alpha/mm/init.c:202:		console_remap_vm.size = nr_pages << PAGE_SHIFT;
+linux-technicolor-tc7200/arch/alpha/mm/init.c:203:		vm_area_register_early(&console_remap_vm, PAGE_SIZE);
+linux-technicolor-tc7200/arch/alpha/mm/init.c:205:		vaddr = (unsigned long)console_remap_vm.addr;
+linux-technicolor-tc7200/arch/ia64/uv/kernel/setup.c:103:		uv_cpu_hub_info(cpu)->lowmem_remap_base = lowmem_redir_base;
+linux-technicolor-tc7200/arch/ia64/uv/kernel/setup.c:104:		uv_cpu_hub_info(cpu)->lowmem_remap_top =
+linux-technicolor-tc7200/arch/ia64/kernel/sys_ia64.c:160:ia64_mremap (unsigned long addr, unsigned long old_len, unsigned long new_len, unsigned long flags,
+linux-technicolor-tc7200/arch/ia64/kernel/sys_ia64.c:163:	addr = sys_mremap(addr, old_len, new_len, flags, new_addr);
+linux-technicolor-tc7200/arch/ia64/kernel/cyclone.c:52:	reg = ioremap_nocache(offset, sizeof(u64));
+linux-technicolor-tc7200/arch/ia64/kernel/cyclone.c:70:	reg = ioremap_nocache(offset, sizeof(u64));
+linux-technicolor-tc7200/arch/ia64/kernel/cyclone.c:82:	reg = ioremap_nocache(offset, sizeof(u64));
+linux-technicolor-tc7200/arch/ia64/kernel/cyclone.c:94:	cyclone_timer = ioremap_nocache(offset, sizeof(u32));
+linux-technicolor-tc7200/arch/ia64/kernel/entry.S:1533:	data8 sys_remap_file_pages		// 1125
+linux-technicolor-tc7200/arch/ia64/kernel/entry.S:1564:	data8 ia64_mremap
+linux-technicolor-tc7200/arch/ia64/kernel/fsys.S:653:	data8 0				// remap_file_pages	// 1125
+linux-technicolor-tc7200/arch/ia64/kernel/fsys.S:684:	data8 0				// mremap
+linux-technicolor-tc7200/arch/ia64/kernel/efi.c:622:				md->virt_addr = (u64) ioremap(md->phys_addr, 0);
+linux-technicolor-tc7200/arch/ia64/kernel/efi.c:625:				md->virt_addr = ia64_remap(md->phys_addr,
+linux-technicolor-tc7200/arch/ia64/kernel/efi.c:634:				md->virt_addr = (u64) ioremap(md->phys_addr, 0);
+linux-technicolor-tc7200/arch/ia64/kernel/efi.c:638:				md->virt_addr = ia64_remap(md->phys_addr,
+linux-technicolor-tc7200/arch/ia64/kernel/efi.c:647:				md->virt_addr = (u64) ioremap(md->phys_addr, 0);
+linux-technicolor-tc7200/arch/ia64/kernel/efi.c:817:	 * This is a hack for ioremap calls before we set up kern_memmap.
+linux-technicolor-tc7200/arch/ia64/kernel/acpi.c:192:		ipi_base_addr = ioremap(lapic->address, 0);
+linux-technicolor-tc7200/arch/ia64/kernel/acpi.c:398:		ipi_base_addr = ioremap(acpi_madt->address, 0);
+linux-technicolor-tc7200/arch/ia64/kernel/setup.c:446:	ia64_iobase = (unsigned long) ioremap(phys_iobase, 0);
+linux-technicolor-tc7200/arch/ia64/kernel/iosapic.c:1047:	addr = ioremap(phys_addr, 0);
+linux-technicolor-tc7200/arch/ia64/kernel/perfmon.c:2219:pfm_remap_buffer(struct vm_area_struct *vma, unsigned long buf, unsigned long addr, unsigned long size)
+linux-technicolor-tc7200/arch/ia64/kernel/perfmon.c:2227:		if (remap_pfn_range(vma, addr, pfn, PAGE_SIZE, PAGE_READONLY))
+linux-technicolor-tc7200/arch/ia64/kernel/perfmon.c:2238: * allocate a sampling buffer and remaps it into the user address space of the task
+linux-technicolor-tc7200/arch/ia64/kernel/perfmon.c:2308:	 * remap the buffer in it.
+linux-technicolor-tc7200/arch/ia64/kernel/perfmon.c:2325:	if (pfm_remap_buffer(vma, (unsigned long)smpl_buf, vma->vm_start, size)) {
+linux-technicolor-tc7200/arch/ia64/kernel/perfmon.c:2326:		DPRINT(("Can't remap buffer\n"));
+linux-technicolor-tc7200/arch/ia64/kernel/perfmon.c:2457:		 * buffer is always remapped into the caller's address space
+linux-technicolor-tc7200/arch/ia64/include/uapi/asm/unistd.h:117:#define __NR_remap_file_pages		1125
+linux-technicolor-tc7200/arch/ia64/include/uapi/asm/unistd.h:148:#define __NR_mremap			1156
+linux-technicolor-tc7200/arch/ia64/include/asm/vga.h:20:#define VGA_MAP_MEM(x,s)	((unsigned long) ioremap_nocache(vga_console_membase + (x), s))
+linux-technicolor-tc7200/arch/ia64/include/asm/uv/uv_hub.h:100:	unsigned long	lowmem_remap_top;
+linux-technicolor-tc7200/arch/ia64/include/asm/uv/uv_hub.h:101:	unsigned long	lowmem_remap_base;
+linux-technicolor-tc7200/arch/ia64/include/asm/uv/uv_hub.h:147:	if (paddr < uv_hub_info->lowmem_remap_top)
+linux-technicolor-tc7200/arch/ia64/include/asm/uv/uv_hub.h:148:		paddr += uv_hub_info->lowmem_remap_base;
+linux-technicolor-tc7200/arch/ia64/include/asm/irq_remapping.h:3:#define irq_remapping_enabled 0
+linux-technicolor-tc7200/arch/ia64/include/asm/early_ioremap.h:4:extern void __iomem * early_ioremap (unsigned long phys_addr, unsigned long size);
+linux-technicolor-tc7200/arch/ia64/include/asm/early_ioremap.h:5:#define early_memremap(phys_addr, size)        early_ioremap(phys_addr, size)
+linux-technicolor-tc7200/arch/ia64/include/asm/io.h:23:#include <asm/early_ioremap.h>
+linux-technicolor-tc7200/arch/ia64/include/asm/io.h:61: *	0xCxxxxxxxxxxxxxxx	MMIO cookie (return from ioremap)
+linux-technicolor-tc7200/arch/ia64/include/asm/io.h:313: * The address passed to these functions are ioremap()ped already.
+linux-technicolor-tc7200/arch/ia64/include/asm/io.h:428:extern void __iomem * ioremap(unsigned long offset, unsigned long size);
+linux-technicolor-tc7200/arch/ia64/include/asm/io.h:429:extern void __iomem * ioremap_nocache (unsigned long offset, unsigned long size);
+linux-technicolor-tc7200/arch/ia64/include/asm/io.h:431:static inline void __iomem * ioremap_cache (unsigned long phys_addr, unsigned long size)
+linux-technicolor-tc7200/arch/ia64/include/asm/io.h:433:	return ioremap(phys_addr, size);
+linux-technicolor-tc7200/arch/ia64/include/asm/io.h:435:#define ioremap_cache ioremap_cache
+linux-technicolor-tc7200/arch/ia64/include/asm/io.h:436:#define ioremap_uc ioremap_nocache
+linux-technicolor-tc7200/arch/ia64/include/asm/sn/tioca.h:505: * All of the above can optionally be remapped through the GART.  The following
+linux-technicolor-tc7200/arch/ia64/include/asm/sn/tioca.h:506: * table lists the combinations of addressing types and GART remapping that
+linux-technicolor-tc7200/arch/ia64/include/asm/sn/tioca.h:513: * GART remapping of PCI64 is not done because there is no need to.  The
+linux-technicolor-tc7200/arch/ia64/include/asm/sn/tioca.h:541: * be remapped using the GART.
+linux-technicolor-tc7200/arch/ia64/include/asm/sn/tioca_provider.h:113: * DATA written to 1 GART TABLE Entry in system memory is remapped system
+linux-technicolor-tc7200/arch/ia64/include/asm/percpu.h:36: * remapping, it is different from the canonical address returned by this_cpu_ptr(&var)!
+linux-technicolor-tc7200/arch/ia64/include/asm/dmi.h:8:#define dmi_early_remap		ioremap
+linux-technicolor-tc7200/arch/ia64/include/asm/dmi.h:10:#define dmi_remap		ioremap
+linux-technicolor-tc7200/arch/ia64/include/asm/pgtable.h:257:/* This takes a physical page address that is used by the remapping functions */
+linux-technicolor-tc7200/arch/ia64/pci/pci.c:132:	mmio_base = (u64) ioremap(phys_base, 0);
+linux-technicolor-tc7200/arch/ia64/pci/pci.c:460:	if (remap_pfn_range(vma, vma->vm_start, vma->vm_pgoff,
+linux-technicolor-tc7200/arch/ia64/pci/pci.c:520:	if (remap_pfn_range(vma, vma->vm_start, vma->vm_pgoff,
+linux-technicolor-tc7200/arch/ia64/sn/kernel/setup.c:422:			(unsigned long) ioremap(vga_console_iobase, 0);
+linux-technicolor-tc7200/arch/ia64/sn/pci/pcibr/pcibr_provider.c:136:		ioremap(REGION_OFFSET(soft->pbi_buscommon.bs_base),
+linux-technicolor-tc7200/arch/ia64/sn/pci/tioca_provider.c:351:	agp_dma_extn = __sn_readq_relaxed(&ca_base->ca_agp_dma_addr_extn);
+linux-technicolor-tc7200/arch/ia64/sn/pci/tioca_provider.c:509: * The mapping mode used is based on the devices dma_mask.  As a last resort
+linux-technicolor-tc7200/arch/ia64/sn/pci/tioca_provider.c:609:		ioremap(REGION_OFFSET(tioca_common->ca_common.bs_base),
+linux-technicolor-tc7200/arch/ia64/sn/pci/tioce_provider.c:520: * The mapping mode used is based on the device's dma_mask.
+linux-technicolor-tc7200/arch/ia64/sn/pci/tioce_provider.c:1009:		ioremap(REGION_OFFSET(tioce_common->ce_pcibus.bs_base),
+linux-technicolor-tc7200/arch/ia64/mm/Makefile:5:obj-y := init.o fault.o tlb.o extable.o ioremap.o
+linux-technicolor-tc7200/arch/ia64/mm/ioremap.c:19:__ioremap_uc(unsigned long phys_addr)
+linux-technicolor-tc7200/arch/ia64/mm/ioremap.c:25:early_ioremap (unsigned long phys_addr, unsigned long size)
+linux-technicolor-tc7200/arch/ia64/mm/ioremap.c:31:	return __ioremap_uc(phys_addr);
+linux-technicolor-tc7200/arch/ia64/mm/ioremap.c:35:ioremap (unsigned long phys_addr, unsigned long size)
+linux-technicolor-tc7200/arch/ia64/mm/ioremap.c:54:		return __ioremap_uc(phys_addr);
+linux-technicolor-tc7200/arch/ia64/mm/ioremap.c:91:		if (ioremap_page_range((unsigned long) addr,
+linux-technicolor-tc7200/arch/ia64/mm/ioremap.c:100:	return __ioremap_uc(phys_addr);
+linux-technicolor-tc7200/arch/ia64/mm/ioremap.c:102:EXPORT_SYMBOL(ioremap);
+linux-technicolor-tc7200/arch/ia64/mm/ioremap.c:105:ioremap_nocache (unsigned long phys_addr, unsigned long size)
+linux-technicolor-tc7200/arch/ia64/mm/ioremap.c:110:	return __ioremap_uc(phys_addr);
+linux-technicolor-tc7200/arch/ia64/mm/ioremap.c:112:EXPORT_SYMBOL(ioremap_nocache);
+linux-technicolor-tc7200/arch/ia64/hp/common/sba_iommu.c:927:	dma_addr_t offset;
+linux-technicolor-tc7200/arch/ia64/hp/common/sba_iommu.c:962:	offset = ((dma_addr_t) (long) addr) & ~iovp_mask;
+linux-technicolor-tc7200/arch/ia64/hp/common/sba_iommu.c:1056:	dma_addr_t offset;
+linux-technicolor-tc7200/arch/ia64/hp/common/sba_iommu.c:1232:	unsigned long dma_offset = 0;
+linux-technicolor-tc7200/arch/ia64/hp/common/sba_iommu.c:1253:			dma_offset = (unsigned long) pide & ~iovp_mask;
+linux-technicolor-tc7200/arch/ia64/hp/common/sba_iommu.c:1257:			dma_sg->dma_address = pide | ioc->ibase;
+linux-technicolor-tc7200/arch/ia64/hp/common/sba_iommu.c:1273:			cnt += dma_offset;
+linux-technicolor-tc7200/arch/ia64/hp/common/sba_iommu.c:1274:			dma_offset=0;	/* only want offset on first chunk */
+linux-technicolor-tc7200/arch/ia64/hp/common/sba_iommu.c:1328:	unsigned long dma_offset, dma_len; /* start/len of DMA stream */
+linux-technicolor-tc7200/arch/ia64/hp/common/sba_iommu.c:1342:		dma_offset = vaddr & ~iovp_mask;
+linux-technicolor-tc7200/arch/ia64/hp/common/sba_iommu.c:1367:			if (((dma_len + dma_offset + startsg->length + ~iovp_mask) & iovp_mask)
+linux-technicolor-tc7200/arch/ia64/hp/common/sba_iommu.c:1397:			** Once we start a new VCONTIG chunk, dma_offset
+linux-technicolor-tc7200/arch/ia64/hp/common/sba_iommu.c:1428:		dma_len = (dma_len + dma_offset + ~iovp_mask) & iovp_mask;
+linux-technicolor-tc7200/arch/ia64/hp/common/sba_iommu.c:1436:						   | dma_offset);
+linux-technicolor-tc7200/arch/ia64/hp/common/sba_iommu.c:1815:	ioc->ioc_hpa = ioremap(hpa, 0x1000);
+linux-technicolor-tc7200/arch/openrisc/kernel/dma.c:142:	dma_addr_t addr = page_to_phys(page) + offset;
+linux-technicolor-tc7200/arch/openrisc/kernel/dma.c:189:		s->dma_address = or1k_map_page(dev, sg_page(s), s->offset,
+linux-technicolor-tc7200/arch/openrisc/include/asm/io.h:35:extern void __iomem *__ioremap(phys_addr_t offset, unsigned long size,
+linux-technicolor-tc7200/arch/openrisc/include/asm/io.h:38:static inline void __iomem *ioremap(phys_addr_t offset, unsigned long size)
+linux-technicolor-tc7200/arch/openrisc/include/asm/io.h:40:	return __ioremap(offset, size, PAGE_KERNEL);
+linux-technicolor-tc7200/arch/openrisc/include/asm/io.h:44:static inline void __iomem *ioremap_nocache(phys_addr_t offset,
+linux-technicolor-tc7200/arch/openrisc/include/asm/io.h:47:	return __ioremap(offset, size,
+linux-technicolor-tc7200/arch/openrisc/include/asm/fixmap.h:33: * On OpenRISC we use these special fixed_addresses for doing ioremap
+linux-technicolor-tc7200/arch/openrisc/include/asm/fixmap.h:43:	 * space before ioremap() is useable, e.g. really early in boot
+linux-technicolor-tc7200/arch/openrisc/include/asm/pgtable.h:103: * io.h for ioremap_nocache() too.
+linux-technicolor-tc7200/arch/openrisc/mm/Makefile:5:obj-y	:= fault.o tlb.o init.o ioremap.o
+linux-technicolor-tc7200/arch/openrisc/mm/ioremap.c:2: * OpenRISC ioremap.c
+linux-technicolor-tc7200/arch/openrisc/mm/ioremap.c:42:__ioremap(phys_addr_t addr, unsigned long size, pgprot_t prot)
+linux-technicolor-tc7200/arch/openrisc/mm/ioremap.c:73:	if (ioremap_page_range(v, v + size, p, prot)) {
+linux-technicolor-tc7200/arch/openrisc/mm/ioremap.c:83:EXPORT_SYMBOL(__ioremap);
+linux-technicolor-tc7200/arch/openrisc/mm/ioremap.c:113: * OK, this one's a bit tricky... ioremap can get called before memory is
+linux-technicolor-tc7200/arch/arm64/boot/dts/amd/amd-seattle-xgbe-b.dtsi:7:	xgmacclk0_dma_250mhz: clk250mhz_0 {
+linux-technicolor-tc7200/arch/arm64/boot/dts/amd/amd-seattle-xgbe-b.dtsi:11:		clock-output-names = "xgmacclk0_dma_250mhz";
+linux-technicolor-tc7200/arch/arm64/boot/dts/amd/amd-seattle-xgbe-b.dtsi:21:	xgmacclk1_dma_250mhz: clk250mhz_2 {
+linux-technicolor-tc7200/arch/arm64/boot/dts/amd/amd-seattle-xgbe-b.dtsi:25:		clock-output-names = "xgmacclk1_dma_250mhz";
+linux-technicolor-tc7200/arch/arm64/boot/dts/amd/amd-sea

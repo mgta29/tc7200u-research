@@ -1,0 +1,677 @@
+linux-technicolor-tc7200/arch/m68k/atari/config.c:250:		pr_cont(" STDMA-SCSI");
+linux-technicolor-tc7200/arch/m68k/fpsp040/ssin.S:727:SCBORS:
+linux-technicolor-tc7200/arch/m68k/include/uapi/asm/bootinfo-mac.h:36:#define BI_MAC_ASCBASE		0x8014	/* Mac Apple Sound Chip base address */
+linux-technicolor-tc7200/arch/m68k/ifpsp060/src/fplsp.S:5431:SCBORS:
+linux-technicolor-tc7200/arch/m68k/ifpsp060/src/fpsp.S:5537:SCBORS:
+linux-technicolor-tc7200/arch/alpha/kernel/err_marvel.c:1064:	case SCB_Q_SYSEVENT:
+linux-technicolor-tc7200/arch/alpha/kernel/err_marvel.c:1069:	case SCB_Q_SYSMCHK:
+linux-technicolor-tc7200/arch/alpha/kernel/err_marvel.c:1074:	case SCB_Q_SYSERR:
+linux-technicolor-tc7200/arch/alpha/kernel/err_ev6.c:260:		       (vector == SCB_Q_PROCERR)?"Correctable":"Uncorrectable",
+linux-technicolor-tc7200/arch/alpha/kernel/err_titan.c:416:	if ((vector != SCB_Q_SYSMCHK) && (vector != SCB_Q_SYSERR)) {
+linux-technicolor-tc7200/arch/alpha/kernel/err_titan.c:445:		       (vector == SCB_Q_SYSERR)?"Correctable":"Uncorrectable",
+linux-technicolor-tc7200/arch/alpha/kernel/err_titan.c:729:	if (vector != SCB_Q_SYSEVENT) 
+linux-technicolor-tc7200/arch/alpha/kernel/sys_nautilus.c:139:	if (vector == SCB_Q_SYSMCHK
+linux-technicolor-tc7200/arch/alpha/kernel/sys_nautilus.c:166:	if (vector == SCB_Q_SYSERR)
+linux-technicolor-tc7200/arch/alpha/kernel/sys_nautilus.c:168:	else if (vector == SCB_Q_SYSMCHK)
+linux-technicolor-tc7200/arch/alpha/kernel/err_ev7.c:134:	       (vector == SCB_Q_PROCERR) ? "Correctable" : "Uncorrectable",
+linux-technicolor-tc7200/arch/alpha/include/asm/err_common.h:14: * SCB Vector definitions
+linux-technicolor-tc7200/arch/alpha/include/asm/err_common.h:16:#define SCB_Q_SYSERR	0x620
+linux-technicolor-tc7200/arch/alpha/include/asm/err_common.h:17:#define SCB_Q_PROCERR	0x630
+linux-technicolor-tc7200/arch/alpha/include/asm/err_common.h:18:#define SCB_Q_SYSMCHK	0x660
+linux-technicolor-tc7200/arch/alpha/include/asm/err_common.h:19:#define SCB_Q_PROCMCHK	0x670
+linux-technicolor-tc7200/arch/alpha/include/asm/err_common.h:20:#define SCB_Q_SYSEVENT	0x680
+linux-technicolor-tc7200/arch/alpha/include/asm/core_irongate.h:149:#define SCB_Q_SYSERR	0x620			/* OSF definitions */
+linux-technicolor-tc7200/arch/alpha/include/asm/core_irongate.h:150:#define SCB_Q_PROCERR	0x630
+linux-technicolor-tc7200/arch/alpha/include/asm/core_irongate.h:151:#define SCB_Q_SYSMCHK	0x660
+linux-technicolor-tc7200/arch/alpha/include/asm/core_irongate.h:152:#define SCB_Q_PROCMCHK	0x670
+linux-technicolor-tc7200/arch/alpha/include/asm/core_titan.h:329:#define SCB_Q_SYSERR	0x620
+linux-technicolor-tc7200/arch/alpha/include/asm/core_titan.h:330:#define SCB_Q_PROCERR	0x630
+linux-technicolor-tc7200/arch/alpha/include/asm/core_titan.h:331:#define SCB_Q_SYSMCHK	0x660
+linux-technicolor-tc7200/arch/alpha/include/asm/core_titan.h:332:#define SCB_Q_PROCMCHK	0x670
+linux-technicolor-tc7200/arch/alpha/include/asm/core_titan.h:333:#define SCB_Q_SYSEVENT	0x680	/* environmental / system management */
+linux-technicolor-tc7200/arch/arm64/boot/dts/mediatek/mt8173.dtsi:805:				clocks = <&mmsys CLK_MM_MDP_RDMA0>,
+linux-technicolor-tc7200/arch/arm64/boot/dts/mediatek/mt8173.dtsi:808:				iommus = <&iommu M4U_PORT_MDP_RDMA0>;
+linux-technicolor-tc7200/arch/arm64/boot/dts/mediatek/mt8173.dtsi:815:				clocks = <&mmsys CLK_MM_MDP_RDMA1>,
+linux-technicolor-tc7200/arch/arm64/boot/dts/mediatek/mt8173.dtsi:818:				iommus = <&iommu M4U_PORT_MDP_RDMA1>;
+linux-technicolor-tc7200/arch/arm64/boot/dts/mediatek/mt8173.dtsi:896:			clocks = <&mmsys CLK_MM_DISP_RDMA0>;
+linux-technicolor-tc7200/arch/arm64/boot/dts/mediatek/mt8173.dtsi:897:			iommus = <&iommu M4U_PORT_DISP_RDMA0>;
+linux-technicolor-tc7200/arch/arm64/boot/dts/mediatek/mt8173.dtsi:906:			clocks = <&mmsys CLK_MM_DISP_RDMA1>;
+linux-technicolor-tc7200/arch/arm64/boot/dts/mediatek/mt8173.dtsi:907:			iommus = <&iommu M4U_PORT_DISP_RDMA1>;
+linux-technicolor-tc7200/arch/arm64/boot/dts/mediatek/mt8173.dtsi:916:			clocks = <&mmsys CLK_MM_DISP_RDMA2>;
+linux-technicolor-tc7200/arch/arm64/boot/dts/mediatek/mt8173.dtsi:917:			iommus = <&iommu M4U_PORT_DISP_RDMA2>;
+linux-technicolor-tc7200/arch/arm64/boot/dts/mediatek/mt8173.dtsi:1254:				 <&iommu M4U_PORT_VENC_NBM_RDMA>,
+linux-technicolor-tc7200/arch/arm64/boot/dts/rockchip/rk3368-geekbox.dts:60:	ext_gmac: gmac-clk {
+linux-technicolor-tc7200/arch/arm64/boot/dts/rockchip/rk3368-geekbox.dts:63:		clock-output-names = "ext_gmac";
+linux-technicolor-tc7200/arch/arm64/boot/dts/rockchip/rk3368-geekbox.dts:127:&gmac {
+linux-technicolor-tc7200/arch/arm64/boot/dts/rockchip/rk3368-geekbox.dts:133:	assigned-clock-parents = <&ext_gmac>;
+linux-technicolor-tc7200/arch/arm64/boot/dts/rockchip/rk3399.dtsi:214:	gmac: ethernet@fe300000 {
+linux-technicolor-tc7200/arch/arm64/boot/dts/rockchip/rk3399.dtsi:215:		compatible = "rockchip,rk3399-gmac";
+linux-technicolor-tc7200/arch/arm64/boot/dts/rockchip/rk3399.dtsi:221:			 <&cru SCLK_MACREF_OUT>, <&cru ACLK_GMAC>,
+linux-technicolor-tc7200/arch/arm64/boot/dts/rockchip/rk3399.dtsi:222:			 <&cru PCLK_GMAC>;
+linux-technicolor-tc7200/arch/arm64/boot/dts/rockchip/rk3399.dtsi:227:		power-domains = <&power RK3399_PD_GMAC>;
+linux-technicolor-tc7200/arch/arm64/boot/dts/rockchip/rk3399.dtsi:228:		resets = <&cru SRST_A_GMAC>;
+linux-technicolor-tc7200/arch/arm64/boot/dts/rockchip/rk3399.dtsi:723:	qos_gmac: qos@ffa5c000 {
+linux-technicolor-tc7200/arch/arm64/boot/dts/rockchip/rk3399.dtsi:861:			pd_gmac@RK3399_PD_GMAC {
+linux-technicolor-tc7200/arch/arm64/boot/dts/rockchip/rk3399.dtsi:862:				reg = <RK3399_PD_GMAC>;
+linux-technicolor-tc7200/arch/arm64/boot/dts/rockchip/rk3399.dtsi:863:				clocks = <&cru ACLK_GMAC>,
+linux-technicolor-tc7200/arch/arm64/boot/dts/rockchip/rk3399.dtsi:864:					 <&cru PCLK_GMAC>;
+linux-technicolor-tc7200/arch/arm64/boot/dts/rockchip/rk3399.dtsi:865:				pm_qos = <&qos_gmac>;
+linux-technicolor-tc7200/arch/arm64/boot/dts/rockchip/rk3399.dtsi:1462:		gmac {
+linux-technicolor-tc7200/arch/arm64/boot/dts/rockchip/rk3368-evb.dtsi:165:&gmac {
+linux-technicolor-tc7200/arch/arm64/boot/dts/rockchip/rk3368-orion-r68-meta.dts:67:	ext_gmac: external-gmac-clock {
+linux-technicolor-tc7200/arch/arm64/boot/dts/rockchip/rk3368-orion-r68-meta.dts:71:		clock-output-names = "ext_gmac";
+linux-technicolor-tc7200/arch/arm64/boot/dts/rockchip/rk3368-orion-r68-meta.dts:212:&gmac {
+linux-technicolor-tc7200/arch/arm64/boot/dts/rockchip/rk3368-orion-r68-meta.dts:214:	assigned-clock-parents = <&ext_gmac>;
+linux-technicolor-tc7200/arch/arm64/boot/dts/rockchip/rk3399-evb.dts:92:	clkin_gmac: external-gmac-clock {
+linux-technicolor-tc7200/arch/arm64/boot/dts/rockchip/rk3399-evb.dts:95:		clock-output-names = "clkin_gmac";
+linux-technicolor-tc7200/arch/arm64/boot/dts/rockchip/rk3399-evb.dts:158:&gmac {
+linux-technicolor-tc7200/arch/arm64/boot/dts/rockchip/rk3399-evb.dts:160:	assigned-clock-parents = <&clkin_gmac>;
+linux-technicolor-tc7200/arch/arm64/boot/dts/rockchip/rk3368.dtsi:58:		ethernet0 = &gmac;
+linux-technicolor-tc7200/arch/arm64/boot/dts/rockchip/rk3368.dtsi:503:	gmac: ethernet@ff290000 {
+linux-technicolor-tc7200/arch/arm64/boot/dts/rockchip/rk3368.dtsi:504:		compatible = "rockchip,rk3368-gmac";
+linux-technicolor-tc7200/arch/arm64/boot/dts/rockchip/rk3368.dtsi:512:			<&cru ACLK_GMAC>, <&cru PCLK_GMAC>;
+linux-technicolor-tc7200/arch/arm64/boot/dts/rockchip/rk3368.dtsi:814:		gmac {
+linux-technicolor-tc7200/arch/arm64/boot/dts/rockchip/rk3368-r88.dts:198:&gmac {
+linux-technicolor-tc7200/arch/arm64/boot/dts/altera/socfpga_stratix10.dtsi:97:		gmac0: ethernet@ff800000 {
+linux-technicolor-tc7200/arch/arm64/boot/dts/altera/socfpga_stratix10.dtsi:106:		gmac1: ethernet@ff802000 {
+linux-technicolor-tc7200/arch/arm64/boot/dts/altera/socfpga_stratix10.dtsi:115:		gmac2: ethernet@ff804000 {
+linux-technicolor-tc7200/arch/arm64/boot/dts/apm/apm-shadowcat.dtsi:755:		sgenet0: ethernet@1f610000 {
+linux-technicolor-tc7200/arch/arm64/boot/dts/apm/apm-shadowcat.dtsi:756:			compatible = "apm,xgene2-sgenet";
+linux-technicolor-tc7200/arch/arm64/boot/dts/apm/apm-shadowcat.dtsi:767:			phy-handle = <&sgenet0phy>;
+linux-technicolor-tc7200/arch/arm64/boot/dts/apm/apm-shadowcat.dtsi:770:		xgenet1: ethernet@1f620000 {
+linux-technicolor-tc7200/arch/arm64/boot/dts/apm/apm-shadowcat.dtsi:771:			compatible = "apm,xgene2-xgenet";
+linux-technicolor-tc7200/arch/arm64/boot/dts/apm/apm-storm.dtsi:1002:		sgenet0: ethernet@1f210000 {
+linux-technicolor-tc7200/arch/arm64/boot/dts/apm/apm-storm.dtsi:1003:			compatible = "apm,xgene1-sgenet";
+linux-technicolor-tc7200/arch/arm64/boot/dts/apm/apm-storm.dtsi:1015:			phy-handle = <&sgenet0phy>;
+linux-technicolor-tc7200/arch/arm64/boot/dts/apm/apm-storm.dtsi:1018:		sgenet1: ethernet@1f210030 {
+linux-technicolor-tc7200/arch/arm64/boot/dts/apm/apm-storm.dtsi:1019:			compatible = "apm,xgene1-sgenet";
+linux-technicolor-tc7200/arch/arm64/boot/dts/apm/apm-storm.dtsi:1031:			phy-handle = <&sgenet1phy>;
+linux-technicolor-tc7200/arch/arm64/boot/dts/apm/apm-storm.dtsi:1034:		xgenet: ethernet@1f610000 {
+linux-technicolor-tc7200/arch/arm64/boot/dts/apm/apm-storm.dtsi:1035:			compatible = "apm,xgene1-xgenet";
+linux-technicolor-tc7200/arch/arm64/boot/dts/apm/apm-storm.dtsi:1057:		xgenet1: ethernet@1f620000 {
+linux-technicolor-tc7200/arch/arm64/boot/dts/apm/apm-storm.dtsi:1058:			compatible = "apm,xgene1-xgenet";
+linux-technicolor-tc7200/arch/arm64/boot/dts/apm/apm-mustang.dts:67:&sgenet0 {
+linux-technicolor-tc7200/arch/arm64/boot/dts/apm/apm-mustang.dts:71:&sgenet1 {
+linux-technicolor-tc7200/arch/arm64/boot/dts/apm/apm-mustang.dts:75:&xgenet {
+linux-technicolor-tc7200/arch/arm64/boot/dts/apm/apm-mustang.dts:88:	sgenet0phy: phy@4 {
+linux-technicolor-tc7200/arch/arm64/boot/dts/apm/apm-mustang.dts:91:	sgenet1phy: phy@5 {
+linux-technicolor-tc7200/arch/arm64/boot/dts/apm/apm-merlin.dts:67:&sgenet0 {
+linux-technicolor-tc7200/arch/arm64/boot/dts/apm/apm-merlin.dts:71:&xgenet1 {
+linux-technicolor-tc7200/arch/arm64/boot/dts/apm/apm-merlin.dts:88:	sgenet0phy: phy@0 {
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/input/linux-event-codes.h:312:#define KEY_FORWARDMAIL		233	/* AC Forward Msg */
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/soc/zte,pm_domains.h:20:#define DM_ZX296718_GMAC	9
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/reset/amlogic,meson8b-reset.h:136:#define RESET_RDMA			133
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/reset/qcom,gcc-ipq806x.h:140:#define GMAC_CORE1_RESET				123
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/reset/qcom,gcc-ipq806x.h:141:#define GMAC_CORE2_RESET				124
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/reset/qcom,gcc-ipq806x.h:142:#define GMAC_CORE3_RESET				125
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/reset/qcom,gcc-ipq806x.h:143:#define GMAC_CORE4_RESET				126
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/reset/qcom,gcc-ipq806x.h:144:#define GMAC_AHB_RESET					127
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/reset/sun9i-a80-ccu.h:64:#define RST_BUS_GMAC		17
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/reset/amlogic,meson-gxbb-reset.h:166:#define RESET_RDMA			133
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/reset/stih407-resets.h:13:/* Synp GMAC PowerDown */
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/power/rk3399-power.h:31:#define RK3399_PD_GMAC		22
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/memory/mt8173-larb-port.h:32:#define M4U_PORT_DISP_RDMA0		MTK_M4U_ID(M4U_LARB0_ID, 1)
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/memory/mt8173-larb-port.h:36:#define M4U_PORT_MDP_RDMA0		MTK_M4U_ID(M4U_LARB0_ID, 5)
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/memory/mt8173-larb-port.h:81:#define M4U_PORT_JPGENC_RDMA		MTK_M4U_ID(M4U_LARB3_ID, 5)
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/memory/mt8173-larb-port.h:89:#define M4U_PORT_VENC_NBM_RDMA		MTK_M4U_ID(M4U_LARB3_ID, 13)
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/memory/mt8173-larb-port.h:94:#define M4U_PORT_DISP_RDMA1		MTK_M4U_ID(M4U_LARB4_ID, 1)
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/memory/mt8173-larb-port.h:95:#define M4U_PORT_DISP_RDMA2		MTK_M4U_ID(M4U_LARB4_ID, 2)
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/memory/mt8173-larb-port.h:97:#define M4U_PORT_MDP_RDMA1		MTK_M4U_ID(M4U_LARB4_ID, 4)
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/memory/mt2701-larb-port.h:37:#define MT2701_M4U_PORT_DISP_RDMA1		MT2701_M4U_ID_LARB0(1)
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/memory/mt2701-larb-port.h:38:#define MT2701_M4U_PORT_DISP_RDMA		MT2701_M4U_ID_LARB0(2)
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/memory/mt2701-larb-port.h:41:#define MT2701_M4U_PORT_MDP_RDMA		MT2701_M4U_ID_LARB0(5)
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/memory/mt2701-larb-port.h:46:#define MT2701_M4U_PORT_MDP_RDMA1		MT2701_M4U_ID_LARB0(10)
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/memory/mt2701-larb-port.h:64:#define MT2701_M4U_PORT_JPGENC_RDMA		MT2701_M4U_ID_LARB2(3)
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/clock/rk3368-cru.h:95:#define ACLK_GMAC		197
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/clock/rk3368-cru.h:136:#define PCLK_GMAC		349
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/clock/stih416-clks.h:14:#define CLK_GMAC0_PHY		3
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/clock/qcom,gcc-ipq806x.h:279:#define GMAC_CORE1_CLK_SRC			269
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/clock/qcom,gcc-ipq806x.h:280:#define GMAC_CORE2_CLK_SRC			270
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/clock/qcom,gcc-ipq806x.h:281:#define GMAC_CORE3_CLK_SRC			271
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/clock/qcom,gcc-ipq806x.h:282:#define GMAC_CORE4_CLK_SRC			272
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/clock/qcom,gcc-ipq806x.h:283:#define GMAC_CORE1_CLK				273
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/clock/qcom,gcc-ipq806x.h:284:#define GMAC_CORE2_CLK				274
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/clock/qcom,gcc-ipq806x.h:285:#define GMAC_CORE3_CLK				275
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/clock/qcom,gcc-ipq806x.h:286:#define GMAC_CORE4_CLK				276
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/clock/sun9i-a80-ccu.h:125:#define CLK_BUS_GMAC		97
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/clock/rk3228-cru.h:73:#define ACLK_GMAC		212
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/clock/rk3228-cru.h:95:#define PCLK_GMAC		367
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/clock/rk3228-cru.h:167:#define SRST_GMAC		56
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/clock/rk3288-cru.h:104:#define ACLK_GMAC		196
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/clock/rk3288-cru.h:150:#define PCLK_GMAC		349
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/clock/rk1108-cru.h:172:#define ARST_GMAC			91
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/clock/rk3328-cru.h:125:#define ACLK_GMAC		146
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/clock/rk3328-cru.h:159:#define PCLK_GMAC		220
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/clock/rk3328-cru.h:178:#define HCLK_GMAC		310
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/clock/rk3328-cru.h:310:#define SRST_GMAC_NIU_A		96
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/clock/rk3328-cru.h:311:#define SRST_GMAC_NIU_P		97
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/clock/rk3328-cru.h:312:#define SRST_GMAC2PHY_A		98
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/clock/rk3328-cru.h:313:#define SRST_GMAC2IO_A		99
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/clock/mt8173-clk.h:257:#define CLK_MM_MDP_RDMA0		4
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/clock/mt8173-clk.h:258:#define CLK_MM_MDP_RDMA1		5
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/clock/mt8173-clk.h:271:#define CLK_MM_DISP_RDMA0		18
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/clock/mt8173-clk.h:272:#define CLK_MM_DISP_RDMA1		19
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/clock/mt8173-clk.h:273:#define CLK_MM_DISP_RDMA2		20
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/clock/zx296702-clock.h:87:#define ZX296702_GMAC_AXI_M_ACLK		74
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/clock/zx296702-clock.h:88:#define ZX296702_GMAC_APB_PCLK			75
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/clock/zx296702-clock.h:89:#define ZX296702_GMAC_125_CLKIN			76
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/clock/zx296702-clock.h:90:#define ZX296702_GMAC_RMII_CLKIN		77
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/clock/zx296702-clock.h:91:#define ZX296702_GMAC_25M_CLK			78
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/clock/mt2701-clk.h:366:#define CLK_MM_DISP_RDMA			8
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/clock/mt2701-clk.h:373:#define CLK_MM_MDP_RDMA				15
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/clock/mt2701-clk.h:378:#define CLK_MM_DISP_RDMA1			20
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/clock/zx296718-clock.h:80:#define GMAC_RMIICLK		69
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/clock/zx296718-clock.h:81:#define GMAC_PCLK		70
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/clock/zx296718-clock.h:82:#define GMAC_ACLK		71
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/clock/zx296718-clock.h:83:#define GMAC_RFCLK		72
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/clock/exynos5440.h:28:#define CLK_GMAC0		25
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/clock/exynos5440.h:38:#define CLK_GMAC0_O		35
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/clock/rk3399-cru.h:168:#define ACLK_GMAC			213
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/clock/rk3399-cru.h:169:#define ACLK_GMAC_NOC			214
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/clock/rk3399-cru.h:170:#define ACLK_PERF_GMAC			215
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/clock/rk3399-cru.h:260:#define PCLK_GMAC			358
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/clock/rk3399-cru.h:261:#define PCLK_GMAC_NOC			359
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/clock/rk3399-cru.h:519:#define SRST_A_GMAC_NOC			136
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/clock/rk3399-cru.h:520:#define SRST_A_GMAC			137
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/clock/rk3399-cru.h:521:#define SRST_P_GMAC_NOC			138
+linux-technicolor-tc7200/arch/arm64/boot/dts/include/dt-bindings/clock/rk3399-cru.h:522:#define SRST_P_GMAC_GRF			140
+linux-technicolor-tc7200/arch/arm64/boot/dts/amd/amd-seattle-xgbe-b.dtsi:7:	xgmacclk0_dma_250mhz: clk250mhz_0 {
+linux-technicolor-tc7200/arch/arm64/boot/dts/amd/amd-seattle-xgbe-b.dtsi:11:		clock-output-names = "xgmacclk0_dma_250mhz";
+linux-technicolor-tc7200/arch/arm64/boot/dts/amd/amd-seattle-xgbe-b.dtsi:14:	xgmacclk0_ptp_250mhz: clk250mhz_1 {
+linux-technicolor-tc7200/arch/arm64/boot/dts/amd/amd-seattle-xgbe-b.dtsi:18:		clock-output-names = "xgmacclk0_ptp_250mhz";
+linux-technicolor-tc7200/arch/arm64/boot/dts/amd/amd-seattle-xgbe-b.dtsi:21:	xgmacclk1_dma_250mhz: clk250mhz_2 {
+linux-technicolor-tc7200/arch/arm64/boot/dts/amd/amd-seattle-xgbe-b.dtsi:25:		clock-output-names = "xgmacclk1_dma_250mhz";
+linux-technicolor-tc7200/arch/arm64/boot/dts/amd/amd-seattle-xgbe-b.dtsi:28:	xgmacclk1_ptp_250mhz: clk250mhz_3 {
+linux-technicolor-tc7200/arch/arm64/boot/dts/amd/amd-seattle-xgbe-b.dtsi:32:		clock-output-names = "xgmacclk1_ptp_250mhz";
+linux-technicolor-tc7200/arch/arm64/boot/dts/amd/amd-seattle-xgbe-b.dtsi:35:	xgmac0: xgmac@e0700000 {
+linux-technicolor-tc7200/arch/arm64/boot/dts/amd/amd-seattle-xgbe-b.dtsi:54:		clocks = <&xgmacclk0_dma_250mhz>, <&xgmacclk0_ptp_250mhz>;
+linux-technicolor-tc7200/arch/arm64/boot/dts/amd/amd-seattle-xgbe-b.dtsi:61:	xgmac1: xgmac@e0900000 {
+linux-technicolor-tc7200/arch/arm64/boot/dts/amd/amd-seattle-xgbe-b.dtsi:80:		clocks = <&xgmacclk1_dma_250mhz>, <&xgmacclk1_ptp_250mhz>;
+linux-technicolor-tc7200/arch/arm64/boot/dts/amd/amd-seattle-xgbe-b.dtsi:87:	xgmac0_smmu: smmu@e0600000 {
+linux-technicolor-tc7200/arch/arm64/boot/dts/amd/amd-seattle-xgbe-b.dtsi:97:		 mmu-masters = <&xgmac0
+linux-technicolor-tc7200/arch/arm64/boot/dts/amd/amd-seattle-xgbe-b.dtsi:103:	 xgmac1_smmu: smmu@e0800000 {
+linux-technicolor-tc7200/arch/arm64/boot/dts/amd/amd-seattle-xgbe-b.dtsi:113:		 mmu-masters = <&xgmac1
+linux-technicolor-tc7200/arch/arc/boot/dts/eznps.dts:28:		ethernet0 = &gmac0;
+linux-technicolor-tc7200/arch/arc/boot/dts/eznps.dts:87:		gmac0: ethernet@f7470000 {
+linux-technicolor-tc7200/arch/arc/plat-axs10x/axs10x.c:153: * Access from cpu to MB controllers such as GMAC is setup using AXI Tunnel:
+linux-technicolor-tc7200/arch/arc/plat-axs10x/axs10x.c:159: * In the reverse direction, MB AXI Masters (e.g. GMAC) mem map is setup
+linux-technicolor-tc7200/arch/arc/plat-axs10x/axs10x.c:209: * GMAC (MB) -> MB AXI Tunnel slave -> CPU Card AXI Tunnel Master -> DDR
+linux-technicolor-tc7200/arch/sh/include/mach-sdk7786/mach/fpga.h:70:#define  SCBR_I2CMEN	BIT(0)	/* FPGA I2C master enable */
+linux-technicolor-tc7200/arch/sh/include/mach-sdk7786/mach/fpga.h:71:#define  SCBR_I2CCEN	BIT(1)	/* CPU I2C master enable */
+linux-technicolor-tc7200/arch/sh/include/mach-common/mach/highlander.h:38:#define PA_SCBRR0       (PA_BCR+0x0404) /* SCIF0 Bit rate control */
+linux-technicolor-tc7200/arch/sh/include/mach-common/mach/highlander.h:50:#define PA_SCBRR1       (PA_BCR+0x0504) /* SCIF1 Bit rate control */
+linux-technicolor-tc7200/arch/sh/include/mach-common/mach/highlander.h:105:#define PA_SCBRR	(PA_BCR+0x0402)	/* SCIF Bit rate control */
+linux-technicolor-tc7200/arch/sh/boards/mach-sdk7786/setup.c:128:	tmp &= ~SCBR_I2CCEN;
+linux-technicolor-tc7200/arch/sh/boards/mach-sdk7786/setup.c:129:	tmp |= SCBR_I2CMEN;
+linux-technicolor-tc7200/arch/mn10300/unit-asb2303/include/unit/timex.h:91:#define	TMTSCBR_MAX		0xffffffff
+linux-technicolor-tc7200/arch/mn10300/unit-asb2303/include/unit/timex.h:92:#define	TMTSCBC			TM45BC
+linux-technicolor-tc7200/arch/mn10300/unit-asb2303/include/unit/timex.h:103:	TM45BR = TMTSCBR_MAX;
+linux-technicolor-tc7200/arch/mn10300/unit-asb2303/include/unit/timex.h:141:	return (cycles_t)~TMTSCBC;
+linux-technicolor-tc7200/arch/mn10300/unit-asb2364/include/unit/timex.h:108:#define	TMTSCBR_MAX	0xffffffff
+linux-technicolor-tc7200/arch/mn10300/unit-asb2364/include/unit/timex.h:114:#define	TMTSCBR		TMSBR
+linux-technicolor-tc7200/arch/mn10300/unit-asb2364/include/unit/timex.h:115:#define	TMTSCBC		TMSBC
+linux-technicolor-tc7200/arch/mn10300/unit-asb2364/include/unit/timex.h:126:	TMTSCBR = TMTSCBR_MAX;
+linux-technicolor-tc7200/arch/mn10300/unit-asb2364/include/unit/timex.h:127:	sync = TMTSCBR;
+linux-technicolor-tc7200/arch/mn10300/unit-asb2364/include/unit/timex.h:150:	return (cycles_t)~TMTSCBC;
+linux-technicolor-tc7200/arch/mn10300/lib/delay.c:45:	start = TMTSCBC;
+linux-technicolor-tc7200/arch/mn10300/lib/delay.c:48:		cnt = start - TMTSCBC;
+linux-technicolor-tc7200/arch/mn10300/unit-asb2305/include/unit/timex.h:91:#define	TMTSCBR_MAX		0xffffffff
+linux-technicolor-tc7200/arch/mn10300/unit-asb2305/include/unit/timex.h:92:#define	TMTSCBC			TM45BC
+linux-technicolor-tc7200/arch/mn10300/unit-asb2305/include/unit/timex.h:103:	TM45BR = TMTSCBR_MAX;
+linux-technicolor-tc7200/arch/mn10300/unit-asb2305/include/unit/timex.h:141:	return (cycles_t)~TMTSCBC;
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/input/linux-event-codes.h:312:#define KEY_FORWARDMAIL		233	/* AC Forward Msg */
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/soc/zte,pm_domains.h:20:#define DM_ZX296718_GMAC	9
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/reset/amlogic,meson8b-reset.h:136:#define RESET_RDMA			133
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/reset/qcom,gcc-ipq806x.h:140:#define GMAC_CORE1_RESET				123
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/reset/qcom,gcc-ipq806x.h:141:#define GMAC_CORE2_RESET				124
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/reset/qcom,gcc-ipq806x.h:142:#define GMAC_CORE3_RESET				125
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/reset/qcom,gcc-ipq806x.h:143:#define GMAC_CORE4_RESET				126
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/reset/qcom,gcc-ipq806x.h:144:#define GMAC_AHB_RESET					127
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/reset/sun9i-a80-ccu.h:64:#define RST_BUS_GMAC		17
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/reset/amlogic,meson-gxbb-reset.h:166:#define RESET_RDMA			133
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/reset/stih407-resets.h:13:/* Synp GMAC PowerDown */
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/power/rk3399-power.h:31:#define RK3399_PD_GMAC		22
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/memory/mt8173-larb-port.h:32:#define M4U_PORT_DISP_RDMA0		MTK_M4U_ID(M4U_LARB0_ID, 1)
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/memory/mt8173-larb-port.h:36:#define M4U_PORT_MDP_RDMA0		MTK_M4U_ID(M4U_LARB0_ID, 5)
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/memory/mt8173-larb-port.h:81:#define M4U_PORT_JPGENC_RDMA		MTK_M4U_ID(M4U_LARB3_ID, 5)
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/memory/mt8173-larb-port.h:89:#define M4U_PORT_VENC_NBM_RDMA		MTK_M4U_ID(M4U_LARB3_ID, 13)
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/memory/mt8173-larb-port.h:94:#define M4U_PORT_DISP_RDMA1		MTK_M4U_ID(M4U_LARB4_ID, 1)
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/memory/mt8173-larb-port.h:95:#define M4U_PORT_DISP_RDMA2		MTK_M4U_ID(M4U_LARB4_ID, 2)
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/memory/mt8173-larb-port.h:97:#define M4U_PORT_MDP_RDMA1		MTK_M4U_ID(M4U_LARB4_ID, 4)
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/memory/mt2701-larb-port.h:37:#define MT2701_M4U_PORT_DISP_RDMA1		MT2701_M4U_ID_LARB0(1)
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/memory/mt2701-larb-port.h:38:#define MT2701_M4U_PORT_DISP_RDMA		MT2701_M4U_ID_LARB0(2)
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/memory/mt2701-larb-port.h:41:#define MT2701_M4U_PORT_MDP_RDMA		MT2701_M4U_ID_LARB0(5)
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/memory/mt2701-larb-port.h:46:#define MT2701_M4U_PORT_MDP_RDMA1		MT2701_M4U_ID_LARB0(10)
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/memory/mt2701-larb-port.h:64:#define MT2701_M4U_PORT_JPGENC_RDMA		MT2701_M4U_ID_LARB2(3)
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/clock/rk3368-cru.h:95:#define ACLK_GMAC		197
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/clock/rk3368-cru.h:136:#define PCLK_GMAC		349
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/clock/stih416-clks.h:14:#define CLK_GMAC0_PHY		3
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/clock/qcom,gcc-ipq806x.h:279:#define GMAC_CORE1_CLK_SRC			269
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/clock/qcom,gcc-ipq806x.h:280:#define GMAC_CORE2_CLK_SRC			270
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/clock/qcom,gcc-ipq806x.h:281:#define GMAC_CORE3_CLK_SRC			271
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/clock/qcom,gcc-ipq806x.h:282:#define GMAC_CORE4_CLK_SRC			272
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/clock/qcom,gcc-ipq806x.h:283:#define GMAC_CORE1_CLK				273
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/clock/qcom,gcc-ipq806x.h:284:#define GMAC_CORE2_CLK				274
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/clock/qcom,gcc-ipq806x.h:285:#define GMAC_CORE3_CLK				275
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/clock/qcom,gcc-ipq806x.h:286:#define GMAC_CORE4_CLK				276
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/clock/sun9i-a80-ccu.h:125:#define CLK_BUS_GMAC		97
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/clock/rk3228-cru.h:73:#define ACLK_GMAC		212
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/clock/rk3228-cru.h:95:#define PCLK_GMAC		367
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/clock/rk3228-cru.h:167:#define SRST_GMAC		56
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/clock/rk3288-cru.h:104:#define ACLK_GMAC		196
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/clock/rk3288-cru.h:150:#define PCLK_GMAC		349
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/clock/rk1108-cru.h:172:#define ARST_GMAC			91
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/clock/rk3328-cru.h:125:#define ACLK_GMAC		146
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/clock/rk3328-cru.h:159:#define PCLK_GMAC		220
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/clock/rk3328-cru.h:178:#define HCLK_GMAC		310
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/clock/rk3328-cru.h:310:#define SRST_GMAC_NIU_A		96
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/clock/rk3328-cru.h:311:#define SRST_GMAC_NIU_P		97
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/clock/rk3328-cru.h:312:#define SRST_GMAC2PHY_A		98
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/clock/rk3328-cru.h:313:#define SRST_GMAC2IO_A		99
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/clock/mt8173-clk.h:257:#define CLK_MM_MDP_RDMA0		4
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/clock/mt8173-clk.h:258:#define CLK_MM_MDP_RDMA1		5
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/clock/mt8173-clk.h:271:#define CLK_MM_DISP_RDMA0		18
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/clock/mt8173-clk.h:272:#define CLK_MM_DISP_RDMA1		19
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/clock/mt8173-clk.h:273:#define CLK_MM_DISP_RDMA2		20
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/clock/zx296702-clock.h:87:#define ZX296702_GMAC_AXI_M_ACLK		74
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/clock/zx296702-clock.h:88:#define ZX296702_GMAC_APB_PCLK			75
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/clock/zx296702-clock.h:89:#define ZX296702_GMAC_125_CLKIN			76
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/clock/zx296702-clock.h:90:#define ZX296702_GMAC_RMII_CLKIN		77
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/clock/zx296702-clock.h:91:#define ZX296702_GMAC_25M_CLK			78
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/clock/mt2701-clk.h:366:#define CLK_MM_DISP_RDMA			8
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/clock/mt2701-clk.h:373:#define CLK_MM_MDP_RDMA				15
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/clock/mt2701-clk.h:378:#define CLK_MM_DISP_RDMA1			20
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/clock/zx296718-clock.h:80:#define GMAC_RMIICLK		69
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/clock/zx296718-clock.h:81:#define GMAC_PCLK		70
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/clock/zx296718-clock.h:82:#define GMAC_ACLK		71
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/clock/zx296718-clock.h:83:#define GMAC_RFCLK		72
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/clock/exynos5440.h:28:#define CLK_GMAC0		25
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/clock/exynos5440.h:38:#define CLK_GMAC0_O		35
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/clock/rk3399-cru.h:168:#define ACLK_GMAC			213
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/clock/rk3399-cru.h:169:#define ACLK_GMAC_NOC			214
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/clock/rk3399-cru.h:170:#define ACLK_PERF_GMAC			215
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/clock/rk3399-cru.h:260:#define PCLK_GMAC			358
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/clock/rk3399-cru.h:261:#define PCLK_GMAC_NOC			359
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/clock/rk3399-cru.h:519:#define SRST_A_GMAC_NOC			136
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/clock/rk3399-cru.h:520:#define SRST_A_GMAC			137
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/clock/rk3399-cru.h:521:#define SRST_P_GMAC_NOC			138
+linux-technicolor-tc7200/arch/metag/boot/dts/include/dt-bindings/clock/rk3399-cru.h:522:#define SRST_P_GMAC_GRF			140
+linux-technicolor-tc7200/arch/blackfin/kernel/setup.c:38:#ifdef CONFIG_SCB_PRIORITY
+linux-technicolor-tc7200/arch/blackfin/kernel/setup.c:1107:#ifdef CONFIG_SCB_PRIORITY
+linux-technicolor-tc7200/arch/blackfin/mach-common/Makefile:13:obj-$(CONFIG_SCB_PRIORITY)	+= scb-init.o
+linux-technicolor-tc7200/arch/blackfin/mach-common/scb-init.c:20:		bfin_write32(scb_mi_arbw, (i << SCB_SLOT_OFFSET) | scb_mi_prio[i]);
+linux-technicolor-tc7200/arch/blackfin/mach-common/scb-init.c:30:		bfin_write32(scb_mi_arbw, (0xFF << SCB_SLOT_OFFSET) | i);
+linux-technicolor-tc7200/arch/blackfin/include/asm/scb.h:9:#define SCB_SLOT_OFFSET	24
+linux-technicolor-tc7200/arch/blackfin/include/asm/scb.h:10:#define SCB_MI_MAX_SLOT 32
+linux-technicolor-tc7200/arch/blackfin/include/asm/scb.h:16:	unsigned char scb_mi_prio[SCB_MI_MAX_SLOT];
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/clock.c:31:#define CGU0_STAT_SCBF0 (1 << 6)
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/clock.c:32:#define CGU0_STAT_SCBF1 (1 << 7)
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Makefile:7:obj-$(CONFIG_SCB_PRIORITY) += scb.o
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:29:config SCB_PRIORITY
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:33:menuconfig	SCB0_MI0
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:34:	bool "SCB0 Master Interface 0 (DDR)"
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:36:	depends on SCB_PRIORITY
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:41:	SCB1	-- 9
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:42:	SCB2	-- 10
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:43:	SCB3	-- 11
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:44:	SCB4	-- 12
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:45:	SCB5	-- 5
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:46:	SCB6	-- 6
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:47:	SCB7	-- 8
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:48:	SCB8	-- 7
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:49:	SCB9	-- 4
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:52:if SCB0_MI0
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:54:config SCB0_MI0_SLOT0
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:59:config SCB0_MI0_SLOT1
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:64:config SCB0_MI0_SLOT2
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:69:config SCB0_MI0_SLOT3
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:74:config SCB0_MI0_SLOT4
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:79:config SCB0_MI0_SLOT5
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:84:config SCB0_MI0_SLOT6
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:89:config SCB0_MI0_SLOT7
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:94:config SCB0_MI0_SLOT8
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:99:config SCB0_MI0_SLOT9
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:104:config SCB0_MI0_SLOT10
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:109:config SCB0_MI0_SLOT11
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:114:config SCB0_MI0_SLOT12
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:119:config SCB0_MI0_SLOT13
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:124:config SCB0_MI0_SLOT14
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:129:config SCB0_MI0_SLOT15
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:134:config SCB0_MI0_SLOT16
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:139:config SCB0_MI0_SLOT17
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:144:config SCB0_MI0_SLOT18
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:149:config SCB0_MI0_SLOT19
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:154:config SCB0_MI0_SLOT20
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:159:config SCB0_MI0_SLOT21
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:164:config SCB0_MI0_SLOT22
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:169:config SCB0_MI0_SLOT23
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:174:config SCB0_MI0_SLOT24
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:179:config SCB0_MI0_SLOT25
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:184:config SCB0_MI0_SLOT26
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:189:config SCB0_MI0_SLOT27
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:194:config SCB0_MI0_SLOT28
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:199:config SCB0_MI0_SLOT29
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:204:config SCB0_MI0_SLOT30
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:209:config SCB0_MI0_SLOT31
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:214:endif # SCB0_MI0
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:216:menuconfig	SCB0_MI1
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:217:	bool "SCB0 Master Interface 1 (SMC)"
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:219:	depends on SCB_PRIORITY
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:224:	SCB1	-- 9
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:225:	SCB2	-- 10
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:226:	SCB3	-- 11
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:227:	SCB4	-- 12
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:228:	SCB5	-- 5
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:229:	SCB6	-- 6
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:230:	SCB7	-- 8
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:231:	SCB8	-- 7
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:232:	SCB9	-- 4
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:235:if SCB0_MI1
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:237:config SCB0_MI1_SLOT0
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:242:config SCB0_MI1_SLOT1
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:247:config SCB0_MI1_SLOT2
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:252:config SCB0_MI1_SLOT3
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:257:config SCB0_MI1_SLOT4
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:262:config SCB0_MI1_SLOT5
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:267:config SCB0_MI1_SLOT6
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:272:config SCB0_MI1_SLOT7
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:277:config SCB0_MI1_SLOT8
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:282:config SCB0_MI1_SLOT9
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:287:config SCB0_MI1_SLOT10
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:292:config SCB0_MI1_SLOT11
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:297:config SCB0_MI1_SLOT12
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:302:config SCB0_MI1_SLOT13
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:307:config SCB0_MI1_SLOT14
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:312:config SCB0_MI1_SLOT15
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:317:config SCB0_MI1_SLOT16
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:322:config SCB0_MI1_SLOT17
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:327:config SCB0_MI1_SLOT18
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:332:config SCB0_MI1_SLOT19
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:337:config SCB0_MI1_SLOT20
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:342:config SCB0_MI1_SLOT21
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:347:config SCB0_MI1_SLOT22
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:352:config SCB0_MI1_SLOT23
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:357:config SCB0_MI1_SLOT24
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:362:config SCB0_MI1_SLOT25
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:367:config SCB0_MI1_SLOT26
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:372:config SCB0_MI1_SLOT27
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:377:config SCB0_MI1_SLOT28
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:382:config SCB0_MI1_SLOT29
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:387:config SCB0_MI1_SLOT30
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:392:config SCB0_MI1_SLOT31
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:397:endif # SCB0_MI1
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:399:menuconfig	SCB0_MI2
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:400:	bool "SCB0 Master Interface 2 (Data L2)"
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:402:	depends on SCB_PRIORITY
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:407:	SCB1	-- 9
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:408:	SCB2	-- 10
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:409:	SCB3	-- 11
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:410:	SCB4	-- 12
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:411:	SCB5	-- 5
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:412:	SCB6	-- 6
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:413:	SCB7	-- 8
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:414:	SCB8	-- 7
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:415:	SCB9	-- 4
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:418:if SCB0_MI2
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:420:config SCB0_MI2_SLOT0
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:425:config SCB0_MI2_SLOT1
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:430:config SCB0_MI2_SLOT2
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:435:config SCB0_MI2_SLOT3
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:440:config SCB0_MI2_SLOT4
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:445:config SCB0_MI2_SLOT5
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:450:config SCB0_MI2_SLOT6
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:455:config SCB0_MI2_SLOT7
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:460:config SCB0_MI2_SLOT8
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:465:config SCB0_MI2_SLOT9
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:470:config SCB0_MI2_SLOT10
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:475:config SCB0_MI2_SLOT11
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:480:config SCB0_MI2_SLOT12
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:485:config SCB0_MI2_SLOT13
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:490:config SCB0_MI2_SLOT14
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:495:config SCB0_MI2_SLOT15
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:500:config SCB0_MI2_SLOT16
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:505:config SCB0_MI2_SLOT17
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:510:config SCB0_MI2_SLOT18
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:515:config SCB0_MI2_SLOT19
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:520:config SCB0_MI2_SLOT20
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:525:config SCB0_MI2_SLOT21
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:530:config SCB0_MI2_SLOT22
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:535:config SCB0_MI2_SLOT23
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:540:config SCB0_MI2_SLOT24
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:545:config SCB0_MI2_SLOT25
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:550:config SCB0_MI2_SLOT26
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:555:config SCB0_MI2_SLOT27
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:560:config SCB0_MI2_SLOT28
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:565:config SCB0_MI2_SLOT29
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:570:config SCB0_MI2_SLOT30
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:575:config SCB0_MI2_SLOT31
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:580:endif # SCB0_MI2
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:582:menuconfig	SCB0_MI3
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:583:	bool "SCB0 Master Interface 3 (L1A)"
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:585:	depends on SCB_PRIORITY
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:590:	SCB1	-- 9
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:591:	SCB2	-- 10
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:592:	SCB3	-- 11
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:593:	SCB4	-- 12
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:594:	SCB5	-- 5
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:595:	SCB6	-- 6
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:596:	SCB7	-- 8
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:597:	SCB8	-- 7
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:598:	SCB9	-- 4
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:601:if SCB0_MI3
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:603:config SCB0_MI3_SLOT0
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:608:config SCB0_MI3_SLOT1
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:613:config SCB0_MI3_SLOT2
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:618:config SCB0_MI3_SLOT3
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:623:config SCB0_MI3_SLOT4
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:628:config SCB0_MI3_SLOT5
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:633:config SCB0_MI3_SLOT6
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:638:config SCB0_MI3_SLOT7
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:643:config SCB0_MI3_SLOT8
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:648:config SCB0_MI3_SLOT9
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:653:config SCB0_MI3_SLOT10
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:658:config SCB0_MI3_SLOT11
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:663:config SCB0_MI3_SLOT12
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:668:config SCB0_MI3_SLOT13
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:673:config SCB0_MI3_SLOT14
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:678:config SCB0_MI3_SLOT15
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:683:config SCB0_MI3_SLOT16
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:688:config SCB0_MI3_SLOT17
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:693:config SCB0_MI3_SLOT18
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:698:config SCB0_MI3_SLOT19
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:703:config SCB0_MI3_SLOT20
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:708:config SCB0_MI3_SLOT21
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:713:config SCB0_MI3_SLOT22
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:718:config SCB0_MI3_SLOT23
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:723:config SCB0_MI3_SLOT24
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:728:config SCB0_MI3_SLOT25
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:733:config SCB0_MI3_SLOT26
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:738:config SCB0_MI3_SLOT27
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:743:config SCB0_MI3_SLOT28
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:748:config SCB0_MI3_SLOT29
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:753:config SCB0_MI3_SLOT30
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:758:config SCB0_MI3_SLOT31
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:763:endif # SCB0_MI3
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:765:menuconfig	SCB0_MI4
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:766:	bool "SCB0 Master Interface 4 (L1B)"
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:768:	depends on SCB_PRIORITY
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:773:	SCB1	-- 9
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:774:	SCB2	-- 10
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:775:	SCB3	-- 11
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:776:	SCB4	-- 12
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:777:	SCB5	-- 5
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:778:	SCB6	-- 6
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:779:	SCB7	-- 8
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:780:	SCB8	-- 7
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:781:	SCB9	-- 4
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:784:if SCB0_MI4
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:786:config SCB0_MI4_SLOT0
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:791:config SCB0_MI4_SLOT1
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:796:config SCB0_MI4_SLOT2
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:801:config SCB0_MI4_SLOT3
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:806:config SCB0_MI4_SLOT4
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:811:config SCB0_MI4_SLOT5
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:816:config SCB0_MI4_SLOT6
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:821:config SCB0_MI4_SLOT7
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:826:config SCB0_MI4_SLOT8
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:831:config SCB0_MI4_SLOT9
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:836:config SCB0_MI4_SLOT10
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:841:config SCB0_MI4_SLOT11
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:846:config SCB0_MI4_SLOT12
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:851:config SCB0_MI4_SLOT13
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:856:config SCB0_MI4_SLOT14
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:861:config SCB0_MI4_SLOT15
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:866:config SCB0_MI4_SLOT16
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:871:config SCB0_MI4_SLOT17
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:876:config SCB0_MI4_SLOT18
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:881:config SCB0_MI4_SLOT19
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:886:config SCB0_MI4_SLOT20
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:891:config SCB0_MI4_SLOT21
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:896:config SCB0_MI4_SLOT22
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:901:config SCB0_MI4_SLOT23
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:906:config SCB0_MI4_SLOT24
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:911:config SCB0_MI4_SLOT25
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:916:config SCB0_MI4_SLOT26
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:921:config SCB0_MI4_SLOT27
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:926:config SCB0_MI4_SLOT28
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:931:config SCB0_MI4_SLOT29
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:936:config SCB0_MI4_SLOT30
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:941:config SCB0_MI4_SLOT31
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:946:endif # SCB0_MI4
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:948:menuconfig	SCB0_MI5
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:949:	bool "SCB0 Master Interface 5 (SMMR)"
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:951:	depends on SCB_PRIORITY
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:956:	SCB2	-- 10
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:957:	SCB4	-- 12
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:959:if SCB0_MI5
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:961:config SCB0_MI5_SLOT0
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:966:config SCB0_MI5_SLOT1
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:971:config SCB0_MI5_SLOT2
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:976:config SCB0_MI5_SLOT3
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:981:config SCB0_MI5_SLOT4
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:986:config SCB0_MI5_SLOT5
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:991:config SCB0_MI5_SLOT6
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:996:config SCB0_MI5_SLOT7
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1001:config SCB0_MI5_SLOT8
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1006:config SCB0_MI5_SLOT9
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1011:config SCB0_MI5_SLOT10
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1016:config SCB0_MI5_SLOT11
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1021:config SCB0_MI5_SLOT12
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1026:config SCB0_MI5_SLOT13
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1031:config SCB0_MI5_SLOT14
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1036:config SCB0_MI5_SLOT15
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1041:endif # SCB0_MI5
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1043:menuconfig	SCB1_MI0
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1044:	bool "SCB1 Master Interface 0"
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1046:	depends on SCB_PRIORITY
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1060:if SCB1_MI0
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1062:config SCB1_MI0_SLOT0
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1067:config SCB1_MI0_SLOT1
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1072:config SCB1_MI0_SLOT2
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1077:config SCB1_MI0_SLOT3
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1082:config SCB1_MI0_SLOT4
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1087:config SCB1_MI0_SLOT5
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1092:config SCB1_MI0_SLOT6
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1097:config SCB1_MI0_SLOT7
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1102:config SCB1_MI0_SLOT8
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1107:config SCB1_MI0_SLOT9
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1112:config SCB1_MI0_SLOT10
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1117:config SCB1_MI0_SLOT11
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1122:config SCB1_MI0_SLOT12
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1127:config SCB1_MI0_SLOT13
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1132:config SCB1_MI0_SLOT14
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1137:config SCB1_MI0_SLOT15
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1142:config SCB1_MI0_SLOT16
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1147:config SCB1_MI0_SLOT17
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1152:config SCB1_MI0_SLOT18
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1157:config SCB1_MI0_SLOT19
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1162:endif # SCB1_MI0
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1164:menuconfig	SCB2_MI0
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1165:	bool "SCB2 Master Interface 0"
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1167:	depends on SCB_PRIORITY
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1176:if SCB2_MI0
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1178:config SCB2_MI0_SLOT0
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1183:config SCB2_MI0_SLOT1
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1188:config SCB2_MI0_SLOT2
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1193:config SCB2_MI0_SLOT3
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1198:config SCB2_MI0_SLOT4
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1203:config SCB2_MI0_SLOT5
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1208:config SCB2_MI0_SLOT6
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1213:config SCB2_MI0_SLOT7
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1218:config SCB2_MI0_SLOT8
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1223:config SCB2_MI0_SLOT9
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1228:endif # SCB2_MI0
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1230:menuconfig	SCB3_MI0
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1231:	bool "SCB3 Master Interface 0"
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1233:	depends on SCB_PRIORITY
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1245:if SCB3_MI0
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1247:config SCB3_MI0_SLOT0
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1252:config SCB3_MI0_SLOT1
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1257:config SCB3_MI0_SLOT2
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1262:config SCB3_MI0_SLOT3
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1267:config SCB3_MI0_SLOT4
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1272:config SCB3_MI0_SLOT5
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1277:config SCB3_MI0_SLOT6
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1282:config SCB3_MI0_SLOT7
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1287:config SCB3_MI0_SLOT8
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1292:config SCB3_MI0_SLOT9
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1297:config SCB3_MI0_SLOT10
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1302:config SCB3_MI0_SLOT11
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1307:config SCB3_MI0_SLOT12
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1312:config SCB3_MI0_SLOT13
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1317:config SCB3_MI0_SLOT14
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1322:config SCB3_MI0_SLOT15
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1327:endif # SCB3_MI0
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1329:menuconfig	SCB4_MI0
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1330:	bool "SCB4 Master Interface 0"
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1332:	depends on SCB_PRIORITY
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1344:if SCB4_MI0
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1346:config SCB4_MI0_SLOT0
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1351:config SCB4_MI0_SLOT1
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1356:config SCB4_MI0_SLOT2
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1361:config SCB4_MI0_SLOT3
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1366:config SCB4_MI0_SLOT4
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1371:config SCB4_MI0_SLOT5
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1376:config SCB4_MI0_SLOT6
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1381:config SCB4_MI0_SLOT7
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1386:config SCB4_MI0_SLOT8
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1391:config SCB4_MI0_SLOT9
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1396:config SCB4_MI0_SLOT10
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1401:config SCB4_MI0_SLOT11
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1406:config SCB4_MI0_SLOT12
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1411:config SCB4_MI0_SLOT13
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1416:config SCB4_MI0_SLOT14
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1421:config SCB4_MI0_SLOT15
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1426:endif # SCB4_MI0
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1428:menuconfig	SCB5_MI0
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1429:	bool "SCB5 Master Interface 0"
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1431:	depends on SCB_PRIORITY
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1439:if SCB5_MI0
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1441:config SCB5_MI0_SLOT0
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1446:config SCB5_MI0_SLOT1
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1451:config SCB5_MI0_SLOT2
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1456:config SCB5_MI0_SLOT3
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1461:config SCB5_MI0_SLOT4
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1466:config SCB5_MI0_SLOT5
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1471:config SCB5_MI0_SLOT6
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1476:config SCB5_MI0_SLOT7
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1481:endif # SCB5_MI0
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1483:menuconfig	SCB6_MI0
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1484:	bool "SCB6 Master Interface 0"
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1486:	depends on SCB_PRIORITY
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1492:if SCB6_MI0
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1494:config SCB6_MI0_SLOT0
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1499:config SCB6_MI0_SLOT1
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1504:config SCB6_MI0_SLOT2
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1509:config SCB6_MI0_SLOT3
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1514:endif # SCB6_MI0
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1516:menuconfig	SCB7_MI0
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1517:	bool "SCB7 Master Interface 0"
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1519:	depends on SCB_PRIORITY
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1526:if SCB7_MI0
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1528:config SCB7_MI0_SLOT0
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1533:config SCB7_MI0_SLOT1
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1538:config SCB7_MI0_SLOT2
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1543:config SCB7_MI0_SLOT3
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1548:config SCB7_MI0_SLOT4
+linux-technicolor-tc7200/arch/blackfin/mach-bf609/Kconfig:1553:config 

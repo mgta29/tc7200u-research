@@ -1,0 +1,312 @@
+linux-technicolor-tc7200/arch/x86/include/asm/uv/uv_mmrs.h:2781:#define UVH_LB_BAU_SB_DESCRIPTOR_BASE_PAGE_ADDRESS_SHFT	12
+linux-technicolor-tc7200/arch/x86/include/asm/uv/uv_mmrs.h:2785:#define UV1H_LB_BAU_SB_DESCRIPTOR_BASE_PAGE_ADDRESS_MASK 0x000007fffffff000UL
+linux-technicolor-tc7200/arch/x86/include/asm/uv/uv_mmrs.h:2788:#define UV2H_LB_BAU_SB_DESCRIPTOR_BASE_PAGE_ADDRESS_MASK 0x000007fffffff000UL
+linux-technicolor-tc7200/arch/x86/include/asm/uv/uv_mmrs.h:2790:#define UV3H_LB_BAU_SB_DESCRIPTOR_BASE_PAGE_ADDRESS_MASK 0x000007fffffff000UL
+linux-technicolor-tc7200/arch/x86/include/asm/uv/uv_mmrs.h:2792:#define UV4H_LB_BAU_SB_DESCRIPTOR_BASE_PAGE_ADDRESS_MASK 0x00003ffffffff000UL
+linux-technicolor-tc7200/arch/x86/include/asm/vmx.h:186:	POSTED_INTR_DESC_ADDR           = 0x00002016,
+linux-technicolor-tc7200/arch/x86/include/asm/vmx.h:187:	POSTED_INTR_DESC_ADDR_HIGH      = 0x00002017,
+linux-technicolor-tc7200/arch/x86/kvm/vmx.c:768:	FIELD64(POSTED_INTR_DESC_ADDR, posted_intr_desc_addr),
+linux-technicolor-tc7200/arch/x86/kvm/vmx.c:5207:		vmcs_write64(POSTED_INTR_DESC_ADDR, __pa((&vmx->pi_desc)));
+linux-technicolor-tc7200/arch/x86/kvm/vmx.c:9622:		vmcs_write64(POSTED_INTR_DESC_ADDR,
+linux-technicolor-tc7200/arch/mips/include/asm/sgi/hpc3.h:30:#define HPCDMA_OWN	0x00004000 /* Denotes ring buffer ownership on rx */
+linux-technicolor-tc7200/arch/mips/include/asm/mach-bcm63xx/bcm63xx_iudma.h:20:#define DMADESC_ESOP_MASK	(DMADESC_EOP_MASK | DMADESC_SOP_MASK)
+linux-technicolor-tc7200/arch/mips/include/asm/mach-bcm63xx/bcm63xx_regs.h:727:/* Shift down for EOP, SOP and WRAP bits */
+linux-technicolor-tc7200/arch/mips/include/asm/mach-lantiq/xway/xway_dma.h:24:#define LTQ_DMA_OWN		BIT(31) /* owner bit */
+linux-technicolor-tc7200/sound/soc/amd/acp-pcm-dma.c:492:			mmACP_DMA_DESC_BASE_ADDR);
+linux-technicolor-tc7200/sound/soc/amd/include/acp_2_2_d.h:139:#define mmACP_DMA_DESC_BASE_ADDR                                                0x5070
+linux-technicolor-tc7200/sound/soc/amd/include/acp_2_2_sh_mask.h:411:#define ACP_DMA_DESC_BASE_ADDR__DescriptorBaseAddr_MASK 0xffffffff
+linux-technicolor-tc7200/sound/soc/amd/include/acp_2_2_sh_mask.h:412:#define ACP_DMA_DESC_BASE_ADDR__DescriptorBaseAddr__SHIFT 0x0
+linux-technicolor-tc7200/drivers/scsi/megaraid/megaraid_sas_fusion.h:617:struct MPI2_ADDRESS_REPLY_DESCRIPTOR {
+linux-technicolor-tc7200/drivers/scsi/megaraid/megaraid_sas_fusion.h:664:	struct MPI2_ADDRESS_REPLY_DESCRIPTOR                   AddressReply;
+linux-technicolor-tc7200/drivers/scsi/qla4xxx/ql4_nx.c:3808:	hw->flt_region_fdt      = FA_FLASH_DESCR_ADDR_82;
+linux-technicolor-tc7200/drivers/scsi/qla4xxx/ql4_fw.h:284:#define FA_FLASH_DESCR_ADDR_82		0xFC000
+linux-technicolor-tc7200/drivers/scsi/qla2xxx/qla_sup.c:653:		{ FA_FLASH_DESCR_ADDR_24, FA_FLASH_DESCR_ADDR,
+linux-technicolor-tc7200/drivers/scsi/qla2xxx/qla_sup.c:654:			FA_FLASH_DESCR_ADDR_81 };
+linux-technicolor-tc7200/drivers/scsi/qla2xxx/qla_fw.h:950:#define FA_FLASH_DESCR_ADDR_24	0x11000
+linux-technicolor-tc7200/drivers/scsi/qla2xxx/qla_fw.h:958:#define FA_FLASH_DESCR_ADDR	0x50000
+linux-technicolor-tc7200/drivers/scsi/qla2xxx/qla_fw.h:2036:#define FA_FLASH_DESCR_ADDR_81	0xD8000
+linux-technicolor-tc7200/drivers/scsi/csiostor/csio_hw.c:2948:		{ SECNTERR_F, "MPS Tx SOP/EOP error", -1, 1 },
+linux-technicolor-tc7200/drivers/scsi/mpt3sas/mpt3sas_base.c:997:		    MPI2_RPY_DESCRIPT_FLAGS_ADDRESS_REPLY) {
+linux-technicolor-tc7200/drivers/scsi/mpt3sas/mpi/mpi2.h:485:#define MPI2_RPY_DESCRIPT_FLAGS_ADDRESS_REPLY               (0x01)
+linux-technicolor-tc7200/drivers/scsi/mpt3sas/mpi/mpi2.h:497:typedef struct _MPI2_ADDRESS_REPLY_DESCRIPTOR {
+linux-technicolor-tc7200/drivers/scsi/mpt3sas/mpi/mpi2.h:502:} MPI2_ADDRESS_REPLY_DESCRIPTOR,
+linux-technicolor-tc7200/drivers/scsi/mpt3sas/mpi/mpi2.h:503:	*PTR_MPI2_ADDRESS_REPLY_DESCRIPTOR,
+linux-technicolor-tc7200/drivers/scsi/mpt3sas/mpi/mpi2.h:571:	MPI2_ADDRESS_REPLY_DESCRIPTOR AddressReply;
+linux-technicolor-tc7200/drivers/gpu/drm/radeon/cik.c:6716:		WREG32(RLC_GPM_SCRATCH_ADDR, RLC_CLEAR_STATE_DESCRIPTOR_OFFSET);
+linux-technicolor-tc7200/drivers/gpu/drm/radeon/cik.c:6721:		WREG32(RLC_GPM_SCRATCH_ADDR, RLC_CLEAR_STATE_DESCRIPTOR_OFFSET);
+linux-technicolor-tc7200/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c:4124:		WREG32(mmRLC_GPM_SCRATCH_ADDR, RLC_CLEAR_STATE_DESCRIPTOR_OFFSET);
+linux-technicolor-tc7200/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c:4129:		WREG32(mmRLC_GPM_SCRATCH_ADDR, RLC_CLEAR_STATE_DESCRIPTOR_OFFSET);
+linux-technicolor-tc7200/drivers/gpu/drm/amd/include/asic_reg/dce/dce_11_0_sh_mask.h:12697:#define OUTPUT_STREAM_DESCRIPTOR_BDL_POINTER_LOWER_BASE_ADDRESS__BUFFER_DESCRIPTOR_LIST_LOWER_BASE_ADDRESS_UNIMPLEMENTED_BITS_MASK 0x7f
+linux-technicolor-tc7200/drivers/gpu/drm/amd/include/asic_reg/dce/dce_11_0_sh_mask.h:12698:#define OUTPUT_STREAM_DESCRIPTOR_BDL_POINTER_LOWER_BASE_ADDRESS__BUFFER_DESCRIPTOR_LIST_LOWER_BASE_ADDRESS_UNIMPLEMENTED_BITS__SHIFT 0x0
+linux-technicolor-tc7200/drivers/gpu/drm/amd/include/asic_reg/dce/dce_11_0_sh_mask.h:12699:#define OUTPUT_STREAM_DESCRIPTOR_BDL_POINTER_LOWER_BASE_ADDRESS__BUFFER_DESCRIPTOR_LIST_LOWER_BASE_ADDRESS_MASK 0xffffff80
+linux-technicolor-tc7200/drivers/gpu/drm/amd/include/asic_reg/dce/dce_11_0_sh_mask.h:12700:#define OUTPUT_STREAM_DESCRIPTOR_BDL_POINTER_LOWER_BASE_ADDRESS__BUFFER_DESCRIPTOR_LIST_LOWER_BASE_ADDRESS__SHIFT 0x7
+linux-technicolor-tc7200/drivers/gpu/drm/amd/include/asic_reg/dce/dce_11_0_sh_mask.h:12701:#define OUTPUT_STREAM_DESCRIPTOR_BDL_POINTER_UPPER_BASE_ADDRESS__BUFFER_DESCRIPTOR_LIST_UPPER_BASE_ADDRESS_MASK 0xffffffff
+linux-technicolor-tc7200/drivers/gpu/drm/amd/include/asic_reg/dce/dce_11_0_sh_mask.h:12702:#define OUTPUT_STREAM_DESCRIPTOR_BDL_POINTER_UPPER_BASE_ADDRESS__BUFFER_DESCRIPTOR_LIST_UPPER_BASE_ADDRESS__SHIFT 0x0
+linux-technicolor-tc7200/drivers/gpu/drm/amd/include/asic_reg/dce/dce_11_0_d.h:6733:#define mmOUTPUT_STREAM_DESCRIPTOR_BDL_POINTER_LOWER_BASE_ADDRESS               0x26
+linux-technicolor-tc7200/drivers/gpu/drm/amd/include/asic_reg/dce/dce_11_0_d.h:6734:#define mmOUTPUT_STREAM_DESCRIPTOR_BDL_POINTER_UPPER_BASE_ADDRESS               0x27
+linux-technicolor-tc7200/drivers/gpu/drm/amd/include/asic_reg/dce/dce_10_0_sh_mask.h:12691:#define OUTPUT_STREAM_DESCRIPTOR_BDL_POINTER_LOWER_BASE_ADDRESS__BUFFER_DESCRIPTOR_LIST_LOWER_BASE_ADDRESS_UNIMPLEMENTED_BITS_MASK 0x7f
+linux-technicolor-tc7200/drivers/gpu/drm/amd/include/asic_reg/dce/dce_10_0_sh_mask.h:12692:#define OUTPUT_STREAM_DESCRIPTOR_BDL_POINTER_LOWER_BASE_ADDRESS__BUFFER_DESCRIPTOR_LIST_LOWER_BASE_ADDRESS_UNIMPLEMENTED_BITS__SHIFT 0x0
+linux-technicolor-tc7200/drivers/gpu/drm/amd/include/asic_reg/dce/dce_10_0_sh_mask.h:12693:#define OUTPUT_STREAM_DESCRIPTOR_BDL_POINTER_LOWER_BASE_ADDRESS__BUFFER_DESCRIPTOR_LIST_LOWER_BASE_ADDRESS_MASK 0xffffff80
+linux-technicolor-tc7200/drivers/gpu/drm/amd/include/asic_reg/dce/dce_10_0_sh_mask.h:12694:#define OUTPUT_STREAM_DESCRIPTOR_BDL_POINTER_LOWER_BASE_ADDRESS__BUFFER_DESCRIPTOR_LIST_LOWER_BASE_ADDRESS__SHIFT 0x7
+linux-technicolor-tc7200/drivers/gpu/drm/amd/include/asic_reg/dce/dce_10_0_sh_mask.h:12695:#define OUTPUT_STREAM_DESCRIPTOR_BDL_POINTER_UPPER_BASE_ADDRESS__BUFFER_DESCRIPTOR_LIST_UPPER_BASE_ADDRESS_MASK 0xffffffff
+linux-technicolor-tc7200/drivers/gpu/drm/amd/include/asic_reg/dce/dce_10_0_sh_mask.h:12696:#define OUTPUT_STREAM_DESCRIPTOR_BDL_POINTER_UPPER_BASE_ADDRESS__BUFFER_DESCRIPTOR_LIST_UPPER_BASE_ADDRESS__SHIFT 0x0
+linux-technicolor-tc7200/drivers/gpu/drm/amd/include/asic_reg/dce/dce_10_0_d.h:6571:#define mmOUTPUT_STREAM_DESCRIPTOR_BDL_POINTER_LOWER_BASE_ADDRESS               0x26
+linux-technicolor-tc7200/drivers/gpu/drm/amd/include/asic_reg/dce/dce_10_0_d.h:6572:#define mmOUTPUT_STREAM_DESCRIPTOR_BDL_POINTER_UPPER_BASE_ADDRESS               0x27
+linux-technicolor-tc7200/drivers/gpu/drm/amd/include/asic_reg/dce/dce_11_2_sh_mask.h:13313:#define OUTPUT_STREAM_DESCRIPTOR_BDL_POINTER_LOWER_BASE_ADDRESS__BUFFER_DESCRIPTOR_LIST_LOWER_BASE_ADDRESS_UNIMPLEMENTED_BITS_MASK 0x7f
+linux-technicolor-tc7200/drivers/gpu/drm/amd/include/asic_reg/dce/dce_11_2_sh_mask.h:13314:#define OUTPUT_STREAM_DESCRIPTOR_BDL_POINTER_LOWER_BASE_ADDRESS__BUFFER_DESCRIPTOR_LIST_LOWER_BASE_ADDRESS_UNIMPLEMENTED_BITS__SHIFT 0x0
+linux-technicolor-tc7200/drivers/gpu/drm/amd/include/asic_reg/dce/dce_11_2_sh_mask.h:13315:#define OUTPUT_STREAM_DESCRIPTOR_BDL_POINTER_LOWER_BASE_ADDRESS__BUFFER_DESCRIPTOR_LIST_LOWER_BASE_ADDRESS_MASK 0xffffff80
+linux-technicolor-tc7200/drivers/gpu/drm/amd/include/asic_reg/dce/dce_11_2_sh_mask.h:13316:#define OUTPUT_STREAM_DESCRIPTOR_BDL_POINTER_LOWER_BASE_ADDRESS__BUFFER_DESCRIPTOR_LIST_LOWER_BASE_ADDRESS__SHIFT 0x7
+linux-technicolor-tc7200/drivers/gpu/drm/amd/include/asic_reg/dce/dce_11_2_sh_mask.h:13317:#define OUTPUT_STREAM_DESCRIPTOR_BDL_POINTER_UPPER_BASE_ADDRESS__BUFFER_DESCRIPTOR_LIST_UPPER_BASE_ADDRESS_MASK 0xffffffff
+linux-technicolor-tc7200/drivers/gpu/drm/amd/include/asic_reg/dce/dce_11_2_sh_mask.h:13318:#define OUTPUT_STREAM_DESCRIPTOR_BDL_POINTER_UPPER_BASE_ADDRESS__BUFFER_DESCRIPTOR_LIST_UPPER_BASE_ADDRESS__SHIFT 0x0
+linux-technicolor-tc7200/drivers/gpu/drm/amd/include/asic_reg/dce/dce_8_0_sh_mask.h:11589:#define OUTPUT_STREAM_DESCRIPTOR_BDL_POINTER_LOWER_BASE_ADDRESS__BUFFER_DESCRIPTOR_LIST_LOWER_BASE_ADDRESS_UNIMPLEMENTED_BITS_MASK 0x7f
+linux-technicolor-tc7200/drivers/gpu/drm/amd/include/asic_reg/dce/dce_8_0_sh_mask.h:11590:#define OUTPUT_STREAM_DESCRIPTOR_BDL_POINTER_LOWER_BASE_ADDRESS__BUFFER_DESCRIPTOR_LIST_LOWER_BASE_ADDRESS_UNIMPLEMENTED_BITS__SHIFT 0x0
+linux-technicolor-tc7200/drivers/gpu/drm/amd/include/asic_reg/dce/dce_8_0_sh_mask.h:11591:#define OUTPUT_STREAM_DESCRIPTOR_BDL_POINTER_LOWER_BASE_ADDRESS__BUFFER_DESCRIPTOR_LIST_LOWER_BASE_ADDRESS_MASK 0xffffff80
+linux-technicolor-tc7200/drivers/gpu/drm/amd/include/asic_reg/dce/dce_8_0_sh_mask.h:11592:#define OUTPUT_STREAM_DESCRIPTOR_BDL_POINTER_LOWER_BASE_ADDRESS__BUFFER_DESCRIPTOR_LIST_LOWER_BASE_ADDRESS__SHIFT 0x7
+linux-technicolor-tc7200/drivers/gpu/drm/amd/include/asic_reg/dce/dce_8_0_sh_mask.h:11593:#define OUTPUT_STREAM_DESCRIPTOR_BDL_POINTER_UPPER_BASE_ADDRESS__BUFFER_DESCRIPTOR_LIST_UPPER_BASE_ADDRESS_MASK 0xffffffff
+linux-technicolor-tc7200/drivers/gpu/drm/amd/include/asic_reg/dce/dce_8_0_sh_mask.h:11594:#define OUTPUT_STREAM_DESCRIPTOR_BDL_POINTER_UPPER_BASE_ADDRESS__BUFFER_DESCRIPTOR_LIST_UPPER_BASE_ADDRESS__SHIFT 0x0
+linux-technicolor-tc7200/drivers/gpu/drm/amd/include/asic_reg/dce/dce_8_0_d.h:5337:#define mmOUTPUT_STREAM_DESCRIPTOR_BDL_POINTER_LOWER_BASE_ADDRESS               0x26
+linux-technicolor-tc7200/drivers/gpu/drm/amd/include/asic_reg/dce/dce_8_0_d.h:5338:#define mmOUTPUT_STREAM_DESCRIPTOR_BDL_POINTER_UPPER_BASE_ADDRESS               0x27
+linux-technicolor-tc7200/drivers/gpu/drm/amd/include/asic_reg/dce/dce_11_2_d.h:8078:#define mmOUTPUT_STREAM_DESCRIPTOR_BDL_POINTER_LOWER_BASE_ADDRESS               0x26
+linux-technicolor-tc7200/drivers/gpu/drm/amd/include/asic_reg/dce/dce_11_2_d.h:8079:#define mmOUTPUT_STREAM_DESCRIPTOR_BDL_POINTER_UPPER_BASE_ADDRESS               0x27
+linux-technicolor-tc7200/drivers/mmc/host/meson-gx-mmc.c:68:#define   START_DESC_ADDR_SHIFT 2
+linux-technicolor-tc7200/drivers/mmc/host/meson-gx-mmc.c:69:#define   START_DESC_ADDR_MASK (~0x3)
+linux-technicolor-tc7200/drivers/tty/serial/ioc4_serial.c:386:#define RING_BUF_SIZE 1024
+linux-technicolor-tc7200/drivers/tty/serial/ioc4_serial.c:390:#define RING_BUF_SIZE 4096
+linux-technicolor-tc7200/drivers/tty/serial/ioc4_serial.c:395:#define TOTAL_RING_BUF_SIZE (RING_BUF_SIZE * 4)
+linux-technicolor-tc7200/drivers/tty/serial/ioc4_serial.c:613:#define ENTRIES_PER_RING (RING_BUF_SIZE / (int) sizeof(struct ring_entry))
+linux-technicolor-tc7200/drivers/tty/serial/ioc4_serial.c:1152:					(pdev, TOTAL_RING_BUF_SIZE,
+linux-technicolor-tc7200/drivers/tty/serial/ioc4_serial.c:1157:				(TOTAL_RING_BUF_SIZE - 1)) == 0));
+linux-technicolor-tc7200/drivers/tty/serial/ioc4_serial.c:2681:					TOTAL_RING_BUF_SIZE,
+linux-technicolor-tc7200/drivers/tty/serial/ioc3_serial.c:116:#define RING_BUF_SIZE		4096
+linux-technicolor-tc7200/drivers/tty/serial/ioc3_serial.c:120:#define TOTAL_RING_BUF_SIZE	(RING_BUF_SIZE * 4)
+linux-technicolor-tc7200/drivers/tty/serial/ioc3_serial.c:281:#define ENTRIES_PER_RING (RING_BUF_SIZE / (int) sizeof(struct ring_entry))
+linux-technicolor-tc7200/drivers/tty/serial/ioc3_serial.c:1989:					TOTAL_RING_BUF_SIZE,
+linux-technicolor-tc7200/drivers/tty/serial/ioc3_serial.c:2077:				TOTAL_RING_BUF_SIZE, &port->ip_dma_ringbuf);
+linux-technicolor-tc7200/drivers/tty/serial/ioc3_serial.c:2080:				  (TOTAL_RING_BUF_SIZE - 1)) == 0));
+linux-technicolor-tc7200/drivers/input/mouse/cyapa.h:167:#define PIP_HID_DESCRIPTOR_ADDR		0x0001
+linux-technicolor-tc7200/drivers/input/mouse/cyapa.h:168:#define PIP_REPORT_DESCRIPTOR_ADDR	0x0002
+linux-technicolor-tc7200/drivers/vhost/vhost.c:770:				     VHOST_ADDR_DESC);
+linux-technicolor-tc7200/drivers/vhost/vhost.c:804:				     VHOST_ADDR_DESC);
+linux-technicolor-tc7200/drivers/vhost/vhost.c:1228:			       num * sizeof(*vq->desc), VHOST_ADDR_DESC) &&
+linux-technicolor-tc7200/drivers/vhost/vhost.h:80:	VHOST_ADDR_DESC = 0,
+linux-technicolor-tc7200/drivers/usb/serial/io_usbvend.h:375:#define	EDGE_MANUF_DESC_ADDR_V1		0x00FF7F00
+linux-technicolor-tc7200/drivers/usb/serial/io_usbvend.h:380:#define	EDGE_MANUF_DESC_ADDR		0x00FF7C00
+linux-technicolor-tc7200/drivers/usb/serial/io_usbvend.h:384:#define	EDGE_BOOT_DESC_ADDR		0x00FF7FC0
+linux-technicolor-tc7200/drivers/usb/serial/io_edgeport.c:2668:				(EDGE_MANUF_DESC_ADDR & 0xffff0000) >> 16,
+linux-technicolor-tc7200/drivers/usb/serial/io_edgeport.c:2669:				(__u16)(EDGE_MANUF_DESC_ADDR & 0x0000ffff),
+linux-technicolor-tc7200/drivers/usb/serial/io_edgeport.c:2728:				(EDGE_BOOT_DESC_ADDR & 0xffff0000) >> 16,
+linux-technicolor-tc7200/drivers/usb/serial/io_edgeport.c:2729:				(__u16)(EDGE_BOOT_DESC_ADDR & 0x0000ffff),
+linux-technicolor-tc7200/drivers/usb/musb/cppi_dma.h:61:	u32		hw_options;	/* flags:  SOP, EOP etc*/
+linux-technicolor-tc7200/drivers/usb/musb/cppi_dma.c:553: * problems trying to use the SOP/EOP bits in different USB packets.
+linux-technicolor-tc7200/drivers/usb/musb/cppi_dma.c:633:			bd->hw_options = CPPI_SOP_SET | CPPI_EOP_SET
+linux-technicolor-tc7200/drivers/usb/musb/cppi_dma.c:643:			bd->hw_options = CPPI_SOP_SET | CPPI_EOP_SET
+linux-technicolor-tc7200/drivers/usb/musb/cppi_dma.c:688: *   ignores SOP/EOP markings and processes both of those BDs; so both packets
+linux-technicolor-tc7200/drivers/usb/musb/cppi_dma.c:690: *   buffer queued will NOT get its 300 bytes of data. (It seems like SOP/EOP
+linux-technicolor-tc7200/drivers/usb/musb/cppi_dma.c:880:	 * NOTE that current hardware seems to ignore SOP and EOP.
+linux-technicolor-tc7200/drivers/usb/c67x00/c67x00.h:183:#define CY_UDC_DESC_BASE_ADDRESS	(CY_UDC_REQ_HEADER_ADDR(8))
+linux-technicolor-tc7200/drivers/usb/gadget/udc/bcm63xx_udc.c:596: * does not honor SOP/EOP so the handling of multiple buffers is ambiguous.
+linux-technicolor-tc7200/drivers/usb/gadget/udc/gr_udc.h:140:#define GR_DESC_DMAADDR_MASK		0xfffffffc
+linux-technicolor-tc7200/drivers/usb/core/hub.c:4414:	/* Why interleave GET_DESCRIPTOR and SET_ADDRESS this way?
+linux-technicolor-tc7200/drivers/block/umem.h:69:#define DMA_DESCRIPTOR_ADDR	0x58
+linux-technicolor-tc7200/drivers/block/umem.c:291:	       card->csr_remap + DMA_DESCRIPTOR_ADDR);
+linux-technicolor-tc7200/drivers/block/umem.c:295:	       card->csr_remap + DMA_DESCRIPTOR_ADDR + 4);
+linux-technicolor-tc7200/drivers/message/fusion/lsi/mpi.h:233:#define MPI_REQ_MF_DESCRIPTOR_ADDRESS_MASK  (0xFFFFFFF8)
+linux-technicolor-tc7200/drivers/infiniband/hw/cxgb3/iwch_qp.c:446:			       (wr_cnt == 1) ? T3_SOPEOP : T3_SOP);
+linux-technicolor-tc7200/drivers/infiniband/hw/cxgb3/iwch_qp.c:510:			       0, sizeof(struct t3_receive_wr) >> 3, T3_SOPEOP);
+linux-technicolor-tc7200/drivers/infiniband/hw/cxgb3/cxio_wr.h:142:#define S_FW_RIWR_SOPEOP	22
+linux-technicolor-tc7200/drivers/infiniband/hw/cxgb3/cxio_wr.h:143:#define M_FW_RIWR_SOPEOP	0x3
+linux-technicolor-tc7200/drivers/infiniband/hw/cxgb3/cxio_wr.h:144:#define V_FW_RIWR_SOPEOP(x)	((x) << S_FW_RIWR_SOPEOP)
+linux-technicolor-tc7200/drivers/infiniband/hw/cxgb3/cxio_wr.h:424:	T3_SOPEOP = T3_EOP|T3_SOP,
+linux-technicolor-tc7200/drivers/infiniband/hw/cxgb3/cxio_wr.h:432:					 V_FW_RIWR_SOPEOP(sopeop) |
+linux-technicolor-tc7200/drivers/infiniband/hw/cxgb3/cxio_hal.c:150:		       T3_SOPEOP);
+linux-technicolor-tc7200/drivers/infiniband/hw/cxgb3/cxio_hal.c:568:		       T3_CTL_QP_TID, 7, T3_SOPEOP);
+linux-technicolor-tc7200/drivers/infiniband/hw/cxgb3/cxio_hal.c:684:			       wr_len, T3_SOPEOP);
+linux-technicolor-tc7200/drivers/infiniband/hw/hfi1/sdma.c:2149:		addr = (desc[0] >> SDMA_DESC0_PHY_ADDR_SHIFT)
+linux-technicolor-tc7200/drivers/infiniband/hw/hfi1/sdma.c:2150:			& SDMA_DESC0_PHY_ADDR_MASK;
+linux-technicolor-tc7200/drivers/infiniband/hw/hfi1/sdma.c:2232:		addr = (desc[0] >> SDMA_DESC0_PHY_ADDR_SHIFT)
+linux-technicolor-tc7200/drivers/infiniband/hw/hfi1/sdma.c:2233:			& SDMA_DESC0_PHY_ADDR_MASK;
+linux-technicolor-tc7200/drivers/infiniband/hw/hfi1/chip_registers.h:680:#define RCV_ERR_STATUS_RX_DC_SOP_EOP_PARITY_ERR_SMASK 0x200ull
+linux-technicolor-tc7200/drivers/infiniband/hw/hfi1/chip.c:720:/* 9*/	FLAG_ENTRY0("RxDcSopEopParityErr", RXES(DC_SOP_EOP_PARITY)),
+linux-technicolor-tc7200/drivers/infiniband/hw/hfi1/chip.c:4529:[C_RX_DC_SOP_EOP_PARITY_ERR] = CNTR_ELEM("RxDcSopEopParityErr", 0, 0,
+linux-technicolor-tc7200/drivers/infiniband/hw/hfi1/chip.h:984:	C_RX_DC_SOP_EOP_PARITY_ERR,
+linux-technicolor-tc7200/drivers/infiniband/hw/hfi1/trace_tx.h:167:	    (__entry->desc0 >> SDMA_DESC0_PHY_ADDR_SHIFT) &
+linux-technicolor-tc7200/drivers/infiniband/hw/hfi1/trace_tx.h:168:	    SDMA_DESC0_PHY_ADDR_MASK,
+linux-technicolor-tc7200/drivers/infiniband/hw/hfi1/sdma.h:115:#define SDMA_DESC0_PHY_ADDR_SHIFT       0
+linux-technicolor-tc7200/drivers/infiniband/hw/hfi1/sdma.h:116:#define SDMA_DESC0_PHY_ADDR_WIDTH       48
+linux-technicolor-tc7200/drivers/infiniband/hw/hfi1/sdma.h:117:#define SDMA_DESC0_PHY_ADDR_MASK \
+linux-technicolor-tc7200/drivers/infiniband/hw/hfi1/sdma.h:118:	((1ULL << SDMA_DESC0_PHY_ADDR_WIDTH) - 1)
+linux-technicolor-tc7200/drivers/infiniband/hw/hfi1/sdma.h:119:#define SDMA_DESC0_PHY_ADDR_SMASK \
+linux-technicolor-tc7200/drivers/infiniband/hw/hfi1/sdma.h:120:	(SDMA_DESC0_PHY_ADDR_MASK << SDMA_DESC0_PHY_ADDR_SHIFT)
+linux-technicolor-tc7200/drivers/infiniband/hw/hfi1/sdma.h:638:	return (d->qw[0] & SDMA_DESC0_PHY_ADDR_SMASK)
+linux-technicolor-tc7200/drivers/infiniband/hw/hfi1/sdma.h:639:		>> SDMA_DESC0_PHY_ADDR_SHIFT;
+linux-technicolor-tc7200/drivers/infiniband/hw/hfi1/sdma.h:659:	desc->qw[0] |= (((u64)addr & SDMA_DESC0_PHY_ADDR_MASK)
+linux-technicolor-tc7200/drivers/infiniband/hw/hfi1/sdma.h:660:				<< SDMA_DESC0_PHY_ADDR_SHIFT) |
+linux-technicolor-tc7200/drivers/infiniband/hw/qib/qib_iba7322.c:1009:#define QIB_E_P_SDMADESCADDRMISALIGN ERR_MASK_N(SDmaDescAddrMisalignErr)
+linux-technicolor-tc7200/drivers/infiniband/hw/qib/qib_iba7322.c:1093:	QIB_E_P_SDMADESCADDRMISALIGN | \
+linux-technicolor-tc7200/drivers/infiniband/hw/qib/qib_iba7322.c:1570:	QIB_E_P_SDMADESCADDRMISALIGN | \
+linux-technicolor-tc7200/drivers/net/wan/farsync.c:168:#define DMA_OWN         0x80	/* SmartDMA owns the descriptor */
+linux-technicolor-tc7200/drivers/net/wan/farsync.c:831:		DMA_OWN | TX_STP | TX_ENP);
+linux-technicolor-tc7200/drivers/net/wan/farsync.c:863:	FST_WRB(card, rxDescrRing[pi][rxp].bits, DMA_OWN);
+linux-technicolor-tc7200/drivers/net/wan/farsync.c:1027:		FST_WRB(card, rxDescrRing[pi][i].bits, DMA_OWN);
+linux-technicolor-tc7200/drivers/net/wan/farsync.c:1181:	while ((dmabits & (DMA_OWN | RX_STP)) == 0) {
+linux-technicolor-tc7200/drivers/net/wan/farsync.c:1182:		FST_WRB(card, rxDescrRing[pi][rxp].bits, DMA_OWN);
+linux-technicolor-tc7200/drivers/net/wan/farsync.c:1195:	if (!(dmabits & DMA_OWN)) {
+linux-technicolor-tc7200/drivers/net/wan/farsync.c:1196:		FST_WRB(card, rxDescrRing[pi][rxp].bits, DMA_OWN);
+linux-technicolor-tc7200/drivers/net/wan/farsync.c:1221:	if (dmabits & DMA_OWN) {
+linux-technicolor-tc7200/drivers/net/wan/farsync.c:1242:		FST_WRB(card, rxDescrRing[pi][rxp].bits, DMA_OWN);
+linux-technicolor-tc7200/drivers/net/wan/farsync.c:1267:		FST_WRB(card, rxDescrRing[pi][rxp].bits, DMA_OWN);
+linux-technicolor-tc7200/drivers/net/wan/farsync.c:1286:		FST_WRB(card, rxDescrRing[pi][rxp].bits, DMA_OWN);
+linux-technicolor-tc7200/drivers/net/wan/farsync.c:1345:			 DMA_OWN) &&
+linux-technicolor-tc7200/drivers/net/wan/farsync.c:1349:			 * We seem to have to deduce it, by checking the DMA_OWN
+linux-technicolor-tc7200/drivers/net/wan/farsync.c:1389:						DMA_OWN | TX_STP | TX_ENP);
+linux-technicolor-tc7200/drivers/net/wan/farsync.c:1443:			 & DMA_OWN) && !(card->dmarx_in_progress)) {
+linux-technicolor-tc7200/drivers/net/fddi/defxx.h:85:#define PI_FMC_DESCR_V_FSB_ADDR_RECOG	25
+linux-technicolor-tc7200/drivers/net/fddi/defxx.h:86:#define PI_FMC_DESCR_V_FSB_ADDR_COPIED	24
+linux-technicolor-tc7200/drivers/net/fddi/defxx.h:100:#define PI_FMC_DESCR_M_FSB_ADDR_RECOG	0x02000000
+linux-technicolor-tc7200/drivers/net/fddi/defxx.h:101:#define PI_FMC_DESCR_M_FSB_ADDR_COPIED	0x01000000
+linux-technicolor-tc7200/drivers/net/fddi/defxx.h:1233:#define PI_PDATA_A_INIT_M_DESC_BLK_ADDR			0x0FFFFE000
+linux-technicolor-tc7200/drivers/net/fddi/defxx.h:1238:#define PI_PDATA_A_INIT_V_DESC_BLK_ADDR			13
+linux-technicolor-tc7200/drivers/net/fddi/defxx.c:3407:	p_xmt_descr->long_0	= (u32) (PI_XMT_DESCR_M_SOP | PI_XMT_DESCR_M_EOP | ((skb->len) << PI_XMT_DESCR_V_SEG_LEN));
+linux-technicolor-tc7200/drivers/net/fddi/skfp/h/skfbi.h:352:#define B2_DESC_ADDR_H	0x0150	/* (ML) 32 bit	Desciptor Base Addr Reg High */
+linux-technicolor-tc7200/drivers/net/fddi/skfp/h/skfbi.h:672:/*	B2_DESC_ADDR_H	0x0150	(ML)	32 bit	Desciptor Base Addr Reg High */
+linux-technicolor-tc7200/drivers/net/ethernet/seeq/sgiseeq.c:175:#define RCNTCFG_INIT  (HPCDMA_OWN | HPCDMA_EORP | HPCDMA_XIE)
+linux-technicolor-tc7200/drivers/net/ethernet/seeq/sgiseeq.c:350:	while (!(rd->rdma.cntinfo & HPCDMA_OWN)) {
+linux-technicolor-tc7200/drivers/net/ethernet/rocker/rocker_main.c:459:	rocker_write64(rocker, DMA_DESC_ADDR(info->type), info->mapaddr);
+linux-technicolor-tc7200/drivers/net/ethernet/rocker/rocker_main.c:468:	rocker_write64(rocker, DMA_DESC_ADDR(info->type), 0);
+linux-technicolor-tc7200/drivers/net/ethernet/rocker/rocker_hw.h:73:#define ROCKER_DMA_DESC_ADDR(x)		(0x1000 + (x) * 32)  /* 8-byte */
+linux-technicolor-tc7200/drivers/net/ethernet/aurora/nb8800.h:105:#define NB8800_TX_DESC_ADDR		0x10c
+linux-technicolor-tc7200/drivers/net/ethernet/aurora/nb8800.h:138:#define NB8800_RX_DESC_ADDR		0x20c
+linux-technicolor-tc7200/drivers/net/ethernet/aurora/nb8800.c:374:	nb8800_writel(priv, NB8800_TX_DESC_ADDR, txb->dma_desc);
+linux-technicolor-tc7200/drivers/net/ethernet/aurora/nb8800.c:830:	nb8800_writel(priv, NB8800_RX_DESC_ADDR, priv->rx_desc_dma);
+linux-technicolor-tc7200/drivers/net/ethernet/aurora/nb8800.c:920:		nb8800_writel(priv, NB8800_TX_DESC_ADDR, txb->dma_desc);
+linux-technicolor-tc7200/drivers/net/ethernet/pasemi/pasemi_mac.c:746:		dma = (RX_DESC(rx, n+2) & XCT_PTR_ADDR_M);
+linux-technicolor-tc7200/drivers/net/ethernet/pasemi/pasemi_mac.c:1391:	CS_DESC(csring, fill) = XCT_PTR_LEN(map_size[0]-nh_off) | XCT_PTR_ADDR(map[0]+nh_off);
+linux-technicolor-tc7200/drivers/net/ethernet/pasemi/pasemi_mac.c:1393:		CS_DESC(csring, fill+i) = XCT_PTR_LEN(map_size[i]) | XCT_PTR_ADDR(map[i]);
+linux-technicolor-tc7200/drivers/net/ethernet/pasemi/pasemi_mac.c:1403:	CS_DESC(csring, fill++) = XCT_PTR_LEN(2) | XCT_PTR_ADDR(cs_dest) | XCT_PTR_T;
+linux-technicolor-tc7200/drivers/net/ethernet/pasemi/pasemi_mac.c:1404:	CS_DESC(csring, fill++) = XCT_PTR_LEN(2) | XCT_PTR_ADDR(csdma);
+linux-technicolor-tc7200/drivers/net/ethernet/marvell/mvpp2.c:101:#define MVPP2_RXQ_DESC_ADDR_REG			0x2044
+linux-technicolor-tc7200/drivers/net/ethernet/marvell/mvpp2.c:116:#define MVPP2_TXQ_DESC_ADDR_REG			0x2084
+linux-technicolor-tc7200/drivers/net/ethernet/marvell/mvpp2.c:142:#define MVPP2_AGGR_TXQ_DESC_ADDR_REG(cpu)	(0x2100 + 4 * (cpu))
+linux-technicolor-tc7200/drivers/net/ethernet/marvell/mvpp2.c:4545:	mvpp2_write(priv, MVPP2_AGGR_TXQ_DESC_ADDR_REG(cpu),
+linux-technicolor-tc7200/drivers/net/ethernet/marvell/mvpp2.c:4573:	mvpp2_write(port->priv, MVPP2_RXQ_DESC_ADDR_REG, rxq->descs_phys);
+linux-technicolor-tc7200/drivers/net/ethernet/marvell/mvpp2.c:4632:	mvpp2_write(port->priv, MVPP2_RXQ_DESC_ADDR_REG, 0);
+linux-technicolor-tc7200/drivers/net/ethernet/marvell/mvpp2.c:4657:	mvpp2_write(port->priv, MVPP2_TXQ_DESC_ADDR_REG, txq->descs_phys);
+linux-technicolor-tc7200/drivers/net/ethernet/marvell/mvpp2.c:4751:	mvpp2_write(port->priv, MVPP2_TXQ_DESC_ADDR_REG, 0);
+linux-technicolor-tc7200/drivers/net/ethernet/nvidia/forcedeth.c:6265:		.driver_data = DEV_NEED_LINKTIMER|DEV_HAS_LARGEDESC|DEV_HAS_HIGH_DMA|DEV_HAS_POWER_CNTRL|DEV_HAS_MSI|DEV_HAS_PAUSEFRAME_TX_V1|DEV_HAS_STATISTICS_V12|DEV_HAS_TEST_EXTENDED|DEV_HAS_MGMT_UNIT|DEV_HAS_CORRECT_MACADDR|DEV_NEED_TX_LIMIT|DEV_HAS_GEAR_MODE|DEV_NEED_MSI_FIX,
+linux-technicolor-tc7200/drivers/net/ethernet/nvidia/forcedeth.c:6269:		.driver_data = DEV_NEED_LINKTIMER|DEV_HAS_LARGEDESC|DEV_HAS_HIGH_DMA|DEV_HAS_POWER_CNTRL|DEV_HAS_MSI|DEV_HAS_PAUSEFRAME_TX_V1|DEV_HAS_STATISTICS_V12|DEV_HAS_TEST_EXTENDED|DEV_HAS_MGMT_UNIT|DEV_HAS_CORRECT_MACADDR|DEV_NEED_TX_LIMIT|DEV_HAS_GEAR_MODE|DEV_NEED_MSI_FIX,
+linux-technicolor-tc7200/drivers/net/ethernet/nvidia/forcedeth.c:6273:		.driver_data = DEV_NEED_LINKTIMER|DEV_HAS_LARGEDESC|DEV_HAS_HIGH_DMA|DEV_HAS_POWER_CNTRL|DEV_HAS_MSI|DEV_HAS_PAUSEFRAME_TX_V1|DEV_HAS_STATISTICS_V12|DEV_HAS_TEST_EXTENDED|DEV_HAS_MGMT_UNIT|DEV_HAS_CORRECT_MACADDR|DEV_NEED_TX_LIMIT|DEV_HAS_GEAR_MODE|DEV_NEED_MSI_FIX,
+linux-technicolor-tc7200/drivers/net/ethernet/nvidia/forcedeth.c:6277:		.driver_data = DEV_NEED_LINKTIMER|DEV_HAS_LARGEDESC|DEV_HAS_HIGH_DMA|DEV_HAS_POWER_CNTRL|DEV_HAS_MSI|DEV_HAS_PAUSEFRAME_TX_V1|DEV_HAS_STATISTICS_V12|DEV_HAS_TEST_EXTENDED|DEV_HAS_MGMT_UNIT|DEV_HAS_CORRECT_MACADDR|DEV_NEED_TX_LIMIT|DEV_HAS_GEAR_MODE|DEV_NEED_MSI_FIX,
+linux-technicolor-tc7200/drivers/net/ethernet/nvidia/forcedeth.c:6329:		.driver_data = DEV_NEED_LINKTIMER|DEV_HAS_LARGEDESC|DEV_HAS_CHECKSUM|DEV_HAS_HIGH_DMA|DEV_HAS_MSI|DEV_HAS_POWER_CNTRL|DEV_HAS_PAUSEFRAME_TX_V3|DEV_HAS_STATISTICS_V123|DEV_HAS_TEST_EXTENDED|DEV_HAS_CORRECT_MACADDR|DEV_HAS_COLLISION_FIX|DEV_NEED_TX_LIMIT2|DEV_HAS_GEAR_MODE|DEV_NEED_PHY_INIT_FIX|DEV_NEED_MSI_FIX,
+linux-technicolor-tc7200/drivers/net/ethernet/nvidia/forcedeth.c:6333:		.driver_data = DEV_NEED_LINKTIMER|DEV_HAS_LARGEDESC|DEV_HAS_CHECKSUM|DEV_HAS_HIGH_DMA|DEV_HAS_MSI|DEV_HAS_POWER_CNTRL|DEV_HAS_PAUSEFRAME_TX_V3|DEV_HAS_STATISTICS_V123|DEV_HAS_TEST_EXTENDED|DEV_HAS_CORRECT_MACADDR|DEV_HAS_COLLISION_FIX|DEV_NEED_TX_LIMIT2|DEV_HAS_GEAR_MODE|DEV_NEED_PHY_INIT_FIX|DEV_NEED_MSI_FIX,
+linux-technicolor-tc7200/drivers/net/ethernet/nvidia/forcedeth.c:6337:		.driver_data = DEV_NEED_LINKTIMER|DEV_HAS_LARGEDESC|DEV_HAS_CHECKSUM|DEV_HAS_HIGH_DMA|DEV_HAS_MSI|DEV_HAS_POWER_CNTRL|DEV_HAS_PAUSEFRAME_TX_V3|DEV_HAS_STATISTICS_V123|DEV_HAS_TEST_EXTENDED|DEV_HAS_CORRECT_MACADDR|DEV_HAS_COLLISION_FIX|DEV_NEED_TX_LIMIT2|DEV_HAS_GEAR_MODE|DEV_NEED_PHY_INIT_FIX|DEV_NEED_MSI_FIX,
+linux-technicolor-tc7200/drivers/net/ethernet/nvidia/forcedeth.c:6341:		.driver_data = DEV_NEED_LINKTIMER|DEV_HAS_LARGEDESC|DEV_HAS_CHECKSUM|DEV_HAS_HIGH_DMA|DEV_HAS_MSI|DEV_HAS_POWER_CNTRL|DEV_HAS_PAUSEFRAME_TX_V3|DEV_HAS_STATISTICS_V123|DEV_HAS_TEST_EXTENDED|DEV_HAS_CORRECT_MACADDR|DEV_HAS_COLLISION_FIX|DEV_NEED_TX_LIMIT2|DEV_HAS_GEAR_MODE|DEV_NEED_PHY_INIT_FIX|DEV_NEED_MSI_FIX,
+linux-technicolor-tc7200/drivers/net/ethernet/nvidia/forcedeth.c:6345:		.driver_data = DEV_NEED_LINKTIMER|DEV_HAS_LARGEDESC|DEV_HAS_CHECKSUM|DEV_HAS_HIGH_DMA|DEV_HAS_MSI|DEV_HAS_POWER_CNTRL|DEV_HAS_PAUSEFRAME_TX_V3|DEV_HAS_STATISTICS_V123|DEV_HAS_TEST_EXTENDED|DEV_HAS_CORRECT_MACADDR|DEV_HAS_COLLISION_FIX|DEV_HAS_GEAR_MODE|DEV_NEED_PHY_INIT_FIX,
+linux-technicolor-tc7200/drivers/net/ethernet/ti/cpmac.c:574:	desc->dataflags = CPMAC_SOP | CPMAC_EOP | CPMAC_OWN;
+linux-technicolor-tc7200/drivers/net/ethernet/ti/davinci_cpdma.c:1076:	mode = CPDMA_DESC_OWNER | CPDMA_DESC_SOP | CPDMA_DESC_EOP;
+linux-technicolor-tc7200/drivers/net/ethernet/mediatek/mtk_eth_soc.c:730:		itxd->txd3 = TX_DMA_LS0 | TX_DMA_OWNER_CPU;
+linux-technicolor-tc7200/drivers/net/ethernet/mediatek/mtk_eth_soc.c:1018:		if ((desc->txd3 & TX_DMA_OWNER_CPU) == 0)
+linux-technicolor-tc7200/drivers/net/ethernet/mediatek/mtk_eth_soc.c:1160:		ring->dma[i].txd3 = TX_DMA_LS0 | TX_DMA_OWNER_CPU;
+linux-technicolor-tc7200/drivers/net/ethernet/mediatek/mtk_eth_soc.h:265:#define TX_DMA_OWNER_CPU	BIT(31)
+linux-technicolor-tc7200/drivers/net/ethernet/qualcomm/emac/emac-mac.c:313:		EMAC_DESC_CTRL_8,        EMAC_H1TPD_BASE_ADDR_LO,
+linux-technicolor-tc7200/drivers/net/ethernet/qualcomm/emac/emac-mac.h:116: * {DESC_CTRL_11_TX_DATA_HIADDR[17:0],(register) BUFFER_ADDR_H, BUFFER_ADDR_L}
+linux-technicolor-tc7200/drivers/net/ethernet/calxeda/xgmac.c:317:#define TXDESC_2ND_ADDR_CHAINED	0x00100000
+linux-technicolor-tc7200/drivers/net/ethernet/sun/sunbmac.c:972:		(TXD_OWN | TXD_SOP | TXD_EOP | (len & TXD_LENGTH));
+linux-technicolor-tc7200/drivers/net/ethernet/sun/sunqe.c:598:		(TXD_OWN | TXD_SOP | TXD_EOP | (len & TXD_LENGTH));
+linux-technicolor-tc7200/drivers/net/ethernet/sun/niu.h:1705:#define  IPP_MSK_DFIFO_EOP_SOP		0x0000000000000040ULL
+linux-technicolor-tc7200/drivers/net/ethernet/sun/niu.h:2923:#define RBR_DESCR_ADDR_SHIFT	12
+linux-technicolor-tc7200/drivers/net/ethernet/sun/niu.c:3349:		*rbr = cpu_to_le32(addr >> RBR_DESCR_ADDR_SHIFT);
+linux-technicolor-tc7200/drivers/net/ethernet/sun/niu.c:6468:					base = base >> RBR_DESCR_ADDR_SHIFT;
+linux-technicolor-tc7200/drivers/net/ethernet/sun/sunhme.c:2324:		tx_flags |= (TXFLAG_SOP | TXFLAG_EOP);
+linux-technicolor-tc7200/drivers/net/ethernet/moxa/moxart_ether.h:30:#define TX_DESC0_DMA_OWN	0x80000000	/* owned by controller */
+linux-technicolor-tc7200/drivers/net/ethernet/moxa/moxart_ether.h:37:#define TX_DESC2_ADDRESS_PHYS	0
+linux-technicolor-tc7200/drivers/net/ethernet/moxa/moxart_ether.h:38:#define TX_DESC2_ADDRESS_VIRT	4
+linux-technicolor-tc7200/drivers/net/ethernet/moxa/moxart_ether.h:51:#define RX_DESC0_DMA_OWN	0x80000000
+linux-technicolor-tc7200/drivers/net/ethernet/moxa/moxart_ether.h:54:#define RX_DESC2_ADDRESS_PHYS	0
+linux-technicolor-tc7200/drivers/net/ethernet/moxa/moxart_ether.h:55:#define RX_DESC2_ADDRESS_VIRT	4
+linux-technicolor-tc7200/drivers/net/ethernet/moxa/moxart_ether.c:142:		moxart_desc_write(RX_DESC0_DMA_OWN, desc + RX_REG_OFFSET_DESC0);
+linux-technicolor-tc7200/drivers/net/ethernet/moxa/moxart_ether.c:155:		       desc + RX_REG_OFFSET_DESC2 + RX_DESC2_ADDRESS_PHYS);
+linux-technicolor-tc7200/drivers/net/ethernet/moxa/moxart_ether.c:157:		       desc + RX_REG_OFFSET_DESC2 + RX_DESC2_ADDRESS_VIRT);
+linux-technicolor-tc7200/drivers/net/ethernet/moxa/moxart_ether.c:224:		if (desc0 & RX_DESC0_DMA_OWN)
+linux-technicolor-tc7200/drivers/net/ethernet/moxa/moxart_ether.c:265:		moxart_desc_write(RX_DESC0_DMA_OWN, desc + RX_REG_OFFSET_DESC0);
+linux-technicolor-tc7200/drivers/net/ethernet/moxa/moxart_ether.c:334:	if (moxart_desc_read(desc + TX_REG_OFFSET_DESC0) & TX_DESC0_DMA_OWN) {
+linux-technicolor-tc7200/drivers/net/ethernet/moxa/moxart_ether.c:339:	rmb(); /* ensure data is only read that had TX_DESC0_DMA_OWN cleared */
+linux-technicolor-tc7200/drivers/net/ethernet/moxa/moxart_ether.c:354:	       desc + TX_REG_OFFSET_DESC2 + TX_DESC2_ADDRESS_PHYS);
+linux-technicolor-tc7200/drivers/net/ethernet/moxa/moxart_ether.c:356:	       desc + TX_REG_OFFSET_DESC2 + TX_DESC2_ADDRESS_VIRT);
+linux-technicolor-tc7200/drivers/net/ethernet/moxa/moxart_ether.c:372:	moxart_desc_write(TX_DESC0_DMA_OWN, desc + TX_REG_OFFSET_DESC0);
+linux-technicolor-tc7200/drivers/net/ethernet/faraday/ftmac100.c:215:	return rxdes->rxdes0 & cpu_to_le32(FTMAC100_RXDES0_RXDMA_OWN);
+linux-technicolor-tc7200/drivers/net/ethernet/faraday/ftmac100.c:221:	rxdes->rxdes0 = cpu_to_le32(FTMAC100_RXDES0_RXDMA_OWN);
+linux-technicolor-tc7200/drivers/net/ethernet/faraday/ftmac100.c:482:	return txdes->txdes0 & cpu_to_le32(FTMAC100_TXDES0_TXDMA_OWN);
+linux-technicolor-tc7200/drivers/net/ethernet/faraday/ftmac100.c:492:	txdes->txdes0 |= cpu_to_le32(FTMAC100_TXDES0_TXDMA_OWN);
+linux-technicolor-tc7200/drivers/net/ethernet/faraday/ftgmac100.c:576:	return txdes->txdes0 & cpu_to_le32(FTGMAC100_TXDES0_TXDMA_OWN);
+linux-technicolor-tc7200/drivers/net/ethernet/faraday/ftgmac100.c:586:	txdes->txdes0 |= cpu_to_le32(FTGMAC100_TXDES0_TXDMA_OWN);
+linux-technicolor-tc7200/drivers/net/ethernet/faraday/ftmac100.h:146:#define	FTMAC100_TXDES0_TXDMA_OWN	(1 << 31)
+linux-technicolor-tc7200/drivers/net/ethernet/faraday/ftmac100.h:175:#define	FTMAC100_RXDES0_RXDMA_OWN	(1 << 31)
+linux-technicolor-tc7200/drivers/net/ethernet/faraday/ftgmac100.h:201:#define FTGMAC100_TXDES0_TXDMA_OWN	(1 << 31)
+linux-technicolor-tc7200/drivers/net/ethernet/broadcom/tg3.c:10068:		tw32(BUFMGR_DMA_DESC_POOL_ADDR, NIC_SRAM_DMA_DESC_POOL_BASE);
+linux-technicolor-tc7200/drivers/net/ethernet/broadcom/tg3.c:13173:		{ BUFMGR_DMA_DESC_POOL_ADDR, TG3_FL_NOT_5705,
+linux-technicolor-tc7200/drivers/net/ethernet/broadcom/bcmsysport.c:112:	__raw_writel(upper_32_bits(addr) & DESC_ADDR_HI_MASK,
+linux-technicolor-tc7200/drivers/net/ethernet/broadcom/bcmsysport.c:113:		     d + DESC_ADDR_HI_STATUS_LEN);
+linux-technicolor-tc7200/drivers/net/ethernet/broadcom/bcmsysport.c:115:	__raw_writel(lower_32_bits(addr), d + DESC_ADDR_LO);
+linux-technicolor-tc7200/drivers/net/ethernet/broadcom/bcmsysport.c:696:		if (unlikely(!(status & DESC_EOP) || !(status & DESC_SOP))) {
+linux-technicolor-tc7200/drivers/net/ethernet/broadcom/bcmsysport.c:1170:	len_status = upper_32_bits(mapping) & DESC_ADDR_HI_MASK;
+linux-technicolor-tc7200/drivers/net/ethernet/broadcom/bcmsysport.c:1172:	len_status |= (DESC_SOP | DESC_EOP | TX_STATUS_APP_CRC) <<
+linux-technicolor-tc7200/drivers/net/ethernet/broadcom/bcmsysport.c:1483:			  RX_BUF_LENGTH, RDMA_RING_BUF_SIZE);
+linux-technicolor-tc7200/drivers/net/ethernet/broadcom/genet/bcmgenet.c:91:	__raw_writel(lower_32_bits(addr), d + DMA_DESC_ADDRESS_LO);
+linux-technicolor-tc7200/drivers/net/ethernet/broadcom/genet/bcmgenet.c:99:		__raw_writel(upper_32_bits(addr), d + DMA_DESC_ADDRESS_HI);
+linux-technicolor-tc7200/drivers/net/ethernet/broadcom/genet/bcmgenet.c:116:	addr = __raw_readl(d + DMA_DESC_ADDRESS_LO);
+linux-technicolor-tc7200/drivers/net/ethernet/broadcom/genet/bcmgenet.c:124:		addr |= (u64)__raw_readl(d + DMA_DESC_ADDRESS_HI) << 32;
+linux-technicolor-tc7200/drivers/net/ethernet/broadcom/genet/bcmgenet.c:363:	TDMA_CONS_INDEX,
+linux-technicolor-tc7200/drivers/net/ethernet/broadcom/genet/bcmgenet.c:364:	RDMA_PROD_INDEX = TDMA_CONS_INDEX,
+linux-technicolor-tc7200/drivers/net/ethernet/broadcom/genet/bcmgenet.c:365:	TDMA_PROD_INDEX,
+linux-technicolor-tc7200/drivers/net/ethernet/broadcom/genet/bcmgenet.c:366:	RDMA_CONS_INDEX = TDMA_PROD_INDEX,
+linux-technicolor-tc7200/drivers/net/ethernet/broadcom/genet/bcmgenet.c:367:	DMA_RING_BUF_SIZE,
+linux-technicolor-tc7200/drivers/net/ethernet/broadcom/genet/bcmgenet.c:389:	[TDMA_CONS_INDEX]		= 0x08,
+linux-technicolor-tc7200/drivers/net/ethernet/broadcom/genet/bcmgenet.c:390:	[TDMA_PROD_INDEX]		= 0x0C,
+linux-technicolor-tc7200/drivers/net/ethernet/broadcom/genet/bcmgenet.c:391:	[DMA_RING_BUF_SIZE]		= 0x10,
+linux-technicolor-tc7200/drivers/net/ethernet/broadcom/genet/bcmgenet.c:404:	[TDMA_CONS_INDEX]		= 0x04,
+linux-technicolor-tc7200/drivers/net/ethernet/broadcom/genet/bcmgenet.c:405:	[TDMA_PROD_INDEX]		= 0x08,
+linux-technicolor-tc7200/drivers/net/ethernet/broadcom/genet/bcmgenet.c:406:	[DMA_RING_BUF_SIZE]		= 0x0C,
+linux-technicolor-tc7200/drivers/net/ethernet/broadcom/genet/bcmgenet.c:1178:	c_index = bcmgenet_tdma_ring_readl(priv, ring->index, TDMA_CONS_INDEX);
+linux-technicolor-tc7200/drivers/net/ethernet/broadcom/genet/bcmgenet.c:1313:	length_status = (skb_len << DMA_BUFLENGTH_SHIFT) | dma_desc_flags |
+linux-technicolor-tc7200/drivers/net/ethernet/broadcom/genet/bcmgenet.c:1360:		    (frag_size << DMA_BUFLENGTH_SHIFT) | dma_desc_flags |
+linux-technicolor-tc7200/drivers/net/ethernet/broadcom/genet/bcmgenet.c:1527:					  ring->prod_index, TDMA_PROD_INDEX);
+linux-technicolor-tc7200/drivers/net/ethernet/broadcom/genet/bcmgenet.c:1648:		len = dma_length_status >> DMA_BUFLENGTH_SHIFT;
+linux-technicolor-tc7200/drivers/net/ethernet/broadcom/genet/bcmgenet.c:1655:		if (unlikely(!(dma_flag & DMA_EOP) || !(dma_flag & DMA_SOP))) {
+linux-technicolor-tc7200/drivers/net/ethernet/broadcom/genet/bcmgenet.c:1979:	bcmgenet_tdma_ring_writel(priv, index, 0, TDMA_PROD_INDEX);
+linux-technicolor-tc7200/drivers/net/ethernet/broadcom/genet/bcmgenet.c:1980:	bcmgenet_tdma_ring_writel(priv, index, 0, TDMA_CONS_INDEX);
+linux-technicolor-tc7200/drivers/net/ethernet/broadcom/genet/bcmgenet.c:1987:				   RX_BUF_LENGTH), DMA_RING_BUF_SIZE);
+linux-technicolor-tc7200/drivers/net/ethernet/broadcom/genet/bcmgenet.c:2034:				   RX_BUF_LENGTH), DMA_RING_BUF_SIZE);
+linux-technicolor-tc7200/drivers/net/ethernet/broadcom/genet/bcmgenet.c:2888:	c_index = bcmgenet_tdma_ring_readl(priv, ring->index, TDMA_CONS_INDEX);
+linux-technicolor-tc7200/drivers/net/ethernet/broadcom/genet/bcmgenet.c:2889:	p_index = bcmgenet_tdma_ring_readl(priv, ring->index, TDMA_PROD_INDEX);
+linux-technicolor-tc7200/drivers/net/ethernet/broadcom/genet/bcmgenet.h:71:#define DMA_DESC_ADDRESS_LO	0x04	/* lower bits of PA */
+linux-technicolor-tc7200/drivers/net/ethernet/broadcom/genet/bcmgenet.h:72:#define DMA_DESC_ADDRESS_HI	0x08	/* upper 32 bits of PA, GENETv4+ */
+linux-technicolor-tc7200/drivers/net/ethernet/broadcom/genet/bcmgenet.h:444:#define DMA_BUFLENGTH_MASK		0x0fff
+linux-technicolor-tc7200/drivers/net/ethernet/broadcom/genet/bcmgenet.h:445:#define DMA_BUFLENGTH_SHIFT		16
+linux-technicolor-tc7200/drivers/net/ethernet/broadcom/genet/bcmgenet.h:446:#define DMA_OWN				0x8000
+linux-technicolor-tc7200/drivers/net/ethernet/broadcom/bcmsysport.h:17:#define DESC_ADDR_HI_STATUS_LEN	0x00
+linux-technicolor-tc7200/drivers/net/ethernet/broadcom/bcmsysport.h:18:#define  DESC_ADDR_HI_SHIFT	0
+linux-technicolor-tc7200/drivers/net/ethernet/broadcom/bcmsysport.h:19:#define  DESC_ADDR_HI_MASK	0xff
+linux-technicolor-tc7200/drivers/net/ethernet/broadcom/bcmsysport.h:24:#define DESC_ADDR_LO		0x04
+linux-technicolor-tc7200/drivers/net/ethernet/broadcom/bcmsysport.h:313:#define RDMA_RING_BUF_SIZE		0x100c
+linux-technicolor-tc7200/drivers/net/ethernet/broadcom/tg3.h:1368:#define BUFMGR_DMA_DESC_POOL_ADDR	0x0000442c
+linux-technicolor-tc7200/drivers/net/ethernet/broadcom/tg3.h:2513: *	   b) Set TG3_BDINFO_NIC_ADDR to NIC_SRAM_TX_BUFFER_DESC.
+linux-technicolor-tc7200/drivers/net/ethernet/broadcom/tg3.h:2525: *	   b) Set TG3_BDINFO_NIC_ADDR to NIC_SRAM_TX_BUFFER_DESC
+linux-technicolor-tc7200/drivers/net/ethernet/natsemi/ns83820.c:392:#define DESC_BUFPTR		(DESC_LINK + HW_ADDR_LEN/4)
+linux-technicolor-tc7200/drivers/net/ethernet/natsemi/ns83820.c:393:#define DESC_CMDSTS		(DESC_BUFPTR + HW_ADDR_LEN/4)
+linux-technicolor-tc7200/drivers/net/ethernet/cavium/liquidio/octeon_console.c:51:#define BOOTLOADER_PCI_READ_DESC_ADDR           0x0006c100
+linux-technicolor-tc7200/drivers/net/ethernet/cavium/liquidio/octeon_console.c:221:						 BOOTLOADER_PCI_READ_DESC_ADDR);
+linux-technicolor-tc7200/drivers/net/ethernet/adaptec/starfire.c:145:#define RX_DESC_Q_ADDR_SIZE RxDescQAddr64bit
+linux-technicolor-tc7200/drivers/net/ethernet/adaptec/starfire.c:146:#define TX_DESC_Q_ADDR_SIZE TxDescQAddr64bit
+linux-technicolor-tc7200/drivers/net/ethernet/adaptec/starfire.c:149:#define RX_DESC_ADDR_SIZE RxDescAddr64bit
+linux-technicolor-tc7200/drivers/net/ethernet/adaptec/starfire.c:154:#define RX_DESC_Q_ADDR_SIZE RxDescQAddr32bit
+linux-technicolor-tc7200/drivers/net/ethernet/adaptec/starfire.c:155:#define TX_DESC_Q_ADDR_SIZE TxDescQAddr32bit
+linux-technicolor-tc7200/drivers/net/ethernet/adaptec/starfire.c:158:#define RX_DESC_ADDR_SIZE RxDescAddr32bit
+linux-technicolor-tc7200/drivers/net/ethernet/adaptec/starfire.c:928:	       RX_DESC_Q_ADDR_SIZE | RX_DESC_ADDR_SIZE |
+linux-technicolor-tc7200/drivers/net/ethernet/adaptec/starfire.c:943:	       TX_DESC_Q_ADDR_SIZE |
+linux-technicolor-tc7200/drivers/net/ethernet/chelsio/cxgb3/sge.c:1069:		wrp->wr_hi = htonl(F_WR_SOP | F_WR_EOP | V_WR_DATATYPE(1) |
+linux-technicolor-tc7200/drivers/net/ethernet/chelsio/cxgb3/sge.c:1186:					      | F_WR_SOP | F_WR_EOP | compl);
+linux-technicolor-tc7200/drivers/net/ethernet/chelsio/cxgb3/sge.c:1343:	to->wr_hi = from->wr_hi | htonl(F_WR_SOP | F_WR_EOP |
+linux-technicolor-tc7200/drivers/net/ethernet/chelsio/cxgb3/sge.c:1437:	wrp->wr_hi |= htonl(F_WR_SOP | F_WR_EOP);
+linux-technicolor-tc7200/drivers/net/ethernet/chelsio/cxgb3/cxgb3_main.c:1766:		       XGM_REG(A_XGM_RX_SPI4_SOP_EOP_CNT, 1));
+linux-technicolor-tc7200/drivers/net/ethernet/chelsio/cxgb3/xgmac.c:490:						A_XGM_TX_SPI4_SOP_EOP_CNT +
+linux-technicolor-tc7200/drivers/net/ethernet/chelsio/cxgb3/xgmac.c:495:						A_
