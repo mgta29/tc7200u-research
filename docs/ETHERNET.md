@@ -58,6 +58,7 @@ Runtime findings:
 - `research/notes/runtime-probes/2026-05-17-genet-tx-desc-present-no-tdma-consume.md`
 - `research/notes/runtime-probes/2026-05-17-genet-xmitdesc-real-frame-no-tdma-consume.md`
 - `research/notes/runtime-probes/2026-05-17-genet-corrected-devmem-slot0-no-consume.md`
+- `research/notes/runtime-probes/2026-05-17-genet-reserved-low-txbuf-still-no-tdma.md`
 
 Known result:
 
@@ -88,6 +89,9 @@ Known result:
 - ADDRSHIFT8 wrote/read back the shifted address but still left `hw_c=0`.
 - `dma_alloc_coherent(... GFP_DMA)` bounce allocation still produced high DMA:
   `bounce_dma=0x06e01000`, descriptor `rb_addr=0x00001000`, `hw_c=0`.
+- Reserved TX buffer at physical `0x01680000` mapped and was used for TX, but
+  descriptor readback still kept only `0x00080000`, and TDMA still left
+  `hw_c=0`.
 - Ring16 metadata is sane enough to show one posted descriptor, and global
   `TDMA_STATUS=0x00000000` reports no useful global error.
 - Some GENET images previously showed memory/page-table corruption and are not
@@ -111,8 +115,10 @@ Goal:
 
 - Prove whether Linux can produce a DMA address that GENET descriptor RAM can
   represent and TDMA can consume.
-- Run the non-fatal 20-bit DMA mask diagnostic, or test a reserved low physical
-  TX bounce buffer.
+- Read BCM3383 clock/reset state, especially `ClkCtrlUBus`, and compare against
+  current `bcm3383_init_gmac()`.
+- Probe BCM3383 GENET DMA window/base/init behavior; the reserved-buffer test
+  did not fix TDMA consumption.
 - Watch for TDMA consumer index movement, TX completion, DMA/IRQ activity, and
   memory corruption.
 - Keep IRQ `<13 4>` as a separate test branch.
@@ -135,3 +141,43 @@ Goal:
   change makes them meaningful.
 - Keep serial commands short; long pasted lines can be corrupted by serial
   overruns.
+
+<!-- TC7200U_CURRENT_GENET_STATE_START -->
+
+## Current GENET state — 2026-05-17
+
+Latest conclusion:
+
+- GENET at `0x12c00000` probes and `eth0` link reports up.
+- TX descriptor is posted and TDMA producer advances.
+- TDMA consumer still remains `0`.
+- Normal high DMA allocation is not the only blocker.
+- Reserved low physical TX buffer at `0x01680000` also failed.
+- Upstream/original status format with reserved low TX buffer also failed.
+- Compact status format with reserved low TX buffer also failed.
+- Local OEM/source search did not reveal a BCM3383-specific GENET init path; useful hits point back to generic/mainline `bcmgenet` descriptor/ring definitions.
+- Current next branch is descriptor word-order testing with `9987-bcmgenet-tc7200u-v1-resv-swapped-desc-test.patch`.
+
+Current intended OpenWrt patch state for the next test:
+
+- Active:
+  - `9979-bcmgenet-tc7200u-addr-debug.patch`
+  - `9987-bcmgenet-tc7200u-v1-resv-swapped-desc-test.patch`
+- Inactive:
+  - `9978-bcmgenet-tc7200u-v1-pack20-desc-test.patch`
+  - `9986-bcmgenet-tc7200u-v1-reserved-txbuf-test.patch`
+
+Do not repeat:
+
+- `mem=16M` / `mem=32M`
+- fatal or non-fatal `DMA_BIT_MASK(20)`
+- `GFP_DMA` coherent bounce
+- `ADDRSHIFT8`
+- `LOWLIT 0x00080000`
+- manual low16 status poke
+- reserved low TX buffer as standalone fix
+- blind parent IRQ enable
+- B53/DSA before TDMA consumes descriptors
+
+<!-- TC7200U_CURRENT_GENET_STATE_END -->
+

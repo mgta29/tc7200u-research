@@ -1,0 +1,17 @@
+--- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
++++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+@@ -2165,6 +2165,14 @@
+ 		dmadesc_set(priv, tx_cb_ptr->bd_addr, mapping, len_stat);
+ 
+ 		if (net_ratelimit())
++			netdev_info(dev, "TC7200U ADDRDBG i=%d skb_data=%px dma=%pad dma_low20=0x%05x dma_mask=0x%llx coh_mask=0x%llx bus_limit=0x%llx range_map=%px\n",
++				    i, skb->data, &mapping, (u32)(mapping & 0xfffff),
++				    kdev->dma_mask ? (unsigned long long)*kdev->dma_mask : 0,
++				    (unsigned long long)kdev->coherent_dma_mask,
++				    (unsigned long long)kdev->bus_dma_limit,
++				    kdev->dma_range_map);
++
++		if (net_ratelimit())
+ 			netdev_info(dev, "TC7200U DESCRB i=%d wrote_len=0x%08x wrote_map=%pad rb_len=0x%08x rb_addr=0x%08x bd_addr=%px\n",
+ 				    i, len_stat, &mapping,
+ 				    bcmgenet_readl(tx_cb_ptr->bd_addr + DMA_DESC_LENGTH_STATUS),

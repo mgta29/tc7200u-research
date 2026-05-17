@@ -1,0 +1,64 @@
+--- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
++++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+@@ -2037,6 +2037,10 @@
+ #define TC7200U_RESV_TX_SIZE 0x00001000
+ static void __iomem *tc7200u_resv_tx_virt;
+ 
++#define TC7200U_RESV_TX_PHYS ((phys_addr_t)0x01680000)
++#define TC7200U_RESV_TX_SIZE 0x00001000
++static void __iomem *tc7200u_resv_tx_virt;
++
+ static netdev_tx_t bcmgenet_xmit(struct sk_buff *skb, struct net_device *dev)
+ {
+ 	struct bcmgenet_priv *priv = netdev_priv(dev);
+@@ -2167,7 +2171,49 @@
+ 			netdev_info(dev, "TC7200U RESVTX no ioremap buffer\n");
+ 		}
+ 
+-		dmadesc_set(priv, tx_cb_ptr->bd_addr, mapping, len_stat);
++		if (GENET_IS_V1(priv) && i == 0 && nr_frags == 0 &&
++		    size <= TC7200U_RESV_TX_SIZE) {
++			dma_addr_t tc7200u_resv_dma = (dma_addr_t)TC7200U_RESV_TX_PHYS;
++			void __iomem *bd = tx_cb_ptr->bd_addr;
++			u32 rb0, rb4;
++
++			if (!tc7200u_resv_tx_virt) {
++				tc7200u_resv_tx_virt = ioremap(TC7200U_RESV_TX_PHYS,
++							       TC7200U_RESV_TX_SIZE);
++				netdev_info(dev,
++					    "TC7200U SWAPDESC map phys=0x%08x virt=%px size=0x%x\n",
++					    (u32)TC7200U_RESV_TX_PHYS,
++					    tc7200u_resv_tx_virt,
++					    TC7200U_RESV_TX_SIZE);
++			}
++
++			if (tc7200u_resv_tx_virt) {
++				memcpy_toio(tc7200u_resv_tx_virt, skb->data, size);
++				wmb();
++
++				mapping = tc7200u_resv_dma;
++
++				/* Diagnostic only: test swapped GENET v1 descriptor word order. */
++				__raw_writel(lower_32_bits(mapping), bd + DMA_DESC_LENGTH_STATUS);
++				__raw_writel(len_stat, bd + DMA_DESC_ADDRESS_LO);
++				wmb();
++
++				rb0 = __raw_readl(bd + DMA_DESC_LENGTH_STATUS);
++				rb4 = __raw_readl(bd + DMA_DESC_ADDRESS_LO);
++
++				netdev_info(dev,
++					    "TC7200U SWAPDESC i=%d size=%u virt=%px dma=%pad low20=0x%05x len_stat=0x%08x rb0=0x%08x rb4=0x%08x bd_addr=%px\n",
++					    i, size, tc7200u_resv_tx_virt,
++					    &tc7200u_resv_dma,
++					    (u32)(tc7200u_resv_dma & 0xfffff),
++					    len_stat, rb0, rb4, bd);
++			} else {
++				netdev_info(dev, "TC7200U SWAPDESC no ioremap buffer\n");
++				dmadesc_set(priv, tx_cb_ptr->bd_addr, mapping, len_stat);
++			}
++		} else {
++			dmadesc_set(priv, tx_cb_ptr->bd_addr, mapping, len_stat);
++		}
+ 
+ 		if (net_ratelimit())
+ 			netdev_info(dev, "TC7200U ADDRDBG i=%d skb_data=%px dma=%pad dma_low20=0x%05x dma_mask=0x%llx coh_mask=0x%llx bus_limit=0x%llx range_map=%px\n",
