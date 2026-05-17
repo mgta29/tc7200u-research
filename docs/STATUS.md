@@ -59,6 +59,14 @@ system.
   - GENET descriptor RAM stores only low 20 address bits, for example:
     `0x06835002 -> 0x00035002` and `0x06e01000 -> 0x00001000`.
   - ADDRSHIFT8 did not fix TX.
+  - Reserved low TX buffer at physical `0x01680000` still left `hw_c=0`, so
+    high RAM allocation is not the sole blocker.
+  - Generic RGMII OOB write at `0x12c0008c` did not latch and did not improve
+    TX.
+  - The inherited GENET hwirqs `16/17` show zero interrupt counts, while
+    `INT_EXT_PER PeriphIRQ0_2` reports active UniMAC status:
+    `0x14e00338=0x3000007D`, `0x14e0033c=0x045A0409`.
+  - The current DTS test branch maps GENET to extended hwirqs `64/66`.
   - `mem=16M` and `mem=32M` were invalid tests because they failed before a
     useful GENET runtime test.
   - Internal PHY mode reads invalid GPHY data and is not a solved path.
@@ -93,15 +101,17 @@ verification, not B53/DSA integration.
 
 1. Prove how BCM3383 GENET expects TX buffer addresses to be represented or
    translated for TDMA.
-2. Investigate BCM3383 GENET DMA window/base/init and UBUS/SCB clock setup.
+2. Verify the extended `PeriphIRQ0_2` GENET interrupt mapping and whether the
+   generic GENET ISR can acknowledge it cleanly.
+3. Investigate BCM3383 GENET DMA window/base/init and UBUS/SCB clock setup.
    The reserved TX buffer at physical `0x01680000` still left `hw_c=0`.
-3. Keep the BCM3383 GMAC clock/reset/pinmux quirk in the test baseline.
-4. Keep IRQ `<13 4>` as a separate branch; do not combine it with DMA address
+4. Keep the BCM3383 GMAC clock/reset/pinmux quirk in the test baseline.
+5. Keep IRQ `<13 4>` as a separate branch; do not combine it with DMA address
    tests.
-5. Add safe MDIO/B53/BCM53125 switch description only after GENET TDMA consumes
+6. Add safe MDIO/B53/BCM53125 switch description only after GENET TDMA consumes
    descriptors.
-6. After Ethernet, proceed to read-only flash discovery.
-7. Only after MTD and flash layout are understood, consider persistent images.
+7. After Ethernet, proceed to read-only flash discovery.
+8. Only after MTD and flash layout are understood, consider persistent images.
 
 ## Recommended next work
 
@@ -143,17 +153,29 @@ Latest conclusion:
 - Reserved low physical TX buffer at `0x01680000` also failed.
 - Upstream/original status format with reserved low TX buffer also failed.
 - Compact status format with reserved low TX buffer also failed.
-- Local OEM/source search did not reveal a BCM3383-specific GENET init path; useful hits point back to generic/mainline `bcmgenet` descriptor/ring definitions.
-- Current next branch is descriptor word-order testing with `9987-bcmgenet-tc7200u-v1-resv-swapped-desc-test.patch`.
+- Descriptor word-order testing did not make TDMA consume.
+- Generic RGMII OOB write at `0x12c0008c` did not latch.
+- Current inherited hwirqs `16/17` are not counting.
+- Runtime interrupt probing points to `INT_EXT_PER PeriphIRQ0_2`:
+  `mask=0x3000007D`, `status=0x045A0409`.
+- Current next branch maps GENET to extended hwirqs `64/66` while keeping the
+  TDMA/raw-state debug active.
 
 Current intended OpenWrt patch state for the next test:
 
 - Active:
-  - `9979-bcmgenet-tc7200u-addr-debug.patch`
-  - `9987-bcmgenet-tc7200u-v1-resv-swapped-desc-test.patch`
-- Inactive:
+  - `996-bcmgenet-tc7200u-xmit-desc-debug.patch`
+  - `997-bcmgenet-tc7200u-tx-poll-debug.patch`
+  - `9975-bcmgenet-tc7200u-v1-dma-own-test.patch`
+  - `9976-bcmgenet-tc7200u-desc-readback-debug.patch`
   - `9978-bcmgenet-tc7200u-v1-pack20-desc-test.patch`
+  - `9979-bcmgenet-tc7200u-addr-debug.patch`
+  - `998-bmips-tc7200u-gmac-init.patch`
   - `9986-bcmgenet-tc7200u-v1-reserved-txbuf-test.patch`
+  - `9988-bcmgenet-tc7200u-raw-state-dump.patch`
+  - DTS override exposing `PeriphIRQ0_2` and mapping GENET to `<64>, <66>`
+- Inactive:
+  - `9987-bcmgenet-tc7200u-v1-resv-swapped-desc-test.patch`
 
 Do not repeat:
 
@@ -162,10 +184,11 @@ Do not repeat:
 - `GFP_DMA` coherent bounce
 - `ADDRSHIFT8`
 - `LOWLIT 0x00080000`
+- plain `DMA_OWN` without compact GENET v1 status packing
 - manual low16 status poke
 - reserved low TX buffer as standalone fix
+- generic RGMII OOB poke at `0x12c0008c`
 - blind parent IRQ enable
 - B53/DSA before TDMA consumes descriptors
 
 <!-- TC7200U_CURRENT_GENET_STATE_END -->
-

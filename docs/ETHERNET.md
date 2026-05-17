@@ -59,6 +59,7 @@ Runtime findings:
 - `research/notes/runtime-probes/2026-05-17-genet-xmitdesc-real-frame-no-tdma-consume.md`
 - `research/notes/runtime-probes/2026-05-17-genet-corrected-devmem-slot0-no-consume.md`
 - `research/notes/runtime-probes/2026-05-17-genet-reserved-low-txbuf-still-no-tdma.md`
+- `research/notes/runtime-probes/2026-05-17-genet-ext-periphirq0-2-evidence.md`
 
 Known result:
 
@@ -94,25 +95,38 @@ Known result:
   `hw_c=0`.
 - Ring16 metadata is sane enough to show one posted descriptor, and global
   `TDMA_STATUS=0x00000000` reports no useful global error.
+- Generic RGMII OOB control write at `0x12c0008c` did not latch:
+  writing `0x00010050` read back as `0x00000001`.
+- Current inherited GENET IRQ mapping to hwirqs `16/17` shows zero interrupt
+  counts.
+- Runtime interrupt probing shows active UniMAC0 DMA/status in the extended
+  `INT_EXT_PER PeriphIRQ0_2` bank:
+  `0x14e00338=0x3000007D`, `0x14e0033c=0x045A0409`.
+- OEM headers name `PeriphIRQ0_2` bit 0 as `UNI_DMA_IRQ` and bit 2 as
+  `UNI0_IRQ`; the next DTS branch maps GENET to hwirqs `64/66`.
 - Some GENET images previously showed memory/page-table corruption and are not
   stable baselines.
 
 ## Next test
 
-Next diagnostic should stay focused on TDMA descriptor consumption through the
-DMA address branch:
+Next diagnostic should test the extended periph IRQ mapping while still judging
+success by TDMA descriptor consumption:
 
 - `phy-mode = "rgmii"`
 - no `phy-handle`
 - no MDIO child for the DMA diagnostic
 - fixed-link, 1000 full-duplex
 - compact GENET v1 status/length packing active
-- ADDRDBG, DESCRB, and TXPOLL debug enabled
+- ADDRDBG, DESCRB, TXPOLL, and RAW state debug enabled
+- `periph_intc` exposes `PeriphIRQ0_2`
+- GENET interrupts are `<64>, <66>`
 - no parent IRQ manual enable
 - no B53/DSA yet
 
 Goal:
 
+- Verify whether `/proc/interrupts` moves from hwirqs `16/17` to `64/66`.
+- Check whether the extended UniMAC DMA interrupt is acknowledged or storms.
 - Prove whether Linux can produce a DMA address that GENET descriptor RAM can
   represent and TDMA can consume.
 - Read BCM3383 clock/reset state, especially `ClkCtrlUBus`, and compare against
@@ -155,17 +169,29 @@ Latest conclusion:
 - Reserved low physical TX buffer at `0x01680000` also failed.
 - Upstream/original status format with reserved low TX buffer also failed.
 - Compact status format with reserved low TX buffer also failed.
-- Local OEM/source search did not reveal a BCM3383-specific GENET init path; useful hits point back to generic/mainline `bcmgenet` descriptor/ring definitions.
-- Current next branch is descriptor word-order testing with `9987-bcmgenet-tc7200u-v1-resv-swapped-desc-test.patch`.
+- Descriptor word-order testing did not make TDMA consume.
+- Generic RGMII OOB write at `0x12c0008c` did not latch.
+- Current inherited hwirqs `16/17` are not counting.
+- Runtime interrupt probing points to `INT_EXT_PER PeriphIRQ0_2`:
+  `mask=0x3000007D`, `status=0x045A0409`.
+- Current next branch maps GENET to extended hwirqs `64/66` while keeping the
+  TDMA/raw-state debug active.
 
 Current intended OpenWrt patch state for the next test:
 
 - Active:
-  - `9979-bcmgenet-tc7200u-addr-debug.patch`
-  - `9987-bcmgenet-tc7200u-v1-resv-swapped-desc-test.patch`
-- Inactive:
+  - `996-bcmgenet-tc7200u-xmit-desc-debug.patch`
+  - `997-bcmgenet-tc7200u-tx-poll-debug.patch`
+  - `9975-bcmgenet-tc7200u-v1-dma-own-test.patch`
+  - `9976-bcmgenet-tc7200u-desc-readback-debug.patch`
   - `9978-bcmgenet-tc7200u-v1-pack20-desc-test.patch`
+  - `9979-bcmgenet-tc7200u-addr-debug.patch`
+  - `998-bmips-tc7200u-gmac-init.patch`
   - `9986-bcmgenet-tc7200u-v1-reserved-txbuf-test.patch`
+  - `9988-bcmgenet-tc7200u-raw-state-dump.patch`
+  - DTS override exposing `PeriphIRQ0_2` and mapping GENET to `<64>, <66>`
+- Inactive:
+  - `9987-bcmgenet-tc7200u-v1-resv-swapped-desc-test.patch`
 
 Do not repeat:
 
@@ -174,10 +200,11 @@ Do not repeat:
 - `GFP_DMA` coherent bounce
 - `ADDRSHIFT8`
 - `LOWLIT 0x00080000`
+- plain `DMA_OWN` without compact GENET v1 status packing
 - manual low16 status poke
 - reserved low TX buffer as standalone fix
+- generic RGMII OOB poke at `0x12c0008c`
 - blind parent IRQ enable
 - B53/DSA before TDMA consumes descriptors
 
 <!-- TC7200U_CURRENT_GENET_STATE_END -->
-
