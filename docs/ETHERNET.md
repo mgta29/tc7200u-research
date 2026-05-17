@@ -57,6 +57,7 @@ Runtime findings:
 - `research/notes/runtime-probes/2026-05-17-genet-txpoll-dma-not-consuming.md`
 - `research/notes/runtime-probes/2026-05-17-genet-tx-desc-present-no-tdma-consume.md`
 - `research/notes/runtime-probes/2026-05-17-genet-xmitdesc-real-frame-no-tdma-consume.md`
+- `research/notes/runtime-probes/2026-05-17-genet-corrected-devmem-slot0-no-consume.md`
 
 Known result:
 
@@ -72,6 +73,15 @@ Known result:
   consumer index remains 0.
 - Compact GENET v1 status/length descriptor packing now reads back correctly:
   `wrote_len=0x000e009a`, `rb_len=0x000e009a`.
+- Manual slot 0 devmem rewrite with corrected compact descriptor
+  `0x000e009a` and low address `0x00080000` also read back correctly, but TDMA
+  still left `hw_c=0`.
+- Manual slot 1 rewrite plus producer advance to `2` also read back correctly,
+  with TXPOLL showing `hw_p=2` and `hw_c=0`.
+- Full ring16 TDMA snapshot shows expected GENET v1 ring setup:
+  `READ_PTR=0`, `CONS=0`, `PROD=2`, `RING_BUF_SIZE=0x01000800`,
+  `START=0`, `END=0x1ff`, `DMA_CTRL=0x00020001`, `DMA_STATUS=0`.
+  TDMA still does not walk the ring.
 - Descriptor/data address reachability is the active blocker:
   Linux gives DMA addresses around `0x06xxxxxx`, while GENET descriptor RAM
   keeps only low 20 bits.
@@ -121,5 +131,7 @@ Goal:
   console-flooding IRQ storm.
 - Do not repeat failed DMA paths: plain `DMA_OWN`, ADDRSHIFT8, fatal
   `DMA_BIT_MASK(20)`, Zephyr-style `dma-ranges`, `mem=16M`, or `mem=32M`.
+- Do not repeat manual descriptor/producer pokes unless a new kernel-side setup
+  change makes them meaningful.
 - Keep serial commands short; long pasted lines can be corrupted by serial
   overruns.

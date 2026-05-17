@@ -26,6 +26,10 @@ Current blocker:
   low 20 address bits, for example `0x06e01000 -> 0x00001000`.
 - TDMA ring16 shows producer index 1 and consumer index 0, with global
   `TDMA_STATUS=0x00000000`.
+- Manual descriptor devmem probes now reached producer index 2 with both slot 0
+  and slot 1 populated, but `TDMA_READ_PTR` and `TDMA_CONS_INDEX` stayed 0.
+- Ring16/global TDMA register setup looks sane for GENET v1, so stop repeating
+  manual descriptor pokes until a kernel-side DMA setup change is made.
 
 Do not work on:
 
@@ -54,8 +58,9 @@ Continue the GENET DMA address diagnostic:
 - Keep parent `periph_intc` bits unchanged in the DMA test branch; blind enable
   caused an IRQ storm.
 - Do not repeat the old fatal `DMA_BIT_MASK(20)` probe path.
-- Next DMA experiment is a non-fatal 20-bit DMA mask diagnostic, or a reserved
-  low physical TX bounce-buffer diagnostic.
+- Next DMA experiment is a reserved low physical TX bounce-buffer diagnostic, a
+  BCM3383 GENET DMA window/base/init probe, or a non-fatal 20-bit DMA mask
+  diagnostic.
 - IRQ `<13 4>` remains a separate branch and must not be combined with DMA
   address tests.
 
@@ -68,6 +73,7 @@ Use these notes as the starting evidence:
 - `research/notes/runtime-probes/2026-05-17-genet-txpoll-dma-not-consuming.md`
 - `research/notes/runtime-probes/2026-05-17-genet-tx-desc-present-no-tdma-consume.md`
 - `research/notes/runtime-probes/2026-05-17-genet-xmitdesc-real-frame-no-tdma-consume.md`
+- `research/notes/runtime-probes/2026-05-17-genet-corrected-devmem-slot0-no-consume.md`
 
 ## Current commands
 

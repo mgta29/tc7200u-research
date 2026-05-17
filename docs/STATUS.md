@@ -48,6 +48,12 @@ system.
   - TDMA stays enabled, but the hardware consumer index never advances.
   - Compact GENET v1 status/length descriptor packing now reads back correctly:
     `wrote_len=0x000e009a`, `rb_len=0x000e009a`.
+  - Corrected manual descriptor slot 0 devmem test with `0x000e009a` and
+    `0x00080000` also reads back correctly, but TDMA still does not consume it.
+  - Manual descriptor slot 1 plus producer advance to `2` also reads back
+    correctly, with `hw_p=2` and `hw_c=0`.
+  - Full ring16 TDMA snapshot shows sane GENET v1 ring setup and enabled TDMA,
+    but `READ_PTR` and `CONS_INDEX` remain `0`.
   - Linux DMA mappings and coherent bounce allocations still land in the
     `0x06xxxxxx` RAM bank.
   - GENET descriptor RAM stores only low 20 address bits, for example:
