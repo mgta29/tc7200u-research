@@ -1,0 +1,35 @@
+--- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
++++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+@@ -2162,6 +2162,32 @@
+ 				    tx_cb_ptr->bd_addr, ring->index, ring->write_ptr,
+ 				    ring->prod_index, ring->free_bds);
+ 
++		if (GENET_IS_V1(priv) && i == 0 && nr_frags == 0 && size <= 2048) {
++			static void *tc7200u_bounce_buf;
++			static dma_addr_t tc7200u_bounce_dma;
++			static bool tc7200u_bounce_logged;
++
++			if (!tc7200u_bounce_buf)
++				tc7200u_bounce_buf = dma_alloc_coherent(kdev, 2048,
++								       &tc7200u_bounce_dma,
++								       GFP_ATOMIC | GFP_DMA);
++
++			if (tc7200u_bounce_buf) {
++				memcpy(tc7200u_bounce_buf, skb->data, size);
++				mapping = tc7200u_bounce_dma;
++
++				if (!tc7200u_bounce_logged || net_ratelimit()) {
++					netdev_info(dev, "TC7200U BOUNCE i=%d size=%u bounce_buf=%px bounce_dma=%pad bounce_low20=0x%05x\n",
++						    i, size, tc7200u_bounce_buf,
++						    &tc7200u_bounce_dma,
++						    (u32)(tc7200u_bounce_dma & 0xfffff));
++					tc7200u_bounce_logged = true;
++				}
++			} else if (net_ratelimit()) {
++				netdev_info(dev, "TC7200U BOUNCE alloc failed\n");
++			}
++		}
++
+ 		dmadesc_set(priv, tx_cb_ptr->bd_addr, mapping, len_stat);
+ 
+ 		if (net_ratelimit())

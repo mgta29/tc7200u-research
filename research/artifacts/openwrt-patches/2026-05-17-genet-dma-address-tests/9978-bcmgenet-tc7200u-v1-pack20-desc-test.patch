@@ -1,0 +1,30 @@
+--- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
++++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+@@ -2136,8 +2136,25 @@
+ 		/* TC7200.U diagnostic: BCM3383/GENET_V1 TDMA does not consume
+ 		 * descriptors with len_stat lacking DMA_OWN. Test OWN on V1 only.
+ 		 */
+-		if (GENET_IS_V1(priv))
+-			len_stat |= DMA_OWN;
++		if (GENET_IS_V1(priv)) {
++			/* TC7200.U diagnostic: BCM3383 GENET_V1 descriptor RAM is 20-bit.
++			 * Test compact status:
++			 *   bits 19..16 = OWN/EOP/SOP/WRAP
++			 *   bits 15..0  = packet length
++			 */
++			u32 v1_flags = 0x8;
++
++			if (len_stat & DMA_OWN)
++				v1_flags |= 0x8;
++			if (len_stat & DMA_EOP)
++				v1_flags |= 0x4;
++			if (len_stat & DMA_SOP)
++				v1_flags |= 0x2;
++			if (len_stat & DMA_WRAP)
++				v1_flags |= 0x1;
++
++			len_stat = (v1_flags << 16) | (size & 0xffff);
++		}
+ 
+ 		if (net_ratelimit())
+ 			netdev_info(dev, "TC7200U XMITDESC i=%d nr_frags=%d size=%u mapping=%pad len_stat=0x%08x bd_addr=%px ring=%u write_ptr=%u prod=%u free=%u\n",
