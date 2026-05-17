@@ -51,12 +51,14 @@ def main():
     ap.add_argument("--output", required=True)
     ap.add_argument("--load-addr", type=auto_int, default=0x82000000)
     ap.add_argument("--filename", default="openwrt-initramfs.bin")
-    ap.add_argument("--build-time", type=auto_int, default=0x6a04e670)
+    ap.add_argument("--build-time", type=auto_int, default=None)
     ap.add_argument("--crc32", type=auto_int, default=0x00000000)
     args = ap.parse_args()
 
     payload = Path(args.input).read_bytes()
-    header = make_header(len(payload), args.load_addr, args.filename, args.build_time, args.crc32)
+    import time
+    build_time = int(time.time()) if args.build_time is None else args.build_time
+    header = make_header(len(payload), args.load_addr, args.filename, build_time, args.crc32)
     Path(args.output).write_bytes(header + payload)
 
     print(f"payload_size={len(payload)}")
