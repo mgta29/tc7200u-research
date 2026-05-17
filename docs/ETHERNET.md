@@ -10,8 +10,9 @@ Reason:
 - Public TC7200 Linux source maps `14e01000` as HSSPI.
 - The same source maps `12c00000` as `brcm,genet-v1`.
 - GENET at `12c00000` can probe under OpenWrt and create `eth0`.
-- The remaining failure is PHY/switch/link configuration, not basic MAC
-  discovery.
+- Fixed-link RGMII can report link up and queue a real TX frame.
+- The remaining failure is TDMA/descriptor/register behavior before switch
+  integration, not basic MAC discovery.
 
 ## Exhausted path
 
@@ -53,6 +54,9 @@ Runtime findings:
 
 - `research/notes/runtime-probes/2026-05-15-genet-internal-phy-link-down.md`
 - `research/notes/runtime-probes/2026-05-15-bcmgenet-12c00000-negative-result.md`
+- `research/notes/runtime-probes/2026-05-17-genet-txpoll-dma-not-consuming.md`
+- `research/notes/runtime-probes/2026-05-17-genet-tx-desc-present-no-tdma-consume.md`
+- `research/notes/runtime-probes/2026-05-17-genet-xmitdesc-real-frame-no-tdma-consume.md`
 
 Known result:
 
@@ -60,27 +64,37 @@ Known result:
 - `bcmgenet 12c00000.ethernet` probes.
 - `eth0` exists.
 - UniMAC MDIO appears.
-- Internal PHY/GPHY data reads as invalid `0x0000`.
-- Link stays down.
-- One GENET image later showed memory/page-table corruption and is not a stable
-  baseline.
+- Internal PHY/GPHY data reads as invalid `0x0000`; internal PHY mode is not a
+  solved path.
+- Fixed-link RGMII reports link up, but TX watchdog repeats.
+- XMITDESC shows a real 154-byte TX frame mapped in low physical RAM and queued
+  into ring16.
+- TXPOLL shows TDMA enabled and hardware producer index 1, but hardware
+  consumer index remains 0.
+- Current descriptor `len_stat` lacks `DMA_OWN=0x8000`.
+- Some GENET images previously showed memory/page-table corruption and are not
+  stable baselines.
 
 ## Next test
 
-Next diagnostic should avoid internal PHY mode:
+Next diagnostic should stay focused on TDMA descriptor consumption:
 
 - `phy-mode = "rgmii"`
 - no `phy-handle`
 - no MDIO child for the first diagnostic
 - fixed-link, 1000 full-duplex
+- XMITDESC and TXPOLL debug enabled
+- no parent IRQ manual enable
 
 Goal:
 
-- Determine whether GENET can start without being blocked by invalid internal
-  PHY setup.
-- Watch for TX packets, DMA/IRQ activity, and memory corruption.
-- If the fixed-link diagnostic is stable, add proper BCM53125/B53 switch
-  description next.
+- Verify BCM3383 GENET v1 descriptor ownership and register offsets.
+- Test a GENET v1-only `DMA_OWN` OR if the descriptor fields still match the
+  expected layout.
+- Watch for TDMA consumer index movement, TX completion, DMA/IRQ activity, and
+  memory corruption.
+- Add proper BCM53125/B53 switch description only after GENET TDMA behavior is
+  understood.
 
 ## Guardrails
 
@@ -90,3 +104,5 @@ Goal:
 - Preserve generated manifests and state captures under `research/notes/generated/`.
 - Do not treat `eth0` existence alone as success; require link, packets, and no
   kernel instability.
+- Do not manually enable parent `periph_intc` bits 16/17; that path produced a
+  console-flooding IRQ storm.

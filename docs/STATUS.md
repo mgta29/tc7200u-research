@@ -1,6 +1,6 @@
 # TC7200U OpenWrt Bring-up Status
 
-Last updated: 2026-05-15.
+Last updated: 2026-05-17.
 
 ## Current state
 
@@ -40,8 +40,14 @@ system.
 
 ## Not working
 
-- Ethernet is not up.
-  - GENET at `0x12c00000` probes and creates `eth0`, but link stays down.
+- Ethernet is not passing packets.
+  - GENET at `0x12c00000` probes and creates `eth0`.
+  - Fixed-link RGMII reports link up, but TX does not complete.
+  - `bcmgenet_xmit()` queues a real 154-byte frame into descriptor RAM and
+    writes producer index 1.
+  - TDMA stays enabled, but the hardware consumer index never advances.
+  - The current descriptor `len_stat` lacks `DMA_OWN=0x8000`; verify GENET v1
+    descriptor rules before treating that as the fix.
   - Internal PHY mode reads invalid GPHY data and is not a solved path.
   - The earlier `bcm6368-enetsw` path at `0x14e01000` produced no packet I/O.
 - MTD is not up.
@@ -49,8 +55,10 @@ system.
   - NAND/SPI partition discovery is still missing.
 - DTS is still incomplete.
   - UART and interrupt controllers are present.
+  - Current diagnostic DTS snapshots include disabled HSSPI, temporary NAND,
+    and GENET fixed-link nodes.
   - Real Ethernet, MDIO, switch, NAND, and SPI nodes are still missing or
-    unvalidated.
+    unvalidated for production use.
 - Flashing is not safe yet.
   - Use RAM/TFTP boot only.
 
@@ -64,15 +72,17 @@ The matching TC7200 source maps:
 - GENET interrupts as 16 and 17 through `periph_intc`.
 - BCM3383 GMAC init through clock/reset and pinmux setup.
 
-The next Ethernet work should test GENET without the invalid internal PHY path,
-then add BCM53125/B53 switch wiring after the diagnostic result is understood.
+The fixed-link GENET diagnostic now reaches TX queueing, but TDMA does not
+consume the descriptor. The next Ethernet work is descriptor/register/DMA
+verification, not B53/DSA integration.
 
 ## Current blockers
 
-1. Confirm the correct GENET PHY/switch description.
-2. Prove whether GENET can start TX/DMA/IRQs with fixed-link RGMII diagnostics.
-3. Add the minimum BCM3383 GMAC clock/reset init needed by OpenWrt.
-4. Add safe MDIO/B53/BCM53125 switch description only after GENET behavior is
+1. Verify BCM3383 GENET v1 descriptor ownership, register offsets, and
+   `hw_params` layout.
+2. Prove why TDMA does not consume the queued TX descriptor.
+3. Keep the BCM3383 GMAC clock/reset/pinmux quirk in the test baseline.
+4. Add safe MDIO/B53/BCM53125 switch description only after GENET TDMA behavior is
    understood.
 5. After Ethernet, proceed to read-only flash discovery.
 6. Only after MTD and flash layout are understood, consider persistent images.
@@ -85,13 +95,16 @@ then add BCM53125/B53 switch wiring after the diagnostic result is understood.
 3. Keep generated wrap manifests and state captures under
    `research/notes/generated/`.
 4. Stop spending time on `bcm6368-enetsw` DMA/IRQ swaps at `0x14e01000`.
-5. Test a GENET RGMII/fixed-link diagnostic node at `0x12c00000`.
-6. Treat memory-map/load-address warnings from GENET test images as serious
+5. Test a GENET v1-only `DMA_OWN` descriptor experiment only after confirming
+   the `bcmgenet_xmit()` descriptor fields and offsets.
+6. Do not manually enable parent `periph_intc` bits 16/17; the blind enable
+   path causes an IRQ storm.
+7. Treat memory-map/load-address warnings from GENET test images as serious
    until explained.
-7. Handle MTD/SPI/NAND only after Ethernet is understood, and begin read-only.
+8. Handle MTD/SPI/NAND only after Ethernet is understood, and begin read-only.
 
 ## Bottom line
 
-Serial console and RAM OpenWrt boot are solved. The project is blocked on board
-description and driver bring-up: Ethernet first, then MTD/flash layout, then
-safe persistent image work.
+Serial console and RAM OpenWrt boot are solved. The project is blocked on GENET
+DMA/descriptor bring-up: make TDMA consume TX descriptors first, then revisit
+switch wiring, then MTD/flash layout, then safe persistent image work.

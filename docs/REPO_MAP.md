@@ -44,6 +44,18 @@ the RAM-boot rules need to be printed.
 - `evidence/snapshots/`: DTS/config/source snapshots.
 - `research/notes/`: raw notes by topic.
 - `patches/`: current, archived, and disabled OpenWrt patch copies.
+  - `patches/bcm3383-technicolor-tc7200u.dts`: current live diagnostic DTS
+    snapshot.
+  - `patches/openwrt-bmips/996-bcmgenet-tc7200u-xmit-desc-debug.patch`:
+    temporary XMITDESC descriptor logging.
+  - `patches/openwrt-bmips/997-bcmgenet-tc7200u-tx-poll-debug.patch`:
+    temporary TX timeout/TXPOLL logging.
+  - `patches/openwrt-bmips/998-bmips-tc7200u-gmac-init.patch`: BCM3383 GMAC
+    pinmux/clock/reset quirk.
+  - `patches/openwrt-bmips/999-bcm63xx-uart-tc7200u-console.patch`: UART probe
+    fallback used for TC7200.U console recovery.
+  - `patches/openwrt-bmips/110-net-dsa-b53-bcm531x5-fix-cpu-rgmii-mode-interpretation.patch`:
+    B53/BCM53125 switch patch retained for later switch work.
 
 ## Important output
 

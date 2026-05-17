@@ -1,6 +1,6 @@
 # TC7200.U Start Here
 
-Last updated: 2026-05-15.
+Last updated: 2026-05-17.
 
 ## Current state
 
@@ -17,7 +17,8 @@ Solved:
 Current blocker:
 
 - Ethernet bring-up. GENET at `0x12c00000` is the current hardware direction,
-  but link/PHY/switch wiring is not solved.
+  fixed-link reports up, and a real TX frame is queued, but TDMA does not
+  consume the descriptor.
 
 Do not work on:
 
@@ -39,20 +40,24 @@ Do not work on:
 
 ## Next technical action
 
-Test a safer GENET diagnostic node:
+Continue the GENET descriptor/DMA diagnostic:
 
 - MAC base: `0x12c00000`, size `0x4000`.
-- Avoid internal PHY mode for the next diagnostic.
-- Try an RGMII/fixed-link setup to see whether GENET can start without the
-  invalid internal PHY/GPHY path.
-- Add BCM53125/B53 switch description only after the GENET diagnostic result is
-  understood.
+- Keep RGMII fixed-link and no B53/DSA for the next diagnostic.
+- Keep parent `periph_intc` bits 16/17 unchanged; blind enable causes an IRQ
+  storm.
+- Verify GENET v1 descriptor ownership, TDMA/RDMA/INTRL2 offsets, and
+  `hw_params` before changing switch wiring.
+- Next experiment is a GENET v1-only `DMA_OWN` OR test, but only with the
+  XMITDESC/TXPOLL debug still active.
 
 Use these notes as the starting evidence:
 
 - `research/notes/source-research/2026-05-15-linux-technicolor-genet-finding.md`
-- `research/notes/runtime-probes/2026-05-15-genet-internal-phy-link-down.md`
-- `research/notes/runtime-probes/2026-05-15-bcmgenet-12c00000-negative-result.md`
+- `research/notes/status/2026-05-16-current-tc7200u-bringup-baseline.md`
+- `research/notes/runtime-probes/2026-05-17-genet-txpoll-dma-not-consuming.md`
+- `research/notes/runtime-probes/2026-05-17-genet-tx-desc-present-no-tdma-consume.md`
+- `research/notes/runtime-probes/2026-05-17-genet-xmitdesc-real-frame-no-tdma-consume.md`
 
 ## Current commands
 

@@ -1,0 +1,26 @@
+--- a/drivers/tty/serial/bcm63xx_uart.c
++++ b/drivers/tty/serial/bcm63xx_uart.c
+@@ -823,8 +823,6 @@ static int bcm_uart_probe(struct platform_device *pdev)
+ 		return -EINVAL;
+ 
+ 	port = &ports[pdev->id];
+-	if (port->membase)
+-		return -EBUSY;
+ 	memset(port, 0, sizeof(*port));
+ 
+ 	port->membase = devm_platform_get_and_ioremap_resource(pdev, 0, &res_mem);
+@@ -833,8 +831,12 @@ static int bcm_uart_probe(struct platform_device *pdev)
+ 	port->mapbase = res_mem->start;
+ 
+ 	ret = platform_get_irq(pdev, 0);
+-	if (ret < 0)
+-		return ret;
++	if (ret < 0) {
++		dev_warn(&pdev->dev,
++			 "failed to get IRQ from DT (%d), using TC7200.U fallback IRQ 2\n",
++			 ret);
++		ret = 2;
++	}
+ 	port->irq = ret;
+ 
+ 	clk = clk_get(&pdev->dev, "refclk");
