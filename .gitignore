@@ -1,0 +1,20 @@
+
+# Local runtime/build noise
+logs/
+*.tmp
+base
+hw_params
+hw_params-
+rdma_offset,
+tdma_offset
+tdma_offset,
+tx_bds
+tx_bds_per_q,
+tx_queues
+tx_queues,
+
+# Generated OpenWrt build/debug logs
+research/notes/generated/*make*.log
+research/notes/generated/*ensure-debug-packages.log
+research/notes/generated/*openwrt-config-before-debug-packages
+research/notes/generated/*openwrt-config-after-debug-packages
