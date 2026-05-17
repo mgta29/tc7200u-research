@@ -43,11 +43,18 @@ system.
 - Ethernet is not passing packets.
   - GENET at `0x12c00000` probes and creates `eth0`.
   - Fixed-link RGMII reports link up, but TX does not complete.
-  - `bcmgenet_xmit()` queues a real 154-byte frame into descriptor RAM and
-    writes producer index 1.
+  - `bcmgenet_xmit()` queues a real TX frame into descriptor RAM and writes
+    producer index 1.
   - TDMA stays enabled, but the hardware consumer index never advances.
-  - The current descriptor `len_stat` lacks `DMA_OWN=0x8000`; verify GENET v1
-    descriptor rules before treating that as the fix.
+  - Compact GENET v1 status/length descriptor packing now reads back correctly:
+    `wrote_len=0x000e009a`, `rb_len=0x000e009a`.
+  - Linux DMA mappings and coherent bounce allocations still land in the
+    `0x06xxxxxx` RAM bank.
+  - GENET descriptor RAM stores only low 20 address bits, for example:
+    `0x06835002 -> 0x00035002` and `0x06e01000 -> 0x00001000`.
+  - ADDRSHIFT8 did not fix TX.
+  - `mem=16M` and `mem=32M` were invalid tests because they failed before a
+    useful GENET runtime test.
   - Internal PHY mode reads invalid GPHY data and is not a solved path.
   - The earlier `bcm6368-enetsw` path at `0x14e01000` produced no packet I/O.
 - MTD is not up.
@@ -78,14 +85,17 @@ verification, not B53/DSA integration.
 
 ## Current blockers
 
-1. Verify BCM3383 GENET v1 descriptor ownership, register offsets, and
-   `hw_params` layout.
-2. Prove why TDMA does not consume the queued TX descriptor.
+1. Prove how BCM3383 GENET expects TX buffer addresses to be represented or
+   translated for TDMA.
+2. Test a non-fatal 20-bit DMA mask diagnostic, or a reserved low physical TX
+   bounce-buffer diagnostic.
 3. Keep the BCM3383 GMAC clock/reset/pinmux quirk in the test baseline.
-4. Add safe MDIO/B53/BCM53125 switch description only after GENET TDMA behavior is
-   understood.
-5. After Ethernet, proceed to read-only flash discovery.
-6. Only after MTD and flash layout are understood, consider persistent images.
+4. Keep IRQ `<13 4>` as a separate branch; do not combine it with DMA address
+   tests.
+5. Add safe MDIO/B53/BCM53125 switch description only after GENET TDMA consumes
+   descriptors.
+6. After Ethernet, proceed to read-only flash discovery.
+7. Only after MTD and flash layout are understood, consider persistent images.
 
 ## Recommended next work
 
@@ -95,16 +105,21 @@ verification, not B53/DSA integration.
 3. Keep generated wrap manifests and state captures under
    `research/notes/generated/`.
 4. Stop spending time on `bcm6368-enetsw` DMA/IRQ swaps at `0x14e01000`.
-5. Test a GENET v1-only `DMA_OWN` descriptor experiment only after confirming
-   the `bcmgenet_xmit()` descriptor fields and offsets.
+5. Do not repeat the already-failed `DMA_OWN`, ADDRSHIFT8, fatal
+   `DMA_BIT_MASK(20)`, Zephyr-style `dma-ranges`, or `mem=16M`/`mem=32M`
+   paths.
 6. Do not manually enable parent `periph_intc` bits 16/17; the blind enable
    path causes an IRQ storm.
 7. Treat memory-map/load-address warnings from GENET test images as serious
    until explained.
 8. Handle MTD/SPI/NAND only after Ethernet is understood, and begin read-only.
+9. Use `docs/MEMORY_MAP.md` and
+   `research/notes/source-research/2026-05-17-similar-firmware-useful-map-data.md`
+   before changing DTS `reg`, `interrupts`, or boot/link addresses.
 
 ## Bottom line
 
 Serial console and RAM OpenWrt boot are solved. The project is blocked on GENET
-DMA/descriptor bring-up: make TDMA consume TX descriptors first, then revisit
-switch wiring, then MTD/flash layout, then safe persistent image work.
+DMA address interpretation/translation: make TDMA consume TX descriptors first,
+then revisit switch wiring, then MTD/flash layout, then safe persistent image
+work.

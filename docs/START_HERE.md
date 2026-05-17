@@ -19,6 +19,13 @@ Current blocker:
 - Ethernet bring-up. GENET at `0x12c00000` is the current hardware direction,
   fixed-link reports up, and a real TX frame is queued, but TDMA does not
   consume the descriptor.
+- Compact GENET v1 status/length descriptor packing now reads back correctly:
+  `wrote_len=0x000e009a`, `rb_len=0x000e009a`.
+- The active blocker is descriptor/data address reachability:
+  Linux maps TX buffers around `0x06xxxxxx`, but GENET descriptor RAM keeps only
+  low 20 address bits, for example `0x06e01000 -> 0x00001000`.
+- TDMA ring16 shows producer index 1 and consumer index 0, with global
+  `TDMA_STATUS=0x00000000`.
 
 Do not work on:
 
@@ -40,19 +47,22 @@ Do not work on:
 
 ## Next technical action
 
-Continue the GENET descriptor/DMA diagnostic:
+Continue the GENET DMA address diagnostic:
 
 - MAC base: `0x12c00000`, size `0x4000`.
 - Keep RGMII fixed-link and no B53/DSA for the next diagnostic.
-- Keep parent `periph_intc` bits 16/17 unchanged; blind enable causes an IRQ
-  storm.
-- Verify GENET v1 descriptor ownership, TDMA/RDMA/INTRL2 offsets, and
-  `hw_params` before changing switch wiring.
-- Next experiment is a GENET v1-only `DMA_OWN` OR test, but only with the
-  XMITDESC/TXPOLL debug still active.
+- Keep parent `periph_intc` bits unchanged in the DMA test branch; blind enable
+  caused an IRQ storm.
+- Do not repeat the old fatal `DMA_BIT_MASK(20)` probe path.
+- Next DMA experiment is a non-fatal 20-bit DMA mask diagnostic, or a reserved
+  low physical TX bounce-buffer diagnostic.
+- IRQ `<13 4>` remains a separate branch and must not be combined with DMA
+  address tests.
 
 Use these notes as the starting evidence:
 
+- `docs/MEMORY_MAP.md`
+- `research/notes/source-research/2026-05-17-similar-firmware-useful-map-data.md`
 - `research/notes/source-research/2026-05-15-linux-technicolor-genet-finding.md`
 - `research/notes/status/2026-05-16-current-tc7200u-bringup-baseline.md`
 - `research/notes/runtime-probes/2026-05-17-genet-txpoll-dma-not-consuming.md`

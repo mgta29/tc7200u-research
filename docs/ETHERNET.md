@@ -67,32 +67,45 @@ Known result:
 - Internal PHY/GPHY data reads as invalid `0x0000`; internal PHY mode is not a
   solved path.
 - Fixed-link RGMII reports link up, but TX watchdog repeats.
-- XMITDESC shows a real 154-byte TX frame mapped in low physical RAM and queued
-  into ring16.
+- XMITDESC shows a real TX frame queued into ring16.
 - TXPOLL shows TDMA enabled and hardware producer index 1, but hardware
   consumer index remains 0.
-- Current descriptor `len_stat` lacks `DMA_OWN=0x8000`.
+- Compact GENET v1 status/length descriptor packing now reads back correctly:
+  `wrote_len=0x000e009a`, `rb_len=0x000e009a`.
+- Descriptor/data address reachability is the active blocker:
+  Linux gives DMA addresses around `0x06xxxxxx`, while GENET descriptor RAM
+  keeps only low 20 bits.
+- ADDRSHIFT8 wrote/read back the shifted address but still left `hw_c=0`.
+- `dma_alloc_coherent(... GFP_DMA)` bounce allocation still produced high DMA:
+  `bounce_dma=0x06e01000`, descriptor `rb_addr=0x00001000`, `hw_c=0`.
+- Ring16 metadata is sane enough to show one posted descriptor, and global
+  `TDMA_STATUS=0x00000000` reports no useful global error.
 - Some GENET images previously showed memory/page-table corruption and are not
   stable baselines.
 
 ## Next test
 
-Next diagnostic should stay focused on TDMA descriptor consumption:
+Next diagnostic should stay focused on TDMA descriptor consumption through the
+DMA address branch:
 
 - `phy-mode = "rgmii"`
 - no `phy-handle`
-- no MDIO child for the first diagnostic
+- no MDIO child for the DMA diagnostic
 - fixed-link, 1000 full-duplex
-- XMITDESC and TXPOLL debug enabled
+- compact GENET v1 status/length packing active
+- ADDRDBG, DESCRB, and TXPOLL debug enabled
 - no parent IRQ manual enable
+- no B53/DSA yet
 
 Goal:
 
-- Verify BCM3383 GENET v1 descriptor ownership and register offsets.
-- Test a GENET v1-only `DMA_OWN` OR if the descriptor fields still match the
-  expected layout.
+- Prove whether Linux can produce a DMA address that GENET descriptor RAM can
+  represent and TDMA can consume.
+- Run the non-fatal 20-bit DMA mask diagnostic, or test a reserved low physical
+  TX bounce buffer.
 - Watch for TDMA consumer index movement, TX completion, DMA/IRQ activity, and
   memory corruption.
+- Keep IRQ `<13 4>` as a separate test branch.
 - Add proper BCM53125/B53 switch description only after GENET TDMA behavior is
   understood.
 
@@ -106,3 +119,7 @@ Goal:
   kernel instability.
 - Do not manually enable parent `periph_intc` bits 16/17; that path produced a
   console-flooding IRQ storm.
+- Do not repeat failed DMA paths: plain `DMA_OWN`, ADDRSHIFT8, fatal
+  `DMA_BIT_MASK(20)`, Zephyr-style `dma-ranges`, `mem=16M`, or `mem=32M`.
+- Keep serial commands short; long pasted lines can be corrupted by serial
+  overruns.
