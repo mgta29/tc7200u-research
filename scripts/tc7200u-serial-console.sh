@@ -9,6 +9,13 @@ PWSH="/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe"
 echo "== TC7200.U serial console =="
 echo "BUSID=$BUSID"
 
+case "$BUSID" in
+    *[!0-9.-]*)
+        echo "ERROR: unsafe BUSID: $BUSID" >&2
+        exit 1
+        ;;
+esac
+
 if [ -x "$PWSH" ]; then
     if ! "$PWSH" -NoProfile -Command "usbipd attach --wsl --busid $BUSID"; then
         echo "WARN: usbipd attach failed or device is already attached. Continuing."
@@ -22,8 +29,16 @@ sudo modprobe ch341
 
 if [ -z "$DEV" ]; then
     for _ in $(seq 1 40); do
-        DEV="$(ls /dev/ttyUSB* /dev/ttyACM* 2>/dev/null | head -1 || true)"
-        [ -n "$DEV" ] && break
+        mapfile -t devices < <(find /dev -maxdepth 1 \( -name 'ttyUSB*' -o -name 'ttyACM*' \) -print 2>/dev/null | sort)
+        if [ "${#devices[@]}" -eq 1 ]; then
+            DEV="${devices[0]}"
+            break
+        fi
+        if [ "${#devices[@]}" -gt 1 ]; then
+            echo "ERROR: multiple serial devices found; set DEV explicitly" >&2
+            printf '  %s\n' "${devices[@]}" >&2
+            exit 1
+        fi
         sleep 0.25
     done
 fi

@@ -24,7 +24,7 @@ if [ "$TC7200U_INCLUDE_DRIVER_PACKAGES" = "1" ]; then
 	packages="$packages $TC7200U_DRIVER_PACKAGES"
 fi
 
-packages="$(printf '%s\n' $packages | awk 'NF && !seen[$0]++ { print }')"
+packages="$(printf '%s\n' "$packages" | tr '[:space:]' '\n' | awk 'NF && !seen[$0]++ { print }')"
 
 if [ -z "$packages" ]; then
 	echo "INFO: no TC7200U debug packages requested"

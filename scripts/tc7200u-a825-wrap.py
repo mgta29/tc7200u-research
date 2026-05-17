@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import argparse
 import struct
+import time
 from pathlib import Path
 
 def auto_int(x):
@@ -56,7 +57,6 @@ def main():
     args = ap.parse_args()
 
     payload = Path(args.input).read_bytes()
-    import time
     build_time = int(time.time()) if args.build_time is None else args.build_time
     header = make_header(len(payload), args.load_addr, args.filename, build_time, args.crc32)
     Path(args.output).write_bytes(header + payload)

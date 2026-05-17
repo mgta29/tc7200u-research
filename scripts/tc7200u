@@ -13,7 +13,7 @@ shift || true
 case "$cmd" in
   help|-h|--help)
     echo "TC7200.U helper"
-    echo "Commands: help paths status wrap state rules"
+    echo "Commands: help paths status wrap state rules selftest"
     echo "Compatibility: build, check, and verify currently run the same safe flow as wrap"
     ;;
   paths)
@@ -45,6 +45,48 @@ case "$cmd" in
     echo "3. Only TFTP /mnt/c/tftp/openwrt-ps-irqfallback.bin after CHECK OK: size_ok=True."
     echo "4. Do not rename openwrt-ps-irqfallback.bin."
     echo "5. Use short one-line commands on TTL serial."
+    ;;
+  selftest)
+    cd "$RESEARCH"
+    tmp="$(mktemp -d "${TMPDIR:-/tmp}/tc7200u-selftest.XXXXXX")"
+    cleanup() {
+      case "$tmp" in
+        /tmp/tc7200u-selftest.*)
+          rm -rf "$tmp"
+          ;;
+      esac
+    }
+    trap cleanup EXIT INT TERM
+
+    raw="$tmp/raw.bin"
+    wrapped="$tmp/wrapped.bin"
+    bad_hcs="$tmp/bad-hcs.bin"
+    bad_payload="$tmp/bad-payload.bin"
+    printf 'test-payload' > "$raw"
+
+    scripts/tc7200u-a825-wrap.py --input "$raw" --output "$wrapped" --build-time 0x12345678 >/dev/null
+    scripts/tc7200u-verify-a825-image.py --raw "$raw" --wrapped "$wrapped" >/dev/null
+
+    cp "$wrapped" "$bad_hcs"
+    printf '\000\000' | dd of="$bad_hcs" bs=1 seek=84 conv=notrunc status=none
+    if scripts/tc7200u-verify-a825-image.py --raw "$raw" --wrapped "$bad_hcs" >/dev/null 2>&1; then
+      echo "FAIL: verifier accepted corrupted HCS" >&2
+      exit 1
+    fi
+
+    cp "$wrapped" "$bad_payload"
+    printf X | dd of="$bad_payload" bs=1 seek=92 conv=notrunc status=none
+    if scripts/tc7200u-verify-a825-image.py --raw "$raw" --wrapped "$bad_payload" >/dev/null 2>&1; then
+      echo "FAIL: verifier accepted corrupted payload" >&2
+      exit 1
+    fi
+
+    if scripts/tc7200u-verify-a825-image.py --raw "$raw" --wrapped "$wrapped" --expect-load 0x83000000 >/dev/null 2>&1; then
+      echo "FAIL: verifier accepted wrong expected load address" >&2
+      exit 1
+    fi
+
+    echo "OK: TC7200U script selftest passed"
     ;;
   *)
     echo "ERROR: unknown command: $cmd" >&2
