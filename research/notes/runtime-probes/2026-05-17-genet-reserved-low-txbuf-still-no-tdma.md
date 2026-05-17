@@ -38,9 +38,13 @@ Observed:
   - tdma_stat=0x00000000
 
 Conclusion:
-- A real reserved low physical TX buffer is not enough.
+- A real reserved physical TX buffer at `0x01680000` is not enough as a
+  standalone fix.
 - The failure is not only caused by Linux allocating TX buffers in high 0x06xxxxxx RAM.
-- TDMA still does not walk/consume ring16 even with a controlled low physical TX buffer.
+- The descriptor still reads back only the low 20 bits, `0x00080000`, so this
+  result points at the missing DMA window/base/translation question rather than
+  another normal allocator problem.
+- TDMA still does not walk/consume ring16 even with a controlled reserved TX buffer.
 - Remaining suspect area:
   - BCM3383 GENET DMA window/base/init
   - TDMA/SCB/UBUS setup
@@ -57,5 +61,11 @@ Do not repeat:
 - blind parent IRQ enable
 
 Next:
-- Search OEM/source for bcm3383_init_gmac(), GENET DMA/SCB/window/base setup, and TDMA/RDMA initialization.
+- Read current clock/reset state around `0x14e00000`, especially
+  `ClkCtrlUBus`.
+- Compare current `bcm3383_init_gmac()` against the BCM3383 clock definitions:
+  it enables low/high GMAC clocks and reset, but not the named UBUS GMAC clock
+  bit.
+- Search OEM/source for bcm3383_init_gmac(), GENET DMA/SCB/window/base setup,
+  and TDMA/RDMA initialization.
 - Do not move to B53/DSA until TDMA consumes descriptors.
