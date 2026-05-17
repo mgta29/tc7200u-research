@@ -1,0 +1,72 @@
+--- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
++++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+@@ -3532,6 +3532,41 @@
+ 		  ring->cb_ptr, ring->end_ptr);
+ }
+ 
++/* TC7200.U TX polling diagnostic.
++ * RAM/TFTP research only. Does not enable parent IRQs.
++ */
++#define TC7200U_PERIPH_INTC_STAT_REG ((void __iomem *)0xb4e00048)
++#define TC7200U_PERIPH_INTC_MASK_REG ((void __iomem *)0xb4e0004c)
++
++static void tc7200u_genet_tx_timeout_dump(struct net_device *dev, const char *tag)
++{
++	struct bcmgenet_priv *priv = netdev_priv(dev);
++	struct bcmgenet_tx_ring *ring = &priv->tx_rings[DESC_INDEX];
++	u32 hw_c, hw_p;
++
++	hw_c = bcmgenet_tdma_ring_readl(priv, DESC_INDEX, TDMA_CONS_INDEX) & DMA_C_INDEX_MASK;
++	hw_p = bcmgenet_tdma_ring_readl(priv, DESC_INDEX, TDMA_PROD_INDEX) & DMA_P_INDEX_MASK;
++
++	netdev_info(dev,
++		    "TC7200U TXPOLL %s periph_stat=0x%08x periph_mask=0x%08x intr0_stat=0x%08x intr0_mask=0x%08x intr1_stat=0x%08x intr1_mask=0x%08x tdma_ctrl=0x%08x tdma_stat=0x%08x sw_prod=%u sw_c=%u hw_p=%u hw_c=%u free_bds=%u clean=%u write=%u\n",
++		    tag,
++		    __raw_readl(TC7200U_PERIPH_INTC_STAT_REG),
++		    __raw_readl(TC7200U_PERIPH_INTC_MASK_REG),
++		    bcmgenet_intrl2_0_readl(priv, INTRL2_CPU_STAT),
++		    bcmgenet_intrl2_0_readl(priv, INTRL2_CPU_MASK_STATUS),
++		    bcmgenet_intrl2_1_readl(priv, INTRL2_CPU_STAT),
++		    bcmgenet_intrl2_1_readl(priv, INTRL2_CPU_MASK_STATUS),
++		    bcmgenet_tdma_readl(priv, DMA_CTRL),
++		    bcmgenet_tdma_readl(priv, DMA_STATUS),
++		    ring->prod_index,
++		    ring->c_index,
++		    hw_p,
++		    hw_c,
++		    ring->free_bds,
++		    ring->clean_ptr,
++		    ring->write_ptr);
++}
++
+ static void bcmgenet_timeout(struct net_device *dev, unsigned int txqueue)
+ {
+ 	struct bcmgenet_priv *priv = netdev_priv(dev);
+@@ -3541,20 +3576,25 @@
+ 
+ 	netif_dbg(priv, tx_err, dev, "bcmgenet_timeout\n");
+ 
++	tc7200u_genet_tx_timeout_dump(dev, "before_reclaim");
++
+ 	for (q = 0; q < priv->hw_params->tx_queues; q++)
+ 		bcmgenet_dump_tx_queue(&priv->tx_rings[q]);
+ 	bcmgenet_dump_tx_queue(&priv->tx_rings[DESC_INDEX]);
+ 
+ 	bcmgenet_tx_reclaim_all(dev);
+ 
++	tc7200u_genet_tx_timeout_dump(dev, "after_reclaim");
++
+ 	for (q = 0; q < priv->hw_params->tx_queues; q++)
+ 		int1_enable |= (1 << q);
+ 
+ 	int0_enable = UMAC_IRQ_TXDMA_DONE;
+ 
+ 	/* Re-enable TX interrupts if disabled */
+-	bcmgenet_intrl2_0_writel(priv, int0_enable, INTRL2_CPU_MASK_CLEAR);
+-	bcmgenet_intrl2_1_writel(priv, int1_enable, INTRL2_CPU_MASK_CLEAR);
++	/* TC7200.U TXPOLL: do not re-enable GENET TX interrupts; parent IRQ caused storm. */
++	/* bcmgenet_intrl2_0_writel(priv, int0_enable, INTRL2_CPU_MASK_CLEAR); */
++	/* bcmgenet_intrl2_1_writel(priv, int1_enable, INTRL2_CPU_MASK_CLEAR); */
+ 
+ 	netif_trans_update(dev);
+ 

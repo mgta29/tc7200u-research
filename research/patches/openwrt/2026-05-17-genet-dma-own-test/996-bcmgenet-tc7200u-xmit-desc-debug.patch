@@ -1,0 +1,15 @@
+--- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
++++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+@@ -2133,6 +2133,12 @@
+ 		if (i == nr_frags)
+ 			len_stat |= DMA_EOP;
+ 
++		if (net_ratelimit())
++			netdev_info(dev, "TC7200U XMITDESC i=%d nr_frags=%d size=%u mapping=%pad len_stat=0x%08x bd_addr=%px ring=%u write_ptr=%u prod=%u free=%u\n",
++				    i, nr_frags, size, &mapping, len_stat,
++				    tx_cb_ptr->bd_addr, ring->index, ring->write_ptr,
++				    ring->prod_index, ring->free_bds);
++
+ 		dmadesc_set(priv, tx_cb_ptr->bd_addr, mapping, len_stat);
+ 	}
+ 
