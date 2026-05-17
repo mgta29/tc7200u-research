@@ -1,0 +1,159 @@
+þ
+BCM3383A2 
+Sync: 0 
+MemSize:            128 M
+Chip ID:     BCM3383Z-B0
+
+BootLoader Version: 2.4.0alpha18p1 Pre-release Gnu spiboot dual-flash reduced DDR drive linux
+Build Date: Aug 14 2012
+Build Time: 09:48:58
+SPI flash ID 0xc22014, size 1MB, block size 64KB, write buffer 256, flags 0x0
+NAND flash: Device size 64 MB, Block size 16 KB, Page size 512 B
+Cust key size 128
+parameter offset is 43872
+
+Signature/PID: a825
+
+Switch detected: 53125
+ProbePhy: Found PHY 0, MDIO on MAC 0, data on MAC 0
+Using GMAC0, phy 0
+
+Enet link up: 1G full
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+TFTP Get Selected
+
+Destination: a5f00000
+
+Destination: a5f00000
+Starting TFTP of openwrt-ps-irqfallback.bin from 192.168.77.2
+Getting openwrt-ps-irqfallback.bin using octet mode
+Received packet for invalid session...
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+....................................................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+........................................................................................................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+...................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+..................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+............................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
+Tftp complete
+Received 6416981 bytes
+
+Image 3 Program Header:
+   Signature: a825
+     Control: 0000
+   Major Rev: 0100
+   Minor Rev: 04ff
+  Build Time: 2026/5/17 01:27:31 Z
+ File Length: 6416889 bytes
+Load Address: 82000000
+    Filename: openwrt-initramfs.bin
+         HCS: 4d36
+         CRC: 00000000
+
+Bypassing CRC Verifiction on Image 4...
+CRC time = 322
+Loading non-compressed image 4...
+Target Address: 0x82000000
+Length: 6416889
+Reading flash map at ff30, size 192
+Successfully restored flash map from SPI flash!
+Copying partition table to 0x83fffc04 180
+Copying partition table to 0x80000904 180
+
+Executing Image 4...
+
+
+
+
+OpenWrt kernel loader for BMIPS
+Copyright (C) 2011 Gabor Juhos <juhosg@openwrt.org>
+Copyright (C) 2014 Jonas Gorski <jogo@openwrt.org>
+Copyright (C) 2020 Alvaro Fernandez Rojas <noltari@gmail.com>
+Decompressing kernel... done!
+blasting from 0x80010000 to 0x01590932 (0x80010000 - 0x815a0940)
+Starting kernel at 80010000...
+
+[    0.000000] Linux version 6.12.87 (mgta29@CerberusNB) (mips-openwrt-linux-musl-gcc (OpenWrt GCC 14.3.0 r34427-6865d489d2) 14.3.0, GNU ld (GNU Binutils) 2.44) #0 SMP Fri May 15 11:26:37 2026
+[    0.000000] CPU0 revision is: 0002a080 (Broadcom BMIPS4350)
+[    0.000000] MIPS: machine is Technicolor TC7200.U
+[    0.000000] earlycon: bcm63xx_uart0 at MMIO 0x14e00500 (options '')
+[    0.000000] printk: legacy bootconsole [bcm63xx_uart0] enabled
+[   23.461786] bcm6368_nand 14e02200.nand: timeout waiting for command 0x9
+[   23.473054] bcm6368_nand 14e02200.nand: intfc status c0000000
+[   23.849775] bcmgenet 12c00000.ethernet: unable to find MDIO bus node
+[  134.550140] bcmgenet 12c00000.ethernet eth0: failed to initialize Rx queues
+[  134.562664] bcmgenet 12c00000.ethernet eth0: failed to initialize DMA
+RTNETLINK answers: Out of memory
+Press the [f] key and hit [enter] to enter failsafe mode
+Press the [1], [2], [3] or [4] key and hit [enter] to select the debug level
+sendto(): Network unreachable
+sendto(): Network unreachable
+sendto(): Network unreachable
+sendto(): Network unreachable
+Please press Enter to activate this console.
+
+login[371]: root login on 'ttyS0'
+
+
+BusyBox v1.37.0 (2026-01-02 17:07:02 UTC) built-in shell (ash)
+
+  _______                     ________        __
+ |       |.-----.-----.-----.|  |  |  |.----.|  |_
+ |   -   ||  _  |  -__|     ||  |  |  ||   _||   _|
+ |_______||   __|_____|__|__||________||__|  |____|
+          |__| W I R E L E S S   F R E E D O M
+ -----------------------------------------------------
+ OpenWrt SNAPSHOT, r34428-ded2d0b714
+ -----------------------------------------------------
+
+ === WARNING! =====================================
+ There is no root password defined on this device!
+ Use the "passwd" command to set up a new password
+ in order to prevent unauthorized SSH logins.
+ --------------------------------------------------
+
+root@(none):~# dmesg -n 1
+root@(none):~# ip link set eth0 up
+RTNETLINK answers: Out of memory
+root@(none):~# dmesg | grep 'TC7200U DESCRB'
+root@(none):~# dmesail -2[J[J[J[J[J[J[J[J[J[Jdmesg | grep 'TC7200U TXPOLL' | tail -2
+root@(none):~# 
+root@(none):~# 
+root@(none):~# 

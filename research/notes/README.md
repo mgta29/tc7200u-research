@@ -17,6 +17,9 @@ topic folder. Generated helper output should go to `generated/`.
 
 ## Current high-signal notes
 
+- `source-research/2026-05-17-similar-firmware-useful-map-data.md`
+- `source-research/2026-05-17-tc7200-family-docsis3-firmware-notes.md`
+- `source-research/2026-05-17-openwrt-new-device-porting-guide.md`
 - `source-research/2026-05-15-tc7200-similar-firmware.md`
 - `source-research/2026-05-15-linux-technicolor-genet-finding.md`
 - `runtime-probes/2026-05-15-genet-internal-phy-link-down.md`

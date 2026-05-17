@@ -7,6 +7,8 @@
 - `docs/SAFETY.md`: no-flash and image safety rules.
 - `docs/STATUS.md`: bring-up state and blockers.
 - `docs/ETHERNET.md`: Ethernet findings and next diagnostic.
+- `docs/MEMORY_MAP.md`: RAM/load addresses, MMIO bases, IRQ banks, and flash
+  map evidence.
 - `docs/CFE_IMAGE_FORMAT.md`: A825 wrapper and HCS evidence.
 - `docs/PATHS.md`: local path map.
 - `docs/WORKFLOW.md`: safe command flow.
@@ -56,6 +58,10 @@ the RAM-boot rules need to be printed.
     fallback used for TC7200.U console recovery.
   - `patches/openwrt-bmips/110-net-dsa-b53-bcm531x5-fix-cpu-rgmii-mode-interpretation.patch`:
     B53/BCM53125 switch patch retained for later switch work.
+  - `patches/openwrt-bmips/experiments/2026-05-17-genet-dma-own-test/`:
+    GENET descriptor ownership and TX poll experiments.
+  - `patches/openwrt-bmips/experiments/2026-05-17-genet-dma-address-tests/`:
+    GENET descriptor packing, DMA address, and bounce-buffer experiments.
 
 ## Important output
 

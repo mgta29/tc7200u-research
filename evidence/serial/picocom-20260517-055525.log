@@ -1,0 +1,371 @@
+
+BCM3383A2 
+Sync: 0 
+MemSize:            128 M
+Chip ID:     BCM3383Z-B0
+
+BootLoader Version: 2.4.0alpha18p1 Pre-release Gnu spiboot dual-flash reduced DDR drive linux
+Build Date: Aug 14 2012
+Build Time: 09:48:58
+SPI flash ID 0xc22014, size 1MB, block size 64KB, write buffer 256, flags 0x0
+NAND flash: Device size 64 MB, Block size 16 KB, Page size 512 B
+Cust key size 128
+parameter offset is 43872
+
+Signature/PID: a825
+
+Switch detected: 53125
+ProbePhy: Found PHY 0, MDIO on MAC 0, data on MAC 0
+Using GMAC0, phy 0
+
+Enet link up: 1G full
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+TFTP Get Selected
+
+Destination: a5f00000
+
+Destination: a5f00000
+Starting TFTP of openwrt-ps-irqfallback.bin from 192.168.77.2
+Getting openwrt-ps-irqfallback.bin using octet mode
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+Tftp timeout...
+Tftp timeout...
+Received packet for invalid session...
+Tftp timeout...
+.................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+...............................................................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+..................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+...........................................................................................Received packet for invalid session...
+......................................................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+..........................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
+Tftp complete
+Received 6418288 bytes
+
+Image 3 Program Header:
+   Signature: a825
+     Control: 0000
+   Major Rev: 0100
+   Minor Rev: 04ff
+  Build Time: 2026/5/17 03:53:25 Z
+ File Length: 6418196 bytes
+Load Address: 82000000
+    Filename: openwrt-initramfs.bin
+         HCS: 90ee
+         CRC: 00000000
+
+Bypassing CRC Verifiction on Image 4...
+CRC time = 310
+Loading non-compressed image 4...
+Target Address: 0x82000000
+Length: 6418196
+Reading flash map at ff30, size 192
+Successfully restored flash map from SPI flash!
+Copying partition table to 0x83fffc04 180
+Copying partition table to 0x80000904 180
+
+Executing Image 4...
+
+
+
+
+OpenWrt kernel loader for BMIPS
+Copyright (C) 2011 Gabor Juhos <juhosg@openwrt.org>
+Copyright (C) 2014 Jonas Gorski <jogo@openwrt.org>
+Copyright (C) 2020 Alvaro Fernandez Rojas <noltari@gmail.com>
+Decompressing kernel... done!
+blasting from 0x80010000 to 0x015908ff (0x80010000 - 0x815a0900)
+Starting kernel at 80010000...
+
+[    0.000000] Linux version 6.12.87 (mgta29@CerberusNB) (mips-openwrt-linux-musl-gcc (OpenWrt GCC 14.3.0 r34427-6865d489d2) 14.3.0, GNU ld (GNU Binutils) 2.44) #0 SMP Fri May 15 11:26:37 2026
+[    0.000000] CPU0 revision is: 0002a080 (Broadcom BMIPS4350)
+[    0.000000] MIPS: machine is Technicolor TC7200.U
+[    0.000000] earlycon: bcm63xx_uart0 at MMIO 0x14e00500 (options '')
+[    0.000000] printk: legacy bootconsole [bcm63xx_uart0] enabled
+[    0.000000] Kernel sections are not in the memory maps
+[    0.000000] Wasting 576 bytes for tracking 16 unused pages
+[    0.000000] Initrd not found or empty - disabling initrd
+[    0.000000] OF: reserved mem: Reserved memory: No reserved-memory node in the DT
+[    0.000000] Primary instruction cache 64kB, VIPT, 4-way, linesize 16 bytes.
+[    0.000000] Primary data cache 32kB, 2-way, VIPT, cache aliases, linesize 16 bytes
+[    0.000000] Zone ranges:
+[    0.000000]   Normal   [mem 0x0000000000010000-0x000000000fffffff]
+[    0.000000] Movable zone start for each node
+[    0.000000] Early memory node ranges
+[    0.000000]   node   0: [mem 0x0000000000010000-0x00000000016d7fff]
+[    0.000000]   node   0: [mem 0x0000000006000000-0x0000000007ffffff]
+[    0.000000]   node   0: [mem 0x000000000e000000-0x000000000fffffff]
+[    0.000000] Initmem setup node 0 [mem 0x0000000000010000-0x000000000fffffff]
+[    0.000000] On node 0, zone Normal: 16 pages in unavailable ranges
+[    0.000000] On node 0, zone Normal: 18728 pages in unavailable ranges
+[    0.000000] On node 0, zone Normal: 24576 pages in unavailable ranges
+[    0.000000] percpu: Embedded 12 pages/cpu s19664 r8192 d21296 u49152
+[    0.000000] Kernel command line: console=ttyS0,115200 earlycon
+[    0.000000] Dentry cache hash table entries: 8192 (order: 3, 32768 bytes, linear)
+[    0.000000] Inode-cache hash table entries: 4096 (order: 2, 16384 bytes, linear)
+[    0.000000] Built 1 zonelists, mobility grouping on.  Total pages: 22216
+[    0.000000] mem auto-init: stack:off, heap alloc:off, heap free:off
+[    0.000000] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=1, Nodes=1
+[    0.000000] rcu: Hierarchical RCU implementation.
+[    0.000000] rcu: 	RCU restricting CPUs from NR_CPUS=2 to nr_cpu_ids=1.
+[    0.000000] 	Tracing variant of Tasks RCU enabled.
+[    0.000000] rcu: RCU calculated value of scheduler-enlistment delay is 10 jiffies.
+[    0.000000] rcu: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=1
+[    0.000000] RCU Tasks Trace: Setting shift to 0 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=1.
+[    0.000000] NR_IRQS: 256
+[    0.000000] rcu: srcu_init: Setting srcu_struct sizes based on contention.
+[    0.000000] clocksource: MIPS: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 6370868154 ns
+[    0.000107] sched_clock: 32 bits at 300MHz, resolution 3ns, wraps every 7158278654ns
+[    0.019183] Calibrating delay loop... 4.42 BogoMIPS (lpj=22144)
+[    0.160666] pid_max: default: 32768 minimum: 301
+[    2.908361] Mount-cache hash table entries: 1024 (order: 0, 4096 bytes, linear)
+[    2.920072] Mountpoint-cache hash table entries: 1024 (order: 0, 4096 bytes, linear)
+[    5.036394] rcu: Hierarchical SRCU implementation.
+[    5.043996] rcu: 	Max phase no-delay instances is 1000.
+[    5.148733] smp: Bringing up secondary CPUs ...
+[    5.156045] smp: Brought up 1 node, 1 CPU
+[    5.183776] Memory: 62496K/88864K available (8393K kernel code, 662K rwdata, 1788K rodata, 12252K init, 224K bss, 25748K reserved, 0K cma-reserved)
+[    5.511554] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 19112604462750000 ns
+[    5.526872] futex hash table entries: 256 (order: 2, 16384 bytes, linear)
+[    7.324504] pinctrl core: initialized pinctrl subsystem
+[    8.034382] NET: Registered PF_NETLINK/PF_ROUTE protocol family
+[   10.140654] clocksource: Switched to clocksource MIPS
+[   13.006857] NET: Registered PF_INET protocol family
+[   13.052969] IP idents hash table entries: 2048 (order: 2, 16384 bytes, linear)
+[   13.198422] tcp_listen_portaddr_hash hash table entries: 512 (order: 0, 4096 bytes, linear)
+[   13.215091] Table-perturb hash table entries: 65536 (order: 6, 262144 bytes, linear)
+[   13.228010] TCP established hash table entries: 1024 (order: 0, 4096 bytes, linear)
+[   13.245448] TCP bind hash table entries: 1024 (order: 2, 16384 bytes, linear)
+[   13.263451] TCP: Hash tables configured (established 1024 bind 1024)
+[   13.353978] MPTCP token hash table entries: 256 (order: 0, 4096 bytes, linear)
+[   13.418613] UDP hash table entries: 256 (order: 1, 8192 bytes, linear)
+[   13.433299] UDP-Lite hash table entries: 256 (order: 1, 8192 bytes, linear)
+[   13.597935] NET: Registered PF_UNIX/PF_LOCAL protocol family
+[   13.611229] PCI: CLS 0 bytes, default 16
+[   17.742134] workingset: timestamp_bits=14 max_order=14 bucket_order=0
+[   18.488527] squashfs: version 4.0 (2009/01/31) Phillip Lougher
+[   18.498573] jffs2: version 2.2 (NAND) (SUMMARY) (LZMA) (RTIME) (CMODE_PRIORITY) (c) 2001-2006 Red Hat, Inc.
+[   21.642522] irq_bcm7120_l2: registered BCM3380 L2 intc (/ubus/periph_intc@14e00048, parent IRQ(s): 1)
+[   21.691441] irq_bcm7120_l2: registered BCM3380 L2 intc (/ubus/cmips_intc@151f8048, parent IRQ(s): 1)
+[   21.745813] irq_bcm7120_l2: registered BCM3380 L2 intc (/ubus/iop_intc@14e00050, parent IRQ(s): 1)
+[   21.988328] 14e00500.serial: ttyS0 at MMIO 0x14e00500 (irq = 8, base_baud = 1687500) is a bcm63xx_uart
+[   22.006154] printk: legacy console [ttyS0] enabled
+[   22.006154] printk: legacy console [ttyS0] enabled
+[   22.021743] printk: legacy bootconsole [bcm63xx_uart0] disabled
+[   22.021743] printk: legacy bootconsole [bcm63xx_uart0] disabled
+[   23.876675] bcm6368_nand 14e02200.nand: timeout waiting for command 0x9
+[   23.888385] bcm6368_nand 14e02200.nand: intfc status c0000000
+[   23.898307] nand: No NAND device found
+[   24.261786] bcmgenet 12c00000.ethernet: GENET 1.0 EPHY: 0x02aa
+[   24.273481] bcmgenet 12c00000.ethernet: using random Ethernet MAC
+[   24.288275] bcmgenet 12c00000.ethernet: unable to find MDIO bus node
+[   24.397579] unimac-mdio unimac-mdio.-19: Broadcom UniMAC MDIO bus
+[   34.545510] NET: Registered PF_INET6 protocol family
+[   35.106671] Segment Routing with IPv6
+[   35.127395] In-situ OAM (IOAM) with IPv6
+[   35.151134] NET: Registered PF_PACKET protocol family
+[   35.188625] 8021q: 802.1Q VLAN Support v1.8
+[   39.951813] clk: Disabling unused clocks
+[   39.957747] PM: genpd: Disabling unused power domains
+[   41.525393] Freeing unused kernel image (initmem) memory: 12252K
+[   41.535410] This architecture does not have kernel memory protection.
+[   41.545707] Run /init as init process
+[   75.657618] init: Console is alive
+[   76.338669] kmodloader: loading kernel modules from /etc/modules-boot.d/*
+[   76.507772] kmodloader: done loading kernel modules from /etc/modules-boot.d/*
+[   76.624707] init: - preinit -
+[  103.985287] random: crng init done
+
+[  134.892733] bcmgenet 12c00000.ethernet: configuring instance for external RGMII (no delay)
+[  134.972435] bcmgenet 12c00000.ethernet eth0: Link is Up - 1Gbps/Full - flow control off
+[  135.054856] bcmgenet 12c00000.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=154 mapping=0x06835802 len_stat=0x000e009a bd_addr=b2c03000 ring=16 write_ptr=1 prod=0 free=256
+[  135.081589] bcmgenet 12c00000.ethernet eth0: TC7200U BOUNCE i=0 size=154 bounce_buf=a6e01000 bounce_dma=0x06e01000 bounce_low20=0x01000
+[  135.101468] bcmgenet 12c00000.ethernet eth0: TC7200U ADDRDBG i=0 skb_data=86835802 dma=0x06e01000 dma_low20=0x01000 dma_mask=0xffffffff coh_mask=0xffffffff bus_limit=0x0 range_map=00000000
+[  135.126251] bcmgenet 12c00000.ethernet eth0: TC7200U DESCRB i=0 wrote_len=0x000e009a wrote_map=0x06e01000 rb_len=0x000e009a rb_addr=0x00001000 bd_addr=b2c03000
+[  137.901038] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2760 ms
+[  137.916212] bcmgenet 12c00000.ethernet eth0: TC7200U TXPOLL before_reclaim periph_stat=0x40030004 periph_mask=0x00002010 intr0_stat=0xffffffea intr0_mask=0x8680dcb4 intr1_stat=0x0000006e intr1_mask=0x80a26c78 tdma_ctrl=0x00020001 tdma_stat=0x00000000 sw_prod=1 sw_c=0 hw_p=1 hw_c=0 free_bds=255 clean=0 write=1
+[  137.956532] bcmgenet 12c00000.ethernet eth0: TC7200U TXPOLL after_reclaim periph_stat=0x40030004 periph_mask=0x00002010 intr0_stat=0xffffffea intr0_mask=0x8680dc3c intr1_stat=0x0000006f intr1_mask=0x80a26c78 tdma_ctrl=0x00020001 tdma_stat=0x00000000 sw_prod=1 sw_c=0 hw_p=1 hw_c=0 free_bds=255 clean=0 write=1
+[  140.000462] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[  140.015640] bcmgenet 12c00000.ethernet eth0: TC7200U TXPOLL before_reclaim periph_stat=0x40030004 periph_mask=0x00002010 intr0_stat=0xffffffea intr0_mask=0x8680dcb4 intr1_stat=0x00000071 intr1_mask=0x80a26c78 tdma_ctrl=0x00020001 tdma_stat=0x00000000 sw_prod=1 sw_c=0 hw_p=1 hw_c=0 free_bds=255 clean=0 write=1
+[  140.056401] bcmgenet 12c00000.ethernet eth0: TC7200U TXPOLL after_reclaim periph_stat=0x40030004 periph_mask=0x00002010 intr0_stat=0xffffffea intr0_mask=0x8680dc3c intr1_stat=0x00000072 intr1_mask=0x80a26c78 tdma_ctrl=0x00020001 tdma_stat=0x00000000 sw_prod=1 sw_c=0 hw_p=1 hw_c=0 free_bds=255 clean=0 write=1
+Press the [f] key and hit [enter] to enter failsafe mode
+Press the [1], [2], [3] or [4] key and hit [enter] to select the debug level
+[  142.100659] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[  142.115819] bcmgenet 12c00000.ethernet eth0: TC7200U TXPOLL before_reclaim periph_stat=0x40030004 periph_mask=0x00002010 intr0_stat=0xffffffea intr0_mask=0x8680dcb4 intr1_stat=0x00000074 intr1_mask=0x80a26c78 tdma_ctrl=0x00020001 tdma_stat=0x00000000 sw_prod=1 sw_c=0 hw_p=1 hw_c=0 free_bds=255 clean=0 write=1
+[  142.156763] bcmgenet 12c00000.ethernet eth0: TC7200U TXPOLL after_reclaim periph_stat=0x40030004 periph_mask=0x00002010 intr0_stat=0xffffffea intr0_mask=0x8680dc3c intr1_stat=0x00000075 intr1_mask=0x80a26c78 tdma_ctrl=0x00020001 tdma_stat=0x00000000 sw_prod=1 sw_c=0 hw_p=1 hw_c=0 free_bds=255 clean=0 write=1
+
+[  144.940923] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2750 ms
+[  144.955800] bcmgenet 12c00000.ethernet eth0: TC7200U TXPOLL before_reclaim periph_stat=0x40030004 periph_mask=0x00002010 intr0_stat=0xffffffea intr0_mask=0x8680dcb4 intr1_stat=0x00000077 intr1_mask=0x80a26c78 tdma_ctrl=0x00020001 tdma_stat=0x00000000 sw_prod=1 sw_c=0 hw_p=1 hw_c=0 free_bds=255 clean=0 write=1
+[  144.995802] bcmgenet 12c00000.ethernet eth0: TC7200U TXPOLL after_reclaim periph_stat=0x40030004 periph_mask=0x00002010 intr0_stat=0xffffffea intr0_mask=0x8680dc3c intr1_stat=0x00000078 intr1_mask=0x80a26c78 tdma_ctrl=0x00020001 tdma_stat=0x00000000 sw_prod=1 sw_c=0 hw_p=1 hw_c=0 free_bds=255 clean=0 write=1
+[  147.040371] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[  147.055617] bcmgenet 12c00000.ethernet eth0: TC7200U TXPOLL before_reclaim periph_stat=0x40030004 periph_mask=0x00002010 intr0_stat=0xffffffea intr0_mask=0x8680dcb4 intr1_stat=0x0000007a intr1_mask=0x80a26c78 tdma_ctrl=0x00020001 tdma_stat=0x00000000 sw_prod=1 sw_c=0 hw_p=1 hw_c=0 free_bds=255 clean=0 write=1
+[  147.095564] bcmgenet 12c00000.ethernet eth0: TC7200U TXPOLL after_reclaim periph_stat=0x40030004 periph_mask=0x00002010 intr0_stat=0xffffffea intr0_mask=0x8680dc3c intr1_stat=0x0000007b intr1_mask=0x80a26c78 tdma_ctrl=0x00020001 tdma_stat=0x00000000 sw_prod=1 sw_c=0 hw_p=1 hw_c=0 free_bds=255 clean=0 write=1
+[  149.901285] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2770 ms
+[  149.916447] bcmgenet 12c00000.ethernet eth0: TC7200U TXPOLL before_reclaim periph_stat=0x40030004 periph_mask=0x00002010 intr0_stat=0xffffffea intr0_mask=0x8680dcb4 intr1_stat=0x0000007d intr1_mask=0x80a26c78 tdma_ctrl=0x00020001 tdma_stat=0x00000000 sw_prod=1 sw_c=0 hw_p=1 hw_c=0 free_bds=255 clean=0 write=1
+[  149.956757] bcmgenet 12c00000.ethernet eth0: TC7200U TXPOLL after_reclaim periph_stat=0x40030004 periph_mask=0x00002010 intr0_stat=0xffffffea intr0_mask=0x8680dc3c intr1_stat=0x0000007e intr1_mask=0x80a26c78 tdma_ctrl=0x00020001 tdma_stat=0x00000000 sw_prod=1 sw_c=0 hw_p=1 hw_c=0 free_bds=255 clean=0 write=1
+[  152.000508] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[  152.015665] bcmgenet 12c00000.ethernet eth0: TC7200U TXPOLL before_reclaim periph_stat=0x40030004 periph_mask=0x00002010 intr0_stat=0xffffffea intr0_mask=0x8680dcb4 intr1_stat=0x00000080 intr1_mask=0x80a26c78 tdma_ctrl=0x00020001 tdma_stat=0x00000000 sw_prod=1 sw_c=0 hw_p=1 hw_c=0 free_bds=255 clean=0 write=1
+[  152.055905] bcmgenet 12c00000.ethernet eth0: TC7200U TXPOLL after_reclaim periph_stat=0x40030004 periph_mask=0x00002010 intr0_stat=0xffffffea intr0_mask=0x8680dc3c intr1_stat=0x00000081 intr1_mask=0x80a26c78 tdma_ctrl=0x00020001 tdma_stat=0x00000000 sw_prod=1 sw_c=0 hw_p=1 hw_c=0 free_bds=255 clean=0 write=1
+[  154.100459] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[  154.115841] bcmgenet 12c00000.ethernet eth0: TC7200U TXPOLL before_reclaim periph_stat=0x40030004 periph_mask=0x00002010 intr0_stat=0xffffffea intr0_mask=0x8680dcb4 intr1_stat=0x00000083 intr1_mask=0x80a26c78 tdma_ctrl=0x00020001 tdma_stat=0x00000000 sw_prod=1 sw_c=0 hw_p=1 hw_c=0 free_bds=255 clean=0 write=1
+[  154.156569] bcmgenet 12c00000.ethernet eth0: TC7200U TXPOLL after_reclaim periph_stat=0x40030004 periph_mask=0x00002010 intr0_stat=0xffffffea intr0_mask=0x8680dc3c intr1_stat=0x00000084 intr1_mask=0x80a26c78 tdma_ctrl=0x00020001 tdma_stat=0x00000000 sw_prod=1 sw_c=0 hw_p=1 hw_c=0 free_bds=255 clean=0 write=1
+[  156.941297] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2750 ms
+[  156.956483] bcmgenet 12c00000.ethernet eth0: TC7200U TXPOLL before_reclaim periph_stat=0x40030004 periph_mask=0x00002010 intr0_stat=0xffffffea intr0_mask=0x8680dcb4 intr1_stat=0x00000086 intr1_mask=0x80a26c78 tdma_ctrl=0x00020001 tdma_stat=0x00000000 sw_prod=1 sw_c=0 hw_p=1 hw_c=0 free_bds=255 clean=0 write=1
+[  156.996790] bcmgenet 12c00000.ethernet eth0: TC7200U TXPOLL after_reclaim periph_stat=0x40030004 periph_mask=0x00002010 intr0_stat=0xffffffea intr0_mask=0x8680dc3c intr1_stat=0x00000087 intr1_mask=0x80a26c78 tdma_ctrl=0x00020001 tdma_stat=0x00000000 sw_prod=1 sw_c=0 hw_p=1 hw_c=0 free_bds=255 clean=0 write=1
+[  157.384549] bcmgenet 12c00000.ethernet eth0: Link is Down
+[  158.473971] procd: - early -
+[  161.808498] procd: - ubus -
+[  164.285434] procd: - init -
+Please press Enter to activate this console.
+
+login[377]: root login on 'ttyS0'
+
+
+BusyBox v1.37.0 (2026-01-02 17:07:02 UTC) built-in shell (ash)
+
+  _______                     ________        __
+ |       |.-----.-----.-----.|  |  |  |.----.|  |_
+ |   -   ||  _  |  -__|     ||  |  |  ||   _||   _|
+ |_______||   __|_____|__|__||________||__|  |____|
+          |__| W I R E L E S S   F R E E D O M
+ -----------------------------------------------------
+ OpenWrt SNAPSHOT, r34428-ded2d0b714
+ -----------------------------------------------------
+
+ === WARNING! =====================================
+ There is no root password defined on this device!
+ Use the "passwd" command to set up a new password
+ in order to prevent unauthorized SSH logins.
+ --------------------------------------------------
+
+root@(none):~# dmesg -n 1
+root@(none):~# ip link set eth0 up
+root@(none):~# dmesg | grep 'TC7200U BOUNCE'
+[  135.081589] bcmgenet 12c00000.ethernet eth0: TC7200U BOUNCE i=0 size=154 bounce_buf=a6e01000 bounce_dma=0x06e01000 bounce_low20=0x01000
+[  188.907188] bcmgenet 12c00000.ethernet eth0: TC7200U BOUNCE i=0 size=154 bounce_buf=a6e01000 bounce_dma=0x06e01000 bounce_low20=0x01000
+root@(none):~# dmesg | grep 'TC7200U ADDRDBG'
+[  135.101468] bcmgenet 12c00000.ethernet eth0: TC7200U ADDRDBG i=0 skb_data=86835802 dma=0x06e01000 dma_low20=0x01000 dma_mask=0xffffffff coh_mask=0xffffffff bus_limit=0x0 range_map=00000000
+[  188.911940] bcmgenet 12c00000.ethernet eth0: TC7200U ADDRDBG i=0 skb_data=86a1c002 dma=0x06e01000 dma_low20=0x01000 dma_mask=0xffffffff coh_mask=0xffffffff bus_limit=0x0 range_map=00000000
+root@(none):~# dmesg | grep 'TC7200U DESCRB'
+[  135.126251] bcmgenet 12c00000.ethernet eth0: TC7200U DESCRB i=0 wrote_len=0x000e009a wrote_map=0x06e01000 rb_len=0x000e009a rb_addr=0x00001000 bd_addr=b2c03000
+[  188.916324] bcmgenet 12c00000.ethernet eth0: TC7200U DESCRB i=0 wrote_len=0x000e009a wrote_map=0x06e01000 rb_len=0x000e009a rb_addr=0x00001000 bd_addr=b2c03000
+root@(none):~# dmesg | grep 'TC7200U TXPOLL' | tail -2
+[  230.103523] bcmgenet 12c00000.ethernet eth0: TC7200U TXPOLL before_reclaim periph_stat=0x40030004 periph_mask=0x00002010 intr0_stat=0xffffffea intr0_mask=0x8680dcb4 intr1_stat=0x000000cc intr1_mask=0x80a26c78 tdma_ctrl=0x00020001 tdma_stat=0x00000000 sw_prod=1 sw_c=0 hw_p=1 hw_c=0 free_bds=255 clean=0 write=1
+[  230.111299] bcmgenet 12c00000.ethernet eth0: TC7200U TXPOLL after_reclaim periph_stat=0x40030004 periph_mask=0x00002010 intr0_stat=0xffffffea intr0_mask=0x8680dc3c intr1_stat=0x000000cd intr1_mask=0x80a26c78 tdma_ctrl=0x00020001 tdma_stat=0x00000000 sw_prod=1 sw_c=0 hw_p=1 hw_c=0 free_bds=255 clean=0 write=1
+root@(none):~# ip link set eth0 down
+root@(none):~# dmesg -n 1
+root@(none):~# ip link set eth0 up
+root@(none):~# devmem 0x12c03c00 32
+0x00000000
+root@(none):~# devmem 0x12c03c04 32
+0x00000000
+root@(none):~# devmem 0x12c03c08 32
+0x00000001
+root@(none):~# devmem 0x12c03c0c 32
+0x01000800
+root@(none):~# devmem 0x12c03c10 32
+0x00000000
+root@(none):~# devmem 0x12c03c14 32
+0x000001FF
+root@(none):~# devmem 0x12c03c18 32
+0x00000001
+root@(none):~# devmem 0x12c03c1c 32
+0x00000000
+root@(none):~# devmem 0x12c03c20 32
+0x00000000
+root@(none):~# devmem 0x12c03800 32
+0x00010003
+root@(none):~# devmem 0x12c03804 32
+0x00000014
+root@(none):~# ip link set eth0 down
+root@(none):~# for a0c03c4c 0x12c03c70 0x12c03c74 0x12c03c78 0x12c03c7c
+-ash: syntax error: unexpected word (expecting "do")
+root@OpenWrt:~# for a in 0x12c03c40 0x12c03c44 0x12c03c4c 0x12c03c70 0x12c03c74 
+0x12c03c78 0x12c03c7c; do [J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[1A[79C[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J
+root@OpenWrt:~# for x12c03c44 0x12c03c4c 03c74 0x12c03c78 0x12c03c7c; do
+-ash: syntax error: unexpected word (expecting "do")
+root@OpenWrt:~#   echo -n "$a "
+ root@OpenWrt:~#   devmem $a 32
+0x037AD821
+root@OpenWrt:~# done[J[J[J[J
+root@OpenWrt:~# for 012c03c4c 0x12c03c70 0x12c03c74 0x12c03c78 0x12c03c7c; do
+-ash: syntax error: bad for loop variable
+root@OpenWrt:~# for a in 0x12c03c40 0x12c03c44 0x12c03c4c 0x12c03c70 0x12c03c74 
+0x12c03c78 0x12c03c7c; do
+> echoe[J[J[J[J[Jfor a in 0x12c03c40 0x12c03c44 0x12c03c4c 0x12c03c70 0x12c03c74 0x12c03c78 0x1
+2c03c7c; do
+>   echo -n "$a "
+>   devmem $a 32
+> done^C
+
+root@OpenWrt:~# c^C
+
+root@OpenWrt:~# ^C
+
+root@OpenWrt:~# ^C
+
+root@OpenWrt:~# ^C
+
+root@OpenWrt:~# 
+root@OpenWrt:~# for3x12c03c4c 0x12c03c70 0x12c03c74 0x12c03c78 0x12c03c7c; do
+-ash: syntax error: unexpected "do"
+root@OpenWrt:~#   echo -n "$a "
+ root@OpenWrt:~#   devmem $a 32
+0x037AD821
+root@OpenWrt:~# done
+-ash: syntax error: unexpected "done"
+root@OpenWrt:~# devmem 0x12c03c40 32
+0x00020000
+root@OpenWrt:~# devmem 0x12c03c44 32Å±[J
+devmem: invalid number '32Å'
+root@OpenWrt:~# devmem 0x12c03c4c 32
+0x00000010
+root@OpenWrt:~# dev0[J[J[J[Jdevmem 0x12c03c70 32
+0x00000002
+root@OpenWrt:~# devmem 0x12c03c74 32
+0x00000000
+root@OpenWrt:~# devmem 0x12c03c78 32
+0x00000000
+root@OpenWrt:~# devmem 0x12c03c7c 32
+0x00000000
+root@OpenWrt:~# unset a
+root@OpenWrt:~# devmem 0x12c03c44 32
+0x00000000
+root@OpenWrt:~# 

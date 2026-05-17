@@ -1,0 +1,134 @@
+þ
+BCM3383A2 
+Sync: 0 
+MemSize:            128 M
+Chip ID:     BCM3383Z-B0
+
+BootLoader Version: 2.4.0alpha18p1 Pre-release Gnu spiboot dual-flash reduced DDR drive linux
+Build Date: Aug 14 2012
+Build Time: 09:48:58
+SPI flash ID 0xc22014, size 1MB, block size 64KB, write buffer 256, flags 0x0
+NAND flash: Device size 64 MB, Block size 16 KB, Page size 512 B
+Cust key size 128
+parameter offset is 43872
+
+Signature/PID: a825
+
+Switch detected: 53125
+ProbePhy: Found PHY 0, MDIO on MAC 0, data on MAC 0
+Using GMAC0, phy 0
+
+Enet link up: 1G full
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+TFTP Get Selected
+
+Destination: a5f00000
+
+Destination: a5f00000
+Starting TFTP of openwrt-ps-irqfallback.bin from 192.168.77.2
+Getting openwrt-ps-irqfallback.bin using octet mode
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+....................................................................................................................................................................................Received packet for invalid session...
+......................................................................................................................................................................................................................Received packet for invalid session...
+......................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+.............................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
+Tftp complete
+Received 6417715 bytes
+
+Image 3 Program Header:
+   Signature: a825
+     Control: 0000
+   Major Rev: 0100
+   Minor Rev: 04ff
+  Build Time: 2026/5/17 03:24:33 Z
+ File Length: 6417623 bytes
+Load Address: 82000000
+    Filename: openwrt-initramfs.bin
+         HCS: 02e5
+         CRC: 00000000
+
+Bypassing CRC Verifiction on Image 4...
+CRC time = 315
+Loading non-compressed image 4...
+Target Address: 0x82000000
+Length: 6417623
+Reading flash map at ff30, size 192
+Successfully restored flash map from SPI flash!
+Copying partition table to 0x83fffc04 180
+Copying partition table to 0x80000904 180
+
+Executing Image 4...
+
+
+
+
+OpenWrt kernel loader for BMIPS
+Copyright (C) 2011 Gabor Juhos <juhosg@openwrt.org>
+Copyright (C) 2014 Jonas Gorski <jogo@openwrt.org>
+Copyright (C) 2020 Alvaro Fernandez Rojas <noltari@gmail.com>
+Decompressing kernel... done!
+blasting from 0x80010000 to 0x01590907 (0x80010000 - 0x815a0910)
+Starting kernel at 80010000...
+
+[    0.000000] Linux version 6.12.87 (mgta29@CerberusNB) (mips-openwrt-linux-musl-gcc (OpenWrt GCC 14.3.0 r34427-6865d489d2) 14.3.0, GNU ld (GNU Binutils) 2.44) #0 SMP Fri May 15 11:26:37 2026
+[    0.000000] CPU0 revision is: 0002a080 (Broadcom BMIPS4350)
+[    0.000000] MIPS: machine is Technicolor TC7200.U
+[    0.000000] earlycon: bcm63xx_uart0 at MMIO 0x14e00500 (options '')
+[    0.000000] printk: legacy bootconsole [bcm63xx_uart0] enabled
+[    0.000000] User-defined physical RAM map overwrite
+[    0.000000] Kernel sections are not in the memory maps
+[    0.000000] Initrd not found or empty - disabling initrd
+[    0.000000] OF: reserved mem: Reserved memory: No reserved-memory node in the DT
+[    0.000000] Primary instruction cache 64kB, VIPT, 4-way, linesize 16 bytes.
+[    0.000000] Primary data cache 32kB, 2-way, VIPT, cache aliases, linesize 16 bytes
+[    0.000000] Zone ranges:
+[    0.000000]   Normal   [mem 0x0000000000000000-0x00000000016d7fff]
+[    0.000000] Movable zone start for each node
+[    0.000000] Early memory node ranges
+[    0.000000]   node   0: [mem 0x0000000000000000-0x00000000016d7fff]
+[    0.000000] Initmem setup node 0 [mem 0x0000000000000000-0x00000000016d7fff]
+[    0.000000] Kernel panic - not syncing: Failed to allocate 221184 bytes for node 0 memory map
+[    0.000000] Rebooting in 1 seconds..
+[    0.000000] Reboot failed -- System halted

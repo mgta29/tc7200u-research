@@ -17,6 +17,8 @@ form.
 - `evidence/snapshots/current-openwrt/bcm3383-technicolor-tc7200u.dts`
 - `evidence/snapshots/current-openwrt/bcm3384_viper.dtsi`
 - `evidence/snapshots/current-openwrt/kernel-config-6.12.87.txt`
+- `evidence/serial/picocom-20260517-*.log`: latest GENET/TDMA serial
+  capture batch.
 
 Keep new serial and CFE logs here unless a helper script writes a generated
 summary to `research/notes/generated/`.
