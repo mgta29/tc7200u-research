@@ -18,3 +18,7 @@ research/notes/generated/*make*.log
 research/notes/generated/*ensure-debug-packages.log
 research/notes/generated/*openwrt-config-before-debug-packages
 research/notes/generated/*openwrt-config-after-debug-packages
+
+# Generated wrapper verification logs
+research/notes/generated/*verify.log
+research/notes/generated/*wrap.log
