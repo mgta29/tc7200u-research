@@ -153,6 +153,8 @@ Known result:
 - Applying both local GMAC candidates together
   (`0x12000238=0x00000170`, `0x120005a0=0x000fffff`) also failed with unchanged
   ring0 and TX MIB behavior.
+- The isolated GPIO C8 vendor candidate `0x14e001c8=0x04824936` also latched
+  and was restored, with unchanged ring0 and TX MIB behavior.
 - The read pointer lower bits advance to `3`, so TDMA is likely fetching three
   descriptor words but rejecting or stalling before transmit completion.
 - Some GENET images previously showed memory/page-table corruption and are not
@@ -176,8 +178,8 @@ DMA address/window side of the ring0 stall:
 
 Goal:
 
-- Controlled-write test the remaining GPIO/pinmux vendor candidate
-  `0x14e001c8=0x04824936`, then replay ring0 and check MIB counters.
+- Controlled-write test all non-clock, non-parent-interrupt vendor GMAC init
+  candidates together, then replay ring0 and check MIB counters.
 - Keep parent interrupt masks untouched.
 - Compare candidate GENET/UBUS DMA translation registers only after each narrow
   write branch changes a relevant status or MIB result.
