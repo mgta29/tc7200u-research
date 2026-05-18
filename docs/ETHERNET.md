@@ -193,6 +193,10 @@ Known result:
   `0x28020000` stayed at `0x28000000` after two seconds. The register-address
   bits are not retained, so this window is probably not using the upstream
   `mdio-bcm-unimac` command/config layout directly.
+- The same `mdio@600` divider/command test with GPIO14 high and `eth0` up gave
+  the same result: `0x12c00604` read back only `0x00000001`,
+  `0x08020000` read back as `0x08000000`, and the started read stayed at
+  `0x28000000`. This is not just interface clock gating from `eth0` being down.
 - The read pointer lower bits advance to `3`, so TDMA is likely fetching three
   descriptor words but rejecting or stalling before transmit completion.
 - Some GENET images previously showed memory/page-table corruption and are not

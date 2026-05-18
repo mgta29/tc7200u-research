@@ -37,6 +37,20 @@ upstream `mdio-bcm-unimac` `MDIO_CMD`/`MDIO_CFG` layout. The BCM3384 header
 names `0x12c00600..0x12c00710` as `UNIMAC_INTERFACE0`, not a standalone MDIO
 controller.
 
+The same sequence was repeated with GPIO14 high and `eth0` up:
+
+```text
+write 0x12c00604 = 0x000013f1
+read  0x12c00604 = 0x00000001
+write 0x12c00600 = 0x08020000
+read  0x12c00600 = 0x08000000
+write 0x12c00600 = 0x28020000
+read  0x12c00600 = 0x28000000
+```
+
+So the failure is not explained by the interface block being gated while
+`eth0` is down.
+
 Do not keep writing assumed UniMAC MDIO command words into this window until the
 interface register layout is mapped.
 
