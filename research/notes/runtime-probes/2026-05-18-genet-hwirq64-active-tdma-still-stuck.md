@@ -524,3 +524,63 @@ desc0_word2=0x00000016
 Read the same ring0 state and TX MIB counters. If TX MIB increments, the next
 kernel patch should use ring0 plus a 3-word/address-high descriptor format for
 BCM3383.
+
+## Ring0 3-word high-address result
+
+Ring0 with compact status and descriptor word 2 set to the reserved buffer high
+address did not increment TX MIB counters:
+
+```text
+desc0_word0=0x000e009a
+desc0_word1=0x00080000
+desc0_word2=0x00000016
+
+0x12c03800=0x00010003
+0x12c03804=0x00000000
+0x12c03808=0x00000001
+0x12c03820=0x00000000
+
+0x12c004a8=0x00000001
+0x12c004e8=0x00000001
+0x12c004ec=0x00000001
+0x12c004f0=0x00000001
+```
+
+Ring0 with standard/truncated Linux status and descriptor word 2 set to the
+reserved buffer high address also did not increment TX MIB counters:
+
+```text
+desc0_word0 wrote 0x009aefc0, read back 0x000aefc0
+desc0_word1=0x00080000
+desc0_word2=0x00000016
+
+0x12c03800=0x00010003
+0x12c03804=0x00000000
+0x12c03808=0x00000001
+0x12c03820=0x00000000
+
+0x12c004a8=0x00000001
+0x12c004e8=0x00000001
+0x12c004ec=0x00000001
+0x12c004f0=0x00000001
+```
+
+Interpretation:
+
+- Ring0 is fetching/advancing by 3 words.
+- Status-first 3-word descriptors are not accepted as valid TX.
+- The next cheap test is the alternate 3-word order:
+  address-low, address-high, status/length.
+
+## Next branch after status-first ring0 3-word
+
+Replay ring0 with descriptor words:
+
+```text
+desc0_word0=0x00080000
+desc0_word1=0x00000016
+desc0_word2=0x000e009a
+```
+
+If TX MIB counters increment, BCM3383 ring0 expects address-first 3-word
+descriptors.
