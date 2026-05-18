@@ -264,3 +264,40 @@ Pass/fail remains the same:
 
 - Pass: `r16_read`, `r16_cons`, `r16_write`, or `hw_c` moves.
 - Fail: all stay at zero with `r16_prod=1`.
+
+## Adjacent descriptor clear result
+
+Descriptor words `0x12c03000..0x12c0301c` were cleared, then slot 0 was
+reposted as compact status plus low TX buffer address:
+
+```text
+0x12c03000=0x000E009A
+0x12c03004=0x00080000
+0x12c03008=0x00000000
+0x12c0300c=0x00000000
+```
+
+TDMA still did not move:
+
+```text
+0x12c03c00=0x00000000
+0x12c03c04=0x00000000
+0x12c03c08=0x00000001
+0x12c03c20=0x00000000
+```
+
+Adjacent/stale descriptor RAM words are not the blocker.
+
+## Next branch after adjacent clear
+
+Probe the TDMA control ring-enable bit. With the fixed regmap, current state is:
+
+```text
+tdma_cfg=0x00010000
+tdma_ctrl=0x00020001
+```
+
+Mainline uses `DMA_RING_BUF_EN_SHIFT=1`, so ring16 enable becomes bit 17 in
+`DMA_CTRL`. If BCM3383 v1 expects bit 16 instead, TDMA would accept producer
+writes but never service ring16. The next manual test should write
+`tdma_ctrl=0x00030001` to enable both candidate bits and then repost slot 0.

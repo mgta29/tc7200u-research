@@ -117,16 +117,18 @@ Known result:
   failed. The 20-bit descriptor RAM read back `0x009aefc0` as `0x000aefc0`.
 - Manual swapped-word descriptor rewrites after the DMA-regmap fix also failed
   for both standard/truncated status and compact status.
-- After `9990`, the descriptor format/order matrix is negative. The next branch
-  keeps compact status and fixed DMA regmap, but zeros surrounding descriptor
-  RAM words before reposting slot 0.
+- After `9990`, the descriptor format/order matrix is negative.
+- Clearing surrounding descriptor RAM words before reposting slot 0 also failed.
+  Adjacent/stale descriptor words are not the blocker.
+- The next manual branch tests TDMA control ring-enable bits by writing
+  `tdma_ctrl=0x00030001`, enabling both bit 16 and bit 17 candidates.
 - Some GENET images previously showed memory/page-table corruption and are not
   stable baselines.
 
 ## Next test
 
 Next diagnostic should keep the fixed DMA regmap and compact descriptor status,
-then zero surrounding descriptor RAM words before manually reposting slot 0:
+then test whether the TDMA control ring-enable bit is off by one on BCM3383:
 
 - `phy-mode = "rgmii"`
 - no `phy-handle`
@@ -141,12 +143,11 @@ then zero surrounding descriptor RAM words before manually reposting slot 0:
 
 Goal:
 
-- Confirm the image still programs `tdma_cfg=0x00010000` and
-  `tdma_ctrl=0x00020001`.
-- Clear descriptor words around slot 0, then repost compact descriptor
-  `0x000e009a` and low address `0x00080000`.
-- Check whether TDMA read/consumer/write pointers move after the adjacent words
-  are zero instead of containing stale descriptor RAM.
+- Confirm the image still programs `tdma_cfg=0x00010000`.
+- Write `tdma_ctrl=0x00030001` to enable both bit 16 and bit 17 ring-enable
+  candidates.
+- Repost compact descriptor `0x000e009a` and low address `0x00080000`.
+- Check whether TDMA read/consumer/write pointers move.
 - Prove whether Linux can produce a DMA address that GENET descriptor RAM can
   represent and TDMA can consume.
 - Read BCM3383 clock/reset state, especially `ClkCtrlUBus`, and compare against
@@ -223,6 +224,7 @@ Do not repeat:
 - plain `DMA_OWN` without compact GENET v1 status packing, including after the
   `9990` DMA regmap fix
 - swapped descriptor word order after the `9990` DMA regmap fix
+- adjacent descriptor clear around slot 0 after the `9990` DMA regmap fix
 - manual low16 status poke
 - reserved low TX buffer as standalone fix
 - generic RGMII OOB poke at `0x12c0008c`
