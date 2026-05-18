@@ -100,6 +100,8 @@ system.
   - The GMAC/bridge/EXT snapshot did not show a link-up state transition:
     sampled clock/reset, GPIO, bridge, and EXT registers were stable, with hwirq
     `64` counting and hwirq `66` idle.
+  - The isolated vendor GMAC candidate write `0x12000238=0x00000170` did not
+    change ring0 or TX MIB behavior.
   - Ring0 TDMA appears to fetch three descriptor words but does not retire the
     descriptor or transmit the packet.
   - `mem=16M` and `mem=32M` were invalid tests because they failed before a
