@@ -169,6 +169,12 @@ Known result:
   not reproduce it: both passes showed `read=0x00010003`, `cons=0`, `prod=1`,
   `write=0`, and unchanged TX MIB counters. Treat GPIO14-high alone as
   negative/unstable, not a fix.
+- Combining GPIO14 high with the safe non-clock vendor-side writes
+  (`0x14e001c4=0xda49201a`, `0x14e001c8=0x04824936`,
+  `0x12000238=0x00000170`, `0x120005a0=0x000fffff`) also did not move ring0:
+  `read=0x00010003`, `cons=0`, `prod=1`, `write=0`. The first two TX MIB
+  counters still read `1`; the serial capture was interrupted before the last
+  two post-read counters.
 - The read pointer lower bits advance to `3`, so TDMA is likely fetching three
   descriptor words but rejecting or stalling before transmit completion.
 - Some GENET images previously showed memory/page-table corruption and are not
@@ -192,11 +198,9 @@ DMA address/window side of the ring0 stall:
 
 Goal:
 
-- Keep GPIO14 high and test the remaining non-clock, non-parent-interrupt
-  vendor GMAC side-effect writes together, then replay ring0 and check MIB
-  counters.
-- If that is still negative, stop manual descriptor replay and switch to MDIO
-  visibility/B53 identity probing with GPIO14 high.
+- Stop manual descriptor replay for now.
+- Probe MDIO/B53 visibility with GPIO14 high: first enumerate Linux MDIO sysfs,
+  then raw-read UniMAC MDIO clause-22 registers at `0x12c00e14`.
 - Keep parent interrupt masks untouched.
 - Compare candidate GENET/UBUS DMA translation registers only after each narrow
   write branch changes a relevant status or MIB result.

@@ -117,6 +117,8 @@ system.
     low. A same-boot low/high comparison did not reproduce the earlier
     `cons=0x00000028` observation: both passes showed `read=0x00010003`,
     `cons=0`, `prod=1`, `write=0`, and unchanged TX MIB counters.
+  - GPIO14 high plus safe non-clock vendor-side writes also did not change
+    ring0 consumption: `read=0x00010003`, `cons=0`, `prod=1`, `write=0`.
   - Ring0 TDMA appears to fetch three descriptor words but does not retire the
     descriptor or transmit the packet.
   - `mem=16M` and `mem=32M` were invalid tests because they failed before a
