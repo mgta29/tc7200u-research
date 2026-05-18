@@ -138,6 +138,10 @@ Known result:
 - Ring0 address-first 3-word descriptor also failed:
   `0x00080000`, `0x00000016`, `0x000e009a` left `read=0x00010003`,
   `cons=0`, `prod=1`, `write=0`, and TX MIB counters unchanged.
+- Forcing RBUF/TBUF control state also failed. `TBUF_CTRL_V1` was already
+  `0x00000001`; forced `RBUF_CTRL=0x3` and `RBUF_CHK_CTRL=0x21` read back as
+  `0x00000001`; ring0 still showed `read=0x00010003`, `cons=0`, `write=0`,
+  and unchanged TX MIB counters.
 - The read pointer lower bits advance to `3`, so TDMA is likely fetching three
   descriptor words but rejecting or stalling before transmit completion.
 - Some GENET images previously showed memory/page-table corruption and are not
@@ -164,6 +168,9 @@ Goal:
 - Compare candidate GENET/UBUS DMA translation registers before and after link
   up, especially registers that may define the base/window for low descriptor
   address bits.
+- Compare vendor GMAC init candidate registers before attempting more writes:
+  `ClkCtrlLow`, `ClkCtrlHigh`, `ClkCtrlUBus`, GPIO C4/C8, `0x12000238`, and
+  `0x120005a0`.
 - Probe whether the descriptor address field represents packet-buffer offset
   rather than physical address low bits.
 - Keep ring0 as the manual replay surface only when testing a new address/window

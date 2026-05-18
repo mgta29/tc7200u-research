@@ -94,6 +94,9 @@ system.
   - Ring0 address-first 3-word descriptors also do not increment TX MIB
     counters. The controlled run showed `read=0x00010003`, `cons=0`, `prod=1`,
     `write=0`, and unchanged MIB counters.
+  - Forcing RBUF/TBUF control state did not change ring0 behavior. TBUF was
+    already enabled, selected RBUF bits did not latch, and TX MIB counters
+    stayed unchanged.
   - Ring0 TDMA appears to fetch three descriptor words but does not retire the
     descriptor or transmit the packet.
   - `mem=16M` and `mem=32M` were invalid tests because they failed before a
