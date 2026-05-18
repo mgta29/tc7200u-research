@@ -102,6 +102,8 @@ system.
     `64` counting and hwirq `66` idle.
   - The isolated vendor GMAC candidate write `0x12000238=0x00000170` did not
     change ring0 or TX MIB behavior.
+  - The isolated vendor GMAC candidate write `0x120005a0=0x000fffff` also did
+    not change ring0 or TX MIB behavior.
   - Ring0 TDMA appears to fetch three descriptor words but does not retire the
     descriptor or transmit the packet.
   - `mem=16M` and `mem=32M` were invalid tests because they failed before a

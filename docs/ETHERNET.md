@@ -148,6 +148,8 @@ Known result:
   counts while hwirq `66` remains idle.
 - The isolated vendor GMAC candidate `0x12000238=0x00000170` latched and was
   restored, but ring0 and TX MIB behavior stayed unchanged.
+- The isolated vendor GMAC candidate `0x120005a0=0x000fffff` also latched and
+  was restored, but ring0 and TX MIB behavior stayed unchanged.
 - The read pointer lower bits advance to `3`, so TDMA is likely fetching three
   descriptor words but rejecting or stalling before transmit completion.
 - Some GENET images previously showed memory/page-table corruption and are not
@@ -171,8 +173,9 @@ DMA address/window side of the ring0 stall:
 
 Goal:
 
-- Controlled-write test the remaining vendor-disabled GMAC init candidate
-  `0x120005a0=0x000fffff`, then replay ring0 and check MIB counters.
+- Controlled-write test both local vendor-disabled GMAC init candidates together:
+  `0x12000238=0x00000170` and `0x120005a0=0x000fffff`, then replay ring0 and
+  check MIB counters.
 - Keep parent interrupt masks untouched.
 - Compare candidate GENET/UBUS DMA translation registers only after each narrow
   write branch changes a relevant status or MIB result.
