@@ -155,6 +155,14 @@ Known result:
   ring0 and TX MIB behavior.
 - The isolated GPIO C8 vendor candidate `0x14e001c8=0x04824936` also latched
   and was restored, with unchanged ring0 and TX MIB behavior.
+- Local BCM3384 headers identify `0x14e001c4` and `0x14e001c8` as GPIO_PER
+  RBUS diagnostic-capture registers, not normal GPIO data/direction registers.
+  Keep those writes classified as vendor diagnostic side effects until proven
+  otherwise.
+- The OEM boot log proves the bootloader reaches a working path before Linux:
+  `Switch detected: 53125`, `ProbePhy: Found PHY 0, MDIO on MAC 0, data on
+  MAC 0`, `Using GMAC0, phy 0`, and `Enet link up: 1G full`. The later OEM
+  firmware log also says `Powering UP switch. PIN = 14`.
 - The read pointer lower bits advance to `3`, so TDMA is likely fetching three
   descriptor words but rejecting or stalling before transmit completion.
 - Some GENET images previously showed memory/page-table corruption and are not
@@ -178,8 +186,12 @@ DMA address/window side of the ring0 stall:
 
 Goal:
 
-- Controlled-write test all non-clock, non-parent-interrupt vendor GMAC init
-  candidates together, then replay ring0 and check MIB counters.
+- Controlled-write test GPIO14 switch power via `GPIO_PER_DIR_LO`
+  (`0x14e00100`) and `GPIO_PER_DATA_LO` (`0x14e0012c`), then replay ring0 and
+  check MIB counters.
+- If GPIO14 is already output-high, controlled-write test all non-clock,
+  non-parent-interrupt vendor GMAC init candidates together, then replay ring0
+  and check MIB counters.
 - Keep parent interrupt masks untouched.
 - Compare candidate GENET/UBUS DMA translation registers only after each narrow
   write branch changes a relevant status or MIB result.
