@@ -466,3 +466,61 @@ Repeat the ring0 manual replay after clearing UniMAC MIB counters, then read:
 
 If TX MIB counters increment, the next kernel patch should route GENET v1 TX
 through ring0 instead of ring16.
+
+## Ring0 MIB result
+
+The ring0 replay did not increment TX MIB counters.
+
+Counter reads before replay, after writing `UMAC_MIB_CTRL=0x7` then `0`:
+
+```text
+0x12c004a8=0x00000001
+0x12c004e8=0x00000001
+0x12c004ec=0x00000001
+0x12c004f0=0x00000001
+```
+
+Counter reads after ring0 replay:
+
+```text
+0x12c004a8=0x00000001
+0x12c004e8=0x00000001
+0x12c004ec=0x00000001
+0x12c004f0=0x00000001
+```
+
+Ring state after replay:
+
+```text
+0x12c03800=0x00010003
+0x12c03804=0x00000000
+0x12c03808=0x00000001
+0x12c03820=0x00000000
+0x12c03000=0x000e009a
+0x12c03004=0x00080000
+0x12c03c48=0x00000000
+```
+
+Interpretation:
+
+- Ring0 causes TDMA read-pointer activity, but not a completed TX.
+- The read pointer lower bits advance to `3`, which suggests TDMA may be
+  fetching a 3-word descriptor from ring0.
+- The descriptor data word 2 was zero in this test.
+- If ring0 uses a 3-word descriptor with a high address/window word, the
+  reserved buffer physical address `0x01680000` needs high part `0x16` in word
+  2 while word 1 remains low20 `0x00080000`.
+
+## Next branch after ring0 MIB
+
+Repeat ring0 with descriptor word 2 set to `0x00000016`:
+
+```text
+desc0_word0=0x000e009a
+desc0_word1=0x00080000
+desc0_word2=0x00000016
+```
+
+Read the same ring0 state and TX MIB counters. If TX MIB increments, the next
+kernel patch should use ring0 plus a 3-word/address-high descriptor format for
+BCM3383.

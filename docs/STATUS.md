@@ -87,8 +87,10 @@ system.
   - Ring0 is the first positive TDMA movement signal: with
     `tdma_cfg=0x00000001` and `tdma_ctrl=0x00000003`, ring0 read/consumer
     changed to `0x00010003`/`0x00000028`.
-  - The current next branch resets UniMAC MIB counters and checks whether ring0
-    movement increments TX packet/good-packet counters.
+  - Ring0 replay did not increment TX MIB counters; a controlled run showed
+    `read=0x00010003`, `cons=0`, `prod=1`, `write=0`.
+  - The current next branch tests whether ring0 expects a 3-word descriptor
+    with high address/window bits in word 2.
   - `mem=16M` and `mem=32M` were invalid tests because they failed before a
     useful GENET runtime test.
   - Internal PHY mode reads invalid GPHY data and is not a solved path.
@@ -123,8 +125,8 @@ verification, not B53/DSA integration.
 
 1. Prove how BCM3383 GENET expects TX buffer addresses to be represented or
    translated for TDMA.
-2. Verify whether ring0 movement increments TX MIB counters; if yes, patch
-   GENET v1 to route TX through ring0 instead of ring16.
+2. Test ring0 with descriptor word 2 set to `0x00000016` for the reserved
+   buffer physical address `0x01680000`.
 3. Investigate BCM3383 GENET DMA window/base/init and UBUS/SCB clock setup.
    The reserved TX buffer at physical `0x01680000` still left `hw_c=0`.
 4. Keep the BCM3383 GMAC clock/reset/pinmux quirk in the test baseline.

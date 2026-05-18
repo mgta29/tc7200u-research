@@ -129,16 +129,19 @@ Known result:
 - Ring0 is the first positive TDMA movement signal: with `tdma_cfg=0x00000001`
   and `tdma_ctrl=0x00000003`, ring0 read/consumer changed to
   `0x00010003`/`0x00000028`.
-- The ring0 values are not yet a clean one-descriptor completion, so the next
-  manual branch resets UniMAC MIB counters and checks whether ring0 movement
-  increments TX packet/good-packet counters.
+- Ring0 replay did not increment TX MIB counters. The later controlled run
+  showed `read=0x00010003`, `cons=0`, `prod=1`, `write=0`, and unchanged TX
+  counters.
+- The read pointer lower bits advance to `3`, so the next manual branch tests
+  whether ring0 expects a 3-word descriptor with high address/window bits in
+  word 2.
 - Some GENET images previously showed memory/page-table corruption and are not
   stable baselines.
 
 ## Next test
 
 Next diagnostic should keep the fixed DMA regmap and compact descriptor status,
-then verify whether ring0 movement is real packet transmission:
+then test a ring0 3-word descriptor address-high word:
 
 - `phy-mode = "rgmii"`
 - no `phy-handle`
@@ -153,12 +156,12 @@ then verify whether ring0 movement is real packet transmission:
 
 Goal:
 
-- Reset UniMAC MIB counters.
 - Replay ring0 with `tdma_cfg=0x00000001`, `tdma_ctrl=0x00000003`, compact
-  descriptor `0x000e009a`, and low address `0x00080000`.
+  descriptor `0x000e009a`, low address `0x00080000`, and descriptor word 2
+  set to `0x00000016`.
 - Check ring0 read/consumer/write and TX MIB counters.
-- If TX MIB counters increment, patch GENET v1 to route TX through ring0
-  instead of ring16.
+- If TX MIB counters increment, patch GENET v1 to route TX through ring0 with
+  a 3-word/high-address descriptor format.
 - Prove whether Linux can produce a DMA address that GENET descriptor RAM can
   represent and TDMA can consume.
 - Read BCM3383 clock/reset state, especially `ClkCtrlUBus`, and compare against
