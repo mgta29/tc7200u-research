@@ -197,6 +197,15 @@ Known result:
   the same result: `0x12c00604` read back only `0x00000001`,
   `0x08020000` read back as `0x08000000`, and the started read stayed at
   `0x28000000`. This is not just interface clock gating from `eth0` being down.
+- The `UNIMAC_INTERFACE0` map is stable between `eth0` down/GPIO14 low and
+  `eth0` up/GPIO14 high. Key values include `0x12c00600=0x28000000`,
+  `0x12c00604=0x00000001`, `0x12c00610=0x000005ee`,
+  `0x12c00630=0x000000a7`, `0x12c00634=0x00008800`,
+  `0x12c00638=0x03d403d4`, `0x12c00650=0x0540220c`,
+  `0x12c00688=0x00000008`, `0x12c00694=0x00000009`, and
+  `0x12c0069c=0x3b9aca00`. Offsets `0x12c00614` and `0x12c00618` are zero in
+  both states and should be tested as the possible direct-base
+  `UMAC_MDIO_CMD`/config pair before doing a wider map.
 - The read pointer lower bits advance to `3`, so TDMA is likely fetching three
   descriptor words but rejecting or stalling before transmit completion.
 - Some GENET images previously showed memory/page-table corruption and are not
