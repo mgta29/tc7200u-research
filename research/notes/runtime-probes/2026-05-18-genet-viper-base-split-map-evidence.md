@@ -2,39 +2,47 @@
 
 ## Test
 
-Changed temporary OpenWrt TC7200.U GENET node from:
+Temporary OpenWrt TC7200.U GENET node was changed from:
 
 ```dts
 ethernet_test: ethernet@12c00000 {
         reg = <0x12c00000 0x4000>;
         interrupts = <64>, <66>;
 }
+```
 
 to Viper-style:
 
+```dts
 ethernet_test: ethernet@12c02600 {
         reg = <0x12c02600 0x2000>;
         interrupts = <64>, <66>;
 }
+```
 
-The Viper base was taken from the old linux-technicolor-tc7200 tree, which uses ethernet@12c02600, reg = <0x12c02600 0x2000>, and interrupts = <26> for brcm,genet-v1.
+The Viper base was taken from the old `linux-technicolor-tc7200` tree, which uses `ethernet@12c02600`, `reg = <0x12c02600 0x2000>`, and `interrupts = <26>` for `brcm,genet-v1`.
 
-Result
+## Result
 
 The driver probed at the Viper base:
 
+```text
 bcmgenet 12c02600.ethernet: GENET 1.0 EPHY: 0x0c01
 bcmgenet 12c02600.ethernet eth0: Link is Up - 1Gbps/Full
+```
 
 IRQ 64 counted:
 
+```text
 64: 1460  periph_intc@14e00048  64  eth0
 66: 0     periph_intc@14e00048  66  eth0
+```
 
-But TX still watchdogged and RAWDMA/readback logs became invalid/pointer-like.
+But TX still watchdogged and RAWDMA/readback logs became invalid or pointer-like.
 
 Manual devmem snapshot:
 
+```text
 0x12c00000 0x000012AA
 0x12c00004 0x000001FF
 0x12c02600 0x00000C01
@@ -55,28 +63,37 @@ Manual devmem snapshot:
 0x12c05e08 0x00000001
 0x12c06240 0x00000001
 0x12c06244 0x00000001
-Interpretation
+```
 
-Pure Viper base 0x12c02600 is not a working OpenWrt bcmgenet resource base.
+## Interpretation
+
+Pure Viper base `0x12c02600` is not a working OpenWrt `bcmgenet` resource base.
 
 It exposes a valid identity/SYS/UMAC-looking window:
 
+```text
 0x12c02600 = 0x00000C01
 0x12c02604 = 0x00000001
+```
 
-but the DMA/ring/descriptor windows derived from that base are wrong or read as 0x00000001.
+but the DMA/ring/descriptor windows derived from that base are wrong or read as `0x00000001`.
 
 The evidence now suggests a split map:
 
+```text
 0x12c02600: Viper SYS/UMAC identity/link block
 0x12c00000 / 0x12c03000 / 0x12c03800: active GENET/DMA-related blocks
-Action
+```
 
-Revert the DTS node to:
+## Action
 
+DTS was reverted to:
+
+```dts
 ethernet_test: ethernet@12c00000 {
         reg = <0x12c00000 0x4000>;
         interrupts = <64>, <66>;
 }
+```
 
-Do not test old Viper IRQ <26> yet. The next useful kernel test is a split-map or BCM3383-Viper offset-table experiment.
+Do not test old Viper IRQ `<26>` yet. The next useful kernel test is a split-map or BCM3383-Viper offset-table experiment.
