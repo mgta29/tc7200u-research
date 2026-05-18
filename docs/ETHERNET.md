@@ -180,6 +180,13 @@ Known result:
   assumed UMAC MDIO command register at `0x12c00e14` returned `0x00000001` for
   PHY0 and pseudo-PHY30 reads. Treat `0x12c00e14` as the wrong or inactive MDIO
   command path for this target until another MDIO register window is proven.
+- The documented `mdio@600` window is live but not completing transactions yet.
+  `0x12c00600` initially read `0x00000c01`, `0x12c00604` initially read
+  `0x00000000`, and setting config to `0x00000001` latched. PHY0 and
+  pseudo-PHY30 read commands left the command register with `MDIO_START_BUSY`
+  still set after one second (`0x28000000`, `0x28010000`, `0x2b000000`,
+  `0x2b010000`). This suggests the MDIO block is present, but its clock/config
+  or enable path is still wrong.
 - The read pointer lower bits advance to `3`, so TDMA is likely fetching three
   descriptor words but rejecting or stalling before transmit completion.
 - Some GENET images previously showed memory/page-table corruption and are not
@@ -207,7 +214,9 @@ Goal:
 - Probe MDIO/B53 visibility with GPIO14 high: Linux MDIO sysfs currently only
   exposes `fixed-0:00`, and the assumed UMAC MDIO command register
   `0x12c00e14` returned only `0x00000001`. Next raw MDIO probe should use the
-  documented/vendor `mdio@600` window at `0x12c00600`/`0x12c00604`.
+  documented/vendor `mdio@600` window at `0x12c00600`/`0x12c00604`, but with a
+  nonzero MDIO clock divider and the same two-step command/start sequence used
+  by the UniMAC MDIO driver.
 - Keep parent interrupt masks untouched.
 - Compare candidate GENET/UBUS DMA translation registers only after each narrow
   write branch changes a relevant status or MIB result.
