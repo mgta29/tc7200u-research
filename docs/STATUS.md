@@ -113,6 +113,9 @@ system.
     registers.
   - The OEM boot path reports `Switch detected: 53125`, `Using GMAC0, phy 0`,
     `Enet link up: 1G full`, and later `Powering UP switch. PIN = 14`.
+  - GPIO14 switch-power probe found GPIO14 already configured as output but
+    low. Forcing it high changed ring0 replay to `read=0x00010003` and
+    `cons=0x00000028`, but TX MIB counters still stayed unchanged.
   - Ring0 TDMA appears to fetch three descriptor words but does not retire the
     descriptor or transmit the packet.
   - `mem=16M` and `mem=32M` were invalid tests because they failed before a
