@@ -1,0 +1,158 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:${HOME}/.local/bin"
+
+REPO="${TC7200U_REPO:-$HOME/tc7200u-research}"
+SRC_ROOT="${TC7200U_SRC_ROOT:-$HOME/src}"
+OUT_ROOT="${TC7200U_OUT_ROOT:-$REPO/research/notes/generated/deepmine}"
+STAMP="$(date +%F-%H%M%S)"
+
+TERMS='GENET|GMAC|UNIMAC|TDMA|RDMA|DQM|FPM|SEGDMA|MBDMA|IUDMA|DmaDesc|DmaDesc16|DMA_DESCSIZE|DmaChannelCfg|bcmPktDma|VENET|ENET|BCM3383|BCM3384|BMIPS4350|TC7200|TC7200U|tc7200|technicolor|UNI_DMA_IRQ|UNI0_IRQ|PeriphIRQ0_2|INT_EXT_PER|ethernet@12c|0x12c|12c00000|12c02600|0x12000238|0x120005a0|0x14e001c4|0x14e001c8|0x14e00338|0x14e0033c|0x3c40|0x3c44'
+
+READELF="$HOME/src/openwrt/staging_dir/toolchain-mips_mips32_gcc-14.3.0_musl/bin/mips-openwrt-linux-musl-readelf"
+NM="$HOME/src/openwrt/staging_dir/toolchain-mips_mips32_gcc-14.3.0_musl/bin/mips-openwrt-linux-musl-nm"
+OBJDUMP="$HOME/src/openwrt/staging_dir/toolchain-mips_mips32_gcc-14.3.0_musl/bin/mips-openwrt-linux-musl-objdump"
+
+[ -x "$READELF" ] || READELF="$(command -v readelf || true)"
+[ -x "$NM" ] || NM="$(command -v nm || true)"
+[ -x "$OBJDUMP" ] || OBJDUMP="$(command -v objdump || true)"
+
+mkdir -p "$OUT_ROOT"
+
+slugify() {
+    basename "$1" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9._-]/-/g; s/-\+/-/g; s/^-//; s/-$//'
+}
+
+make_file_list() {
+    local src="$1"
+    local out="$2"
+
+    if [ "${TC7200U_DEEPMINE_FULL:-0}" = "1" ]; then
+        find "$src" -type f | sort > "$out/file-list.txt"
+    else
+        find "$src" \
+            \( -path "$src/.git" -o -path "$src/build_dir" -o -path "$src/staging_dir" -o -path "$src/tmp" -o -path "$src/bin" -o -path "$src/dl" -o -path "$src/feeds" -o -path "$src/node_modules" \) -prune \
+            -o -type f -print | sort > "$out/file-list.txt"
+    fi
+}
+
+mine_one() {
+    local src="$1"
+    local slug out
+
+    src="$(realpath "$src")"
+    slug="$(slugify "$src")"
+    out="$OUT_ROOT/${STAMP}-${slug}"
+
+    mkdir -p "$out"
+
+    {
+        echo "# Deep mine: $slug"
+        echo
+        echo "Source:"
+        echo
+        echo '```text'
+        echo "$src"
+        echo '```'
+        echo
+        echo "Generated: $(date -Is)"
+        echo
+        echo "Full mode: ${TC7200U_DEEPMINE_FULL:-0}"
+    } > "$out/SUMMARY.md"
+
+    echo "source=$src" > "$out/README.txt"
+    echo "output=$out" >> "$out/README.txt"
+    date -Is >> "$out/README.txt"
+
+    if [ -d "$src/.git" ]; then
+        git -C "$src" status --short > "$out/git-status.txt" 2>/dev/null || true
+        git -C "$src" branch -a > "$out/git-branches.txt" 2>/dev/null || true
+        git -C "$src" log --oneline --decorate -80 > "$out/git-log.txt" 2>/dev/null || true
+    fi
+
+    make_file_list "$src" "$out"
+
+    while IFS= read -r f; do
+        file "$f" 2>/dev/null || true
+    done < "$out/file-list.txt" > "$out/file-types.txt"
+
+    grep -Ei 'ELF|MIPS|archive|firmware|boot|kernel|uImage|eCos|binary|data|ProgramStore|sto|trx|image' "$out/file-types.txt" > "$out/binary-candidates-file.txt" || true
+
+    grep -RIns --binary-files=without-match -E "$TERMS" "$src" \
+        --exclude-dir=.git --exclude-dir=build_dir --exclude-dir=staging_dir --exclude-dir=tmp --exclude-dir=bin --exclude-dir=dl --exclude-dir=feeds --exclude-dir=node_modules \
+        > "$out/source-net-register-hits.txt" 2>/dev/null || true
+
+    grep -Ei '\.(o|a|ko|elf|out|bin|img|sto|trx|chk)$' "$out/file-list.txt" > "$out/object-binary-list.txt" || true
+
+    while IFS= read -r f; do
+        [ -f "$f" ] || continue
+        echo "### $f"
+        strings -a "$f" 2>/dev/null | grep -Ei "$TERMS" | head -300 || true
+    done < "$out/object-binary-list.txt" > "$out/object-strings-net-register-hits.txt"
+
+    awk -F: '/ELF.*MIPS/{print $1}' "$out/file-types.txt" | while IFS= read -r f; do
+        [ -f "$f" ] || continue
+        echo "### $f"
+        [ -n "$READELF" ] && "$READELF" -h "$f" 2>/dev/null || true
+    done > "$out/mips-elf-headers.txt"
+
+    awk -F: '/ELF.*MIPS/{print $1}' "$out/file-types.txt" | while IFS= read -r f; do
+        [ -f "$f" ] || continue
+        echo "### $f"
+        [ -n "$NM" ] && "$NM" -an "$f" 2>/dev/null | grep -Ei 'dma|desc|dqm|fpm|genet|gmac|unimac|segdma|venet|enet|tx|rx|irq|ring|init|probe|open|xmit|isr|bcm338|tc7200' | head -300 || true
+    done > "$out/mips-elf-symbol-hits.txt"
+
+    awk -F: '/ELF.*MIPS/{print $1}' "$out/file-types.txt" | while IFS= read -r f; do
+        [ -f "$f" ] || continue
+        echo "### $f"
+        [ -n "$READELF" ] && "$READELF" --debug-dump=decodedline "$f" 2>/dev/null | head -160 || true
+    done > "$out/mips-elf-decodedline.txt"
+
+    {
+        echo
+        echo "Generated files:"
+        echo
+        echo '```text'
+        find "$out" -maxdepth 1 -type f -printf '%f\n' | sort
+        echo '```'
+        echo
+        echo "Line counts:"
+        echo
+        echo '```text'
+        wc -l "$out"/*.txt 2>/dev/null || true
+        echo '```'
+        echo
+        echo "Review priority:"
+        echo
+        echo '```text'
+        echo "$out/source-net-register-hits.txt"
+        echo "$out/object-strings-net-register-hits.txt"
+        echo "$out/mips-elf-symbol-hits.txt"
+        echo "$out/binary-candidates-file.txt"
+        echo '```'
+    } >> "$out/SUMMARY.md"
+
+    echo "$out"
+}
+
+if [ "$#" -gt 0 ]; then
+    SOURCES=("$@")
+else
+    mapfile -t SOURCES < <(find "$SRC_ROOT" -mindepth 1 -maxdepth 1 -type d | sort)
+fi
+
+INDEX="$OUT_ROOT/${STAMP}-INDEX.txt"
+: > "$INDEX"
+
+for src in "${SOURCES[@]}"; do
+    if [ ! -d "$src" ]; then
+        echo "skip missing: $src" | tee -a "$INDEX"
+        continue
+    fi
+    echo "mining: $src"
+    out="$(mine_one "$src")"
+    echo "$src -> $out" | tee -a "$INDEX"
+done
+
+echo "index: $INDEX"
