@@ -175,6 +175,11 @@ Known result:
   `read=0x00010003`, `cons=0`, `prod=1`, `write=0`. The first two TX MIB
   counters still read `1`; the serial capture was interrupted before the last
   two post-read counters.
+- MDIO visibility with GPIO14 high is still missing. Linux sysfs only exposed
+  the fixed MDIO bus (`fixed-0:00`), and raw clause-22 reads through the
+  assumed UMAC MDIO command register at `0x12c00e14` returned `0x00000001` for
+  PHY0 and pseudo-PHY30 reads. Treat `0x12c00e14` as the wrong or inactive MDIO
+  command path for this target until another MDIO register window is proven.
 - The read pointer lower bits advance to `3`, so TDMA is likely fetching three
   descriptor words but rejecting or stalling before transmit completion.
 - Some GENET images previously showed memory/page-table corruption and are not
@@ -199,8 +204,10 @@ DMA address/window side of the ring0 stall:
 Goal:
 
 - Stop manual descriptor replay for now.
-- Probe MDIO/B53 visibility with GPIO14 high: first enumerate Linux MDIO sysfs,
-  then raw-read UniMAC MDIO clause-22 registers at `0x12c00e14`.
+- Probe MDIO/B53 visibility with GPIO14 high: Linux MDIO sysfs currently only
+  exposes `fixed-0:00`, and the assumed UMAC MDIO command register
+  `0x12c00e14` returned only `0x00000001`. Next raw MDIO probe should use the
+  documented/vendor `mdio@600` window at `0x12c00600`/`0x12c00604`.
 - Keep parent interrupt masks untouched.
 - Compare candidate GENET/UBUS DMA translation registers only after each narrow
   write branch changes a relevant status or MIB result.
