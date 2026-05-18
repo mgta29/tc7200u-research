@@ -134,3 +134,15 @@ Do not repeat:
 
 <!-- TC7200U_CURRENT_GENET_STATE_END -->
 
+
+## Current Ethernet research note
+
+The TC72XX LxG1 OEM tree suggests the vendor BCM3384 Ethernet path is VENET + FPM/DQM + SEGDMA/UNIMAC/IOP, not direct upstream `bcmgenet` TDMA. This may explain why direct GENET TDMA ring16 remains stuck.
+
+See: `research/notes/runtime-probes/2026-05-18-tc72xx-lxg1-venet-dqm-fpm-findings.md`.
+
+## TC72XX source mining state
+
+`tc72xx-bfc5` deep mining is negative for the Ethernet blocker. The useful OEM clue remains from LxG1: BCM3384 vendor Ethernet may use VENET + FPM/DQM + SEGDMA/UNIMAC/IOP, but BFC5 does not expose that layer.
+
+See: `research/notes/runtime-probes/2026-05-18-tc72xx-bfc5-deepmine-negative.md`.

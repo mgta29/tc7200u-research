@@ -336,3 +336,19 @@ Do not repeat:
 - B53/DSA before TDMA consumes descriptors
 
 <!-- TC7200U_CURRENT_GENET_STATE_END -->
+
+## TC72XX LxG1 OEM VENET/DQM/FPM finding
+
+The TC72XX LxG1 OEM Linux tree contains BCM3384 `bcmvenet.o` / `bcm_venet.o` prebuilt objects with debug info. Disassembly shows `bcmvenet_xmit` uses FPM buffers and DQM queues, not direct GENET TDMA descriptors. Missing low-level headers referenced by strings/debug data include `fpm_ctrl.h`, `fpm_pool.h`, `unimac_mbdma.h`, `ioproc_dqm64_blockdef.h`, and `segdma_regs.h`.
+
+Implication: vendor BCM3384 Ethernet may run through VENET + FPM/DQM + SEGDMA/UNIMAC/IOP, while the current OpenWrt path is forcing direct `bcmgenet` TDMA ring16.
+
+See: `research/notes/runtime-probes/2026-05-18-tc72xx-lxg1-venet-dqm-fpm-findings.md`.
+
+## TC72XX BFC5 deep-mine result
+
+Deep mining `~/src/tc72xx-bfc5` produced no useful BCM3383/BCM3384 Ethernet, GENET, GMAC, UNIMAC, TDMA, RDMA, DQM, FPM, or SEGDMA evidence. Hits were generic eCos/toolchain false positives such as `ENETDOWN`, `fpmul`, RedBoot net examples, unrelated HAL DMA examples, and audio constants.
+
+Conclusion: BFC5 is not useful for the current TC7200.U direct GENET TDMA blocker.
+
+See: `research/notes/runtime-probes/2026-05-18-tc72xx-bfc5-deepmine-negative.md`.

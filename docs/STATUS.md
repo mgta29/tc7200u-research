@@ -244,3 +244,15 @@ Do not repeat:
 - B53/DSA before TDMA consumes descriptors
 
 <!-- TC7200U_CURRENT_GENET_STATE_END -->
+
+## OEM source mining status
+
+Logged TC72XX LxG1 BCM3384 VENET findings. `bcmvenet` is not a direct GENET TDMA implementation; it uses FPM/DQM and references missing proprietary/generated SEGDMA/UNIMAC/IOP headers. Continue OpenWrt testing with `9991`; if negative, test descriptor-size/high-word/16-byte descriptor handling.
+
+See: `research/notes/runtime-probes/2026-05-18-tc72xx-lxg1-venet-dqm-fpm-findings.md`.
+
+## TC72XX BFC5 mining status
+
+BFC5 deep mining is negative for Ethernet/GENET. No useful BCM3383/BCM3384 GENET, GMAC, UNIMAC, TDMA, RDMA, DQM, FPM, or SEGDMA source/object evidence was found. Continue OpenWrt `9991`; if negative, test descriptor-size/high-word/16-byte descriptor handling.
+
+See: `research/notes/runtime-probes/2026-05-18-tc72xx-bfc5-deepmine-negative.md`.
