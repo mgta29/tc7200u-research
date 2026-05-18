@@ -378,3 +378,42 @@ write=0x3c2c
 Then repost compact slot 0 and advance the v4-layout producer at `0x12c03c0c`.
 If this moves `0x12c03c08` or `0x12c03c2c`, the ring layout is the missing
 piece.
+
+## v4 ring layout result
+
+The v4-layout producer latched:
+
+```text
+0x12c03c0c=0x00000001
+```
+
+But the v4-layout consumer/write registers did not move:
+
+```text
+0x12c03c08=0x00000000
+0x12c03c2c=0x00000000
+```
+
+So the wider/v4 ring register layout is not sufficient.
+
+## Next branch after v4 ring layout
+
+Probe whether BCM3383 services ring 0 instead of Linux's descriptor ring 16.
+Descriptor RAM starts at `0x12c03000`, while mainline Linux's descriptor ring
+control path uses ring16 registers at `0x12c03c00`. If this integration has
+only ring0 wired to TDMA, ring0 should be initialized at:
+
+```text
+read=0x3800
+cons=0x3804
+prod=0x3808
+size=0x380c
+start=0x3810
+end=0x3814
+mbuf=0x3818
+flow=0x381c
+write=0x3820
+```
+
+and the global enable should use `tdma_cfg=0x00000001`,
+`tdma_ctrl=0x00000003`.
