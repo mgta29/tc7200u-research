@@ -91,8 +91,11 @@ system.
     `read=0x00010003`, `cons=0`, `prod=1`, `write=0`.
   - Ring0 status-first 3-word descriptors also do not increment TX MIB counters
     with compact or standard/truncated Linux status.
-  - The current next branch tests whether ring0 expects address-first 3-word
-    descriptors.
+  - Ring0 address-first 3-word descriptors also do not increment TX MIB
+    counters. The controlled run showed `read=0x00010003`, `cons=0`, `prod=1`,
+    `write=0`, and unchanged MIB counters.
+  - Ring0 TDMA appears to fetch three descriptor words but does not retire the
+    descriptor or transmit the packet.
   - `mem=16M` and `mem=32M` were invalid tests because they failed before a
     useful GENET runtime test.
   - Internal PHY mode reads invalid GPHY data and is not a solved path.
@@ -127,17 +130,15 @@ verification, not B53/DSA integration.
 
 1. Prove how BCM3383 GENET expects TX buffer addresses to be represented or
    translated for TDMA.
-2. Test ring0 with address-first descriptor order:
-   `0x00080000`, `0x00000016`, `0x000e009a`.
-3. Investigate BCM3383 GENET DMA window/base/init and UBUS/SCB clock setup.
+2. Investigate BCM3383 GENET DMA window/base/init and UBUS/SCB clock setup.
    The reserved TX buffer at physical `0x01680000` still left `hw_c=0`.
-4. Keep the BCM3383 GMAC clock/reset/pinmux quirk in the test baseline.
-5. Keep IRQ `<13 4>` as a separate branch; do not combine it with DMA address
+3. Keep the BCM3383 GMAC clock/reset/pinmux quirk in the test baseline.
+4. Keep IRQ `<13 4>` as a separate branch; do not combine it with DMA address
    tests.
-6. Add safe MDIO/B53/BCM53125 switch description only after GENET TDMA consumes
+5. Add safe MDIO/B53/BCM53125 switch description only after GENET TDMA consumes
    descriptors.
-7. After Ethernet, proceed to read-only flash discovery.
-8. Only after MTD and flash layout are understood, consider persistent images.
+6. After Ethernet, proceed to read-only flash discovery.
+7. Only after MTD and flash layout are understood, consider persistent images.
 
 ## Recommended next work
 

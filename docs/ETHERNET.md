@@ -135,21 +135,24 @@ Known result:
 - Ring0 status-first 3-word descriptors also failed with both compact status
   and standard/truncated Linux status, even with descriptor word 2 set to
   `0x00000016` for the reserved buffer high address.
-- The read pointer lower bits advance to `3`, so the next manual branch tests
-  whether ring0 expects address-first 3-word descriptors.
+- Ring0 address-first 3-word descriptor also failed:
+  `0x00080000`, `0x00000016`, `0x000e009a` left `read=0x00010003`,
+  `cons=0`, `prod=1`, `write=0`, and TX MIB counters unchanged.
+- The read pointer lower bits advance to `3`, so TDMA is likely fetching three
+  descriptor words but rejecting or stalling before transmit completion.
 - Some GENET images previously showed memory/page-table corruption and are not
   stable baselines.
 
 ## Next test
 
-Next diagnostic should keep the fixed DMA regmap and compact descriptor status,
-then test ring0 3-word descriptor word order:
+Next diagnostic should stop repeating ring16 descriptor pokes and focus on the
+DMA address/window side of the ring0 stall:
 
 - `phy-mode = "rgmii"`
 - no `phy-handle`
 - no MDIO child for the DMA diagnostic
 - fixed-link, 1000 full-duplex
-- compact GENET v1 status/length packing active
+- compact GENET v1 status/length packing active for comparisons
 - ADDRDBG, DESCRB, TXPOLL, and RAW state debug enabled
 - `periph_intc` exposes `PeriphIRQ0_2`
 - GENET interrupts are `<64>, <66>`
@@ -158,14 +161,13 @@ then test ring0 3-word descriptor word order:
 
 Goal:
 
-- Replay ring0 with `tdma_cfg=0x00000001`, `tdma_ctrl=0x00000003`, low address
-  `0x00080000` in word 0, high address `0x00000016` in word 1, and compact
-  descriptor status `0x000e009a` in word 2.
-- Check ring0 read/consumer/write and TX MIB counters.
-- If TX MIB counters increment, patch GENET v1 to route TX through ring0 with
-  an address-first 3-word descriptor format.
-- Prove whether Linux can produce a DMA address that GENET descriptor RAM can
-  represent and TDMA can consume.
+- Compare candidate GENET/UBUS DMA translation registers before and after link
+  up, especially registers that may define the base/window for low descriptor
+  address bits.
+- Probe whether the descriptor address field represents packet-buffer offset
+  rather than physical address low bits.
+- Keep ring0 as the manual replay surface only when testing a new address/window
+  hypothesis.
 - Read BCM3383 clock/reset state, especially `ClkCtrlUBus`, and compare against
   current `bcm3383_init_gmac()`.
 - Probe BCM3383 GENET DMA window/base/init behavior; the reserved-buffer test
