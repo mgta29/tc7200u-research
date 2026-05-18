@@ -60,6 +60,7 @@ Runtime findings:
 - `research/notes/runtime-probes/2026-05-17-genet-corrected-devmem-slot0-no-consume.md`
 - `research/notes/runtime-probes/2026-05-17-genet-reserved-low-txbuf-still-no-tdma.md`
 - `research/notes/runtime-probes/2026-05-17-genet-ext-periphirq0-2-evidence.md`
+- `research/notes/runtime-probes/2026-05-18-genet-hwirq64-active-tdma-still-stuck.md`
 
 Known result:
 
@@ -102,15 +103,30 @@ Known result:
 - Runtime interrupt probing shows active UniMAC0 DMA/status in the extended
   `INT_EXT_PER PeriphIRQ0_2` bank:
   `0x14e00338=0x3000007D`, `0x14e0033c=0x045A0409`.
-- OEM headers name `PeriphIRQ0_2` bit 0 as `UNI_DMA_IRQ` and bit 2 as
-  `UNI0_IRQ`; the next DTS branch maps GENET to hwirqs `64/66`.
+- The DTS override is confirmed: `eth0` now appears on hwirqs `64/66`.
+  hwirq `64` counts, hwirq `66` remains idle, and the console stays usable.
+- TDMA/RDMA SCB burst is currently `0x10`. The next test forces GENET v1 DMA
+  burst size to `0x08`, matching Broadcom U-Boot and an existing Linux GENET
+  platform quirk.
+- Burst size `0x08` programmed correctly but did not move TDMA. The next branch
+  tests whether BCM3383 GENET v1 uses the v2-style global DMA register map with
+  `DMA_RING_CFG` at `+0x00` and `DMA_CTRL` at `+0x04`.
+- The v2-style global DMA register map programmed correctly and should be kept,
+  but TDMA still did not consume the compact descriptor.
+- Normal Linux descriptor status was retested after the DMA-regmap fix and also
+  failed. The 20-bit descriptor RAM read back `0x009aefc0` as `0x000aefc0`.
+- Manual swapped-word descriptor rewrites after the DMA-regmap fix also failed
+  for both standard/truncated status and compact status.
+- After `9990`, the descriptor format/order matrix is negative. The next branch
+  keeps compact status and fixed DMA regmap, but zeros surrounding descriptor
+  RAM words before reposting slot 0.
 - Some GENET images previously showed memory/page-table corruption and are not
   stable baselines.
 
 ## Next test
 
-Next diagnostic should test the extended periph IRQ mapping while still judging
-success by TDMA descriptor consumption:
+Next diagnostic should keep the fixed DMA regmap and compact descriptor status,
+then zero surrounding descriptor RAM words before manually reposting slot 0:
 
 - `phy-mode = "rgmii"`
 - no `phy-handle`
@@ -125,8 +141,12 @@ success by TDMA descriptor consumption:
 
 Goal:
 
-- Verify whether `/proc/interrupts` moves from hwirqs `16/17` to `64/66`.
-- Check whether the extended UniMAC DMA interrupt is acknowledged or storms.
+- Confirm the image still programs `tdma_cfg=0x00010000` and
+  `tdma_ctrl=0x00020001`.
+- Clear descriptor words around slot 0, then repost compact descriptor
+  `0x000e009a` and low address `0x00080000`.
+- Check whether TDMA read/consumer/write pointers move after the adjacent words
+  are zero instead of containing stale descriptor RAM.
 - Prove whether Linux can produce a DMA address that GENET descriptor RAM can
   represent and TDMA can consume.
 - Read BCM3383 clock/reset state, especially `ClkCtrlUBus`, and compare against
@@ -200,7 +220,9 @@ Do not repeat:
 - `GFP_DMA` coherent bounce
 - `ADDRSHIFT8`
 - `LOWLIT 0x00080000`
-- plain `DMA_OWN` without compact GENET v1 status packing
+- plain `DMA_OWN` without compact GENET v1 status packing, including after the
+  `9990` DMA regmap fix
+- swapped descriptor word order after the `9990` DMA regmap fix
 - manual low16 status poke
 - reserved low TX buffer as standalone fix
 - generic RGMII OOB poke at `0x12c0008c`

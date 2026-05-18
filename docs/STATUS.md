@@ -66,7 +66,19 @@ system.
   - The inherited GENET hwirqs `16/17` show zero interrupt counts, while
     `INT_EXT_PER PeriphIRQ0_2` reports active UniMAC status:
     `0x14e00338=0x3000007D`, `0x14e0033c=0x045A0409`.
-  - The current DTS test branch maps GENET to extended hwirqs `64/66`.
+  - The DTS test branch maps GENET to extended hwirqs `64/66`; hwirq `64`
+    counts, hwirq `66` remains idle, but TDMA still does not consume.
+  - The current next branch forces GENET v1 DMA SCB burst size from `0x10` to
+    `0x08`; it programs correctly but still leaves TDMA stuck.
+  - The v2-style global DMA register map for GENET v1 programs correctly, with
+    `DMA_RING_CFG` at `+0x00` and `DMA_CTRL` at `+0x04`, but compact descriptor
+    status still leaves TDMA stuck.
+  - Normal Linux descriptor status after the DMA regmap fix still leaves TDMA
+    stuck; descriptor RAM reads `0x009aefc0` back as `0x000aefc0`.
+  - Manual swapped-word descriptor rewrites after the DMA regmap fix also leave
+    TDMA stuck for both standard/truncated status and compact status.
+  - The current next branch keeps compact status and fixed DMA regmap, but
+    zeros surrounding descriptor RAM words before reposting slot 0.
   - `mem=16M` and `mem=32M` were invalid tests because they failed before a
     useful GENET runtime test.
   - Internal PHY mode reads invalid GPHY data and is not a solved path.
@@ -101,8 +113,8 @@ verification, not B53/DSA integration.
 
 1. Prove how BCM3383 GENET expects TX buffer addresses to be represented or
    translated for TDMA.
-2. Verify the extended `PeriphIRQ0_2` GENET interrupt mapping and whether the
-   generic GENET ISR can acknowledge it cleanly.
+2. Test whether clearing adjacent descriptor RAM words lets TDMA fetch the
+   compact slot-0 descriptor after the `9990` DMA regmap fix.
 3. Investigate BCM3383 GENET DMA window/base/init and UBUS/SCB clock setup.
    The reserved TX buffer at physical `0x01680000` still left `hw_c=0`.
 4. Keep the BCM3383 GMAC clock/reset/pinmux quirk in the test baseline.
