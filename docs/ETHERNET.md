@@ -164,9 +164,11 @@ Known result:
   MAC 0`, `Using GMAC0, phy 0`, and `Enet link up: 1G full`. The later OEM
   firmware log also says `Powering UP switch. PIN = 14`.
 - GPIO14 switch-power probe showed `GPIO_PER_DIR_LO=0x00004000` and
-  `GPIO_PER_DATA_LO=0x00000000` at baseline. Forcing GPIO14 high changed the
-  ring0 replay result to `read=0x00010003`, `cons=0x00000028`, `prod=1`,
-  `write=0`, but TX MIB counters still stayed at `1`.
+  `GPIO_PER_DATA_LO=0x00000000` at baseline. One run with GPIO14 high showed
+  `cons=0x00000028`, but an immediate low/high comparison in the same boot did
+  not reproduce it: both passes showed `read=0x00010003`, `cons=0`, `prod=1`,
+  `write=0`, and unchanged TX MIB counters. Treat GPIO14-high alone as
+  negative/unstable, not a fix.
 - The read pointer lower bits advance to `3`, so TDMA is likely fetching three
   descriptor words but rejecting or stalling before transmit completion.
 - Some GENET images previously showed memory/page-table corruption and are not
@@ -190,12 +192,11 @@ DMA address/window side of the ring0 stall:
 
 Goal:
 
-- Repeat ring0 replay with GPIO14 low then high in one boot, with ring state
-  reset between passes, to confirm that `cons=0x28` is caused by GPIO14 high
-  and not stale ring state.
-- If confirmed, keep GPIO14 high and test the remaining missing switch/GMAC
-  side effects one at a time: switch MDIO visibility, B53 identity, and the
-  non-clock vendor GMAC side-effect writes.
+- Keep GPIO14 high and test the remaining non-clock, non-parent-interrupt
+  vendor GMAC side-effect writes together, then replay ring0 and check MIB
+  counters.
+- If that is still negative, stop manual descriptor replay and switch to MDIO
+  visibility/B53 identity probing with GPIO14 high.
 - Keep parent interrupt masks untouched.
 - Compare candidate GENET/UBUS DMA translation registers only after each narrow
   write branch changes a relevant status or MIB result.
