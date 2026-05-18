@@ -97,6 +97,9 @@ system.
   - Forcing RBUF/TBUF control state did not change ring0 behavior. TBUF was
     already enabled, selected RBUF bits did not latch, and TX MIB counters
     stayed unchanged.
+  - The GMAC/bridge/EXT snapshot did not show a link-up state transition:
+    sampled clock/reset, GPIO, bridge, and EXT registers were stable, with hwirq
+    `64` counting and hwirq `66` idle.
   - Ring0 TDMA appears to fetch three descriptor words but does not retire the
     descriptor or transmit the packet.
   - `mem=16M` and `mem=32M` were invalid tests because they failed before a
