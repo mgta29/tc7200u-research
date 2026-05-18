@@ -120,15 +120,17 @@ Known result:
 - After `9990`, the descriptor format/order matrix is negative.
 - Clearing surrounding descriptor RAM words before reposting slot 0 also failed.
   Adjacent/stale descriptor words are not the blocker.
-- The next manual branch tests TDMA control ring-enable bits by writing
-  `tdma_ctrl=0x00030001`, enabling both bit 16 and bit 17 candidates.
+- TDMA control bit probing also failed: `tdma_ctrl=0x00030001` latched but
+  `cons/write` stayed zero.
+- The next manual branch tests the paired TDMA ring config bit by writing
+  `tdma_cfg=0x00030000` with `tdma_ctrl=0x00030001`.
 - Some GENET images previously showed memory/page-table corruption and are not
   stable baselines.
 
 ## Next test
 
 Next diagnostic should keep the fixed DMA regmap and compact descriptor status,
-then test whether the TDMA control ring-enable bit is off by one on BCM3383:
+then test whether the TDMA ring config bit is off by one on BCM3383:
 
 - `phy-mode = "rgmii"`
 - no `phy-handle`
@@ -143,9 +145,8 @@ then test whether the TDMA control ring-enable bit is off by one on BCM3383:
 
 Goal:
 
-- Confirm the image still programs `tdma_cfg=0x00010000`.
-- Write `tdma_ctrl=0x00030001` to enable both bit 16 and bit 17 ring-enable
-  candidates.
+- Write `tdma_cfg=0x00030000` and `tdma_ctrl=0x00030001` to enable both bit 16
+  and bit 17 ring-enable candidates in both places.
 - Repost compact descriptor `0x000e009a` and low address `0x00080000`.
 - Check whether TDMA read/consumer/write pointers move.
 - Prove whether Linux can produce a DMA address that GENET descriptor RAM can
@@ -225,6 +226,7 @@ Do not repeat:
   `9990` DMA regmap fix
 - swapped descriptor word order after the `9990` DMA regmap fix
 - adjacent descriptor clear around slot 0 after the `9990` DMA regmap fix
+- TDMA control bit-only probe with `tdma_ctrl=0x00030001`
 - manual low16 status poke
 - reserved low TX buffer as standalone fix
 - generic RGMII OOB poke at `0x12c0008c`

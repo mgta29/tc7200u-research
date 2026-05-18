@@ -301,3 +301,36 @@ Mainline uses `DMA_RING_BUF_EN_SHIFT=1`, so ring16 enable becomes bit 17 in
 `DMA_CTRL`. If BCM3383 v1 expects bit 16 instead, TDMA would accept producer
 writes but never service ring16. The next manual test should write
 `tdma_ctrl=0x00030001` to enable both candidate bits and then repost slot 0.
+
+## TDMA control bit result
+
+The dual control-enable write latched:
+
+```text
+0x12c03c40=0x00010000
+0x12c03c44=0x00030001
+```
+
+TDMA still did not move:
+
+```text
+0x12c03c00=0x00000000
+0x12c03c04=0x00000000
+0x12c03c08=0x00000001
+0x12c03c20=0x00000000
+```
+
+So the `DMA_CTRL` ring-enable bit alone is not the missing piece.
+
+## Next branch after TDMA control bit
+
+Probe the paired `DMA_RING_CFG` bit. Current state only enables bit 16:
+
+```text
+tdma_cfg=0x00010000
+tdma_ctrl=0x00030001
+```
+
+The next manual test should write `tdma_cfg=0x00030000` and
+`tdma_ctrl=0x00030001`, enabling both bit 16 and bit 17 candidates in both
+places before reposting compact slot 0.

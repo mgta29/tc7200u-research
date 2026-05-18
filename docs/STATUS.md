@@ -79,8 +79,10 @@ system.
     TDMA stuck for both standard/truncated status and compact status.
   - Clearing surrounding descriptor RAM words before reposting slot 0 also
     leaves TDMA stuck.
-  - The current next branch tests whether BCM3383 v1 needs TDMA control bit 16
-    enabled as well as the mainline bit 17 ring-buffer-enable candidate.
+  - Enabling both TDMA control bit 16 and bit 17 with `tdma_ctrl=0x00030001`
+    still leaves TDMA stuck.
+  - The current next branch tests whether BCM3383 v1 also needs both candidate
+    bits enabled in `tdma_cfg`.
   - `mem=16M` and `mem=32M` were invalid tests because they failed before a
     useful GENET runtime test.
   - Internal PHY mode reads invalid GPHY data and is not a solved path.
@@ -115,8 +117,8 @@ verification, not B53/DSA integration.
 
 1. Prove how BCM3383 GENET expects TX buffer addresses to be represented or
    translated for TDMA.
-2. Test whether `tdma_ctrl=0x00030001` lets TDMA service ring16 after the
-   `9990` DMA regmap fix.
+2. Test whether `tdma_cfg=0x00030000` plus `tdma_ctrl=0x00030001` lets TDMA
+   service ring16 after the `9990` DMA regmap fix.
 3. Investigate BCM3383 GENET DMA window/base/init and UBUS/SCB clock setup.
    The reserved TX buffer at physical `0x01680000` still left `hw_c=0`.
 4. Keep the BCM3383 GMAC clock/reset/pinmux quirk in the test baseline.
