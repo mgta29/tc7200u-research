@@ -206,6 +206,12 @@ Known result:
   `0x12c0069c=0x3b9aca00`. Offsets `0x12c00614` and `0x12c00618` are zero in
   both states and should be tested as the possible direct-base
   `UMAC_MDIO_CMD`/config pair before doing a wider map.
+- The direct-base `+0x618` config candidate is partly valid:
+  writing `0x000013f1` to `0x12c00618` read back as `0x000003f1`, so clause-22
+  and divider bits latch there, while the `0x1000` preamble bit does not.
+  However, `0x12c00614` read back `0x00000000` after both `0x08020000` and
+  `0x28020000` command writes. Treat `0x12c00618` as the best MDIO config
+  candidate, but the command/data register is not yet identified.
 - The read pointer lower bits advance to `3`, so TDMA is likely fetching three
   descriptor words but rejecting or stalling before transmit completion.
 - Some GENET images previously showed memory/page-table corruption and are not
