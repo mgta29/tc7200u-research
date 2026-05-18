@@ -334,3 +334,47 @@ tdma_ctrl=0x00030001
 The next manual test should write `tdma_cfg=0x00030000` and
 `tdma_ctrl=0x00030001`, enabling both bit 16 and bit 17 candidates in both
 places before reposting compact slot 0.
+
+## TDMA ring config bit result
+
+The paired config/control write latched:
+
+```text
+0x12c03c40=0x00030000
+0x12c03c44=0x00030001
+```
+
+TDMA still did not move:
+
+```text
+0x12c03c00=0x00000000
+0x12c03c04=0x00000000
+0x12c03c08=0x00000001
+0x12c03c20=0x00000000
+```
+
+So neither the `DMA_CTRL` ring-enable bit nor the paired `DMA_RING_CFG` bit
+explains the stuck descriptor fetch.
+
+## Next branch after ring config bit
+
+Probe ring-register layout. The fixed global DMA map indicates BCM3383 GENET v1
+does not exactly match the mainline v1 global register map. It may also use the
+wider/v4-style ring register spacing while still using 2-word descriptor RAM.
+
+The next manual test should initialize ring16 using the v4 ring layout:
+
+```text
+read=0x3c00
+cons=0x3c08
+prod=0x3c0c
+size=0x3c10
+start=0x3c14
+end=0x3c1c
+mbuf=0x3c24
+write=0x3c2c
+```
+
+Then repost compact slot 0 and advance the v4-layout producer at `0x12c03c0c`.
+If this moves `0x12c03c08` or `0x12c03c2c`, the ring layout is the missing
+piece.

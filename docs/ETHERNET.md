@@ -122,15 +122,17 @@ Known result:
   Adjacent/stale descriptor words are not the blocker.
 - TDMA control bit probing also failed: `tdma_ctrl=0x00030001` latched but
   `cons/write` stayed zero.
-- The next manual branch tests the paired TDMA ring config bit by writing
-  `tdma_cfg=0x00030000` with `tdma_ctrl=0x00030001`.
+- The paired TDMA ring config bit also failed: `tdma_cfg=0x00030000` with
+  `tdma_ctrl=0x00030001` latched, but `cons/write` stayed zero.
+- The next manual branch tests whether BCM3383 uses the wider/v4 ring register
+  layout while still using 2-word descriptor RAM.
 - Some GENET images previously showed memory/page-table corruption and are not
   stable baselines.
 
 ## Next test
 
 Next diagnostic should keep the fixed DMA regmap and compact descriptor status,
-then test whether the TDMA ring config bit is off by one on BCM3383:
+then test whether ring16 uses the wider/v4 ring register layout on BCM3383:
 
 - `phy-mode = "rgmii"`
 - no `phy-handle`
@@ -145,10 +147,11 @@ then test whether the TDMA ring config bit is off by one on BCM3383:
 
 Goal:
 
-- Write `tdma_cfg=0x00030000` and `tdma_ctrl=0x00030001` to enable both bit 16
-  and bit 17 ring-enable candidates in both places.
+- Write ring16 read/consumer/producer/size/start/end/mbuf/write registers using
+  v4 offsets.
 - Repost compact descriptor `0x000e009a` and low address `0x00080000`.
-- Check whether TDMA read/consumer/write pointers move.
+- Advance the v4-layout producer at `0x12c03c0c` and check whether the
+  v4-layout consumer/write registers move.
 - Prove whether Linux can produce a DMA address that GENET descriptor RAM can
   represent and TDMA can consume.
 - Read BCM3383 clock/reset state, especially `ClkCtrlUBus`, and compare against
@@ -227,6 +230,8 @@ Do not repeat:
 - swapped descriptor word order after the `9990` DMA regmap fix
 - adjacent descriptor clear around slot 0 after the `9990` DMA regmap fix
 - TDMA control bit-only probe with `tdma_ctrl=0x00030001`
+- TDMA config/control bit probe with `tdma_cfg=0x00030000` and
+  `tdma_ctrl=0x00030001`
 - manual low16 status poke
 - reserved low TX buffer as standalone fix
 - generic RGMII OOB poke at `0x12c0008c`
