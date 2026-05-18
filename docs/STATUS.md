@@ -84,8 +84,11 @@ system.
   - Enabling both candidate bits in `tdma_cfg` and `tdma_ctrl` still leaves
     TDMA stuck.
   - The wider/v4 ring16 register layout still leaves TDMA stuck.
-  - The current next branch tests whether BCM3383 services ring0 instead of
-    Linux's descriptor ring16.
+  - Ring0 is the first positive TDMA movement signal: with
+    `tdma_cfg=0x00000001` and `tdma_ctrl=0x00000003`, ring0 read/consumer
+    changed to `0x00010003`/`0x00000028`.
+  - The current next branch resets UniMAC MIB counters and checks whether ring0
+    movement increments TX packet/good-packet counters.
   - `mem=16M` and `mem=32M` were invalid tests because they failed before a
     useful GENET runtime test.
   - Internal PHY mode reads invalid GPHY data and is not a solved path.
@@ -120,8 +123,8 @@ verification, not B53/DSA integration.
 
 1. Prove how BCM3383 GENET expects TX buffer addresses to be represented or
    translated for TDMA.
-2. Test whether ring0 registers at `0x12c03800..0x12c03820` let TDMA service
-   the descriptor after the `9990` DMA regmap fix.
+2. Verify whether ring0 movement increments TX MIB counters; if yes, patch
+   GENET v1 to route TX through ring0 instead of ring16.
 3. Investigate BCM3383 GENET DMA window/base/init and UBUS/SCB clock setup.
    The reserved TX buffer at physical `0x01680000` still left `hw_c=0`.
 4. Keep the BCM3383 GMAC clock/reset/pinmux quirk in the test baseline.

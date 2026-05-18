@@ -417,3 +417,52 @@ write=0x3820
 
 and the global enable should use `tdma_cfg=0x00000001`,
 `tdma_ctrl=0x00000003`.
+
+## Ring0 result
+
+Ring0 is the first positive TDMA movement signal.
+
+Manual setup:
+
+```text
+tdma_cfg=0x00000001
+tdma_ctrl=0x00000003
+ring0 read=0 cons=0 prod=0 size=0x01000800 start=0 end=0x1ff
+ring0 mbuf=1 flow=0 write=0
+desc0_len=0x000e009a desc0_addr=0x00080000
+ring0 producer=1
+```
+
+Observed after one second:
+
+```text
+0x12c03c40=0x00000001
+0x12c03c44=0x00000003
+0x12c03800=0x00010003
+0x12c03804=0x00000028
+0x12c03808=0x00000001
+0x12c03820=0x00000000
+```
+
+Interpretation:
+
+- Ring0 registers moved; ring16 never did.
+- This strongly suggests BCM3383 TDMA services ring0, not Linux's descriptor
+  ring16 path.
+- The values are not yet a clean one-descriptor completion: consumer `0x28`
+  is odd with producer `1`.
+- Next step is to reset/read UniMAC TX MIB counters around a controlled ring0
+  replay to prove whether this movement produces a transmitted-good-packet
+  counter or is only malformed TDMA activity.
+
+## Next branch after ring0 movement
+
+Repeat the ring0 manual replay after clearing UniMAC MIB counters, then read:
+
+- ring0 read/consumer/producer/write
+- descriptor words 0 and 1
+- TDMA global status
+- TX MIB counters: `tx_pkts`, `tx_bytes`, `tx_good_pkts`, `tx_unicast`
+
+If TX MIB counters increment, the next kernel patch should route GENET v1 TX
+through ring0 instead of ring16.

@@ -126,15 +126,19 @@ Known result:
   `tdma_ctrl=0x00030001` latched, but `cons/write` stayed zero.
 - The wider/v4 ring register layout also failed: producer at `0x12c03c0c`
   latched, but consumer/write did not move.
-- The next manual branch tests whether BCM3383 services ring0 instead of
-  Linux's descriptor ring16.
+- Ring0 is the first positive TDMA movement signal: with `tdma_cfg=0x00000001`
+  and `tdma_ctrl=0x00000003`, ring0 read/consumer changed to
+  `0x00010003`/`0x00000028`.
+- The ring0 values are not yet a clean one-descriptor completion, so the next
+  manual branch resets UniMAC MIB counters and checks whether ring0 movement
+  increments TX packet/good-packet counters.
 - Some GENET images previously showed memory/page-table corruption and are not
   stable baselines.
 
 ## Next test
 
 Next diagnostic should keep the fixed DMA regmap and compact descriptor status,
-then test whether TDMA services ring0 instead of ring16 on BCM3383:
+then verify whether ring0 movement is real packet transmission:
 
 - `phy-mode = "rgmii"`
 - no `phy-handle`
@@ -149,13 +153,12 @@ then test whether TDMA services ring0 instead of ring16 on BCM3383:
 
 Goal:
 
-- Write ring0 read/consumer/producer/size/start/end/mbuf/write registers at
-  `0x12c03800..0x12c03820`.
-- Enable ring0 globally with `tdma_cfg=0x00000001` and
-  `tdma_ctrl=0x00000003`.
-- Repost compact descriptor `0x000e009a` and low address `0x00080000`.
-- Advance the ring0 producer at `0x12c03808` and check whether ring0
-  consumer/write registers move.
+- Reset UniMAC MIB counters.
+- Replay ring0 with `tdma_cfg=0x00000001`, `tdma_ctrl=0x00000003`, compact
+  descriptor `0x000e009a`, and low address `0x00080000`.
+- Check ring0 read/consumer/write and TX MIB counters.
+- If TX MIB counters increment, patch GENET v1 to route TX through ring0
+  instead of ring16.
 - Prove whether Linux can produce a DMA address that GENET descriptor RAM can
   represent and TDMA can consume.
 - Read BCM3383 clock/reset state, especially `ClkCtrlUBus`, and compare against
@@ -237,6 +240,7 @@ Do not repeat:
 - TDMA config/control bit probe with `tdma_cfg=0x00030000` and
   `tdma_ctrl=0x00030001`
 - v4 ring register layout on ring16
+- ring16 as the only TX path on BCM3383
 - manual low16 status poke
 - reserved low TX buffer as standalone fix
 - generic RGMII OOB poke at `0x12c0008c`
