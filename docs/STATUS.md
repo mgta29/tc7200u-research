@@ -1,12 +1,22 @@
 # TC7200U OpenWrt Bring-up Status
 
-Last updated: 2026-05-19.
+Last updated: 2026-05-24.
 
 ## Current state
 
 This project is in early bring-up state. It can boot OpenWrt from RAM over
 CFE/TFTP and reach a serial shell, but it is not a working flashable OpenWrt
 system.
+
+## Recent result (2026-05-24)
+
+- Flood/steady TX test on eth0 produced continuous tc7200u tx submit logs,
+  but RX stayed zero.
+- No NETDEV WATCHDOG was seen in this specific run window.
+- Interrupt pattern remains unchanged: hwirq 64 increments, hwirq 66 stays
+  zero, and ERR continues increasing.
+- See runtime note:
+  - research/notes/runtime-probes/2026-05-24-flood-no-watchdog-still-no-rx.md
 
 ## Working
 

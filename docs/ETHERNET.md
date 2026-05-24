@@ -61,6 +61,7 @@ Runtime findings:
 - `research/notes/runtime-probes/2026-05-17-genet-reserved-low-txbuf-still-no-tdma.md`
 - `research/notes/runtime-probes/2026-05-17-genet-ext-periphirq0-2-evidence.md`
 - `research/notes/runtime-probes/2026-05-18-genet-hwirq64-active-tdma-still-stuck.md`
+- `research/notes/runtime-probes/2026-05-24-flood-no-watchdog-still-no-rx.md`
 
 Known result:
 
