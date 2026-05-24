@@ -10,12 +10,15 @@ system.
 
 ## Recent result (2026-05-24)
 
-- Flood/steady TX test on eth0 produced continuous tc7200u tx submit logs,
-  but RX stayed zero.
-- No NETDEV WATCHDOG was seen in this specific run window.
-- Interrupt pattern remains unchanged: hwirq 64 increments, hwirq 66 stays
-  zero, and ERR continues increasing.
-- See runtime note:
+- Flood TX test reproduced `NETDEV WATCHDOG` with a full queue-status summary.
+- Watchdog snapshot shows queue-stop with no hardware completion progress:
+  `(hw)c_index: 0` while software indices advance.
+- RX still stayed zero; hwirq 64 incremented, hwirq 66 stayed zero, and ERR
+  continued increasing.
+- Post-watchdog tx-submit accounting jumped above ring size
+  (`free_now=266/273` while ring size is 256).
+- See runtime notes:
+  - research/notes/runtime-probes/2026-05-24-flood-watchdog-queue-stopped.md
   - research/notes/runtime-probes/2026-05-24-flood-no-watchdog-still-no-rx.md
 
 ## Working
