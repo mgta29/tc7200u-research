@@ -17,9 +17,13 @@ system.
   continued increasing.
 - Post-watchdog tx-submit accounting jumped above ring size
   (`free_now=266/273` while ring size is 256).
+- A follow-up serial+pktmon paired run showed host-side peer ARP retries
+  (`who-has 192.168.77.1 tell 192.168.77.2`) but no frames sourced from
+  OpenWrt's runtime MAC (`16:d8:10:6e:9d:33`) and no `192.168.77.3` packets.
 - See runtime notes:
   - research/notes/runtime-probes/2026-05-24-flood-watchdog-queue-stopped.md
   - research/notes/runtime-probes/2026-05-24-flood-no-watchdog-still-no-rx.md
+  - research/notes/runtime-probes/2026-05-24-pktmon-peer-arp-only-no-owrt-egress.md
 
 ## Working
 
