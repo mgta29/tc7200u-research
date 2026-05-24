@@ -212,6 +212,52 @@ Known result:
   However, `0x12c00614` read back `0x00000000` after both `0x08020000` and
   `0x28020000` command writes. Treat `0x12c00618` as the best MDIO config
   candidate, but the command/data register is not yet identified.
+- New IF0/IF1 MDIO path probes showed the two config windows are independent,
+  not mirrored: `0x12c00618` and `0x12c02618` can hold different values
+  simultaneously. This confirms IF0 and IF1 are separate blocks.
+- Despite that separation, command behavior remains non-functional for upstream
+  MDIO semantics on both blocks. IF0 keeps busy-like values at
+  `0x12c00600` (for example `0x28000000` or `0x28010000`), IF1 command writes
+  collapse to `0x28000000`, and nearby candidates (`+0x10/+0x14/+0x1c`) do not
+  show command completion/data movement.
+- With link up/down retests, ring/IRQ state remains the same stuck signature:
+  `0x12c03800=0x00010003`, `0x12c03804=0x00000028`,
+  `0x12c03808=0x00010000`, `0x12c03c40/44/48=1/1/1`,
+  hwirq `64` increments, hwirq `66` stays `0`.
+- A focused CORE0/CORE1 down-vs-up probe did not show dynamic change:
+  `0x12c00808/0x12c00814` stayed `0x010000d8/0x000005ee`, and
+  `0x12c02808/0x12c02814` stayed `0x00010000/0x00000000`.
+  These four registers are not a reliable active-path discriminator.
+- A corrected-subnet traffic run (`eth0=192.168.77.1`, ping `192.168.77.2`)
+  failed with `PING_RC=1`; TX counters increased while RX stayed zero. hwirq
+  `64` increased, hwirq `66` stayed zero, and ring/global registers stayed in
+  the same stuck signature.
+- A follow-up corrected-subnet run exposed a second stuck ring-window
+  signature: `0x12c02c08/0x12c03c08=0x00000000`,
+  `0x12c02c0c/0x12c03c0c=0x06f850c0`, and
+  `0x12c02c20/0x12c03c20=0x00000000`. RX still stayed zero, TX errors rose,
+  hwirq `64` incremented, and hwirq `66` remained zero.
+- A later pre/post ping snapshot (`ping -c 3`) showed full invariance in both
+  sampled ring windows and sampled descriptor words:
+  `0x12c02c0c/0x12c03c0c=0x06e72140` and
+  `0x12c03000..0x12c0300c=0x000de37a/0x00085f4d/0x000b30b5/0x000f190a`
+  before and after traffic attempt, with RX still `0` and hwirq `66` still
+  idle.
+- A pointer-dereference check confirmed `0x12c02c0c/0x12c03c0c` is not a
+  CPU-readable alias of `0x12c03000` descriptor RAM: both windows returned
+  `0x06e76d40`, but `devmem` at `0x06e76d40 + {0,4,8,12}` returned
+  `0xffffffff/0xfffdffff` instead of descriptor words.
+- A reinit-cycle probe then showed this field changes on interface reinit but
+  not on packet attempts: `0x06f197c0 -> 0x06e73dc0` across `eth0` down/up
+  cycles, then static through `ping -c 3`, while
+  `0x12c03000..0x12c0300c` remained unchanged.
+- A bridge-off sanity check (`ip link set eth0 nomaster`) remained negative:
+  RX stayed zero, TX/errors were unchanged across PRE/POST, hwirq `64`
+  continued to increment while `66` stayed zero, and sampled pointer/descriptor
+  words remained static.
+- A reset-baseline run restored driver binding at `12c00000` after rejecting a
+  bad full remap to `12c02600`, but traffic was still negative
+  (RX `0`, TX `0`, TX errors increased, hwirq `64` only).
 - The read pointer lower bits advance to `3`, so TDMA is likely fetching three
   descriptor words but rejecting or stalling before transmit completion.
 - Some GENET images previously showed memory/page-table corruption and are not
@@ -235,26 +281,20 @@ DMA address/window side of the ring0 stall:
 
 Goal:
 
-- Stop manual descriptor replay for now.
-- Probe MDIO/B53 visibility with GPIO14 high: Linux MDIO sysfs currently only
-  exposes `fixed-0:00`, and the assumed UMAC MDIO command register
-  `0x12c00e14` returned only `0x00000001`. Next raw MDIO probe should use the
-  documented/vendor `mdio@600` interface block as an unknown layout: dump its
-  full `0x12c00600..0x12c00710` register range down/up and after GPIO14 high
-  before attempting more MDIO command writes.
+- Stop additional raw MDIO command probing for now. The IF0/IF1 branch is
+  negative for upstream-style command/data behavior.
+- Stop manual descriptor replay and runtime topology pokes (including bridge
+  attach/detach) for now.
 - Keep parent interrupt masks untouched.
+- Move to a kernel-only descriptor-width branch:
+  - keep current GENET V1 offsets
+  - set `GENET_V1 words_per_bd` from `2` to `3` as a temporary test
+  - reboot and compare TDMA/ring signature (`read/cons/prod/write`) and IRQ
+    behavior.
 - Compare candidate GENET/UBUS DMA translation registers only after each narrow
-  write branch changes a relevant status or MIB result.
-- Probe whether the descriptor address field represents packet-buffer offset
-  rather than physical address low bits.
-- Keep ring0 as the manual replay surface only when testing a new address/window
-  hypothesis.
+  kernel-side branch changes a relevant status.
 - Read BCM3383 clock/reset state, especially `ClkCtrlUBus`, and compare against
   current `bcm3383_init_gmac()`.
-- Probe BCM3383 GENET DMA window/base/init behavior; the reserved-buffer test
-  did not fix TDMA consumption.
-- Watch for TDMA consumer index movement, TX completion, DMA/IRQ activity, and
-  memory corruption.
 - Keep IRQ `<13 4>` as a separate test branch.
 - Add proper BCM53125/B53 switch description only after GENET TDMA behavior is
   understood.
@@ -278,40 +318,37 @@ Goal:
 
 <!-- TC7200U_CURRENT_GENET_STATE_START -->
 
-## Current GENET state — 2026-05-17
+## Current GENET state — 2026-05-19
 
 Latest conclusion:
 
 - GENET at `0x12c00000` probes and `eth0` link reports up.
-- TX descriptor is posted and TDMA producer advances.
-- TDMA consumer still remains `0`.
-- Normal high DMA allocation is not the only blocker.
-- Reserved low physical TX buffer at `0x01680000` also failed.
-- Upstream/original status format with reserved low TX buffer also failed.
-- Compact status format with reserved low TX buffer also failed.
-- Descriptor word-order testing did not make TDMA consume.
-- Generic RGMII OOB write at `0x12c0008c` did not latch.
-- Current inherited hwirqs `16/17` are not counting.
-- Runtime interrupt probing points to `INT_EXT_PER PeriphIRQ0_2`:
-  `mask=0x3000007D`, `status=0x045A0409`.
-- Current next branch maps GENET to extended hwirqs `64/66` while keeping the
-  TDMA/raw-state debug active.
+- TDMA/ring remains stuck with repeated signature:
+  `0x12c03800=0x00010003`, `0x12c03804=0x00000028`,
+  `0x12c03808=0x00010000`, `0x12c0380c=0x00000000`,
+  `0x12c03c40/44/48=1/1/1`.
+- IRQ behavior is unchanged: hwirq `64` increments, hwirq `66` remains idle.
+- IF0/IF1 UNIMAC interface config windows are independent:
+  `0x12c00618` and `0x12c02618` are not mirrored.
+- IF0/IF1 command-path probing is negative for upstream-style MDIO semantics:
+  IF0 command retains busy-like values, IF1 command collapses to `0x28000000`,
+  and nearby status/data candidates do not move.
+- CORE0/CORE1 UMAC down/up probe is also negative as a discriminator:
+  `0x12c00808/0x12c00814` and `0x12c02808/0x12c02814` are unchanged across
+  link down/up while hwirq `64` continues to increment.
+- Raw MDIO reverse-engineering is paused for now.
+- Next branch is kernel-side descriptor-width test only:
+  temporary `GENET_V1 words_per_bd` from `2` to `3`, offsets unchanged.
 
 Current intended OpenWrt patch state for the next test:
 
-- Active:
-  - `996-bcmgenet-tc7200u-xmit-desc-debug.patch`
-  - `997-bcmgenet-tc7200u-tx-poll-debug.patch`
-  - `9975-bcmgenet-tc7200u-v1-dma-own-test.patch`
-  - `9976-bcmgenet-tc7200u-desc-readback-debug.patch`
-  - `9978-bcmgenet-tc7200u-v1-pack20-desc-test.patch`
-  - `9979-bcmgenet-tc7200u-addr-debug.patch`
-  - `998-bmips-tc7200u-gmac-init.patch`
-  - `9986-bcmgenet-tc7200u-v1-reserved-txbuf-test.patch`
-  - `9988-bcmgenet-tc7200u-raw-state-dump.patch`
-  - DTS override exposing `PeriphIRQ0_2` and mapping GENET to `<64>, <66>`
-- Inactive:
-  - `9987-bcmgenet-tc7200u-v1-resv-swapped-desc-test.patch`
+- Active baseline:
+  - GENET at `0x12c00000`
+  - interrupts `<64>, <66>`
+  - fixed-link RGMII diagnostic setup
+  - no new runtime MDIO poke scripts
+- Next code change:
+  - temporary `GENET_V1 words_per_bd = 3` test branch
 
 Do not repeat:
 
@@ -344,6 +381,12 @@ The TC72XX LxG1 OEM Linux tree contains BCM3384 `bcmvenet.o` / `bcm_venet.o` pre
 Implication: vendor BCM3384 Ethernet may run through VENET + FPM/DQM + SEGDMA/UNIMAC/IOP, while the current OpenWrt path is forcing direct `bcmgenet` TDMA ring16.
 
 See: `research/notes/runtime-probes/2026-05-18-tc72xx-lxg1-venet-dqm-fpm-findings.md`.
+See also:
+`research/notes/runtime-probes/2026-05-19-unimac-core0-core1-link-toggle-no-delta.md`.
+See also:
+`research/notes/runtime-probes/2026-05-19-77-subnet-ping-fails-ring-static.md`.
+See also:
+`research/notes/runtime-probes/2026-05-19-reset-baseline-12c00000-words4-negative.md`.
 
 ## TC72XX BFC5 deep-mine result
 

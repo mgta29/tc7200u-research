@@ -1,0 +1,15 @@
+--- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
++++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+@@ -97,6 +97,12 @@
+ 				    void __iomem *d,
+ 				    dma_addr_t addr)
+ {
++	if (GENET_IS_V1(priv)) {
++		/* TC7200U DESC_WIDTH3: v1 address is low word only; no ADDRESS_HI write */
++		bcmgenet_writel(lower_32_bits(addr), d + DMA_DESC_ADDRESS_LO);
++		return;
++	}
++
+ 	bcmgenet_writel(lower_32_bits(addr), d + DMA_DESC_ADDRESS_LO);
+ 
+ 	/* Register writes to GISB bus can take couple hundred nanoseconds

@@ -1,0 +1,24 @@
+--- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
++++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+@@ -2133,6 +2133,10 @@
+ 		if (i == nr_frags)
+ 			len_stat |= DMA_EOP;
+ 
++		/* TC7200U DESC_D: classic v1 TX OWN bit, no packed/remapped status */
++		if (GENET_IS_V1(priv))
++			len_stat |= DMA_OWN;
++
+ 		dmadesc_set(priv, tx_cb_ptr->bd_addr, mapping, len_stat);
+ 	}
+ 
+@@ -3731,8 +3735,8 @@
+ 		.hfb_filter_cnt = 16,
+ 		.qtag_mask = 0x1F,
+ 		.hfb_offset = 0x1000,
+-		.rdma_offset = 0x2000,
+-		.tdma_offset = 0x3000,
++		.rdma_offset = 0x2800,
++		.tdma_offset = 0x3800,
+ 		.words_per_bd = 2,
+ 	},
+ 	[GENET_V2] = {

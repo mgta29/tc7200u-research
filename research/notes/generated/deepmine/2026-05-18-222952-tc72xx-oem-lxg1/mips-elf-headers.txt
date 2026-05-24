@@ -1,0 +1,1239 @@
+### /home/mgta29/src/tc72xx-oem-lxg1/bcmdrivers/broadcom/net/dqm/impl1/3383/bcmdqm.o
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              REL (Relocatable file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x0
+  Start of program headers:          0 (bytes into file)
+  Start of section headers:          100640 (bytes into file)
+  Flags:                             0x50001001, noreorder, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           0 (bytes)
+  Number of program headers:         0
+  Size of section headers:           40 (bytes)
+  Number of section headers:         70
+  Section header string table index: 67
+### /home/mgta29/src/tc72xx-oem-lxg1/bcmdrivers/broadcom/net/dqm/impl1/3383/dqm.o
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              REL (Relocatable file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x0
+  Start of program headers:          0 (bytes into file)
+  Start of section headers:          181820 (bytes into file)
+  Flags:                             0x50001001, noreorder, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           0 (bytes)
+  Number of program headers:         0
+  Size of section headers:           40 (bytes)
+  Number of section headers:         78
+  Section header string table index: 75
+### /home/mgta29/src/tc72xx-oem-lxg1/bcmdrivers/broadcom/net/dqm/impl1/3384/bcmdqm.o
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              REL (Relocatable file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x0
+  Start of program headers:          0 (bytes into file)
+  Start of section headers:          112028 (bytes into file)
+  Flags:                             0x50001001, noreorder, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           0 (bytes)
+  Number of program headers:         0
+  Size of section headers:           40 (bytes)
+  Number of section headers:         70
+  Section header string table index: 67
+### /home/mgta29/src/tc72xx-oem-lxg1/bcmdrivers/broadcom/net/dqm/impl1/3384/dqm.o
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              REL (Relocatable file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x0
+  Start of program headers:          0 (bytes into file)
+  Start of section headers:          1339544 (bytes into file)
+  Flags:                             0x50001001, noreorder, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           0 (bytes)
+  Number of program headers:         0
+  Size of section headers:           40 (bytes)
+  Number of section headers:         78
+  Section header string table index: 75
+### /home/mgta29/src/tc72xx-oem-lxg1/bcmdrivers/broadcom/net/dqm/impl1/platform/dqm_3383.o
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              REL (Relocatable file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x0
+  Start of program headers:          0 (bytes into file)
+  Start of section headers:          81540 (bytes into file)
+  Flags:                             0x50001001, noreorder, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           0 (bytes)
+  Number of program headers:         0
+  Size of section headers:           40 (bytes)
+  Number of section headers:         40
+  Section header string table index: 37
+### /home/mgta29/src/tc72xx-oem-lxg1/bcmdrivers/broadcom/net/dqm/impl1/platform/dqm_3384.o
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              REL (Relocatable file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x0
+  Start of program headers:          0 (bytes into file)
+  Start of section headers:          1227856 (bytes into file)
+  Flags:                             0x50001001, noreorder, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           0 (bytes)
+  Number of program headers:         0
+  Size of section headers:           40 (bytes)
+  Number of section headers:         40
+  Section header string table index: 37
+### /home/mgta29/src/tc72xx-oem-lxg1/bcmdrivers/broadcom/net/fpm/impl4/3383/bcm_fpm.o
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              REL (Relocatable file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x0
+  Start of program headers:          0 (bytes into file)
+  Start of section headers:          19900 (bytes into file)
+  Flags:                             0x50001001, noreorder, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           0 (bytes)
+  Number of program headers:         0
+  Size of section headers:           40 (bytes)
+  Number of section headers:         56
+  Section header string table index: 53
+### /home/mgta29/src/tc72xx-oem-lxg1/bcmdrivers/broadcom/net/fpm/impl4/3383/fpm_client.o
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              REL (Relocatable file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x0
+  Start of program headers:          0 (bytes into file)
+  Start of section headers:          19884 (bytes into file)
+  Flags:                             0x50001001, noreorder, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           0 (bytes)
+  Number of program headers:         0
+  Size of section headers:           40 (bytes)
+  Number of section headers:         56
+  Section header string table index: 53
+### /home/mgta29/src/tc72xx-oem-lxg1/bcmdrivers/broadcom/net/fpm/impl4/3384/bcm_fpm.o
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              REL (Relocatable file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x0
+  Start of program headers:          0 (bytes into file)
+  Start of section headers:          20940 (bytes into file)
+  Flags:                             0x50001001, noreorder, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           0 (bytes)
+  Number of program headers:         0
+  Size of section headers:           40 (bytes)
+  Number of section headers:         56
+  Section header string table index: 53
+### /home/mgta29/src/tc72xx-oem-lxg1/bcmdrivers/broadcom/net/fpm/impl4/3384/fpm_client.o
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              REL (Relocatable file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x0
+  Start of program headers:          0 (bytes into file)
+  Start of section headers:          20928 (bytes into file)
+  Flags:                             0x50001001, noreorder, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           0 (bytes)
+  Number of program headers:         0
+  Size of section headers:           40 (bytes)
+  Number of section headers:         56
+  Section header string table index: 53
+### /home/mgta29/src/tc72xx-oem-lxg1/bcmdrivers/broadcom/net/venet/impl3/3383/bcm_venet.o
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              REL (Relocatable file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x0
+  Start of program headers:          0 (bytes into file)
+  Start of section headers:          953284 (bytes into file)
+  Flags:                             0x50001001, noreorder, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           0 (bytes)
+  Number of program headers:         0
+  Size of section headers:           40 (bytes)
+  Number of section headers:         80
+  Section header string table index: 77
+### /home/mgta29/src/tc72xx-oem-lxg1/bcmdrivers/broadcom/net/venet/impl3/3383/bcmvenet.o
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              REL (Relocatable file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x0
+  Start of program headers:          0 (bytes into file)
+  Start of section headers:          953284 (bytes into file)
+  Flags:                             0x50001001, noreorder, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           0 (bytes)
+  Number of program headers:         0
+  Size of section headers:           40 (bytes)
+  Number of section headers:         80
+  Section header string table index: 77
+### /home/mgta29/src/tc72xx-oem-lxg1/bcmdrivers/broadcom/net/venet/impl3/3384/bcm_venet.o
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              REL (Relocatable file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x0
+  Start of program headers:          0 (bytes into file)
+  Start of section headers:          1256472 (bytes into file)
+  Flags:                             0x50001001, noreorder, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           0 (bytes)
+  Number of program headers:         0
+  Size of section headers:           40 (bytes)
+  Number of section headers:         80
+  Section header string table index: 77
+### /home/mgta29/src/tc72xx-oem-lxg1/bcmdrivers/broadcom/net/venet/impl3/3384/bcmvenet.o
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              REL (Relocatable file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x0
+  Start of program headers:          0 (bytes into file)
+  Start of section headers:          1256468 (bytes into file)
+  Flags:                             0x50001001, noreorder, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           0 (bytes)
+  Number of program headers:         0
+  Size of section headers:           40 (bytes)
+  Number of section headers:         80
+  Section header string table index: 77
+### /home/mgta29/src/tc72xx-oem-lxg1/hostTools/mtd-utils/ubi-utils/old-utils/bin2nand
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              EXEC (Executable file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x400970
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          23108 (bytes into file)
+  Flags:                             0x50001007, noreorder, pic, cpic, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         7
+  Size of section headers:           40 (bytes)
+  Number of section headers:         37
+  Section header string table index: 34
+### /home/mgta29/src/tc72xx-oem-lxg1/hostTools/mtd-utils/ubi-utils/old-utils/mkbootenv
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              EXEC (Executable file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x400e40
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          59632 (bytes into file)
+  Flags:                             0x50001007, noreorder, pic, cpic, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         7
+  Size of section headers:           40 (bytes)
+  Number of section headers:         37
+  Section header string table index: 34
+### /home/mgta29/src/tc72xx-oem-lxg1/hostTools/mtd-utils/ubi-utils/old-utils/nand2bin
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              EXEC (Executable file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x400810
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          22740 (bytes into file)
+  Flags:                             0x50001007, noreorder, pic, cpic, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         7
+  Size of section headers:           40 (bytes)
+  Number of section headers:         37
+  Section header string table index: 34
+### /home/mgta29/src/tc72xx-oem-lxg1/hostTools/mtd-utils/ubi-utils/old-utils/ubigen
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              EXEC (Executable file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x4008d0
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          39492 (bytes into file)
+  Flags:                             0x50001007, noreorder, pic, cpic, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         8
+  Size of section headers:           40 (bytes)
+  Number of section headers:         38
+  Section header string table index: 35
+### /home/mgta29/src/tc72xx-oem-lxg1/hostTools/mtd-utils/ubi-utils/old-utils/unubi
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              EXEC (Executable file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x400a80
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          50052 (bytes into file)
+  Flags:                             0x50001007, noreorder, pic, cpic, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         7
+  Size of section headers:           40 (bytes)
+  Number of section headers:         37
+  Section header string table index: 34
+### /home/mgta29/src/tc72xx-oem-lxg1/kernel/linux/arch/mips/bcm9338x/bmips5000/bcm3384-platform-devs.o
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              REL (Relocatable file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x0
+  Start of program headers:          0 (bytes into file)
+  Start of section headers:          91520 (bytes into file)
+  Flags:                             0x50001001, noreorder, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           0 (bytes)
+  Number of program headers:         0
+  Size of section headers:           40 (bytes)
+  Number of section headers:         34
+  Section header string table index: 31
+### /home/mgta29/src/tc72xx-oem-lxg1/kernel/linux/arch/mips/bcm9338x/common/bcm93383-platform-devs.o
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              REL (Relocatable file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x0
+  Start of program headers:          0 (bytes into file)
+  Start of section headers:          18092 (bytes into file)
+  Flags:                             0x50001001, noreorder, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           0 (bytes)
+  Number of program headers:         0
+  Size of section headers:           40 (bytes)
+  Number of section headers:         34
+  Section header string table index: 31
+### /home/mgta29/src/tc72xx-oem-lxg1/shared/opensource/itc_rpc/3383/itc_msg_q.o
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              REL (Relocatable file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x0
+  Start of program headers:          0 (bytes into file)
+  Start of section headers:          15216 (bytes into file)
+  Flags:                             0x50001001, noreorder, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           0 (bytes)
+  Number of program headers:         0
+  Size of section headers:           40 (bytes)
+  Number of section headers:         47
+  Section header string table index: 44
+### /home/mgta29/src/tc72xx-oem-lxg1/shared/opensource/itc_rpc/3383/itc_rpc.o
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              REL (Relocatable file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x0
+  Start of program headers:          0 (bytes into file)
+  Start of section headers:          37212 (bytes into file)
+  Flags:                             0x50001001, noreorder, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           0 (bytes)
+  Number of program headers:         0
+  Size of section headers:           40 (bytes)
+  Number of section headers:         55
+  Section header string table index: 52
+### /home/mgta29/src/tc72xx-oem-lxg1/shared/opensource/itc_rpc/3383/itc_user.o
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              REL (Relocatable file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x0
+  Start of program headers:          0 (bytes into file)
+  Start of section headers:          61044 (bytes into file)
+  Flags:                             0x50001001, noreorder, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           0 (bytes)
+  Number of program headers:         0
+  Size of section headers:           40 (bytes)
+  Number of section headers:         48
+  Section header string table index: 45
+### /home/mgta29/src/tc72xx-oem-lxg1/shared/opensource/itc_rpc/3384/itc_msg_q.o
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              REL (Relocatable file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x0
+  Start of program headers:          0 (bytes into file)
+  Start of section headers:          15412 (bytes into file)
+  Flags:                             0x50001001, noreorder, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           0 (bytes)
+  Number of program headers:         0
+  Size of section headers:           40 (bytes)
+  Number of section headers:         47
+  Section header string table index: 44
+### /home/mgta29/src/tc72xx-oem-lxg1/shared/opensource/itc_rpc/3384/itc_rpc.o
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              REL (Relocatable file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x0
+  Start of program headers:          0 (bytes into file)
+  Start of section headers:          39620 (bytes into file)
+  Flags:                             0x50001001, noreorder, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           0 (bytes)
+  Number of program headers:         0
+  Size of section headers:           40 (bytes)
+  Number of section headers:         55
+  Section header string table index: 52
+### /home/mgta29/src/tc72xx-oem-lxg1/shared/opensource/itc_rpc/3384/itc_user.o
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              REL (Relocatable file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x0
+  Start of program headers:          0 (bytes into file)
+  Start of section headers:          63548 (bytes into file)
+  Flags:                             0x50001001, noreorder, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           0 (bytes)
+  Number of program headers:         0
+  Size of section headers:           40 (bytes)
+  Number of section headers:         48
+  Section header string table index: 45
+### /home/mgta29/src/tc72xx-oem-lxg1/shared/opensource/rpc_services/3383/linux_services.o
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              REL (Relocatable file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x0
+  Start of program headers:          0 (bytes into file)
+  Start of section headers:          30668 (bytes into file)
+  Flags:                             0x50001001, noreorder, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           0 (bytes)
+  Number of program headers:         0
+  Size of section headers:           40 (bytes)
+  Number of section headers:         49
+  Section header string table index: 46
+### /home/mgta29/src/tc72xx-oem-lxg1/shared/opensource/rpc_services/3383/vflash.o
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              REL (Relocatable file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x0
+  Start of program headers:          0 (bytes into file)
+  Start of section headers:          59376 (bytes into file)
+  Flags:                             0x50001001, noreorder, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           0 (bytes)
+  Number of program headers:         0
+  Size of section headers:           40 (bytes)
+  Number of section headers:         55
+  Section header string table index: 52
+### /home/mgta29/src/tc72xx-oem-lxg1/shared/opensource/rpc_services/3384/linux_services.o
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              REL (Relocatable file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x0
+  Start of program headers:          0 (bytes into file)
+  Start of section headers:          33112 (bytes into file)
+  Flags:                             0x50001001, noreorder, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           0 (bytes)
+  Number of program headers:         0
+  Size of section headers:           40 (bytes)
+  Number of section headers:         49
+  Section header string table index: 46
+### /home/mgta29/src/tc72xx-oem-lxg1/shared/opensource/rpc_services/3384/vflash.o
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              REL (Relocatable file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x0
+  Start of program headers:          0 (bytes into file)
+  Start of section headers:          60048 (bytes into file)
+  Flags:                             0x50001001, noreorder, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           0 (bytes)
+  Number of program headers:         0
+  Size of section headers:           40 (bytes)
+  Number of section headers:         55
+  Section header string table index: 52
+### /home/mgta29/src/tc72xx-oem-lxg1/toolchains/uclibc-crosstools-gcc-4.2.3-4/lib/ld-uClibc-0.9.29.so
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              DYN (Shared object file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0xa20
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          22084 (bytes into file)
+  Flags:                             0x50001007, noreorder, pic, cpic, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         6
+  Size of section headers:           40 (bytes)
+  Number of section headers:         18
+  Section header string table index: 17
+### /home/mgta29/src/tc72xx-oem-lxg1/toolchains/uclibc-crosstools-gcc-4.2.3-4/lib/libcrypt-0.9.29.so
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              DYN (Shared object file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x4e0
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          12984 (bytes into file)
+  Flags:                             0x50001007, noreorder, pic, cpic, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         8
+  Size of section headers:           40 (bytes)
+  Number of section headers:         15
+  Section header string table index: 14
+### /home/mgta29/src/tc72xx-oem-lxg1/toolchains/uclibc-crosstools-gcc-4.2.3-4/lib/libdl-0.9.29.so
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              DYN (Shared object file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x840
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          8700 (bytes into file)
+  Flags:                             0x50001007, noreorder, pic, cpic, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         8
+  Size of section headers:           40 (bytes)
+  Number of section headers:         17
+  Section header string table index: 16
+### /home/mgta29/src/tc72xx-oem-lxg1/toolchains/uclibc-crosstools-gcc-4.2.3-4/lib/libm-0.9.29.so
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              DYN (Shared object file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x1530
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          108176 (bytes into file)
+  Flags:                             0x50001007, noreorder, pic, cpic, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         8
+  Size of section headers:           40 (bytes)
+  Number of section headers:         17
+  Section header string table index: 16
+### /home/mgta29/src/tc72xx-oem-lxg1/toolchains/uclibc-crosstools-gcc-4.2.3-4/lib/libnsl-0.9.29.so
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              DYN (Shared object file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x3a0
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          4336 (bytes into file)
+  Flags:                             0x50001007, noreorder, pic, cpic, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         8
+  Size of section headers:           40 (bytes)
+  Number of section headers:         14
+  Section header string table index: 13
+### /home/mgta29/src/tc72xx-oem-lxg1/toolchains/uclibc-crosstools-gcc-4.2.3-4/lib/libpthread-0.9.29.so
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              DYN (Shared object file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x3530
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          79296 (bytes into file)
+  Flags:                             0x50001007, noreorder, pic, cpic, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         8
+  Size of section headers:           40 (bytes)
+  Number of section headers:         28
+  Section header string table index: 25
+### /home/mgta29/src/tc72xx-oem-lxg1/toolchains/uclibc-crosstools-gcc-4.2.3-4/lib/libresolv-0.9.29.so
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              DYN (Shared object file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x3a0
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          4340 (bytes into file)
+  Flags:                             0x50001007, noreorder, pic, cpic, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         8
+  Size of section headers:           40 (bytes)
+  Number of section headers:         14
+  Section header string table index: 13
+### /home/mgta29/src/tc72xx-oem-lxg1/toolchains/uclibc-crosstools-gcc-4.2.3-4/lib/librt-0.9.29.so
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              DYN (Shared object file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x620
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          4800 (bytes into file)
+  Flags:                             0x50001007, noreorder, pic, cpic, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         8
+  Size of section headers:           40 (bytes)
+  Number of section headers:         13
+  Section header string table index: 12
+### /home/mgta29/src/tc72xx-oem-lxg1/toolchains/uclibc-crosstools-gcc-4.2.3-4/lib/libthread_db-0.9.29.so
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              DYN (Shared object file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0xbb0
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          13888 (bytes into file)
+  Flags:                             0x50001007, noreorder, pic, cpic, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         8
+  Size of section headers:           40 (bytes)
+  Number of section headers:         18
+  Section header string table index: 17
+### /home/mgta29/src/tc72xx-oem-lxg1/toolchains/uclibc-crosstools-gcc-4.2.3-4/lib/libuClibc-0.9.29.so
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              DYN (Shared object file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0xa800
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          417436 (bytes into file)
+  Flags:                             0x50001007, noreorder, pic, cpic, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         8
+  Size of section headers:           40 (bytes)
+  Number of section headers:         26
+  Section header string table index: 25
+### /home/mgta29/src/tc72xx-oem-lxg1/toolchains/uclibc-crosstools-gcc-4.2.3-4/lib/libutil-0.9.29.so
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              DYN (Shared object file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x750
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          4528 (bytes into file)
+  Flags:                             0x50001007, noreorder, pic, cpic, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         8
+  Size of section headers:           40 (bytes)
+  Number of section headers:         14
+  Section header string table index: 13
+### /home/mgta29/src/tc72xx-oem-lxg1/toolchains/uclibc-crosstools-gcc-4.2.3-4/mips-linux-uclibc/target_utils/gdbserver
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              EXEC (Executable file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x4022e0
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          0 (bytes into file)
+  Flags:                             0x50001007, noreorder, pic, cpic, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         7
+  Size of section headers:           0 (bytes)
+  Number of section headers:         0
+  Section header string table index: 0
+### /home/mgta29/src/tc72xx-oem-lxg1/toolchains/uclibc-crosstools-gcc-4.2.3-4/usr/lib/Scrt1.o
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              REL (Relocatable file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x0
+  Start of program headers:          0 (bytes into file)
+  Start of section headers:          264 (bytes into file)
+  Flags:                             0x50001007, noreorder, pic, cpic, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           0 (bytes)
+  Number of program headers:         0
+  Size of section headers:           40 (bytes)
+  Number of section headers:         10
+  Section header string table index: 7
+### /home/mgta29/src/tc72xx-oem-lxg1/toolchains/uclibc-crosstools-gcc-4.2.3-4/usr/lib/crt1.o
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              REL (Relocatable file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x0
+  Start of program headers:          0 (bytes into file)
+  Start of section headers:          264 (bytes into file)
+  Flags:                             0x50001007, noreorder, pic, cpic, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           0 (bytes)
+  Number of program headers:         0
+  Size of section headers:           40 (bytes)
+  Number of section headers:         10
+  Section header string table index: 7
+### /home/mgta29/src/tc72xx-oem-lxg1/toolchains/uclibc-crosstools-gcc-4.2.3-4/usr/lib/crti.o
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              REL (Relocatable file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x0
+  Start of program headers:          0 (bytes into file)
+  Start of section headers:          332 (bytes into file)
+  Flags:                             0x50001007, noreorder, pic, cpic, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           0 (bytes)
+  Number of program headers:         0
+  Size of section headers:           40 (bytes)
+  Number of section headers:         16
+  Section header string table index: 13
+### /home/mgta29/src/tc72xx-oem-lxg1/toolchains/uclibc-crosstools-gcc-4.2.3-4/usr/lib/crtn.o
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              REL (Relocatable file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x0
+  Start of program headers:          0 (bytes into file)
+  Start of section headers:          292 (bytes into file)
+  Flags:                             0x50001007, noreorder, pic, cpic, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           0 (bytes)
+  Number of program headers:         0
+  Size of section headers:           40 (bytes)
+  Number of section headers:         14
+  Section header string table index: 11
+### /home/mgta29/src/tc72xx-oem-lxg1/toolchains/uclibc-crosstools-gcc-4.2.3-4/usr/lib/gcc/mips-linux-uclibc/4.2.3/crtbegin.o
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              REL (Relocatable file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x0
+  Start of program headers:          0 (bytes into file)
+  Start of section headers:          516 (bytes into file)
+  Flags:                             0x50001007, noreorder, pic, cpic, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           0 (bytes)
+  Number of program headers:         0
+  Size of section headers:           40 (bytes)
+  Number of section headers:         22
+  Section header string table index: 19
+### /home/mgta29/src/tc72xx-oem-lxg1/toolchains/uclibc-crosstools-gcc-4.2.3-4/usr/lib/gcc/mips-linux-uclibc/4.2.3/crtbeginS.o
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              REL (Relocatable file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x0
+  Start of program headers:          0 (bytes into file)
+  Start of section headers:          552 (bytes into file)
+  Flags:                             0x50001007, noreorder, pic, cpic, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           0 (bytes)
+  Number of program headers:         0
+  Size of section headers:           40 (bytes)
+  Number of section headers:         23
+  Section header string table index: 20
+### /home/mgta29/src/tc72xx-oem-lxg1/toolchains/uclibc-crosstools-gcc-4.2.3-4/usr/lib/gcc/mips-linux-uclibc/4.2.3/crtbeginT.o
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              REL (Relocatable file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x0
+  Start of program headers:          0 (bytes into file)
+  Start of section headers:          620 (bytes into file)
+  Flags:                             0x50001007, noreorder, pic, cpic, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           0 (bytes)
+  Number of program headers:         0
+  Size of section headers:           40 (bytes)
+  Number of section headers:         23
+  Section header string table index: 20
+### /home/mgta29/src/tc72xx-oem-lxg1/toolchains/uclibc-crosstools-gcc-4.2.3-4/usr/lib/gcc/mips-linux-uclibc/4.2.3/crtend.o
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              REL (Relocatable file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x0
+  Start of program headers:          0 (bytes into file)
+  Start of section headers:          384 (bytes into file)
+  Flags:                             0x50001007, noreorder, pic, cpic, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           0 (bytes)
+  Number of program headers:         0
+  Size of section headers:           40 (bytes)
+  Number of section headers:         18
+  Section header string table index: 15
+### /home/mgta29/src/tc72xx-oem-lxg1/toolchains/uclibc-crosstools-gcc-4.2.3-4/usr/lib/gcc/mips-linux-uclibc/4.2.3/crtendS.o
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              REL (Relocatable file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x0
+  Start of program headers:          0 (bytes into file)
+  Start of section headers:          384 (bytes into file)
+  Flags:                             0x50001007, noreorder, pic, cpic, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           0 (bytes)
+  Number of program headers:         0
+  Size of section headers:           40 (bytes)
+  Number of section headers:         18
+  Section header string table index: 15
+### /home/mgta29/src/tc72xx-oem-lxg1/toolchains/uclibc-crosstools-gcc-4.2.3-4/usr/mips-linux-uclibc/lib/libgcc_s.so.1
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              DYN (Shared object file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x1a30
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          263132 (bytes into file)
+  Flags:                             0x50001007, noreorder, pic, cpic, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         6
+  Size of section headers:           40 (bytes)
+  Number of section headers:         38
+  Section header string table index: 35
+### /home/mgta29/src/tc72xx-oem-lxg1/toolchains/uclibc-crosstools-gcc-4.2.3-4/usr/mips-linux-uclibc/lib/libgomp.so.1.0.0
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              DYN (Shared object file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x1c10
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          127296 (bytes into file)
+  Flags:                             0x50001007, noreorder, pic, cpic, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         6
+  Size of section headers:           40 (bytes)
+  Number of section headers:         38
+  Section header string table index: 35
+### /home/mgta29/src/tc72xx-oem-lxg1/toolchains/uclibc-crosstools-gcc-4.2.3-4/usr/mips-linux-uclibc/lib/libmudflap.so.0.0.0
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              DYN (Shared object file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x3100
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          268504 (bytes into file)
+  Flags:                             0x50001007, noreorder, pic, cpic, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         5
+  Size of section headers:           40 (bytes)
+  Number of section headers:         36
+  Section header string table index: 33
+### /home/mgta29/src/tc72xx-oem-lxg1/toolchains/uclibc-crosstools-gcc-4.2.3-4/usr/mips-linux-uclibc/lib/libmudflapth.so.0.0.0
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              DYN (Shared object file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x3370
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          283796 (bytes into file)
+  Flags:                             0x50001007, noreorder, pic, cpic, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         6
+  Size of section headers:           40 (bytes)
+  Number of section headers:         37
+  Section header string table index: 34
+### /home/mgta29/src/tc72xx-oem-lxg1/toolchains/uclibc-crosstools-gcc-4.2.3-4/usr/mips-linux-uclibc/lib/libssp.so.0.0.0
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              DYN (Shared object file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x780
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          20412 (bytes into file)
+  Flags:                             0x50001007, noreorder, pic, cpic, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         5
+  Size of section headers:           40 (bytes)
+  Number of section headers:         36
+  Section header string table index: 33
+### /home/mgta29/src/tc72xx-oem-lxg1/toolchains/uclibc-crosstools-gcc-4.2.3-4/usr/mips-linux-uclibc/lib/libstdc++.so.6.0.9
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              DYN (Shared object file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x41340
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          3429348 (bytes into file)
+  Flags:                             0x50001007, noreorder, pic, cpic, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         6
+  Size of section headers:           40 (bytes)
+  Number of section headers:         39
+  Section header string table index: 36
+### /home/mgta29/src/tc72xx-oem-lxg1/userspace/gpl/apps/gdb/gdbserver
+ELF Header:
+  Magic:   7f 45 4c 46 01 02 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, big endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              EXEC (Executable file)
+  Machine:                           MIPS R3000
+  Version:                           0x1
+  Entry point address:               0x4023b0
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          208996 (bytes into file)
+  Flags:                             0x50001007, noreorder, pic, cpic, o32, mips32
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         7
+  Size of section headers:           40 (bytes)
+  Number of section headers:         38
+  Section header string table index: 35

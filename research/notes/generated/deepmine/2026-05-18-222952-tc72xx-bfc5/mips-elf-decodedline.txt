@@ -1,0 +1,16 @@
+### /home/mgta29/src/tc72xx-bfc5/ecos20/gnutools/mipsisa32-elf/lib/gcc-lib/mipsisa32-elf/3.2.1/crtbegin.o
+### /home/mgta29/src/tc72xx-bfc5/ecos20/gnutools/mipsisa32-elf/lib/gcc-lib/mipsisa32-elf/3.2.1/crtend.o
+### /home/mgta29/src/tc72xx-bfc5/ecos20/gnutools/mipsisa32-elf/lib/gcc-lib/mipsisa32-elf/3.2.1/crti.o
+### /home/mgta29/src/tc72xx-bfc5/ecos20/gnutools/mipsisa32-elf/lib/gcc-lib/mipsisa32-elf/3.2.1/crtn.o
+### /home/mgta29/src/tc72xx-bfc5/ecos20/gnutools/mipsisa32-elf/lib/gcc-lib/mipsisa32-elf/3.2.1/soft-float/crtbegin.o
+### /home/mgta29/src/tc72xx-bfc5/ecos20/gnutools/mipsisa32-elf/lib/gcc-lib/mipsisa32-elf/3.2.1/soft-float/crtend.o
+### /home/mgta29/src/tc72xx-bfc5/ecos20/gnutools/mipsisa32-elf/lib/gcc-lib/mipsisa32-elf/3.2.1/soft-float/crti.o
+### /home/mgta29/src/tc72xx-bfc5/ecos20/gnutools/mipsisa32-elf/lib/gcc-lib/mipsisa32-elf/3.2.1/soft-float/crtn.o
+### /home/mgta29/src/tc72xx-bfc5/ecos20/gnutools/mipsisa32-elf/mipsisa32-elf/lib/crt0.o
+### /home/mgta29/src/tc72xx-bfc5/ecos20/gnutools/mipsisa32-elf/mipsisa32-elf/lib/crt0_cygmon.o
+### /home/mgta29/src/tc72xx-bfc5/ecos20/gnutools/mipsisa32-elf/mipsisa32-elf/lib/ctype_.o
+### /home/mgta29/src/tc72xx-bfc5/ecos20/gnutools/mipsisa32-elf/mipsisa32-elf/lib/missing.o
+### /home/mgta29/src/tc72xx-bfc5/ecos20/gnutools/mipsisa32-elf/mipsisa32-elf/lib/pcrt0.o
+### /home/mgta29/src/tc72xx-bfc5/ecos20/gnutools/mipsisa32-elf/mipsisa32-elf/lib/soft-float/crt0.o
+### /home/mgta29/src/tc72xx-bfc5/ecos20/gnutools/mipsisa32-elf/mipsisa32-elf/lib/soft-float/crt0_cygmon.o
+### /home/mgta29/src/tc72xx-bfc5/ecos20/gnutools/mipsisa32-elf/mipsisa32-elf/lib/soft-float/pcrt0.o

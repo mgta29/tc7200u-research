@@ -5,13 +5,101 @@ OWRT="${OWRT:-$HOME/src/openwrt}"
 RESEARCH="${RESEARCH:-$HOME/tc7200u-research}"
 RESEARCH_NOTES_DIR="${RESEARCH_NOTES_DIR:-$RESEARCH/research/notes/generated}"
 RAW="$OWRT/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin"
-WRAPPED="/mnt/c/tftp/openwrt-ps-irqfallback.bin"
+NAME_MAP="${NAME_MAP:-${TC7200U_NAME_MAP:-}}"
+REQUEST_NAME="${REQUEST_NAME:-${TFTP_REQUEST_NAME:-openwrt-initramfs.bin}}"
+RESULT_NAME="${RESULT_NAME:-${TFTP_RESULT_NAME:-openwrt-ps-irqfallback.bin}}"
+WRAPPED=""
 A825WRAP="$RESEARCH/scripts/tc7200u-a825-wrap.py"
 A825VERIFY="$RESEARCH/scripts/tc7200u-verify-a825-image.py"
 JOBS="${JOBS:-$(nproc 2>/dev/null || echo 1)}"
 TS="$(date +%Y-%m-%d-%H%M%S)"
 STEP=0
 TOTAL_STEPS=7
+
+trim_ws() {
+	printf '%s' "$1" | sed 's/^[[:space:]]*//; s/[[:space:]]*$//'
+}
+
+parse_name_map() {
+	local raw="$1"
+	local left=""
+	local right=""
+
+	[ -n "$raw" ] || return 0
+
+	case "$raw" in
+		*"->"*)
+			left="${raw%%->*}"
+			right="${raw#*->}"
+			;;
+		*"="*)
+			left="${raw%%=*}"
+			right="${raw#*=}"
+			;;
+		*" - "*)
+			left="${raw%% - *}"
+			right="${raw#* - }"
+			;;
+		*)
+			echo "FAIL: --name-map must be INPUT=RESULT, INPUT->RESULT, or INPUT - RESULT: $raw" >&2
+			exit 2
+			;;
+	esac
+
+	REQUEST_NAME="$(trim_ws "$left")"
+	RESULT_NAME="$(trim_ws "$right")"
+}
+
+while [ "$#" -gt 0 ]; do
+	case "$1" in
+		--name-map)
+			[ "$#" -ge 2 ] || { echo "FAIL: --name-map requires a value" >&2; exit 2; }
+			NAME_MAP="$2"
+			shift 2
+			;;
+		--request-name)
+			[ "$#" -ge 2 ] || { echo "FAIL: --request-name requires a value" >&2; exit 2; }
+			REQUEST_NAME="$2"
+			shift 2
+			;;
+		--result-name)
+			[ "$#" -ge 2 ] || { echo "FAIL: --result-name requires a value" >&2; exit 2; }
+			RESULT_NAME="$2"
+			shift 2
+			;;
+		-h|--help)
+			echo "Usage: $0 [--name-map INPUT=RESULT|INPUT->RESULT|INPUT - RESULT] [--request-name INPUT] [--result-name RESULT]"
+			exit 0
+			;;
+		--)
+			shift
+			break
+			;;
+		*)
+			echo "FAIL: unknown argument: $1" >&2
+			exit 2
+			;;
+	esac
+done
+
+parse_name_map "$NAME_MAP"
+REQUEST_NAME="$(trim_ws "$REQUEST_NAME")"
+RESULT_NAME="$(trim_ws "$RESULT_NAME")"
+
+case "$REQUEST_NAME" in
+	""|*/*|*\\*)
+		echo "FAIL: request name must be a plain filename: $REQUEST_NAME" >&2
+		exit 2
+		;;
+esac
+case "$RESULT_NAME" in
+	""|*/*|*\\*)
+		echo "FAIL: result name must be a plain filename: $RESULT_NAME" >&2
+		exit 2
+		;;
+esac
+
+WRAPPED="/mnt/c/tftp/$RESULT_NAME"
 
 mkdir -p "$RESEARCH_NOTES_DIR"
 mkdir -p "$(dirname "$WRAPPED")"
@@ -86,6 +174,7 @@ if [ ! -x "$A825VERIFY" ]; then
 fi
 
 progress "Inspecting OpenWrt build outputs"
+progress_note "name map: $REQUEST_NAME -> $RESULT_NAME"
 VMLINUX="$(latest_vmlinux || true)"
 if [ -n "$VMLINUX" ]; then
 	progress_note "latest vmlinux: $VMLINUX"
@@ -151,15 +240,15 @@ progress_note "raw: $RAW"
 
 progress "Wrapping raw initramfs with A825 header"
 wrap_log="$RESEARCH_NOTES_DIR/${TS}-wrap.log"
-run_logged "$wrap_log" "$A825WRAP" --input "$RAW" --output "$WRAPPED"
+run_logged "$wrap_log" "$A825WRAP" --input "$RAW" --output "$WRAPPED" --filename "$REQUEST_NAME"
 sync
 progress_note "wrapped: $WRAPPED"
 
 progress "Verifying wrapped image safety checks"
 verify_log="$RESEARCH_NOTES_DIR/${TS}-verify.log"
-run_logged "$verify_log" "$A825VERIFY" --raw "$RAW" --wrapped "$WRAPPED"
+run_logged "$verify_log" "$A825VERIFY" --raw "$RAW" --wrapped "$WRAPPED" --expect-name "$REQUEST_NAME"
 
 grep -q '^size_ok=True$' "$verify_log"
 echo "CHECK OK: size_ok=True"
 grep -m1 '^OK: wrapped a825 image matches raw payload and expected header fields$' "$verify_log"
-echo "AUTO: ready for cfe-tftp. Only TFTP /mnt/c/tftp/openwrt-ps-irqfallback.bin."
+echo "AUTO: ready for cfe-tftp. CFE request: $REQUEST_NAME ; served file: /mnt/c/tftp/$RESULT_NAME."

@@ -1,0 +1,11 @@
+--- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
++++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+@@ -3737,7 +3737,7 @@
+ 		.hfb_offset = 0x1000,
+ 		.rdma_offset = 0x2800,
+ 		.tdma_offset = 0x3800,
+-		.words_per_bd = 2,
++		.words_per_bd = 3,
+ 	},
+ 	[GENET_V2] = {
+ 		.tx_queues = 4,

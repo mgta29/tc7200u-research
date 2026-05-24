@@ -7,6 +7,27 @@ from pathlib import Path
 def auto_int(x):
     return int(x, 0)
 
+def parse_name_map(raw: str) -> tuple[str, str]:
+    text = raw.strip()
+    if "->" in text:
+        left, right = text.split("->", 1)
+    elif "=" in text:
+        left, right = text.split("=", 1)
+    elif " - " in text:
+        left, right = text.split(" - ", 1)
+    else:
+        raise SystemExit("name-map must be INPUT=RESULT, INPUT->RESULT, or INPUT - RESULT")
+
+    request_name = left.strip()
+    result_name = right.strip()
+    if not request_name or not result_name:
+        raise SystemExit("name-map must include non-empty INPUT and RESULT names")
+    if "/" in request_name or "\\" in request_name:
+        raise SystemExit("name-map INPUT must be a plain filename (no path separators)")
+    if "/" in result_name or "\\" in result_name:
+        raise SystemExit("name-map RESULT must be a plain filename (no path separators)")
+    return request_name, result_name
+
 def crc16_ccitt_hcs(data: bytes) -> int:
     crc = 0xffff
     for b in data:
@@ -51,19 +72,34 @@ def main():
     ap.add_argument("--input", required=True)
     ap.add_argument("--output", required=True)
     ap.add_argument("--load-addr", type=auto_int, default=0x82000000)
-    ap.add_argument("--filename", default="openwrt-initramfs.bin")
+    ap.add_argument("--filename", default=None)
+    ap.add_argument("--name-map", default=None, help="INPUT=RESULT, INPUT->RESULT, or INPUT - RESULT. INPUT is CFE request/header filename, RESULT is output basename.")
     ap.add_argument("--build-time", type=auto_int, default=None)
     ap.add_argument("--crc32", type=auto_int, default=0x00000000)
     args = ap.parse_args()
 
+    output_path = Path(args.output)
+    filename = args.filename
+
+    if args.name_map:
+        mapped_input, mapped_result = parse_name_map(args.name_map)
+        output_path = output_path.parent / mapped_result
+        if filename is None:
+            filename = mapped_input
+
+    if filename is None:
+        filename = "openwrt-initramfs.bin"
+
     payload = Path(args.input).read_bytes()
     build_time = int(time.time()) if args.build_time is None else args.build_time
-    header = make_header(len(payload), args.load_addr, args.filename, build_time, args.crc32)
-    Path(args.output).write_bytes(header + payload)
+    header = make_header(len(payload), args.load_addr, filename, build_time, args.crc32)
+    output_path.write_bytes(header + payload)
 
     print(f"payload_size={len(payload)}")
     print(f"output_size={len(payload) + len(header)}")
     print(f"header_size={len(header)}")
+    print(f"filename={filename}")
+    print(f"output={output_path}")
     print(f"hcs=0x{struct.unpack('>H', header[0x54:0x56])[0]:04x}")
 
 if __name__ == "__main__":

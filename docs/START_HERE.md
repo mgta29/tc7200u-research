@@ -1,6 +1,6 @@
 # TC7200.U Start Here
 
-Last updated: 2026-05-17.
+Last updated: 2026-05-19.
 
 ## Current state
 
@@ -33,6 +33,36 @@ Current blocker:
 - Reserved TX buffer test mapped physical `0x01680000` and forced TX
   descriptors to that buffer, but descriptor readback still used only
   `0x00080000` and TDMA still left `hw_c=0`.
+- IF0/IF1 UNIMAC probing confirms separate interface windows
+  (`0x12c00618` and `0x12c02618` are not mirrored), but command paths remain
+  non-functional for upstream-style MDIO command/data behavior.
+- Ring retests still return the same stuck signature:
+  `0x12c03800=0x00010003`, `0x12c03804=0x00000028`,
+  `0x12c03808=0x00010000`, `0x12c0380c=0x00000000`,
+  `0x12c03c40/44/48=1/1/1`; IRQ `64` counts, IRQ `66` stays idle.
+- A corrected-subnet follow-up (`192.168.77.1 -> 192.168.77.2`) captured a
+  second stuck ring-window signature:
+  `0x12c02c08/0x12c03c08=0x00000000`,
+  `0x12c02c0c/0x12c03c0c=0x06f850c0`,
+  `0x12c02c20/0x12c03c20=0x00000000`.
+  RX remained zero, TX errors increased, and IRQ behavior stayed `64` active /
+  `66` idle.
+- A pre/post descriptor snapshot under `ping -c 3` was fully invariant:
+  ring window fields and `0x12c03000..0x12c0300c` did not change at all
+  (sampled value set included `0x06e72140` at `0x12c02c0c/0x12c03c0c`),
+  while RX stayed zero and `66` remained idle.
+- A pointer check then showed `0x12c02c0c/0x12c03c0c` is not a readable alias
+  of the descriptor window: both returned `0x06e76d40`, while direct `devmem`
+  at that address read back `0xff...` bus-fill values.
+- A follow-up cycle test showed this field changes on `eth0` reinit
+  (`0x06f197c0 -> 0x06e73dc0`) but stays static during traffic; sampled
+  descriptor words still do not change.
+- A standalone `eth0 nomaster` run is also negative with the same signature:
+  RX zero, hwirq `64` only, hwirq `66` idle, sampled pointer/descriptor words
+  unchanged across PRE/POST.
+- A direct CORE0/CORE1 down-vs-up probe is also static:
+  `0x12c00808/0x12c00814` and `0x12c02808/0x12c02814` do not change across
+  link toggle, so they are not a useful active-path discriminator.
 
 Do not work on:
 
@@ -54,16 +84,21 @@ Do not work on:
 
 ## Next technical action
 
-Continue the GENET DMA address diagnostic:
+Continue the GENET TDMA diagnostic:
 
 - MAC base: `0x12c00000`, size `0x4000`.
 - Keep RGMII fixed-link and no B53/DSA for the next diagnostic.
 - Keep parent `periph_intc` bits unchanged in the DMA test branch; blind enable
   caused an IRQ storm.
+- Pause raw MDIO command probing for now; IF0/IF1 command-path branch is
+  negative.
 - Do not repeat the old fatal `DMA_BIT_MASK(20)` probe path.
-- Next DMA experiment is a BCM3383 GENET DMA window/base/init probe. Read
-  `ClkCtrlUBus` first; current `bcm3383_init_gmac()` enables GMAC low/high
-  clocks and reset but not the named UBUS GMAC clock bit.
+- Next kernel branch set: temporary `GENET_V1 words_per_bd` change from `2` to
+  `3`, plus strict v1 BD/OWN handling validation. Runtime register pokes are
+  now considered exhausted.
+- After descriptor-width result, continue BCM3383 GENET DMA window/base/init
+  probing. Read `ClkCtrlUBus` first; current `bcm3383_init_gmac()` enables
+  GMAC low/high clocks and reset but not the named UBUS GMAC clock bit.
 - IRQ `<13 4>` remains a separate branch and must not be combined with DMA
   address tests.
 
@@ -97,28 +132,40 @@ size_ok=True
 
 <!-- TC7200U_CURRENT_GENET_STATE_START -->
 
-## Current GENET state — 2026-05-17
+## Current GENET state — 2026-05-19
 
 Latest conclusion:
 
 - GENET at `0x12c00000` probes and `eth0` link reports up.
-- TX descriptor is posted and TDMA producer advances.
-- TDMA consumer still remains `0`.
-- Normal high DMA allocation is not the only blocker.
-- Reserved low physical TX buffer at `0x01680000` also failed.
-- Upstream/original status format with reserved low TX buffer also failed.
-- Compact status format with reserved low TX buffer also failed.
-- Local OEM/source search did not reveal a BCM3383-specific GENET init path; useful hits point back to generic/mainline `bcmgenet` descriptor/ring definitions.
-- Current next branch is descriptor word-order testing with `9987-bcmgenet-tc7200u-v1-resv-swapped-desc-test.patch`.
+- TDMA/ring remains stuck with repeated signature:
+  `0x12c03800=0x00010003`, `0x12c03804=0x00000028`,
+  `0x12c03808=0x00010000`, `0x12c0380c=0x00000000`,
+  `0x12c03c40/44/48=1/1/1`.
+- A second stuck signature also appears in the `0x12c02cxx/0x12c03cxx` windows:
+  `+0x08=0x00000000`, `+0x0c=0x06f850c0`, `+0x20=0x00000000` on both
+  windows, with RX still zero and TX errors increasing.
+- IRQ behavior is unchanged: hwirq `64` increments, hwirq `66` remains idle.
+- IF0/IF1 UNIMAC interface config windows are independent:
+  `0x12c00618` and `0x12c02618` are not mirrored.
+- IF0/IF1 command-path probing is negative for upstream-style MDIO semantics:
+  IF0 command retains busy-like values, IF1 command collapses to `0x28000000`,
+  and nearby status/data candidates do not move.
+- CORE0/CORE1 UMAC down/up probe is also negative as a discriminator:
+  `0x12c00808/0x12c00814` and `0x12c02808/0x12c02814` are unchanged across
+  link down/up while hwirq `64` continues to increment.
+- Raw MDIO reverse-engineering is paused for now.
+- Next branch is kernel-side descriptor-width test only:
+  temporary `GENET_V1 words_per_bd` from `2` to `3`, offsets unchanged.
 
 Current intended OpenWrt patch state for the next test:
 
-- Active:
-  - `9979-bcmgenet-tc7200u-addr-debug.patch`
-  - `9987-bcmgenet-tc7200u-v1-resv-swapped-desc-test.patch`
-- Inactive:
-  - `9978-bcmgenet-tc7200u-v1-pack20-desc-test.patch`
-  - `9986-bcmgenet-tc7200u-v1-reserved-txbuf-test.patch`
+- Active baseline:
+  - GENET at `0x12c00000`
+  - interrupts `<64>, <66>`
+  - fixed-link RGMII diagnostic setup
+  - no new runtime MDIO poke scripts
+- Next code change:
+  - temporary `GENET_V1 words_per_bd = 3` test branch
 
 Do not repeat:
 
@@ -140,6 +187,9 @@ Do not repeat:
 The TC72XX LxG1 OEM tree suggests the vendor BCM3384 Ethernet path is VENET + FPM/DQM + SEGDMA/UNIMAC/IOP, not direct upstream `bcmgenet` TDMA. This may explain why direct GENET TDMA ring16 remains stuck.
 
 See: `research/notes/runtime-probes/2026-05-18-tc72xx-lxg1-venet-dqm-fpm-findings.md`.
+See also: `research/notes/runtime-probes/2026-05-19-unimac-if0-if1-mdio-command-path-negative.md`.
+See also:
+`research/notes/runtime-probes/2026-05-19-unimac-core0-core1-link-toggle-no-delta.md`.
 
 ## TC72XX source mining state
 

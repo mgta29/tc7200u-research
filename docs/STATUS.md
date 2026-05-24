@@ -1,6 +1,6 @@
 # TC7200U OpenWrt Bring-up Status
 
-Last updated: 2026-05-17.
+Last updated: 2026-05-19.
 
 ## Current state
 
@@ -119,6 +119,51 @@ system.
     `cons=0`, `prod=1`, `write=0`, and unchanged TX MIB counters.
   - GPIO14 high plus safe non-clock vendor-side writes also did not change
     ring0 consumption: `read=0x00010003`, `cons=0`, `prod=1`, `write=0`.
+  - IF0/IF1 UNIMAC probing confirms two independent interface config windows:
+    `0x12c00618` and `0x12c02618` hold different values (not mirrored).
+    However, both MDIO-like command paths remain non-functional in upstream
+    semantics:
+    - IF0 `0x12c00600` retains busy-like values (`0x28000000`/`0x28010000`)
+    - IF1 command writes collapse to `0x28000000`
+    - nearby `+0x10/+0x14/+0x1c` do not show completion/data movement
+  - Link-cycle retest still shows the same stuck ring signature:
+    `0x12c03800=0x00010003`, `0x12c03804=0x00000028`,
+    `0x12c03808=0x00010000`, `0x12c0380c=0x00000000`,
+    `0x12c03c40/44/48=1/1/1`, with hwirq `64` incrementing and hwirq `66`
+    idle.
+  - A direct UNIMAC CORE0/CORE1 down-vs-up probe also showed no delta:
+    `0x12c00808/0x12c00814 = 0x010000d8/0x000005ee` and
+    `0x12c02808/0x12c02814 = 0x00010000/0x00000000` in both states.
+    These snapshots are not a useful core-ownership discriminator.
+  - A new ring-window variant was captured under `192.168.77.x` ping load:
+    `0x12c02c08/0x12c03c08=0x00000000` and
+    `0x12c02c0c/0x12c03c0c=0x06f850c0` (with `+0x20=0`), while RX stayed zero,
+    TX errors increased, hwirq `64` incremented, and hwirq `66` remained zero.
+    This is a second stuck signature and still a failure state.
+  - A follow-up pre/post snapshot with `ping -c 3` was bit-identical across
+    sampled ring and descriptor words:
+    `0x12c02c08/0x12c03c08=0`, `0x12c02c0c/0x12c03c0c=0x06e72140`,
+    `0x12c02c20/0x12c03c20=0`, and
+    `0x12c03000..0x12c0300c=0x000de37a/0x00085f4d/0x000b30b5/0x000f190a`.
+    IRQ pattern stayed `64` active, `66` idle, RX stayed zero.
+  - Pointer dereference test showed `0x12c02c0c/0x12c03c0c` is not a direct
+    alias of descriptor window memory: both reported `0x06e76d40`, but
+    `devmem` at that address returned `0xffffffff/0xfffdffff`, not
+    `0x12c03000..0x12c0300c` contents.
+  - Reinit-cycle test showed `0x12c02c0c/0x12c03c0c` changes when `eth0` is
+    cycled up (`0x06f197c0 -> 0x06e73dc0`), but remains static during traffic,
+    while `0x12c03000..0x12c0300c` stays unchanged.
+  - Standalone `eth0 nomaster` (bridge-off) sanity check is also negative:
+    PRE/POST counters unchanged (RX `0`, TX `3715/10`, TX errors `9`), hwirq
+    `64` active and `66` idle, and sampled pointer/descriptor words unchanged.
+  - Correct-subnet traffic test (`eth0=192.168.77.1`, ping `192.168.77.2`)
+    also failed (`PING_RC=1`): TX counters increased, RX stayed zero, hwirq
+    `64` increased, hwirq `66` stayed zero, and ring/global + sampled MIB
+    registers stayed in the same stuck signature.
+  - A reset-baseline sanity run restored binding at `12c00000` (after
+    discarding a bad full remap to `12c02600`) but remained negative:
+    RX `0`, TX `0`, TX errors increased, hwirq `64` only, and no successful
+    traffic completion.
   - Ring0 TDMA appears to fetch three descriptor words but does not retire the
     descriptor or transmit the packet.
   - `mem=16M` and `mem=32M` were invalid tests because they failed before a
@@ -160,10 +205,15 @@ verification, not B53/DSA integration.
 3. Keep the BCM3383 GMAC clock/reset/pinmux quirk in the test baseline.
 4. Keep IRQ `<13 4>` as a separate branch; do not combine it with DMA address
    tests.
-5. Add safe MDIO/B53/BCM53125 switch description only after GENET TDMA consumes
+5. Pause additional raw MDIO command reverse-engineering for now; the IF0/IF1
+   branch is negative.
+6. Stop runtime register/bridge topology pokes and move to kernel-only
+   descriptor ownership/format branches (including the temporary
+   `GENET_V1 words_per_bd` test and strict v1 BD/OWN handling validation).
+7. Add safe MDIO/B53/BCM53125 switch description only after GENET TDMA consumes
    descriptors.
-6. After Ethernet, proceed to read-only flash discovery.
-7. Only after MTD and flash layout are understood, consider persistent images.
+8. After Ethernet, proceed to read-only flash discovery.
+9. Only after MTD and flash layout are understood, consider persistent images.
 
 ## Recommended next work
 
@@ -194,40 +244,37 @@ work.
 
 <!-- TC7200U_CURRENT_GENET_STATE_START -->
 
-## Current GENET state — 2026-05-17
+## Current GENET state — 2026-05-19
 
 Latest conclusion:
 
 - GENET at `0x12c00000` probes and `eth0` link reports up.
-- TX descriptor is posted and TDMA producer advances.
-- TDMA consumer still remains `0`.
-- Normal high DMA allocation is not the only blocker.
-- Reserved low physical TX buffer at `0x01680000` also failed.
-- Upstream/original status format with reserved low TX buffer also failed.
-- Compact status format with reserved low TX buffer also failed.
-- Descriptor word-order testing did not make TDMA consume.
-- Generic RGMII OOB write at `0x12c0008c` did not latch.
-- Current inherited hwirqs `16/17` are not counting.
-- Runtime interrupt probing points to `INT_EXT_PER PeriphIRQ0_2`:
-  `mask=0x3000007D`, `status=0x045A0409`.
-- Current next branch maps GENET to extended hwirqs `64/66` while keeping the
-  TDMA/raw-state debug active.
+- TDMA/ring remains stuck with repeated signature:
+  `0x12c03800=0x00010003`, `0x12c03804=0x00000028`,
+  `0x12c03808=0x00010000`, `0x12c0380c=0x00000000`,
+  `0x12c03c40/44/48=1/1/1`.
+- IRQ behavior is unchanged: hwirq `64` increments, hwirq `66` remains idle.
+- IF0/IF1 UNIMAC interface config windows are independent:
+  `0x12c00618` and `0x12c02618` are not mirrored.
+- IF0/IF1 command-path probing is negative for upstream-style MDIO semantics:
+  IF0 command retains busy-like values, IF1 command collapses to `0x28000000`,
+  and nearby status/data candidates do not move.
+- CORE0/CORE1 UMAC down/up probe is also negative as a discriminator:
+  `0x12c00808/0x12c00814` and `0x12c02808/0x12c02814` are unchanged across
+  link down/up while hwirq `64` continues to increment.
+- Raw MDIO reverse-engineering is paused for now.
+- Next branch is kernel-side descriptor-width test only:
+  temporary `GENET_V1 words_per_bd` from `2` to `3`, offsets unchanged.
 
 Current intended OpenWrt patch state for the next test:
 
-- Active:
-  - `996-bcmgenet-tc7200u-xmit-desc-debug.patch`
-  - `997-bcmgenet-tc7200u-tx-poll-debug.patch`
-  - `9975-bcmgenet-tc7200u-v1-dma-own-test.patch`
-  - `9976-bcmgenet-tc7200u-desc-readback-debug.patch`
-  - `9978-bcmgenet-tc7200u-v1-pack20-desc-test.patch`
-  - `9979-bcmgenet-tc7200u-addr-debug.patch`
-  - `998-bmips-tc7200u-gmac-init.patch`
-  - `9986-bcmgenet-tc7200u-v1-reserved-txbuf-test.patch`
-  - `9988-bcmgenet-tc7200u-raw-state-dump.patch`
-  - DTS override exposing `PeriphIRQ0_2` and mapping GENET to `<64>, <66>`
-- Inactive:
-  - `9987-bcmgenet-tc7200u-v1-resv-swapped-desc-test.patch`
+- Active baseline:
+  - GENET at `0x12c00000`
+  - interrupts `<64>, <66>`
+  - fixed-link RGMII diagnostic setup
+  - no new runtime MDIO poke scripts
+- Next code change:
+  - temporary `GENET_V1 words_per_bd = 3` test branch
 
 Do not repeat:
 
@@ -250,6 +297,13 @@ Do not repeat:
 Logged TC72XX LxG1 BCM3384 VENET findings. `bcmvenet` is not a direct GENET TDMA implementation; it uses FPM/DQM and references missing proprietary/generated SEGDMA/UNIMAC/IOP headers. Continue OpenWrt testing with `9991`; if negative, test descriptor-size/high-word/16-byte descriptor handling.
 
 See: `research/notes/runtime-probes/2026-05-18-tc72xx-lxg1-venet-dqm-fpm-findings.md`.
+See also: `research/notes/runtime-probes/2026-05-19-unimac-if0-if1-mdio-command-path-negative.md`.
+See also:
+`research/notes/runtime-probes/2026-05-19-unimac-core0-core1-link-toggle-no-delta.md`.
+See also:
+`research/notes/runtime-probes/2026-05-19-77-subnet-ping-fails-ring-static.md`.
+See also:
+`research/notes/runtime-probes/2026-05-19-reset-baseline-12c00000-words4-negative.md`.
 
 ## TC72XX BFC5 mining status
 

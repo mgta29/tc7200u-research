@@ -1,0 +1,50 @@
+### /home/mgta29/src/tc72xx-bfc5/ecos20/gnutools/mipsisa32-elf/lib/gcc-lib/mipsisa32-elf/3.2.1/crtbegin.o
+00000000 t .init
+### /home/mgta29/src/tc72xx-bfc5/ecos20/gnutools/mipsisa32-elf/lib/gcc-lib/mipsisa32-elf/3.2.1/crtend.o
+00000000 t .init
+### /home/mgta29/src/tc72xx-bfc5/ecos20/gnutools/mipsisa32-elf/lib/gcc-lib/mipsisa32-elf/3.2.1/crti.o
+00000000 t .init
+00000000 T _init
+### /home/mgta29/src/tc72xx-bfc5/ecos20/gnutools/mipsisa32-elf/lib/gcc-lib/mipsisa32-elf/3.2.1/crtn.o
+00000000 t .init
+### /home/mgta29/src/tc72xx-bfc5/ecos20/gnutools/mipsisa32-elf/lib/gcc-lib/mipsisa32-elf/3.2.1/soft-float/crtbegin.o
+00000000 t .init
+### /home/mgta29/src/tc72xx-bfc5/ecos20/gnutools/mipsisa32-elf/lib/gcc-lib/mipsisa32-elf/3.2.1/soft-float/crtend.o
+00000000 t .init
+### /home/mgta29/src/tc72xx-bfc5/ecos20/gnutools/mipsisa32-elf/lib/gcc-lib/mipsisa32-elf/3.2.1/soft-float/crti.o
+00000000 t .init
+00000000 T _init
+### /home/mgta29/src/tc72xx-bfc5/ecos20/gnutools/mipsisa32-elf/lib/gcc-lib/mipsisa32-elf/3.2.1/soft-float/crtn.o
+00000000 t .init
+### /home/mgta29/src/tc72xx-bfc5/ecos20/gnutools/mipsisa32-elf/mipsisa32-elf/lib/crt0.o
+         U _init
+         U hardware_init_hook
+         U software_init_hook
+00000100 t init
+### /home/mgta29/src/tc72xx-bfc5/ecos20/gnutools/mipsisa32-elf/mipsisa32-elf/lib/crt0_cygmon.o
+         U hardware_init_hook
+         U software_init_hook
+00000054 T init
+### /home/mgta29/src/tc72xx-bfc5/ecos20/gnutools/mipsisa32-elf/mipsisa32-elf/lib/ctype_.o
+### /home/mgta29/src/tc72xx-bfc5/ecos20/gnutools/mipsisa32-elf/mipsisa32-elf/lib/missing.o
+00000000 t .text.finitef
+00000000 T finitef
+### /home/mgta29/src/tc72xx-bfc5/ecos20/gnutools/mipsisa32-elf/mipsisa32-elf/lib/pcrt0.o
+         U _init
+         U hardware_init_hook
+         U software_init_hook
+00000100 t init
+### /home/mgta29/src/tc72xx-bfc5/ecos20/gnutools/mipsisa32-elf/mipsisa32-elf/lib/soft-float/crt0.o
+         U _init
+         U hardware_init_hook
+         U software_init_hook
+000000cc t init
+### /home/mgta29/src/tc72xx-bfc5/ecos20/gnutools/mipsisa32-elf/mipsisa32-elf/lib/soft-float/crt0_cygmon.o
+         U hardware_init_hook
+         U software_init_hook
+00000054 T init
+### /home/mgta29/src/tc72xx-bfc5/ecos20/gnutools/mipsisa32-elf/mipsisa32-elf/lib/soft-float/pcrt0.o
+         U _init
+         U hardware_init_hook
+         U software_init_hook
+000000cc t init
