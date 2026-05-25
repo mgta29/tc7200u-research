@@ -1,7 +1,7 @@
 # 2026-05-25 bridgehold v10 run (`picocom-20260525-220235.log`)
 
 ## Artifacts
-- Serial: `logs/picocom/picocom-20260525-220235.log`
+- Serial: `evidence/serial/picocom-20260525-220235.log`
 - Host:
   - `C:\tftp\host-meta-watchdog10half-bridgehold-v10.txt`
   - `C:\tftp\host-neigh-proof-watchdog10half-bridgehold-v10.txt`

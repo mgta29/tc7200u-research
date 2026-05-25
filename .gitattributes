@@ -1,0 +1,5 @@
+# Keep raw hardware evidence byte-for-byte. These captures come from Windows,
+# serial tools, and packet tracing, so line endings are evidence too.
+evidence/serial/*.log -text
+evidence/tftp/*.txt -text
+evidence/tftp/*.etl binary

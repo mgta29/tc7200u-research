@@ -1,0 +1,27 @@
+=== net adapter ===
+
+
+Name                 : Ethernet
+Status               : Up
+LinkSpeed            : 10 Mbps
+MacAddress           : BC-EC-A0-2D-6C-9B
+InterfaceDescription : Realtek PCIe GbE Family Controller
+
+
+
+
+=== speed/duplex prop ===
+
+
+DisplayName        : Speed & Duplex
+DisplayValue       : 10 Mbps Half Duplex
+ValidDisplayValues : {Auto Negotiation, 10 Mbps Half Duplex, 10 Mbps Full Duplex, 100 Mbps Half Duplex...}
+RegistryKeyword    : *SpeedDuplex
+RegistryValue      : {1}
+
+
+
+
+=== owrt target ===
+owrt_ip=192.168.77.1
+owrt_mac=92-58-41-34-C0-F0

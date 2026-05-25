@@ -28,6 +28,7 @@
 | Active CFE/TFTP image | `/mnt/c/tftp/openwrt-ps-irqfallback.bin` |
 | A825 wrapper script | `~/tc7200u-research/scripts/tc7200u-a825-wrap.py` |
 | Wrapper manifest output | `~/tc7200u-research/research/notes/generated/` |
+| Host-side TFTP proof captures | `~/tc7200u-research/evidence/tftp/` |
 
 ## Research repo storage
 
@@ -38,6 +39,7 @@
 | Invalid comparison images | `~/tc7200u-research/artifacts/invalid/` |
 | Serial boot logs | `~/tc7200u-research/evidence/serial/` |
 | CFE and recovery logs | `~/tc7200u-research/evidence/cfe/` |
+| Host-side TFTP and packet proof logs | `~/tc7200u-research/evidence/tftp/` |
 | DTS/config/source snapshots | `~/tc7200u-research/evidence/snapshots/` |
 | Notes and summaries | `~/tc7200u-research/research/notes/` |
 | Generated manifests and captures | `~/tc7200u-research/research/notes/generated/` |

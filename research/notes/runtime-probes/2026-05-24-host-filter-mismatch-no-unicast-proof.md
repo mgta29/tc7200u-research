@@ -3,7 +3,7 @@
 ## Inputs
 
 - Serial log:
-  - `logs/picocom-20260524-204311.log`
+  - `evidence/serial/picocom-20260524-204311.log`
 - Host capture:
   - `C:/tftp/pkt.txt`
 - Host command transcript:

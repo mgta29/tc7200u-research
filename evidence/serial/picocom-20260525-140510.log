@@ -1,0 +1,956 @@
+
+root@OpenWrt:~# root@OpenWrt:~# 
+root@OpenWrt:~# sleep 2
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# hold_detach
+root@OpenWrt:~# 
+root@OpenWrt:~# ip addr flush dev br-lan 2>/dev/null || true
+root@OpenWrt:~# 
+root@OpenWrt:~# ip addr flush dev eth0
+root@OpenWrt:~# 
+root@OpenWrt:~# ip addr add 192.168.77.1/24 dev eth0
+root@OpenWrt:~# 
+root@OpenWrt:~# ip link set eth0 up
+root@OpenWrt:~# 
+root@OpenWrt:~# ip route replace 192.168.77.0/24 dev eth0
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# echo "=== hold bridge detach in background ==="
+=== hold bridge detach in background ===
+root@OpenWrt:~# 
+root@OpenWrt:~# (
+> 
+>   while :; do
+> 
+>     hold_detach
+> 
+>     sleep 2
+> 
+>   done
+> 
+> ) &
+root@OpenWrt:~# 
+root@OpenWrt:~# DETACH_PID=$!
+root@OpenWrt:~# 
+root@OpenWrt:~# trap 'kill "$DETACH_PID" 2>/dev/null || true' EXIT
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# echo "=== force 10/half autoneg off ==="
+=== force 10/half autoneg off ===
+root@OpenWrt:~# 
+root@OpenWrt:~# command -v ethtool >/dev/null 2>&1 && ethtool -s eth0 speed 10 d
+uplex half autoneg off || true
+[ 8844.448083] bcmgenet 12c00000.ethernet eth0: Link is Up - 10Mbps/Half - flow control off
+root@OpenWrt:~# 
+root@OpenWrt:~# sleep 2
+root@OpenWrt:~# 
+root@OpenWrt:~# command -v ethtool >/dev/null 2>&1 && ethtool eth0 || true
+Settings for eth0:
+	Supported ports: [ TP MII ]
+	Supported link modes:   1000baseT/Full 
+	Supported pause frame use: Symmetric Receive-only
+	Supports auto-negotiation: Yes
+	Supported FEC modes: Not reported
+	Advertised link modes:  Not reported
+	Advertised pause frame use: Symmetric Receive-only
+	Advertised auto-negotiation: No
+	Advertised FEC modes: Not reported
+	Speed: 10Mb/s
+	Duplex: Half
+	Port: MII
+	PHYAD: 0
+	Transceiver: external
+	Auto-negotiation: off
+	Supports Wake-on: d
+	Wake-on: d
+	Current message level: 0x00000007 (7)
+			       drv probe link
+	Link detected: yes
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# OWRT_MAC="$(cat /sys/class/net/eth0/address 2>/dev/null || echo 
+unknown)"
+root@OpenWrt:~# 
+root@OpenWrt:~# echo "=== owrt eth0 mac ==="
+=== owrt eth0 mac ===
+root@OpenWrt:~# 
+root@OpenWrt:~# echo "$OWRT_MAC"
+32:85:9a:5d:b3:cc
+root@OpenWrt:~# 
+root@OpenWrt:~# echo "Use this MAC in Windows script parameter -OwrtMac."
+Use this MAC in Windows script parameter -OwrtMac.
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# ip neigh replace 192.168.77.2 lladdr bc:ec:a0:2d:6c:9b nud perma
+nent dev eth0
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# echo "=== pre ==="
+=== pre ===
+root@OpenWrt:~# 
+root@OpenWrt:~# date
+Thu Jan  1 02:28:02 GMT 1970
+root@OpenWrt:~# 
+root@OpenWrt:~# ip -d link show dev eth0
+2: [1;36meth0: [0m<BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state [1;32mUP [0mmode DEFAULT group default qlen 1000
+    link/ether [1;33m32:85:9a:5d:b3:cc[0m brd [1;33mff:ff:ff:ff:ff:ff[0m promiscuity 0 allmulti 0 minmtu 68 maxmtu 1500 addrgenmode eui64 numtxqueues 5 numrxqueues 5 gso_max_size 65536 gso_max_segs 65535 tso_max_size 65536 tso_max_segs 65535 gro_max_size 65536 gso_ipv4_max_size 65536 gro_ipv4_max_size 65536 parentbus platform parentdev 12c00000.ethernet 
+root@OpenWrt:~# 
+root@OpenWrt:~# ip -s link show dev eth0
+2: [1;36meth0: [0m<BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state [1;32mUP [0mmode DEFAULT group default qlen 1000
+    link/ether [1;33m32:85:9a:5d:b3:cc[0m brd [1;33mff:ff:ff:ff:ff:ff[0m
+    RX:  bytes packets errors dropped  missed   mcast           
+             0       0      0       0       0       0 
+    TX:  bytes packets errors dropped carrier collsns           
+         94697     956     32       0       0       0 
+root@OpenWrt:~# 
+root@OpenWrt:~# ip neigh show dev eth0 || true
+[1;35m192.168.77.2 [0mlladdr [1;33mbc:ec:a0:2d:6c:9b [0mPERMANENT 
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp || true
+IP address       HW type     Flags       HW address            Mask     Device
+192.168.77.2     0x1         0x6         bc:ec:a0:2d:6c:9b     *        eth0
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/interrupts | grep -Ei ' 64:| 66:|ERR'
+ 64:      22695  periph_intc@14e00048  64  eth0
+ 66:          0  periph_intc@14e00048  66  eth0
+ERR:      78854
+root@OpenWrt:~# 
+root@OpenWrt:~# dump 0x12c03804
+0x12c03804 = 0x00000001
+root@OpenWrt:~# 
+root@OpenWrt:~# dump 0x12c03808
+0x12c03808 = 0x00000001
+root@OpenWrt:~# 
+root@OpenWrt:~# dump 0x12c03c44
+0x12c03c44 = 0x00000001
+root@OpenWrt:~# 
+root@OpenWrt:~# dump 0x12c02c44
+0x12c02c44 = 0x00000001
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# echo "=== phase1 fill tx ring (12 rounds x 8s bounded flood) ===
+"
+=== phase1 fill tx ring (12 rounds x 8s bounded flood) ===
+root@OpenWrt:~# 
+root@OpenWrt:~# date
+Thu Jan  1 02:28:48 GMT 1970
+root@OpenWrt:~# 
+root@OpenWrt:~# i=1
+root@OpenWrt:~# 
+root@OpenWrt:~# while [ "$i" -le 12 ]; do
+> 
+>   echo "phase1 round $i/12"
+> 
+>   flood_for 8
+> 
+>   sleep 2
+> 
+>   i=$((i+1))
+> 
+> done
+phase1 round 1/12
+[ 8950.388415] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1219 sw_prod=62 hw_before(p=0 c=8) hw_after(p=1 c=208) first=0x06f88282 first_stat=0x00a26fc0 last=0x06f88282 last_stat=0x00a26fc0
+[ 8951.647651] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1218 sw_prod=63 hw_before(p=0 c=8) hw_after(p=1 c=224) first=0x06f89182 first_stat=0x00a26fc0 last=0x06f89182 last_stat=0x00a26fc0
+[ 8952.900012] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1217 sw_prod=64 hw_before(p=0 c=8) hw_after(p=1 c=240) first=0x06f89902 first_stat=0x00a26fc0 last=0x06f89902 last_stat=0x00a26fc0
+[ 8954.167583] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1216 sw_prod=65 hw_before(p=0 c=8) hw_after(p=1 c=0) first=0x06f88c82 first_stat=0x00a26fc0 last=0x06f88c82 last_stat=0x00a26fc0
+[ 8955.408137] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1215 sw_prod=66 hw_before(p=0 c=8) hw_after(p=1 c=16) first=0x06f88782 first_stat=0x00a26fc0 last=0x06f88782 last_stat=0x00a26fc0
+[ 8956.666914] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1214 sw_prod=67 hw_before(p=0 c=8) hw_after(p=1 c=32) first=0x06f88f02 first_stat=0x00a26fc0 last=0x06f88f02 last_stat=0x00a26fc0
+[ 8957.938590] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1213 sw_prod=68 hw_before(p=0 c=8) hw_after(p=1 c=48) first=0x06f89402 first_stat=0x00a26fc0 last=0x06f89402 last_stat=0x00a26fc0
+[ 8959.187541] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1212 sw_prod=69 hw_before(p=0 c=8) hw_after(p=1 c=64) first=0x06f89682 first_stat=0x00a26fc0 last=0x06f89682 last_stat=0x00a26fc0
+[ 8960.434898] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1211 sw_prod=70 hw_before(p=0 c=8) hw_after(p=1 c=80) first=0x06f88002 first_stat=0x00a26fc0 last=0x06f88002 last_stat=0x00a26fc0
+[ 8961.696926] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1210 sw_prod=71 hw_before(p=0 c=8) hw_after(p=1 c=96) first=0x06f89b82 first_stat=0x00a26fc0 last=0x06f89b82 last_stat=0x00a26fc0
+[ 8962.951097] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1209 sw_prod=72 hw_before(p=0 c=8) hw_after(p=1 c=112) first=0x06f88502 first_stat=0x00a26fc0 last=0x06f88502 last_stat=0x00a26fc0
+[ 8964.218933] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1208 sw_prod=73 hw_before(p=0 c=8) hw_after(p=1 c=128) first=0x06f88a02 first_stat=0x00a26fc0 last=0x06f88a02 last_stat=0x00a26fc0
+[ 8965.477536] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1207 sw_prod=74 hw_before(p=0 c=8) hw_after(p=1 c=144) first=0x06f7f402 first_stat=0x00a26fc0 last=0x06f7f402 last_stat=0x00a26fc0
+[ 8966.730175] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1206 sw_prod=75 hw_before(p=0 c=8) hw_after(p=1 c=160) first=0x06f7e782 first_stat=0x00a26fc0 last=0x06f7e782 last_stat=0x00a26fc0
+[ 8968.000606] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1205 sw_prod=76 hw_before(p=0 c=8) hw_after(p=1 c=176) first=0x06f7f182 first_stat=0x00a26fc0 last=0x06f7f182 last_stat=0x00a26fc0
+[ 8969.268950] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1204 sw_prod=77 hw_before(p=0 c=8) hw_after(p=1 c=192) first=0x068cfb82 first_stat=0x00a26fc0 last=0x068cfb82 last_stat=0x00a26fc0
+[ 8970.529621] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1203 sw_prod=78 hw_before(p=0 c=8) hw_after(p=1 c=208) first=0x068ce002 first_stat=0x00a26fc0 last=0x068ce002 last_stat=0x00a26fc0
+[ 8971.790060] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1202 sw_prod=79 hw_before(p=0 c=8) hw_after(p=1 c=224) first=0x068cf682 first_stat=0x00a26fc0 last=0x068cf682 last_stat=0x00a26fc0
+[ 8973.059940] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1201 sw_prod=80 hw_before(p=0 c=8) hw_after(p=1 c=240) first=0x068ce502 first_stat=0x00a26fc0 last=0x068ce502 last_stat=0x00a26fc0
+[ 8974.288371] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1200 sw_prod=81 hw_before(p=0 c=8) hw_after(p=1 c=0) first=0x068cf902 first_stat=0x00a26fc0 last=0x068cf902 last_stat=0x00a26fc0
+[ 8975.500644] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1199 sw_prod=82 hw_before(p=0 c=8) hw_after(p=1 c=16) first=0x068cf402 first_stat=0x00a26fc0 last=0x068cf402 last_stat=0x00a26fc0
+[ 8976.779365] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1198 sw_prod=83 hw_before(p=0 c=8) hw_after(p=1 c=32) first=0x068ce282 first_stat=0x00a26fc0 last=0x068ce282 last_stat=0x00a26fc0
+[ 8978.046934] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1197 sw_prod=84 hw_before(p=0 c=8) hw_after(p=1 c=48) first=0x068ce782 first_stat=0x00a26fc0 last=0x068ce782 last_stat=0x00a26fc0
+[ 8979.298247] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1196 sw_prod=85 hw_before(p=0 c=8) hw_after(p=1 c=64) first=0x068cf182 first_stat=0x00a26fc0 last=0x068cf182 last_stat=0x00a26fc0
+[ 8980.557001] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1195 sw_prod=86 hw_before(p=0 c=8) hw_after(p=1 c=80) first=0x068cec82 first_stat=0x00a26fc0 last=0x068cec82 last_stat=0x00a26fc0
+[ 8981.809208] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1194 sw_prod=87 hw_before(p=0 c=8) hw_after(p=1 c=96) first=0x068cef02 first_stat=0x00a26fc0 last=0x068cef02 last_stat=0x00a26fc0
+[ 8983.065216] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1193 sw_prod=88 hw_before(p=0 c=8) hw_after(p=1 c=112) first=0x06f65182 first_stat=0x00a26fc0 last=0x06f65182 last_stat=0x00a26fc0
+[ 8984.329283] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1192 sw_prod=89 hw_before(p=0 c=8) hw_after(p=1 c=128) first=0x06f65402 first_stat=0x00a26fc0 last=0x06f65402 last_stat=0x00a26fc0
+[ 8985.590538] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1191 sw_prod=90 hw_before(p=0 c=8) hw_after(p=1 c=144) first=0x06f65902 first_stat=0x00a26fc0 last=0x06f65902 last_stat=0x00a26fc0
+[ 8986.845118] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1190 sw_prod=91 hw_before(p=0 c=8) hw_after(p=1 c=160) first=0x06f65682 first_stat=0x00a26fc0 last=0x06f65682 last_stat=0x00a26fc0
+[ 8988.106595] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1189 sw_prod=92 hw_before(p=0 c=8) hw_after(p=1 c=176) first=0x06f64002 first_stat=0x00a26fc0 last=0x06f64002 last_stat=0x00a26fc0
+[ 8989.372741] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1188 sw_prod=93 hw_before(p=0 c=8) hw_after(p=1 c=192) first=0x06f65b82 first_stat=0x00a26fc0 last=0x06f65b82 last_stat=0x00a26fc0
+[ 8990.659800] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1187 sw_prod=94 hw_before(p=0 c=8) hw_after(p=1 c=208) first=0x06f64a02 first_stat=0x00a26fc0 last=0x06f64a02 last_stat=0x00a26fc0
+[ 8991.880594] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1186 sw_prod=95 hw_before(p=0 c=8) hw_after(p=1 c=224) first=0x06f64502 first_stat=0x00a26fc0 last=0x06f64502 last_stat=0x00a26fc0
+[ 8993.063731] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1185 sw_prod=96 hw_before(p=0 c=8) hw_after(p=1 c=240) first=0x06f64f02 first_stat=0x00a26fc0 last=0x06f64f02 last_stat=0x00a26fc0
+[ 8994.283984] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1184 sw_prod=97 hw_before(p=0 c=8) hw_after(p=1 c=0) first=0x06f64782 first_stat=0x00a26fc0 last=0x06f64782 last_stat=0x00a26fc0
+[ 8995.571275] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1183 sw_prod=98 hw_before(p=0 c=8) hw_after(p=1 c=16) first=0x06f64282 first_stat=0x00a26fc0 last=0x06f64282 last_stat=0x00a26fc0
+[ 8996.848360] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1182 sw_prod=99 hw_before(p=0 c=8) hw_after(p=1 c=32) first=0x06f64c82 first_stat=0x00a26fc0 last=0x06f64c82 last_stat=0x00a26fc0
+[ 8998.098948] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1181 sw_prod=100 hw_before(p=0 c=8) hw_after(p=1 c=48) first=0x068cea02 first_stat=0x00a26fc0 last=0x068cea02 last_stat=0x00a26fc0
+[ 8999.359751] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1180 sw_prod=101 hw_before(p=0 c=8) hw_after(p=1 c=64) first=0x06f82a02 first_stat=0x00a26fc0 last=0x06f82a02 last_stat=0x00a26fc0
+[ 9000.628271] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1179 sw_prod=102 hw_before(p=0 c=8) hw_after(p=1 c=80) first=0x06f82f02 first_stat=0x00a26fc0 last=0x06f82f02 last_stat=0x00a26fc0
+[ 9001.881091] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1178 sw_prod=103 hw_before(p=0 c=8) hw_after(p=1 c=96) first=0x06f82782 first_stat=0x00a26fc0 last=0x06f82782 last_stat=0x00a26fc0
+[ 9003.157533] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1177 sw_prod=104 hw_before(p=0 c=8) hw_after(p=1 c=112) first=0x06f82c82 first_stat=0x00a26fc0 last=0x06f82c82 last_stat=0x00a26fc0
+[ 9004.404890] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1176 sw_prod=105 hw_before(p=0 c=8) hw_after(p=1 c=128) first=0x06f82282 first_stat=0x00a26fc0 last=0x06f82282 last_stat=0x00a26fc0
+[ 9005.649584] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1175 sw_prod=106 hw_before(p=0 c=8) hw_after(p=1 c=144) first=0x06f83182 first_stat=0x00a26fc0 last=0x06f83182 last_stat=0x00a26fc0
+[ 9006.958445] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1174 sw_prod=107 hw_before(p=0 c=8) hw_after(p=1 c=160) first=0x06f83402 first_stat=0x00a26fc0 last=0x06f83402 last_stat=0x00a26fc0
+[ 9008.219584] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1173 sw_prod=108 hw_before(p=0 c=8) hw_after(p=1 c=176) first=0x06f83902 first_stat=0x00a26fc0 last=0x06f83902 last_stat=0x00a26fc0
+[ 9009.469899] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1172 sw_prod=109 hw_before(p=0 c=8) hw_after(p=1 c=192) first=0x06f83682 first_stat=0x00a26fc0 last=0x06f83682 last_stat=0x00a26fc0
+[ 9010.735007] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1171 sw_prod=110 hw_before(p=0 c=8) hw_after(p=1 c=208) first=0x06f82002 first_stat=0x00a26fc0 last=0x06f82002 last_stat=0x00a26fc0
+[ 9011.998038] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1170 sw_prod=111 hw_before(p=0 c=8) hw_after(p=1 c=224) first=0x06f82502 first_stat=0x00a26fc0 last=0x06f82502 last_stat=0x00a26fc0
+[ 9013.265136] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1169 sw_prod=112 hw_before(p=0 c=8) hw_after(p=1 c=240) first=0x06f83b82 first_stat=0x00a26fc0 last=0x06f83b82 last_stat=0x00a26fc0
+[ 9014.518030] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1168 sw_prod=113 hw_before(p=0 c=8) hw_after(p=1 c=0) first=0x06fa5902 first_stat=0x00a26fc0 last=0x06fa5902 last_stat=0x00a26fc0
+[ 9015.760962] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1167 sw_prod=114 hw_before(p=0 c=8) hw_after(p=1 c=16) first=0x06fa5682 first_stat=0x00a26fc0 last=0x06fa5682 last_stat=0x00a26fc0
+[ 9017.018665] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1166 sw_prod=115 hw_before(p=0 c=8) hw_after(p=1 c=32) first=0x06fa4002 first_stat=0x00a26fc0 last=0x06fa4002 last_stat=0x00a26fc0
+[ 9018.270608] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1165 sw_prod=116 hw_before(p=0 c=8) hw_after(p=1 c=48) first=0x06fa4502 first_stat=0x00a26fc0 last=0x06fa4502 last_stat=0x00a26fc0
+[ 9019.539035] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1164 sw_prod=117 hw_before(p=0 c=8) hw_after(p=1 c=64) first=0x06fa5b82 first_stat=0x00a26fc0 last=0x06fa5b82 last_stat=0x00a26fc0
+[ 9020.790287] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1163 sw_prod=118 hw_before(p=0 c=8) hw_after(p=1 c=80) first=0x06fa4a02 first_stat=0x00a26fc0 last=0x06fa4a02 last_stat=0x00a26fc0
+[ 9022.058157] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1162 sw_prod=119 hw_before(p=0 c=8) hw_after(p=1 c=96) first=0x06fa4f02 first_stat=0x00a26fc0 last=0x06fa4f02 last_stat=0x00a26fc0
+[ 9023.268378] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1161 sw_prod=120 hw_before(p=0 c=8) hw_after(p=1 c=112) first=0x06fa4782 first_stat=0x00a26fc0 last=0x06fa4782 last_stat=0x00a26fc0
+[ 9024.497113] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1160 sw_prod=121 hw_before(p=0 c=8) hw_after(p=1 c=128) first=0x06fa4c82 first_stat=0x00a26fc0 last=0x06fa4c82 last_stat=0x00a26fc0
+[ 9025.765278] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1159 sw_prod=122 hw_before(p=0 c=8) hw_after(p=1 c=144) first=0x06fa4282 first_stat=0x00a26fc0 last=0x06fa4282 last_stat=0x00a26fc0
+[ 9027.026775] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1158 sw_prod=123 hw_before(p=0 c=8) hw_after(p=1 c=160) first=0x06fa5402 first_stat=0x00a26fc0 last=0x06fa5402 last_stat=0x00a26fc0
+[ 9028.289459] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1157 sw_prod=124 hw_before(p=0 c=8) hw_after(p=1 c=176) first=0x06fa5182 first_stat=0x00a26fc0 last=0x06fa5182 last_stat=0x00a26fc0
+[ 9029.565322] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1156 sw_prod=125 hw_before(p=0 c=8) hw_after(p=1 c=192) first=0x06f44782 first_stat=0x00a26fc0 last=0x06f44782 last_stat=0x00a26fc0
+[ 9030.818542] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1155 sw_prod=126 hw_before(p=0 c=8) hw_after(p=1 c=208) first=0x06f44c82 first_stat=0x00a26fc0 last=0x06f44c82 last_stat=0x00a26fc0
+[ 9032.085277] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1154 sw_prod=127 hw_before(p=0 c=8) hw_after(p=1 c=224) first=0x06f44282 first_stat=0x00a26fc0 last=0x06f44282 last_stat=0x00a26fc0
+[ 9033.334935] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1153 sw_prod=128 hw_before(p=0 c=8) hw_after(p=1 c=240) first=0x06f45182 first_stat=0x00a26fc0 last=0x06f45182 last_stat=0x00a26fc0
+[ 9034.599704] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1152 sw_prod=129 hw_before(p=0 c=8) hw_after(p=1 c=0) first=0x06f45402 first_stat=0x00a26fc0 last=0x06f45402 last_stat=0x00a26fc0
+[ 9035.836716] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1151 sw_prod=130 hw_before(p=0 c=8) hw_after(p=1 c=16) first=0x06f45902 first_stat=0x00a26fc0 last=0x06f45902 last_stat=0x00a26fc0
+[ 9037.106802] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1150 sw_prod=131 hw_before(p=0 c=8) hw_after(p=1 c=32) first=0x06f45682 first_stat=0x00a26fc0 last=0x06f45682 last_stat=0x00a26fc0
+[ 9038.387746] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1149 sw_prod=132 hw_before(p=0 c=8) hw_after(p=1 c=48) first=0x06f44502 first_stat=0x00a26fc0 last=0x06f44502 last_stat=0x00a26fc0
+[ 9039.629521] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1148 sw_prod=133 hw_before(p=0 c=8) hw_after(p=1 c=64) first=0x06f45b82 first_stat=0x00a26fc0 last=0x06f45b82 last_stat=0x00a26fc0
+[ 9040.868753] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1147 sw_prod=134 hw_before(p=0 c=8) hw_after(p=1 c=80) first=0x06f44002 first_stat=0x00a26fc0 last=0x06f44002 last_stat=0x00a26fc0
+[ 9042.028324] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1146 sw_prod=135 hw_before(p=0 c=8) hw_after(p=1 c=96) first=0x06f44a02 first_stat=0x00a26fc0 last=0x06f44a02 last_stat=0x00a26fc0
+[ 9043.249210] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1145 sw_prod=136 hw_before(p=0 c=8) hw_after(p=1 c=112) first=0x06f44f02 first_stat=0x00a26fc0 last=0x06f44f02 last_stat=0x00a26fc0
+[ 9044.519521] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1144 sw_prod=137 hw_before(p=0 c=8) hw_after(p=1 c=128) first=0x06fa7182 first_stat=0x00a26fc0 last=0x06fa7182 last_stat=0x00a26fc0
+[ 9045.798027] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1143 sw_prod=138 hw_before(p=0 c=8) hw_after(p=1 c=144) first=0x06fa7402 first_stat=0x00a26fc0 last=0x06fa7402 last_stat=0x00a26fc0
+[ 9047.049531] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1142 sw_prod=139 hw_before(p=0 c=8) hw_after(p=1 c=160) first=0x06fa6282 first_stat=0x00a26fc0 last=0x06fa6282 last_stat=0x00a26fc0
+[ 9048.338443] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1141 sw_prod=140 hw_before(p=0 c=8) hw_after(p=1 c=176) first=0x06fa7902 first_stat=0x00a26fc0 last=0x06fa7902 last_stat=0x00a26fc0
+[ 9049.585190] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1140 sw_prod=141 hw_before(p=0 c=8) hw_after(p=1 c=192) first=0x06fa7682 first_stat=0x00a26fc0 last=0x06fa7682 last_stat=0x00a26fc0
+[ 9050.838777] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1139 sw_prod=142 hw_before(p=0 c=8) hw_after(p=1 c=208) first=0x06fa6002 first_stat=0x00a26fc0 last=0x06fa6002 last_stat=0x00a26fc0
+[ 9052.115143] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1138 sw_prod=143 hw_before(p=0 c=8) hw_after(p=1 c=224) first=0x06fa6502 first_stat=0x00a26fc0 last=0x06fa6502 last_stat=0x00a26fc0
+[ 9053.369182] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1137 sw_prod=144 hw_before(p=0 c=8) hw_after(p=1 c=240) first=0x06fa7b82 first_stat=0x00a26fc0 last=0x06fa7b82 last_stat=0x00a26fc0
+[ 9054.645253] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1136 sw_prod=145 hw_before(p=0 c=8) hw_after(p=1 c=0) first=0x06fa6a02 first_stat=0x00a26fc0 last=0x06fa6a02 last_stat=0x00a26fc0
+[ 9055.907618] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1135 sw_prod=146 hw_before(p=0 c=8) hw_after(p=1 c=16) first=0x06fa6f02 first_stat=0x00a26fc0 last=0x06fa6f02 last_stat=0x00a26fc0
+[ 9057.166911] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1134 sw_prod=147 hw_before(p=0 c=8) hw_after(p=1 c=32) first=0x06fa6782 first_stat=0x00a26fc0 last=0x06fa6782 last_stat=0x00a26fc0
+[ 9058.419282] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1133 sw_prod=148 hw_before(p=0 c=8) hw_after(p=1 c=48) first=0x06fa6c82 first_stat=0x00a26fc0 last=0x06fa6c82 last_stat=0x00a26fc0
+[ 9059.690668] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1132 sw_prod=149 hw_before(p=0 c=8) hw_after(p=1 c=64) first=0x06fac282 first_stat=0x00a26fc0 last=0x06fac282 last_stat=0x00a26fc0
+[ 9060.950190] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1131 sw_prod=150 hw_before(p=0 c=8) hw_after(p=1 c=80) first=0x06fad182 first_stat=0x00a26fc0 last=0x06fad182 last_stat=0x00a26fc0
+[ 9062.220791] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1130 sw_prod=151 hw_before(p=0 c=8) hw_after(p=1 c=96) first=0x06fad402 first_stat=0x00a26fc0 last=0x06fad402 last_stat=0x00a26fc0
+[ 9063.496819] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1129 sw_prod=152 hw_before(p=0 c=8) hw_after(p=1 c=112) first=0x06fad902 first_stat=0x00a26fc0 last=0x06fad902 last_stat=0x00a26fc0
+[ 9064.768570] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1128 sw_prod=153 hw_before(p=0 c=8) hw_after(p=1 c=128) first=0x06fad682 first_stat=0x00a26fc0 last=0x06fad682 last_stat=0x00a26fc0
+[ 9066.009220] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1127 sw_prod=154 hw_before(p=0 c=8) hw_after(p=1 c=144) first=0x06fac002 first_stat=0x00a26fc0 last=0x06fac002 last_stat=0x00a26fc0
+[ 9067.266719] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1126 sw_prod=155 hw_before(p=0 c=8) hw_after(p=1 c=160) first=0x06fac502 first_stat=0x00a26fc0 last=0x06fac502 last_stat=0x00a26fc0
+[ 9068.525145] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1125 sw_prod=156 hw_before(p=0 c=8) hw_after(p=1 c=176) first=0x06faca02 first_stat=0x00a26fc0 last=0x06faca02 last_stat=0x00a26fc0
+[ 9069.778113] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1124 sw_prod=157 hw_before(p=0 c=8) hw_after(p=1 c=192) first=0x06fadb82 first_stat=0x00a26fc0 last=0x06fadb82 last_stat=0x00a26fc0
+[ 9071.008528] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1123 sw_prod=158 hw_before(p=0 c=8) hw_after(p=1 c=208) first=0x06facf02 first_stat=0x00a26fc0 last=0x06facf02 last_stat=0x00a26fc0
+[ 9072.224891] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1122 sw_prod=159 hw_before(p=0 c=8) hw_after(p=1 c=224) first=0x06fac782 first_stat=0x00a26fc0 last=0x06fac782 last_stat=0x00a26fc0
+[ 9073.495182] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1121 sw_prod=160 hw_before(p=0 c=8) hw_after(p=1 c=240) first=0x06facc82 first_stat=0x00a26fc0 last=0x06facc82 last_stat=0x00a26fc0
+[ 9074.739495] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1120 sw_prod=161 hw_before(p=0 c=8) hw_after(p=1 c=0) first=0x06f81682 first_stat=0x00a26fc0 last=0x06f81682 last_stat=0x00a26fc0
+[ 9075.998721] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1119 sw_prod=162 hw_before(p=0 c=8) hw_after(p=1 c=16) first=0x06f81902 first_stat=0x00a26fc0 last=0x06f81902 last_stat=0x00a26fc0
+[ 9077.279783] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1118 sw_prod=163 hw_before(p=0 c=8) hw_after(p=1 c=32) first=0x06f80002 first_stat=0x00a26fc0 last=0x06f80002 last_stat=0x00a26fc0
+[ 9078.537260] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1117 sw_prod=164 hw_before(p=0 c=8) hw_after(p=1 c=48) first=0x06f80502 first_stat=0x00a26fc0 last=0x06f80502 last_stat=0x00a26fc0
+[ 9079.795133] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1116 sw_prod=165 hw_before(p=0 c=8) hw_after(p=1 c=64) first=0x06f81b82 first_stat=0x00a26fc0 last=0x06f81b82 last_stat=0x0[ 9081.048928] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1115 sw_prod=166 hw_before(p=0 c=8) hw_after(p=1 c=80) first=0x06f80a02 first_stat=0x00a26fc0 last=0x06f80a02 last_stat=0x00a26fc0
+[ 9082.319503] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1114 sw_prod=167 hw_before(p=0 c=8) hw_after(p=1 c=96) first=0x06f80f02 first_stat=0x00a26fc0 last=0x06f80f02 last_stat=0x00a26fc0
+[ 9083.577977] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1113 sw_prod=168 hw_before(p=0 c=8) hw_after(p=1 c=112) first=0x06f80782 first_stat=0x00a26fc0 last=0x06f80782 last_stat=0x00a26fc0
+[ 9084.840030] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1112 sw_prod=169 hw_before(p=0 c=8) hw_after(p=1 c=128) first=0x06f80c82 first_stat=0x00a26fc0 last=0x06f80c82 last_stat=0x00a26fc0
+[ 9086.119307] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1111 sw_prod=170 hw_before(p=0 c=8) hw_after(p=1 c=144) first=0x06f80282 first_stat=0x00a26fc0 last=0x06f80282 last_stat=0x00a26fc0
+[ 9087.376951] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1110 sw_prod=171 hw_before(p=0 c=8) hw_after(p=1 c=160) first=0x06f81402 first_stat=0x00a26fc0 last=0x06f81402 last_stat=0x00a26fc0
+[ 9088.640261] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1109 sw_prod=172 hw_before(p=0 c=8) hw_after(p=1 c=176) first=0x06fae502 first_stat=0x00a26fc0 last=0x06fae502 last_stat=0x00a26fc0
+[ 9089.897186] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1108 sw_prod=173 hw_before(p=0 c=8) hw_after(p=1 c=192) first=0x06fafb82 first_stat=0x00a26fc0 last=0x06fafb82 last_stat=0x00a26fc0
+[ 9091.061379] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1107 sw_prod=174 hw_before(p=0 c=8) hw_after(p=1 c=208) first=0x06faea02 first_stat=0x00a26fc0 last=0x06faea02 last_stat=0x00a26fc0
+[ 9092.245178] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1106 sw_prod=175 hw_before(p=0 c=8) hw_after(p=1 c=224) first=0x06faef02 first_stat=0x00a26fc0 last=0x06faef02 last_stat=0x00a26fc0
+[ 9093.496555] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1105 sw_prod=176 hw_before(p=0 c=8) hw_after(p=1 c=240) first=0x06fae782 first_stat=0x00a26fc0 last=0x06fae782 last_stat=0x00a26fc0
+[ 9094.758730] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1104 sw_prod=177 hw_before(p=0 c=8) hw_after(p=1 c=0) first=0x06faec82 first_stat=0x00a26fc0 last=0x06faec82 last_stat=0x00a26fc0
+[ 9096.014920] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1103 sw_prod=178 hw_before(p=0 c=8) hw_after(p=1 c=16) first=0x06fae282 first_stat=0x00a26fc0 last=0x06fae282 last_stat=0x00a26fc0
+[ 9097.278545] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1102 sw_prod=179 hw_before(p=0 c=8) hw_after(p=1 c=32) first=0x06faf182 first_stat=0x00a26fc0 last=0x06faf182 last_stat=0x00a26fc0
+[ 9098.538952] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1101 sw_prod=180 hw_before(p=0 c=8) hw_after(p=1 c=48) first=0x06faf402 first_stat=0x00a26fc0 last=0x06faf402 last_stat=0x00a26fc0
+[ 9099.808749] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1100 sw_prod=181 hw_before(p=0 c=8) hw_after(p=1 c=64) first=0x06faf902 first_stat=0x00a26fc0 last=0x06faf902 last_stat=0x00a26fc0
+[ 9101.059246] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1099 sw_prod=182 hw_before(p=0 c=8) hw_after(p=1 c=80) first=0x06faf682 first_stat=0x00a26fc0 last=0x06faf682 last_stat=0x00a26fc0
+[ 9102.309283] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1098 sw_prod=183 hw_before(p=0 c=8) hw_after(p=1 c=96) first=0x06fae002 first_stat=0x00a26fc0 last=0x06fae002 last_stat=0x00a26fc0
+[ 9103.572050] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1097 sw_prod=184 hw_before(p=0 c=8) hw_after(p=1 c=112) first=0x06f81182 first_stat=0x00a26fc0 last=0x06f81182 last_stat=0x00a26fc0
+[ 9104.837120] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1096 sw_prod=185 hw_before(p=0 c=8) hw_after(p=1 c=128) first=0x06fb3b82 first_stat=0x00a26fc0 last=0x06fb3b82 last_stat=0x00a26fc0
+[ 9106.117086] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1095 sw_prod=186 hw_before(p=0 c=8) hw_after(p=1 c=144) first=0x06fb2a02 first_stat=0x00a26fc0 last=0x06fb2a02 last_stat=0x[ 9107.376856] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1094 sw_prod=187 hw_before(p=0 c=8) hw_after(p=1 c=160) first=0x06fb2f02 first_stat=0x00a26fc0 last=0x06fb2f02 last_stat=0x[ 9108.645068] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1093 sw_prod=188 hw_before(p=0 c=8) hw_after(p=1 c=176) first=0x06fb2782 first_stat=0x00a26fc0 last=0x06fb2782 last_stat=0x00a26fc0
+[ 9109.904986] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1092 sw_prod=189 hw_before(p=0 c=8) hw_after(p=1 c=192) first=0x06fb2c82 first_stat=0x00a26fc0 last=0x06fb2c82 last_stat=0x00a26fc0
+[ 9111.161549] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1091 sw_prod=190 hw_before(p=0 c=8) hw_after(p=1 c=208) first=0x06fb2282 first_stat=0x00a26fc0 last=0x06fb2282 last_stat=0x00a26fc0
+[ 9112.420701] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1090 sw_prod=191 hw_before(p=0 c=8) hw_after(p=1 c=224) first=0x06fb3182 first_stat=0x00a26fc0 last=0x06fb3182 last_stat=0x00a26fc0
+[ 9113.694921] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1089 sw_prod=192 hw_before(p=0 c=8) hw_after(p=1 c=240) first=0x06fb3402 first_stat=0x00a26fc0 last=0x06fb3402 last_stat=0x00a26fc0
+[ 9114.947025] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1088 sw_prod=193 hw_before(p=0 c=8) hw_after(p=1 c=0) first=0x06fb3902 first_stat=0x00a26fc0 last=0x06fb3902 last_stat=0x00a26fc0
+[ 9116.199383] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1087 sw_prod=194 hw_before(p=0 c=8) hw_after(p=1 c=16) first=0x06fb2002 first_stat=0x00a26fc0 last=0x06fb2002 last_stat=0x00a26fc0
+[ 9117.471502] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1086 sw_prod=195 hw_before(p=0 c=8) hw_after(p=1 c=32) first=0x06fb3682 first_stat=0x00a26fc0 last=0x06fb3682 last_stat=0x00a26fc0
+[ 9118.748940] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1085 sw_prod=196 hw_before(p=0 c=8) hw_after(p=1 c=48) first=0x06fb2502 first_stat=0x00a26fc0 last=0x06fb2502 last_stat=0x00a26fc0
+[ 9119.959241] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1084 sw_prod=197 hw_before(p=0 c=8) hw_after(p=1 c=64) first=0x06b14c82 first_stat=0x00a26fc0 last=0x06b14c82 last_stat=0x00a26fc0
+[ 9121.194988] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1083 sw_prod=198 hw_before(p=0 c=8) hw_after(p=1 c=80) first=0x06b14282 first_stat=0x00a26fc0 last=0x06b14282 last_stat=0x00a26fc0
+[ 9122.479407] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1082 sw_prod=199 hw_before(p=0 c=8) hw_after(p=1 c=96) first=0x06b15182 first_stat=0x00a26fc0 last=0x06b15182 last_stat=0x00a26fc0
+[ 9123.736793] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1081 sw_prod=200 hw_before(p=0 c=8) hw_after(p=1 c=112) first=0x06b15402 first_stat=0x00a26fc0 last=0x06b15402 last_stat=0x00a26fc0
+[ 9125.007693] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1080 sw_prod=201 hw_before(p=0 c=8) hw_after(p=1 c=128) first=0x06b15902 first_stat=0x00a26fc0 last=0x06b15902 last_stat=0x00a26fc0
+[ 9126.268376] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1079 sw_prod=202 hw_before(p=0 c=8) hw_after(p=1 c=144) first=0x06b15682 first_stat=0x00a26fc0 last=0x06b15682 last_stat=0x00a26fc0
+[ 9127.528938] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1078 sw_prod=203 hw_before(p=0 c=8) hw_after(p=1 c=160) first=0x06b14002 first_stat=0x00a26fc0 last=0x06b14002 last_stat=0x00a26fc0
+[ 9128.789847] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1077 sw_prod=204 hw_before(p=0 c=8) hw_after(p=1 c=176) first=0x06b14502 first_stat=0x00a26fc0 last=0x06b14502 last_stat=0x00a26fc0
+[ 9130.049558] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1076 sw_prod=205 hw_before(p=0 c=8) hw_after(p=1 c=192) first=0x06b15b82 first_stat=0x00a26fc0 last=0x06b15b82 last_stat=0x00a26fc0
+[ 9131.320735] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1075 sw_prod=206 hw_before(p=0 c=8) hw_after(p=1 c=208) first=0x06b14a02 first_stat=0x00a26fc0 last=0x06b14a02 last_stat=0x00a26fc0
+[ 9132.581926] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1074 sw_prod=207 hw_before(p=0 c=8) hw_after(p=1 c=224) first=0x06b14f02 first_stat=0x00a26fc0 last=0x06b14f02 last_stat=0x00a26fc0
+[ 9133.867662] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1073 sw_prod=208 hw_before(p=0 c=8) hw_after(p=1 c=240) first=0x06b14782 first_stat=0x00a26fc0 last=0x06b14782 last_stat=0x00a26fc0
+[ 9135.119786] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1072 sw_prod=209 hw_before(p=0 c=8) hw_after(p=1 c=0) first=0x06fa2782 first_stat=0x00a26fc0 last=0x06fa2782 last_stat=0x00a26fc0
+[ 9136.408425] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1071 sw_prod=210 hw_before(p=0 c=8) hw_after(p=1 c=16) first=0x06fa2c82 first_stat=0x00a26fc0 last=0x06fa2c82 last_stat=0x00a26fc0
+[ 9137.657887] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1070 sw_prod=211 hw_before(p=0 c=8) hw_after(p=1 c=32) first=0x06fa2282 first_stat=0x00a26fc0 last=0x06fa2282 last_stat=0x00a26fc0
+[ 9138.919372] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1069 sw_prod=212 hw_before(p=0 c=8) hw_after(p=1 c=48) first=0x06fa3182 first_stat=0x00a26fc0 last=0x06fa3182 last_stat=0x00a26fc0
+[ 9140.089384] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1068 sw_prod=213 hw_before(p=0 c=8) hw_after(p=1 c=64) first=0x06fa3402 first_stat=0x00a26fc0 last=0x06fa3402 last_stat=0x00a26fc0
+[ 9141.294871] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1067 sw_prod=214 hw_before(p=0 c=8) hw_after(p=1 c=80) first=0x06fa3902 first_stat=0x00a26fc0 last=0x06fa3902 last_stat=0x00a26fc0
+[ 9142.548490] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1066 sw_prod=215 hw_before(p=0 c=8) hw_after(p=1 c=96) first=0x06fa3682 first_stat=0x00a26fc0 last=0x06fa3682 last_stat=0x00a26fc0
+[ 9143.812413] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1065 sw_prod=216 hw_before(p=0 c=8) hw_after(p=1 c=112) first=0x06fa2002 first_stat=0x00a26fc0 last=0x06fa2002 last_stat=0x00a26fc0
+[ 9145.108954] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1064 sw_prod=217 hw_before(p=0 c=8) hw_after(p=1 c=128) first=0x06fa2502 first_stat=0x00a26fc0 last=0x06fa2502 last_stat=0x00a26fc0
+[ 9146.369870] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=1063 sw_prod=218 hw_before(p=0 c=8) hw_after(p=1 c=144) first=0x06fa3b82 first_stat=0x00a26fc0 last=0x06fa3b82 last_stat=0x00a26fc0
+[ 9148.867750] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2470 ms
+[ 9150.896967] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9152.927002] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9155.016995] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9157.047009] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9159.077027] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9161.907605] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2810 ms
+[ 9163.936886] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9165.967019] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9167.997041] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9170.027177] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9172.057171] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9174.867701] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2790 ms
+[ 9176.896898] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9178.926883] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9180.956982] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9182.986983] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9185.017066] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9187.047096] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9189.077180] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9191.908342] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2810 ms
+[ 9193.936954] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9195.966986] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9197.996979] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9200.027147] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9202.056971] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9204.867595] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2790 ms
+[ 9206.897025] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9208.927008] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9210.956995] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9212.987066] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9215.017053] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9217.046979] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9219.077118] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9221.907720] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2810 ms
+[ 9223.936974] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9225.967098] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9227.996983] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9230.026976] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9232.057009] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9234.867726] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2790 ms
+[ 9236.897022] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9238.926978] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9240.957062] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9242.987043] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9245.016996] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9247.047008] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9249.077002] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9251.907568] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2810 ms
+[ 9253.936887] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9255.966941] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9257.996993] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9260.026988] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9262.056998] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9264.867619] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2790 ms
+[ 9266.897159] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9268.926996] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9270.956971] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9272.987098] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9275.016993] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9277.046957] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9279.076976] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9281.907754] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2810 ms
+[ 9283.937631] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9285.967045] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9287.997008] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9290.026970] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9292.057024] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9294.867575] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2790 ms
+[ 9296.897038] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9298.926993] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9300.957028] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9302.986980] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9305.016982] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9307.047009] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9309.076996] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9311.907732] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2810 ms
+[ 9313.936958] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9315.966987] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9317.997010] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9320.027078] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9322.056976] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9324.867711] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2790 ms
+[ 9326.896967] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9328.926954] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9330.956972] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9332.987059] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9335.016988] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9337.047006] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9339.076890] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9341.907792] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2810 ms
+[ 9343.936978] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9345.967003] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9347.996978] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9350.027127] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9352.057014] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9354.867706] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2790 ms
+[ 9356.896972] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9358.927187] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9360.957047] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9362.987013] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9365.017154] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9367.046976] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9369.076967] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9371.907690] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2810 ms
+[ 9373.937135] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9375.966982] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9377.996982] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9380.027287] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9382.057071] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9384.867604] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2790 ms
+[ 9386.896962] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9388.927062] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9390.957008] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9392.987061] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9395.017018] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9397.046985] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9399.077000] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+phase1 round 2/12
+[ 9401.907709] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2810 ms
+[ 9403.936982] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9405.966972] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9407.996977] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9410.026970] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9412.056972] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9414.867736] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2790 ms
+[ 9416.896987] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9418.927526] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9420.957178] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9422.987022] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9425.016968] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9427.046973] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9429.077031] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9431.907612] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2810 ms
+[ 9433.936955] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9435.966970] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9437.997007] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9440.027020] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9442.057048] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9444.867707] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2790 ms
+[ 9446.896996] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9448.927001] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9450.957005] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9452.987049] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9455.016966] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9457.046976] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9459.077005] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9461.907745] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2810 ms
+[ 9463.937119] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9465.967138] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9467.996987] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9470.026954] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9472.057054] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9474.867717] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2790 ms
+[ 9476.896987] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9478.927149] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9480.956991] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9482.986972] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9485.016968] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9487.047021] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9489.076976] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9491.907706] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2810 ms
+[ 9493.936979] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9495.966971] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9497.996951] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9500.026973] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9502.056995] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9504.867634] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2790 ms
+[ 9506.897130] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9508.927024] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9510.956973] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9512.987085] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9515.017005] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9517.046949] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9519.076972] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9521.907622] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2810 ms
+[ 9523.936992] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9525.966996] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9527.997142] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9530.026991] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9532.057010] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9534.867732] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2790 ms
+[ 9536.897063] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9538.927054] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9540.956973] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9542.986966] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9545.016983] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9547.047011] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9549.077010] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9551.908131] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2810 ms
+[ 9553.936971] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9555.966980] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9557.996972] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9560.027010] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9562.056977] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9564.867851] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2790 ms
+[ 9566.896971] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9568.927013] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9570.956967] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9572.987057] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9575.017005] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9577.047068] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9579.076991] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9581.907929] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2810 ms
+[ 9583.937000] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9585.966972] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9587.997127] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9590.026970] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9592.057028] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9594.867587] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2790 ms
+[ 9596.897245] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9598.927067] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9600.956978] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9602.986969] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9605.016958] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9607.047050] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9609.076979] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9611.907704] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2810 ms
+[ 9613.936985] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9615.967012] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9617.996996] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9620.026969] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9622.057012] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9624.867771] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2790 ms
+[ 9626.897142] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9628.927009] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9630.956975] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9632.987092] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9635.017014] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9637.046969] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9639.076971] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9641.907700] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2810 ms
+[ 9643.936963] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9645.966981] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9647.996991] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9650.026969] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9652.056968] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9654.867697] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2790 ms
+[ 9656.896958] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9658.926973] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9660.957039] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9662.987202] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9665.016988] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9667.047033] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9669.076963] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9671.907620] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2810 ms
+[ 9673.936968] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9675.966963] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9677.997164] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9680.026971] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9682.057013] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9684.867614] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2790 ms
+[ 9686.896947] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9688.927006] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9690.956997] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9692.987128] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9695.017027] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9697.046958] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9699.076982] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9701.907779] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2810 ms
+[ 9703.936986] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9705.966971] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9707.997041] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9710.027002] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+^C[ 9712.056969] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9714.867749] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2790 ms
+^C
+[5]+  Done(1)                    ping -I eth0 -f 192.168.77.2 1>/dev/null 2>&1^C[5]+  Done(1)                    ping -I eth0 -f 192.168.77.2 1>/dev/null 2>&1
+[5]+  Done(1)       wÌBê    ∏t   O        0 -fwÏ¿     wÏÚ       ∏HwÁ≤‹&1
+[4]+  Done(1)       wÌBê    ∏t   O        0 -fwÏ¿     wÏÒ¸       ∏HwÁ≤‹&1
+root@OpenWrt:~# [ 9716.896971] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9718.926968] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9720.956961] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9722.986960] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9725.016986] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9727.047127] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9729.076979] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9731.908381] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2810 ms
+
+root@OpenWrt:~# [ 9733.936970] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9735.966959] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+
+root@OpenWrt:~# [ 9737.997128] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9740.026964] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9742.056979] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9744.867603] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2790 ms
+[ 9746.896960] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9748.926980] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9750.956980] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9752.987160] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9755.016982] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9757.046944] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9759.076962] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9761.907880] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2810 ms
+[ 9763.936980] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9765.966984] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9767.996987] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9770.026956] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9772.057144] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9774.867859] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2790 ms
+[ 9776.897060] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9778.927015] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9780.956992] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9782.986984] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9785.017010] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9787.046985] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9789.077011] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9791.907575] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2810 ms
+[ 9793.936965] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9795.967142] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9797.997013] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9800.026973] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9802.056960] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9804.867722] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2790 ms
+[ 9806.896960] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9808.926963] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9810.956964] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9812.987042] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9815.016958] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9817.046985] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9819.076959] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9821.907714] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2810 ms
+[ 9823.936983] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9825.966971] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9827.996967] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9830.026964] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9832.056989] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9834.867578] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2790 ms
+[ 9836.896974] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9838.926976] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9840.957077] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9842.986973] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9845.016979] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9847.046962] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9849.076979] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9851.907693] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2810 ms
+[ 9853.936973] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9855.967292] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9857.996986] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9860.027003] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9862.056990] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9864.867618] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2790 ms
+[ 9866.896960] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9868.927181] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9870.956962] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9872.987048] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9875.016983] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9877.046997] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9879.077062] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9881.907882] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2810 ms
+[ 9883.936959] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9885.967099] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9887.996941] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9890.026962] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9892.056991] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9894.867579] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2790 ms
+[ 9896.896954] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9898.926990] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9900.957001] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9902.987020] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9905.016963] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9907.047007] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9909.076950] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9911.908333] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2810 ms
+[ 9913.936959] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9915.966963] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9917.996979] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9920.026965] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9922.056980] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9924.867878] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2790 ms
+[ 9926.896991] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9928.927036] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9930.957126] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9932.987266] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9935.016983] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9937.046937] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9939.076973] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9941.907615] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2810 ms
+[ 9943.937001] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9945.966980] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9947.997071] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9950.027168] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9952.056965] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9954.867612] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2790 ms
+[ 9956.896961] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9958.926960] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9960.957099] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9962.987075] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9965.016957] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9967.046964] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9969.077590] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9971.908505] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2810 ms
+[ 9973.936985] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9975.966969] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9977.997174] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9980.026965] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9982.056970] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9984.867688] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2790 ms
+[ 9986.896976] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9988.926984] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9990.956891] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9992.987111] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9995.016957] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9997.046964] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 9999.076992] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10001.907530] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2810 ms
+[10003.937030] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10005.966960] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10007.996963] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10010.026944] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10012.056983] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10014.867658] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2790 ms
+[10016.896962] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10018.926964] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10020.957125] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10022.986954] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10025.016980] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10027.046968] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10029.076980] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10031.907740] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2810 ms
+[10033.936940] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10035.966972] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10037.996956] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10040.026961] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10042.057153] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10044.867685] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2790 ms
+[10046.896959] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10048.927100] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10050.956966] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10052.987050] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10055.016993] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10057.046940] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10059.076950] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10061.907720] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2810 ms
+[10063.937125] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10065.966992] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10067.997007] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10070.026961] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10072.056953] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10074.867695] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2790 ms
+[10076.896951] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10078.927074] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10080.956974] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10082.986884] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10085.016955] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10087.046956] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10089.076962] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10091.908339] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2810 ms
+[10093.936945] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10095.967004] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10097.996973] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10100.026998] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10102.056957] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10104.867672] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2790 ms
+[10106.896933] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10108.926958] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10110.956963] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10112.987093] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10115.016958] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10117.047123] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10119.077236] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10121.907779] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2810 ms
+[10123.936966] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10125.966966] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10127.996961] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10130.026944] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10132.056970] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10134.867585] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2790 ms
+[10136.896960] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10138.927004] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10140.956957] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10142.986952] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10145.017168] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10147.047033] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10149.076988] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10151.907649] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2810 ms
+[10153.936976] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10155.967147] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10157.996957] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10160.027004] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10162.056960] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10164.867609] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2790 ms
+[10166.896938] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10168.926952] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10170.956955] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10172.987048] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10175.016962] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10177.046949] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10179.076949] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10181.907867] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2810 ms
+[10183.936980] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10185.967098] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10187.996966] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10190.026956] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10192.057009] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10194.867818] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2790 ms
+[10196.897139] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10198.927048] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10200.957004] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10202.986960] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10205.016981] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10207.046961] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10209.076958] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10211.907574] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2810 ms
+[10213.936846] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10215.966897] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10217.996882] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10220.026957] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10222.057024] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10224.867859] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2790 ms
+[10226.896954] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10228.926990] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10230.956939] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10232.987239] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10235.017129] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10237.046959] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10239.076983] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10241.907860] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2810 ms
+[10243.937054] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10245.966857] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10247.997081] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10250.026952] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10252.056966] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10254.867456] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2790 ms
+[10256.896992] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10258.926999] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10260.956976] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10262.986944] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10265.016970] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10267.046970] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10269.076956] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10271.908319] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2810 ms
+[10273.937012] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10275.966950] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10277.996957] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10280.026985] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10282.056951] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10284.867623] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2790 ms
+[10286.896968] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10288.927060] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10290.956949] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10292.987156] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10295.017094] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10297.046975] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10299.077007] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10301.907757] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2810 ms
+[10303.936967] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10305.966979] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10307.996959] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10310.026949] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10312.056975] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10314.867603] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2790 ms
+[10316.896950] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10318.927060] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10320.957040] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10322.986963] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10325.016979] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10327.046974] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10329.076969] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10331.907863] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2810 ms
+[10333.936954] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10335.967099] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10337.996952] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10340.026949] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10342.056979] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10344.867665] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2790 ms
+[10346.896954] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10348.926970] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10350.956975] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10352.987094] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10355.016996] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10357.046971] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10359.077039] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10361.907880] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2810 ms
+[10363.937113] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10365.967038] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10367.996952] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10370.026949] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10372.056972] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10374.867683] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2790 ms
+[10376.897002] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10378.926952] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10380.956996] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10382.987012] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10385.016959] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10387.046946] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10389.076973] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10391.907694] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2810 ms
+[10393.936936] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10395.966953] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10397.996988] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10400.026955] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10402.056889] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10404.867713] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2790 ms
+[10406.896973] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10408.926967] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10410.956930] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10412.987108] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10415.016965] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10417.046946] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10419.076955] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10421.907665] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2810 ms
+[10423.937141] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10425.966998] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10427.996990] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10430.026948] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10432.056945] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10434.867566] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2790 ms
+[10436.897107] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10438.926989] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10440.957086] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10442.987070] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10445.016960] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10447.047064] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10449.077065] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10451.907681] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2810 ms
+[10453.937044] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10455.966998] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10457.996983] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10460.026940] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10462.056997] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10464.867592] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2790 ms
+[10466.896934] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10468.926972] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10470.956999] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10472.987062] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10475.016953] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10477.046945] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10479.076943] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10481.907871] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2810 ms
+[10483.936951] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10485.966951] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10487.996952] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10490.026950] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10492.057113] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10494.867676] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2790 ms
+[10496.896970] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10498.926993] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10500.956954] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10502.986947] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10505.016949] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10507.046945] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[10509.076955] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms

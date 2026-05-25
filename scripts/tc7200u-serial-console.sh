@@ -54,8 +54,8 @@ if pgrep -af "picocom.*$DEV" >/dev/null; then
     exit 1
 fi
 
-mkdir -p "$RESEARCH/logs"
-LOG="$RESEARCH/logs/picocom-$(date +%Y%m%d-%H%M%S).log"
+mkdir -p "$RESEARCH/evidence/serial"
+LOG="$RESEARCH/evidence/serial/picocom-$(date +%Y%m%d-%H%M%S).log"
 
 echo "DEV=$DEV"
 echo "LOG=$LOG"

@@ -4,7 +4,7 @@
 
 Based on:
 
-- `logs/picocom-20260524-195459.log`
+- `evidence/serial/picocom-20260524-195459.log`
 - `C:/tftp/pkt.txt`
 
 Current run result is consistent with "TX submit accounting without usable wire

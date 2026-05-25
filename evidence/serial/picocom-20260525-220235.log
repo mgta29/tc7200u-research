@@ -1,0 +1,1117 @@
+ip -d link show dev eth0
+2: [1;36meth0: [0m<BROADCAST,MULTICAST> mtu 1500 qdisc mq state [1;31mDOWN [0mmode DEFAULT group default qlen 1000
+    link/ether [1;33m92:58:41:34:c0:f0[0m brd [1;33mff:ff:ff:ff:ff:ff[0m promiscuity 0 allmulti 0 minmtu 68 maxmtu 1500 addrgenmode eui64 numtxqueues 5 numrxqueues 5 gso_max_size 65536 gso_max_segs 65535 tso_max_size 65536 tso_max_segs 65535 gro_max_size 65536 gso_ipv4_max_size 65536 gro_ipv4_max_size 65536 parentbus platform parentdev 12c00000.ethernet 
+root@OpenWrt:~# cat /n[J[J[J[J[J[Jcat /sys/class/net/eth0/address
+92:58:41:34:c0:f0
+root@OpenWrt:~# cat /sys/class/net/br-lan/address
+cat: can't open '/sys/class/net/br-lan/address': No such file or directory
+root@OpenWrt:~# root@OpenWrt:~# cat /sys/class/net/br-lan/address[Jroot@OpenWrt:~# cat /sys/class/net/eth0/address[Jroot@OpenWrt:~# ip -d link show dev eth0[Jroot@OpenWrt:~# cat /sys/class/net/eth0/address[Jroot@OpenWrt:~# cat /sys/class/net/br-lan/address[Jroot@OpenWrt:~# [J	Supported ports: [ TP MII ]
+	Supported link modes:   1000baseT/Full 
+	Supported pause frame use: Symmetric Receive-only
+	Supports auto-negotiation: Yes
+	Supported FEC modes: Not reported
+	Advertised link modes:  Not reported
+	Advertised pause frame use: Symmetric Receive-only
+	Advertised auto-negotiation: No
+	Advertised FEC modes: Not reported
+	Speed: 10Mb/s
+	Duplex: Half
+	Port: MII
+	PHYAD: 0
+	Transceiver: external
+	Auto-negotiation: off
+	Supports Wake-on: d
+	Wake-on: d
+	Current message level: 0x00000007 (7)
+			       drv probe link
+	Link detected: yes
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# OWRT_MAC="$(cat /sys/class/net/eth0/address 2>/dev/null || echo 
+unknown)"
+root@OpenWrt:~# 
+root@OpenWrt:~# echo "=== owrt eth0 mac ==="
+=== owrt eth0 mac ===
+root@OpenWrt:~# 
+root@OpenWrt:~# echo "$OWRT_MAC"
+92:58:41:34:c0:f0
+root@OpenWrt:~# 
+root@OpenWrt:~# echo "Use this MAC in Windows script parameter -OwrtMac."
+Use this MAC in Windows script parameter -OwrtMac.
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# ip neigh replace 192.168.77.2 lladdr bc:ec:a0:2d:6c:9b nud perma
+nent dev eth0
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# detect_ping_mode
+root@OpenWrt:~# 
+root@OpenWrt:~# echo "=== ping stress mode ==="
+=== ping stress mode ===
+root@OpenWrt:~# 
+root@OpenWrt:~# echo "$PING_MODE"
+default
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# echo "=== pre ==="
+=== pre ===
+root@OpenWrt:~# 
+root@OpenWrt:~# date
+Thu Jan  1 00:21:40 GMT 1970
+root@OpenWrt:~# 
+root@OpenWrt:~# ip -d link show dev eth0
+2: [1;36meth0: [0m<BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state [1;32mUP [0mmode DEFAULT group default qlen 1000
+    link/ether [1;33m92:58:41:34:c0:f0[0m brd [1;33mff:ff:ff:ff:ff:ff[0m promiscuity 0 allmulti 0 minmtu 68 maxmtu 1500 addrgenmode eui64 numtxqueues 5 numrxqueues 5 gso_max_size 65536 gso_max_segs 65535 tso_max_size 65536 tso_max_segs 65535 gro_max_size 65536 gso_ipv4_max_size 65536 gro_ipv4_max_size 65536 parentbus platform parentdev 12c00000.ethernet 
+root@OpenWrt:~# 
+root@OpenWrt:~# ip -s link show dev eth0
+2: [1;36meth0: [0m<BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state [1;32mUP [0mmode DEFAULT group default qlen 1000
+    link/ether [1;33m92:58:41:34:c0:f0[0m brd [1;33mff:ff:ff:ff:ff:ff[0m
+    RX:  bytes packets errors dropped  missed   mcast           
+             0       0      0       0       0       0 
+    TX:  bytes packets errors dropped carrier collsns           
+          4828      12      8       0       0       0 
+root@OpenWrt:~# 
+root@OpenWrt:~# ip neigh show dev eth0 || true
+[1;35m192.168.77.2 [0mlladdr [1;33mbc:ec:a0:2d:6c:9b [0mPERMANENT 
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp || true
+IP address       HW type     Flags       HW address            Mask     Device
+192.168.77.2     0x1         0x6         bc:ec:a0:2d:6c:9b     *        eth0
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/interrupts | grep -Ei ' 64:| 66:|ERR'
+ 64:       3300  periph_intc@14e00048  64  eth0
+ 66:          0  periph_intc@14e00048  66  eth0
+ERR:      19171
+root@OpenWrt:~# 
+root@OpenWrt:~# dump 0x12c03804
+0x12c03804 = 0x00000001
+root@OpenWrt:~# 
+root@OpenWrt:~# dump 0x12c03808
+0x12c03808 = 0x00000001
+root@OpenWrt:~# 
+root@OpenWrt:~# dump 0x12c03c44
+0x12c03c44 = 0x00000001
+root@OpenWrt:~# 
+root@OpenWrt:~# dump 0x12c02c44
+0x12c02c44 = 0x00000001
+root@OpenWrt:~# 
+root@OpenWrt:~# dump_eth_stats
+=== sysfs eth0 stats ===
+rx_packets=0
+rx_bytes=0
+rx_errors=0
+rx_dropped=0
+tx_packets=12
+tx_bytes=4828
+tx_errors=8
+tx_dropped=0
+=== ethtool -S eth0 (rx/tx/drop/err/miss) ===
+NIC statistics:
+     rx_packets: 0
+     tx_packets: 12
+     rx_bytes: 0
+     tx_bytes: 4828
+     rx_errors: 0
+     tx_errors: 8
+     rx_dropped: 0
+     tx_dropped: 0
+     rx_64_octets: 2998927360
+     rx_65_127_oct: 2998927360
+     rx_128_255_oct: 2998927360
+     rx_256_511_oct: 2998927360
+     rx_512_1023_oct: 2998927360
+     rx_1024_1518_oct: 2998927360
+     rx_vlan_1519_1522_oct: 2998927360
+     rx_1522_2047_oct: 2998927360
+     rx_2048_4095_oct: 2998927360
+     rx_4096_9216_oct: 2998927360
+     rx_pkts: 2998927360
+     rx_bytes: 2998927360
+     rx_multicast: 2998927360
+     rx_broadcast: 2998927360
+     rx_fcs: 2998927360
+     rx_control: 2998927360
+     rx_pause: 2998927360
+     rx_unknown: 2998927360
+     rx_align: 2998927360
+     rx_outrange: 2998927360
+     rx_code: 2998927360
+     rx_carrier: 2998927360
+     rx_oversize: 2998927360
+     rx_jabber: 2998927360
+     rx_mtu_err: 2998927360
+     rx_good_pkts: 2998927360
+     rx_unicast: 2998927360
+     rx_ppp: 2998927360
+     rx_crc: 2998927360
+     tx_64_octets: 2998927360
+     tx_65_127_oct: 2998927360
+     tx_128_255_oct: 2998927360
+     tx_256_511_oct: 2998927360
+     tx_512_1023_oct: 2998927360
+     tx_1024_1518_oct: 2998927360
+     tx_vlan_1519_1522_oct: 2998927360
+     tx_1522_2047_oct: 2998927360
+     tx_2048_4095_oct: 2998927360
+     tx_4096_9216_oct: 2998927360
+     tx_pkts: 2998927360
+     tx_multicast: 2998927360
+     tx_broadcast: 2998927360
+     tx_pause: 2998927360
+     tx_control: 2998927360
+     tx_fcs_err: 2998927360
+     tx_oversize: 2998927360
+     tx_defer: 2998927360
+     tx_excess_defer: 2998927360
+     tx_single_col: 2998927360
+     tx_multi_col: 2998927360
+     tx_late_col: 2998927360
+     tx_excess_col: 2998927360
+     tx_frags: 2998927360
+     tx_total_col: 2998927360
+     tx_jabber: 2998927360
+     tx_bytes: 2998927360
+     tx_good_pkts: 2998927360
+     tx_unicast: 2998927360
+     rx_runt_pkts: 2998927360
+     rx_runt_valid_fcs: 2998927360
+     rx_runt_inval_fcs_align: 2998927360
+     rx_runt_bytes: 2998927360
+     rbuf_err_cnt: 1588
+     mdf_err_cnt: 1592
+     alloc_rx_buff_failed: 0
+     rx_dma_failed: 0
+     tx_dma_failed: 0
+     tx_realloc_tsb: 0
+     tx_realloc_tsb_failed: 0
+     txq0_packets: 12
+     txq0_bytes: 4828
+     rxq0_bytes: 0
+     rxq0_packets: 0
+     rxq0_errors: 0
+     rxq0_dropped: 0
+     txq1_packets: 0
+     txq1_bytes: 0
+     rxq1_bytes: 0
+     rxq1_packets: 0
+     rxq1_errors: 0
+     rxq1_dropped: 0
+     txq2_packets: 0
+     txq2_bytes: 0
+     rxq2_bytes: 0
+     rxq2_packets: 0
+     rxq2_errors: 0
+     rxq2_dropped: 0
+     txq3_packets: 0
+     txq3_bytes: 0
+     rxq3_bytes: 0
+     rxq3_packets: 0
+     rxq3_errors: 0
+     rxq3_dropped: 0
+     txq16_packets: 0
+     txq16_bytes: 0
+     rxq16_bytes: 0
+     rxq16_packets: 0
+     rxq16_errors: 0
+     rxq16_dropped: 0
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# echo "=== phase1 fill tx ring (6 rounds x 120 one-shot stress) =
+=="
+=== phase1 fill tx ring (6 rounds x 120 one-shot stress) ===
+root@OpenWrt:~# 
+root@OpenWrt:~# date
+Thu Jan  1 00:22:43 GMT 1970
+root@OpenWrt:~# 
+root@OpenWrt:~# i=1
+root@OpenWrt:~# 
+root@OpenWrt:~# while [ "$i" -le 6 ]; do
+> 
+>   echo "phase1 round $i/6"
+> 
+>   b0="$(tx_pkts)"
+> 
+>   burst_for_count 120
+> 
+>   b1="$(tx_pkts)"
+> 
+>   d1=$((b1-b0))
+> 
+>   echo "phase1 round $i/6 tx_delta_main=$d1 tx_before=$b0 tx_after=$b1 mode=$P
+ING_MODE"
+> 
+>   sleep 3
+> 
+>   i=$((i+1))
+> 
+> done
+phase1 round 1/6
+burst progress 10/120
+burst progress 20/120
+burst progress 30/120
+burst progress 40/120
+burst progress 50/120
+burst progress 60/120
+burst progress 70/120
+burst progress 80/120
+burst progress 90/120
+burst progress 100/120
+burst progress 110/120
+burst progress 120/120
+phase1 round 1/6 tx_delta_main=86 tx_before=12 tx_after=98 mode=default
+phase1 round 2/6
+burst progress 10/120
+burst progress 20/120
+burst progress 30/120
+burst progress 40/120
+burst progress 50/120
+burst progress 60/120
+burst progress 70/120
+burst progress 80/120
+burst progress 90/120
+burst progress 100/120
+burst progress 110/120
+burst progress 120/120
+phase1 round 2/6 tx_delta_main=88 tx_before=98 tx_after=186 mode=default
+phase1 round 3/6
+burst progress 10/120
+burst progress 20/120
+burst progress 30/120
+burst progress 40/120
+burst progress 50/120
+burst progress 60/120
+burst progress 70/120
+burst progress 80/120
+burst progress 90/120
+burst progress 100/120
+burst progress 110/120
+burst progress 120/120
+phase1 round 3/6 tx_delta_main=175 tx_before=186 tx_after=361 mode=default
+phase1 round 4/6
+burst progress 10/120
+burst progress 20/120
+burst progress 30/120
+burst progress 40/120
+burst progress 50/120
+burst progress 60/120
+burst progress 70/120
+burst progress 80/120
+burst progress 90/120
+burst progress 100/120
+burst progress 110/120
+burst progress 120/120
+phase1 round 4/6 tx_delta_main=0 tx_before=361 tx_after=361 mode=default
+phase1 round 5/6
+burst progress 10/120
+burst progress 20/120
+burst progress 30/120
+burst progress 40/120
+burst progress 50/120
+burst progress 60/120
+burst progress 70/120
+burst progress 80/120
+burst progress 90/120
+burst progress 100/120
+burst progress 110/120
+burst progress 120/120
+phase1 round 5/6 tx_delta_main=177 tx_before=361 tx_after=538 mode=default
+phase1 round 6/6
+burst progress 10/120
+burst progress 20/120
+burst progress 30/120
+burst progress 40/120
+burst progress 50/120
+burst progress 60/120
+burst progress 70/120
+burst progress 80/120
+burst progress 90/120
+burst progress 100/120
+burst progress 110/120
+burst progress 120/120
+phase1 round 6/6 tx_delta_main=176 tx_before=538 tx_after=714 mode=default
+root@OpenWrt:~# 
+root@OpenWrt:~# sleep 6
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# echo "=== post1 ==="
+=== post1 ===
+root@OpenWrt:~# 
+root@OpenWrt:~# date
+Thu Jan  1 00:53:40 GMT 1970
+root@OpenWrt:~# 
+root@OpenWrt:~# hold_detach
+root@OpenWrt:~# 
+root@OpenWrt:~# ip -d link show dev eth0
+2: [1;36meth0: [0m<BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state [1;32mUP [0mmode DEFAULT group default qlen 1000
+    link/ether [1;33m92:58:41:34:c0:f0[0m brd [1;33mff:ff:ff:ff:ff:ff[0m promiscuity 0 allmulti 0 minmtu 68 maxmtu 1500 addrgenmode eui64 numtxqueues 5 numrxqueues 5 gso_max_size 65536 gso_max_segs 65535 tso_max_size 65536 tso_max_segs 65535 gro_max_size 65536 gso_ipv4_max_size 65536 gro_ipv4_max_size 65536 parentbus platform parentdev 12c00000.ethernet 
+root@OpenWrt:~# 
+root@OpenWrt:~# ip -s link show dev eth0
+2: [1;36meth0: [0m<BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state [1;32mUP [0mmode DEFAULT group default qlen 1000
+    link/ether [1;33m92:58:41:34:c0:f0[0m brd [1;33mff:ff:ff:ff:ff:ff[0m
+    RX:  bytes packets errors dropped  missed   mcast           
+             0       0      0       0       0       0 
+    TX:  bytes packets errors dropped carrier collsns           
+         73764     714     22       0       0       0 
+root@OpenWrt:~# 
+root@OpenWrt:~# ip neigh show dev eth0 || true
+[1;35m192.168.77.2 [0mlladdr [1;33mbc:ec:a0:2d:6c:9b [0mPERMANENT 
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp || true
+IP address       HW type     Flags       HW address            Mask     Device
+192.168.77.2     0x1         0x6         bc:ec:a0:2d:6c:9b     *        eth0
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/interrupts | grep -Ei ' 64:| 66:|ERR'
+ 64:       5473  periph_intc@14e00048  64  eth0
+ 66:          0  periph_intc@14e00048  66  eth0
+ERR:      29665
+root@OpenWrt:~# 
+root@OpenWrt:~# dump 0x12c03804
+0x12c03804 = 0x00000001
+root@OpenWrt:~# 
+root@OpenWrt:~# dump 0x12c03808
+0x12c03808 = 0x00000001
+root@OpenWrt:~# 
+root@OpenWrt:~# dump 0x12c03c44
+0x12c03c44 = 0x00000001
+root@OpenWrt:~# 
+root@OpenWrt:~# dump 0x12c02c44
+0x12c02c44 = 0x00000001
+root@OpenWrt:~# 
+root@OpenWrt:~# dump_eth_stats
+=== sysfs eth0 stats ===
+rx_packets=0
+rx_bytes=0
+rx_errors=0
+rx_dropped=0
+tx_packets=714
+tx_bytes=73764
+tx_errors=22
+tx_dropped=0
+=== ethtool -S eth0 (rx/tx/drop/err/miss) ===
+NIC statistics:
+     rx_packets: 0
+     tx_packets: 714
+     rx_bytes: 0
+     tx_bytes: 73764
+     rx_errors: 0
+     tx_errors: 22
+     rx_dropped: 0
+     tx_dropped: 0
+     rx_64_octets: 2998927360
+     rx_65_127_oct: 2998927360
+     rx_128_255_oct: 2998927360
+     rx_256_511_oct: 2998927360
+     rx_512_1023_oct: 2998927360
+     rx_1024_1518_oct: 2998927360
+     rx_vlan_1519_1522_oct: 2998927360
+     rx_1522_2047_oct: 2998927360
+     rx_2048_4095_oct: 2998927360
+     rx_4096_9216_oct: 2998927360
+     rx_pkts: 2998927360
+     rx_bytes: 2998927360
+     rx_multicast: 2998927360
+     rx_broadcast: 2998927360
+     rx_fcs: 2998927360
+     rx_control: 2998927360
+     rx_pause: 2998927360
+     rx_unknown: 2998927360
+     rx_align: 2998927360
+     rx_outrange: 2998927360
+     rx_code: 2998927360
+     rx_carrier: 2998927360
+     rx_oversize: 2998927360
+     rx_jabber: 2998927360
+     rx_mtu_err: 2998927360
+     rx_good_pkts: 2998927360
+     rx_unicast: 2998927360
+     rx_ppp: 2998927360
+     rx_crc: 2998927360
+     tx_64_octets: 2998927360
+     tx_65_127_oct: 2998927360
+     tx_128_255_oct: 2998927360
+     tx_256_511_oct: 2998927360
+     tx_512_1023_oct: 2998927360
+     tx_1024_1518_oct: 2998927360
+     tx_vlan_1519_1522_oct: 2998927360
+     tx_1522_2047_oct: 2998927360
+     tx_2048_4095_oct: 2998927360
+     tx_4096_9216_oct: 2998927360
+     tx_pkts: 2998927360
+     tx_multicast: 2998927360
+     tx_broadcast: 2998927360
+     tx_pause: 2998927360
+     tx_control: 2998927360
+     tx_fcs_err: 2998927360
+     tx_oversize: 2998927360
+     tx_defer: 2998927360
+     tx_excess_defer: 2998927360
+     tx_single_col: 2998927360
+     tx_multi_col: 2998927360
+     tx_late_col: 2998927360
+     tx_excess_col: 2998927360
+     tx_frags: 2998927360
+     tx_total_col: 2998927360
+     tx_jabber: 2998927360
+     tx_bytes: 2998927360
+     tx_good_pkts: 2998927360
+     tx_unicast: 2998927360
+     rx_runt_pkts: 2998927360
+     rx_runt_valid_fcs: 2998927360
+     rx_runt_inval_fcs_align: 2998927360
+     rx_runt_bytes: 2998927360
+     rbuf_err_cnt: 1588
+     mdf_err_cnt: 1592
+     alloc_rx_buff_failed: 0
+     rx_dma_failed: 0
+     tx_dma_failed: 0
+     tx_realloc_tsb: 0
+     tx_realloc_tsb_failed: 0
+     txq0_packets: 714
+     txq0_bytes: 73764
+     rxq0_bytes: 0
+     rxq0_packets: 0
+     rxq0_errors: 0
+     rxq0_dropped: 0
+     txq1_packets: 0
+     txq1_bytes: 0
+     rxq1_bytes: 0
+     rxq1_packets: 0
+     rxq1_errors: 0
+     rxq1_dropped: 0
+     txq2_packets: 0
+     txq2_bytes: 0
+     rxq2_bytes: 0
+     rxq2_packets: 0
+     rxq2_errors: 0
+     rxq2_dropped: 0
+     txq3_packets: 0
+     txq3_bytes: 0
+     rxq3_bytes: 0
+     rxq3_packets: 0
+     rxq3_errors: 0
+     rxq3_dropped: 0
+     txq16_packets: 0
+     txq16_bytes: 0
+     rxq16_bytes: 0
+     rxq16_packets: 0
+     rxq16_errors: 0
+     rxq16_dropped: 0
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# echo "=== phase2 host->router rx window (120s) ==="
+=== phase2 host->router rx window (120s) ===
+root@OpenWrt:~# 
+root@OpenWrt:~# date
+Thu Jan  1 00:55:15 GMT 1970
+root@OpenWrt:~# 
+root@OpenWrt:~# sleep 120
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# echo "=== post2 ==="
+=== post2 ===
+root@OpenWrt:~# 
+root@OpenWrt:~# date
+Thu Jan  1 00:57:19 GMT 1970
+root@OpenWrt:~# 
+root@OpenWrt:~# hold_detach
+root@OpenWrt:~# 
+root@OpenWrt:~# ip -d link show dev eth0
+2: [1;36meth0: [0m<BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state [1;32mUP [0mmode DEFAULT group default qlen 1000
+    link/ether [1;33m92:58:41:34:c0:f0[0m brd [1;33mff:ff:ff:ff:ff:ff[0m promiscuity 0 allmulti 0 minmtu 68 maxmtu 1500 addrgenmode eui64 numtxqueues 5 numrxqueues 5 gso_max_size 65536 gso_max_segs 65535 tso_max_size 65536 tso_max_segs 65535 gro_max_size 65536 gso_ipv4_max_size 65536 gro_ipv4_max_size 65536 parentbus platform parentdev 12c00000.ethernet 
+root@OpenWrt:~# 
+root@OpenWrt:~# ip -s link show dev eth0
+2: [1;36meth0: [0m<BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state [1;32mUP [0mmode DEFAULT group default qlen 1000
+    link/ether [1;33m92:58:41:34:c0:f0[0m brd [1;33mff:ff:ff:ff:ff:ff[0m
+    RX:  bytes packets errors dropped  missed   mcast           
+             0       0      0       0       0       0 
+    TX:  bytes packets errors dropped carrier collsns           
+         73764     714     22       0       0       0 
+root@OpenWrt:~# 
+root@OpenWrt:~# ip neigh show dev eth0 || true
+[1;35m192.168.77.2 [0mlladdr [1;33mbc:ec:a0:2d:6c:9b [0mPERMANENT 
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp || true
+IP address       HW type     Flags       HW address            Mask     Device
+192.168.77.2     0x1         0x6         bc:ec:a0:2d:6c:9b     *        eth0
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/interrupts | grep -Ei ' 64:| 66:|ERR'
+ 64:       6741  periph_intc@14e00048  64  eth0
+ 66:          0  periph_intc@14e00048  66  eth0
+ERR:      33028
+root@OpenWrt:~# 
+root@OpenWrt:~# dump 0x12c03804
+0x12c03804 = 0x00000001
+root@OpenWrt:~# 
+root@OpenWrt:~# dump 0x12c03808
+0x12c03808 = 0x00000001
+root@OpenWrt:~# 
+root@OpenWrt:~# dump 0x12c03c44
+0x12c03c44 = 0x00000001
+root@OpenWrt:~# 
+root@OpenWrt:~# dump 0x12c02c44
+0x12c02c44 = 0x00000001
+root@OpenWrt:~# 
+root@OpenWrt:~# dump_eth_stats
+=== sysfs eth0 stats ===
+rx_packets=0
+rx_bytes=0
+rx_errors=0
+rx_dropped=0
+tx_packets=714
+tx_bytes=73764
+tx_errors=22
+tx_dropped=0
+=== ethtool -S eth0 (rx/tx/drop/err/miss) ===
+NIC statistics:
+     rx_packets: 0
+     tx_packets: 714
+     rx_bytes: 0
+     tx_bytes: 73764
+     rx_errors: 0
+     tx_errors: 22
+     rx_dropped: 0
+     tx_dropped: 0
+     rx_64_octets: 2998927360
+     rx_65_127_oct: 2998927360
+     rx_128_255_oct: 2998927360
+     rx_256_511_oct: 2998927360
+     rx_512_1023_oct: 2998927360
+     rx_1024_1518_oct: 2998927360
+     rx_vlan_1519_1522_oct: 2998927360
+     rx_1522_2047_oct: 2998927360
+     rx_2048_4095_oct: 2998927360
+     rx_4096_9216_oct: 2998927360
+     rx_pkts: 2998927360
+     rx_bytes: 2998927360
+     rx_multicast: 2998927360
+     rx_broadcast: 2998927360
+     rx_fcs: 2998927360
+     rx_control: 2998927360
+     rx_pause: 2998927360
+     rx_unknown: 2998927360
+     rx_align: 2998927360
+     rx_outrange: 2998927360
+     rx_code: 2998927360
+     rx_carrier: 2998927360
+     rx_oversize: 2998927360
+     rx_jabber: 2998927360
+     rx_mtu_err: 2998927360
+     rx_good_pkts: 2998927360
+     rx_unicast: 2998927360
+     rx_ppp: 2998927360
+     rx_crc: 2998927360
+     tx_64_octets: 2998927360
+     tx_65_127_oct: 2998927360
+     tx_128_255_oct: 2998927360
+     tx_256_511_oct: 2998927360
+     tx_512_1023_oct: 2998927360
+     tx_1024_1518_oct: 2998927360
+     tx_vlan_1519_1522_oct: 2998927360
+     tx_1522_2047_oct: 2998927360
+     tx_2048_4095_oct: 2998927360
+     tx_4096_9216_oct: 2998927360
+     tx_pkts: 2998927360
+     tx_multicast: 2998927360
+     tx_broadcast: 2998927360
+     tx_pause: 2998927360
+     tx_control: 2998927360
+     tx_fcs_err: 2998927360
+     tx_oversize: 2998927360
+     tx_defer: 2998927360
+     tx_excess_defer: 2998927360
+     tx_single_col: 2998927360
+     tx_multi_col: 2998927360
+     tx_late_col: 2998927360
+     tx_excess_col: 2998927360
+     tx_frags: 2998927360
+     tx_total_col: 2998927360
+     tx_jabber: 2998927360
+     tx_bytes: 2998927360
+     tx_good_pkts: 2998927360
+     tx_unicast: 2998927360
+     rx_runt_pkts: 2998927360
+     rx_runt_valid_fcs: 2998927360
+     rx_runt_inval_fcs_align: 2998927360
+     rx_runt_bytes: 2998927360
+     rbuf_err_cnt: 1588
+     mdf_err_cnt: 1592
+     alloc_rx_buff_failed: 0
+     rx_dma_failed: 0
+     tx_dma_failed: 0
+     tx_realloc_tsb: 0
+     tx_realloc_tsb_failed: 0
+     txq0_packets: 714
+     txq0_bytes: 73764
+     rxq0_bytes: 0
+     rxq0_packets: 0
+     rxq0_errors: 0
+     rxq0_dropped: 0
+     txq1_packets: 0
+     txq1_bytes: 0
+     rxq1_bytes: 0
+     rxq1_packets: 0
+     rxq1_errors: 0
+     rxq1_dropped: 0
+     txq2_packets: 0
+     txq2_bytes: 0
+     rxq2_bytes: 0
+     rxq2_packets: 0
+     rxq2_errors: 0
+     rxq2_dropped: 0
+     txq3_packets: 0
+     txq3_bytes: 0
+     rxq3_bytes: 0
+     rxq3_packets: 0
+     rxq3_errors: 0
+     rxq3_dropped: 0
+     txq16_packets: 0
+     txq16_bytes: 0
+     rxq16_bytes: 0
+     rxq16_packets: 0
+     rxq16_errors: 0
+     rxq16_dropped: 0
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# echo "=== watchdog count ==="
+=== watchdog count ===
+root@OpenWrt:~# 
+root@OpenWrt:~# dmesg | grep -c 'NETDEV WATCHDOG' || true
+13
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# echo "=== watchdog block ==="
+=== watchdog block ===
+root@OpenWrt:~# 
+root@OpenWrt:~# dmesg | grep -A8 -E 'NETDEV WATCHDOG|Ring 0 queue 0 status summa
+ry' | tail -n 500
+[ 1799.907683] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2140 ms
+[ 1801.917039] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 1801.962457] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=587 sw_prod=183 hw_before(p=0 c=8) hw_after(p=1 c=96) first=0x06ddb182 first_stat=0x00a26fc0 last=0x06ddb182 last_stat=0x00a26fc0
+[ 1802.810953] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=586 sw_prod=184 hw_before(p=0 c=8) hw_after(p=1 c=112) first=0x06dda782 first_stat=0x00a26fc0 last=0x06dda782 last_stat=0x00a26fc0
+[ 1805.327420] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=585 sw_prod=185 hw_before(p=0 c=8) hw_after(p=1 c=128) first=0x06dda282 first_stat=0x00a26fc0 last=0x06dda282 last_stat=0x00a26fc0
+[ 1807.831173] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=584 sw_prod=186 hw_before(p=0 c=8) hw_after(p=1 c=144) first=0x06ddbb82 first_stat=0x00a26fc0 last=0x06ddbb82 last_stat=0x00a26fc0
+[ 1810.290505] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=583 sw_prod=187 hw_before(p=0 c=8) hw_after(p=1 c=160) first=0x06ddac82 first_stat=0x00a26fc0 last=0x06ddac82 last_stat=0x00a26fc0
+[ 1812.723544] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=582 sw_prod=188 hw_before(p=0 c=8) hw_after(p=1 c=176) first=0x06ddb402 first_stat=0x00a26fc0 last=0x06ddb402 last_stat=0x00a26fc0
+[ 1815.198744] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=581 sw_prod=189 hw_before(p=0 c=8) hw_after(p=1 c=192) first=0x06dda502 first_stat=0x00a26fc0 last=0x06dda502 last_stat=0x00a26fc0
+[ 1817.695008] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=580 sw_prod=190 hw_before(p=0 c=8) hw_after(p=1 c=208) first=0x06ddb902 first_stat=0x00a26fc0 last=0x06ddb902 last_stat=0x00a26fc0
+--
+[ 2243.907941] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2720 ms
+[ 2243.972458] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=666 sw_prod=103 hw_before(p=0 c=8) hw_after(p=1 c=96) first=0x06f5fb82 first_stat=0x00a26fc0 last=0x06f5fb82 last_stat=0x00a26fc0
+[ 2246.101355] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=665 sw_prod=104 hw_before(p=0 c=8) hw_after(p=1 c=112) first=0x06f5ec82 first_stat=0x00a26fc0 last=0x06f5ec82 last_stat=0x00a26fc0
+[ 2248.092058] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=664 sw_prod=105 hw_before(p=0 c=8) hw_after(p=1 c=128) first=0x06f5e282 first_stat=0x00a26fc0 last=0x06f5e282 last_stat=0x00a26fc0
+[ 2250.577303] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=663 sw_prod=106 hw_before(p=0 c=8) hw_after(p=1 c=144) first=0x06f5f682 first_stat=0x00a26fc0 last=0x06f5f682 last_stat=0x00a26fc0
+[ 2253.044248] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=662 sw_prod=107 hw_before(p=0 c=8) hw_after(p=1 c=160) first=0x06f5e002 first_stat=0x00a26fc0 last=0x06f5e002 last_stat=0x00a26fc0
+[ 2255.514710] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=661 sw_prod=108 hw_before(p=0 c=8) hw_after(p=1 c=176) first=0x06f5ef02 first_stat=0x00a26fc0 last=0x06f5ef02 last_stat=0x00a26fc0
+[ 2258.001345] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=660 sw_prod=109 hw_before(p=0 c=8) hw_after(p=1 c=192) first=0x06f5ea02 first_stat=0x00a26fc0 last=0x06f5ea02 last_stat=0x00a26fc0
+[ 2260.536873] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=659 sw_prod=110 hw_before(p=0 c=8) hw_after(p=1 c=208) first=0x06f5f902 first_stat=0x00a26fc0 last=0x06f5f902 last_stat=0x00a26fc0
+--
+[ 2697.907777] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2110 ms
+[ 2699.917039] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 2699.933406] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=492 sw_prod=22 hw_before(p=0 c=8) hw_after(p=1 c=80) first=0x06f7d182 first_stat=0x00a26fc0 last=0x06f7d182 last_stat=0x00a26fc0
+[ 2700.831010] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=491 sw_prod=23 hw_before(p=0 c=8) hw_after(p=1 c=96) first=0x06f7d402 first_stat=0x00a26fc0 last=0x06f7d402 last_stat=0x00a26fc0
+[ 2702.867619] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2030 ms
+[ 2702.942615] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=745 sw_prod=24 hw_before(p=0 c=8) hw_after(p=1 c=112) first=0x06f7c782 first_stat=0x00a26fc0 last=0x06f7c782 last_stat=0x00a26fc0
+[ 2705.231370] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=744 sw_prod=25 hw_before(p=0 c=8) hw_after(p=1 c=128) first=0x06f7d182 first_stat=0x00a26fc0 last=0x06f7d182 last_stat=0x00a26fc0
+[ 2707.652257] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=743 sw_prod=26 hw_before(p=0 c=8) hw_after(p=1 c=144) first=0x06f7d402 first_stat=0x00a26fc0 last=0x06f7d402 last_stat=0x00a26fc0
+[ 2710.150605] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=742 sw_prod=27 hw_before(p=0 c=8) hw_after(p=1 c=160) first=0x06f7db82 first_stat=0x00a26fc0 last=0x06f7db82 last_stat=0x00a26fc0
+[ 2712.663005] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=741 sw_prod=28 hw_before(p=0 c=8) hw_after(p=1 c=176) first=0x06f7c282 first_stat=0x00a26fc0 last=0x06f7c282 last_stat=0x00a26fc0
+[ 2715.143122] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=740 sw_prod=29 hw_before(p=0 c=8) hw_after(p=1 c=192) first=0x06f7cc82 first_stat=0x00a26fc0 last=0x06f7cc82 last_stat=0x00a26fc0
+[ 2717.648157] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=739 sw_prod=30 hw_before(p=0 c=8) hw_after(p=1 c=208) first=0x06f7c002 first_stat=0x00a26fc0 last=0x06f7c002 last_stat=0x00a26fc0
+[ 2720.108683] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=738 sw_prod=31 hw_before(p=0 c=8) hw_after(p=1 c=224) first=0x06f7d682 first_stat=0x00a26fc0 last=0x06f7d682 last_stat=0x00a26fc0
+--
+[ 3145.907565] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2590 ms
+[ 3147.917022] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 3149.927216] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 3151.937071] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 3153.947224] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 3155.956905] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 3157.967161] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2010 ms
+[ 3158.032658] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=825 sw_prod=200 hw_before(p=0 c=8) hw_after(p=1 c=112) first=0x06dd0002 first_stat=0x00a26fc0 last=0x06dd0002 last_stat=0x00a26fc0
+[ 3158.061684] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=820 sw_prod=205 hw_before(p=0 c=8) hw_after(p=1 c=192) first=0x06f60a02 first_stat=0x00a26fc0 last=0x06f60a02 last_stat=0x00a26fc0
+[ 3159.959765] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=819 sw_prod=206 hw_before(p=0 c=8) hw_after(p=1 c=208) first=0x06f60002 first_stat=0x00a26fc0 last=0x06f60002 last_stat=0x00a26fc0
+[ 3162.421000] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=818 sw_prod=207 hw_before(p=0 c=8) hw_after(p=1 c=224) first=0x06f61682 first_stat=0x00a26fc0 last=0x06f61682 last_stat=0x00a26fc0
+[ 3164.873948] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=817 sw_prod=208 hw_before(p=0 c=8) hw_after(p=1 c=240) first=0x06f60c82 first_stat=0x00a26fc0 last=0x06f60c82 last_stat=0x00a26fc0
+[ 3167.383120] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=816 sw_prod=209 hw_before(p=0 c=8) hw_after(p=1 c=0) first=0x06f60282 first_stat=0x00a26fc0 last=0x06f60282 last_stat=0x00a26fc0
+[ 3169.832536] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=815 sw_prod=210 hw_before(p=0 c=8) hw_after(p=1 c=16) first=0x06f61b82 first_stat=0x00a26fc0 last=0x06f61b82 last_stat=0x00a26fc0
+[ 3172.317830] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=814 sw_prod=211 hw_before(p=0 c=8) hw_after(p=1 c=32) first=0x06f61182 first_stat=0x00a26fc0 last=0x06f61182 last_stat=0x00a26fc0
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# echo "=== tx tail ==="
+=== tx tail ===
+root@OpenWrt:~# 
+root@OpenWrt:~# dmesg | grep -E 'tc7200u tx submit' | tail -n 360
+[ 2275.440541] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=653 sw_prod=116 hw_before(p=0 c=8) hw_after(p=1 c=48) first=0x06de4002 first_stat=0x00a26fc0 last=0x06de4002 last_stat=0x00a26fc0
+[ 2277.394600] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=652 sw_prod=117 hw_before(p=0 c=8) hw_after(p=1 c=64) first=0x06de4c82 first_stat=0x00a26fc0 last=0x06de4c82 last_stat=0x00a26fc0
+[ 2279.837138] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=651 sw_prod=118 hw_before(p=0 c=8) hw_after(p=1 c=80) first=0x06de4f02 first_stat=0x00a26fc0 last=0x06de4f02 last_stat=0x00a26fc0
+[ 2282.263755] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=650 sw_prod=119 hw_before(p=0 c=8) hw_after(p=1 c=96) first=0x06de5682 first_stat=0x00a26fc0 last=0x06de5682 last_stat=0x00a26fc0
+[ 2299.600870] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=649 sw_prod=120 hw_before(p=0 c=8) hw_after(p=1 c=112) first=0x06de5902 first_stat=0x00a26fc0 last=0x06de5902 last_stat=0x00a26fc0
+[ 2302.102466] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=648 sw_prod=121 hw_before(p=0 c=8) hw_after(p=1 c=128) first=0x06de4a02 first_stat=0x00a26fc0 last=0x06de4a02 last_stat=0x00a26fc0
+[ 2304.530358] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=647 sw_prod=122 hw_before(p=0 c=8) hw_after(p=1 c=144) first=0x06de4782 first_stat=0x00a26fc0 last=0x06de4782 last_stat=0x00a26fc0
+[ 2307.028414] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=646 sw_prod=123 hw_before(p=0 c=8) hw_after(p=1 c=160) first=0x06de5402 first_stat=0x00a26fc0 last=0x06de5402 last_stat=0x00a26fc0
+[ 2309.037058] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=645 sw_prod=124 hw_before(p=0 c=8) hw_after(p=1 c=176) first=0x06de5182 first_stat=0x00a26fc0 last=0x06de5182 last_stat=0x00a26fc0
+[ 2311.413780] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=644 sw_prod=125 hw_before(p=0 c=8) hw_after(p=1 c=192) first=0x06de4502 first_stat=0x00a26fc0 last=0x06de4502 last_stat=0x00a26fc0
+[ 2313.937258] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=643 sw_prod=126 hw_before(p=0 c=8) hw_after(p=1 c=208) first=0x06eb1182 first_stat=0x00a26fc0 last=0x06eb1182 last_stat=0x00a26fc0
+[ 2316.405273] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=642 sw_prod=127 hw_before(p=0 c=8) hw_after(p=1 c=224) first=0x06eb0782 first_stat=0x00a26fc0 last=0x06eb0782 last_stat=0x00a26fc0
+[ 2318.857940] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=641 sw_prod=128 hw_before(p=0 c=8) hw_after(p=1 c=240) first=0x06eb0282 first_stat=0x00a26fc0 last=0x06eb0282 last_stat=0x00a26fc0
+[ 2321.357957] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=640 sw_prod=129 hw_before(p=0 c=8) hw_after(p=1 c=0) first=0x06eb1b82 first_stat=0x00a26fc0 last=0x06eb1b82 last_stat=0x00a26fc0
+[ 2323.851491] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=639 sw_prod=130 hw_before(p=0 c=8) hw_after(p=1 c=16) first=0x06eb0c82 first_stat=0x00a26fc0 last=0x06eb0c82 last_stat=0x00a26fc0
+[ 2326.332618] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=638 sw_prod=131 hw_before(p=0 c=8) hw_after(p=1 c=32) first=0x06eb0002 first_stat=0x00a26fc0 last=0x06eb0002 last_stat=0x00a26fc0
+[ 2328.807562] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=637 sw_prod=132 hw_before(p=0 c=8) hw_after(p=1 c=48) first=0x06eb1682 first_stat=0x00a26fc0 last=0x06eb1682 last_stat=0x00a26fc0
+[ 2331.288257] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=636 sw_prod=133 hw_before(p=0 c=8) hw_after(p=1 c=64) first=0x06eb0f02 first_stat=0x00a26fc0 last=0x06eb0f02 last_stat=0x00a26fc0
+[ 2333.743874] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=635 sw_prod=134 hw_before(p=0 c=8) hw_after(p=1 c=80) first=0x06eb0a02 first_stat=0x00a26fc0 last=0x06eb0a02 last_stat=0x00a26fc0
+[ 2336.251600] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=634 sw_prod=135 hw_before(p=0 c=8) hw_after(p=1 c=96) first=0x06eb1902 first_stat=0x00a26fc0 last=0x06eb1902 last_stat=0x00a26fc0
+[ 2338.653505] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=633 sw_prod=136 hw_before(p=0 c=8) hw_after(p=1 c=112) first=0x06eb1402 first_stat=0x00a26fc0 last=0x06eb1402 last_stat=0x00a26fc0
+[ 2340.686641] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=632 sw_prod=137 hw_before(p=0 c=8) hw_after(p=1 c=128) first=0x06eb0502 first_stat=0x00a26fc0 last=0x06eb0502 last_stat=0x00a26fc0
+[ 2343.174223] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=631 sw_prod=138 hw_before(p=0 c=8) hw_after(p=1 c=144) first=0x068f9182 first_stat=0x00a26fc0 last=0x068f9182 last_stat=0x00a26fc0
+[ 2345.633996] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=630 sw_prod=139 hw_before(p=0 c=8) hw_after(p=1 c=160) first=0x068f9b82 first_stat=0x00a26fc0 last=0x068f9b82 last_stat=0x00a26fc0
+[ 2348.161849] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=629 sw_prod=140 hw_before(p=0 c=8) hw_after(p=1 c=176) first=0x068f8c82 first_stat=0x00a26fc0 last=0x068f8c82 last_stat=0x00a26fc0
+[ 2350.554644] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=628 sw_prod=141 hw_before(p=0 c=8) hw_after(p=1 c=192) first=0x068f8282 first_stat=0x00a26fc0 last=0x068f8282 last_stat=0x00a26fc0
+[ 2353.048091] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=627 sw_prod=142 hw_before(p=0 c=8) hw_after(p=1 c=208) first=0x068f8f02 first_stat=0x00a26fc0 last=0x068f8f02 last_stat=0x00a26fc0
+[ 2355.587181] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=626 sw_prod=143 hw_before(p=0 c=8) hw_after(p=1 c=224) first=0x068f9682 first_stat=0x00a26fc0 last=0x068f9682 last_stat=0x00a26fc0
+[ 2358.091728] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=625 sw_prod=144 hw_before(p=0 c=8) hw_after(p=1 c=240) first=0x068f8a02 first_stat=0x00a26fc0 last=0x068f8a02 last_stat=0x00a26fc0
+[ 2360.551120] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=624 sw_prod=145 hw_before(p=0 c=8) hw_after(p=1 c=0) first=0x068f9902 first_stat=0x00a26fc0 last=0x068f9902 last_stat=0x00a26fc0
+[ 2363.067857] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=623 sw_prod=146 hw_before(p=0 c=8) hw_after(p=1 c=16) first=0x068f8782 first_stat=0x00a26fc0 last=0x068f8782 last_stat=0x00a26fc0
+[ 2365.489826] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=622 sw_prod=147 hw_before(p=0 c=8) hw_after(p=1 c=32) first=0x068f9402 first_stat=0x00a26fc0 last=0x068f9402 last_stat=0x00a26fc0
+[ 2367.937843] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=621 sw_prod=148 hw_before(p=0 c=8) hw_after(p=1 c=48) first=0x068f8002 first_stat=0x00a26fc0 last=0x068f8002 last_stat=0x00a26fc0
+[ 2369.904922] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=620 sw_prod=149 hw_before(p=0 c=8) hw_after(p=1 c=64) first=0x068f8502 first_stat=0x00a26fc0 last=0x068f8502 last_stat=0x00a26fc0
+[ 2372.413400] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=619 sw_prod=150 hw_before(p=0 c=8) hw_after(p=1 c=80) first=0x06de2502 first_stat=0x00a26fc0 last=0x06de2502 last_stat=0x00a26fc0
+[ 2374.837970] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=618 sw_prod=151 hw_before(p=0 c=8) hw_after(p=1 c=96) first=0x06de3902 first_stat=0x00a26fc0 last=0x06de3902 last_stat=0x00a26fc0
+[ 2377.268174] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=617 sw_prod=152 hw_before(p=0 c=8) hw_after(p=1 c=112) first=0x06de2782 first_stat=0x00a26fc0 last=0x06de2782 last_stat=0x00a26fc2379.703054] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=616 sw_prod=153 hw_before(p=0 c=8) hw_after(p=1 c=128) first=0x06de3402 first_stat=0x00a26fc0 last=0x06de3402 last_stat=0x00a26fc0
+[ 2382.206845] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=615 sw_prod=154 hw_before(p=0 c=8) hw_after(p=1 c=144) first=0x06de3182 first_stat=0x00a26fc0 last=0x06de3182 last_stat=0x00a26fc0
+[ 2384.742300] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=614 sw_prod=155 hw_before(p=0 c=8) hw_after(p=1 c=160) first=0x06de3b82 first_stat=0x00a26fc0 last=0x06de3b82 last_stat=0x00a26fc0
+[ 2387.217907] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=613 sw_prod=156 hw_before(p=0 c=8) hw_after(p=1 c=176) first=0x06de2282 first_stat=0x00a26fc0 last=0x06de2282 last_stat=0x00a26fc0
+[ 2389.673550] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=612 sw_prod=157 hw_before(p=0 c=8) hw_after(p=1 c=192) first=0x06de2c82 first_stat=0x00a26fc0 last=0x06de2c82 last_stat=0x00a26fc0
+[ 2392.171243] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=611 sw_prod=158 hw_before(p=0 c=8) hw_after(p=1 c=208) first=0x06de2002 first_stat=0x00a26fc0 last=0x06de2002 last_stat=0x00a26fc0
+[ 2394.657723] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=610 sw_prod=159 hw_before(p=0 c=8) hw_after(p=1 c=224) first=0x06de2f02 first_stat=0x00a26fc0 last=0x06de2f02 last_stat=0x00a26fc0
+[ 2397.183472] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=609 sw_prod=160 hw_before(p=0 c=8) hw_after(p=1 c=240) first=0x06de3682 first_stat=0x00a26fc0 last=0x06de3682 last_stat=0x00a26fc0
+[ 2399.164824] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=608 sw_prod=161 hw_before(p=0 c=8) hw_after(p=1 c=0) first=0x06de5b82 first_stat=0x00a26fc0 last=0x06de5b82 last_stat=0x00a26fc0
+[ 2401.603145] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=607 sw_prod=162 hw_before(p=0 c=8) hw_after(p=1 c=16) first=0x06de2a02 first_stat=0x00a26fc0 last=0x06de2a02 last_stat=0x00a26fc0
+[ 2404.077974] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=606 sw_prod=163 hw_before(p=0 c=8) hw_after(p=1 c=32) first=0x06ddaf02 first_stat=0x00a26fc0 last=0x06ddaf02 last_stat=0x00a26fc0
+[ 2406.522471] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=605 sw_prod=164 hw_before(p=0 c=8) hw_after(p=1 c=48) first=0x06dda002 first_stat=0x00a26fc0 last=0x06dda002 last_stat=0x00a26fc0
+[ 2409.001493] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=604 sw_prod=165 hw_before(p=0 c=8) hw_after(p=1 c=64) first=0x06ddb682 first_stat=0x00a26fc0 last=0x06ddb682 last_stat=0x00a26fc0
+[ 2411.488278] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=603 sw_prod=166 hw_before(p=0 c=8) hw_after(p=1 c=80) first=0x06ddaa02 first_stat=0x00a26fc0 last=0x06ddaa02 last_stat=0x00a26fc0
+[ 2414.016885] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=602 sw_prod=167 hw_before(p=0 c=8) hw_after(p=1 c=96) first=0x06ddb902 first_stat=0x00a26fc0 last=0x06ddb902 last_stat=0x00a26fc0
+[ 2416.457392] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=601 sw_prod=168 hw_before(p=0 c=8) hw_after(p=1 c=112) first=0x06dda502 first_stat=0x00a26fc0 last=0x06dda502 last_stat=0x00a26fc0
+[ 2418.977605] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=600 sw_prod=169 hw_before(p=0 c=8) hw_after(p=1 c=128) first=0x06ddb402 first_stat=0x00a26fc0 last=0x06ddb402 last_stat=0x00a26fc0
+[ 2421.454345] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=599 sw_prod=170 hw_before(p=0 c=8) hw_after(p=1 c=144) first=0x06ddac82 first_stat=0x00a26fc0 last=0x06ddac82 last_stat=0x00a26fc0
+[ 2423.941851] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=598 sw_prod=171 hw_before(p=0 c=8) hw_after(p=1 c=160) first=0x06ddbb82 first_stat=0x00a26fc0 last=0x06ddbb82 last_stat=0x00a26fc0
+[ 2426.394952] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=597 sw_prod=172 hw_before(p=0 c=8) hw_after(p=1 c=176) first=0x06dda282 first_stat=0x00a26fc0 last=0x06dda282 last_stat=0x00a26fc0
+[ 2428.730832] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=596 sw_prod=173 hw_before(p=0 c=8) hw_after(p=1 c=192) first=0x06ddb182 first_stat=0x00a26fc0 last=0x06ddb182 last_stat=0x00a26fc0
+[ 2430.788038] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=595 sw_prod=174 hw_before(p=0 c=8) hw_after(p=1 c=208) first=0x06dda782 first_stat=0x00a26fc0 last=0x06dda782 last_stat=0x00a26fc0
+[ 2433.294759] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=594 sw_prod=175 hw_before(p=0 c=8) hw_after(p=1 c=224) first=0x06f5c502 first_stat=0x00a26fc0 last=0x06f5c502 last_stat=0x00a26fc0
+[ 2435.714738] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=593 sw_prod=176 hw_before(p=0 c=8) hw_after(p=1 c=240) first=0x06f5d402 first_stat=0x00a26fc0 last=0x06f5d402 last_stat=0x00a26fc0
+[ 2438.223673] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=592 sw_prod=177 hw_before(p=0 c=8) hw_after(p=1 c=0) first=0x06f5d182 first_stat=0x00a26fc0 last=0x06f5d182 last_stat=0x00a26fc0
+[ 2440.671493] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=591 sw_prod=178 hw_before(p=0 c=8) hw_after(p=1 c=16) first=0x06f5c782 first_stat=0x00a26fc0 last=0x06f5c782 last_stat=0x00a26fc0
+[ 2443.090105] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=590 sw_prod=179 hw_before(p=0 c=8) hw_after(p=1 c=32) first=0x06f5db82 first_stat=0x00a26fc0 last=0x06f5db82 last_stat=0x00a26fc0
+[ 2445.634964] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=589 sw_prod=180 hw_before(p=0 c=8) hw_after(p=1 c=48) first=0x06f5c282 first_stat=0x00a26fc0 last=0x06f5c282 last_stat=0x00a26fc0
+[ 2448.057156] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=588 sw_prod=181 hw_before(p=0 c=8) hw_after(p=1 c=64) first=0x06f5cc82 first_stat=0x00a26fc0 last=0x06f5cc82 last_stat=0x00a26fc0
+[ 2450.531150] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=587 sw_prod=182 hw_before(p=0 c=8) hw_after(p=1 c=80) first=0x06f5c002 first_stat=0x00a26fc0 last=0x06f5c002 last_stat=0x00a26fc0
+[ 2453.003126] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=586 sw_prod=183 hw_before(p=0 c=8) hw_after(p=1 c=96) first=0x06f5d682 first_stat=0x00a26fc0 last=0x06f5d682 last_stat=0x00a26fc0
+[ 2455.494167] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=585 sw_prod=184 hw_before(p=0 c=8) hw_after(p=1 c=112) first=0x06f5cf02 first_stat=0x00a26fc0 last=0x06f5cf02 last_stat=0x00a26fc0
+[ 2457.986850] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=584 sw_prod=185 hw_before(p=0 c=8) hw_after(p=1 c=128) first=0x06f5d902 first_stat=0x00a26fc0 last=0x06f5d902 last_stat=0x00a26fc0
+[ 2459.962123] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=583 sw_prod=186 hw_before(p=0 c=8) hw_after(p=1 c=144) first=0x06f5ca02 first_stat=0x00a26fc0 last=0x06f5ca02 last_stat=0x00a26fc0
+[ 2462.393390] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=582 sw_prod=187 hw_before(p=0 c=8) hw_after(p=1 c=160) first=0x06f51182 first_stat=0x00a26fc0 last=0x06f51182 last_stat=0x00a26fc0
+[ 2464.867743] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=581 sw_prod=188 hw_before(p=0 c=8) hw_after(p=1 c=176) first=0x06f50782 first_stat=0x00a26fc0 last=0x06f50782 last_stat=0x00a26fc0
+[ 2467.358789] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=580 sw_prod=189 hw_before(p=0 c=8) hw_after(p=1 c=192) first=0x06f51b82 first_stat=0x00a26fc0 last=0x06f51b82 last_stat=0x00a26fc0
+[ 2469.849085] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=579 sw_prod=190 hw_before(p=0 c=8) hw_after(p=1 c=208) first=0x06f50282 first_stat=0x00a26fc0 last=0x06f50282 last_stat=0x00a26fc0
+[ 2472.295332] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=578 sw_prod=191 hw_before(p=0 c=8) hw_after(p=1 c=224) first=0x06f50c82 first_stat=0x00a26fc0 last=0x06f50c82 last_stat=0x00a26fc0
+[ 2474.761834] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=577 sw_prod=192 hw_before(p=0 c=8) hw_after(p=1 c=240) first=0x06f51682 first_stat=0x00a26fc0 last=0x06f51682 last_stat=0x00a26fc0
+[ 2477.242399] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=576 sw_prod=193 hw_before(p=0 c=8) hw_after(p=1 c=0) first=0x06f50002 first_stat=0x00a26fc0 last=0x06f50002 last_stat=0x00a26fc0
+[ 2479.690612] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=575 sw_prod=194 hw_before(p=0 c=8) hw_after(p=1 c=16) first=0x06f51902 first_stat=0x00a26fc0 last=0x06f51902 last_stat=0x00a26fc0
+[ 2482.159648] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=574 sw_prod=195 hw_before(p=0 c=8) hw_after(p=1 c=32) first=0x06f50f02 first_stat=0x00a26fc0 last=0x06f50f02 last_stat=0x00a26fc0
+[ 2484.657073] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=573 sw_prod=196 hw_before(p=0 c=8) hw_after(p=1 c=48) first=0x06f50a02 first_stat=0x00a26fc0 last=0x06f50a02 last_stat=0x00a26fc0
+[ 2487.118195] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=572 sw_prod=197 hw_before(p=0 c=8) hw_after(p=1 c=64) first=0x06f51402 first_stat=0x00a26fc0 last=0x06f51402 last_stat=0x00a26fc0
+[ 2489.183290] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=571 sw_prod=198 hw_before(p=0 c=8) hw_after(p=1 c=80) first=0x06f4b402 first_stat=0x00a26fc0 last=0x06f4b402 last_stat=0x00a26fc0
+[ 2491.483753] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=570 sw_prod=199 hw_before(p=0 c=8) hw_after(p=1 c=96) first=0x06f4b902 first_stat=0x00a26fc0 last=0x06f4b902 last_stat=0x00a26fc0
+[ 2494.069225] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=569 sw_prod=200 hw_before(p=0 c=8) hw_after(p=1 c=112) first=0x06f4b182 first_stat=0x00a26fc0 last=0x06f4b182 last_stat=0x00a26fc0
+[ 2496.492995] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=568 sw_prod=201 hw_before(p=0 c=8) hw_after(p=1 c=128) first=0x06f4a502 first_stat=0x00a26fc0 last=0x06f4a502 last_stat=0x00a26fc0
+[ 2498.972385] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=567 sw_prod=202 hw_before(p=0 c=8) hw_after(p=1 c=144) first=0x06f4a782 first_stat=0x00a26fc0 last=0x06f4a782 last_stat=0x00a26fc0
+[ 2501.430392] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=566 sw_prod=203 hw_before(p=0 c=8) hw_after(p=1 c=160) first=0x06f4bb82 first_stat=0x00a26fc0 last=0x06f4bb82 last_stat=0x00a26fc0
+[ 2503.858157] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=565 sw_prod=204 hw_before(p=0 c=8) hw_after(p=1 c=176) first=0x06f4a282 first_stat=0x00a26fc0 last=0x06f4a282 last_stat=0x00a26fc0
+[ 2506.314556] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=564 sw_prod=205 hw_before(p=0 c=8) hw_after(p=1 c=192) first=0x06f4ac82 first_stat=0x00a26fc0 last=0x06f4ac82 last_stat=0x00a26fc0
+[ 2508.817384] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=563 sw_prod=206 hw_before(p=0 c=8) hw_after(p=1 c=208) first=0x06f4a002 first_stat=0x00a26fc0 last=0x06f4a002 last_stat=0x00a26fc0
+[ 2511.270507] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=562 sw_prod=207 hw_before(p=0 c=8) hw_after(p=1 c=224) first=0x06f4b682 first_stat=0x00a26fc0 last=0x06f4b682 last_stat=0x00a26fc0
+[ 2513.766832] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=561 sw_prod=208 hw_before(p=0 c=8) hw_after(p=1 c=240) first=0x06f4af02 first_stat=0x00a26fc0 last=0x06f4af02 last_stat=0x00a26fc0
+[ 2516.237256] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=560 sw_prod=209 hw_before(p=0 c=8) hw_after(p=1 c=0) first=0x06f4aa02 first_stat=0x00a26fc0 last=0x06f4aa02 last_stat=0x00a26fc0
+[ 2518.693823] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=559 sw_prod=210 hw_before(p=0 c=8) hw_after(p=1 c=16) first=0x06f6b902 first_stat=0x00a26fc0 last=0x06f6b902 last_stat=0x00a26fc0
+[ 2520.644985] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=558 sw_prod=211 hw_before(p=0 c=8) hw_after(p=1 c=32) first=0x06f6af02 first_stat=0x00a26fc0 last=0x06f6af02 last_stat=0x00a26fc0
+[ 2523.119242] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=557 sw_prod=212 hw_before(p=0 c=8) hw_after(p=1 c=48) first=0x06f6b402 first_stat=0x00a26fc0 last=0x06f6b402 last_stat=0x00a26fc0
+[ 2525.557392] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=556 sw_prod=213 hw_before(p=0 c=8) hw_after(p=1 c=64) first=0x06f6aa02 first_stat=0x00a26fc0 last=0x06f6aa02 last_stat=0x00a26fc0
+[ 2527.973443] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=555 sw_prod=214 hw_before(p=0 c=8) hw_after(p=1 c=80) first=0x06f6a502 first_stat=0x00a26fc0 last=0x06f6a502 last_stat=0x00a26fc0
+[ 2530.422271] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=554 sw_prod=215 hw_before(p=0 c=8) hw_after(p=1 c=96) first=0x06f6a782 first_stat=0x00a26fc0 last=0x06f6a782 last_stat=0x00a26fc0
+[ 2532.912075] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=553 sw_prod=216 hw_before(p=0 c=8) hw_after(p=1 c=112) first=0x06f6b182 first_stat=0x00a26fc0 last=0x06f6b182 last_stat=0x00a26fc0
+[ 2535.418737] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=552 sw_prod=217 hw_before(p=0 c=8) hw_after(p=1 c=128) first=0x06f6bb82 first_stat=0x00a26fc0 last=0x06f6bb82 last_stat=0x00a26fc0
+[ 2537.875204] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=551 sw_prod=218 hw_before(p=0 c=8) hw_after(p=1 c=144) first=0x06f6a282 first_stat=0x00a26fc0 last=0x06f6a282 last_stat=0x00a26fc0
+[ 2540.318077] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=550 sw_prod=219 hw_before(p=0 c=8) hw_after(p=1 c=160) first=0x06f6ac82 first_stat=0x00a26fc0 last=0x06f6ac82 last_stat=0x00a26fc0
+[ 2542.801581] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=549 sw_prod=220 hw_before(p=0 c=8) hw_after(p=1 c=176) first=0x06f6a002 first_stat=0x00a26fc0 last=0x06f6a002 last_stat=0x00a26fc0
+[ 2545.290501] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=548 sw_prod=221 hw_before(p=0 c=8) hw_after(p=1 c=192) first=0x06f6b682 first_stat=0x00a26fc0 last=0x06f6b682 last_stat=0x00a26fc0
+[ 2547.743832] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=547 sw_prod=222 hw_before(p=0 c=8) hw_after(p=1 c=208) first=0x06f71682 first_stat=0x00a26fc0 last=0x06f71682 last_stat=0x00a26fc0
+[ 2549.724854] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=546 sw_prod=223 hw_before(p=0 c=8) hw_after(p=1 c=224) first=0x06f70f02 first_stat=0x00a26fc0 last=0x06f70f02 last_stat=0x00a26fc0
+[ 2552.167930] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=545 sw_prod=224 hw_before(p=0 c=8) hw_after(p=1 c=240) first=0x06f71902 first_stat=0x00a26fc0 last=0x06f71902 last_stat=0x00a26fc0
+[ 2554.593744] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=544 sw_prod=225 hw_before(p=0 c=8) hw_after(p=1 c=0) first=0x06f70502 first_stat=0x00a26fc0 last=0x06f70502 last_stat=0x00a26fc0
+[ 2557.057336] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=543 sw_prod=226 hw_before(p=0 c=8) hw_after(p=1 c=16) first=0x06f70a02 first_stat=0x00a26fc0 last=0x06f70a02 last_stat=0x00a26fc0
+[ 2559.506844] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=542 sw_prod=227 hw_before(p=0 c=8) hw_after(p=1 c=32) first=0x06f71402 first_stat=0x00a26fc0 last=0x06f71402 last_stat=0x00a26fc0
+[ 2561.977726] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=541 sw_prod=228 hw_before(p=0 c=8) hw_after(p=1 c=48) first=0x06f70782 first_stat=0x00a26fc0 last=0x06f70782 last_stat=0x00a26fc0
+[ 2564.412096] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=540 sw_prod=229 hw_before(p=0 c=8) hw_after(p=1 c=64) first=0x06f71182 first_stat=0x00a26fc0 last=0x06f71182 last_stat=0x00a26fc0
+[ 2566.927509] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=539 sw_prod=230 hw_before(p=0 c=8) hw_after(p=1 c=80) first=0x06f71b82 first_stat=0x00a26fc0 last=0x06f71b82 last_stat=0x00a26fc0
+[ 2569.399363] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=538 sw_prod=231 hw_before(p=0 c=8) hw_after(p=1 c=96) first=0x06f70282 first_stat=0x00a26fc0 last=0x06f70282 last_stat=0x00a26fc0
+[ 2571.854319] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=537 sw_prod=232 hw_before(p=0 c=8) hw_after(p=1 c=112) first=0x06f70c82 first_stat=0x00a26fc0 last=0x06f70c82 last_stat=0x00a26fc0
+[ 2574.347239] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=536 sw_prod=233 hw_before(p=0 c=8) hw_after(p=1 c=128) first=0x06f70002 first_stat=0x00a26fc0 last=0x06f70002 last_stat=0x00a26fc0
+[ 2576.789478] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=535 sw_prod=234 hw_before(p=0 c=8) hw_after(p=1 c=144) first=0x06e77182 first_stat=0x00a26fc0 last=0x06e77182 last_stat=0x00a26fc0
+[ 2579.085337] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=534 sw_prod=235 hw_before(p=0 c=8) hw_after(p=1 c=160) first=0x06e76282 first_stat=0x00a26fc0 last=0x06e76282 last_stat=0x00a26fc0
+[ 2581.179543] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=533 sw_prod=236 hw_before(p=0 c=8) hw_after(p=1 c=176) first=0x06e76782 first_stat=0x00a26fc0 last=0x06e76782 last_stat=0x00a26fc0
+[ 2583.668733] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=532 sw_prod=237 hw_before(p=0 c=8) hw_after(p=1 c=192) first=0x06e76c82 first_stat=0x00a26fc0 last=0x06e76c82 last_stat=0x00a26fc0
+[ 2586.122091] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=531 sw_prod=238 hw_before(p=0 c=8) hw_after(p=1 c=208) first=0x06e77b82 first_stat=0x00a26fc0 last=0x06e77b82 last_stat=0x00a26fc0
+[ 2588.613060] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=530 sw_prod=239 hw_before(p=0 c=8) hw_after(p=1 c=224) first=0x06e76002 first_stat=0x00a26fc0 last=0x06e76002 last_stat=0x00a26fc0
+[ 2605.957554] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=529 sw_prod=240 hw_before(p=0 c=8) hw_after(p=1 c=240) first=0x06e77682 first_stat=0x00a26fc0 last=0x06e77682 last_stat=0x00a26fc0
+[ 2608.402176] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=528 sw_prod=241 hw_before(p=0 c=8) hw_after(p=1 c=0) first=0x06e76f02 first_stat=0x00a26fc0 last=0x06e76f02 last_stat=0x00a26fc0
+[ 2610.846643] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=527 sw_prod=242 hw_before(p=0 c=8) hw_after(p=1 c=16) first=0x06e77902 first_stat=0x00a26fc0 last=0x06e77902 last_stat=0x00a26fc0
+[ 2612.811041] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=526 sw_prod=243 hw_before(p=0 c=8) hw_after(p=1 c=32) first=0x06e76a02 first_stat=0x00a26fc0 last=0x06e76a02 last_stat=0x00a26fc0
+[ 2615.274998] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=525 sw_prod=244 hw_before(p=0 c=8) hw_after(p=1 c=48) first=0x06e77402 first_stat=0x00a26fc0 last=0x06e77402 last_stat=0x0024 sw_prod=245 hw_before(p=0 c=8) hw_after(p=1 c=64) first=0x06e76502 first_stat=0x00a26fc0 last=0x06e76502 last_stat=0x00a26fc0
+[ 2620.113769] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=523 sw_prod=246 hw_before(p=0 c=8) hw_after(p=1 c=80) first=0x06f57182 first_stat=0x00a26fc0 last=0x06f57182 last_stat=0x00a26fc0
+[ 2622.612238] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=522 sw_prod=247 hw_before(p=0 c=8) hw_after(p=1 c=96) first=0x06f56782 first_stat=0x00a26fc0 last=0x06f56782 last_stat=0x00a26fc0
+[ 2625.101174] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=521 sw_prod=248 hw_before(p=0 c=8) hw_after(p=1 c=112) first=0x06f57402 first_stat=0x00a26fc0 last=0x06f57402 last_stat=0x00a26fc0
+[ 2627.621852] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=520 sw_prod=249 hw_before(p=0 c=8) hw_after(p=1 c=128) first=0x06f56502 first_stat=0x00a26fc0 last=0x06f56502 last_stat=0x00a26fc0
+[ 2630.161623] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=519 sw_prod=250 hw_before(p=0 c=8) hw_after(p=1 c=144) first=0x06f57902 first_stat=0x00a26fc0 last=0x06f57902 last_stat=0x00a26fc0
+[ 2632.619198] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=518 sw_prod=251 hw_before(p=0 c=8) hw_after(p=1 c=160) first=0x06f56a02 first_stat=0x00a26fc0 last=0x06f56a02 last_stat=0x00a26fc0
+[ 2635.098315] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=517 sw_prod=252 hw_before(p=0 c=8) hw_after(p=1 c=176) firs0 q=0 len=98 frags=0 free_now=516 sw_prod=253 hw_before(p=0 c=8) hw_after(p=1 c=192) first=0x06f57682 first_stat=0x00a26fc0 last=0x06f57682 last_stat=0x00a26fc0
+[ 2640.027319] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=515 sw_prod=254 hw_before(p=0 c=8) hw_after(p=1 c=208) first=0x06f56002 first_stat=0x00a26fc0 last=0x06f56002 last_stat=0x00a26fc0
+[ 2641.979714] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=514 sw_prod=255 hw_before(p=0 c=8) hw_after(p=1 c=224) first=0x06f56c82 first_stat=0x00a26fc0 last=0x06f56c82 last_stat=0x00a26fc0
+[ 2644.430054] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=513 sw_prod=0 hw_before(p=0 c=8) hw_after(p=1 c=240) first=0x06f56282 first_stat=0x00a26fc0 last=0x06f56282 last_stat=0x00a26fc0
+[ 2646.889181] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=512 sw_prod=1 hw_before(p=0 c=8) hw_after(p=1 c=0) first=0x06f74c82 first_stat=0x00a26fc0 last=0x06f74c82 last_stat=0x00a26fc0
+[ 2649.414815] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=511 sw_prod=2 hw_before(p=0 c=8) hw_after(p=1 c=16) first=0x06f74282 first_stat=0x00a26fc0 last=0x06f74282 last_stat=0x00a26fc0
+[ 2651.859063] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=510 sw_prod=3 hw_before(p=0 c=8) hw_after(p=1 c=32) first=0x06f75b82 first_stat=0x00a26fc0 last=0x06f75b82 last_stat=0x00a26fc0
+[ 2654.388118] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=509 sw_prod=4 hw_before(p=0 c=8) hw_after(p=1 c=48) first=0x06f75182 first_stat=0x00a26fc0 last=0x06f75182 last_stat=0x00a26fc0
+[ 2656.852407] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=508 sw_prod=5 hw_before(p=0 c=8) hw_after(p=1 c=64) first=0x06f74782 first_stat=0x00a26fc0 last=0x06f74782 last_stat=0x00a26fc0
+[ 2659.301980] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=507 sw_prod=6 hw_before(p=0 c=8) hw_after(p=1 c=80) first=0x06f75402 first_stat=0x00a26fc0 last=0x06f75402 last_stat=0x00a26fc0
+[ 2661.809191] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=506 sw_prod=7 hw_before(p=0 c=8) hw_after(p=1 c=96) first=0x06f74502 first_stat=0x00a26fc0 last=0x06f74502 last_stat=0x00a26fc0
+[ 2664.269375] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=505 sw_prod=8 hw_before(p=0 c=8) hw_after(p=1 c=112) first=0x06f75902 first_stat=0x00a26fc0 last=0x06f75902 last_stat=0x00a26fc0
+[ 2666.737730] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=504 sw_prod=9 hw_before(p=0 c=8) hw_after(p=1 c=128) first=0x06f74a02 first_stat=0x00a26fc0 last=0x06f74a02 last_stat=0x00a26fc0
+[ 2669.168495] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=503 sw_prod=10 hw_before(p=0 c=8) hw_after(p=1 c=144) first=0x06f74f02 first_stat=0x00a26fc0 last=0x06f74f02 last_stat=0x00a26fc0
+[ 2671.437264] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=502 sw_prod=11 hw_before(p=0 c=8) hw_after(p=1 c=160) first=0x06f74002 first_stat=0x00a26fc0 last=0x06f74002 last_stat=0x00a26fc0
+[ 2673.498121] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=501 sw_prod=12 hw_before(p=0 c=8) hw_after(p=1 c=176) first=0x06f75682 first_stat=0x00a26fc0 last=0x06f75682 last_stat=0x00a26fc0
+[ 2676.034966] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=500 sw_prod=13 hw_before(p=0 c=8) hw_after(p=1 c=192) first=0x06f7c502 first_stat=0x00a26fc0 last=0x06f7c502 last_stat=0x00a26fc0
+[ 2678.513634] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=499 sw_prod=14 hw_before(p=0 c=8) hw_after(p=1 c=208) first=0x06f7d902 first_stat=0x00a26fc0 last=0x06f7d902 last_stat=0x00a26fc0
+[ 2680.983783] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=498 sw_prod=15 hw_before(p=0 c=8) hw_after(p=1 c=224) first=0x06f7ca02 first_stat=0x00a26fc0 last=0x06f7ca02 last_stat=0x00a26fc0
+[ 2683.497036] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=497 sw_prod=16 hw_before(p=0 c=8) hw_after(p=1 c=240) first=0x06f7cf02 first_stat=0x00a26fc0 last=0x06f7cf02 last_stat=0x00a26fc0
+[ 2685.933350] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=496 sw_prod=17 hw_before(p=0 c=8) hw_after(p=1 c=0) first=0x06f7d682 first_stat=0x00a26fc0 last=0x06f7d682 last_stat=0x00a26fc0
+[ 2688.422895] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=495 sw_prod=18 hw_before(p=0 c=8) hw_after(p=1 c=16) first=0x06f7c002 first_stat=0x00a26fc0 last=0x06f7c002 last_stat=0x00a26fc0
+[ 2690.897429] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=494 sw_prod=19 hw_before(p=0 c=8) hw_after(p=1 c=32) first=0x06f7cc82 first_stat=0x00a26fc0 last=0x06f7cc82 last_stat=0x00a26fc0
+[ 2693.320647] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=493 sw_prod=20 hw_before(p=0 c=8) hw_after(p=1 c=48) first=0x06f7c282 first_stat=0x00a26fc0 last=0x06f7c282 last_stat=0x00a26fc0
+[ 2695.797031] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=492 sw_prod=21 hw_before(p=0 c=8) hw_after(p=1 c=64) first=0x06f7db82 first_stat=0x00a26fc0 last=0x06f7db82 last_stat=0x00a26fc0
+[ 2699.933406] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=492 sw_prod=22 hw_before(p=0 c=8) hw_after(p=1 c=80) first=0x06f7d182 first_stat=0x00a26fc0 last=0x06f7d182 last_stat=0x00a26fc0
+[ 2700.831010] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=491 sw_prod=23 hw_before(p=0 c=8) hw_after(p=1 c=96) first=0x06f7d402 first_stat=0x00a26fc0 last=0x06f7d402 last_stat=0x00a26fc0
+[ 2702.942615] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=745 sw_prod=24 hw_before(p=0 c=8) hw_after(p=1 c=112) first=0x06f7c782 first_stat=0x00a26fc0 last=0x06f7c782 last_stat=0x00a26fc0
+[ 2705.231370] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=744 sw_prod=25 hw_before(p=0 c=8) hw_after(p=1 c=128) first=0x06f7d182 first_stat=0x00a26fc0 last=0x06f7d182 last_stat=0x00a26fc0
+[ 2707.652257] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=743 sw_prod=26 hw_before(p=0 c=8) hw_after(p=1 c=144) first=0x06f7d402 first_stat=0x00a26fc0 last=0x06f7d402 last_stat=0x00a26fc0
+[ 2710.150605] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=742 sw_prod=27 hw_before(p=0 c=8) hw_after(p=1 c=160) first=0x06f7db82 first_stat=0x00a26fc0 last=0x06f7db82 last_stat=0x00a26fc0
+[ 2712.663005] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=741 sw_prod=28 hw_before(p=0 c=8) hw_after(p=1 c=176) first=0x06f7c282 first_stat=0x00a26fc0 last=0x06f7c282 last_stat=0x00a26fc0
+[ 2715.143122] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=740 sw_prod=29 hw_before(p=0 c=8) hw_after(p=1 c=192) first=0x06f7cc82 first_stat=0x00a26fc0 last=0x06f7cc82 last_stat=0x00a26fc0
+[ 2717.648157] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=739 sw_prod=30 hw_before(p=0 c=8) hw_after(p=1 c=208) first=0x06f7c002 first_stat=0x00a26fc0 last=0x06f7c002 last_stat=0x00a26fc0
+[ 2720.108683] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=738 sw_prod=31 hw_before(p=0 c=8) hw_after(p=1 c=224) first=0x06f7d682 first_stat=0x00a26fc0 last=0x06f7d682 last_stat=0x00a26fc0
+[ 2722.624714] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=737 sw_prod=32 hw_before(p=0 c=8) hw_after(p=1 c=240) first=0x06f7cf02 first_stat=0x00a26fc0 last=0x06f7cf02 last_stat=0x00a26fc0
+[ 2725.080287] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=736 sw_prod=33 hw_before(p=0 c=8) hw_after(p=1 c=0) first=0x06f7ca02 first_stat=0x00a26fc0 last=0x06f7ca02 last_stat=0x00a26fc0
+[ 2727.608071] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=735 sw_prod=34 hw_before(p=0 c=8) hw_after(p=1 c=16) first=0x06f7d902 first_stat=0x00a26fc0 last=0x06f7d902 last_stat=0x00a26fc0
+[ 2730.066848] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=734 sw_prod=35 hw_before(p=0 c=8) hw_after(p=1 c=32) first=0x06f7c502 first_stat=0x00a26fc0 last=0x06f7c502 last_stat=0x00a26fc0
+[ 2732.060835] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=733 sw_prod=36 hw_before(p=0 c=8) hw_after(p=1 c=48) first=0x06e77402 first_stat=0x00a26fc0 last=0x06e77402 last_stat=0x00a26fc0
+[ 2734.469076] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=732 sw_prod=37 hw_before(p=0 c=8) hw_after(p=1 c=64) first=0x06e76502 first_stat=0x00a26fc0 last=0x06e76502 last_stat=0x00a26fc0
+[ 2736.983918] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=731 sw_prod=38 hw_before(p=0 c=8) hw_after(p=1 c=80) first=0x06e77902 first_stat=0x00a26fc0 last=0x06e77902 last_stat=0x00a26fc0
+[ 2739.412258] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=730 sw_prod=39 hw_before(p=0 c=8) hw_after(p=1 c=96) first=0x06e76a02 first_stat=0x00a26fc0 last=0x06e76a02 last_stat=0x00a26fc0
+[ 2741.929147] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=729 sw_prod=40 hw_before(p=0 c=8) hw_after(p=1 c=112) first=0x06e76f02 first_stat=0x00a26fc0 last=0x06e76f02 last_stat=0x00a26fc0
+[ 2744.409078] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=728 sw_prod=41 hw_before(p=0 c=8) hw_after(p=1 c=128) first=0x06e77682 first_stat=0x00a26fc0 last=0x06e77682 last_stat=0x00a26fc0
+[ 2746.861013] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=727 sw_prod=42 hw_before(p=0 c=8) hw_after(p=1 c=144) first=0x06e76002 first_stat=0x00a26fc0 last=0x06e76002 last_stat=0x00a26fc0
+[ 2749.397709] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=726 sw_prod=43 hw_before(p=0 c=8) hw_after(p=1 c=160) first=0x06e77b82 first_stat=0x00a26fc0 last=0x06e77b82 last_stat=0x00a26fc0
+[ 2751.877091] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=725 sw_prod=44 hw_before(p=0 c=8) hw_after(p=1 c=176) first=0x06e76c82 first_stat=0x00a26fc0 last=0x06e76c82 last_stat=0x00a26fc0
+[ 2754.328022] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=724 sw_prod=45 hw_before(p=0 c=8) hw_after(p=1 c=192) first=0x06e76782 first_stat=0x00a26fc0 last=0x06e76782 last_stat=0x00a26fc0
+[ 2756.789388] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=723 sw_prod=46 hw_before(p=0 c=8) hw_after(p=1 c=208) first=0x06e76282 first_stat=0x00a26fc0 last=0x06e76282 last_stat=0x00a26fc0
+[ 2759.303444] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=722 sw_prod=47 hw_before(p=0 c=8) hw_after(p=1 c=224) first=0x06e77182 first_stat=0x00a26fc0 last=0x06e77182 last_stat=0x00a26fc0
+[ 2761.690095] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=721 sw_prod=48 hw_before(p=0 c=8) hw_after(p=1 c=240) first=0x06f70c82 first_stat=0x00a26fc0 last=0x06f70c82 last_stat=0x00a26fc0
+[ 2763.762198] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=720 sw_prod=49 hw_before(p=0 c=8) hw_after(p=1 c=0) first=0x06f70002 first_stat=0x00a26fc0 last=0x06f70002 last_stat=0x00a26fc0
+[ 2766.240852] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=719 sw_prod=50 hw_before(p=0 c=8) hw_after(p=1 c=16) first=0x06f71b82 first_stat=0x00a26fc0 last=0x06f71b82 last_stat=0x00a26fc0
+[ 2768.702940] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=718 sw_prod=51 hw_before(p=0 c=8) hw_after(p=1 c=32) first=0x06f70282 first_stat=0x00a26fc0 last=0x06f70282 last_stat=0x00a26fc0
+[ 2771.158556] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=717 sw_prod=52 hw_before(p=0 c=8) hw_after(p=1 c=48) first=0x06f71182 first_stat=0x00a26fc0 last=0x06f71182 last_stat=0x00a26fc0
+[ 2773.608019] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=716 sw_prod=53 hw_before(p=0 c=8) hw_after(p=1 c=64) first=0x06f70782 first_stat=0x00a26fc0 last=0x06f70782 last_stat=0x00a26fc0
+[ 2776.071406] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=715 sw_prod=54 hw_before(p=0 c=8) hw_after(p=1 c=80) first=0x06f71402 first_stat=0x00a26fc0 last=0x06f71402 last_stat=0x00a26fc0
+[ 2778.637831] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=714 sw_prod=55 hw_before(p=0 c=8) hw_after(p=1 c=96) first=0x06f70a02 first_stat=0x00a26fc0 last=0x06f70a02 last_stat=0x00a26fc0
+[ 2781.092486] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=713 sw_prod=56 hw_before(p=0 c=8) hw_after(p=1 c=112) first=0x06f70502 first_stat=0x00a26fc0 last=0x06f70502 last_stat=0x00a26fc0
+[ 2783.567963] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=712 sw_prod=57 hw_before(p=0 c=8) hw_after(p=1 c=128) first=0x06f71902 first_stat=0x00a26fc0 last=0x06f71902 last_stat=0x00a26fc0
+[ 2786.002807] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=711 sw_prod=58 hw_before(p=0 c=8) hw_after(p=1 c=144) first=0x06f70f02 first_stat=0x00a26fc0 last=0x06f70f02 last_stat=0x00a26fc0
+[ 2788.494908] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=710 sw_prod=59 hw_before(p=0 c=8) hw_after(p=1 c=160) first=0x06f71682 first_stat=0x00a26fc0 last=0x06f71682 last_stat=0x00a26fc0
+[ 2791.004249] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=709 sw_prod=60 hw_before(p=0 c=8) hw_after(p=1 c=176) first=0x06f6a002 first_stat=0x00a26fc0 last=0x06f6a002 last_stat=0x00a26fc0
+[ 2792.961352] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=708 sw_prod=61 hw_before(p=0 c=8) hw_after(p=1 c=192) first=0x06f6b682 first_stat=0x00a26fc0 last=0x06f6b682 last_stat=0x00a26fc0
+[ 2795.389763] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=707 sw_prod=62 hw_before(p=0 c=8) hw_after(p=1 c=208) first=0x06f6ac82 first_stat=0x00a26fc0 last=0x06f6ac82 last_stat=0x00a26fc0
+[ 2797.876896] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=706 sw_prod=63 hw_before(p=0 c=8) hw_after(p=1 c=224) first=0x06f6bb82 first_stat=0x00a26fc0 last=0x06f6bb82 last_stat=0x00a26fc0
+[ 2800.392090] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=705 sw_prod=64 hw_before(p=0 c=8) hw_after(p=1 c=240) first=0x06f6a282 first_stat=0x00a26fc0 last=0x06f6a282 last_stat=0x00a26fc0
+[ 2802.880411] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=704 sw_prod=65 hw_before(p=0 c=8) hw_after(p=1 c=0) first=0x06f6b182 first_stat=0x00a26fc0 last=0x06f6b182 last_stat=0x00a26fc0
+[ 2805.374969] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=703 sw_prod=66 hw_before(p=0 c=8) hw_after(p=1 c=16) first=0x06f6a782 first_stat=0x00a26fc0 last=0x06f6a782 last_stat=0x00a26fc0
+[ 2807.843751] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=702 sw_prod=67 hw_before(p=0 c=8) hw_after(p=1 c=32) first=0x06f6a502 first_stat=0x00a26fc0 last=0x06f6a502 last_stat=0x00a26fc0
+[ 2810.338701] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=701 sw_prod=68 hw_before(p=0 c=8) hw_after(p=1 c=48) first=0x06f6aa02 first_stat=0x00a26fc0 last=0x06f6aa02 last_stat=0x00a26fc0
+[ 2812.767714] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=700 sw_prod=69 hw_before(p=0 c=8) hw_after(p=1 c=64) first=0x06f6b402 first_stat=0x00a26fc0 last=0x06f6b402 last_stat=0x00a26fc0
+[ 2815.193004] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=699 sw_prod=70 hw_before(p=0 c=8) hw_after(p=1 c=80) first=0x06f6af02 first_stat=0x00a26fc0 last=0x06f6af02 last_stat=0x00a26fc0
+[ 2817.640441] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=698 sw_prod=71 hw_before(p=0 c=8) hw_after(p=1 c=96) first=0x06f6b902 first_stat=0x00a26fc0 last=0x06f6b902 last_stat=0x00a26fc0
+[ 2820.184915] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=697 sw_prod=72 hw_before(p=0 c=8) hw_after(p=1 c=112) first=0x06f4aa02 first_stat=0x00a26fc0 last=0x06f4aa02 last_stat=0x00a26fc0
+[ 2822.257638] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=696 sw_prod=73 hw_before(p=0 c=8) hw_after(p=1 c=128) first=0x06f4b682 first_stat=0x00a26fc0 last=0x06f4b682 last_stat=0x00a26fc0
+[ 2824.669488] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=695 sw_prod=74 hw_before(p=0 c=8) hw_after(p=1 c=144) first=0x06f4af02 first_stat=0x00a26fc0 last=0x06f4af02 last_stat=0x00a26fc0
+[ 2827.137286] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=694 sw_prod=75 hw_before(p=0 c=8) hw_after(p=1 c=160) first=0x06f4ac82 first_stat=0x00a26fc0 last=0x06f4ac82 last_stat=0x00a26fc0
+[ 2829.534942] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=693 sw_prod=76 hw_before(p=0 c=8) hw_after(p=1 c=176) first=0x06f4a002 first_stat=0x00a26fc0 last=0x06f4a002 last_stat=0x00a26fc0
+[ 2832.059216] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=692 sw_prod=77 hw_before(p=0 c=8) hw_after(p=1 c=192) first=0x06f4a282 first_stat=0x00a26fc0 last=0x06f4a282 last_stat=0x00a26fc0
+[ 2834.514431] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=691 sw_prod=78 hw_before(p=0 c=8) hw_after(p=1 c=208) first=0x06f4bb82 first_stat=0x00a26fc0 last=0x06f4bb82 last_stat=0x00a26fc0
+[ 2836.993948] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=690 sw_prod=79 hw_before(p=0 c=8) hw_after(p=1 c=224) first=0x06f4a782 first_stat=0x00a26fc0 last=0x06f4a782 last_stat=0x00a26fc0
+[ 2839.489314] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=689 sw_prod=80 hw_before(p=0 c=8) hw_after(p=1 c=240) first=0x06f4a502 first_stat=0x00a26fc0 last=0x06f4a502 last_stat=0x00a26fc0
+[ 2841.923091] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=688 sw_prod=81 hw_before(p=0 c=8) hw_after(p=1 c=0) first=0x06f4b182 first_stat=0x00a26fc0 last=0x06f4b182 last_stat=0x00a26fc0
+[ 2844.408650] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=687 sw_prod=82 hw_before(p=0 c=8) hw_after(p=1 c=16) first=0x06f4b902 first_stat=0x00a26fc0 last=0x06f4b902 last_stat=0x00a26fc0
+[ 2846.861029] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=686 sw_prod=83 hw_before(p=0 c=8) hw_after(p=1 c=32) first=0x06f4b402 first_stat=0x00a26fc0 last=0x06f4b402 last_stat=0x00a26fc0
+[ 2849.389812] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=685 sw_prod=84 hw_before(p=0 c=8) hw_after(p=1 c=48) first=0x06f51402 first_stat=0x00a26fc0 last=0x06f51402 last_stat=0x00a26fc0
+[ 2851.830235] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=684 sw_prod=85 hw_before(p=0 c=8) hw_after(p=1 c=64) first=0x06f50f02 first_stat=0x00a26fc0 last=0x06f50f02 last_stat=0x00a26fc0
+[ 2853.780817] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=683 sw_prod=86 hw_before(p=0 c=8) hw_after(p=1 c=80) first=0x06f50a02 first_stat=0x00a26fc0 last=0x06f50a02 last_stat=0x00a26fc0
+[ 2856.238584] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=682 sw_prod=87 hw_before(p=0 c=8) hw_after(p=1 c=96) first=0x06f50002 first_stat=0x00a26fc0 last=0x06f50002 last_stat=0x00a26fc0
+[ 2858.748315] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=681 sw_prod=88 hw_before(p=0 c=8) hw_after(p=1 c=112) first=0x06f51902 first_stat=0x00a26fc0 last=0x06f51902 last_stat=0x00a26fc0
+[ 2861.223719] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=680 sw_prod=89 hw_before(p=0 c=8) hw_after(p=1 c=128) first=0x06f51682 first_stat=0x00a26fc0 last=0x06f51682 last_stat=0x00a26fc0
+[ 2863.682006] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=679 sw_prod=90 hw_before(p=0 c=8) hw_after(p=1 c=144) first=0x06f50c82 first_stat=0x00a26fc0 last=0x06f50c82 last_stat=0x00a26fc0
+[ 2866.103085] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=678 sw_prod=91 hw_before(p=0 c=8) hw_after(p=1 c=160) first=0x06f50282 first_stat=0x00a26fc0 last=0x06f50282 last_stat=0x00a26fc0
+[ 2868.622208] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=677 sw_prod=92 hw_before(p=0 c=8) hw_after(p=1 c=176) first=0x06f51b82 first_stat=0x00a26fc0 last=0x06f51b82 last_stat=0x00a26fc0
+[ 2871.128308] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=676 sw_prod=93 hw_before(p=0 c=8) hw_after(p=1 c=192) first=0x06f50782 first_stat=0x00a26fc0 last=0x06f50782 last_stat=0x00a26fc0
+[ 2873.639187] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=675 sw_prod=94 hw_before(p=0 c=8) hw_after(p=1 c=208) first=0x06f51182 first_stat=0x00a26fc0 last=0x06f51182 last_stat=0x00a26fc0
+[ 2876.107617] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=674 sw_prod=95 hw_before(p=0 c=8) hw_after(p=1 c=224) first=0x06f5ca02 first_stat=0x00a26fc0 last=0x06f5ca02 last_stat=0x00a26fc0
+[ 2878.577918] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=673 sw_prod=96 hw_before(p=0 c=8) hw_after(p=1 c=240) first=0x06f5d902 first_stat=0x00a26fc0 last=0x06f5d902 last_stat=0x00a26fc0
+[ 2881.000342] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=672 sw_prod=97 hw_before(p=0 c=8) hw_after(p=1 c=0) first=0x06f5d682 first_stat=0x00a26fc0 last=0x06f5d682 last_stat=0x00a26fc0
+[ 2882.957120] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=671 sw_prod=98 hw_before(p=0 c=8) hw_after(p=1 c=16) first=0x06f5cf02 first_stat=0x00a26fc0 last=0x06f5cf02 last_stat=0x00a26fc0
+[ 2885.384780] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=670 sw_prod=99 hw_before(p=0 c=8) hw_after(p=1 c=32) first=0x06f5c002 first_stat=0x00a26fc0 last=0x06f5c002 last_stat=0x00a26fc0
+[ 2887.809228] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=669 sw_prod=100 hw_before(p=0 c=8) hw_after(p=1 c=48) first=0x06f5c282 first_stat=0x00a26fc0 last=0x06f5c282 last_stat=0x00a26fc0
+[ 2890.315290] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=668 sw_prod=101 hw_before(p=0 c=8) hw_after(p=1 c=64) first=0x06f5cc82 first_stat=0x00a26fc0 last=0x06f5cc82 last_stat=0x00a26fc0
+[ 2892.783695] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=667 sw_prod=102 hw_before(p=0 c=8) hw_after(p=1 c=80) first=0x06f5db82 first_stat=0x00a26fc0 last=0x06f5db82 last_stat=0x00a26fc0
+[ 2895.252523] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=666 sw_prod=103 hw_before(p=0 c=8) hw_after(p=1 c=96) first=0x06f5c782 first_stat=0x00a26fc0 last=0x06f5c782 last_stat=0x00a26fc0
+[ 2912.497910] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=665 sw_prod=104 hw_before(p=0 c=8) hw_after(p=1 c=112) first=0x06f5d182 first_stat=0x00a26fc0 last=0x06f5d182 last_stat=0x00a26fc0
+[ 2914.623283] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=664 sw_prod=105 hw_before(p=0 c=8) hw_after(p=1 c=128) first=0x06f5c502 first_stat=0x00a26fc0 last=0x06f5c502 last_stat=0x00a26fc0
+[ 2916.860190] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=663 sw_prod=106 hw_before(p=0 c=8) hw_after(p=1 c=144) first=0x06f5d402 first_stat=0x00a26fc0 last=0x06f5d402 last_stat=0x00a26fc0
+[ 2919.409082] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=662 sw_prod=107 hw_before(p=0 c=8) hw_after(p=1 c=160) first=0x06eb1402 first_stat=0x00a26fc0 last=0x06eb1402 last_stat=0x00a26fc0
+[ 2921.852188] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=661 sw_prod=108 hw_before(p=0 c=8) hw_after(p=1 c=176) first=0x06eb0502 first_stat=0x00a26fc0 last=0x06eb0502 last_stat=0x00a26fc0
+[ 2924.319216] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=660 sw_prod=109 hw_before(p=0 c=8) hw_after(p=1 c=192) first=0x06eb1902 first_stat=0x00a26fc0 last=0x06eb1902 last_stat=0x00a26fc0
+[ 2926.777798] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=659 sw_prod=110 hw_before(p=0 c=8) hw_after(p=1 c=208) first=0x06eb0a02 first_stat=0x00a26fc0 last=0x06eb0a02 last_stat=0x00a26fc0
+[ 2929.233028] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=658 sw_prod=111 hw_before(p=0 c=8) hw_after(p=1 c=224) first=0x06eb0f02 first_stat=0x00a26fc0 last=0x06eb0f02 last_stat=0x00a26fc0
+[ 2931.730548] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=657 sw_prod=112 hw_before(p=0 c=8) hw_after(p=1 c=240) first=0x06eb1682 first_stat=0x00a26fc0 last=0x06eb1682 last_stat=0x00a26fc0
+[ 2934.163415] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=656 sw_prod=113 hw_before(p=0 c=8) hw_after(p=1 c=0) first=0x06eb0002 first_stat=0x00a26fc0 last=0x06eb0002 last_stat=0x00a26fc0
+[ 2936.722505] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=655 sw_prod=114 hw_before(p=0 c=8) hw_after(p=1 c=16) first=0x06eb0c82 first_stat=0x00a26fc0 last=0x06eb0c82 last_stat=0x00a26fc0
+[ 2939.153116] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=654 sw_prod=115 hw_before(p=0 c=8) hw_after(p=1 c=32) first=0x06eb1b82 first_stat=0x00a26fc0 last=0x06eb1b82 last_stat=0x00a26fc0
+[ 2941.628365] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=653 sw_prod=116 hw_before(p=0 c=8) hw_after(p=1 c=48) first=0x06eb0282 first_stat=0x00a26fc0 last=0x06eb0282 last_stat=0x00a26fc0
+[ 2944.128401] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=652 sw_prod=117 hw_before(p=0 c=8) hw_after(p=1 c=64) first=0x06eb1182 first_stat=0x00a26fc0 last=0x06eb1182 last_stat=0x00a26fc0
+[ 2946.073756] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=651 sw_prod=118 hw_before(p=0 c=8) hw_after(p=1 c=80) first=0x06eb0782 first_stat=0x00a26fc0 last=0x06eb0782 last_stat=0x00a26fc0
+[ 2948.528139] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=650 sw_prod=119 hw_before(p=0 c=8) hw_after(p=1 c=96) first=0x068f8002 first_stat=0x00a26fc0 last=0x068f8002 last_stat=0x00a26fc0
+[ 2950.962731] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=649 sw_prod=120 hw_before(p=0 c=8) hw_after(p=1 c=112) first=0x068f8502 first_stat=0x00a26fc0 last=0x068f8502 last_stat=0x00a26fc0
+[ 2953.411467] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=648 sw_prod=121 hw_before(p=0 c=8) hw_after(p=1 c=128) first=0x068f9402 first_stat=0x00a26fc0 last=0x068f9402 last_stat=0x00a26fc0
+[ 2955.898539] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=647 sw_prod=122 hw_before(p=0 c=8) hw_after(p=1 c=144) first=0x068f8782 first_stat=0x00a26fc0 last=0x068f8782 last_stat=0x00a26fc0
+[ 2958.431057] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=646 sw_prod=123 hw_before(p=0 c=8) hw_after(p=1 c=160) first=0x068f9902 first_stat=0x00a26fc0 last=0x068f9902 last_stat=0x00a26fc0
+[ 2960.995028] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=645 sw_prod=124 hw_before(p=0 c=8) hw_after(p=1 c=176) first=0x068f8a02 first_stat=0x00a26fc0 last=0x068f8a02 last_stat=0x00a26fc0
+[ 2963.462028] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=644 sw_prod=125 hw_before(p=0 c=8) hw_after(p=1 c=192) first=0x068f9682 first_stat=0x00a26fc0 last=0x068f9682 last_stat=0x00a26fc0
+[ 2965.957807] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=643 sw_prod=126 hw_before(p=0 c=8) hw_after(p=1 c=208) first=0x068f8f02 first_stat=0x00a26fc0 last=0x068f8f02 last_stat=0x00a26fc0
+[ 2968.414351] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=642 sw_prod=127 hw_before(p=0 c=8) hw_after(p=1 c=224) first=0x068f8282 first_stat=0x00a26fc0 last=0x068f8282 last_stat=0x00a26fc0
+[ 2970.897808] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=641 sw_prod=128 hw_before(p=0 c=8) hw_after(p=1 c=240) first=0x068f8c82 first_stat=0x00a26fc0 last=0x068f8c82 last_stat=0x00a26fc0
+[ 2973.329807] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=640 sw_prod=129 hw_before(p=0 c=8) hw_after(p=1 c=0) first=0x068f9182 first_stat=0x00a26fc0 last=0x068f9182 last_stat=0x00a26fc0
+[ 2975.293458] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=639 sw_prod=130 hw_before(p=0 c=8) hw_after(p=1 c=16) first=0x068f9b82 first_stat=0x00a26fc0 last=0x068f9b82 last_stat=0x00a26fc0
+[ 2977.808221] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=638 sw_prod=131 hw_before(p=0 c=8) hw_after(p=1 c=32) first=0x06de2a02 first_stat=0x00a26fc0 last=0x06de2a02 last_stat=0x00a26fc0
+[ 2980.229059] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=637 sw_prod=132 hw_before(p=0 c=8) hw_after(p=1 c=48) first=0x06de2f02 first_stat=0x00a26fc0 last=0x06de2f02 last_stat=0x00a26fc0
+[ 2982.693825] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=636 sw_prod=133 hw_before(p=0 c=8) hw_after(p=1 c=64) first=0x06de3682 first_stat=0x00a26fc0 last=0x06de3682 last_stat=0x00a26fc0
+[ 2985.228714] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=635 sw_prod=134 hw_before(p=0 c=8) hw_after(p=1 c=80) first=0x06de2002 first_stat=0x00a26fc0 last=0x06de2002 last_stat=0x00a26fc0
+[ 2987.709009] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=634 sw_prod=135 hw_before(p=0 c=8) hw_after(p=1 c=96) first=0x06de2c82 first_stat=0x00a26fc0 last=0x06de2c82 last_stat=0x00a26fc0
+[ 2990.171993] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=633 sw_prod=136 hw_before(p=0 c=8) hw_after(p=1 c=112) first=0x06de2282 first_stat=0x00a26fc0 last=0x06de2282 last_stat=0x00a26fc0
+[ 2992.640292] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=632 sw_prod=137 hw_before(p=0 c=8) hw_after(p=1 c=128) first=0x06de3b82 first_stat=0x00a26fc0 last=0x06de3b82 last_stat=0x00a26fc0
+[ 2995.113065] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=631 sw_prod=138 hw_before(p=0 c=8) hw_after(p=1 c=144) first=0x06de3182 first_stat=0x00a26fc0 last=0x06de3182 last_stat=0x00a26fc0
+[ 2997.627773] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=630 sw_prod=139 hw_before(p=0 c=8) hw_after(p=1 c=160) first=0x06de3402 first_stat=0x00a26fc0 last=0x06de3402 last_stat=0x00a26fc0
+[ 3000.104698] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=629 sw_prod=140 hw_before(p=0 c=8) hw_after(p=1 c=176) first=0x06de2782 first_stat=0x00a26fc0 last=0x06de2782 last_stat=0x00a26fc0
+[ 3002.494564] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=628 sw_prod=141 hw_before(p=0 c=8) hw_after(p=1 c=192) first=0x06de3902 first_stat=0x00a26fc0 last=0x06de3902 last_stat=0x00a26fc0
+[ 3004.804715] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=627 sw_prod=142 hw_before(p=0 c=8) hw_after(p=1 c=208) first=0x06dda782 first_stat=0x00a26fc0 last=0x06dda782 last_stat=0x00a26fc0
+[ 3006.901432] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=626 sw_prod=143 hw_before(p=0 c=8) hw_after(p=1 c=224) first=0x06ddb182 first_stat=0x00a26fc0 last=0x06ddb182 last_stat=0x00a26fc0
+[ 3009.458740] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=625 sw_prod=144 hw_before(p=0 c=8) hw_after(p=1 c=240) first=0x06ddbb82 first_stat=0x00a26fc0 last=0x06ddbb82 last_stat=0x00a26fc0
+[ 3011.928045] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=624 sw_prod=145 hw_before(p=0 c=8) hw_after(p=1 c=0) first=0x06dda282 first_stat=0x00a26fc0 last=0x06dda282 last_stat=0x00a26fc0
+[ 3014.357192] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=623 sw_prod=146 hw_before(p=0 c=8) hw_after(p=1 c=16) first=0x06ddac82 first_stat=0x00a26fc0 last=0x06ddac82 last_stat=0x00a26fc0
+[ 3016.784951] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=622 sw_prod=147 hw_before(p=0 c=8) hw_after(p=1 c=32) first=0x06ddb402 first_stat=0x00a26fc0 last=0x06ddb402 last_stat=0x00a26fc0
+[ 3019.257291] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=621 sw_prod=148 hw_before(p=0 c=8) hw_after(p=1 c=48) first=0x06dda502 first_stat=0x00a26fc0 last=0x06dda502 last_stat=0x00a26fc0
+[ 3021.747852] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=620 sw_prod=149 hw_before(p=0 c=8) hw_after(p=1 c=64) first=0x06ddb902 first_stat=0x00a26fc0 last=0x06ddb902 last_stat=0x00a26fc0
+[ 3024.192513] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=619 sw_prod=150 hw_before(p=0 c=8) hw_after(p=1 c=80) first=0x06ddaa02 first_stat=0x00a26fc0 last=0x06ddaa02 last_stat=0x00a26fc0
+[ 3026.675274] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=618 sw_prod=151 hw_before(p=0 c=8) hw_after(p=1 c=96) first=0x06ddb682 first_stat=0x00a26fc0 last=0x06ddb682 last_stat=0x00a26fc0
+[ 3029.063603] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=617 sw_prod=152 hw_before(p=0 c=8) hw_after(p=1 c=112) first=0x06dda002 first_stat=0x00a26fc0 last=0x06dda002 last_stat=0x00a26fc0
+[ 3031.550518] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=616 sw_prod=153 hw_before(p=0 c=8) hw_after(p=1 c=128) first=0x06ddaf02 first_stat=0x00a26fc0 last=0x06ddaf02 last_stat=0x00a26fc0
+[ 3034.113916] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=615 sw_prod=154 hw_before(p=0 c=8) hw_after(p=1 c=144) first=0x06f72a02 first_stat=0x00a26fc0 last=0x06f72a02 last_stat=0x00a26fc0
+[ 3036.072593] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=614 sw_prod=155 hw_before(p=0 c=8) hw_after(p=1 c=160) first=0x06f72f02 first_stat=0x00a26fc0 last=0x06f72f02 last_stat=0x00a26fc0
+[ 3038.562233] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=613 sw_prod=156 hw_before(p=0 c=8) hw_after(p=1 c=176) first=0x06f72002 first_stat=0x00a26fc0 last=0x06f72002 last_stat=0x00a26fc0
+[ 3041.032502] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=612 sw_prod=157 hw_before(p=0 c=8) hw_after(p=1 c=192) first=0x06f73682 first_stat=0x00a26fc0 last=0x06f73682 last_stat=0x00a26fc0
+[ 3043.517956] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=611 sw_prod=158 hw_before(p=0 c=8) hw_after(p=1 c=208) first=0x06f72c82 first_stat=0x00a26fc0 last=0x06f72c82 last_stat=0x00a26fc0
+[ 3046.007825] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=610 sw_prod=159 hw_before(p=0 c=8) hw_after(p=1 c=224) first=0x06f72282 first_stat=0x00a26fc0 last=0x06f72282 last_stat=0x00a26fc0
+[ 3048.459526] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=609 sw_prod=160 hw_before(p=0 c=8) hw_after(p=1 c=240) first=0x06f73b82 first_stat=0x00a26fc0 last=0x06f73b82 last_stat=0x00a26fc0
+[ 3050.918482] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=608 sw_prod=161 hw_before(p=0 c=8) hw_after(p=1 c=0) first=0x06f73182 first_stat=0x00a26fc0 last=0x06f73182 last_stat=0x00a26fc0
+[ 3053.393282] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=607 sw_prod=162 hw_before(p=0 c=8) hw_after(p=1 c=16) first=0x06f72782 first_stat=0x00a26fc0 last=0x06f72782 last_stat=0x00a26fc0
+[ 3055.850491] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=606 sw_prod=163 hw_before(p=0 c=8) hw_after(p=1 c=32) first=0x06f73402 first_stat=0x00a26fc0 last=0x06f73402 last_stat=0x00a26fc0
+[ 3058.361716] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=605 sw_prod=164 hw_before(p=0 c=8) hw_after(p=1 c=48) first=0x06f72502 first_stat=0x00a26fc0 last=0x06f72502 last_stat=0x00a26fc0
+[ 3060.814243] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=604 sw_prod=165 hw_before(p=0 c=8) hw_after(p=1 c=64) first=0x06f73902 first_stat=0x00a26fc0 last=0x06f73902 last_stat=0x00a26fc0
+[ 3063.318622] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=603 sw_prod=166 hw_before(p=0 c=8) hw_after(p=1 c=80) first=0x06de2502 first_stat=0x00a26fc0 last=0x06de2502 last_stat=0x00a26fc0
+[ 3065.377146] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=602 sw_prod=167 hw_before(p=0 c=8) hw_after(p=1 c=96) first=0x06f75402 first_stat=0x00a26fc0 last=0x06f75402 last_stat=0x00a26fc0
+[ 3067.792137] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=601 sw_prod=168 hw_before(p=0 c=8) hw_after(p=1 c=112) first=0x06f74782 first_stat=0x00a26fc0 last=0x06f74782 last_stat=0x00a26fc0
+[ 3070.235373] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=600 sw_prod=169 hw_before(p=0 c=8) hw_after(p=1 c=128) first=0x06f75902 first_stat=0x00a26fc0 last=0x06f75902 last_stat=0x00a26fc0
+[ 3072.737635] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=599 sw_prod=170 hw_before(p=0 c=8) hw_after(p=1 c=144) first=0x06f74502 first_stat=0x00a26fc0 last=0x06f74502 last_stat=0x00a26fc0
+[ 3075.195340] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=598 sw_prod=171 hw_before(p=0 c=8) hw_after(p=1 c=160) first=0x06f74a02 first_stat=0x00a26fc0 last=0x06f74a02 last_stat=0x00a26fc0
+[ 3077.687036] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=597 sw_prod=172 hw_before(p=0 c=8) hw_after(p=1 c=176) first=0x06f74f02 first_stat=0x00a26fc0 last=0x06f74f02 last_stat=0x00a26fc0
+[ 3080.153453] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=596 sw_prod=173 hw_before(p=0 c=8) hw_after(p=1 c=192) first=0x06f75682 first_stat=0x00a26fc0 last=0x06f75682 last_stat=0x00a26fc0
+[ 3082.692044] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=595 sw_prod=174 hw_before(p=0 c=8) hw_after(p=1 c=208) first=0x06f74002 first_stat=0x00a26fc0 last=0x06f74002 last_stat=0x00a26fc0
+[ 3085.157579] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=594 sw_prod=175 hw_before(p=0 c=8) hw_after(p=1 c=224) first=0x06f74c82 first_stat=0x00a26fc0 last=0x06f74c82 last_stat=0x00a26fc0
+[ 3087.629290] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=593 sw_prod=176 hw_before(p=0 c=8) hw_after(p=1 c=240) first=0x06f74282 first_stat=0x00a26fc0 last=0x06f74282 last_stat=0x00a26fc0
+[ 3090.098694] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=592 sw_prod=177 hw_before(p=0 c=8) hw_after(p=1 c=0) first=0x06f75b82 first_stat=0x00a26fc0 last=0x06f75b82 last_stat=0x00a26fc0
+[ 3092.544869] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=591 sw_prod=178 hw_before(p=0 c=8) hw_after(p=1 c=16) first=0x06f75182 first_stat=0x00a26fc0 last=0x06f75182 last_stat=0x00a26fc0
+[ 3094.881109] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=590 sw_prod=179 hw_before(p=0 c=8) hw_after(p=1 c=32) first=0x06e27902 first_stat=0x00a26fc0 last=0x06e27902 last_stat=0x00a26fc0
+[ 3096.891492] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=589 sw_prod=180 hw_before(p=0 c=8) hw_after(p=1 c=48) first=0x06e26502 first_stat=0x00a26fc0 last=0x06e26502 last_stat=0x00a26fc0
+[ 3099.374110] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=588 sw_prod=181 hw_before(p=0 c=8) hw_after(p=1 c=64) first=0x06e26f02 first_stat=0x00a26fc0 last=0x06e26f02 last_stat=0x00a26fc0
+[ 3101.854460] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=587 sw_prod=182 hw_before(p=0 c=8) hw_after(p=1 c=80) first=0x06e26a02 first_stat=0x00a26fc0 last=0x06e26a02 last_stat=0x00a26fc0
+[ 3104.312538] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=586 sw_prod=183 hw_before(p=0 c=8) hw_after(p=1 c=96) first=0x06e27682 first_stat=0x00a26fc0 last=0x06e27682 last_stat=0x00a26fc0
+[ 3106.857633] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=585 sw_prod=184 hw_before(p=0 c=8) hw_after(p=1 c=112) first=0x06e26002 first_stat=0x00a26fc0 last=0x06e26002 last_stat=0x00a26fc0
+[ 3109.353344] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=584 sw_prod=185 hw_before(p=0 c=8) hw_after(p=1 c=128) first=0x06e26c82 first_stat=0x00a26fc0 last=0x06e26c82 last_stat=0x00a26fc0
+[ 3111.890597] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=583 sw_prod=186 hw_before(p=0 c=8) hw_after(p=1 c=144) first=0x06e26282 first_stat=0x00a26fc0 last=0x06e26282 last_stat=0x00a26fc0
+[ 3114.321218] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=582 sw_prod=187 hw_before(p=0 c=8) hw_after(p=1 c=160) first=0x06e27b82 first_stat=0x00a26fc0 last=0x06e27b82 last_stat=0x00a26fc0
+[ 3116.718357] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=581 sw_prod=188 hw_before(p=0 c=8) hw_after(p=1 c=176) first=0x06e27182 first_stat=0x00a26fc0 last=0x06e27182 last_stat=0x00a26fc0
+[ 3119.207877] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=580 sw_prod=189 hw_before(p=0 c=8) hw_after(p=1 c=192) first=0x06e26782 first_stat=0x00a26fc0 last=0x06e26782 last_stat=0x00a26fc0
+[ 3121.682450] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=579 sw_prod=190 hw_before(p=0 c=8) hw_after(p=1 c=208) first=0x06e27402 first_stat=0x00a26fc0 last=0x06e27402 last_stat=0x00a26fc0
+[ 3124.107884] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=578 sw_prod=191 hw_before(p=0 c=8) hw_after(p=1 c=224) first=0x06dd1182 first_stat=0x00a26fc0 last=0x06dd1182 last_stat=0x00a26fc0
+[ 3126.065208] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=577 sw_prod=192 hw_before(p=0 c=8) hw_after(p=1 c=240) first=0x06dd1b82 first_stat=0x00a26fc0 last=0x06dd1b82 last_stat=0x00a26fc0
+[ 3128.491575] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=576 sw_prod=193 hw_before(p=0 c=8) hw_after(p=1 c=0) first=0x06dd1402 first_stat=0x00a26fc0 last=0x06dd1402 last_stat=0x00a26fc0
+[ 3131.000339] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=575 sw_prod=194 hw_before(p=0 c=8) hw_after(p=1 c=16) first=0x06dd0782 first_stat=0x00a26fc0 last=0x06dd0782 last_stat=0x00a26fc0
+[ 3133.424996] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=574 sw_prod=195 hw_before(p=0 c=8) hw_after(p=1 c=32) first=0x06dd0502 first_stat=0x00a26fc0 last=0x06dd0502 last_stat=0x00a26fc0
+[ 3135.923846] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=573 sw_prod=196 hw_before(p=0 c=8) hw_after(p=1 c=48) first=0x06dd1902 first_stat=0x00a26fc0 last=0x06dd1902 last_stat=0x00a26fc0
+[ 3138.364139] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=572 sw_prod=197 hw_before(p=0 c=8) hw_after(p=1 c=64) first=0x06dd0a02 first_stat=0x00a26fc0 last=0x06dd0a02 last_stat=0x00a26fc0
+[ 3140.861286] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=571 sw_prod=198 hw_before(p=0 c=8) hw_after(p=1 c=80) first=0x06dd0f02 first_stat=0x00a26fc0 last=0x06dd0f02 last_stat=0x00a26fc0
+[ 3143.313374] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=570 sw_prod=199 hw_before(p=0 c=8) hw_after(p=1 c=96) first=0x06dd1682 first_stat=0x00a26fc0 last=0x06dd1682 last_stat=0x00a26fc0
+[ 3158.032658] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=825 sw_prod=200 hw_before(p=0 c=8) hw_after(p=1 c=112) first=0x06dd0002 first_stat=0x00a26fc0 last=0x06dd0002 last_stat=0x00a26fc0
+[ 3158.061684] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=820 sw_prod=205 hw_before(p=0 c=8) hw_after(p=1 c=192) first=0x06f60a02 first_stat=0x00a26fc0 last=0x06f60a02 last_stat=0x00a26fc0
+[ 3159.959765] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=819 sw_prod=206 hw_before(p=0 c=8) hw_after(p=1 c=208) first=0x06f60002 first_stat=0x00a26fc0 last=0x06f60002 last_stat=0x00a26fc0
+[ 3162.421000] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=818 sw_prod=207 hw_before(p=0 c=8) hw_after(p=1 c=224) first=0x06f61682 first_stat=0x00a26fc0 last=0x06f61682 last_stat=0x00a26fc0
+[ 3164.873948] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=817 sw_prod=208 hw_before(p=0 c=8) hw_after(p=1 c=240) first=0x06f60c82 first_stat=0x00a26fc0 last=0x06f60c82 last_stat=0x00a26fc0
+[ 3167.383120] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=816 sw_prod=209 hw_before(p=0 c=8) hw_after(p=1 c=0) first=0x06f60282 first_stat=0x00a26fc0 last=0x06f60282 last_stat=0x00a26fc0
+[ 3169.832536] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=815 sw_prod=210 hw_before(p=0 c=8) hw_after(p=1 c=16) first=0x06f61b82 first_stat=0x00a26fc0 last=0x06f61b82 last_stat=0x00a26fc0
+[ 3172.317830] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=814 sw_prod=211 hw_before(p=0 c=8) hw_after(p=1 c=32) first=0x06f61182 first_stat=0x00a26fc0 last=0x06f61182 last_stat=0x00a26fc0
+[ 3174.744817] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=813 sw_prod=212 hw_before(p=0 c=8) hw_after(p=1 c=48) first=0x06f60782 first_stat=0x00a26fc0 last=0x06f60782 last_stat=0x00a26fc0
+[ 3177.255242] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=812 sw_prod=213 hw_before(p=0 c=8) hw_after(p=1 c=64) first=0x06f61402 first_stat=0x00a26fc0 last=0x06f61402 last_stat=0x00a26fc0
+[ 3179.788501] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=811 sw_prod=214 hw_before(p=0 c=8) hw_after(p=1 c=80) first=0x06f60502 first_stat=0x00a26fc0 last=0x06f60502 last_stat=0x00a26fc0
+[ 3182.255189] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=810 sw_prod=215 hw_before(p=0 c=8) hw_after(p=1 c=96) first=0x06dd1682 first_stat=0x00a26fc0 last=0x06dd1682 last_stat=0x00a26fc0
+[ 3184.719856] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=809 sw_prod=216 hw_before(p=0 c=8) hw_after(p=1 c=112) first=0x06dd0a02 first_stat=0x00a26fc0 last=0x06dd0a02 last_stat=0x00a26fc0
+[ 3186.697603] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=808 sw_prod=217 hw_before(p=0 c=8) hw_after(p=1 c=128) first=0x06dd0f02 first_stat=0x00a26fc0 last=0x06dd0f02 last_stat=0x00a26fc0
+[ 3189.187108] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=807 sw_prod=218 hw_before(p=0 c=8) hw_after(p=1 c=144) first=0x06dd0502 first_stat=0x00a26fc0 last=0x06dd0502 last_stat=0x00a26fc0
+[ 3191.678135] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=806 sw_prod=219 hw_before(p=0 c=8) hw_after(p=1 c=160) first=0x06dd1902 first_stat=0x00a26fc0 last=0x06dd1902 last_stat=0x00a26fc0
+[ 3194.147676] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=805 sw_prod=220 hw_before(p=0 c=8) hw_after(p=1 c=176) first=0x06dd0782 first_stat=0x00a26fc0 last=0x06dd0782 last_stat=0x00a26fc0
+[ 3196.638634] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=804 sw_prod=221 hw_before(p=0 c=8) hw_after(p=1 c=192) first=0x06dd1402 first_stat=0x00a26fc0 last=0x06dd1402 last_stat=0x00a26fc0
+[ 3199.091216] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=803 sw_prod=222 hw_before(p=0 c=8) hw_after(p=1 c=208) first=0x06dd1b82 first_stat=0x00a26fc0 last=0x06dd1b82 last_stat=0x00a26fc0
+[ 3201.607099] bcmgenet 12c00000.ethernet eth0: tc7200u tx submit ring=0 q=0 len=98 frags=0 free_now=802 sw_prod=223 hw_before(p=0 c=8) hw_after(p=1 c=224) first=0x06dd1182 first_stat=0x00a26fc0 last=0x06dd1182 last_stat=0x00a26fc0
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# echo "=== done ==="
+=== done ===
+root@OpenWrt:~# 
+root@OpenWrt:~# 

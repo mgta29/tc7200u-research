@@ -1,0 +1,314 @@
+root@OpenWrt:~# 
+root@OpenWrt:~# ip addr flush dev br-lan 2>/dev/null || true
+root@OpenWrt:~# 
+root@OpenWrt:~# ip addr flush dev eth0
+root@OpenWrt:~# 
+root@OpenWrt:~# ip addr add 192.168.77.1/24 dev eth0
+root@OpenWrt:~# 
+root@OpenWrt:~# ip link set eth0 up
+root@OpenWrt:~# 
+root@OpenWrt:~# ip route replace 192.168.77.0/24 dev eth0
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# echo "=== hold bridge detach in background ==="
+=== hold bridge detach in background ===
+root@OpenWrt:~# 
+root@OpenWrt:~# (
+> 
+>   while :; do
+> 
+>     hold_detach
+> 
+>     sleep 2
+> 
+>   done
+> 
+> ) &
+root@OpenWrt:~# 
+root@OpenWrt:~# DETACH_PID=$!
+root@OpenWrt:~# 
+root@OpenWrt:~# trap 'kill "$DETACH_PID" 2>/dev/null || true' EXIT
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# echo "=== force 10/half autoneg off ==="
+=== force 10/half autoneg off ===
+root@OpenWrt:~# 
+root@OpenWrt:~# command -v ethtool >/dev/null 2>&1 && ethtool -s eth0 speed 10 d
+uplex half autoneg off || true
+root@OpenWrt:~# 
+root@OpenWrt:~# sleep 2
+root@OpenWrt:~# 
+root@OpenWrt:~# command -v ethtool >/dev/null 2>&1 && ethtool eth0 || true
+Settings for eth0:
+	Supported ports: [ TP MII ]
+	Supported link modes:   1000baseT/Full 
+	Supported pause frame use: Symmetric Receive-only
+	Supports auto-negotiation: Yes
+	Supported FEC modes: Not reported
+	Advertised link modes:  Not reported
+	Advertised pause frame use: Symmetric Receive-only
+	Advertised auto-negotiation: No
+	Advertised FEC modes: Not reported
+	Speed: 10Mb/s
+	Duplex: Half
+	Port: MII
+	PHYAD: 0
+	Transceiver: external
+	Auto-negotiation: off
+	Supports Wake-on: d
+	Wake-on: d
+	Current message level: 0x00000007 (7)
+			       drv probe link
+	Link detected: yes
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# OWRT_MAC="$(cat /sys/class/net/eth0/address 2>/dev/null || echo 
+unknown)"
+root@OpenWrt:~# 
+root@OpenWrt:~# echo "=== owrt eth0 mac ==="
+=== owrt eth0 mac ===
+root@OpenWrt:~# 
+root@OpenWrt:~# echo "$OWRT_MAC"
+86:97:3f:c0:4d:6a
+root@OpenWrt:~# 
+root@OpenWrt:~# echo "Use this MAC in Windows script parameter -OwrtMac."
+Use this MAC in Windows script parameter -OwrtMac.
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# ip neigh replace 192.168.77.2 lladdr bc:ec:a0:2d:6c:9b nud perma
+nent dev eth0
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# detect_ping_mode
+root@OpenWrt:~# 
+root@OpenWrt:~# echo "=== ping stress mode ==="
+=== ping stress mode ===
+root@OpenWrt:~# 
+root@OpenWrt:~# echo "$PING_MODE"
+default
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# echo "=== pre ==="
+=== pre ===
+root@OpenWrt:~# 
+root@OpenWrt:~# date
+Thu Jan  1 02:42:36 GMT 1970
+root@OpenWrt:~# 
+root@OpenWrt:~# ip -d link show dev eth0
+2: [1;36meth0: [0m<BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state [1;32mUP [0mmode DEFAULT group default qlen 1000
+    link/ether [1;33m86:97:3f:c0:4d:6a[0m brd [1;33mff:ff:ff:ff:ff:ff[0m promiscuity 0 allmulti 0 minmtu 68 maxmtu 1500 addrgenmode eui64 numtxqueues 5 numrxqueues 5 gso_max_size 65536 gso_max_segs 65535 tso_max_size 65536 tso_max_segs 65535 gro_max_size 65536 gso_ipv4_max_size 65536 gro_ipv4_max_size 65536 parentbus platform parentdev 12c00000.ethernet 
+root@OpenWrt:~# 
+root@OpenWrt:~# ip -s link show dev eth0
+2: [1;36meth0: [0m<BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state [1;32mUP [0mmode DEFAULT group default qlen 1000
+    link/ether [1;33m86:97:3f:c0:4d:6a[0m brd [1;33mff:ff:ff:ff:ff:ff[0m
+    RX:  bytes packets errors dropped  missed   mcast           
+             0       0      0       0       0       0 
+    TX:  bytes packets errors dropped carrier collsns           
+         47591     454     30       0       0       0 
+root@OpenWrt:~# 
+root@OpenWrt:~# ip neigh show dev eth0 || true
+[1;35m192.168.77.2 [0mlladdr [1;33mbc:ec:a0:2d:6c:9b [0mPERMANENT 
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/net/arp || true
+IP address       HW type     Flags       HW address            Mask     Device
+192.168.77.2     0x1         0x6         bc:ec:a0:2d:6c:9b     *        eth0
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/interrupts | grep -Ei ' 64:| 66:|ERR'
+ 64:      54914  periph_intc@14e00048  64  eth0
+ 66:          0  periph_intc@14e00048  66  eth0
+ERR:     173742
+root@OpenWrt:~# 
+root@OpenWrt:~# dump 0x12c03804
+0x12c03804 = 0x00000001
+root@OpenWrt:~# 
+root@OpenWrt:~# dump 0x12c03808
+0x12c03808 = 0x00000001
+root@OpenWrt:~# 
+root@OpenWrt:~# dump 0x12c03c44
+0x12c03c44 = 0x00000001
+root@OpenWrt:~# 
+root@OpenWrt:~# dump 0x12c02c44
+0x12c02c44 = 0x00000001
+root@OpenWrt:~# 
+root@OpenWrt:~# dump_eth_stats
+=== sysfs eth0 stats ===
+rx_packets=0
+rx_bytes=0
+rx_errors=0
+rx_dropped=0
+tx_packets=454
+tx_bytes=47591
+tx_errors=30
+tx_dropped=0
+=== ethtool -S eth0 (rx/tx/drop/err/miss) ===
+NIC statistics:
+     rx_packets: 0
+     tx_packets: 454
+     rx_bytes: 0
+     tx_bytes: 47591
+     rx_errors: 0
+     tx_errors: 30
+     rx_dropped: 0
+     tx_dropped: 0
+     rx_64_octets: 2998927360
+     rx_65_127_oct: 2998927360
+     rx_128_255_oct: 2998927360
+     rx_256_511_oct: 2998927360
+     rx_512_1023_oct: 2998927360
+     rx_1024_1518_oct: 2998927360
+     rx_vlan_1519_1522_oct: 2998927360
+     rx_1522_2047_oct: 2998927360
+     rx_2048_4095_oct: 2998927360
+     rx_4096_9216_oct: 2998927360
+     rx_pkts: 2998927360
+     rx_bytes: 2998927360
+     rx_multicast: 2998927360
+     rx_broadcast: 2998927360
+     rx_fcs: 2998927360
+     rx_control: 2998927360
+     rx_pause: 2998927360
+     rx_unknown: 2998927360
+     rx_align: 2998927360
+     rx_outrange: 2998927360
+     rx_code: 2998927360
+     rx_carrier: 2998927360
+     rx_oversize: 2998927360
+     rx_jabber: 2998927360
+     rx_mtu_err: 2998927360
+     rx_good_pkts: 2998927360
+     rx_unicast: 2998927360
+     rx_ppp: 2998927360
+     rx_crc: 2998927360
+     tx_64_octets: 2998927360
+     tx_65_127_oct: 2998927360
+     tx_128_255_oct: 2998927360
+     tx_256_511_oct: 2998927360
+     tx_512_1023_oct: 2998927360
+     tx_1024_1518_oct: 2998927360
+     tx_vlan_1519_1522_oct: 2998927360
+     tx_1522_2047_oct: 2998927360
+     tx_2048_4095_oct: 2998927360
+     tx_4096_9216_oct: 2998927360
+     tx_pkts: 2998927360
+     tx_multicast: 2998927360
+     tx_broadcast: 2998927360
+     tx_pause: 2998927360
+     tx_control: 2998927360
+     tx_fcs_err: 2998927360
+     tx_oversize: 2998927360
+     tx_defer: 2998927360
+     tx_excess_defer: 2998927360
+     tx_single_col: 2998927360
+     tx_multi_col: 2998927360
+     tx_late_col: 2998927360
+     tx_excess_col: 2998927360
+     tx_frags: 2998927360
+     tx_total_col: 2998927360
+     tx_jabber: 2998927360
+     tx_bytes: 2998927360
+     tx_good_pkts: 2998927360
+     tx_unicast: 2998927360
+     rx_runt_pkts: 2998927360
+     rx_runt_valid_fcs: 2998927360
+     rx_runt_inval_fcs_align: 2998927360
+     rx_runt_bytes: 2998927360
+     rbuf_err_cnt: 1588
+     mdf_err_cnt: 1592
+     alloc_rx_buff_failed: 0
+     rx_dma_failed: 0
+     tx_dma_failed: 0
+     tx_realloc_tsb: 0
+     tx_realloc_tsb_failed: 0
+     txq0_packets: 454
+     txq0_bytes: 47591
+     rxq0_bytes: 0
+     rxq0_packets: 0
+     rxq0_errors: 0
+     rxq0_dropped: 0
+     txq1_packets: 0
+     txq1_bytes: 0
+     rxq1_bytes: 0
+     rxq1_packets: 0
+     rxq1_errors: 0
+     rxq1_dropped: 0
+     txq2_packets: 0
+     txq2_bytes: 0
+     rxq2_bytes: 0
+     rxq2_packets: 0
+     rxq2_errors: 0
+     rxq2_dropped: 0
+     txq3_packets: 0
+     txq3_bytes: 0
+     rxq3_bytes: 0
+     rxq3_packets: 0
+     rxq3_errors: 0
+     rxq3_dropped: 0
+     txq16_packets: 0
+     txq16_bytes: 0
+     rxq16_bytes: 0
+     rxq16_packets: 0
+     rxq16_errors: 0
+     rxq16_dropped: 0
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# echo "=== phase1 fill tx ring (6 rounds x 20s bounded stress) ==
+="
+=== phase1 fill tx ring (6 rounds x 20s bounded stress) ===
+root@OpenWrt:~# 
+root@OpenWrt:~# date
+Thu Jan  1 02:44:30 GMT 1970
+root@OpenWrt:~# 
+root@OpenWrt:~# i=1
+root@OpenWrt:~# 
+root@OpenWrt:~# while [ "$i" -le 6 ]; do
+> 
+>   echo "phase1 round $i/6"
+> 
+>   b0="$(tx_pkts)"
+> 
+>   burst_for 20
+> 
+>   b1="$(tx_pkts)"
+> 
+>   d1=$((b1-b0))
+> 
+>   echo "phase1 round $i/6 tx_delta_main=$d1 tx_before=$b0 tx_after=$b1 mode=$P
+ING_MODE"
+> 
+>   if [ "$d1" -le 0 ]; then
+> 
+>     echo "phase1 round $i/6 fallback single-shot burst x40"
+> 
+>     f0="$(tx_pkts)"
+> 
+>     single_shot_fallback
+> 
+>     f1="$(tx_pkts)"
+> 
+>     d2=$((f1-f0))
+> 
+>     echo "phase1 round $i/6 tx_delta_fallback=$d2 tx_before=$f0 tx_after=$f1"
+> 
+>   fi
+> 
+>   sleep 3
+> 
+>   i=$((i+1))
+> 
+> done
+phase1 round 1/6
+phase1 round 1/6 tx_delta_main=0 tx_before=454 tx_after=454 mode=default
+phase1 round 1/6 fallback single-shot burst x40
+phase1 round 1/6 tx_delta_fallback=0 tx_before=454 tx_after=454
+phase1 round 2/6
+phase1 round 2/6 tx_delta_main=0 tx_before=454 tx_after=454 mode=default
+phase1 round 2/6 fallback single-shot burst x40
+phase1 round 2/6 tx_delta_fallback=0 tx_before=454 tx_after=454
+phase1 round 3/6

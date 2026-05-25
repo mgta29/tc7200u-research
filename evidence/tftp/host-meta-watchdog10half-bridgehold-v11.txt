@@ -1,0 +1,6 @@
+owrt_mac=92-58-41-34-C0-F0
+owrt_ip=192.168.77.1
+host_ip=192.168.77.2
+if_alias=Ethernet
+if_index=3
+capture_seconds=900

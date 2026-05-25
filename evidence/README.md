@@ -7,6 +7,7 @@ form.
 
 - `serial/`: serial boot logs, picocom captures, and runtime collection logs.
 - `cfe/`: CFE filename, HCS failure, and recovery notes.
+- `tftp/`: host-side TFTP, packet, route, neighbor, and link proof captures.
 - `network-scans/`: LAN, modem, and CFE/TFTP network scan evidence.
 - `snapshots/`: DTS, config, and OpenWrt source snapshots.
 - `backups/`: backups made before OpenWrt image makefile edits.
@@ -17,8 +18,11 @@ form.
 - `evidence/snapshots/current-openwrt/bcm3383-technicolor-tc7200u.dts`
 - `evidence/snapshots/current-openwrt/bcm3384_viper.dtsi`
 - `evidence/snapshots/current-openwrt/kernel-config-6.12.87.txt`
-- `evidence/serial/picocom-20260517-*.log`: latest GENET/TDMA serial
-  capture batch.
+- `evidence/serial/picocom-20260524-*.log` and
+  `evidence/serial/picocom-20260525-*.log`: latest GENET/TDMA serial capture
+  batches.
+- `evidence/tftp/*watchdog10half-bridgehold-v11*`: latest host-side TFTP and
+  packet evidence batch.
 
 Keep new serial and CFE logs here unless a helper script writes a generated
 summary to `research/notes/generated/`.

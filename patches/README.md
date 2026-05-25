@@ -34,6 +34,10 @@ OpenWrt changes.
   ownership and TX poll experiments.
 - `openwrt-bmips/experiments/2026-05-17-genet-dma-address-tests/`: descriptor
   packing, DMA address, and bounce-buffer experiments.
+- `openwrt-bmips/experiments/2026-05-17-genet-current-swapdesc-state/`:
+  current swapped-descriptor patch and DTS experiment state.
+- `openwrt-bmips/experiments/2026-05-25-watchdog10half-bridgehold/`: descriptor
+  format/width and low-address watchdog bridge-hold experiments.
 
 ## Old path map
 
@@ -43,7 +47,9 @@ OpenWrt changes.
 | `disabled-patches/openwrt-bmips/910-tc7200u-mmio-boot-log.patch.disabled` | `patches/disabled/openwrt-bmips/910-tc7200u-mmio-boot-log.patch.disabled` |
 | `artifacts/openwrt-patches/998-bmips-tc7200u-gmac-init.patch` | duplicate removed; canonical copy is `patches/openwrt-bmips/998-bmips-tc7200u-gmac-init.patch` |
 | `research/artifacts/openwrt-patches/2026-05-17-genet-dma-address-tests/` | `patches/openwrt-bmips/experiments/2026-05-17-genet-dma-address-tests/` |
+| `research/artifacts/openwrt-patches/2026-05-17-genet-current-swapdesc-state/` | `patches/openwrt-bmips/experiments/2026-05-17-genet-current-swapdesc-state/` |
 | `research/patches/openwrt/2026-05-17-genet-dma-own-test/` | `patches/openwrt-bmips/experiments/2026-05-17-genet-dma-own-test/` |
+| `scripts/patch/` | `patches/openwrt-bmips/experiments/2026-05-25-watchdog10half-bridgehold/` |
 
 The live OpenWrt tree remains `~/src/openwrt`; these files are repo evidence and
 working copies, not proof that the OpenWrt tree has been updated.

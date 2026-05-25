@@ -21,6 +21,10 @@
 - `scripts/tc7200u-verify-a825-image.py`: A825 image verifier.
 - `scripts/tc7200u-capture-current-state.sh`: state capture helper.
 - `scripts/tc7200u-ensure-debug-packages.sh`: debug package config helper.
+- `scripts/tc7200u-serial-console.sh`: serial console logger that writes
+  picocom captures into `evidence/serial/`.
+- `scripts/tftp/`: host-side PowerShell snippets for TFTP, packet, route,
+  neighbor, and link proof runs.
 - `tools/serial-decompress-timer.py`: interactive serial timing logger.
 
 ## Normal aliases
@@ -42,6 +46,8 @@ the RAM-boot rules need to be printed.
 - `artifacts/invalid/`: failed or unsafe comparison images.
 - `evidence/serial/`: serial boot logs.
 - `evidence/cfe/`: CFE, recovery, and HCS logs.
+- `evidence/tftp/`: host-side TFTP, packet, route, neighbor, and link proof
+  captures.
 - `evidence/network-scans/`: LAN, modem, and CFE/TFTP network scans.
 - `evidence/snapshots/`: DTS/config/source snapshots.
 - `research/notes/`: raw notes by topic.
@@ -62,6 +68,11 @@ the RAM-boot rules need to be printed.
     GENET descriptor ownership and TX poll experiments.
   - `patches/openwrt-bmips/experiments/2026-05-17-genet-dma-address-tests/`:
     GENET descriptor packing, DMA address, and bounce-buffer experiments.
+  - `patches/openwrt-bmips/experiments/2026-05-17-genet-current-swapdesc-state/`:
+    current swapped-descriptor patch and DTS experiment state.
+  - `patches/openwrt-bmips/experiments/2026-05-25-watchdog10half-bridgehold/`:
+    GENET descriptor format/width and low-address watchdog bridge-hold
+    experiments.
 
 ## Important output
 
