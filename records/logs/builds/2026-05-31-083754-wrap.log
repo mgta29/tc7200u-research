@@ -1,0 +1,7 @@
+mode=passthrough
+source=/mnt/c/tftp/openwrt-ps-irqfallback.bin
+output=/mnt/c/tftp/tc7200-script-smoke-test2.bin
+raw=/home/mgta29/tc7200u-research/research/builds/2026-05-31-083754-source-payload.raw
+expect_load=0x82000000
+expect_name=openwrt-initramfs.bin
+expect_signature=0xa825

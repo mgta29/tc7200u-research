@@ -1,0 +1,3 @@
+source=/home/mgta29/src/tc72xx-bfc5
+output=/home/mgta29/tc7200u-research/research/generated/deepmine/2026-05-31-012910-tc72xx-bfc5
+2026-05-31T01:29:15+02:00

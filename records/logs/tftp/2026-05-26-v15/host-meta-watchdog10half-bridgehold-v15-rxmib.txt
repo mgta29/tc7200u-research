@@ -1,0 +1,11 @@
+owrt_mac=C2-52-A8-6D-4C-41
+owrt_ip=192.168.77.1
+host_ip=192.168.77.2
+if_alias=Ethernet
+if_index=3
+run_dir=U:\home\mgta29\tc7200u-research\evidence\tftp\2026-05-26-v15
+run_date=2026-05-26
+run_version=v15
+capture_seconds=900
+heartbeat_seconds=15
+capture_start_utc=2026-05-26 02:59:31

@@ -1,0 +1,13 @@
+
+Interface 3: Ethernet
+
+
+Internet Address                              Physical Address   Type
+--------------------------------------------  -----------------  -----------
+192.168.77.1                                  c2-52-a8-6d-4c-41  Permanent 
+192.168.77.255                                ff-ff-ff-ff-ff-ff  Permanent 
+224.0.0.22                                    01-00-5e-00-00-16  Permanent 
+224.0.0.251                                   01-00-5e-00-00-fb  Permanent 
+224.0.0.252                                   01-00-5e-00-00-fc  Permanent 
+239.255.255.250                               01-00-5e-7f-ff-fa  Permanent 
+

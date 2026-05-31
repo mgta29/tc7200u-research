@@ -1,15 +1,15 @@
 # TC7200.U CFE Image Format Notes
 
-## Known CFE network facts
+## Known CFE Network Facts
 
 - Modem/CFE: `192.168.77.1`
 - TFTP server/PC: `192.168.77.2`
 - CFE-requested filename: `openwrt-ps-irqfallback.bin`
 - Active TFTP path: `/mnt/c/tftp/openwrt-ps-irqfallback.bin`
 
-Do not rename the file inside CFE. Serve the filename CFE asks for.
+Serve the filename CFE asks for.
 
-## A825 ProgramStore wrapper
+## A825 ProgramStore Wrapper
 
 The working TC7200U wrapper writes a 92-byte A825 ProgramStore header before the
 OpenWrt initramfs payload.
@@ -21,29 +21,40 @@ Known fields:
 - internal header filename: `openwrt-initramfs.bin`
 - known-good total received size: `5696426` bytes
 
-Scripts:
+Script:
 
-- `scripts/tc7200u`
 - `scripts/tc7200u-auto-build-install-wrap.sh`
-- `scripts/tc7200u-a825-wrap.py`
-- `scripts/tc7200u-verify-a825-image.py`
 
 Generated wrap manifests are written to:
 
 ```text
-research/notes/generated/
+records/generated/
 ```
 
 Override:
 
 ```sh
-RESEARCH_NOTES_DIR=/path/to/notes scripts/tc7200u wrap
+RESEARCH_NOTES_DIR=/path/to/generated tc wrap
 ```
 
-## Known-good image
+## Known-Good Images
+
+Current known-good image:
 
 ```text
-artifacts/rescue/openwrt-ps-irqfallback-GOOD-5696426.bin
+records/artifacts/rescue/openwrt-tc7200u-known-good-ramboot-20260515-125821.bin
+```
+
+SHA256:
+
+```text
+14b05d771147ab37c388894cd5a66fc2bed230176068902d4444ce29ef1fb8ae
+```
+
+Original A825 baseline:
+
+```text
+records/artifacts/rescue/openwrt-ps-irqfallback-GOOD-5696426.bin
 ```
 
 SHA256:
@@ -58,28 +69,28 @@ Result:
 - CFE executed Image 4.
 - OpenWrt booted to userspace.
 
-## Invalid image classes
+## Invalid Image Classes
 
-Stored under `artifacts/invalid/`:
+Stored under `records/artifacts/invalid/`:
 
 - HCS-failing wrapped images.
 - Raw initramfs images without the A825 Program Header.
-- 12-byte loader-header images that are not valid TC7200U CFE images.
+- 12-byte loader-header images.
 
-These are comparison artifacts only. Do not TFTP them as the active rescue path.
+These are comparison artifacts only.
 
-## Evidence
+## Useful Records
 
-Useful notes:
+Notes:
 
-- `research/notes/image-format/2026-05-14-cfe-header-analysis.txt`
-- `research/notes/image-format/2026-05-14-hcsfail-vs-good-header-cmp.txt`
-- `research/notes/image-format/2026-05-14-known-good-image.json`
-- `research/notes/image-format/2026-05-14-openwrt-wrapper-search.txt`
-- `research/notes/runtime-probes/2026-05-14-tftp-hcs44ca-image-manifest.md`
+- `records/notes/image-format/2026-05-14-cfe-header-analysis.txt`
+- `records/notes/image-format/2026-05-14-hcsfail-vs-good-header-cmp.txt`
+- `records/notes/image-format/2026-05-14-known-good-image.json`
+- `records/notes/image-format/2026-05-14-openwrt-wrapper-search.txt`
+- `records/notes/runtime-probes/2026-05-14-tftp-hcs44ca-image-manifest.md`
 
-Useful logs:
+Logs:
 
-- `evidence/cfe/2026-05-14-cfe-forced-filename.txt`
-- `evidence/cfe/2026-05-14-hcsfail-5697264.txt`
-- `evidence/cfe/2026-05-14-image-recovery.txt`
+- `records/logs/cfe/2026-05-14-cfe-forced-filename.txt`
+- `records/logs/cfe/2026-05-14-hcsfail-5697264.txt`
+- `records/logs/cfe/2026-05-14-image-recovery.txt`

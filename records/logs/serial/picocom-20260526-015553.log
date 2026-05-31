@@ -1,0 +1,106 @@
+
+root@OpenWrt:~# tick 2/24 rx_delta=0 tx_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=655
+tick 3/24 rx_delta=0 tx_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=655
+tick 4/24 rx_delta=0 tx_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=655
+tick 5/24 rx_delta=0 tx_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=655
+tick 6/24 rx_delta=0 tx_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=655
+tick 7/24 rx_delta=0 tx_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=655
+tick 8/24 rx_delta=0 tx_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=655
+tick 9/24 rx_delta=0 tx_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=655
+tick 10/24 rx_delta=0 tx_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=655
+tick 11/24 rx_delta=0 tx_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=655
+tick 12/24 rx_delta=0 tx_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=655
+tick 13/24 rx_delta=0 tx_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=655
+tick 14/24 rx_delta=0 tx_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=655
+tick 15/24 rx_delta=0 tx_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=655
+tick 16/24 rx_delta=0 tx_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=655
+tick 17/24 rx_delta=0 tx_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=655
+tick 18/24 rx_delta=0 tx_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=655
+tick 19/24 rx_delta=0 tx_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=655
+tick 20/24 rx_delta=0 tx_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=655
+^C
+root@OpenWrt:~# tick 2/24 rx_delta=0 tx_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=655
+tick 3/24 rx_delta=0 tx_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=655
+tick 4/24 rx_delta=0 tx_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=655
+tick 5/24 rx_delta=0 tx_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=655
+tick 6/24 rx_delta=0 tx_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=655
+tick 7/24 rx_delta=0 tx_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=655
+tick 8/24 rx_delta=0 tx_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=655
+tick 9/24 rx_delta=0 tx_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=655
+tick 10/24 rx_delta=0 tx_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=655
+tick 11/24 rx_delta=0 tx_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=655
+tick 12/24 rx_delta=0 tx_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=655
+tick 13/24 rx_delta=0 tx_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=655
+tick 14/24 rx_delta=0 tx_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=655
+tick 15/24 rx_delta=0 tx_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=655
+tick 16/24 rx_delta=0 tx_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=655
+tick 17/24 rx_delta=0 tx_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=655
+tick 18/24 rx_delta=0 tx_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=655
+tick 19/24 rx_delta=0 tx_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=655
+tick 20/24 rx_delta=0 tx_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=655
+tick 21/24 rx_delta=0 tx_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=655
+tick 22/24 rx_delta=0 tx_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=655
+tick 23/24 rx_delta=0 tx_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=655
+tick 24/24 rx_delta=0 tx_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=655
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# echo "post1"
+post1
+root@OpenWrt:~# 
+root@OpenWrt:~# sleep 4
+root@OpenWrt:~# 
+root@OpenWrt:~# echo "post2"
+post2
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# echo "=== post ==="
+=== post ===
+root@OpenWrt:~# 
+root@OpenWrt:~# show_stats
+tx_packets=655
+rx_packets=0
+tx_errors=24
+rx_errors=0
+tx_dropped=1
+rx_dropped=0
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/interrupts | grep -Ei ' 64:| 66:|ERR'
+ 64:      28920  periph_intc@14e00048  64  eth0
+ 66:          0  periph_intc@14e00048  66  eth0
+ERR:      90367
+root@OpenWrt:~# 
+root@OpenWrt:~# dump 0x12c03804
+0x12c03804 = 0x00000001
+root@OpenWrt:~# 
+root@OpenWrt:~# dump 0x12c03808
+0x12c03808 = 0x00000001
+root@OpenWrt:~# 
+root@OpenWrt:~# dump 0x12c03c44
+0x12c03c44 = 0x00000001
+root@OpenWrt:~# 
+root@OpenWrt:~# dump 0x12c02c44
+0x12c02c44 = 0x00000001
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# echo "=== watchdog block ==="
+=== watchdog block ===
+root@OpenWrt:~# 
+root@OpenWrt:~# dmesg | grep -A8 -E 'NETDEV WATCHDOG|Ring 0 queue 0 status summa
+ry' | tail -n 320
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# echo "=== tx tail ==="
+=== tx tail ===
+root@OpenWrt:~# 
+root@OpenWrt:~# dmesg | grep -E 'tc7200u tx submit' | tail -n 120
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# echo "done"
+done
+root@OpenWrt:~# 
+root@OpenWrt:~# 

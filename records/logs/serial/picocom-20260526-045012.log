@@ -1,0 +1,374 @@
+c[14742.337181] ttyS ttyS0: 1 input overrun(s)
+at /ddress[J[J[J[J[J[J[J[J[J[J[Jroot@OpenWrt:~# echo "done"[Jroot@OpenWrt:~# dmesg | grep -E 'tc7200u tx submit' | tail -n 120[Jroot@OpenWrt:~# echo "done"[Jroot@OpenWrt:~# [Jcat /syroot@OpenWrt:~# cat /sys/[Jcroot@OpenWrt:~# cat /sys/class/[Jnroot@OpenWrt:~# cat /sys/class/net/[Jeroot@OpenWrt:~# cat /sys/class/net/eth0/[Jaddroot@OpenWrt:~# cat /sys/class/net/eth0/addr[Jeroot@OpenWrt:~# cat /sys/class/net/eth0/address [J
+c2:52:a8:6d:4c:41
+root@OpenWrt:~# pre 0x12c004c0 = 0x00000001
+pre 0x12c004c4 = 0x00000001
+pre 0x12c004c8 = 0x00000001
+pre 0x12c004cc = 0x00000001
+pre 0x12c004d0 = 0x00000001
+pre 0x12c004d4 = 0x00000001
+pre 0x12c004d8 = 0x00000001
+pre 0x12c004dc = 0x00000001
+pre 0x12c004e0 = 0x00000001
+pre 0x12c004e4 = 0x00000001
+pre 0x12c004e8 = 0x00000001
+pre 0x12c004ec = 0x00000001
+pre 0x12c004f0 = 0x00000001
+pre 0x12c004f4 = 0x00000001
+pre 0x12c004f8 = 0x00000001
+pre 0x12c004fc = 0x00000001
+pre 0x12c00500 = 0x00000001
+pre 0x12c00504 = 0x00000001
+pre 0x12c00508 = 0x00000001
+pre 0x12c0050c = 0x00000001
+pre 0x12c00510 = 0x00000001
+pre 0x12c00514 = 0x00000001
+pre 0x12c00518 = 0x00000001
+pre 0x12c0051c = 0x00000001
+pre 0x12c00520 = 0x00000001
+pre 0x12c00524 = 0x00000001
+pre 0x12c00528 = 0x00000001
+pre 0x12c0052c = 0x00000001
+pre 0x12c00530 = 0x00000001
+pre 0x12c00534 = 0x00000001
+pre 0x12c00538 = 0x00000001
+pre 0x12c0053c = 0x00000001
+pre 0x12c00540 = 0x00000001
+pre 0x12c00544 = 0x00000001
+pre 0x12c00548 = 0x00000001
+pre 0x12c0054c = 0x00000001
+pre 0x12c00550 = 0x00000001
+pre 0x12c00554 = 0x00000001
+pre 0x12c00558 = 0x00000001
+pre 0x12c0055c = 0x00000001
+pre 0x12c00560 = 0x00000001
+pre 0x12c00564 = 0x00000001
+pre 0x12c00568 = 0x00000001
+pre 0x12c0056c = 0x00000001
+pre 0x12c00570 = 0x00000001
+pre 0x12c00574 = 0x00000001
+pre 0x12c00578 = 0x00000001
+pre 0x12c0057c = 0x00000001
+pre 0x12c00580 = 0x00000001
+pre 0x12c00584 = 0x00000001
+pre 0x12c00588 = 0x00000001
+pre 0x12c0058c = 0x00000001
+pre 0x12c00590 = 0x00000001
+pre 0x12c00594 = 0x00000001
+pre 0x12c00598 = 0x00000001
+pre 0x12c0059c = 0x00000001
+pre 0x12c005a0 = 0x00000001
+pre 0x12c005a4 = 0x00000001
+pre 0x12c005a8 = 0x00000001
+pre 0x12c005ac = 0x00000001
+pre 0x12c005b0 = 0x00000001
+pre 0x12c005b4 = 0x00000001
+pre 0x12c005b8 = 0x00000001
+pre 0x12c005bc = 0x00000001
+pre 0x12c005c0 = 0x00000001
+pre 0x12c005c4 = 0x00000001
+pre 0x12c005c8 = 0x00000001
+pre 0x12c005cc = 0x00000001
+pre 0x12c005d0 = 0x00000001
+pre 0x12c005d4 = 0x00000001
+pre 0x12c005d8 = 0x00000001
+pre 0x12c005dc = 0x00000001
+pre 0x12c005e0 = 0x00000001
+pre 0x12c005e4 = 0x00000001
+pre 0x12c005e8 = 0x00000001
+pre 0x12c005ec = 0x00000001
+pre 0x12c005f0 = 0x00000001
+pre 0x12c005f4 = 0x00000001
+pre 0x12c005f8 = 0x00000001
+pre 0x12c005fc = 0x00000001
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# echo "=== phase1 rx-only observe (24 x 5s) ==="
+=== phase1 rx-only observe (24 x 5s) ===
+root@OpenWrt:~# 
+root@OpenWrt:~# i=1
+root@OpenWrt:~# 
+root@OpenWrt:~# while [ $i -le 24 ]; do
+> 
+>   rx0=$(stat rx_packets)
+> 
+>   tx0=$(stat tx_packets)
+> 
+>   rb0=$(stat rx_bytes)
+> 
+>   mb0=$(stat multicast)
+> 
+>   e0=$(stat rx_errors)
+> 
+>   w0=$(dmesg | grep -c 'NETDEV WATCHDOG')
+> 
+>   sleep 5
+> 
+>   rx1=$(stat rx_packets)
+> 
+>   tx1=$(stat tx_packets)
+> 
+>   rb1=$(stat rx_bytes)
+> 
+>   mb1=$(stat multicast)
+> 
+>   e1=$(stat rx_errors)
+> 
+>   w1=$(dmesg | grep -c 'NETDEV WATCHDOG')
+> 
+>   drx=$((rx1-rx0))
+> 
+>   dtx=$((tx1-tx0))
+> 
+>   drb=$((rb1-rb0))
+> 
+>   dmb=$((mb1-mb0))
+> 
+>   derx=$((e1-e0))
+> 
+>   dw=$((w1-w0))
+> 
+>   echo "tick $i/24 rx_delta=$drx tx_delta=$dtx rxbytes_delta=$drb mcast_delta=
+$dmb rxerr_delta=$derx watchdog_new=$dw rx_now=$rx1 tx_now=$tx1"
+> 
+>   i=$((i+1))
+> 
+> done
+tick 1/24 rx_delta=0 tx_delta=0 rxbytes_delta=0 mcast_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=741
+tick 2/24 rx_delta=0 tx_delta=0 rxbytes_delta=0 mcast_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=741
+tick 3/24 rx_delta=0 tx_delta=0 rxbytes_delta=0 mcast_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=741
+tick 4/24 rx_delta=0 tx_delta=0 rxbytes_delta=0 mcast_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=741
+tick 5/24 rx_delta=0 tx_delta=0 rxbytes_delta=0 mcast_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=741
+tick 6/24 rx_delta=0 tx_delta=0 rxbytes_delta=0 mcast_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=741
+tick 7/24 rx_delta=0 tx_delta=0 rxbytes_delta=0 mcast_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=741
+tick 8/24 rx_delta=0 tx_delta=0 rxbytes_delta=0 mcast_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=741
+tick 9/24 rx_delta=0 tx_delta=0 rxbytes_delta=0 mcast_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=741
+tick 10/24 rx_delta=0 tx_delta=0 rxbytes_delta=0 mcast_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=741
+tick 11/24 rx_delta=0 tx_delta=0 rxbytes_delta=0 mcast_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=741
+tick 12/24 rx_delta=0 tx_delta=0 rxbytes_delta=0 mcast_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=741
+tick 13/24 rx_delta=0 tx_delta=0 rxbytes_delta=0 mcast_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=741
+tick 14/24 rx_delta=0 tx_delta=0 rxbytes_delta=0 mcast_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=741
+tick 15/24 rx_delta=0 tx_delta=0 rxbytes_delta=0 mcast_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=741
+tick 16/24 rx_delta=0 tx_delta=0 rxbytes_delta=0 mcast_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=741
+tick 17/24 rx_delta=0 tx_delta=0 rxbytes_delta=0 mcast_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=741
+tick 18/24 rx_delta=0 tx_delta=0 rxbytes_delta=0 mcast_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=741
+tick 19/24 rx_delta=0 tx_delta=0 rxbytes_delta=0 mcast_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=741
+tick 20/24 rx_delta=0 tx_delta=0 rxbytes_delta=0 mcast_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=741
+tick 21/24 rx_delta=0 tx_delta=0 rxbytes_delta=0 mcast_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=741
+tick 22/24 rx_delta=0 tx_delta=0 rxbytes_delta=0 mcast_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=741
+tick 23/24 rx_delta=0 tx_delta=0 rxbytes_delta=0 mcast_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=741
+tick 24/24 rx_delta=0 tx_delta=0 rxbytes_delta=0 mcast_delta=0 rxerr_delta=0 watchdog_new=0 rx_now=0 tx_now=741
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# echo "post1"
+post1
+root@OpenWrt:~# 
+root@OpenWrt:~# sleep 4
+root@OpenWrt:~# 
+root@OpenWrt:~# echo "post2"
+post2
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# echo "=== post ==="
+=== post ===
+root@OpenWrt:~# 
+root@OpenWrt:~# ip -d link show dev eth0
+BusyBox v1.37.0 (2026-01-02 17:07:02 UTC) multi-call binary.
+
+Usage: ip [OPTIONS] address|route|link|neigh|rule [ARGS]
+
+OPTIONS := -f[amily] inet|inet6|link | -o[neline]
+
+ip addr add|del IFADDR dev IFACE | show|flush [dev IFACE] [to PREFIX]
+ip route list|flush|add|del|change|append|replace|test ROUTE
+ip link set IFACE [up|down] [arp on|off] [multicast on|off]
+	[promisc on|off] [mtu NUM] [name NAME] [qlen NUM] [address MAC]
+	[master IFACE | nomaster] [netns PID]
+ip neigh show|flush [to PREFIX] [dev DEV] [nud STATE]
+ip rule [list] | add|del SELECTOR ACTION
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /sys/class/net/eth0/flags 2>/dev/null || true
+0x1103
+root@OpenWrt:~# 
+root@OpenWrt:~# show_stats
+tx_packets=741
+rx_packets=0
+tx_errors=24
+rx_errors=0
+tx_dropped=1
+rx_dropped=0
+multicast=0
+rx_bytes=0
+tx_bytes=33111
+root@OpenWrt:~# 
+root@OpenWrt:~# cat /proc/interrupts | grep -Ei ' 64:| 66:|ERR'
+ 64:      55594  periph_intc@14e00048  64  eth0
+ 66:          0  periph_intc@14e00048  66  eth0
+ERR:     171416
+root@OpenWrt:~# 
+root@OpenWrt:~# dump 0x12c03804
+0x12c03804 = 0x00000001
+root@OpenWrt:~# 
+root@OpenWrt:~# dump 0x12c03808
+0x12c03808 = 0x00000001
+root@OpenWrt:~# 
+root@OpenWrt:~# dump 0x12c03c44
+0x12c03c44 = 0x00000001
+root@OpenWrt:~# 
+root@OpenWrt:~# dump 0x12c02c44
+0x12c02c44 = 0x00000001
+root@OpenWrt:~# 
+root@OpenWrt:~# mib_snapshot post
+=== mib-post (0x12c00400..0x12c005fc) ===
+post 0x12c00400 = 0x00000001
+post 0x12c00404 = 0x00000001
+post 0x12c00408 = 0x00000001
+post 0x12c0040c = 0x00000001
+post 0x12c00410 = 0x00000001
+post 0x12c00414 = 0x00000001
+post 0x12c00418 = 0x00000001
+post 0x12c0041c = 0x00000001
+post 0x12c00420 = 0x00000001
+post 0x12c00424 = 0x00000001
+post 0x12c00428 = 0x00000001
+post 0x12c0042c = 0x00000001
+post 0x12c00430 = 0x00000001
+post 0x12c00434 = 0x00000001
+post 0x12c00438 = 0x00000001
+post 0x12c0043c = 0x00000001
+post 0x12c00440 = 0x00000001
+post 0x12c00444 = 0x00000001
+post 0x12c00448 = 0x00000001
+post 0x12c0044c = 0x00000001
+post 0x12c00450 = 0x00000001
+post 0x12c00454 = 0x00000001
+post 0x12c00458 = 0x00000001
+post 0x12c0045c = 0x00000001
+post 0x12c00460 = 0x00000001
+post 0x12c00464 = 0x00000001
+post 0x12c00468 = 0x00000001
+post 0x12c0046c = 0x00000001
+post 0x12c00470 = 0x00000001
+post 0x12c00474 = 0x00000001
+post 0x12c00478 = 0x00000001
+post 0x12c0047c = 0x00000001
+post 0x12c00480 = 0x00000001
+post 0x12c00484 = 0x00000001
+post 0x12c00488 = 0x00000001
+post 0x12c0048c = 0x00000001
+post 0x12c00490 = 0x00000001
+post 0x12c00494 = 0x00000001
+post 0x12c00498 = 0x00000001
+post 0x12c0049c = 0x00000001
+post 0x12c004a0 = 0x00000001
+post 0x12c004a4 = 0x00000001
+post 0x12c004a8 = 0x00000001
+post 0x12c004ac = 0x00000001
+post 0x12c004b0 = 0x00000001
+post 0x12c004b4 = 0x00000001
+post 0x12c004b8 = 0x00000001
+post 0x12c004bc = 0x00000001
+post 0x12c004c0 = 0x00000001
+post 0x12c004c4 = 0x00000001
+post 0x12c004c8 = 0x00000001
+post 0x12c004cc = 0x00000001
+post 0x12c004d0 = 0x00000001
+post 0x12c004d4 = 0x00000001
+post 0x12c004d8 = 0x00000001
+post 0x12c004dc = 0x00000001
+post 0x12c004e0 = 0x00000001
+post 0x12c004e4 = 0x00000001
+post 0x12c004e8 = 0x00000001
+post 0x12c004ec = 0x00000001
+post 0x12c004f0 = 0x00000001
+post 0x12c004f4 = 0x00000001
+post 0x12c004f8 = 0x00000001
+post 0x12c004fc = 0x00000001
+post 0x12c00500 = 0x00000001
+post 0x12c00504 = 0x00000001
+post 0x12c00508 = 0x00000001
+post 0x12c0050c = 0x00000001
+post 0x12c00510 = 0x00000001
+post 0x12c00514 = 0x00000001
+post 0x12c00518 = 0x00000001
+post 0x12c0051c = 0x00000001
+post 0x12c00520 = 0x00000001
+post 0x12c00524 = 0x00000001
+post 0x12c00528 = 0x00000001
+post 0x12c0052c = 0x00000001
+post 0x12c00530 = 0x00000001
+post 0x12c00534 = 0x00000001
+post 0x12c00538 = 0x00000001
+post 0x12c0053c = 0x00000001
+post 0x12c00540 = 0x00000001
+post 0x12c00544 = 0x00000001
+post 0x12c00548 = 0x00000001
+post 0x12c0054c = 0x00000001
+post 0x12c00550 = 0x00000001
+post 0x12c00554 = 0x00000001
+post 0x12c00558 = 0x00000001
+post 0x12c0055c = 0x00000001
+post 0x12c00560 = 0x00000001
+post 0x12c00564 = 0x00000001
+post 0x12c00568 = 0x00000001
+post 0x12c0056c = 0x00000001
+post 0x12c00570 = 0x00000001
+post 0x12c00574 = 0x00000001
+post 0x12c00578 = 0x00000001
+post 0x12c0057c = 0x00000001
+post 0x12c00580 = 0x00000001
+post 0x12c00584 = 0x00000001
+post 0x12c00588 = 0x00000001
+post 0x12c0058c = 0x00000001
+post 0x12c00590 = 0x00000001
+post 0x12c00594 = 0x00000001
+post 0x12c00598 = 0x00000001
+post 0x12c0059c = 0x00000001
+post 0x12c005a0 = 0x00000001
+post 0x12c005a4 = 0x00000001
+post 0x12c005a8 = 0x00000001
+post 0x12c005ac = 0x00000001
+post 0x12c005b0 = 0x00000001
+post 0x12c005b4 = 0x00000001
+post 0x12c005b8 = 0x00000001
+post 0x12c005bc = 0x00000001
+post 0x12c005c0 = 0x00000001
+post 0x12c005c4 = 0x00000001
+post 0x12c005c8 = 0x00000001
+post 0x12c005cc = 0x00000001
+post 0x12c005d0 = 0x00000001
+post 0x12c005d4 = 0x00000001
+post 0x12c005d8 = 0x00000001
+post 0x12c005dc = 0x00000001
+post 0x12c005e0 = 0x00000001
+post 0x12c005e4 = 0x00000001
+post 0x12c005e8 = 0x00000001
+post 0x12c005ec = 0x00000001
+post 0x12c005f0 = 0x00000001
+post 0x12c005f4 = 0x00000001
+post 0x12c005f8 = 0x00000001
+post 0x12c005fc = 0x00000001
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# echo "=== watchdog block ==="
+=== watchdog block ===
+root@OpenWrt:~# 
+root@OpenWrt:~# dmesg | grep -A8 -E 'NETDEV WATCHDOG|Ring 0 queue 0 status summa
+ry' | tail -n 320
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# echo "=== tx tail ==="
+=== tx tail ===
+root@OpenWrt:~# 
+root@OpenWrt:~# dmesg | grep -E 'tc7200u tx submit' | tail -n 120
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# echo "done"
+done
+root@OpenWrt:~# 

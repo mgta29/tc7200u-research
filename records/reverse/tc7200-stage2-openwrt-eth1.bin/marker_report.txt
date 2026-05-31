@@ -1,0 +1,22 @@
+load_address=0x80004000
+marker_hits:
+  - Booting Linux on TP1...: none
+  - Linux Boot Args:: none
+  - <<<<< rx_thread sent initial handshake >>>>>>: none
+  - HandShakeMsg = %08lx: none
+  - unhandled message %08lx: none
+  - <<<<< %s sent initial handshake >>>>>>: none
+  - Error: getHostDqmMessage(handshake) on %s: none
+  - Error: handshake rx unexpected message: none
+  - <<<<< %s sent reply handshake message >>>>>>: none
+  - init_service_handshake: none
+  - %s unexpected message %08lx: none
+  - %s: unexpected message %d: none
+  - Creating DOCSIS Control Thread...: none
+  - CM DOCSIS Control Thread Commands: none
+  - Creating TR-069 Thread...: none
+  - BcmBfcTr69Thread::Singleton mutex: none
+  - BcmBfcTr69Thread: Initializing Core: none
+  - TR-069 settings and commands.: none
+  - Thread processor handshake. Secondary app initialized properly.: none
+  - Incompatible Firmware: none

@@ -1,0 +1,21 @@
+raw=/home/mgta29/tc7200u-research/research/generated/2026-05-31-011805-source-payload.raw
+wrapped=/mnt/c/tftp/tc7200-stage1-map-dc0103.bin
+raw_size=4615376
+wrapped_size=4615468
+signature=0xa825
+expected_signature=0xa825
+control=0x0005
+major=0x0100
+minor=0x01ff
+build_time=0x535dcdc0
+file_length=4615376
+load_address=0x80004000
+filename=TC7200.20-DC.01.03-140425-F-1FF.bin
+hcs=0x45a0
+expected_hcs=0x45a0
+crc=0xcd6a3c89
+size_ok=True
+raw_sha256=435edcccdc2a09995fb902ddaec687186aa3ecfb0cdf3ff422a78debef09899a
+wrapped_sha256=82064a1793369cfb333dffbc3f58f5497a78f8b34bf5b8f0ccdda58eba71960e
+
+OK: wrapped image matches raw payload and expected header fields

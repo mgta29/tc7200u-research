@@ -1,0 +1,15 @@
+source=/mnt/c/tftp/tc7200-stage2-openwrt-eth1.bin
+wrapped_size=9240668
+signature=0xa825
+control=0x0000
+major=0x0100
+minor=0x04ff
+build_time=0x6a0b751d
+file_length=9240576
+load_address=0x80004000
+filename=openwrt-initramfs.bin
+hcs=0x40f8
+expected_hcs=0x40f8
+crc=0x00000000
+payload_size=9240576
+payload_sha256=49162f8a7f2ab2f7b2348f3233c7142310516eb04af64678015cc200d36e2950

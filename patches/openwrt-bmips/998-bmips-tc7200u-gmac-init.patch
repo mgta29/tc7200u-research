@@ -8,7 +8,7 @@
  #include <linux/memblock.h>
  #include <linux/ioport.h>
  #include <linux/kernel.h>
-@@ -144,6 +145,58 @@
+@@ -144,6 +145,100 @@
  	bmips_smp_enabled = 0;
  }
  
@@ -17,6 +17,9 @@
 +#define TC7200U_CLK_CTRL_LOW		((void __iomem *)CKSEG1ADDR(0x14e00004))
 +#define TC7200U_CLK_CTRL_HIGH		((void __iomem *)CKSEG1ADDR(0x14e00008))
 +#define TC7200U_SOFT_RESETB_LOW		((void __iomem *)CKSEG1ADDR(0x14e0008c))
++#define TC7200U_GMAC_CMD		((void __iomem *)CKSEG1ADDR(0x12c00070))
++#define TC7200U_UNIMAC_IF0_BASE		((void __iomem *)CKSEG1ADDR(0x12c00600))
++#define TC7200U_UNIMAC_IF1_BASE		((void __iomem *)CKSEG1ADDR(0x12c02600))
 +
 +static void tc7200u_bcm3383_gmac_init(void)
 +{
@@ -58,16 +61,55 @@
 +	__raw_writel(val, TC7200U_SOFT_RESETB_LOW);
 +}
 +
++static void tc7200u_stage1_unimac_seed(void __iomem *base, u32 cmd_bits)
++{
++	u32 val;
++
++	/* fn_enet_gmac_init_step2: stage GMAC command bits per interface */
++	val = __raw_readl(TC7200U_GMAC_CMD);
++	val |= cmd_bits;
++	__raw_writel(val, TC7200U_GMAC_CMD);
++
++	/*
++	 * fn_enet_gmac_init_step6 register program (observed d60242):
++	 *   reg[0x208] = (reg & 0xfefffbf3) | 0x0000000b
++	 *   reg[0x214] = (reg & 0xffffc000) | 0x00008000
++	 *   reg[0x01c] |= 0x00000283
++	 *   reg[0x020] |= 0x00001800
++	 */
++	val = __raw_readl(base + 0x208);
++	val &= 0xfefffbf3;
++	val |= 0x0000000b;
++	__raw_writel(val, base + 0x208);
++
++	val = __raw_readl(base + 0x214);
++	val &= 0xffffc000;
++	val |= 0x00008000;
++	__raw_writel(val, base + 0x214);
++
++	val = __raw_readl(base + 0x01c);
++	val |= 0x00000283;
++	__raw_writel(val, base + 0x01c);
++
++	val = __raw_readl(base + 0x020);
++	val |= 0x00001800;
++	__raw_writel(val, base + 0x020);
++}
++
 +static void tc7200u_quirks(void)
 +{
 +	bcm3384_viper_quirks();
 +	tc7200u_bcm3383_gmac_init();
++
++	/* IF0 lower command bits + IF1 upper command bits. */
++	tc7200u_stage1_unimac_seed(TC7200U_UNIMAC_IF0_BASE, 0x00000003);
++	tc7200u_stage1_unimac_seed(TC7200U_UNIMAC_IF1_BASE, 0x00030000);
 +}
 +
  static void bcm63xx_fixup_cpu1(void)
  {
  	/*
-@@ -193,6 +246,7 @@
+@@ -193,5 +292,6 @@
  
  static const struct bmips_quirk bmips_quirk_list[] = {
  	{ "brcm,bcm3368",		&bcm6358_quirks			},

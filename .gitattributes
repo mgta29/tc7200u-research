@@ -1,5 +1,6 @@
-# Keep raw hardware evidence byte-for-byte. These captures come from Windows,
-# serial tools, and packet tracing, so line endings are evidence too.
-evidence/serial/*.log -text
-evidence/tftp/*.txt -text
-evidence/tftp/*.etl binary
+# Preserve records byte-for-byte. This bucket contains captures, generated
+# measurements, reverse-engineering output, snapshots, and binary images.
+records/** -text
+records/logs/tftp/**/*.etl binary
+records/artifacts/**/*.bin binary
+records/reverse/**/*.bin binary

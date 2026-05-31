@@ -1,0 +1,15 @@
+source=/mnt/c/tftp/openwrt-ps-irqfallback.bin
+wrapped_size=6418079
+signature=0xa825
+control=0x0000
+major=0x0100
+minor=0x04ff
+build_time=0x6a0b751d
+file_length=6417987
+load_address=0x82000000
+filename=openwrt-initramfs.bin
+hcs=0x1255
+expected_hcs=0x1255
+crc=0x00000000
+payload_size=6417987
+payload_sha256=a17f022f1ef947ee16f60f0481f315fc399278ca574fb73c6ddcf548efbe0deb

@@ -1,0 +1,22 @@
+raw=/home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin
+wrapped=/mnt/c/tftp/tc7200u-auto-check-20260531-r2.bin
+raw_size=7373590
+wrapped_size=7373682
+signature=0xa825
+expected_signature=0xa825
+control=0x0000
+major=0x0100
+minor=0x04ff
+build_time=0x6a1be073
+file_length=7373590
+load_address=0x82000000
+filename=tc7200u-auto-check-20260531-r2.bin
+expected_name=tc7200u-auto-check-20260531-r2.bin
+hcs=0x64d3
+expected_hcs=0x64d3
+crc=0x00000000
+size_ok=True
+raw_sha256=56d178e75523bd0a191703bb546f4ab1c983d8bc35d18e56f4f6be9c26eed325
+wrapped_sha256=c5974dd5d5250d262a1f6d5808e95965541c4934567fa6e3e34c581976272123
+
+OK: wrapped image matches raw payload and expected header fields

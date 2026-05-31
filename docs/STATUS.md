@@ -1,205 +1,67 @@
-# TC7200U OpenWrt Bring-up Status
+# TC7200U OpenWrt Bring-Up Status
 
-Last updated: 2026-05-24.
+Last updated: 2026-05-31.
 
-## Current state
+## Current State
 
-This project is in early bring-up state. It can boot OpenWrt from RAM over
-CFE/TFTP and reach a serial shell, but it is not a working flashable OpenWrt
-system.
-
-## Recent result (2026-05-24)
-
-- Flood TX test reproduced `NETDEV WATCHDOG` with a full queue-status summary.
-- Watchdog snapshot shows queue-stop with no hardware completion progress:
-  `(hw)c_index: 0` while software indices advance.
-- RX still stayed zero; hwirq 64 incremented, hwirq 66 stayed zero, and ERR
-  continued increasing.
-- Post-watchdog tx-submit accounting jumped above ring size
-  (`free_now=266/273` while ring size is 256).
-- A follow-up serial+pktmon paired run showed host-side peer ARP retries
-  (`who-has 192.168.77.1 tell 192.168.77.2`) but no frames sourced from
-  OpenWrt's runtime MAC (`16:d8:10:6e:9d:33`) and no `192.168.77.3` packets.
-- See runtime notes:
-  - research/notes/runtime-probes/2026-05-24-flood-watchdog-queue-stopped.md
-  - research/notes/runtime-probes/2026-05-24-flood-no-watchdog-still-no-rx.md
-  - research/notes/runtime-probes/2026-05-24-pktmon-peer-arp-only-no-owrt-egress.md
+This project can boot OpenWrt from CFE/TFTP and reach a serial shell on the
+Technicolor TC7200.U / BCM3383 platform. Ethernet remains the active blocker.
 
 ## Working
 
-- RAM/TFTP boot works with the known-good rescue image:
-  - `artifacts/rescue/openwrt-tc7200u-known-good-ramboot-20260515-125821.bin`
-  - Size: `5097194` bytes
-  - SHA256:
-    `14b05d771147ab37c388894cd5a66fc2bed230176068902d4444ce29ef1fb8ae`
-- The original A825 rescue baseline is preserved:
-  - `artifacts/rescue/openwrt-ps-irqfallback-GOOD-5696426.bin`
-  - Size: `5696426` bytes
-  - SHA256:
-    `2ae4afb92e4df065e88d61bcbac9f693c6a853e1ff349e09d3c8e5cfae4ac513`
+- CFE/TFTP boot reaches OpenWrt userspace.
 - OpenWrt reaches a shell over serial on `ttyS0`.
 - UART RX works when `CONFIG_BCM7120_L2_IRQ=y` is enabled.
-- BCM3380 L2 interrupt controllers register:
-  - `/ubus/periph_intc@14e00048`
-  - `/ubus/cmips_intc@151f8048`
-- TC7200U CFE TFTP wrapping is partly understood:
-  - signature: `a825`
-  - header length: 92 bytes
-  - payload load address: `0x82000000`
-  - internal header filename: `openwrt-initramfs.bin`
-- Local wrapper and verifier scripts exist:
-  - `scripts/tc7200u`
-  - `scripts/tc7200u-auto-build-install-wrap.sh`
-  - `scripts/tc7200u-a825-wrap.py`
-  - `scripts/tc7200u-verify-a825-image.py`
+- A825 ProgramStore wrapper generation and verification are integrated into
+  `scripts/tc7200u-auto-build-install-wrap.sh`.
 - Kernel-side MMIO probing with `ioremap()` and `printk()` works and is
   preferred over `/dev/mem`.
 
-## Not working
+Known-good image:
+
+- `records/artifacts/rescue/openwrt-tc7200u-known-good-ramboot-20260515-125821.bin`
+- Size: `5097194` bytes
+- SHA256: `14b05d771147ab37c388894cd5a66fc2bed230176068902d4444ce29ef1fb8ae`
+
+Original A825 baseline:
+
+- `records/artifacts/rescue/openwrt-ps-irqfallback-GOOD-5696426.bin`
+- Size: `5696426` bytes
+- SHA256: `2ae4afb92e4df065e88d61bcbac9f693c6a853e1ff349e09d3c8e5cfae4ac513`
+
+## Not Working
 
 - Ethernet is not passing packets.
-  - GENET at `0x12c00000` probes and creates `eth0`.
-  - Fixed-link RGMII reports link up, but TX does not complete.
-  - `bcmgenet_xmit()` queues a real TX frame into descriptor RAM and writes
-    producer index 1.
-  - TDMA stays enabled, but the hardware consumer index never advances.
-  - Compact GENET v1 status/length descriptor packing now reads back correctly:
-    `wrote_len=0x000e009a`, `rb_len=0x000e009a`.
-  - Corrected manual descriptor slot 0 devmem test with `0x000e009a` and
-    `0x00080000` also reads back correctly, but TDMA still does not consume it.
-  - Manual descriptor slot 1 plus producer advance to `2` also reads back
-    correctly, with `hw_p=2` and `hw_c=0`.
-  - Full ring16 TDMA snapshot shows sane GENET v1 ring setup and enabled TDMA,
-    but `READ_PTR` and `CONS_INDEX` remain `0`.
-  - Linux DMA mappings and coherent bounce allocations still land in the
-    `0x06xxxxxx` RAM bank.
-  - GENET descriptor RAM stores only low 20 address bits, for example:
-    `0x06835002 -> 0x00035002` and `0x06e01000 -> 0x00001000`.
-  - ADDRSHIFT8 did not fix TX.
-  - Reserved low TX buffer at physical `0x01680000` still left `hw_c=0`, so
-    high RAM allocation is not the sole blocker.
-  - Generic RGMII OOB write at `0x12c0008c` did not latch and did not improve
-    TX.
-  - The inherited GENET hwirqs `16/17` show zero interrupt counts, while
-    `INT_EXT_PER PeriphIRQ0_2` reports active UniMAC status:
-    `0x14e00338=0x3000007D`, `0x14e0033c=0x045A0409`.
-  - The DTS test branch maps GENET to extended hwirqs `64/66`; hwirq `64`
-    counts, hwirq `66` remains idle, but TDMA still does not consume.
-  - The current next branch forces GENET v1 DMA SCB burst size from `0x10` to
-    `0x08`; it programs correctly but still leaves TDMA stuck.
-  - The v2-style global DMA register map for GENET v1 programs correctly, with
-    `DMA_RING_CFG` at `+0x00` and `DMA_CTRL` at `+0x04`, but compact descriptor
-    status still leaves TDMA stuck.
-  - Normal Linux descriptor status after the DMA regmap fix still leaves TDMA
-    stuck; descriptor RAM reads `0x009aefc0` back as `0x000aefc0`.
-  - Manual swapped-word descriptor rewrites after the DMA regmap fix also leave
-    TDMA stuck for both standard/truncated status and compact status.
-  - Clearing surrounding descriptor RAM words before reposting slot 0 also
-    leaves TDMA stuck.
-  - Enabling both TDMA control bit 16 and bit 17 with `tdma_ctrl=0x00030001`
-    still leaves TDMA stuck.
-  - Enabling both candidate bits in `tdma_cfg` and `tdma_ctrl` still leaves
-    TDMA stuck.
-  - The wider/v4 ring16 register layout still leaves TDMA stuck.
-  - Ring0 is the first positive TDMA movement signal: with
-    `tdma_cfg=0x00000001` and `tdma_ctrl=0x00000003`, ring0 read/consumer
-    changed to `0x00010003`/`0x00000028`.
-  - Ring0 replay did not increment TX MIB counters; a controlled run showed
-    `read=0x00010003`, `cons=0`, `prod=1`, `write=0`.
-  - Ring0 status-first 3-word descriptors also do not increment TX MIB counters
-    with compact or standard/truncated Linux status.
-  - Ring0 address-first 3-word descriptors also do not increment TX MIB
-    counters. The controlled run showed `read=0x00010003`, `cons=0`, `prod=1`,
-    `write=0`, and unchanged MIB counters.
-  - Forcing RBUF/TBUF control state did not change ring0 behavior. TBUF was
-    already enabled, selected RBUF bits did not latch, and TX MIB counters
-    stayed unchanged.
-  - The GMAC/bridge/EXT snapshot did not show a link-up state transition:
-    sampled clock/reset, GPIO, bridge, and EXT registers were stable, with hwirq
-    `64` counting and hwirq `66` idle.
-  - The isolated vendor GMAC candidate write `0x12000238=0x00000170` did not
-    change ring0 or TX MIB behavior.
-  - The isolated vendor GMAC candidate write `0x120005a0=0x000fffff` also did
-    not change ring0 or TX MIB behavior.
-  - Applying both local GMAC candidate writes together also did not change
-    ring0 or TX MIB behavior.
-  - The isolated GPIO C8 vendor candidate write `0x14e001c8=0x04824936` also
-    did not change ring0 or TX MIB behavior.
-  - Local BCM3384 headers identify `0x14e001c4` and `0x14e001c8` as GPIO_PER
-    RBUS diagnostic-capture registers, not normal GPIO data/direction
-    registers.
-  - The OEM boot path reports `Switch detected: 53125`, `Using GMAC0, phy 0`,
-    `Enet link up: 1G full`, and later `Powering UP switch. PIN = 14`.
-  - GPIO14 switch-power probe found GPIO14 already configured as output but
-    low. A same-boot low/high comparison did not reproduce the earlier
-    `cons=0x00000028` observation: both passes showed `read=0x00010003`,
-    `cons=0`, `prod=1`, `write=0`, and unchanged TX MIB counters.
-  - GPIO14 high plus safe non-clock vendor-side writes also did not change
-    ring0 consumption: `read=0x00010003`, `cons=0`, `prod=1`, `write=0`.
-  - IF0/IF1 UNIMAC probing confirms two independent interface config windows:
-    `0x12c00618` and `0x12c02618` hold different values (not mirrored).
-    However, both MDIO-like command paths remain non-functional in upstream
-    semantics:
-    - IF0 `0x12c00600` retains busy-like values (`0x28000000`/`0x28010000`)
-    - IF1 command writes collapse to `0x28000000`
-    - nearby `+0x10/+0x14/+0x1c` do not show completion/data movement
-  - Link-cycle retest still shows the same stuck ring signature:
-    `0x12c03800=0x00010003`, `0x12c03804=0x00000028`,
-    `0x12c03808=0x00010000`, `0x12c0380c=0x00000000`,
-    `0x12c03c40/44/48=1/1/1`, with hwirq `64` incrementing and hwirq `66`
-    idle.
-  - A direct UNIMAC CORE0/CORE1 down-vs-up probe also showed no delta:
-    `0x12c00808/0x12c00814 = 0x010000d8/0x000005ee` and
-    `0x12c02808/0x12c02814 = 0x00010000/0x00000000` in both states.
-    These snapshots are not a useful core-ownership discriminator.
-  - A new ring-window variant was captured under `192.168.77.x` ping load:
-    `0x12c02c08/0x12c03c08=0x00000000` and
-    `0x12c02c0c/0x12c03c0c=0x06f850c0` (with `+0x20=0`), while RX stayed zero,
-    TX errors increased, hwirq `64` incremented, and hwirq `66` remained zero.
-    This is a second stuck signature and still a failure state.
-  - A follow-up pre/post snapshot with `ping -c 3` was bit-identical across
-    sampled ring and descriptor words:
-    `0x12c02c08/0x12c03c08=0`, `0x12c02c0c/0x12c03c0c=0x06e72140`,
-    `0x12c02c20/0x12c03c20=0`, and
-    `0x12c03000..0x12c0300c=0x000de37a/0x00085f4d/0x000b30b5/0x000f190a`.
-    IRQ pattern stayed `64` active, `66` idle, RX stayed zero.
-  - Pointer dereference test showed `0x12c02c0c/0x12c03c0c` is not a direct
-    alias of descriptor window memory: both reported `0x06e76d40`, but
-    `devmem` at that address returned `0xffffffff/0xfffdffff`, not
-    `0x12c03000..0x12c0300c` contents.
-  - Reinit-cycle test showed `0x12c02c0c/0x12c03c0c` changes when `eth0` is
-    cycled up (`0x06f197c0 -> 0x06e73dc0`), but remains static during traffic,
-    while `0x12c03000..0x12c0300c` stays unchanged.
-  - Standalone `eth0 nomaster` (bridge-off) sanity check is also negative:
-    PRE/POST counters unchanged (RX `0`, TX `3715/10`, TX errors `9`), hwirq
-    `64` active and `66` idle, and sampled pointer/descriptor words unchanged.
-  - Correct-subnet traffic test (`eth0=192.168.77.1`, ping `192.168.77.2`)
-    also failed (`PING_RC=1`): TX counters increased, RX stayed zero, hwirq
-    `64` increased, hwirq `66` stayed zero, and ring/global + sampled MIB
-    registers stayed in the same stuck signature.
-  - A reset-baseline sanity run restored binding at `12c00000` (after
-    discarding a bad full remap to `12c02600`) but remained negative:
-    RX `0`, TX `0`, TX errors increased, hwirq `64` only, and no successful
-    traffic completion.
-  - Ring0 TDMA appears to fetch three descriptor words but does not retire the
-    descriptor or transmit the packet.
-  - `mem=16M` and `mem=32M` were invalid tests because they failed before a
-    useful GENET runtime test.
-  - Internal PHY mode reads invalid GPHY data and is not a solved path.
-  - The earlier `bcm6368-enetsw` path at `0x14e01000` produced no packet I/O.
-- MTD is not up.
-  - `/proc/mtd` is empty or not useful at this stage.
-  - NAND/SPI partition discovery is still missing.
-- DTS is still incomplete.
-  - UART and interrupt controllers are present.
-  - Current diagnostic DTS snapshots include disabled HSSPI, temporary NAND,
-    and GENET fixed-link nodes.
-  - Real Ethernet, MDIO, switch, NAND, and SPI nodes are still missing or
-    unvalidated for production use.
-- Flashing is not safe yet.
-  - Use RAM/TFTP boot only.
+- GENET at `0x12c00000` probes and creates `eth0`.
+- Fixed-link RGMII reports link up, but TX does not complete.
+- `bcmgenet_xmit()` queues real TX frames into descriptor RAM.
+- TDMA stays enabled, but the hardware consumer index never advances.
+- RX stays zero in paired serial and host packet captures.
+- hwirq `64` increments; hwirq `66` remains idle.
+- MTD and persistent image work are not ready. Flash, NAND, SPI, and partition
+  layout discovery must wait until Ethernet and read-only map discovery are
+  understood.
 
-## Ethernet direction
+## Recent Results
+
+High-signal 2026-05-24 and 2026-05-25 results:
+
+- Flood TX reproduced `NETDEV WATCHDOG` with queue-stop and no hardware
+  completion progress.
+- Host-side packet captures showed peer ARP retries but no frames sourced from
+  OpenWrt's runtime MAC.
+- Correct-subnet traffic still failed with RX zero, TX errors increasing, and
+  the same ring/global signatures.
+- Bridge-off and link-cycle checks did not change the stuck state.
+
+See:
+
+- `records/notes/runtime-probes/2026-05-24-flood-watchdog-queue-stopped.md`
+- `records/notes/runtime-probes/2026-05-24-flood-no-watchdog-still-no-rx.md`
+- `records/notes/runtime-probes/2026-05-24-pktmon-peer-arp-only-no-owrt-egress.md`
+- `records/notes/runtime-probes/2026-05-25-watchdog10half-bridgehold-v10-analysis.md`
+
+## Ethernet Direction
 
 The current source evidence points away from `bcm6368-enetsw` at `0x14e01000`.
 The matching TC7200 source maps:
@@ -209,121 +71,60 @@ The matching TC7200 source maps:
 - GENET interrupts as 16 and 17 through `periph_intc`.
 - BCM3383 GMAC init through clock/reset and pinmux setup.
 
-The fixed-link GENET diagnostic now reaches TX queueing, but TDMA does not
-consume the descriptor. The next Ethernet work is descriptor/register/DMA
-verification, not B53/DSA integration.
+The fixed-link GENET diagnostic reaches TX queueing, but TDMA does not consume
+descriptors. The next Ethernet work is descriptor/register/DMA verification,
+not B53/DSA integration.
 
-## Current blockers
+## Current Blockers
 
 1. Prove how BCM3383 GENET expects TX buffer addresses to be represented or
    translated for TDMA.
 2. Investigate BCM3383 GENET DMA window/base/init and UBUS/SCB clock setup.
-   The reserved TX buffer at physical `0x01680000` still left `hw_c=0`.
 3. Keep the BCM3383 GMAC clock/reset/pinmux quirk in the test baseline.
 4. Keep IRQ `<13 4>` as a separate branch; do not combine it with DMA address
    tests.
 5. Pause additional raw MDIO command reverse-engineering for now; the IF0/IF1
    branch is negative.
-6. Stop runtime register/bridge topology pokes and move to kernel-only
-   descriptor ownership/format branches (including the temporary
-   `GENET_V1 words_per_bd` test and strict v1 BD/OWN handling validation).
-7. Add safe MDIO/B53/BCM53125 switch description only after GENET TDMA consumes
+6. Move to kernel-only descriptor ownership/format branches, including the
+   temporary `GENET_V1 words_per_bd` test and strict v1 BD/OWN handling
+   validation.
+7. Add BCM53125/B53 switch description only after GENET TDMA consumes
    descriptors.
 8. After Ethernet, proceed to read-only flash discovery.
-9. Only after MTD and flash layout are understood, consider persistent images.
 
-## Recommended next work
+## Recommended Next Work
 
-1. Keep the known-good images under `artifacts/rescue/` frozen as rescue
-   baselines.
-2. Do not overwrite the rescue image in `/mnt/c/tftp`.
-3. Keep generated wrap manifests and state captures under
-   `research/notes/generated/`.
-4. Stop spending time on `bcm6368-enetsw` DMA/IRQ swaps at `0x14e01000`.
-5. Do not repeat the already-failed `DMA_OWN`, ADDRSHIFT8, fatal/non-fatal
+1. Keep the known-good images under `records/artifacts/rescue/` unchanged.
+2. Keep generated wrap manifests and state captures under `records/generated/`.
+3. Stop spending time on `bcm6368-enetsw` DMA/IRQ swaps at `0x14e01000`.
+4. Do not repeat already-failed `DMA_OWN`, ADDRSHIFT8, fatal/non-fatal
    `DMA_BIT_MASK(20)`, Zephyr-style `dma-ranges`, `mem=16M`/`mem=32M`, or
    reserved low TX buffer standalone paths.
-6. Do not manually enable parent `periph_intc` bits 16/17; the blind enable
+5. Do not manually enable parent `periph_intc` bits 16/17; the blind enable
    path causes an IRQ storm.
-7. Treat memory-map/load-address warnings from GENET test images as serious
+6. Treat memory-map/load-address warnings from GENET test images as serious
    until explained.
-8. Handle MTD/SPI/NAND only after Ethernet is understood, and begin read-only.
-9. Use `docs/MEMORY_MAP.md` and
-   `research/notes/source-research/2026-05-17-similar-firmware-useful-map-data.md`
+7. Use `docs/MEMORY_MAP.md` and
+   `records/notes/source-research/2026-05-17-similar-firmware-useful-map-data.md`
    before changing DTS `reg`, `interrupts`, or boot/link addresses.
 
-## Bottom line
+## Bottom Line
 
-Serial console and RAM OpenWrt boot are solved. The project is blocked on GENET
-DMA window/init behavior: make TDMA consume TX descriptors first, then revisit
-switch wiring, then MTD/flash layout, then safe persistent image
-work.
+Serial console and CFE/TFTP OpenWrt boot are solved. The project is blocked on
+GENET DMA window/init behavior: make TDMA consume TX descriptors first, then
+revisit switch wiring, then MTD/flash layout.
 
-<!-- TC7200U_CURRENT_GENET_STATE_START -->
+## OEM Source Mining Status
 
-## Current GENET state — 2026-05-19
+The TC72XX LxG1 OEM tree suggests the vendor BCM3384 Ethernet path is VENET +
+FPM/DQM + SEGDMA/UNIMAC/IOP, not direct upstream `bcmgenet` TDMA. BFC5 deep
+mining is negative for useful BCM3383/BCM3384 Ethernet evidence.
 
-Latest conclusion:
+See:
 
-- GENET at `0x12c00000` probes and `eth0` link reports up.
-- TDMA/ring remains stuck with repeated signature:
-  `0x12c03800=0x00010003`, `0x12c03804=0x00000028`,
-  `0x12c03808=0x00010000`, `0x12c0380c=0x00000000`,
-  `0x12c03c40/44/48=1/1/1`.
-- IRQ behavior is unchanged: hwirq `64` increments, hwirq `66` remains idle.
-- IF0/IF1 UNIMAC interface config windows are independent:
-  `0x12c00618` and `0x12c02618` are not mirrored.
-- IF0/IF1 command-path probing is negative for upstream-style MDIO semantics:
-  IF0 command retains busy-like values, IF1 command collapses to `0x28000000`,
-  and nearby status/data candidates do not move.
-- CORE0/CORE1 UMAC down/up probe is also negative as a discriminator:
-  `0x12c00808/0x12c00814` and `0x12c02808/0x12c02814` are unchanged across
-  link down/up while hwirq `64` continues to increment.
-- Raw MDIO reverse-engineering is paused for now.
-- Next branch is kernel-side descriptor-width test only:
-  temporary `GENET_V1 words_per_bd` from `2` to `3`, offsets unchanged.
-
-Current intended OpenWrt patch state for the next test:
-
-- Active baseline:
-  - GENET at `0x12c00000`
-  - interrupts `<64>, <66>`
-  - fixed-link RGMII diagnostic setup
-  - no new runtime MDIO poke scripts
-- Next code change:
-  - temporary `GENET_V1 words_per_bd = 3` test branch
-
-Do not repeat:
-
-- `mem=16M` / `mem=32M`
-- fatal or non-fatal `DMA_BIT_MASK(20)`
-- `GFP_DMA` coherent bounce
-- `ADDRSHIFT8`
-- `LOWLIT 0x00080000`
-- plain `DMA_OWN` without compact GENET v1 status packing
-- manual low16 status poke
-- reserved low TX buffer as standalone fix
-- generic RGMII OOB poke at `0x12c0008c`
-- blind parent IRQ enable
-- B53/DSA before TDMA consumes descriptors
-
-<!-- TC7200U_CURRENT_GENET_STATE_END -->
-
-## OEM source mining status
-
-Logged TC72XX LxG1 BCM3384 VENET findings. `bcmvenet` is not a direct GENET TDMA implementation; it uses FPM/DQM and references missing proprietary/generated SEGDMA/UNIMAC/IOP headers. Continue OpenWrt testing with `9991`; if negative, test descriptor-size/high-word/16-byte descriptor handling.
-
-See: `research/notes/runtime-probes/2026-05-18-tc72xx-lxg1-venet-dqm-fpm-findings.md`.
-See also: `research/notes/runtime-probes/2026-05-19-unimac-if0-if1-mdio-command-path-negative.md`.
-See also:
-`research/notes/runtime-probes/2026-05-19-unimac-core0-core1-link-toggle-no-delta.md`.
-See also:
-`research/notes/runtime-probes/2026-05-19-77-subnet-ping-fails-ring-static.md`.
-See also:
-`research/notes/runtime-probes/2026-05-19-reset-baseline-12c00000-words4-negative.md`.
-
-## TC72XX BFC5 mining status
-
-BFC5 deep mining is negative for Ethernet/GENET. No useful BCM3383/BCM3384 GENET, GMAC, UNIMAC, TDMA, RDMA, DQM, FPM, or SEGDMA source/object evidence was found. Continue OpenWrt `9991`; if negative, test descriptor-size/high-word/16-byte descriptor handling.
-
-See: `research/notes/runtime-probes/2026-05-18-tc72xx-bfc5-deepmine-negative.md`.
+- `records/notes/runtime-probes/2026-05-18-tc72xx-lxg1-venet-dqm-fpm-findings.md`
+- `records/notes/runtime-probes/2026-05-19-unimac-if0-if1-mdio-command-path-negative.md`
+- `records/notes/runtime-probes/2026-05-19-unimac-core0-core1-link-toggle-no-delta.md`
+- `records/notes/runtime-probes/2026-05-19-77-subnet-ping-fails-ring-static.md`
+- `records/notes/runtime-probes/2026-05-19-reset-baseline-12c00000-words4-negative.md`
+- `records/notes/runtime-probes/2026-05-18-tc72xx-bfc5-deepmine-negative.md`

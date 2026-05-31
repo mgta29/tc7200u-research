@@ -1,0 +1,15 @@
+source=/mnt/c/tftp/tc7200-stage1-map-d60242.bin
+wrapped_size=5598940
+signature=0xa825
+control=0x0005
+major=0x0100
+minor=0x04ff
+build_time=0x5ab8aa49
+file_length=5598848
+load_address=0x80004000
+filename=TC7200U-D6.02.42-180321-F-1C1.bin
+hcs=0x08a7
+expected_hcs=0x08a7
+crc=0xcecc9e3a
+payload_size=5598848
+payload_sha256=cb43051852ff0b05d8679d2477cc91adb961dd0e80237c9743993983322f50c2

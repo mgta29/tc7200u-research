@@ -1,0 +1,43 @@
+# TC7200U Gate Report
+
+generated_at=2026-05-31T10:59:07+02:00
+log_path=/mnt/c/Users/mgta29/.codex/attachments/5ba27805-7a99-4622-abf2-12969c9c3117/pasted-text.txt
+report_path=/home/mgta29/tc7200u-research/research/builds/2026-05-31-105907-check-gates-pasted-text.txt.txt
+
+## Log metadata
+-rwxrwxrwx 1 mgta29 mgta29 12K 2026-05-31 10:54 /mnt/c/Users/mgta29/.codex/attachments/5ba27805-7a99-4622-abf2-12969c9c3117/pasted-text.txt
+2e55edf4e096f7d5967e455d8af1a4b039857deb0e49a099fd00cdcd58a9d9ee  /mnt/c/Users/mgta29/.codex/attachments/5ba27805-7a99-4622-abf2-12969c9c3117/pasted-text.txt
+
+## Marker counts
+tftp_complete=0
+signature_a825=0
+executing_image4=0
+exceptions=0
+decompression_failed=0
+nand_fail_no_replacement=0
+nand_out_of_order=0
+hs_getmsg_error=0
+hs_unexpected_error=0
+unhandled_message_lines=0
+handshake_msg_lines=0
+cfe_banner_lines=0
+openwrt_loader_lines=0
+openwrt_decompress_kernel_lines=0
+warning_initial_console_lines=0
+kernel_panic_lines=0
+panic_init_kill_lines=0
+procd_init_lines=0
+press_enter_lines=0
+busybox_shell_lines=0
+
+## Gate verdicts
+Gate A:  FAIL (missing header/load markers)
+Gate B:  PASS
+Gate C:  PASS (clean)
+Gate D:  PASS
+Gate E:  WARN (boot_not_fully_observed)
+
+## Boot/runtime key lines
+
+## Quick triage command
+rg -n "Tftp complete|Signature:|Executing Image 4|EXCEPTION TYPE|NandFlashRead|handshake|unexpected message|Board IP Address|Kernel panic|Attempted to kill init|Warning: unable to open an initial console|procd: - init -|Please press Enter|BusyBox v" "/mnt/c/Users/mgta29/.codex/attachments/5ba27805-7a99-4622-abf2-12969c9c3117/pasted-text.txt"

@@ -1,0 +1,80 @@
+aa96b3ad55 (HEAD -> main, upstream/master, upstream/main, upstream/HEAD) tools/fakeroot: update to 1.38.1
+6b579482db airoha: disable unused crypto algorithms
+2b4503c7c9 realtek: eth: convert to page_pool
+8fd3e2fbec realtek: eth: avoid TX buffer memory leak
+b0e263a5ed realtek: eth: Use right helper for SKB cleanup
+934de59abe realtek: eth: drop device managed netdev registration
+8508bcb42e realtek: eth: Add return value to rteth_setup_ring_buffer()
+0a80500fb0 realtek: eth: convert to scoped_guard
+c5bab7288c realtek: eth: improve error handling during probe
+246b216df5 image: fix per device targz rootfs wrong suffix and redundant images
+4271b0b0b4 ethtool: update to 7.0
+f37476a856 rockchip: enable maskrom button for NanoPi R5C/R5S
+6cd72f21c7 ramips: add support for ELECOM WMC-C2533GST
+4c2be83d5d uboot-sunxi: bump to 2026.04
+e0b9d1fdce lldpd: bump to 1.0.22
+0a907daa80 realtek: rtl930x: add support for Hasivo F1100W-4SX-4XGT and variants
+755e6e5ed4 linux-firmware: update to 20260519
+fc61e795ee realtek: mach: specify alignment topology
+0324d9e4e0 airoha: apply minor fix for MTU and LRO for ethernet driver
+7f6ae9d34b qualcommbe: 6.18: refresh config
+df660e89c4 qualcommbe: 6.18: refresh patches
+aadcb4abef ath79: add Cisco Meraki Z1
+cc2d924f81 qualcommbe: enable pwm support for linux 6.18
+3de10be03f kernel: crypto-sha512-arm64: do not package with kernel 6.18
+0b25cef749 qualcommbe: enable 6.18 testing kernel
+809ca978d1 qualcommbe: kernel-6.18: update patches
+7ea10c7015 qualcommbe: kernel-6.18: renumber patches
+b0534d0d41 qualcommbe: remove upstreamed patches
+0efbee297a qualcommbe: create files for v6.18 from v6.12
+05db696f30 qualcommbe: drop "port_" from PPE port clock and reset names
+30394cc5b9 dropbear: rework failsafe script
+04ea7ca42f dropbear: adjust failsafe script
+6126cfbba9 dropbear: adjust init script
+5d5208882a dropbear: adjust configuration
+99b681934d dropbear: bump to 2026.91
+06bf4fa978 b43-tools: introduce support for rev22 in b43-fwsquash.py
+0bc1d99bcf ramips: reduce ARCH_DMA_MINALIGN
+028dc3f57a generic: 6.18: update MxL862xx DSA switch driver
+5b69e6a4a6 generic: 6.12: update MxL862xx DSA switch driver
+79322d44d8 ustp: update to Git HEAD (2026-05-27)
+36471ac3e4 mac80211: add ieee80211_txq_aql_pending()
+d22ceb8d24 airoha: Improve LRO performances
+88300c83f3 b43-tools: update the package to version released on 2026-05-22
+fb7787803c mvebu: cortexa53: uDPU/eDPU: update active bootscript as well
+ada2753d6a mvebu: cortexa53: uDPU/eDPU convert to dual firmware (A/B)
+587a1a8872 qualcommax: ipq50xx: add support for ELECOM WRC-X3000GST2
+8e724fc3b3 realtek: add support for Linksys LGS328MPCv2
+455d73619c realtek: dts,build: create common Linksys LGS328x DTSI and image-recipe
+67740e311b rockchip: switch to kernel 6.18
+a302626ef4 realtek: kzalloc + kcalloc to kzalloc
+383c4469e4 realtek: pcs: rtl930x: force IP mode OFF in deactivate, unforce for MAC modes
+788745bae5 realtek: pcs: rtl930x: lift SerDes core power-cycle into {de,}activate
+26dc5f0cad realtek: pcs: rtl931x: run set_mode before activate
+fc0fc86e55 realtek: pcs: rtl930x: fold 1G/10G PHY power into {de,}activate
+c2f129599e realtek: pcs: introduce per-variant SerDes activate helpers
+c484f93a0b realtek: pcs: introduce per-variant SerDes deactivate helpers
+81fde127a8 libiwinfo: update to Git HEAD (2026-05-26)
+aefe838172 mvebu: add mwifiex sdio kernel module for Turris Mox
+937eee61cb mvebu: add fw_env.config for Turris Mox
+833c7c75a3 mvebu: fix squashfs boot for Turris Mox
+441da8597a loongarch64: add upstream dwmac-loongson patches for 2K3000/3B6000M
+17dc71c08d mediatek: add support for netis EAP930 V1
+7e7bdc88d1 uboot-mediatek: mtd: nand: spi: otp: add NULL guards to OTP size functions
+ae0da098a5 mediatek: remove duplicate KERNEL{_INITRAMFS}
+9fa347191c uboot-mediatek: cleanup whitespace in patch
+5b6b0b519a uboot-mediatek: reorder targets alphabetically
+0b8505f04e uboot-mediatek: fix bl2 image for mt7987_rfb-emmc
+4cd60fe167 ath79: support Dragino LPS8
+5f73c4d099 ath79: support Dragino MS14
+811f235bd9 generic: refresh patches
+ab06327b13 musl: update to 1.2.6
+6d9b4a4c41 bcm47xx: base-files: hack sysinfo to allow ASU sysupgrades
+59c07e6053 toolchain/gcc: use configure option to disable TM clone registry
+024abbcc92 mediatek: add support for Buffalo WSR-2533DHP3
+700008e9d1 ramips: mt76x8: cudy-lt300-v3: fix backup partition offset
+e892edd60f ramips: mt76x8: add support for Cudy WR300 v1
+2c6e8fd94b armsr: enable 6.18 as a testing kernel
+1cc6744ed1 armsr: armv8: enable PCIe controllers for Rockchip
+f3ce149714 armsr: armv8: remove VA_BITS override
+2cb77cf315 kernel: armsr: remove duplicate kconfig between generic and armsr

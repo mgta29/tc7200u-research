@@ -1,0 +1,30 @@
+=== meta ===
+timestamp_local=2026-05-31 11:47:17 CEST
+cwd=/home/mgta29/src/openwrt
+command=/home/mgta29/tc7200u-research/scripts/tc7200u-verify-a825-image.py --raw /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin --wrapped /mnt/c/tftp/tc7200-log-test2.bin --expect-load 0x82000000 --expect-name tc7200-log-test2.bin --expect-signature 0xa825
+=== output ===
+raw=/home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin
+wrapped=/mnt/c/tftp/tc7200-log-test2.bin
+raw_size=7373590
+wrapped_size=7373682
+signature=0xa825
+expected_signature=0xa825
+control=0x0000
+major=0x0100
+minor=0x04ff
+build_time=0x6a1c03a5
+file_length=7373590
+load_address=0x82000000
+filename=tc7200-log-test2.bin
+expected_name=tc7200-log-test2.bin
+hcs=0x2f84
+expected_hcs=0x2f84
+crc=0x00000000
+size_ok=True
+raw_sha256=56d178e75523bd0a191703bb546f4ab1c983d8bc35d18e56f4f6be9c26eed325
+wrapped_sha256=3008180d737ee8b61fe1389f7e6a36cd6633b59ebfdc9223159a3e9b6bc9d40d
+
+OK: wrapped image matches raw payload and expected header fields
+
+=== exit ===
+exit_code=0

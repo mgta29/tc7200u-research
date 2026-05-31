@@ -1,0 +1,115 @@
+
+== meta ==
+mode=auto
+script=/home/mgta29/tc7200u-research/scripts/tc7200u-auto-build-install-wrap.sh
+ts=2026-05-31-121039
+research=/home/mgta29/tc7200u-research
+notes_dir=/home/mgta29/tc7200u-research/research/builds
+build_log_base=/home/mgta29/tc7200u-research/research/builds
+
+== build context ==
+timestamp_local=2026-05-31 12:10:39 CEST
+owrt=/home/mgta29/src/openwrt
+raw_expected=/home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin
+source_image=
+request_name=tc7200-stage2-test.bin
+result_name=tc7200-stage2-test.bin
+wrapped_output=/mnt/c/tftp/tc7200-stage2-test.bin
+build_mode=auto
+jobs=16
+openwrt_config=/home/mgta29/src/openwrt/.config
+openwrt_target_lines_begin
+  CONFIG_TARGET_bmips=y
+  CONFIG_TARGET_bmips_bcm63268=y
+  CONFIG_TARGET_bmips_bcm63268_DEVICE_technicolor_tc7200u=y
+  CONFIG_TARGET_BOARD="bmips"
+  CONFIG_TARGET_SUBTARGET="bcm63268"
+  CONFIG_TARGET_PROFILE="DEVICE_technicolor_tc7200u"
+  CONFIG_TARGET_ARCH_PACKAGES="mips_mips32"
+  CONFIG_TARGET_ROOTFS_INITRAMFS=y
+  CONFIG_TARGET_INITRAMFS_COMPRESSION_XZ=y
+  CONFIG_TARGET_ROOTFS_SQUASHFS=y
+  CONFIG_TARGET_SQUASHFS_BLOCK_SIZE=256
+  CONFIG_TARGET_SQUASHFS_BLOCK_READERS=4
+  CONFIG_TARGET_SQUASHFS_SMALL_READERS=4
+  CONFIG_TARGET_UBIFS_FREE_SPACE_FIXUP=y
+  CONFIG_TARGET_UBIFS_JOURNAL_SIZE=""
+  CONFIG_TARGET_ROOTFS_DIR=""
+  CONFIG_TARGET_OPTIMIZATION="-Os -pipe -mno-branch-likely -mips32 -mtune=mips32"
+  CONFIG_TARGET_SUFFIX="musl"
+  CONFIG_TARGET_PREINIT_SUPPRESS_STDERR=y
+  CONFIG_TARGET_PREINIT_TIMEOUT=4
+  CONFIG_TARGET_PREINIT_IFNAME=""
+  CONFIG_TARGET_PREINIT_IP="192.168.1.1"
+  CONFIG_TARGET_PREINIT_NETMASK="255.255.255.0"
+  CONFIG_TARGET_PREINIT_BROADCAST="192.168.1.255"
+  CONFIG_TARGET_INIT_PATH="/usr/sbin:/usr/bin:/sbin:/bin"
+  CONFIG_TARGET_INIT_ENV=""
+  CONFIG_TARGET_INIT_CMD="/sbin/init"
+  CONFIG_TARGET_INIT_SUPPRESS_STDERR=y
+openwrt_target_lines_end
+initramfs_candidates_begin
+  /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin
+  /home/mgta29/src/openwrt/bin/targets/mediatek/filogic/mt7981-ram-ddr3-bl2.bin
+  /home/mgta29/src/openwrt/bin/targets/mediatek/filogic/mt7981-ram-ddr4-bl2.bin
+  /home/mgta29/src/openwrt/bin/targets/mediatek/filogic/mt7986-ram-ddr3-bl2.bin
+  /home/mgta29/src/openwrt/bin/targets/mediatek/filogic/mt7986-ram-ddr4-bl2.bin
+  /home/mgta29/src/openwrt/bin/targets/mediatek/filogic/mt7987-ram-comb-bl2.bin
+  /home/mgta29/src/openwrt/bin/targets/mediatek/filogic/mt7988-ram-comb-bl2.bin
+  /home/mgta29/src/openwrt/bin/targets/mediatek/filogic/mt7988-ram-ddr4-bl2.bin
+  /home/mgta29/src/openwrt/bin/targets/mediatek/filogic/openwrt-mediatek-filogic-openwrt_one-initramfs.itb
+  /home/mgta29/src/openwrt/bin/targets/mediatek/filogic/openwrt-mediatek-filogic-openwrt_one-nor-factory.bin
+  /home/mgta29/src/openwrt/bin/targets/mediatek/filogic/openwrt-mediatek-filogic-openwrt_one-nor-preloader.bin
+  /home/mgta29/src/openwrt/bin/targets/mediatek/filogic/openwrt-mediatek-filogic-openwrt_one-snand-factory.bin
+  /home/mgta29/src/openwrt/bin/targets/mediatek/filogic/openwrt-mediatek-filogic-openwrt_one-snand-preloader.bin
+  /home/mgta29/src/openwrt/bin/targets/mediatek/filogic/openwrt-mediatek-filogic-openwrt_one-squashfs-sysupgrade.itb
+initramfs_candidates_end
+recent_make_logs_begin
+  /home/mgta29/tc7200u-research/research/builds/2026-05-31-092352-target-linux-install.log
+  /home/mgta29/tc7200u-research/research/builds/2026-05-31-091637-target-linux-install.log
+  /home/mgta29/tc7200u-research/research/builds/2026-05-31-091015-target-linux-install.log
+  /home/mgta29/tc7200u-research/research/builds/2026-05-31-084401-make-full-image.log
+  /home/mgta29/tc7200u-research/research/builds/2026-05-14-target-linux-install-image.log
+  /home/mgta29/tc7200u-research/research/builds/2026-05-14-target-linux-compile-fail-j1.log
+  /home/mgta29/tc7200u-research/research/builds/2026-05-14-target-linux-compile-after-used.log
+  /home/mgta29/tc7200u-research/research/builds/2026-05-14-target-linux-compile-after-regenerate.log
+  /home/mgta29/tc7200u-research/research/builds/2026-05-14-230954-target-linux-install.log
+  /home/mgta29/tc7200u-research/research/builds/2026-05-14-230847-target-linux-compile.log
+recent_make_logs_end
+
+== flow ==
+path=openwrt-build
+command_log=/home/mgta29/tc7200u-research/research/builds/2026-05-31-121039-ensure-debug-packages.log
+command=/home/mgta29/tc7200u-research/scripts/tc7200u-ensure-debug-packages.sh
+exit_code=0
+
+== build decision ==
+selected_action=install
+raw_exists=1
+config_changed=0
+raw_mtime=2026-05-31 09:24:27.345703175 +0200
+config_mtime=2026-05-31 12:10:44.487844730 +0200
+vmlinux_path=/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.91/vmlinux
+vmlinux_mtime=2026-05-31 09:24:20.665704398 +0200
+stale_input=none
+why=kernel build artifacts exist; only image install/update required
+command_log=/home/mgta29/tc7200u-research/research/builds/2026-05-31-121039-target-linux-install.log
+command=make -j16 target/linux/install V=s
+exit_code=0
+command_log=/home/mgta29/tc7200u-research/research/builds/2026-05-31-121039-wrap.log
+command=/home/mgta29/tc7200u-research/scripts/tc7200u-a825-wrap.py --input /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin --output /mnt/c/tftp/tc7200-stage2-test.bin --filename tc7200-stage2-test.bin
+exit_code=0
+command_log=/home/mgta29/tc7200u-research/research/builds/2026-05-31-121039-verify.log
+command=/home/mgta29/tc7200u-research/scripts/tc7200u-verify-a825-image.py --raw /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin --wrapped /mnt/c/tftp/tc7200-stage2-test.bin --expect-load 0x82000000 --expect-name tc7200-stage2-test.bin --expect-signature 0xa825
+exit_code=0
+
+== outputs ==
+raw=/home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin
+wrapped=/mnt/c/tftp/tc7200-stage2-test.bin
+wrap_log=/home/mgta29/tc7200u-research/research/builds/2026-05-31-121039-wrap.log
+verify_log=/home/mgta29/tc7200u-research/research/builds/2026-05-31-121039-verify.log
+raw_sha256=56d178e75523bd0a191703bb546f4ab1c983d8bc35d18e56f4f6be9c26eed325
+wrapped_sha256=0e346ebc841f5ade0a8540e1f0e499d376050740e030a89da83f430d92a15e04
+result=ok
+ready_for_tftp_request=tc7200-stage2-test.bin
+served_file=C:\tftp\tc7200-stage2-test.bin

@@ -1,86 +1,74 @@
 # TC7200.U Repo Map
 
-## Curated docs
+## Curated Docs
 
 - `README.md`: start page.
+- `AI_HELPER.json`: machine-readable repo guide.
 - `docs/START_HERE.md`: current resume point.
-- `docs/SAFETY.md`: no-flash and image safety rules.
 - `docs/STATUS.md`: bring-up state and blockers.
 - `docs/ETHERNET.md`: Ethernet findings and next diagnostic.
-- `docs/MEMORY_MAP.md`: RAM/load addresses, MMIO bases, IRQ banks, and flash
-  map evidence.
-- `docs/CFE_IMAGE_FORMAT.md`: A825 wrapper and HCS evidence.
+- `docs/MEMORY_MAP.md`: RAM/load addresses, MMIO bases, IRQ banks, and flash map notes.
+- `docs/CFE_IMAGE_FORMAT.md`: A825 wrapper and HCS notes.
 - `docs/PATHS.md`: local path map.
-- `docs/WORKFLOW.md`: safe command flow.
+- `docs/WORKFLOW.md`: command flow and aliases.
 
-## Active scripts
+## Active Helper
 
-- `scripts/tc7200u`: master command dispatcher.
-- `scripts/tc7200u-auto-build-install-wrap.sh`: build/install/wrap/check flow.
-- `scripts/tc7200u-a825-wrap.py`: A825 header writer.
-- `scripts/tc7200u-verify-a825-image.py`: A825 image verifier.
-- `scripts/tc7200u-capture-current-state.sh`: state capture helper.
-- `scripts/tc7200u-ensure-debug-packages.sh`: debug package config helper.
-- `scripts/tc7200u-serial-console.sh`: serial console logger that writes
-  picocom captures into `evidence/serial/`.
+- `scripts/tc7200u-auto-build-install-wrap.sh`: single helper for build,
+  wrap, verify, state capture, package profile setup, serial console logging,
+  gate checks, and ProgramStore reverse inspection.
+
+Supporting snippets:
+
 - `scripts/tftp/`: host-side PowerShell snippets for TFTP, packet, route,
   neighbor, and link proof runs.
-- `tools/serial-decompress-timer.py`: interactive serial timing logger.
+- `scripts/picocom-cmd/`: OpenWrt-side command batches sent through picocom.
+- `tools/serial-decompress-timer.py`: standalone serial timing logger.
 
-## Normal aliases
+## Normal Aliases
 
-- `tcresearch`: enter the research repo.
+- `tcresearch`: enter the repo.
 - `tcstatus`: show git and helper status.
-- `tcwrap`: run the safe build/wrap/verify flow.
-- `cfe-tftp`: start the one-shot CFE TFTP server.
+- `tcwrap`: build/wrap/verify.
+- `tccheck`: build/wrap/verify compatibility mode.
+- `tcverify`: build/wrap/verify compatibility mode.
 - `tcstate`: capture current build/image state.
+- `cfe-tftp`: start the one-shot CFE TFTP server.
+- `cte-tftp`: alias to `cfe-tftp`.
 
-`tc check`, `tc verify`, and `tc build` remain compatibility subcommands, but
-they currently run the same safe flow as `tc wrap`. Use `tc rules` directly if
-the RAM-boot rules need to be printed.
+## Records Layout
 
-## Organized evidence
+- `records/notes/`: human research notes by topic.
+- `records/logs/serial/`: picocom, UART, boot, and runtime serial logs.
+- `records/logs/cfe/`: CFE, HCS, and recovery logs.
+- `records/logs/tftp/<YYYY-MM-DD-version>/`: host TFTP, packet, route,
+  neighbor, link, and ping proof captures.
+- `records/logs/builds/`: OpenWrt build/install/wrap/verify logs.
+- `records/generated/`: manifests, state captures, hashes, generated
+  measurements, and deep-mine output.
+- `records/snapshots/`: DTS, config, and source snapshots.
+- `records/network-scans/`: LAN, modem, and CFE/TFTP network scans.
+- `records/backups/`: pre-edit backups.
+- `records/artifacts/rescue/`: known-good images and checksums.
+- `records/artifacts/test-images/`: RAM-boot experiment images.
+- `records/artifacts/invalid/`: failed or comparison-only images.
+- `records/reverse/`: reverse-engineering projects, labels, scripts, and
+  extracted ProgramStore material.
 
-- `artifacts/rescue/`: known-good rescue image and checksum.
-- `artifacts/test-images/`: RAM-boot test images.
-- `artifacts/invalid/`: failed or unsafe comparison images.
-- `evidence/serial/`: serial boot logs.
-- `evidence/cfe/`: CFE, recovery, and HCS logs.
-- `evidence/tftp/`: host-side TFTP, packet, route, neighbor, and link proof
-  captures.
-- `evidence/network-scans/`: LAN, modem, and CFE/TFTP network scans.
-- `evidence/snapshots/`: DTS/config/source snapshots.
-- `research/notes/`: raw notes by topic.
-- `patches/`: current, archived, and disabled OpenWrt patch copies.
-  - `patches/bcm3383-technicolor-tc7200u.dts`: current live diagnostic DTS
-    snapshot.
-  - `patches/openwrt-bmips/996-bcmgenet-tc7200u-xmit-desc-debug.patch`:
-    temporary XMITDESC descriptor logging.
-  - `patches/openwrt-bmips/997-bcmgenet-tc7200u-tx-poll-debug.patch`:
-    temporary TX timeout/TXPOLL logging.
-  - `patches/openwrt-bmips/998-bmips-tc7200u-gmac-init.patch`: BCM3383 GMAC
-    pinmux/clock/reset quirk.
-  - `patches/openwrt-bmips/999-bcm63xx-uart-tc7200u-console.patch`: UART probe
-    fallback used for TC7200.U console recovery.
-  - `patches/openwrt-bmips/110-net-dsa-b53-bcm531x5-fix-cpu-rgmii-mode-interpretation.patch`:
-    B53/BCM53125 switch patch retained for later switch work.
-  - `patches/openwrt-bmips/experiments/2026-05-17-genet-dma-own-test/`:
-    GENET descriptor ownership and TX poll experiments.
-  - `patches/openwrt-bmips/experiments/2026-05-17-genet-dma-address-tests/`:
-    GENET descriptor packing, DMA address, and bounce-buffer experiments.
-  - `patches/openwrt-bmips/experiments/2026-05-17-genet-current-swapdesc-state/`:
-    current swapped-descriptor patch and DTS experiment state.
-  - `patches/openwrt-bmips/experiments/2026-05-25-watchdog10half-bridgehold/`:
-    GENET descriptor format/width and low-address watchdog bridge-hold
-    experiments.
+## Patches
 
-## Important output
+- `patches/bcm3383-technicolor-tc7200u.dts`: current live diagnostic DTS snapshot.
+- `patches/openwrt-bmips/998-bmips-tc7200u-gmac-init.patch`: BCM3383 GMAC
+  pinmux/clock/reset quirk.
+- `patches/openwrt-bmips/experiments/`: historical experiment patch sets.
+
+## Important Output
 
 ```text
 /mnt/c/tftp/openwrt-ps-irqfallback.bin
 ```
 
-Use only after:
+Required wrapper marker:
 
 ```text
 size_ok=True

@@ -1,56 +1,69 @@
 # TC7200.U Workflow
 
-## Safe flow
+## Normal Flow
 
 ```text
-build OpenWrt -> wrap initramfs -> verify size_ok=True -> TFTP fixed filename
+build OpenWrt -> wrap initramfs -> verify size_ok=True -> serve fixed CFE filename
 ```
 
-## Test result rule
-
-Worthy test results must be committed and pushed to git after capture. A result is worthy when it changes the known state, confirms or disproves a hypothesis, affects the next DTS/kernel/package step, documents a boot/TFTP failure or success, captures a new serial-log finding, or prevents repeating the same test. Trivial repeats that add no new information do not need a separate commit.
-
-## Main helper commands
+The single active helper is:
 
 ```sh
-cd ~/tc7200u-research
-scripts/tc7200u paths
-scripts/tc7200u status
-scripts/tc7200u wrap
-scripts/tc7200u state
+~/tc7200u-research/scripts/tc7200u-auto-build-install-wrap.sh
 ```
 
-`wrap` is the normal safe build/wrap/verify flow. It writes the active CFE/TFTP
-image to:
+Main modes:
 
-```text
-/mnt/c/tftp/openwrt-ps-irqfallback.bin
+```sh
+tc paths
+tc status
+tc wrap
+tc check
+tc verify
+tc state
+tc check-gates --check-log records/logs/serial/picocom-example.log
+tc ensure-packages
+tc serial-console
+tc reverse-stage1 --source-image records/artifacts/rescue/openwrt-ps-irqfallback-GOOD-5696426.bin
+tc selftest
 ```
 
-`check`, `verify`, and `build` are kept as compatibility subcommands, but they
-currently run the same safe flow as `wrap`. Normal usage should call `tcwrap`.
+`wrap`, `check`, `verify`, and `build` all run the build/wrap/verify path. The
+default package profile is `fastboot`. To keep the larger diagnostics profile:
 
-Generated manifests and state captures go to:
+```sh
+TC7200U_PACKAGE_PROFILE=debug tcwrap
+```
+
+Generated manifests, state captures, hashes, and measurements go to:
 
 ```text
-research/notes/generated/
+records/generated/
 ```
 
 The output directory can be overridden:
 
 ```sh
-RESEARCH_NOTES_DIR=/tmp/tc7200u-notes scripts/tc7200u state
+RESEARCH_NOTES_DIR=/tmp/tc7200u-generated tc state
 ```
 
-## Shell aliases
+Build/install/wrap logs go to:
+
+```text
+records/logs/builds/
+```
+
+## Shell Aliases
 
 Interactive WSL sessions should use these aliases:
 
 ```sh
-alias tc='~/tc7200u-research/scripts/tc7200u'
-alias tcwrap='~/tc7200u-research/scripts/tc7200u wrap'
-alias tcstate='~/tc7200u-research/scripts/tc7200u state'
-alias tcstatus='~/tc7200u-research/scripts/tc7200u status'
+alias tc='~/tc7200u-research/scripts/tc7200u-auto-build-install-wrap.sh'
+alias tcwrap='~/tc7200u-research/scripts/tc7200u-auto-build-install-wrap.sh wrap'
+alias tccheck='~/tc7200u-research/scripts/tc7200u-auto-build-install-wrap.sh check'
+alias tcverify='~/tc7200u-research/scripts/tc7200u-auto-build-install-wrap.sh verify'
+alias tcstate='~/tc7200u-research/scripts/tc7200u-auto-build-install-wrap.sh state'
+alias tcstatus='~/tc7200u-research/scripts/tc7200u-auto-build-install-wrap.sh status'
 alias tcresearch='cd ~/tc7200u-research'
 alias tcopenwrt='cd ~/src/openwrt'
 alias cfe-tftp='/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -NoProfile -ExecutionPolicy Bypass -File C:\\tftp\\start-cfe-tftp-77.ps1'
@@ -67,31 +80,26 @@ cfe-tftp
 tcstate
 ```
 
-## Manual build and wrap
-
-```sh
-tcresearch
-tcwrap
-cfe-tftp
-tcstate
-```
-
-Required success marker:
+Required wrapper marker:
 
 ```text
 size_ok=True
 ```
 
-## Safe TFTP file
+Active CFE/TFTP path:
 
 ```text
 /mnt/c/tftp/openwrt-ps-irqfallback.bin
 ```
 
-Do not rename:
+CFE-requested filename:
 
 ```text
 openwrt-ps-irqfallback.bin
 ```
 
-Do not flash. RAM boot only.
+## Git Rule
+
+After a useful research run, inspect `git status --short --branch`, add the
+new records and docs, run the relevant checks, and create a local commit.
+Push only when explicitly requested.

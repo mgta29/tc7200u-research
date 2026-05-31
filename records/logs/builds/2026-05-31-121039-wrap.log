@@ -1,0 +1,20 @@
+=== meta ===
+timestamp_local=2026-05-31 12:11:15 CEST
+cwd=/home/mgta29/src/openwrt
+command=/home/mgta29/tc7200u-research/scripts/tc7200u-a825-wrap.py --input /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin --output /mnt/c/tftp/tc7200-stage2-test.bin --filename tc7200-stage2-test.bin
+=== output ===
+payload_size=7373590
+output_size=7373682
+header_size=92
+filename=tc7200-stage2-test.bin
+control=0x0000
+major=0x0100
+minor=0x04ff
+load_addr=0x82000000
+build_time=0x6a1c0943
+crc32=0x00000000
+output=/mnt/c/tftp/tc7200-stage2-test.bin
+hcs=0xc6f9
+
+=== exit ===
+exit_code=0

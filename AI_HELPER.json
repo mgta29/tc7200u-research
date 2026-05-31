@@ -1,0 +1,106 @@
+{
+  "repo": {
+    "name": "tc7200u-research",
+    "owner": "mgta29",
+    "remote": "git@github.com:mgta29/tc7200u-research.git",
+    "local_path": "~/tc7200u-research",
+    "purpose": "Preserve TC7200U BCM3383 OpenWrt bring-up notes, logs, captures, images, reverse output, helper scripts, and patch copies for fast resumption."
+  },
+  "layout": {
+    "records": "Single data bucket for notes, logs, captures, generated output, snapshots, binaries, reverse output, network scans, and backups.",
+    "records/notes": "Human research notes by topic.",
+    "records/logs/serial": "Picocom, UART, boot, and runtime serial logs.",
+    "records/logs/cfe": "CFE, HCS, and recovery logs.",
+    "records/logs/tftp": "Host TFTP, packet, route, neighbor, link, and ping proof captures in dated run folders.",
+    "records/logs/builds": "OpenWrt build, install, wrap, verify, and package-profile logs.",
+    "records/generated": "Manifests, state captures, hashes, generated measurements, and deep-mine output.",
+    "records/snapshots": "DTS, config, and source snapshots.",
+    "records/network-scans": "LAN, modem, and CFE/TFTP network scans.",
+    "records/backups": "Pre-edit backups.",
+    "records/artifacts/rescue": "Known-good images and checksums.",
+    "records/artifacts/test-images": "Experiment images retained for comparison.",
+    "records/artifacts/invalid": "Failed or comparison-only images.",
+    "records/reverse": "Reverse-engineering projects, labels, scripts, and extracted ProgramStore material.",
+    "docs": "Curated status, workflow, path, and topic docs.",
+    "patches": "OpenWrt patch copies and experiment patch sets.",
+    "scripts": "Single helper script plus host and serial command snippets.",
+    "tools": "Standalone analysis tools."
+  },
+  "aliases": {
+    "tc": "~/tc7200u-research/scripts/tc7200u-auto-build-install-wrap.sh",
+    "tcwrap": "~/tc7200u-research/scripts/tc7200u-auto-build-install-wrap.sh wrap",
+    "tccheck": "~/tc7200u-research/scripts/tc7200u-auto-build-install-wrap.sh check",
+    "tcverify": "~/tc7200u-research/scripts/tc7200u-auto-build-install-wrap.sh verify",
+    "tcstate": "~/tc7200u-research/scripts/tc7200u-auto-build-install-wrap.sh state",
+    "tcstatus": "~/tc7200u-research/scripts/tc7200u-auto-build-install-wrap.sh status",
+    "tcresearch": "cd ~/tc7200u-research",
+    "tcopenwrt": "cd ~/src/openwrt",
+    "cfe-tftp": "/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -NoProfile -ExecutionPolicy Bypass -File C:\\\\tftp\\\\start-cfe-tftp-77.ps1",
+    "cte-tftp": "cfe-tftp"
+  },
+  "workflows": {
+    "resume": [
+      "tcresearch",
+      "tcstatus",
+      "tcwrap",
+      "cfe-tftp",
+      "tcstate"
+    ],
+    "wrap": [
+      "Run tcwrap.",
+      "Confirm wrapper output contains size_ok=True.",
+      "Serve /mnt/c/tftp/openwrt-ps-irqfallback.bin when testing with CFE."
+    ],
+    "capture_state": [
+      "Run tcstate after a useful test.",
+      "Keep generated manifests and state captures in records/generated/.",
+      "Keep serial captures in records/logs/serial/."
+    ],
+    "gate_check": [
+      "Run tc check-gates --check-log records/logs/serial/<capture>.log.",
+      "Keep reports in records/generated/ unless a different report path is explicitly supplied."
+    ],
+    "reverse_stage1": [
+      "Run tc reverse-stage1 --source-image <wrapped-image>.",
+      "Keep reverse output under records/reverse/."
+    ]
+  },
+  "paths": {
+    "openwrt_tree": "~/src/openwrt",
+    "active_tftp_image": "/mnt/c/tftp/openwrt-ps-irqfallback.bin",
+    "cfe_filename": "openwrt-ps-irqfallback.bin",
+    "raw_initramfs": "~/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin",
+    "helper": "~/tc7200u-research/scripts/tc7200u-auto-build-install-wrap.sh",
+    "generated": "~/tc7200u-research/records/generated",
+    "build_logs": "~/tc7200u-research/records/logs/builds",
+    "serial_logs": "~/tc7200u-research/records/logs/serial",
+    "tftp_logs": "~/tc7200u-research/records/logs/tftp",
+    "known_good_image": "~/tc7200u-research/records/artifacts/rescue/openwrt-tc7200u-known-good-ramboot-20260515-125821.bin",
+    "original_a825_baseline": "~/tc7200u-research/records/artifacts/rescue/openwrt-ps-irqfallback-GOOD-5696426.bin"
+  },
+  "environment": {
+    "RESEARCH": "Optional helper override for repo path; default is ~/tc7200u-research.",
+    "RECORDS_DIR": "Optional helper override for records path; default is $RESEARCH/records.",
+    "RESEARCH_NOTES_DIR": "Optional helper override for generated output; default is $RECORDS_DIR/generated.",
+    "RESEARCH_BUILDS_DIR": "Optional helper override for build logs; default is $RECORDS_DIR/logs/builds.",
+    "TC7200U_PACKAGE_PROFILE": "Use fastboot by default; set debug for the larger diagnostics profile."
+  },
+  "git": {
+    "branch_policy": "Use the current research branch unless the user asks to switch.",
+    "before_work": "Run git status --short --branch and preserve existing dirty worktree content.",
+    "moves": "Use git mv for tracked path moves when practical.",
+    "verification": "Run relevant helper checks, JSON validation, markdown/path audits, and git diff --cached --check before committing.",
+    "commit": "After verified work, run git add -A and create a local commit with a direct research-focused message.",
+    "push": "Never push unless the user explicitly asks for a push."
+  },
+  "current_focus": {
+    "platform": "Technicolor TC7200.U / BCM3383",
+    "working": [
+      "CFE/TFTP boot reaches OpenWrt userspace.",
+      "Serial console works.",
+      "A825 ProgramStore wrapper and verifier are integrated into the helper."
+    ],
+    "blocker": "BCM3383 GENET at 0x12c00000 probes and queues TX frames, but TDMA does not consume descriptors and RX remains zero.",
+    "next_action": "Continue kernel-side GENET descriptor width, DMA window, and clock/reset probing before switch integration."
+  }
+}

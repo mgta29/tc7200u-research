@@ -1,0 +1,15 @@
+input=/home/mgta29/src/bcm2-dumps/tc7200/TC7200.20-DC.01.03-140425-F-1FF.bin
+out_dir=/home/mgta29/tc7200u-research/research/reverse/dc0103_rerun
+payload=/home/mgta29/tc7200u-research/research/reverse/dc0103_rerun/payload.lzma
+image_raw=/home/mgta29/tc7200u-research/research/reverse/dc0103_rerun/image.raw
+header_log=/home/mgta29/tc7200u-research/research/reverse/dc0103_rerun/programstore_header.txt
+marker_report=/home/mgta29/tc7200u-research/research/reverse/dc0103_rerun/marker_report.txt
+decode_mode=lzma_raw
+raw_image_size=21887272
+raw_image_sha256=2869d7db666629ad63cc2a8f726e72a5c3372d5d9607e31acfede818433d7d84
+is_lzma=True
+lc=3
+lp=0
+pb=2
+dict_size=1048576
+warning=stream did not reach explicit EOF marker

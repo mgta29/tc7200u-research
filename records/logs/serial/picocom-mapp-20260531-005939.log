@@ -1,0 +1,770 @@
+ÿ
+BCM3383A2 
+Sync: 0 
+MemSize:            128 M
+Chip ID:     BCM3383Z-B0
+
+BootLoader Version: 2.4.0alpha18p1 Pre-release Gnu spiboot dual-flash reduced DDR drive linux
+Build Date: Aug 14 2012
+Build Time: 09:48:58
+SPI flash ID 0xc22014, size 1MB, block size 64KB, write buffer 256, flags 0x0
+NAND flash: Device size 64 MB, Block size 16 KB, Page size 512 B
+Cust key size 128
+parameter offset is 43872
+
+Signature/PID: a825
+
+Board IP Address  [192.168.77.1]:      gÿ
+BCM3383A2 
+Sync: 0 
+MemSize:            128 M
+Chip ID:     BCM3383Z-B0
+
+BootLoader Version: 2.4.0alpha18p1 Pre-release Gnu spiboot dual-flash reduced DDR drive linux
+Build Date: Aug 14 2012
+Build Time: 09:48:58
+SPI flash ID 0xc22014, size 1MB, block size 64KB, write buffer 256, flags 0x0
+NAND flash: Device size 64 MB, Block size 16 KB, Page size 512 B
+Cust key size 128
+parameter offset is 43872
+
+Signature/PID: a825
+
+Board IP Address  [192.168.77.1]:      
+Board IP Mask     [255.255.255.0]:     
+Board IP Gateway  [0.0.0.0]:           
+Board MAC Address [00:c0:05:00:00:a8]: 
+
+Internal/External phy? (e/i/a)[a] 
+Switch detected: 53125
+ProbePhy: Found PHY 0, MDIO on MAC 0, data on MAC 0
+Using GMAC0, phy 0
+
+Enet link up: 1G full
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+TFTP Get Selected
+Board TFTP Server IP Address [192.168.77.2]:  
+Enter filename [C:\tftp\tc7200-og-src-a825-tp1-dual-c0-trace.bin]: tc7200-og-d6.02.11.bin
+
+
+Destination: a5f00000
+
+Destination: a5f00000
+Starting TFTP of tc7200-og-d6.02.11.bin from 192.168.77.2
+Getting tc7200-og-d6.02.11.bin using octet mode
+Received packet for invalid session...
+......................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+............................................................................................................................................Received packet for invalid session...
+............................................................................................................................................Received packet for invalid session...
+................................................................................................................................................................................................................................................................................Received packet for invalid session...
+.......................................................................................................................................................................Received packet for invalid session...
+Received packet for invalid session...
+.Received packet for invalid session...
+...................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+......................................................................................................................................................................................................................................................................................................................................................
+Tftp complete
+Received 4619075 bytes
+
+Image 3 Program Header:
+   Signature: a825
+     Control: 0005
+   Major Rev: 0100
+   Minor Rev: 03ff
+  Build Time: 2014/10/20 07:52:53 Z
+ File Length: 4618983 bytes
+Load Address: 80004000
+    Filename: TC7200U-D6.02.11-141019-F-1C1.bin
+         HCS: 62c7
+         CRC: a0259e23
+
+Store parameters to flash? [n] n
+Bypassing CRC Verifiction on Image 4...
+CRC time = 310
+Detected LZMA compressed image... decompressing... 
+Target Address: 0x80004000
+decompressSpace is 0x8000000
+Elapsed time 582183190
+
+Decompressed length: 42467328
+Reading flash map at ff30, size 192
+Successfully restored flash map from SPI flash!
+Copying partition table to 0x83fffc04 180
+Copying partition table to 0x80000904 180
+
+Executing Image 4...
+
+
+ eCos - hal_diag_init
+Init device '/dev/BrcmTelnetIoDriver'
+Init device '/dev/ttydiag'
+Init tty channel: 814e3398
+Init device '/dev/tty0'
+Init tty channel: 814e33b8
+Init device '/dev/haldiag'
+HAL/diag SERIAL init
+Init device '/dev/ser0'
+BCM 33XX SERIAL init - dev: 0.2
+Set output buffer - buf: 0x816fbd50 len: 4096
+Set input buffer - buf: 0x816fcd50 len: 4096
+BCM 33XX SERIAL config
+Init device '/dev/ser1'
+BCM 33XX SERIAL init - dev: 0.3
+Set output buffer - buf: 0x816fdd50 len: 4096
+Set input buffer - buf: 0x816fed50 len: 4096
+BCM 33XX SERIAL config
+
+InitBoard: MIPS frequency 637200000
+Function: SetHardcodeVendorProfile
+[00:00:00 01/01/1970] [tStartup] BcmBfcStdEmbeddedTarget::InitStorageDrivers:  (BFC Target) Configuring/Loading Flash driver...
+[00:00:00 01/01/1970] [tStartup] BcmSpiFlashDevice::DetectFlash:  (SPI Flash Device Factory) WARNING - Detected SPI flash with JEDEC ID =0xc22014
+Waited 12 iterations after device ID read
+NAND flash: Device size 64 MB, Block size 16 KB, Page size 512 B
+[00:00:00 01/01/1970] [tStartup] BcmNandFlashDevice::DetectNandFlash:  (NAND Flash Device Factory) WARNING - Detected NAND flash with JEDEC ID =0x20762076
+Found bootloader flash map at 0x80000904.
+[00:00:00 01/01/1970] [tStartup] FlashDeviceDriver::SpiFlashPlaceRegions:  (Flash Driver C API) WARNING - Partition falls out of range of device 0. Placing in device 1...
+[00:00:00 01/01/1970] [tStartup] FlashDeviceDriver::SpiFlashPlaceRegions:  (Flash Driver C API) WARNING - Partition falls out of range of device 0. Placing in device 1...
+[00:00:00 01/01/1970] [tStartup] FlashDeviceDriver::SpiFlashPlaceRegions:  (Flash Driver C API) WARNING - Partition falls out of range of device 0. Placing in device 1...
+[00:00:00 01/01/1970] [tStartup] FlashDeviceDriver::SpiFlashPlaceRegions:  (Flash Driver C API) WARNING - Partition falls out of range of device 0. Placing in device 1...
+[00:00:00 01/01/1970] [tStartup] FlashDeviceDriver::SpiFlashPlaceRegions:  (Flash Driver C API) WARNING - Partition falls out of range of device 0. Placing in device 1...
+[00:00:00 01/01/1970] [tStartup] FlashDeviceDriver::SpiFlashPlaceRegions:  (Flash Driver C API) WARNING - Partition falls out of range of device 0. Placing in device 1...
+[00:00:00 01/01/1970] [tStartup] BcmBfcStdEmbeddedTarget::InitStorageDrivers:  (BFC Target) Loading BootloaderStore driver...
+[00:00:00 01/01/1970] [tStartup] BcmBfcStdEmbeddedTarget::InitStorageDrivers:  (BFC Target) Loading ProgramStore driver...
+ProgramStoreDeviceDriver::ProgramStoreDriverInit:  INFO - Initializing...
+[00:00:00 01/01/1970] [tStartup] BcmBfcStdEmbeddedTarget::InitStorageDrivers:  (BFC Target) Loading NonVol driver...
+[00:00:00 01/01/1970] [tStartup] BcmBfcStdEmbeddedTarget::InitStorageDrivers:  (BFC Target) Storage drivers initialized successfully.
+[00:00:00 01/01/1970] [tStartup] BcmBfcStdEmbeddedTarget::InitDeviceAbstractions:  (BFC Target) Creating singletons for ProgramStore/BootloaderStore/NonVol devices...
+Detecting the next image number that we will store to by default...
+Bootloader indicates we are running image 4
+By default, we will dload to image number 2!
+
+By default, we will dload to block number 0!
+
+[00:00:00 01/01/1970] [tStartup] BcmBfcStdEmbeddedTarget::InitDeviceAbstractions:  (BFC Target) Device abstraction singletons created successfully.
+
+[Askey Debug]: No VP-24, use the default valus
+CmSnmpNonVolSettings::GetSingletonInstance:  WARNING - the singleton instance is NULL, and someone is accessing it!
+CmSnmpNonVolSettings::GetSingletonInstance:  WARNING - the singleton instance is NULL, and someone is accessing it!
+CmSnmpNonVolSettings::GetSingletonInstance:  WARNING - the singleton instance is NULL, and someone is accessing it!
+CmSnmpNonVolSettings::GetSingletonInstance:  WARNING - the singleton instance is NULL, and someone is accessing it!
+[00:00:00 01/01/1970] [tStartup] BcmCmBpiNonVolSettings::BcmCmBpiNonVolSettings:  (Euro-Docsis CM BPI NonVol Settings) WARNING - Singleton pointer is not NULL!  There are multiple instances!  Leaving the singleton pointer alone...
+BcmPcpClientServiceAppIf::GetSingletonInstance:  WARNING - the singleton is NULL, and someone is accessing it!
+mtaNvCalcChecksum: checksum= 1273036005
+Reading Permanent settings from non-vol...
+Checksum for permanent settings:  0x8aca135a
+Setting downstream calibration signature to ''
+[00:00:00 01/01/1970] [tStartup] BcmDocsisCmDownstreamCalibrationNonVolSettings::ReadFromImpl:  (DOCSIS CM Downstream Calibration NonVol Settings) WARNING - Read older version of the settings (2.0); they have been upgraded to version 2.1, preserving original settings.
+[00:00:00 01/01/1970] [tStartup] BcmBfcAppCompositeNonVolSettings::ReadFrom:  WARNING - Read an unrecognized settings group from the buffer (magic number 0x5550432e 'UPC.'); storing in raw form for compatibility...
+[00:00:00 01/01/1970] [tStartup] BcmBfcAppCompositeNonVolSettings::ReadFrom:  WARNING - Read an unrecognized settings group from the buffer (magic number 0x65534950 'eSIP'); storing in raw form for compatibility...
+[00:00:00 01/01/1970] [tStartup] BcmBfcAppCompositeNonVolSettings::ReadFrom:  WARNING - Read an unrecognized settings group from the buffer (magic number 0x4d746153 'MtaS'); storing in raw form for compatibility...
+[00:00:00 01/01/1970] [tStartup] BcmBfcTr69NonVolSettings::IsDefault:  (TR69 NonVol Settings) Permanent settings are default!
+[00:00:00 01/01/1970] [tStartup] BcmIpsecNonVolSettings::IsDefault:  (IPSEC NonVol Settings) Permanent settings are default!
+[00:00:00 01/01/1970] [tStartup] TmmMtaNcsNonVolSettings::IsDefault:  (TMM MTA NonVol Settings) Permanent settings are default!
+
+*
+*
+* One or more of the settings groups was missing, possibly as a result of a code upgrade.
+*
+*
+
+*
+*
+* One or more of the settings groups was upgraded.
+*
+*
+Settings were read and verified.
+
+
+Reading Dynamic settings from non-vol...
+Checksum for dynamic settings:  0xd6bcb200
+[00:00:00 01/01/1970] [tStartup] BcmWiFi80211NonVolSettings::ReadFromImpl:  (WiFi 802.11 NonVol Settings) WARNING - Read newer version of the settings (0.36); current version is 0.33, newer settings will be preserved, but will not be used.
+[00:00:00 01/01/1970] [tStartup] BcmBfcAppCompositeNonVolSettings::ReadFrom:  WARNING - Read an unrecognized settings group from the buffer (magic number 0x38303232 '8022'); storing in raw form for compatibility...
+[00:00:00 01/01/1970] [tStartup] BcmBfcAppCompositeNonVolSettings::ReadFrom:  WARNING - Read an unrecognized settings group from the buffer (magic number 0x38303254 '802T'); storing in raw form for compatibility...
+[00:00:00 01/01/1970] [tStartup] BcmBfcTr69NonVolSettings::ReadFromImpl:  (TR69 NonVol Settings) WARNING - Read newer version of the settings (0.4); current version is 0.1, newer settings will be preserved, but will not be used.
+CM event log supports 40 events, but non-vol only has 32 events; non-vol storage will be increased to hold 40 events.
+[00:00:00 01/01/1970] [tStartup] BcmBfcAppCompositeNonVolSettings::ReadFrom:  WARNING - Read an unrecognized settings group from the buffer (magic number 0x446e5331 'DnS1'); storing in raw form for compatibility...
+[00:00:00 01/01/1970] [tStartup] ThomBfcNonVolSettings::ReadFromImpl:  (Thomson BFC NonVol Settings) WARNING - Read newer version of the settings (0.9); current version is 0.7, newer settings will be preserved, but will not be used.
+[00:00:00 01/01/1970] [tStartup] BcmCmVendorNonVolSettings::ReadFromImpl:  (Thomson CM Vendor NonVol Settings) WARNING - Read newer version of the settings (0.10); current version is 0.9, newer settings will be preserved, but will not be used.
+[00:00:00 01/01/1970] [tStartup] ThomWiFi80211NonVolSettings::ReadFromImpl:  (Thomson WiFi 802.11 NonVol Settings) WARNING - Read newer version of the settings (0.17); current version is 0.9, newer settings will be preserved, but will not be used.
+[00:00:00 01/01/1970] [tStartup] BcmBfcAppCompositeNonVolSettings::ReadFrom:  WARNING - Read an unrecognized settings group from the buffer (magic number 0x5350414e 'SPAN'); storing in raw form for compatibility...
+[00:00:00 01/01/1970] [tStartup] BcmRgNonVolSettings::ReadFromImpl:  (Residential Gateway NonVol Settings) WARNING - Read newer version of the settings (0.32); current version is 0.30, newer settings will be preserved, but will not be used.
+[00:00:00 01/01/1970] [tStartup] ThomRgNonVolSettings::ReadFromImpl:  (Thomson Rg NonVol Settings) WARNING - Read newer version of the settings (0.10); current version is 0.8, newer settings will be preserved, but will not be used.
+[00:00:00 01/01/1970] [tStartup] BcmWiFi80211GuestNetworkNonVolSettings::ReadFromImpl:  (WiFi 802.11 Guest Network NonVol Settings) WARNING - Read newer version of the settings (0.10); current version is 0.9,ChipHalSelectPinMux: Setting pin mux sel 10, word 0, value 5
+ neChipHalSelectPinMux: Setting pin mux sel 6, word 0, value 5
+wer settings will be preserved, but will not be used.
+[00:00:00 01/01/1970] [tStartup] BcmBfcAppCompositeNonVolSettings::ReadFrom:  WARNING - Read an unrecognized settings group from the buffer (magic number 0x57694776 'WiGv'); storing in raw form for compatibility...
+[00:00:00 01/01/1970] [tStartup] BcmeRouterNonVolSettings::ReadFromImpl:  (eRouter NonVol Settings) WARNING - Read newer version of the settings (1.4); current version is 1.3, newer settings will be preserved, but will not be used.
+[00:00:00 01/01/1970] [tStartup] BcmIpsecNonVolSettings::IsDefault:  (IPSEC NonVol Settings) Dynamic settings are default!
+[00:00:00 01/01/1970] [tStartup] TmmMtaNcsNonVolSettings::IsDefault:  (TMM MTA NonVol Settings) Dynamic settings are default!
+
+*
+*
+* One or more of the settings groups was missing, possibly as a result of a code upgrade.
+*
+*
+Settings were read and verified.
+
+[00:00:00 01/01/1970] [tStartup] BcmBfcFpmDriver::Init:  Setting FPM Buffer size to: 256 Base Address: 0x836f3600
+[00:00:00 01/01/1970] [tStartup] BcmBfcFpmDriver::Init:  fFpmLargestBufferSize: 2048 fFpmSizeShiftBits: 0x8
+[00:00:00 01/01/1970] [tStartup] BcmBfcFpmDriver::Init:  Pool index: 0  pool size: 2048
+[00:00:00 01/01/1970] [tStartup] BcmBfcFpmDriver::Init:  Pool index: 1  pool size: 1024
+[00:00:00 01/01/1970] [tStartup] BcmBfcFpmDriver::Init:  Pool index: 2  pool size: 512
+[00:00:00 01/01/1970] [tStartup] BcmBfcFpmDriver::Init:  Pool index: 3  pool size: 256ChipHalSelectPinMux: Setting pin mux sel 6, word 0, value 5
+
+[00:00:00 01/01/1970] [tStartup] BcmBfcFpmDriver::Init:  Lookup table index: 0  pool size: 3
+[00:00:00 01/01/1970] [tStartup] BcmBfcFpmDriver::Init:  Lookup table index: 1  pool size: 2
+[00:00:00 01/01/1970] [tStartup] BcmBfcFpmDriver::Init:  Lookup table index: 2  pool size: 1
+[00:00:00 01/01/1970] [tStartup] BcmBfcFpmDriver::Init:  Lookup table index: 3  pool size: 1
+[00:00:00 01/01/1970] [tStartup] BcmBfcFpmDriver::Init:  Lookup table index: 4  pool size: 0
+[00:00:00 01/01/1970] [tStartup] BcmBfcFpmDriver::Init:  Lookup table index: 5  pool size: 0
+[00:00:00 01/01/1970] [tStartup] BcmBfcFpmDriver::Init:  Lookup table index: 6  pool size: 0
+[00:00:00 01/01/1970] [tStartup] BcmBfcFpmDriver::Init:  Lookup table index: 7  pool size: 0
+
+------------------------------------
+Free Pool Manager Configuration
+------------------------------------
+Buffer size in Bytes............... 256
+Number of Tokens................... 32768
+Tokens used in 256 byte pool....... 32
+Tokens used in 512 byte pool....... 32
+Tokens used in 1024 byte pool...... 32
+Tokens used in 2048 byte pool...... 33
+Base Address of FPM Memory ........ 0xb2200200
+Base Address of FPM Mem in DDR2.... 0x836f3600
+Total Configured FPM Memory Size... 8388608
+Free Fifo Full..................... 0
+Free Fifo Empty.................... 1
+Alloc Fifo Full.................... 1
+Alloc Fifo Empty................... 0
+Number of tokens available......... 32768
+Number of not valid token frees.... 0
+Number of not valid token multi.... 0
+Overflow Count..................... 0
+Underflow Count.................... 0
+[00:00:00 01/01/1970] [tStartup] BcmBfcPacketAlloc::Init:  Packet Alloc Header Buffer Start Addr: 0x83013590 Length: 0x6e0000 Max Buffer Size: 0xdc
+PCI Core Init!  instance = 0, pCoreRegs = b2800000
+PCI Core PowerUp!  instance = 0.
+
+PCI ENUMERATE****************************************************************************
+Checking bus #1
+	Checking device #0
+		In pcieEnumerateDevices(0) found a card: deviceNo = 0, funcNo = 0, busNo = 1, pcieAddr = 00000000
+		In pcieEnumerateDevices: vendor = 000014e4, device = 00004359
+PCIELIB: Setting PCIE clk request mode to 1 for active power savings.
+PCIELIB: Found Capability ID = 16
+PCIELIB: ClkReq power mode set to 1.
+END PCIE ENUMERATE************************************************************************
+
+PCI Core Init!  instance = 1, pCoreRegs = b2a00000
+PCI Core PowerUp!  instance = 1.
+PCI Core Init Instance (1): No Link Status Found! Skipping enumeration.
+PCI Core Power Down. Instance = 1!
+Creating a new host MSG PROC DQM manager. Instance: 83f70190, DQM_REGS = b8601800, CTRL_REGS = b8601000
+Initializing main MSG_PROC DQM interrupts.
+ b8601000: 00000000
+ b8601004: 00000000
+ b8601008: 00000008
+ b860100c: 00000000
+ b8601010: 00000000
+ b8601014: 00000000
+ b8601018: 00000000
+ b860101c: 00000000
+Creating a new host FAP DQM manager. Instance: 83f70858
+Initializing main FAP DQM interrupts.
+ b8401000: 00000000
+ b8401004: 00000000
+ b8401008: 00000008
+ b840100c: 00000000
+ b8401010: 00000000
+ b8401014: 00000000
+ b8401018: 00000000
+ b840101c: 00000000
+
+
+>>> ITC Initialized!!! <<<
+
+Booting Linux...
+NandFlashRead: Detected out-of-order block @offset 0x2b90000, tagged offset 0xffffff00, expected offset 0x450000
+NandFlashRead: Failed to find replacement block!
+Found bootloader flash map at 0x80000904.
+Linu
+HandShakeMsg = 00000000
+x Boot Args: console=ttyS0,115200 partoffset=0x029b0000 partsize=0x002e0000 fptaddr=0x83fffe00 ubi.mtd=linuxkfs ubi.mtd=linuxapps root=ubi0:rootfs ro noinitrd rootfstype=ubifs   mem=65863680@67108864 mem=0@0
+BootLinux: intermediate AVS code already stopped.
+BcmNasServiceAppIf::GetSingletonInstance:  WARNING - the singleton is NULL, and someone is accessing it!
+BcmMscServiceAppIf::GetSingletonInstance:  WARNING - the singleton is NULL, and someone is accessing it!
+[00:00:02 01/01/1970] [Telnet Thread] BcmTelnetThread::ThreadMain:  (Telnet Thread) Telnet server thread running...
+[00:00:02 01/01/1970] [SSH Thread] BcmThread::ThreadMain:  (SSH Thread) SSH server thread running...
+Creating SNMP agent cablemodem agent
+cablemodem agent disabling management.
+cablemodem agent defering traps.
+Creating BcmEmtaCommandTable
+Creating BcmEmtaEndptCommandTable
+
+If you pressed the 's' key before this point, we will skip driver initialization...
+AVS Thread Constructor....
+AVS Thread InitAVS: Bootloader AVS data was retrieved successfully.
+   disabled     = 0
+   rmon ratio   = 1045
+   sigma        = -295
+   dac change   = -34
+   flash margin = 65535
+   adc_margin   = 175
+   dac_margin   = -537
+   madcperdac   = 294
+   marginOffset = 65534
+   deviceMap    = 0x8151ffe8
+Rebooting system to affect AVS margin chanÿ
+BCM3383A2 
+Sync: 0 
+MemSize:            128 M
+Chip ID:     BCM3383Z-B0
+
+BootLoader Version: 2.4.0alpha18p1 Pre-release Gnu spiboot dual-flash reduced DDR drive linux
+Build Date: Aug 14 2012
+Build Time: 09:48:58
+SPI flash ID 0xc22014, size 1MB, block size 64KB, write buffer 256, flags 0x0
+NAND flash: Device size 64 MB, Block size 16 KB, Page size 512 B
+Cust key size 128
+parameter offset is 43872
+
+Signature/PID: a825
+
+Board IP Address  [192.168.77.1]:      
+Board IP Mask     [255.255.255.0]:     
+Board IP Gateway  [0.0.0.0]:           
+Board MAC Address [00:c0:05:00:00:a8]: 
+
+Internal/External phy? (e/i/a)[a] 
+Switch detected: 53125
+ProbePhy: Found PHY 0, MDIO on MAC 0, data on MAC 0
+Using GMAC0, phy 0
+
+Enet link up: 1G full
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+TFTP Get Selected
+Board TFTP Server IP Address [192.168.77.2]:  
+Enter filename [C:\tftp\tc7200-og-src-a825-tp1-dual-c0-trace.bin]: tc7200-og-d6.02.11.bin
+
+
+Destination: a5f00000
+
+Destination: a5f00000
+Starting TFTP of tc7200-og-d6.02.11.bin from 192.168.77.2
+Getting tc7200-og-d6.02.11.bin using octet mode
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+ETHrxData Error: LAN RX status = 204, token = b02a8020
+Received a bad packet...discarding!!!
+..........................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+Received packet for invalid session...
+.Received packet for invalid session...
+..................................................................................................................................................................................................Received packet for invalid session...
+......................................................................................................................................Received packet for invalid session...
+..........................................................................................................................................Received packet for invalid session...
+...................................................................................................................................................................................................................................................................................Received packet for invalid session...
+...............................................................................................................................................................................................................................................................................................................................................................
+Tftp complete
+Received 4619075 bytes
+
+Image 3 Program Header:
+   Signature: a825
+     Control: 0005
+   Major Rev: 0100
+   Minor Rev: 03ff
+  Build Time: 2014/10/20 07:52:53 Z
+ File Length: 4618983 bytes
+Load Address: 80004000
+    Filename: TC7200U-D6.02.11-141019-F-1C1.bin
+         HCS: 62c7
+         CRC: a0259e23
+
+Store parameters to flash? [n] n
+Bypassing CRC Verifiction on Image 4...
+CRC time = 315
+Detected LZMA compressed image... decompressing... 
+Target Address: 0x80004000
+decompressSpace is 0x8000000
+Elapsed time 3786164890
+
+Decompressed length: 42467328
+Reading flash map at ff30, size 192
+Successfully restored flash map from SPI flash!
+Copying partition table to 0x83fffc04 180
+Copying partition table to 0x80000904 180
+
+Executing Image 4...
+
+
+ eCos - hal_diag_init
+Init device '/dev/BrcmTelnetIoDriver'
+Init device '/dev/ttydiag'
+Init tty channel: 814e3398
+Init device '/dev/tty0'
+Init tty channel: 814e33b8
+Init device '/dev/haldiag'
+HAL/diag SERIAL init
+Init device '/dev/ser0'
+BCM 33XX SERIAL init - dev: 0.2
+Set output buffer - buf: 0x816fbd50 len: 4096
+Set input buffer - buf: 0x816fcd50 len: 4096
+BCM 33XX SERIAL config
+Init device '/dev/ser1'
+BCM 33XX SERIAL init - dev: 0.3
+Set output buffer - buf: 0x816fdd50 len: 4096
+Set input buffer - buf: 0x816fed50 len: 4096
+BCM 33XX SERIAL config
+
+InitBoard: MIPS frequency 637200000
+Function: SetHardcodeVendorProfile
+[00:00:00 01/01/1970] [tStartup] BcmBfcStdEmbeddedTarget::InitStorageDrivers:  (BFC Target) Configuring/Loading Flash driver...
+[00:00:00 01/01/1970] [tStartup] BcmSpiFlashDevice::DetectFlash:  (SPI Flash Device Factory) WARNING - Detected SPI flash with JEDEC ID =0xc22014
+Waited 12 iterations after device ID read
+NAND flash: Device size 64 MB, Block size 16 KB, Page size 512 B
+[00:00:00 01/01/1970] [tStartup] BcmNandFlashDevice::DetectNandFlash:  (NAND Flash Device Factory) WARNING - Detected NAND flash with JEDEC ID =0x20762076
+Found bootloader flash map at 0x80000904.
+[00:00:00 01/01/1970] [tStartup] FlashDeviceDriver::SpiFlashPlaceRegions:  (Flash Driver C API) WARNING - Partition falls out of range of device 0. Placing in device 1...
+[00:00:00 01/01/1970] [tStartup] FlashDeviceDriver::SpiFlashPlaceRegions:  (Flash Driver C API) WARNING - Partition falls out of range of device 0. Placing in device 1...
+[00:00:00 01/01/1970] [tStartup] FlashDeviceDriver::SpiFlashPlaceRegions:  (Flash Driver C API) WARNING - Partition falls out of range of device 0. Placing in device 1...
+[00:00:00 01/01/1970] [tStartup] FlashDeviceDriver::SpiFlashPlaceRegions:  (Flash Driver C API) WARNING - Partition falls out of range of device 0. Placing in device 1...
+[00:00:00 01/01/1970] [tStartup] FlashDeviceDriver::SpiFlashPlaceRegions:  (Flash Driver C API) WARNING - Partition falls out of range of device 0. Placing in device 1...
+[00:00:00 01/01/1970] [tStartup] FlashDeviceDriver::SpiFlashPlaceRegions:  (Flash Driver C API) WARNING - Partition falls out of range of device 0. Placing in device 1...
+[00:00:00 01/01/1970] [tStartup] BcmBfcStdEmbeddedTarget::InitStorageDrivers:  (BFC Target) Loading BootloaderStore driver...
+[00:00:00 01/01/1970] [tStartup] BcmBfcStdEmbeddedTarget::InitStorageDrivers:  (BFC Target) Loading ProgramStore driver...
+ProgramStoreDeviceDriver::ProgramStoreDriverInit:  INFO - Initializing...
+[00:00:00 01/01/1970] [tStartup] BcmBfcStdEmbeddedTarget::InitStorageDrivers:  (BFC Target) Loading NonVol driver...
+[00:00:00 01/01/1970] [tStartup] BcmBfcStdEmbeddedTarget::InitStorageDrivers:  (BFC Target) Storage drivers initialized successfully.
+[00:00:00 01/01/1970] [tStartup] BcmBfcStdEmbeddedTarget::InitDeviceAbstractions:  (BFC Target) Creating singletons for ProgramStore/BootloaderStore/NonVol devices...
+Detecting the next image number that we will store to by default...
+Bootloader indicates we are running image 4
+By default, we will dload to image number 2!
+
+By default, we will dload to block number 0!
+
+[00:00:00 01/01/1970] [tStartup] BcmBfcStdEmbeddedTarget::InitDeviceAbstractions:  (BFC Target) Device abstraction singletons created successfully.
+
+[Askey Debug]: No VP-24, use the default valus
+CmSnmpNonVolSettings::GetSingletonInstance:  WARNING - the singleton instance is NULL, and someone is accessing it!
+CmSnmpNonVolSettings::GetSingletonInstance:  WARNING - the singleton instance is NULL, and someone is accessing it!
+CmSnmpNonVolSettings::GetSingletonInstance:  WARNING - the singleton instance is NULL, and someone is accessing it!
+CmSnmpNonVolSettings::GetSingletonInstance:  WARNING - the singleton instance is NULL, and someone is accessing it!
+[00:00:00 01/01/1970] [tStartup] BcmCmBpiNonVolSettings::BcmCmBpiNonVolSettings:  (Euro-Docsis CM BPI NonVol Settings) WARNING - Singleton pointer is not NULL!  There are multiple instances!  Leaving the singleton pointer alone...
+BcmPcpClientServiceAppIf::GetSingletonInstance:  WARNING - the singleton is NULL, and someone is accessing it!
+mtaNvCalcChecksum: checksum= 1273036005
+Reading Permanent settings from non-vol...
+Checksum for permanent settings:  0x8aca135a
+Setting downstream calibration signature to ''
+[00:00:00 01/01/1970] [tStartup] BcmDocsisCmDownstreamCalibrationNonVolSettings::ReadFromImpl:  (DOCSIS CM Downstream Calibration NonVol Settings) WARNING - Read older version of the settings (2.0); they have been upgraded to version 2.1, preserving original settings.
+[00:00:00 01/01/1970] [tStartup] BcmBfcAppCompositeNonVolSettings::ReadFrom:  WARNING - Read an unrecognized settings group from the buffer (magic number 0x5550432e 'UPC.'); storing in raw form for compatibility...
+[00:00:00 01/01/1970] [tStartup] BcmBfcAppCompositeNonVolSettings::ReadFrom:  WARNING - Read an unrecognized settings group from the buffer (magic number 0x65534950 'eSIP'); storing in raw form for compatibility...
+[00:00:00 01/01/1970] [tStartup] BcmBfcAppCompositeNonVolSettings::ReadFrom:  WARNING - Read an unrecognized settings group from the buffer (magic number 0x4d746153 'MtaS'); storing in raw form for compatibility...
+[00:00:00 01/01/1970] [tStartup] BcmBfcTr69NonVolSettings::IsDefault:  (TR69 NonVol Settings) Permanent settings are default!
+[00:00:00 01/01/1970] [tStartup] BcmIpsecNonVolSettings::IsDefault:  (IPSEC NonVol Settings) Permanent settings are default!
+[00:00:00 01/01/1970] [tStartup] TmmMtaNcsNonVolSettings::IsDefault:  (TMM MTA NonVol Settings) Permanent settings are default!
+
+*
+*
+* One or more of the settings groups was missing, possibly as a result of a code upgrade.
+*
+*
+
+*
+*
+* One or more of the settings groups was upgraded.
+*
+*
+Settings were read and verified.
+
+
+Reading Dynamic settings from non-vol...
+Checksum for dynamic settings:  0xd6bcb200
+[00:00:00 01/01/1970] [tStartup] BcmWiFi80211NonVolSettings::ReadFromImpl:  (WiFi 802.11 NonVol Settings) WARNING - Read newer version of the settings (0.36); current version is 0.33, newer settings will be preserved, but will not be used.
+[00:00:00 01/01/1970] [tStartup] BcmBfcAppCompositeNonVolSettings::ReadFrom:  WARNING - Read an unrecognized settings group from the buffer (magic number 0x38303232 '8022'); storing in raw form for compatibility...
+[00:00:00 01/01/1970] [tStartup] BcmBfcAppCompositeNonVolSettings::ReadFrom:  WARNING - Read an unrecognized settings group from the buffer (magic number 0x38303254 '802T'); storing in raw form for compatibility...
+[00:00:00 01/01/1970] [tStartup] BcmBfcTr69NonVolSettings::ReadFromImpl:  (TR69 NonVol Settings) WARNING - Read newer version of the settings (0.4); current version is 0.1, newer settings will be preserved, but will not be used.
+CM event log supports 40 events, but non-vol only has 32 events; non-vol storage will be increased to hold 40 events.
+[00:00:00 01/01/1970] [tStartup] BcmBfcAppCompositeNonVolSettings::ReadFrom:  WARNING - Read an unrecognized settings group from the buffer (magic number 0x446e5331 'DnS1'); storing in raw form for compatibility...
+[00:00:00 01/01/1970] [tStartup] ThomBfcNonVolSettings::ReadFromImpl:  (Thomson BFC NonVol Settings) WARNING - Read newer version of the settings (0.9); current version is 0.7, newer settings will be preserved, but will not be used.
+[00:00:00 01/01/1970] [tStartup] BcmCmVendorNonVolSettings::ReadFromImpl:  (Thomson CM Vendor NonVol Settings) WARNING - Read newer version of the settings (0.10); current version is 0.9, newer settings will be preserved, but will not be used.
+[00:00:00 01/01/1970] [tStartup] ThomWiFi80211NonVolSettings::ReadFromImpl:  (Thomson WiFi 802.11 NonVol Settings) WARNING - Read newer version of the settings (0.17); current version is 0.9, newer settings will be preserved, but will not be used.
+[00:00:00 01/01/1970] [tStartup] BcmBfcAppCompositeNonVolSettings::ReadFrom:  WARNING - Read an unrecognized settings group from the buffer (magic number 0x5350414e 'SPAN'); storing in raw form for compatibility...
+[00:00:00 01/01/1970] [tStartup] BcmRgNonVolSettings::ReadFromImpl:  (Residential Gateway NonVol Settings) WARNING - Read newer version of the settings (0.32); current version is 0.30, newer settings will be preserved, but will not be used.
+[00:00:00 01/01/1970] [tStartup] ThomRgNonVolSettings::ReadFromImpl:  (Thomson Rg NonVol Settings) WARNING - Read newer version of the settings (0.10); current version is 0.8, newer settings will be preserved, but will not be used.
+[00:00:00 01/01/1970] [tStartup] BcmWiFi80211GuestNetworkNonVolSettings::ReadFromImpl:  (WiFi 802.11 Guest Network NonVol Settings) WARNING - Read newer version of the settings (0.10); current version is 0.9,ChipHalSelectPinMux: Setting pin mux sel 10, word 0, value 5
+ neChipHalSelectPinMux: Setting pin mux sel 6, word 0, value 5
+wer settings will be preserved, but will not be used.
+[00:00:00 01/01/1970] [tStartup] BcmBfcAppCompositeNonVolSettings::ReadFrom:  WARNING - Read an unrecognized settings group from the buffer (magic number 0x57694776 'WiGv'); storing in raw form for compatibility...
+[00:00:00 01/01/1970] [tStartup] BcmeRouterNonVolSettings::ReadFromImpl:  (eRouter NonVol Settings) WARNING - Read newer version of the settings (1.4); current version is 1.3, newer settings will be preserved, but will not be used.
+[00:00:00 01/01/1970] [tStartup] BcmIpsecNonVolSettings::IsDefault:  (IPSEC NonVol Settings) Dynamic settings are default!
+[00:00:00 01/01/1970] [tStartup] TmmMtaNcsNonVolSettings::IsDefault:  (TMM MTA NonVol Settings) Dynamic settings are default!
+
+*
+*
+* One or more of the settings groups was missing, possibly as a result of a code upgrade.
+*
+*
+Settings were read and verified.
+
+[00:00:00 01/01/1970] [tStartup] BcmBfcFpmDriver::Init:  Setting FPM Buffer size to: 256 Base Address: 0x836f3600
+[00:00:00 01/01/1970] [tStartup] BcmBfcFpmDriver::Init:  fFpmLargestBufferSize: 2048 fFpmSizeShiftBits: 0x8
+[00:00:00 01/01/1970] [tStartup] BcmBfcFpmDriver::Init:  Pool index: 0  pool size: 2048
+[00:00:00 01/01/1970] [tStartup] BcmBfcFpmDriver::Init:  Pool index: 1  pool size: 1024
+[00:00:00 01/01/1970] [tStartup] BcmBfcFpmDriver::Init:  Pool index: 2  pool size: 512
+[00:00:00 01/01/1970] [tStartup] BcmBfcFpmDriver::Init:  Pool index: 3  pool size: 256ChipHalSelectPinMux: Setting pin mux sel 6, word 0, value 5
+
+[00:00:00 01/01/1970] [tStartup] BcmBfcFpmDriver::Init:  Lookup table index: 0  pool size: 3
+[00:00:00 01/01/1970] [tStartup] BcmBfcFpmDriver::Init:  Lookup table index: 1  pool size: 2
+[00:00:00 01/01/1970] [tStartup] BcmBfcFpmDriver::Init:  Lookup table index: 2  pool size: 1
+[00:00:00 01/01/1970] [tStartup] BcmBfcFpmDriver::Init:  Lookup table index: 3  pool size: 1
+[00:00:00 01/01/1970] [tStartup] BcmBfcFpmDriver::Init:  Lookup table index: 4  pool size: 0
+[00:00:00 01/01/1970] [tStartup] BcmBfcFpmDriver::Init:  Lookup table index: 5  pool size: 0
+[00:00:00 01/01/1970] [tStartup] BcmBfcFpmDriver::Init:  Lookup table index: 6  pool size: 0
+[00:00:00 01/01/1970] [tStartup] BcmBfcFpmDriver::Init:  Lookup table index: 7  pool size: 0
+
+------------------------------------
+Free Pool Manager Configuration
+------------------------------------
+Buffer size in Bytes............... 256
+Number of Tokens................... 32768
+Tokens used in 256 byte pool....... 32
+Tokens used in 512 byte pool....... 32
+Tokens used in 1024 byte pool...... 32
+Tokens used in 2048 byte pool...... 33
+Base Address of FPM Memory ........ 0xb2200200
+Base Address of FPM Mem in DDR2.... 0x836f3600
+Total Configured FPM Memory Size... 8388608
+Free Fifo Full..................... 0
+Free Fifo Empty.................... 1
+Alloc Fifo Full.................... 1
+Alloc Fifo Empty................... 0
+Number of tokens available......... 32768
+Number of not valid token frees.... 0
+Number of not valid token multi.... 0
+Overflow Count..................... 0
+Underflow Count.................... 0
+[00:00:00 01/01/1970] [tStartup] BcmBfcPacketAlloc::Init:  Packet Alloc Header Buffer Start Addr: 0x83013590 Length: 0x6e0000 Max Buffer Size: 0xdc
+PCI Core Init!  instance = 0, pCoreRegs = b2800000
+PCI Core PowerUp!  instance = 0.
+
+PCI ENUMERATE****************************************************************************
+Checking bus #1
+	Checking device #0
+		In pcieEnumerateDevices(0) found a card: deviceNo = 0, funcNo = 0, busNo = 1, pcieAddr = 00000000
+		In pcieEnumerateDevices: vendor = 000014e4, device = 00004359
+PCIELIB: Setting PCIE clk request mode to 1 for active power savings.
+PCIELIB: Found Capability ID = 16
+PCIELIB: ClkReq power mode set to 1.
+END PCIE ENUMERATE************************************************************************
+
+PCI Core Init!  instance = 1, pCoreRegs = b2a00000
+PCI Core PowerUp!  instance = 1.
+PCI Core Init Instance (1): No Link Status Found! Skipping enumeration.
+PCI Core Power Down. Instance = 1!
+Creating a new host MSG PROC DQM manager. Instance: 83f70190, DQM_REGS = b8601800, CTRL_REGS = b8601000
+Initializing main MSG_PROC DQM interrupts.
+ b8601000: 00000000
+ b8601004: 00000000
+ b8601008: 00000008
+ b860100c: 00000000
+ b8601010: 00000000
+ b8601014: 00000000
+ b8601018: 00000000
+ b860101c: 00000000
+Creating a new host FAP DQM manager. Instance: 83f70858
+Initializing main FAP DQM interrupts.
+ b8401000: 00000000
+ b8401004: 00000000
+ b8401008: 00000008
+ b840100c: 00000000
+ b8401010: 00000000
+ b8401014: 00000000
+ b8401018: 00000000
+ b840101c: 00000000
+
+
+>>> ITC Initialized!!! <<<
+
+Booting Linux...
+NandFlashRead: Detected out-of-order block @offset 0x2b90000, tagged offset 0xffffff00, expected offset 0x450000
+NandFlashRead: Failed to find replacement block!
+Found bootloader flash map at 0x80000904.
+Linu
+HandShakeMsg = 00000000
+x Boot Args: console=ttyS0,115200 partoffset=0x029b0000 partsize=0x002e0000 fptaddr=0x83fffe00 ubi.mtd=linuxkfs ubi.mtd=linuxapps root=ubi0:rootfs ro noinitrd rootfstype=ubifs   mem=65863680@67108864 mem=0@0
+BootLinux: intermediate AVS code already stopped.
+BcmNasServiceAppIf::GetSingletonInstance:  WARNING - the singleton is NULL, and someone is accessing it!
+BcmMscServiceAppIf::GetSingletonInstance:  WARNING - the singleton is NULL, and someone is accessing it!
+[00:00:02 01/01/1970] [Telnet Thread] BcmTelnetThread::ThreadMain:  (Telnet Thread) Telnet server thread running...
+[00:00:02 01/01/1970] [SSH Thread] BcmThread::ThreadMain:  (SSH Thread) SSH server thread running...
+Creating SNMP agent cablemodem agent
+Creating BcmEmtaCommandTable
+Creating BcmEmtaEndptCommandTable
+
+If you pressed the 's' key before this point, we will skip driver initialization...
+AVS Thread Constructor....
+AVS Thread InitAVS: Bootloader AVS data was retrieved successfully.
+   disabled     = 0
+   rmon ratio   = 1044
+   sigma        = -304
+   dac change   = -13
+   flash margin = 150
+   adc_margin   = 150
+   dac_margin   = -442
+   madcperdac   = 307
+   marginOffset = 65534
+   deviceMap    = 0x8151ffe8
+   K = 1.044, L = 1.76, BG_Code = 6
+
+Creating TR-069 Thread...
+Creating DOCSIS Control Thread...
+
+BCM3383A2 
+Sync: 0 
+MemSize:            128 M
+Chip ID:     BCM3383Z-B0
+
+BootLoader Version: 2.4.0alpha18p1 Pre-release Gnu spiboot dual-flash reduced DDR drive linux
+Build Date: Aug 14 2012
+Build Time: 09:48:58
+SPI flash ID 0xc22014, size 1MB, block size 64KB, write buffer 256, flags 0x0
+NAND flash: Device size 64 MB, Block size 16 KB, Page size 512 B
+Cust key size 128
+parameter offset is 43872
+
+Signature/PID: a825
+
+Board IP Address  [192.168.77.1]:      
+Board IP Mask     [255.255.255.0]:     
+Board IP Gateway  [0.0.0.0]:           
+Board MAC Address [00:c0:05:00:00:a8]: 
+
+Internal/External phy? (e/i/a)[a] 
+Switch detected: 53125
+ProbePhy: Found PHY 0, MDIO on MAC 0, data on MAC 0
+Using GMAC0, phy 0
+
+Enet link up: 1G full
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+ Enter address (HEX) : learÿ
+BCM3383A2 
+Sync: 0 
+MemSize:            128 M
+Chip ID:     BCM3383Z-B0
+
+BootLoader Version: 2.4.0alpha18p1 Pre-release Gnu spiboot dual-flash reduced DDR drive linux
+Build Date: Aug 14 2012
+Build Time: 09:48:58
+SPI flash ID 0xc22014, size 1MB, block size 64KB, write buffer 256, flags 0x0
+NAND flash: Device size 64 MB, Block size 16 KB, Page size 512 B
+Cust key size 128
+parameter offset is 43872
+
+Signature/PID: a825
+
+Board IP Address  [192.168.77.1]:      

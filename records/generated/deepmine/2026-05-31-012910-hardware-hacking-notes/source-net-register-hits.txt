@@ -1,0 +1,84 @@
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/ecos_console_out.txt:101:[00:00:00 01/01/1970] [tStartup] BcmBfcFpmDriver::Init:  Setting FPM Buffer size to: 256 Base Address: 0x836dd000
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/ecos_console_out.txt:125:Base Address of FPM Memory ........ 0xb2200200
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/ecos_console_out.txt:126:Base Address of FPM Mem in DDR2.... 0x836dd000
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/ecos_console_out.txt:127:Total Configured FPM Memory Size... 8388608
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/ecos_console_out.txt:145:PCI ENUMERATE*****************************************************************Creating a new host MSG PROC DQM manager. Instance: 83f405f4, DQM_REGS = b8601800, CTRL_REGS = b8601000
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/ecos_console_out.txt:146:Initializing main MSP DQM interrupts.
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/ecos_console_out.txt:157:Creating a new host FAP DQM manager. Instance: 83f40520
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/ecos_console_out.txt:158:Initializing main FAP DQM interrupts.
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/ecos_console_out.txt:168:                In pcieEnumerateDevicCreating a new host PMC DQM manager. Instance: 83efd758, DQM_REGS = b8801800, CTRL_REGS = b8801000
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/ecos_console_out.txt:169:Initializing main PMC DQM interrupts.
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/ecos_console_out.txt:178:Creating a new host PMC DQM manager. Instance: 83efd6c0, DQM_REGS = b8801800, CTRL_REGS = b8801000
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/ecos_console_out.txt:218:Initializing main DTP DQM interrupts.
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/ecos_console_out.txt:227:Creating a new host FAP DQM manager. Instance: 82f4a2b8
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/ecos_console_out.txt:228:Creating a new host FAP DQM manager. Instance: 82f4a1d0
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/ecos_console_out.txt:229:Creating a new host UTP DQM manager. Instance: 82f460b8
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/ecos_console_out.txt:230:Initializing main UTP DQM interrupts.
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/ecos_console_out.txt:247:Creating a new host UTP DQM manager. Instance: 82f103b8
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/ecos_console_out.txt:248:Creating a new host UTP DQM manager. Instance: 82efffc8
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/ecos_console_out.txt:249:Creating a new host UTP DQM manager. Instance: 82efff00
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/ecos_console_out.txt:251:Creating a new host MSG PROC DQM manager. Instance: 82eff69c, DQM_REGS = b8601800, CTRL_REGS = b8601000
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/ecos_console_out.txt:252:Creating a new host MSG PROC DQM manager. Instance: 82eff5d4, DQM_REGS = b8601800, CTRL_REGS = b8601000
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/ecos_console_out.txt:253:Creating a new host MSG PROC DQM manager. Instance: 82eff430, DQM_REGS = b8601800, CTRL_REGS = b8601000
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/ecos_console_out.txt:254:Creating a new host MSG PROC DQM manager. Instance: 82eff230, DQM_REGS = b8601800, CTRL_REGS = b8601000
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/ecos_console_out.txt:255:Creating a new host FAP DQM manager. Instance: 82eff030
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/ecos_console_out.txt:256:Creating a new host FAP DQM manager. Instance: 82efee28
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/ecos_console_out.txt:257:Creating a new host MPEG PROC DQM manager. Instance: 82efec20, DQM_REGS = b8a01800, CTRL_REGS = b8a01000
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/ecos_console_out.txt:258:Initializing main MEP DQM interrupts.
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/ecos_console_out.txt:267:Creating a new host MPEG PROC DQM manager. Instance: 82efea28, DQM_REGS = b8a01800, CTRL_REGS = b8a01000
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/ecos_console_out.txt:268:Creating a new host MSG PROC DQM manager. Instance: 82ee98ac, DQM_REGS = b8601800, CTRL_REGS = b8601000
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/ecos_console_out.txt:269:Creating a new host MSG PROC DQM manager. Instance: 82ee96a4, DQM_REGS = b8601800, CTRL_REGS = b8601000
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/ecos_console_out.txt:270:Creating a new host MSG PROC DQM manager. Instance: 82ee974c, DQM_REGS = b8601800, CTRL_REGS = b8601000
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/ecos_console_out.txt:271:Creating a new host MSG PROC DQM manager. Instance: 82ee7748, DQM_REGS = b8601800, CTRL_REGS = b8601000
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/ecos_console_out.txt:272:Creating a new host MSG PROC DQM manager. Instance: 82ee76bc, DQM_REGS = b8601800, CTRL_REGS = b8601000
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/ecos_console_out.txt:274:Creating a new host MPEG PROC DQM manager. Instance: 82b5ef7c, DQM_REGS = b8a01800, CTRL_REGS = b8a01000
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/ecos_console_out.txt:275:Creating a new host MPEG PROC DQM manager. Instance: 829f22d4, DQM_REGS = b8a01800, CTRL_REGS = b8a01000
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/ecos_console_out.txt:276:Creating a new host MPEG PROC DQM manager. Instance: 829f2224, DQM_REGS = b8a01800, CTRL_REGS = b8a01000
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/ecos_console_out.txt:277:Creating a new host MSG PROC DQM manager. Instance: 828b0a8c, DQM_REGS = b8601800, CTRL_REGS = b8601000
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/README.md:1:# Technicolor TC7200.U
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/README.md:9:The Technicolor TC7200.U is used as a cable modem by UPC / Cablecom in Switzerland. At the moment, UPC Switzerland is slowly replacing the modem for a newer one. 
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/README.md:22:| Technicolor TC7200.U|Main board|
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/README.md:442:[00:00:00 01/01/1970] [tStartup] BcmBfcFpmDriver::Init:  Setting FPM Buffer size to: 256 Base Address: 0x836dd000
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/README.md:466:Base Address of FPM Memory ........ 0xb2200200
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/README.md:467:Base Address of FPM Mem in DDR2.... 0x836dd000
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/README.md:468:Total Configured FPM Memory Size... 8388608
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/README.md:486:PCI ENUMERATE*****************************************************************Creating a new host MSG PROC DQM manager. Instance: 83f405f4, DQM_REGS = b8601800, CTRL_REGS = b8601000
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/README.md:487:Initializing main MSP DQM interrupts.
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/README.md:498:Creating a new host FAP DQM manager. Instance: 83f40520
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/README.md:499:Initializing main FAP DQM interrupts.
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/README.md:509:                In pcieEnumerateDevicCreating a new host PMC DQM manager. Instance: 83efd758, DQM_REGS = b8801800, CTRL_REGS = b8801000
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/README.md:510:Initializing main PMC DQM interrupts.
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/README.md:519:Creating a new host PMC DQM manager. Instance: 83efd6c0, DQM_REGS = b8801800, CTRL_REGS = b8801000
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/README.md:559:Initializing main DTP DQM interrupts.
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/README.md:568:Creating a new host FAP DQM manager. Instance: 82f4a2b8
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/README.md:569:Creating a new host FAP DQM manager. Instance: 82f4a1d0
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/README.md:570:Creating a new host UTP DQM manager. Instance: 82f460b8
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/README.md:571:Initializing main UTP DQM interrupts.
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/README.md:588:Creating a new host UTP DQM manager. Instance: 82f103b8
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/README.md:589:Creating a new host UTP DQM manager. Instance: 82efffc8
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/README.md:590:Creating a new host UTP DQM manager. Instance: 82efff00
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/README.md:592:Creating a new host MSG PROC DQM manager. Instance: 82eff69c, DQM_REGS = b8601800, CTRL_REGS = b8601000
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/README.md:593:Creating a new host MSG PROC DQM manager. Instance: 82eff5d4, DQM_REGS = b8601800, CTRL_REGS = b8601000
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/README.md:594:Creating a new host MSG PROC DQM manager. Instance: 82eff430, DQM_REGS = b8601800, CTRL_REGS = b8601000
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/README.md:595:Creating a new host MSG PROC DQM manager. Instance: 82eff230, DQM_REGS = b8601800, CTRL_REGS = b8601000
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/README.md:596:Creating a new host FAP DQM manager. Instance: 82eff030
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/README.md:597:Creating a new host FAP DQM manager. Instance: 82efee28
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/README.md:598:Creating a new host MPEG PROC DQM manager. Instance: 82efec20, DQM_REGS = b8a01800, CTRL_REGS = b8a01000
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/README.md:599:Initializing main MEP DQM interrupts.
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/README.md:608:Creating a new host MPEG PROC DQM manager. Instance: 82efea28, DQM_REGS = b8a01800, CTRL_REGS = b8a01000
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/README.md:609:Creating a new host MSG PROC DQM manager. Instance: 82ee98ac, DQM_REGS = b8601800, CTRL_REGS = b8601000
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/README.md:610:Creating a new host MSG PROC DQM manager. Instance: 82ee96a4, DQM_REGS = b8601800, CTRL_REGS = b8601000
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/README.md:611:Creating a new host MSG PROC DQM manager. Instance: 82ee974c, DQM_REGS = b8601800, CTRL_REGS = b8601000
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/README.md:612:Creating a new host MSG PROC DQM manager. Instance: 82ee7748, DQM_REGS = b8601800, CTRL_REGS = b8601000
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/README.md:613:Creating a new host MSG PROC DQM manager. Instance: 82ee76bc, DQM_REGS = b8601800, CTRL_REGS = b8601000
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/README.md:615:Creating a new host MPEG PROC DQM manager. Instance: 82b5ef7c, DQM_REGS = b8a01800, CTRL_REGS = b8a01000
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/README.md:616:Creating a new host MPEG PROC DQM manager. Instance: 829f22d4, DQM_REGS = b8a01800, CTRL_REGS = b8a01000
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/README.md:617:Creating a new host MPEG PROC DQM manager. Instance: 829f2224, DQM_REGS = b8a01800, CTRL_REGS = b8a01000
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/README.md:618:Creating a new host MSG PROC DQM manager. Instance: 828b0a8c, DQM_REGS = b8601800, CTRL_REGS = b8601000
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/README.md:701:[    0.369000] DQM Init complete for dqm tunnel 0
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/README.md:802:[   17.899000] Broadcom BCM3383(A2) Ethernet Network Device v0.1 Feb 24 2014 14:20:40
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/README.md:927:set netbios name TC7200-DMS
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/linux_console_out.txt:74:[    0.369000] DQM Init complete for dqm tunnel 0
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/linux_console_out.txt:175:[   17.899000] Broadcom BCM3383(A2) Ethernet Network Device v0.1 Feb 24 2014 14:20:40
+/home/mgta29/src/hardware-hacking-notes/Technicolor TC7200.U/linux_console_out.txt:300:set netbios name TC7200-DMS
+/home/mgta29/src/hardware-hacking-notes/README.md:6:- **Technicolor TC7200.U** hacking this internet modem, gaining root access and more, using the Bus Pirate.

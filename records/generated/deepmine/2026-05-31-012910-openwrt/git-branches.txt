@@ -1,0 +1,13 @@
+* main
+  remotes/upstream/HEAD -> upstream/main
+  remotes/upstream/lede-17.01
+  remotes/upstream/main
+  remotes/upstream/master
+  remotes/upstream/openwrt-18.06
+  remotes/upstream/openwrt-19.07
+  remotes/upstream/openwrt-21.02
+  remotes/upstream/openwrt-22.03
+  remotes/upstream/openwrt-23.05
+  remotes/upstream/openwrt-24.10
+  remotes/upstream/openwrt-25.12
+  remotes/upstream/pcs-standalone-back

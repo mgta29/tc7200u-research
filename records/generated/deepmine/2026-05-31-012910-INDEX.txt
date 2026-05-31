@@ -1,0 +1,9 @@
+/home/mgta29/src/TC72XX_BFC5.5.10mp1_OpenSrc -> /home/mgta29/tc7200u-research/research/generated/deepmine/2026-05-31-012910-tc72xx_bfc5.5.10mp1_opensrc
+/home/mgta29/src/TC72XX_LxG1.0.10mp5_OpenSrc -> /home/mgta29/tc7200u-research/research/generated/deepmine/2026-05-31-012910-tc72xx_lxg1.0.10mp5_opensrc
+/home/mgta29/src/bcm2-dumps -> /home/mgta29/tc7200u-research/research/generated/deepmine/2026-05-31-012910-bcm2-dumps
+/home/mgta29/src/bcm2-utils -> /home/mgta29/tc7200u-research/research/generated/deepmine/2026-05-31-012910-bcm2-utils
+/home/mgta29/src/hardware-hacking-notes -> /home/mgta29/tc7200u-research/research/generated/deepmine/2026-05-31-012910-hardware-hacking-notes
+/home/mgta29/src/linux-technicolor-tc7200 -> /home/mgta29/tc7200u-research/research/generated/deepmine/2026-05-31-012910-linux-technicolor-tc7200
+/home/mgta29/src/openwrt -> /home/mgta29/tc7200u-research/research/generated/deepmine/2026-05-31-012910-openwrt
+/home/mgta29/src/tc72xx-bfc5 -> /home/mgta29/tc7200u-research/research/generated/deepmine/2026-05-31-012910-tc72xx-bfc5
+/home/mgta29/src/tc72xx-oem-lxg1 -> /home/mgta29/tc7200u-research/research/generated/deepmine/2026-05-31-012910-tc72xx-oem-lxg1

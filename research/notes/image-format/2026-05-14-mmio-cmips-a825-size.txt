@@ -1,1 +1,0 @@
-5696763 artifacts/openwrt-ps-irqfallback-mmio-cmips-a825.bin

@@ -1,0 +1,15 @@
+source=/home/mgta29/src/bcm2-dumps/tc7200/TC7200.20-DC.01.03-140425-F-1FF.bin
+wrapped_size=4615468
+signature=0xa825
+control=0x0005
+major=0x0100
+minor=0x01ff
+build_time=0x535dcdc0
+file_length=4615376
+load_address=0x80004000
+filename=TC7200.20-DC.01.03-140425-F-1FF.bin
+hcs=0x45a0
+expected_hcs=0x45a0
+crc=0xcd6a3c89
+payload_size=4615376
+payload_sha256=435edcccdc2a09995fb902ddaec687186aa3ecfb0cdf3ff422a78debef09899a

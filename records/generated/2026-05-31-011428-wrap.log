@@ -1,0 +1,7 @@
+mode=passthrough
+source=/home/mgta29/src/bcm2-dumps/tc7200/TC7200U-D6.02.42-180321-F-1C1.bin
+output=/mnt/c/tftp/tc7200-stage1-map-d60242.bin
+raw=/home/mgta29/tc7200u-research/research/generated/2026-05-31-011428-source-payload.raw
+expect_load=0x80004000
+expect_name=TC7200U-D6.02.42-180321-F-1C1.bin
+expect_signature=0xa825

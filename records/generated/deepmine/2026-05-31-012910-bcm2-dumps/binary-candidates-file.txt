@@ -1,0 +1,9 @@
+/home/mgta29/src/bcm2-dumps/tc7200/LNXDC.01.01-apps-121220.bin:         data
+/home/mgta29/src/bcm2-dumps/tc7200/LNXDC.01.01-kernel-121220.bin:       data
+/home/mgta29/src/bcm2-dumps/tc7200/LNXDC.01.01-rootfs-121220.bin:       data
+/home/mgta29/src/bcm2-dumps/tc7200/TC7200.20-DC.01.03-140425-F-1FF.bin: data
+/home/mgta29/src/bcm2-dumps/tc7200/TC7200.20-DC.36.05-130422-F-1C1.bin: data
+/home/mgta29/src/bcm2-dumps/tc7200/TC7200U-D6.01.27-131031-F-1C1.bin:   data
+/home/mgta29/src/bcm2-dumps/tc7200/TC7200U-D6.02.11-141019-F-1C1.bin:   data
+/home/mgta29/src/bcm2-dumps/tc7200/TC7200U-D6.02.42-180321-F-1C1.bin:   data
+/home/mgta29/src/bcm2-dumps/tc7200/bootloader.bin:                      data

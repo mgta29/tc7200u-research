@@ -1,0 +1,7 @@
+
+ifIndex InterfaceAlias DestinationPrefix NextHop RouteMetric
+------- -------------- ----------------- ------- -----------
+      3 Ethernet       192.168.77.0/24   0.0.0.0           1
+
+
+
