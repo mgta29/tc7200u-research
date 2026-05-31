@@ -70,6 +70,27 @@ alias cfe-tftp='/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -N
 alias cte-tftp='cfe-tftp'
 ```
 
+## PowerShell to WSL (No `U:\...` Translation Warning)
+
+When launching WSL from PowerShell while the current directory is `U:\...`,
+WSL can print:
+
+```text
+wsl: Failed to translate 'U:\...'
+```
+
+Use the helper below so WSL always starts from a known Linux path:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File \\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\scripts\wsl-safe.ps1 -Command "cd ~/tc7200u-research && ./scripts/tc7200u-auto-build-install-wrap.sh paths"
+```
+
+Or open an interactive WSL shell cleanly:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File \\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\scripts\wsl-safe.ps1
+```
+
 Common resume commands:
 
 ```sh

@@ -1,0 +1,46 @@
+# TC7200U Gate Report
+
+generated_at=2026-05-31T13:08:16+02:00
+log_path=/home/mgta29/tc7200u-research/records/logs/serial/picocom-20260531-044515.log
+report_path=/home/mgta29/tc7200u-research/records/logs/builds/2026-05-31-130816-check-gates-picocom-20260531-044515.txt
+
+## Log metadata
+-rw-r--r-- 1 root root 6.2K 2026-05-31 04:46 /home/mgta29/tc7200u-research/records/logs/serial/picocom-20260531-044515.log
+fb56dd2a6b057afbcb334f57119d80cda3b4f4244f2211c7d14862c4c97c46dc  /home/mgta29/tc7200u-research/records/logs/serial/picocom-20260531-044515.log
+
+## Marker counts
+tftp_complete=1
+signature_a825=1
+executing_image4=0
+exceptions=0
+decompression_failed=1
+nand_fail_no_replacement=0
+nand_out_of_order=0
+hs_getmsg_error=0
+hs_unexpected_error=0
+unhandled_message_lines=0
+handshake_msg_lines=0
+cfe_banner_lines=0
+openwrt_loader_lines=0
+openwrt_decompress_kernel_lines=0
+warning_initial_console_lines=0
+kernel_panic_lines=0
+panic_init_kill_lines=0
+procd_init_lines=0
+press_enter_lines=0
+busybox_shell_lines=0
+build_warning_lines=0
+build_error_lines=0
+build_patch_fail_lines=0
+build_target_time_lines=0
+
+## Gate verdicts
+Gate A:  FAIL (decompression_failed)
+Gate B:  PASS
+Gate C:  PASS (clean)
+Gate D:  PASS
+Gate E:  WARN (boot_not_fully_observed)
+
+## Boot/runtime key lines
+
+## Build key lines
