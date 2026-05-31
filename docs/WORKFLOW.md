@@ -3,7 +3,7 @@
 ## Normal Flow
 
 ```text
-build OpenWrt -> wrap initramfs -> verify size_ok=True -> serve fixed CFE filename
+build OpenWrt -> wrap initramfs -> verify size_ok=True -> serve requested CFE filename
 ```
 
 The single active helper is:
@@ -33,6 +33,17 @@ default package profile is `fastboot`. To keep the larger diagnostics profile:
 
 ```sh
 TC7200U_PACKAGE_PROFILE=debug tcwrap
+```
+
+For OpenWrt auto-wrap runs (no `--source-image`), the helper now defaults to:
+
+- `--preserve-from records/artifacts/rescue/openwrt-ps-irqfallback-GOOD-5696426.bin`
+- `--load-addr 0x80004000`
+
+Override the load address only when intentionally testing another boot format:
+
+```sh
+tc wrap --load-addr 0x82000000
 ```
 
 Generated manifests, state captures, hashes, and measurements go to:
@@ -110,13 +121,13 @@ size_ok=True
 Active CFE/TFTP path:
 
 ```text
-/mnt/c/tftp/openwrt-ps-irqfallback.bin
+/mnt/c/tftp/openwrt-(version number in hex).bin
 ```
 
 CFE-requested filename:
 
 ```text
-openwrt-ps-irqfallback.bin
+openwrt-(version number in hex).bin
 ```
 
 ## Git Rule

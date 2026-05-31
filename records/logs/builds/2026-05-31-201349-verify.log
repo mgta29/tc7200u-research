@@ -1,0 +1,30 @@
+=== meta ===
+timestamp_local=2026-05-31 20:14:42 CEST
+cwd=/home/mgta29/src/openwrt-r34427
+command=a825_verify --raw /home/mgta29/src/openwrt-r34427/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin --wrapped /mnt/c/tftp/tc7200-stage2-r34427-no-nand-r2.bin --expect-load 0x80004000 --expect-name tc7200-stage2-r34427-no-nand-r2.bin --expect-signature 0xa825
+=== output ===
+raw=/home/mgta29/src/openwrt-r34427/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin
+wrapped=/mnt/c/tftp/tc7200-stage2-r34427-no-nand-r2.bin
+raw_size=7367359
+wrapped_size=7367451
+signature=0xa825
+expected_signature=0xa825
+control=0x0000
+major=0x0100
+minor=0x04ff
+build_time=0x6a04e670
+file_length=7367359
+load_address=0x80004000
+filename=tc7200-stage2-r34427-no-nand-r2.bin
+expected_name=tc7200-stage2-r34427-no-nand-r2.bin
+hcs=0xf236
+expected_hcs=0xf236
+crc=0xf0b0a5b5
+size_ok=True
+raw_sha256=847524d2fd95a10cda375c6407b9e75a13d06e468221916c54718802917024bd
+wrapped_sha256=bd6f55cc3f5bf2e417e5bd932b94a89870c1ce6e72a21ebdadc9dc5d186f805e
+
+OK: wrapped image matches raw payload and expected header fields
+
+=== exit ===
+exit_code=0

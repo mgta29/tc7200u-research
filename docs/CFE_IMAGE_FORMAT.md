@@ -4,8 +4,8 @@
 
 - Modem/CFE: `192.168.77.1`
 - TFTP server/PC: `192.168.77.2`
-- CFE-requested filename: `openwrt-ps-irqfallback.bin`
-- Active TFTP path: `/mnt/c/tftp/openwrt-ps-irqfallback.bin`
+- CFE-requested filename: `openwrt-(version number in hex).bin`
+- Active TFTP path: `/mnt/c/tftp/openwrt-ps-(version number in hex).bin`
 
 Serve the filename CFE asks for.
 
@@ -17,13 +17,19 @@ OpenWrt initramfs payload.
 Known fields:
 
 - signature/PID: `a825`
-- payload load address: `0x82000000`
+- stage-2 OpenWrt baseline control/load: `0x0000` + `0x80004000`
 - internal header filename: `openwrt-initramfs.bin`
 - known-good total received size: `5696426` bytes
+
+Legacy A825 rescue baseline (kept for comparison):
+
+- payload load address: `0x82000000`
 
 Script:
 
 - `scripts/tc7200u-auto-build-install-wrap.sh`
+- Auto mode defaults to `--load-addr 0x80004000` when wrapping OpenWrt
+  build output (override with `--load-addr` when needed).
 
 Generated wrap manifests are written to:
 

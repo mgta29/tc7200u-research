@@ -1,0 +1,22 @@
+=== meta ===
+timestamp_local=2026-05-31 20:14:42 CEST
+cwd=/home/mgta29/src/openwrt-r34427
+command=a825_wrap --input /home/mgta29/src/openwrt-r34427/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin --output /mnt/c/tftp/tc7200-stage2-r34427-no-nand-r2.bin --filename tc7200-stage2-r34427-no-nand-r2.bin --preserve-from /home/mgta29/tc7200u-research/records/artifacts/rescue/openwrt-ps-irqfallback-GOOD-5696426.bin --load-addr 0x80004000
+=== output ===
+payload_size=7367359
+output_size=7367451
+header_size=92
+filename=tc7200-stage2-r34427-no-nand-r2.bin
+control=0x0000
+major=0x0100
+minor=0x04ff
+load_addr=0x80004000
+build_time=0x6a04e670
+crc32=0xf0b0a5b5
+preserve_from=/home/mgta29/tc7200u-research/records/artifacts/rescue/openwrt-ps-irqfallback-GOOD-5696426.bin
+preserve_signature=0xa825
+output=/mnt/c/tftp/tc7200-stage2-r34427-no-nand-r2.bin
+hcs=0xf236
+
+=== exit ===
+exit_code=0

@@ -1,0 +1,84 @@
+
+== meta ==
+mode=auto
+script=./tc7200u-auto-build-install-wrap.sh
+ts=2026-05-31-160716
+research=/home/mgta29/tc7200u-research
+notes_dir=/home/mgta29/tc7200u-research/records/generated
+build_log_base=/home/mgta29/tc7200u-research/records/logs/builds
+
+== build context ==
+timestamp_local=2026-05-31 16:07:16 CEST
+owrt=/home/mgta29/src/openwrt-r34427
+raw_expected=/home/mgta29/src/openwrt-r34427/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin
+source_image=
+preserve_from=/home/mgta29/tc7200u-research/records/artifacts/rescue/openwrt-ps-irqfallback-GOOD-5696426.bin
+wrap_load_addr=0x80004000
+request_name=tc7200-stage2-baseline-r34427.bin
+result_name=tc7200-stage2-baseline-r34427.bin
+wrapped_output=/mnt/c/tftp/tc7200-stage2-baseline-r34427.bin
+build_mode=full
+jobs=16
+openwrt_config=/home/mgta29/src/openwrt-r34427/.config
+openwrt_target_lines_begin
+  CONFIG_TARGET_bmips=y
+  CONFIG_TARGET_bmips_bcm63268=y
+  CONFIG_TARGET_bmips_bcm63268_Default=y
+  CONFIG_TARGET_BOARD="bmips"
+  CONFIG_TARGET_SUBTARGET="bcm63268"
+  CONFIG_TARGET_PROFILE="Default"
+  CONFIG_TARGET_ARCH_PACKAGES="mips_mips32"
+  CONFIG_TARGET_ROOTFS_INITRAMFS=y
+  CONFIG_TARGET_INITRAMFS_COMPRESSION_XZ=y
+  CONFIG_TARGET_ROOTFS_SQUASHFS=y
+  CONFIG_TARGET_SQUASHFS_BLOCK_SIZE=256
+  CONFIG_TARGET_SQUASHFS_BLOCK_READERS=4
+  CONFIG_TARGET_SQUASHFS_SMALL_READERS=4
+  CONFIG_TARGET_UBIFS_FREE_SPACE_FIXUP=y
+  CONFIG_TARGET_UBIFS_JOURNAL_SIZE=""
+  CONFIG_TARGET_ROOTFS_DIR=""
+  CONFIG_TARGET_OPTIMIZATION="-Os -pipe -mno-branch-likely -mips32 -mtune=mips32"
+  CONFIG_TARGET_SUFFIX="musl"
+  CONFIG_TARGET_PREINIT_SUPPRESS_STDERR=y
+  CONFIG_TARGET_PREINIT_TIMEOUT=4
+  CONFIG_TARGET_PREINIT_IFNAME=""
+  CONFIG_TARGET_PREINIT_IP="192.168.1.1"
+  CONFIG_TARGET_PREINIT_NETMASK="255.255.255.0"
+  CONFIG_TARGET_PREINIT_BROADCAST="192.168.1.255"
+  CONFIG_TARGET_INIT_PATH="/usr/sbin:/usr/bin:/sbin:/bin"
+  CONFIG_TARGET_INIT_ENV=""
+  CONFIG_TARGET_INIT_CMD="/sbin/init"
+  CONFIG_TARGET_INIT_SUPPRESS_STDERR=y
+openwrt_target_lines_end
+initramfs_candidates_begin
+initramfs_candidates_end
+recent_make_logs_begin
+  /home/mgta29/tc7200u-research/records/logs/builds/2026-05-31-160350-make-full-image.log
+  /home/mgta29/tc7200u-research/records/logs/builds/2026-05-31-152052-make-full-image.log
+  /home/mgta29/tc7200u-research/records/logs/builds/2026-05-31-142628-target-linux-install.log
+  /home/mgta29/tc7200u-research/records/logs/builds/2026-05-31-121039-target-linux-install.log
+  /home/mgta29/tc7200u-research/records/logs/builds/2026-05-31-092352-target-linux-install.log
+  /home/mgta29/tc7200u-research/records/logs/builds/2026-05-31-091637-target-linux-install.log
+  /home/mgta29/tc7200u-research/records/logs/builds/2026-05-31-091015-target-linux-install.log
+  /home/mgta29/tc7200u-research/records/logs/builds/2026-05-31-084401-make-full-image.log
+  /home/mgta29/tc7200u-research/records/logs/builds/2026-05-14-target-linux-install-image.log
+  /home/mgta29/tc7200u-research/records/logs/builds/2026-05-14-target-linux-compile-fail-j1.log
+recent_make_logs_end
+
+== flow ==
+path=openwrt-build
+command_log=/home/mgta29/tc7200u-research/records/logs/builds/2026-05-31-160716-ensure-debug-packages.log
+command=ensure_packages
+exit_code=0
+
+== build decision ==
+selected_action=full
+raw_exists=0
+config_changed=0
+config_mtime=2026-05-31 16:07:22.117193714 +0200
+vmlinux_path=none
+stale_input=none
+why=no usable bmips build artifact detected; full make required
+command_log=/home/mgta29/tc7200u-research/records/logs/builds/2026-05-31-160716-make-full-image.log
+command=make -j16 V=s
+exit_code=0

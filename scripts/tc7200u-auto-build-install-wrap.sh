@@ -8,6 +8,8 @@ RESEARCH_BUILDS_DIR="${RESEARCH_BUILDS_DIR:-$RECORDS_DIR/logs/builds}"
 RESEARCH_NOTES_DIR="${RESEARCH_NOTES_DIR:-$RECORDS_DIR/generated}"
 RAW="$OWRT/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin"
 SOURCE_IMAGE="${SOURCE_IMAGE:-${INPUT_IMAGE:-${TC7200U_SOURCE_IMAGE:-}}}"
+PRESERVE_FROM_IMAGE="${PRESERVE_FROM_IMAGE:-${TC7200U_PRESERVE_FROM_IMAGE:-}}"
+WRAP_LOAD_ADDR="${WRAP_LOAD_ADDR:-${TC7200U_WRAP_LOAD_ADDR:-}}"
 NAME_MAP="${NAME_MAP:-${TC7200U_NAME_MAP:-}}"
 DEFAULT_REQUEST_NAME="${TC7200U_DEFAULT_REQUEST_NAME:-openwrt-initramfs.bin}"
 DEFAULT_RESULT_NAME="${TC7200U_DEFAULT_RESULT_NAME:-$DEFAULT_REQUEST_NAME}"
@@ -27,6 +29,7 @@ CHECK_REPORT_OUT="${CHECK_REPORT_OUT:-}"
 CHECK_SAVE_REPORT="${CHECK_SAVE_REPORT:-1}"
 WRAPPED=""
 A825_HEADER_BYTES=92
+DEFAULT_WRAP_LOAD_HEX="0x80004000"
 EXPECT_LOAD_HEX="0x82000000"
 VERIFY_EXPECT_NAME=""
 VERIFY_EXPECT_SIGNATURE_HEX="0xa825"
@@ -37,9 +40,16 @@ TS="$(date +%Y-%m-%d-%H%M%S)"
 RUN_REPORT=""
 STEP=0
 TOTAL_STEPS=7
+DEFAULT_PRESERVE_FROM_IMAGE="$RECORDS_DIR/artifacts/rescue/openwrt-ps-irqfallback-GOOD-5696426.bin"
 
 trim_ws() {
 	printf '%s' "$1" | sed 's/^[[:space:]]*//; s/[[:space:]]*$//'
+}
+
+canonical_hex() {
+	local value="$1"
+	value="$(printf '%s' "$value" | sed 's/^0[xX]//' | tr 'A-F' 'a-f')"
+	printf '0x%s' "$value"
 }
 
 to_wsl_path() {
@@ -188,6 +198,8 @@ Options:
   --bin-name NAME.bin
   --tftp-dir C:\tftp\
   --source-image PATH
+  --preserve-from PATH
+  --load-addr 0x80004000
   --allow-rescue-overwrite
   --force-rewrap-source
   --check-log /abs/path/to/picocom.log
@@ -321,6 +333,16 @@ while [ "$#" -gt 0 ]; do
 			SOURCE_IMAGE="$2"
 			shift 2
 			;;
+		--preserve-from)
+			[ "$#" -ge 2 ] || { echo "FAIL: --preserve-from requires a value" >&2; exit 2; }
+			PRESERVE_FROM_IMAGE="$2"
+			shift 2
+			;;
+		--load-addr)
+			[ "$#" -ge 2 ] || { echo "FAIL: --load-addr requires a value" >&2; exit 2; }
+			WRAP_LOAD_ADDR="$2"
+			shift 2
+			;;
 		--allow-rescue-overwrite)
 			ALLOW_RESCUE_OVERWRITE=1
 			shift
@@ -351,9 +373,28 @@ RESULT_NAME="$(trim_ws "$RESULT_NAME")"
 BIN_NAME="$(trim_ws "$BIN_NAME")"
 TFTP_OUT_DIR="$(trim_ws "$TFTP_OUT_DIR")"
 SOURCE_IMAGE="$(trim_ws "$SOURCE_IMAGE")"
+PRESERVE_FROM_IMAGE="$(trim_ws "$PRESERVE_FROM_IMAGE")"
+WRAP_LOAD_ADDR="$(trim_ws "$WRAP_LOAD_ADDR")"
 MODE="$(normalize_mode "$(trim_ws "$MODE")")"
 BUILD_MODE="$(printf '%s' "$BUILD_MODE" | tr '[:upper:]' '[:lower:]')"
 CHECK_LOG_PATH="$(trim_ws "$CHECK_LOG_PATH")"
+
+if [ -z "$PRESERVE_FROM_IMAGE" ] && [ "$MODE" = "auto" ] && [ -z "$SOURCE_IMAGE" ] && [ -f "$DEFAULT_PRESERVE_FROM_IMAGE" ]; then
+	PRESERVE_FROM_IMAGE="$DEFAULT_PRESERVE_FROM_IMAGE"
+fi
+
+if [ -z "$WRAP_LOAD_ADDR" ] && [ "$MODE" = "auto" ] && [ -z "$SOURCE_IMAGE" ]; then
+	WRAP_LOAD_ADDR="$DEFAULT_WRAP_LOAD_HEX"
+fi
+
+if [ -n "$WRAP_LOAD_ADDR" ]; then
+	if ! printf '%s' "$WRAP_LOAD_ADDR" | grep -Eq '^0[xX][0-9a-fA-F]{1,8}$'; then
+		echo "FAIL: --load-addr must be a hex value like 0x80004000 (got: $WRAP_LOAD_ADDR)" >&2
+		exit 2
+	fi
+	WRAP_LOAD_ADDR="$(canonical_hex "$WRAP_LOAD_ADDR")"
+	EXPECT_LOAD_HEX="$WRAP_LOAD_ADDR"
+fi
 
 case "$BUILD_MODE" in
 	auto|none|install|compile|full)
@@ -427,6 +468,15 @@ if [ -n "$SOURCE_IMAGE" ]; then
 	SOURCE_IMAGE_PATH="$(to_wsl_path "$SOURCE_IMAGE")"
 	if [ ! -f "$SOURCE_IMAGE_PATH" ]; then
 		echo "FAIL: source image not found: $SOURCE_IMAGE ($SOURCE_IMAGE_PATH)" >&2
+		exit 2
+	fi
+fi
+
+PRESERVE_FROM_PATH=""
+if [ -n "$PRESERVE_FROM_IMAGE" ]; then
+	PRESERVE_FROM_PATH="$(to_wsl_path "$PRESERVE_FROM_IMAGE")"
+	if [ ! -f "$PRESERVE_FROM_PATH" ]; then
+		echo "FAIL: preserve-from image not found: $PRESERVE_FROM_IMAGE ($PRESERVE_FROM_PATH)" >&2
 		exit 2
 	fi
 fi
@@ -514,6 +564,8 @@ snapshot_build_context() {
 	report_note "owrt=$OWRT"
 	report_note "raw_expected=$RAW"
 	report_note "source_image=${SOURCE_IMAGE_PATH:-}"
+	report_note "preserve_from=${PRESERVE_FROM_PATH:-}"
+	report_note "wrap_load_addr=${WRAP_LOAD_ADDR:-}"
 	report_note "request_name=$REQUEST_NAME"
 	report_note "result_name=$RESULT_NAME"
 	report_note "wrapped_output=$WRAPPED"
@@ -1706,6 +1758,10 @@ if [ "$MODE" = "paths" ]; then
 	echo "WRAPPED=$WRAPPED"
 	echo "TFTP_OUT_DIR=$TFTP_OUT_DIR"
 	echo "TFTP_OUT_DIR_WSL=$TFTP_OUT_DIR_WSL"
+	echo "PRESERVE_FROM_IMAGE=$PRESERVE_FROM_IMAGE"
+	echo "PRESERVE_FROM_PATH=$PRESERVE_FROM_PATH"
+	echo "WRAP_LOAD_ADDR=$WRAP_LOAD_ADDR"
+	echo "EXPECT_LOAD_HEX=$EXPECT_LOAD_HEX"
 	exit 0
 fi
 
@@ -1894,6 +1950,39 @@ else
 		exit 1
 	fi
 	progress_note "raw: $RAW"
+fi
+
+if [ -z "$SOURCE_IMAGE_PATH" ] && [ -n "$PRESERVE_FROM_PATH" ]; then
+	progress_note "preserve-from header template: $PRESERVE_FROM_IMAGE ($PRESERVE_FROM_PATH)"
+	if ! is_programstore_wrapped_file "$PRESERVE_FROM_PATH"; then
+		echo "FAIL: preserve-from image is not a valid ProgramStore A825 image: $PRESERVE_FROM_PATH" >&2
+		exit 2
+	fi
+	WRAP_EXTRA_ARGS+=(--preserve-from "$PRESERVE_FROM_PATH")
+
+	if [ -z "$WRAP_LOAD_ADDR" ]; then
+		preserve_load_hex="$(dd if="$PRESERVE_FROM_PATH" bs=1 skip=16 count=4 2>/dev/null | xxd -p -c4 || true)"
+		if printf '%s' "$preserve_load_hex" | grep -Eq '^[0-9a-fA-F]{8}$'; then
+			EXPECT_LOAD_HEX="0x$(printf '%s' "$preserve_load_hex" | tr 'A-F' 'a-f')"
+			progress_note "preserved load address from template: $EXPECT_LOAD_HEX"
+		fi
+	else
+		progress_note "preserve-from load overridden by --load-addr: $WRAP_LOAD_ADDR"
+	fi
+
+	preserve_sig_hex="$(programstore_header_signature "$PRESERVE_FROM_PATH" || true)"
+	if printf '%s' "$preserve_sig_hex" | grep -Eq '^0x[0-9a-fA-F]{4}$'; then
+		VERIFY_EXPECT_SIGNATURE_HEX="$(printf '%s' "$preserve_sig_hex" | tr 'A-F' 'a-f')"
+	fi
+	report_note "preserve_from_applied=1"
+	report_note "preserve_from_path=$PRESERVE_FROM_PATH"
+	report_note "preserve_from_expect_load=$EXPECT_LOAD_HEX"
+fi
+
+if [ "$SKIP_WRAP" != "1" ] && [ -n "$WRAP_LOAD_ADDR" ]; then
+	progress_note "forcing wrap load address: $WRAP_LOAD_ADDR"
+	WRAP_EXTRA_ARGS+=(--load-addr "$WRAP_LOAD_ADDR")
+	report_note "wrap_load_addr_effective=$WRAP_LOAD_ADDR"
 fi
 
 wrap_log="$BUILD_LOG_BASE/${TS}-wrap.log"

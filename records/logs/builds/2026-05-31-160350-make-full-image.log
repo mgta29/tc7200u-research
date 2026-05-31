@@ -1,0 +1,102 @@
+=== meta ===
+timestamp_local=2026-05-31 16:03:55 CEST
+cwd=/home/mgta29/src/openwrt-r34427
+command=make -j16 V=s
+=== output ===
+WARNING: Makefile 'package/boot/arm-trusted-firmware-microchipsw/Makefile' has a build dependency on 'ruby/host', which does not exist
+WARNING: Makefile 'package/utils/audit/Makefile' has a dependency on 'libev', which does not exist
+WARNING: Makefile 'package/utils/busybox/Makefile' has a dependency on 'libpam', which does not exist
+WARNING: Makefile 'package/utils/busybox/Makefile' has a dependency on 'libtirpc', which does not exist
+WARNING: Makefile 'package/utils/busybox/Makefile' has a dependency on 'libpam', which does not exist
+WARNING: Makefile 'package/utils/busybox/Makefile' has a dependency on 'libtirpc', which does not exist
+WARNING: Makefile 'package/utils/busybox/Makefile' has a build dependency on 'libpam', which does not exist
+WARNING: Makefile 'package/boot/kexec-tools/Makefile' has a dependency on 'liblzma', which does not exist
+WARNING: Makefile 'package/boot/kexec-tools/Makefile' has a dependency on 'libzstd', which does not exist
+WARNING: Makefile 'package/network/services/lldpd/Makefile' has a dependency on 'libnetsnmp', which does not exist
+WARNING: Makefile 'package/utils/policycoreutils/Makefile' has a dependency on 'libpam', which does not exist
+WARNING: Makefile 'package/utils/policycoreutils/Makefile' has a dependency on 'libpam', which does not exist
+WARNING: Makefile 'package/utils/policycoreutils/Makefile' has a build dependency on 'libpam', which does not exist
+make[2]: Entering directory '/home/mgta29/src/openwrt-r34427/scripts/config'
+make[2]: 'conf' is up to date.
+make[2]: Leaving directory '/home/mgta29/src/openwrt-r34427/scripts/config'
+time: target/linux/prereq#0.10#0.01#0.11
+make[1]: Entering directory '/home/mgta29/src/openwrt-r34427'
+make[2]: Entering directory '/home/mgta29/src/openwrt-r34427'
+make[2]: Entering directory '/home/mgta29/src/openwrt-r34427'
+rm -rf /home/mgta29/src/openwrt-r34427/staging_dir/target-mips_mips32_musl/root-bmips
+make[2]: Leaving directory '/home/mgta29/src/openwrt-r34427'
++ mkdir -p /home/mgta29/src/openwrt-r34427/staging_dir/target-mips_mips32_musl
++ cd /home/mgta29/src/openwrt-r34427/staging_dir/target-mips_mips32_musl
++ mkdir -p bin lib stamp usr/include usr/lib
+mkdir -p /home/mgta29/src/openwrt-r34427/build_dir/target-mips_mips32_musl/stamp
+touch /home/mgta29/src/openwrt-r34427/staging_dir/target-mips_mips32_musl/.prepared
+make[3]: Entering directory '/home/mgta29/src/openwrt-r34427/target/linux'
+make[4]: Entering directory '/home/mgta29/src/openwrt-r34427/target/linux/bmips'
+rm -f /home/mgta29/src/openwrt-r34427/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/localversion
+/home/mgta29/src/openwrt-r34427/scripts/kconfig.pl  + /home/mgta29/src/openwrt-r34427/target/linux/generic/config-6.12 /home/mgta29/src/openwrt-r34427/target/linux/bmips/bcm63268/config-6.12 > /home/mgta29/src/openwrt-r34427/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config.target
+awk '/^(#[[:space:]]+)?CONFIG_KERNEL/{sub("CONFIG_KERNEL_","CONFIG_");print}' /home/mgta29/src/openwrt-r34427/.config >> /home/mgta29/src/openwrt-r34427/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config.target
+echo "# CONFIG_KALLSYMS_EXTRA_PASS is not set" >> /home/mgta29/src/openwrt-r34427/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config.target
+echo "# CONFIG_KALLSYMS_ALL is not set" >> /home/mgta29/src/openwrt-r34427/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config.target
+echo "CONFIG_KALLSYMS_UNCOMPRESSED=y" >> /home/mgta29/src/openwrt-r34427/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config.target
+/home/mgta29/src/openwrt-r34427/scripts/package-metadata.pl kconfig /home/mgta29/src/openwrt-r34427/tmp/.packageinfo /home/mgta29/src/openwrt-r34427/.config 6.12 > /home/mgta29/src/openwrt-r34427/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config.override
+/home/mgta29/src/openwrt-r34427/scripts/kconfig.pl 'm+' '+' /home/mgta29/src/openwrt-r34427/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config.target /dev/null /home/mgta29/src/openwrt-r34427/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config.override > /home/mgta29/src/openwrt-r34427/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config.set
+mv /home/mgta29/src/openwrt-r34427/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config.set /home/mgta29/src/openwrt-r34427/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config.old
+grep -v INITRAMFS /home/mgta29/src/openwrt-r34427/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config.old > /home/mgta29/src/openwrt-r34427/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config.set
+echo 'CONFIG_INITRAMFS_SOURCE=""' >> /home/mgta29/src/openwrt-r34427/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config.set
+echo '# CONFIG_INITRAMFS_FORCE is not set' >> /home/mgta29/src/openwrt-r34427/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config.set
+echo "# CONFIG_INITRAMFS_PRESERVE_MTIME is not set" >> /home/mgta29/src/openwrt-r34427/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config.set
+rm -rf /home/mgta29/src/openwrt-r34427/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/modules
+cmp -s /home/mgta29/src/openwrt-r34427/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config.set /home/mgta29/src/openwrt-r34427/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config.prev || { cp /home/mgta29/src/openwrt-r34427/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config.set /home/mgta29/src/openwrt-r34427/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config; cp /home/mgta29/src/openwrt-r34427/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config.set /home/mgta29/src/openwrt-r34427/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config.prev; }
+export MAKEFLAGS= ; [ -d /home/mgta29/src/openwrt-r34427/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/user_headers ] || make -C /home/mgta29/src/openwrt-r34427/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87 KCFLAGS="-fmacro-prefix-map=/home/mgta29/src/openwrt-r34427/build_dir/target-mips_mips32_musl=target-mips_mips32_musl -fno-caller-saves " HOSTCFLAGS="-O2 -I/home/mgta29/src/openwrt-r34427/staging_dir/host/include -Wall -Wmissing-prototypes -Wstrict-prototypes" CROSS_COMPILE="mips-openwrt-linux-musl-" ARCH="mips" KBUILD_HAVE_NLS=no KBUILD_BUILD_USER="" KBUILD_BUILD_HOST="" KBUILD_BUILD_TIMESTAMP="Tue May 12 23:59:29 2026" KBUILD_BUILD_VERSION="0" KBUILD_HOSTLDFLAGS="-L/home/mgta29/src/openwrt-r34427/staging_dir/host/lib" CONFIG_SHELL="bash" V=''  cmd_syscalls=  CC="mips-openwrt-linux-musl-gcc" KERNELRELEASE=6.12.87  INSTALL_HDR_PATH=/home/mgta29/src/openwrt-r34427/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/user_headers headers_install
+grep '=[ym]' /home/mgta29/src/openwrt-r34427/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config.set | LC_ALL=C sort | /home/mgta29/src/openwrt-r34427/staging_dir/host/bin/mkhash md5 > /home/mgta29/src/openwrt-r34427/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.vermagic
+touch /home/mgta29/src/openwrt-r34427/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.configured
+rm -f /home/mgta29/src/openwrt-r34427/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/vmlinux /home/mgta29/src/openwrt-r34427/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/System.map
+make -C /home/mgta29/src/openwrt-r34427/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87 KCFLAGS="-fmacro-prefix-map=/home/mgta29/src/openwrt-r34427/build_dir/target-mips_mips32_musl=target-mips_mips32_musl -fno-caller-saves " HOSTCFLAGS="-O2 -I/home/mgta29/src/openwrt-r34427/staging_dir/host/include -Wall -Wmissing-prototypes -Wstrict-prototypes" CROSS_COMPILE="mips-openwrt-linux-musl-" ARCH="mips" KBUILD_HAVE_NLS=no KBUILD_BUILD_USER="" KBUILD_BUILD_HOST="" KBUILD_BUILD_TIMESTAMP="Tue May 12 23:59:29 2026" KBUILD_BUILD_VERSION="0" KBUILD_HOSTLDFLAGS="-L/home/mgta29/src/openwrt-r34427/staging_dir/host/lib" CONFIG_SHELL="bash" V=''  cmd_syscalls=  CC="mips-openwrt-linux-musl-gcc" KERNELRELEASE=6.12.87 all modules
+make[5]: Entering directory '/home/mgta29/src/openwrt-r34427/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87'
+  SYNC    include/config/auto.conf.cmd
+*
+* Restart config...
+*
+*
+* Real Time Clock
+*
+Real Time Clock (RTC_CLASS) [Y/n/?] y
+  Set system time from RTC on startup and resume (RTC_HCTOSYS) [Y/n/?] y
+    RTC used to set the system time (RTC_HCTOSYS_DEVICE) [rtc0] rtc0
+  Set the RTC time based on NTP synchronization (RTC_SYSTOHC) [Y/n/?] y
+    RTC used to synchronize NTP adjustment (RTC_SYSTOHC_DEVICE) [rtc0] rtc0
+  RTC debug support (RTC_DEBUG) [N/y/?] n
+  RTC non volatile storage support (RTC_NVMEM) [N/y/?] n
+  *
+  * RTC interfaces
+  *
+  /sys/class/rtc/rtcN (sysfs) (RTC_INTF_SYSFS) [Y/n/?] y
+  /proc/driver/rtc (procfs for rtcN) (RTC_INTF_PROC) [Y/n/?] y
+  /dev/rtcN (character devices) (RTC_INTF_DEV) [Y/n/?] y
+    RTC UIE emulation on dev interface (RTC_INTF_DEV_UIE_EMUL) [N/y/?] n
+  Test driver/device (RTC_DRV_TEST) [N/m/y/?] n
+  *
+  * I2C RTC drivers
+  *
+  Abracon AB-RTCMC-32.768kHz-B5ZE-S3 (RTC_DRV_ABB5ZES3) [N/m/?] n
+  Abracon AB-RTCMC-32.768kHz-EOZ9 (RTC_DRV_ABEOZ9) [N/m/?] n
+  Abracon ABx80x (RTC_DRV_ABX80X) [N/m/?] n
+  Broadcom STB wake-timer (RTC_DRV_BRCMSTB) [M/n/?] (NEW) make[8]: *** [scripts/kconfig/Makefile:85: syncconfig] Error 1
+make[7]: *** [Makefile:688: syncconfig] Error 2
+make[6]: *** [/home/mgta29/src/openwrt-r34427/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/Makefile:789: include/config/auto.conf.cmd] Error 2
+make[5]: *** [Makefile:224: __sub-make] Error 2
+make[5]: Leaving directory '/home/mgta29/src/openwrt-r34427/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87'
+make[4]: *** [Makefile:24: /home/mgta29/src/openwrt-r34427/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.modules] Error 2
+make[4]: Leaving directory '/home/mgta29/src/openwrt-r34427/target/linux/bmips'
+make[3]: *** [Makefile:12: compile] Error 2
+make[3]: Leaving directory '/home/mgta29/src/openwrt-r34427/target/linux'
+time: target/linux/compile#1.19#0.30#1.80
+    ERROR: target/linux failed to build.
+make[2]: *** [target/Makefile:32: target/linux/compile] Error 1
+make[2]: Leaving directory '/home/mgta29/src/openwrt-r34427'
+make[1]: *** [target/Makefile:25: /home/mgta29/src/openwrt-r34427/staging_dir/target-mips_mips32_musl/stamp/.target_compile] Error 2
+make[1]: Leaving directory '/home/mgta29/src/openwrt-r34427'
+make: *** [/home/mgta29/src/openwrt-r34427/include/toplevel.mk:233: world] Error 2
+
+=== exit ===
+exit_code=2

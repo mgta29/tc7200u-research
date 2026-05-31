@@ -1,0 +1,38 @@
+
+== meta ==
+mode=auto
+script=./tc7200u-auto-build-install-wrap.sh
+ts=2026-05-31-150904
+research=/home/mgta29/tc7200u-research
+notes_dir=/home/mgta29/tc7200u-research/records/generated
+build_log_base=/home/mgta29/tc7200u-research/records/logs/builds
+
+== build context ==
+timestamp_local=2026-05-31 15:09:04 CEST
+owrt=/home/mgta29/src/openwrt-r34427
+raw_expected=/home/mgta29/src/openwrt-r34427/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin
+source_image=
+preserve_from=/home/mgta29/tc7200u-research/records/artifacts/rescue/openwrt-ps-irqfallback-GOOD-5696426.bin
+wrap_load_addr=0x80004000
+request_name=tc7200-stage2-baseline-r34427.bin
+result_name=tc7200-stage2-baseline-r34427.bin
+wrapped_output=/mnt/c/tftp/tc7200-stage2-baseline-r34427.bin
+build_mode=full
+jobs=16
+openwrt_config_missing=1
+openwrt_bin_targets_missing=1
+recent_make_logs_begin
+  /home/mgta29/tc7200u-research/records/logs/builds/2026-05-31-142628-target-linux-install.log
+  /home/mgta29/tc7200u-research/records/logs/builds/2026-05-31-121039-target-linux-install.log
+  /home/mgta29/tc7200u-research/records/logs/builds/2026-05-31-092352-target-linux-install.log
+  /home/mgta29/tc7200u-research/records/logs/builds/2026-05-31-091637-target-linux-install.log
+  /home/mgta29/tc7200u-research/records/logs/builds/2026-05-31-091015-target-linux-install.log
+  /home/mgta29/tc7200u-research/records/logs/builds/2026-05-31-084401-make-full-image.log
+  /home/mgta29/tc7200u-research/records/logs/builds/2026-05-14-target-linux-install-image.log
+  /home/mgta29/tc7200u-research/records/logs/builds/2026-05-14-target-linux-compile-fail-j1.log
+  /home/mgta29/tc7200u-research/records/logs/builds/2026-05-14-target-linux-compile-after-used.log
+  /home/mgta29/tc7200u-research/records/logs/builds/2026-05-14-target-linux-compile-after-regenerate.log
+recent_make_logs_end
+
+== flow ==
+path=openwrt-build
