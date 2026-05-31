@@ -38,18 +38,15 @@
     "cfe-tftp": "/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -NoProfile -ExecutionPolicy Bypass -File C:\\\\tftp\\\\start-cfe-tftp-77.ps1",
     "cte-tftp": "cfe-tftp"
   },
+  "execution_policy": {
+    "script_runner": "User runs scripts manually to save tokens.",
+    "ai_role": "AI provides the exact prompts/commands to run and expected verification checks. AI should avoid auto-running scripts unless the user explicitly asks."
+  },
   "workflows": {
-    "resume": [
-      "tcresearch",
-      "tcstatus",
-      "tcwrap",
-      "cfe-tftp",
-      "tcstate"
-    ],
     "wrap": [
       "Run tcwrap.",
       "Confirm wrapper output contains size_ok=True.",
-      "Serve /mnt/c/tftp/openwrt-ps-irqfallback.bin when testing with CFE."
+      "Serve /mnt/c/tftp/openwrt-(version nuber in hex).bin when testing with CFE."
     ],
     "capture_state": [
       "Run tcstate after a useful test.",
@@ -67,7 +64,7 @@
   },
   "paths": {
     "openwrt_tree": "~/src/openwrt",
-    "active_tftp_image": "/mnt/c/tftp/openwrt-ps-irqfallback.bin",
+    "active_tftp_image": "/mnt/c/tftp/openwrt-(version nuber in hex).bin",
     "cfe_filename": "openwrt-ps-irqfallback.bin",
     "raw_initramfs": "~/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin",
     "helper": "~/tc7200u-research/scripts/tc7200u-auto-build-install-wrap.sh",

@@ -1,19 +1,26 @@
 # TC7200U OpenWrt Bring-Up Status
 
-Last updated: 2026-05-31.
+Last updated: 2026-05-31 (afternoon).
 
 ## Current State
 
 This project can boot OpenWrt from CFE/TFTP and reach a serial shell on the
-Technicolor TC7200.U / BCM3383 platform. Ethernet remains the active blocker.
+Technicolor TC7200.U / BCM3383 platform on the known-good baseline. A newer
+build that includes ISP-firmware-informed changes currently regressed to a
+userspace panic; Ethernet remains the active blocker after baseline recovery.
 
 ## Working
 
 - CFE/TFTP boot reaches OpenWrt userspace.
 - OpenWrt reaches a shell over serial on `ttyS0`.
+- Gate checks are fully green on the known-good serial log:
+  `records/logs/serial/picocom-20260531-050727.log`
+  (`Gate A/B/C/D/E = PASS`).
 - UART RX works when `CONFIG_BCM7120_L2_IRQ=y` is enabled.
 - A825 ProgramStore wrapper generation and verification are integrated into
   `scripts/tc7200u-auto-build-install-wrap.sh`.
+- Auto-wrap baseline now defaults to `--load-addr 0x80004000` for OpenWrt
+  build output while preserving dynamic output filenames.
 - Kernel-side MMIO probing with `ioremap()` and `printk()` works and is
   preferred over `/dev/mem`.
 
@@ -29,9 +36,30 @@ Original A825 baseline:
 - Size: `5696426` bytes
 - SHA256: `2ae4afb92e4df065e88d61bcbac9f693c6a853e1ff349e09d3c8e5cfae4ac513`
 
+Recent known-good OpenWrt A825 boot:
+
+- Serial evidence: `records/logs/serial/picocom-20260531-050727.log`
+- Header markers:
+  - `Load Address: 80004000`
+  - `Filename: tc7200-stage2-openwrt-c0-load80004000.bin`
+- Kernel marker:
+  - `Linux version 6.12.87 ... r34427-6865d489d2`
+- Userspace markers:
+  - `procd: - init -`
+  - `Please press Enter to activate this console.`
+
 ## Not Working
 
 - Ethernet is not passing packets.
+- Newer test build with ISP-informed changes regressed to userspace panic:
+  `records/logs/serial/picocom-20260531-095452.log`
+  (`Gate B FAIL`, `Gate E FAIL`).
+- Panic regression markers:
+  - `Load Address: 82000000`
+  - `Filename: tc7200u-stage2-next.bin`
+  - `Linux version 6.12.91 ... r34703-aa96b3ad55`
+  - `Warning: unable to open an initial console.`
+  - `Kernel panic - not syncing: Attempted to kill init!`
 - GENET at `0x12c00000` probes and creates `eth0`.
 - Fixed-link RGMII reports link up, but TX does not complete.
 - `bcmgenet_xmit()` queues real TX frames into descriptor RAM.
@@ -44,7 +72,12 @@ Original A825 baseline:
 
 ## Recent Results
 
-High-signal 2026-05-24 and 2026-05-25 results:
+High-signal 2026-05-31 and prior results:
+
+- `records/logs/serial/picocom-20260531-050727.log`:
+  stable baseline boot with serial console (`Gate E PASS`).
+- `records/logs/serial/picocom-20260531-095452.log`:
+  kernel boots but userspace fails (`Gate E FAIL`, init killed).
 
 - Flood TX reproduced `NETDEV WATCHDOG` with queue-stop and no hardware
   completion progress.
@@ -94,19 +127,31 @@ not B53/DSA integration.
 
 ## Recommended Next Work
 
-1. Keep the known-good images under `records/artifacts/rescue/` unchanged.
-2. Keep generated wrap manifests and state captures under `records/generated/`.
-3. Stop spending time on `bcm6368-enetsw` DMA/IRQ swaps at `0x14e01000`.
-4. Do not repeat already-failed `DMA_OWN`, ADDRSHIFT8, fatal/non-fatal
+1. Recover the exact known-good boot baseline before further Ethernet changes:
+   force A825 wrapper template/load fields to the working `0x80004000` path,
+   then require `Gate E PASS` on each new image.
+2. Keep the known-good images under `records/artifacts/rescue/` unchanged.
+3. Keep generated wrap manifests and state captures under `records/generated/`.
+4. Stop spending time on `bcm6368-enetsw` DMA/IRQ swaps at `0x14e01000`.
+5. Do not repeat already-failed `DMA_OWN`, ADDRSHIFT8, fatal/non-fatal
    `DMA_BIT_MASK(20)`, Zephyr-style `dma-ranges`, `mem=16M`/`mem=32M`, or
    reserved low TX buffer standalone paths.
-5. Do not manually enable parent `periph_intc` bits 16/17; the blind enable
+6. Do not manually enable parent `periph_intc` bits 16/17; the blind enable
    path causes an IRQ storm.
-6. Treat memory-map/load-address warnings from GENET test images as serious
+7. Treat memory-map/load-address warnings from GENET test images as serious
    until explained.
-7. Use `docs/MEMORY_MAP.md` and
+8. Use `docs/MEMORY_MAP.md` and
    `records/notes/source-research/2026-05-17-similar-firmware-useful-map-data.md`
    before changing DTS `reg`, `interrupts`, or boot/link addresses.
+
+## Immediate Next
+
+1. Finalize wrapper default template to a verified `load=0x80004000` A825
+   baseline and keep dynamic output names.
+2. Rebuild BMIPS-only image (not mediatek/other target), wrap, and gate-check.
+3. Only after `Gate E PASS`, resume Ethernet bring-up using the ISP-derived
+   GMAC function map (`fn_enet_gmac_init`, `fn_enet_build_core_cmd`,
+   `fn_enet_poll_or_wait_ready`) as reference for OpenWrt-side diffs.
 
 ## Bottom Line
 
