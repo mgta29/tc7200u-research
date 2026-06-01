@@ -14,7 +14,7 @@
 
 ## Active Helper
 
-- `scripts/tc7200u-auto-build-install-wrap.sh`: single helper for build,
+- `scripts/tcbuilder.sh`: single helper for build,
   wrap, verify, state capture, package profile setup, serial console logging,
   gate checks, and ProgramStore reverse inspection.
 

@@ -1,0 +1,77 @@
+root@OpenWrt:~#
+*** file: send.txt
+$ ascii-xfr -s -l000 -c 60 send.txt
+ASCII upload of "send.txt"
+Line delay: 0 ms, character delay 60 ms
+
+for a in 0x12c00000 0x12c00004 0x12c00008 0x12c0000c 0x12c00010
+0x12c00014 0x12c00018 0x12c0001c 0x12c00020 0x12c00034 0x12c00070 0x12c00208 0x1
+2c00214 0x12c004a8 0x12c004e8 0x12c004ec 0x12c004f0 0x12c00500 0x12c00504 0x12c0
+0508 0x12c00580 0x12c00600 0x12c00604 0x12c00608 0x12c0060c 0x12c00610 0x12c0061
+4 0x12c00618 0x12c0061c; do printf '%s ' "$a"; devmem "$a" 32; done
+
+0x12c00000
+*** exit status: 0 ***
+0x000012AA
+0x12c00004 0x000001FF
+0x12c00008 0x00000000
+0x12c0000c 0x00000000
+0x12c00010 0x00000000
+0x12c00014 0x0000001B
+0x12c00018 0x00000000
+0x12c0001c 0x00000000
+0x12c00020 0x04000400
+0x12c00034 0x00000000
+0x12c00070 0x00030003
+0x12c00208 0x00000001
+0x12c00214 0x00000001
+0x12c004a8 0x00000001
+0x12c004e8 0x00000001
+0x12c004ec 0x00000001
+0x12c004f0 0x00000001
+0x12c00500 0x00000001
+0x12c00504 0x00000001
+0x12c00508 0x00000001
+0x12c00580 0x00000001
+0x12c00600 0x00000C01
+0x12c00604 0x00000000
+0x12c00608 0x00000000
+0x12c0060c 0x00000000
+0x12c00610 0x000005EE
+0x12c00614 0x00000000
+0x12c00618 0x00000000
+0x12c0061c 0x00000000
+root@OpenWrt:~#
+root@OpenWrt:~#
+*** file: send2.txt
+$ ascii-xfr -s -l000 -c 60 send2.txt
+ASCII upload of "send2.txt"
+Line delay: 0 ms, character delay 60 ms
+
+for s in rx_packets tx_packets rx_bytes tx_bytes rx_errors tx_er
+rors rx_dropped tx_dropped rx_crc_errors rx_frame_errors rx_length_errors rx_ove
+r_errors tx_aborted_errors tx_carrier_errors tx_fifo_errors tx_heartbeat_errors
+tx_window_errors; do printf '%s ' "$s"; cat /sys/class/net/eth0/statistics/$s 2>
+/dev/null || true; done
+
+rx_packets
+*** exit status: 0 ***
+0
+tx_packets 26
+rx_bytes 0
+tx_bytes 5083
+rx_errors 0
+tx_errors 6
+rx_dropped 0
+tx_dropped 0
+rx_crc_errors 0
+rx_frame_errors 0
+rx_length_errors 0
+rx_over_errors 0
+tx_aborted_errors 0
+tx_carrier_errors 0
+tx_fifo_errors 0
+tx_heartbeat_errors 0
+tx_window_errors 0
+root@OpenWrt:~#
+root@OpenWrt:~#

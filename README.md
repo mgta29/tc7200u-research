@@ -17,8 +17,6 @@ Start here:
 
 Current constants:
 
-- Active CFE/TFTP filename: `openwrt-ps-irqfallback.bin`
-- Active CFE/TFTP path: `/mnt/c/tftp/openwrt-ps-irqfallback.bin`
 - Required wrapper validation marker: `size_ok=True`
 - Current known-good image:
   `records/artifacts/rescue/openwrt-tc7200u-known-good-ramboot-20260515-125821.bin`
@@ -26,6 +24,7 @@ Current constants:
   `records/artifacts/rescue/openwrt-ps-irqfallback-GOOD-5696426.bin`
 - Original A825 SHA256:
   `2ae4afb92e4df065e88d61bcbac9f693c6a853e1ff349e09d3c8e5cfae4ac513`
+- DO NOT DELETE OLD LOGS/MD FILES!
 
 Top-level layout:
 

@@ -23,6 +23,7 @@ FORCE_REWRAP_SOURCE="${FORCE_REWRAP_SOURCE:-0}"
 INTERACTIVE="${INTERACTIVE:-0}"
 MODE="${MODE:-auto}"
 BUILD_MODE="${BUILD_MODE:-auto}"
+PATCH_PRECHECK="${PATCH_PRECHECK:-1}"
 BUILD_LOG_BASE="${BUILD_LOG_BASE:-$RESEARCH_BUILDS_DIR}"
 CHECK_LOG_PATH="${CHECK_LOG_PATH:-}"
 CHECK_REPORT_OUT="${CHECK_REPORT_OUT:-}"
@@ -168,7 +169,7 @@ parse_name_map() {
 usage() {
 	cat <<'EOF'
 Usage:
-  tc7200u-auto-build-install-wrap.sh [mode] [options]
+  tcbuilder.sh [mode] [options]
 
 Modes:
   help            Print this help text.
@@ -191,7 +192,7 @@ Modes:
 Options:
   --mode MODE
   --interactive
-  --build-mode auto|none|install|compile|full
+  --build-mode auto|none|prepare|install|compile|full|clean
   --name-map INPUT=RESULT | INPUT->RESULT | INPUT - RESULT
   --request-name NAME
   --result-name NAME
@@ -202,6 +203,7 @@ Options:
   --load-addr 0x80004000
   --allow-rescue-overwrite
   --force-rewrap-source
+  --skip-precheck
   --check-log /abs/path/to/picocom.log
   --log /abs/path/to/picocom.log
   --report-out /abs/path/to/report.txt
@@ -351,6 +353,10 @@ while [ "$#" -gt 0 ]; do
 			FORCE_REWRAP_SOURCE=1
 			shift
 			;;
+		--skip-precheck)
+			PATCH_PRECHECK=0
+			shift
+			;;
 		-h|--help)
 			usage
 			exit 0
@@ -397,10 +403,25 @@ if [ -n "$WRAP_LOAD_ADDR" ]; then
 fi
 
 case "$BUILD_MODE" in
-	auto|none|install|compile|full)
+	auto|none|prepare|install|compile|full|clean)
 		;;
 	*)
-		echo "FAIL: invalid --build-mode '$BUILD_MODE' (use auto|none|install|compile|full)" >&2
+		echo "FAIL: invalid --build-mode '$BUILD_MODE' (use auto|none|prepare|install|compile|full|clean)" >&2
+		exit 2
+		;;
+esac
+
+case "$PATCH_PRECHECK" in
+	1|0)
+		;;
+	true|yes|on)
+		PATCH_PRECHECK=1
+		;;
+	false|no|off)
+		PATCH_PRECHECK=0
+		;;
+	*)
+		echo "FAIL: invalid PATCH_PRECHECK value '$PATCH_PRECHECK' (use 1|0|true|false|yes|no|on|off)" >&2
 		exit 2
 		;;
 esac
@@ -570,6 +591,7 @@ snapshot_build_context() {
 	report_note "result_name=$RESULT_NAME"
 	report_note "wrapped_output=$WRAPPED"
 	report_note "build_mode=$BUILD_MODE"
+	report_note "patch_precheck=$PATCH_PRECHECK"
 	report_note "jobs=$JOBS"
 
 	if [ -f "$OWRT/.config" ]; then
@@ -627,6 +649,9 @@ report_build_decision() {
 		none)
 			report_note "why=no newer config/source/vmlinux than selected raw image"
 			;;
+		prepare)
+			report_note "why=forced kernel prepare + install sequence requested"
+			;;
 		install)
 			report_note "why=kernel build artifacts exist; only image install/update required"
 			;;
@@ -635,6 +660,9 @@ report_build_decision() {
 			;;
 		full)
 			report_note "why=no usable bmips build artifact detected; full make required"
+			;;
+		clean)
+			report_note "why=forced target/linux clean + full rebuild requested"
 			;;
 		*)
 			report_note "why=unknown"
@@ -679,6 +707,96 @@ newer_build_input() {
 	done
 
 	return 1
+}
+
+changed_bmips_patch_files() {
+	git -C "$OWRT" ls-files -m -o --exclude-standard -- 'target/linux/bmips/patches-*/*.patch' 2>/dev/null || true
+}
+
+run_patch_precheck() {
+	local action="$1"
+	local precheck_log="$BUILD_LOG_BASE/${TS}-patch-precheck.log"
+	local patch_rel=""
+	local patch_abs=""
+	local patch_count=0
+	local precheck_failures=0
+	local linux_tree=""
+
+	if [ "$action" = "none" ]; then
+		report_note "patch_precheck_status=skipped_no_build"
+		return 0
+	fi
+
+	if [ "$PATCH_PRECHECK" != "1" ]; then
+		progress_note "patch precheck disabled"
+		report_note "patch_precheck_status=disabled"
+		return 0
+	fi
+
+	linux_tree="$(find "$OWRT/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268" -maxdepth 1 -type d -name 'linux-*' -printf '%T@ %p\n' 2>/dev/null | sort -n | tail -1 | cut -d' ' -f2-)"
+
+	: >"$precheck_log"
+	{
+		echo "=== patch precheck ==="
+		echo "timestamp_local=$(date '+%Y-%m-%d %H:%M:%S %Z')"
+		echo "owrt=$OWRT"
+		echo "build_action=$action"
+		if [ -n "$linux_tree" ] && [ -d "$linux_tree" ]; then
+			echo "linux_tree=$linux_tree"
+		else
+			echo "linux_tree=missing"
+		fi
+	} >>"$precheck_log"
+
+	while IFS= read -r patch_rel; do
+		[ -n "$patch_rel" ] || continue
+		patch_count=$((patch_count + 1))
+		patch_abs="$OWRT/$patch_rel"
+		echo >>"$precheck_log"
+		echo "patch=$patch_rel" >>"$precheck_log"
+
+		if [ ! -f "$patch_abs" ]; then
+			echo "FAIL: missing patch file: $patch_abs" >>"$precheck_log"
+			precheck_failures=$((precheck_failures + 1))
+			continue
+		fi
+
+		if [ -n "$linux_tree" ] && [ -d "$linux_tree" ]; then
+			if ! git -C "$linux_tree" apply --check --unsafe-paths "$patch_abs" >>"$precheck_log" 2>&1; then
+				echo "FAIL: git apply --check failed for $patch_rel" >>"$precheck_log"
+				precheck_failures=$((precheck_failures + 1))
+			else
+				echo "OK: git apply --check passed for $patch_rel" >>"$precheck_log"
+			fi
+		else
+			if ! grep -q '^@@ ' "$patch_abs"; then
+				echo "FAIL: patch does not contain unified diff hunks (@@): $patch_rel" >>"$precheck_log"
+				precheck_failures=$((precheck_failures + 1))
+			else
+				echo "WARN: linux source tree not prepared yet, ran syntax-only hunk check for $patch_rel" >>"$precheck_log"
+			fi
+		fi
+	done < <(changed_bmips_patch_files)
+
+	if [ "$patch_count" -eq 0 ]; then
+		progress_note "patch precheck: no modified/untracked bmips patch files"
+		report_note "patch_precheck_status=no_changed_patch_files"
+		report_note "patch_precheck_log=$precheck_log"
+		return 0
+	fi
+
+	progress_note "patch precheck checked $patch_count changed patch file(s)"
+	progress_note "patch precheck log: $precheck_log"
+	report_note "patch_precheck_status=ran"
+	report_note "patch_precheck_files=$patch_count"
+	report_note "patch_precheck_failures=$precheck_failures"
+	report_note "patch_precheck_log=$precheck_log"
+
+	if [ "$precheck_failures" -ne 0 ]; then
+		echo "FAIL: patch precheck found $precheck_failures issue(s). See: $precheck_log" >&2
+		tail -80 "$precheck_log" >&2 || true
+		exit 1
+	fi
 }
 
 select_build_action() {
@@ -728,42 +846,137 @@ select_build_action() {
 
 run_openwrt_build() {
 	local action="$1"
+	local prepare_log="$BUILD_LOG_BASE/${TS}-target-linux-prepare.log"
+	local clean_log="$BUILD_LOG_BASE/${TS}-target-linux-clean.log"
 	local install_log="$BUILD_LOG_BASE/${TS}-target-linux-install.log"
 	local compile_log="$BUILD_LOG_BASE/${TS}-target-linux-compile.log"
+	local full_log="$BUILD_LOG_BASE/${TS}-make-full-image.log"
 	local fallback_log="$BUILD_LOG_BASE/${TS}-make-full-image-fallback.log"
+	local fallback_stage=""
+
+	run_prepare() {
+		progress_note "running: make -j1 target/linux/prepare V=s"
+		run_logged "$prepare_log" make -j1 target/linux/prepare V=s
+	}
+
+	run_clean() {
+		progress_note "running: make target/linux/clean"
+		run_logged "$clean_log" make target/linux/clean
+	}
+
+	run_compile() {
+		progress_note "running: make -j$JOBS target/linux/compile V=s"
+		run_logged "$compile_log" make -j"$JOBS" target/linux/compile V=s
+	}
+
+	run_install_allow_fail() {
+		progress_note "running: make -j$JOBS target/linux/install V=s"
+		run_logged_allow_fail "$install_log" make -j"$JOBS" target/linux/install V=s
+	}
+
+	run_full() {
+		progress_note "running: make -j$JOBS V=s"
+		run_logged "$full_log" make -j"$JOBS" V=s
+	}
 
 	case "$action" in
 		none)
 			progress_note "skipped build"
 			report_note "make_action=skipped"
 			;;
+		prepare)
+			report_note "make_action=prepare+install"
+			run_prepare
+			if ! run_install_allow_fail; then
+				progress_note "install failed after prepare; retrying compile+install"
+				progress_note "install fail log: $install_log"
+				tail -40 "$install_log" >&2 || true
+				report_note "fallback_reason=target/linux/install failed after prepare"
+				run_compile
+				if ! run_install_allow_fail; then
+					progress_note "install failed after compile; retrying clean+full build"
+					progress_note "install fail log: $install_log"
+					tail -40 "$install_log" >&2 || true
+					report_note "fallback_reason=target/linux/install failed after prepare+compile"
+					run_clean
+					fallback_stage="clean+full"
+					run_logged "$fallback_log" make -j"$JOBS" V=s
+				fi
+			fi
+			;;
 		install)
-			if ! run_logged_allow_fail "$install_log" make -j"$JOBS" target/linux/install V=s; then
-				progress_note "install failed in auto mode; retrying full image build"
+			report_note "make_action=install"
+			if ! run_install_allow_fail; then
+				progress_note "install failed; retrying prepare+install"
 				progress_note "install fail log: $install_log"
 				tail -40 "$install_log" >&2 || true
 				report_note "fallback_reason=target/linux/install failed"
-				run_logged "$fallback_log" make -j"$JOBS" V=s
+				run_prepare
+				if ! run_install_allow_fail; then
+					progress_note "install failed after prepare; retrying compile+install"
+					progress_note "install fail log: $install_log"
+					tail -40 "$install_log" >&2 || true
+					report_note "fallback_reason=target/linux/install failed after prepare"
+					run_compile
+					if ! run_install_allow_fail; then
+						progress_note "install failed after compile; retrying clean+full image build"
+						progress_note "install fail log: $install_log"
+						tail -40 "$install_log" >&2 || true
+						report_note "fallback_reason=target/linux/install failed after prepare+compile"
+						run_clean
+						fallback_stage="clean+full"
+						run_logged "$fallback_log" make -j"$JOBS" V=s
+					fi
+				fi
 			fi
 			;;
 		compile)
-			run_logged "$compile_log" make -j"$JOBS" target/linux/compile V=s
-			if ! run_logged_allow_fail "$install_log" make -j"$JOBS" target/linux/install V=s; then
-				progress_note "install failed after compile; retrying full image build"
+			report_note "make_action=compile+install"
+			run_compile
+			if ! run_install_allow_fail; then
+				progress_note "install failed after compile; retrying prepare+compile+install"
 				progress_note "install fail log: $install_log"
 				tail -40 "$install_log" >&2 || true
 				report_note "fallback_reason=target/linux/install failed after compile"
-				run_logged "$fallback_log" make -j"$JOBS" V=s
+				run_prepare
+				run_compile
+				if ! run_install_allow_fail; then
+					progress_note "install still failed; retrying clean+full image build"
+					progress_note "install fail log: $install_log"
+					tail -40 "$install_log" >&2 || true
+					report_note "fallback_reason=target/linux/install failed after prepare+compile"
+					run_clean
+					fallback_stage="clean+full"
+					run_logged "$fallback_log" make -j"$JOBS" V=s
+				fi
 			fi
 			;;
 		full)
-			run_logged "$BUILD_LOG_BASE/${TS}-make-full-image.log" make -j"$JOBS" V=s
+			report_note "make_action=full"
+			if ! run_logged_allow_fail "$full_log" make -j"$JOBS" V=s; then
+				progress_note "full build failed; retrying clean+full build"
+				progress_note "full build fail log: $full_log"
+				tail -40 "$full_log" >&2 || true
+				report_note "fallback_reason=full build failed"
+				run_clean
+				fallback_stage="clean+full"
+				run_logged "$fallback_log" make -j"$JOBS" V=s
+			fi
+			;;
+		clean)
+			report_note "make_action=clean+full"
+			run_clean
+			run_full
 			;;
 		*)
 			echo "FAIL: unsupported build action: $action" >&2
 			exit 2
 			;;
 	esac
+
+	if [ -n "$fallback_stage" ]; then
+		report_note "fallback_stage=$fallback_stage"
+	fi
 }
 
 run_logged() {
@@ -1762,6 +1975,7 @@ if [ "$MODE" = "paths" ]; then
 	echo "PRESERVE_FROM_PATH=$PRESERVE_FROM_PATH"
 	echo "WRAP_LOAD_ADDR=$WRAP_LOAD_ADDR"
 	echo "EXPECT_LOAD_HEX=$EXPECT_LOAD_HEX"
+	echo "PATCH_PRECHECK=$PATCH_PRECHECK"
 	exit 0
 fi
 
@@ -1940,6 +2154,7 @@ else
 	build_action="$(select_build_action "$config_changed" "$raw_exists" "$stale_input" "$VMLINUX")"
 	progress_note "decision: $build_action (build-mode=$BUILD_MODE)"
 	report_build_decision "$build_action" "$config_changed" "$raw_exists" "$stale_input" "$VMLINUX"
+	run_patch_precheck "$build_action"
 
 	progress "Building OpenWrt image if required"
 	cd "$OWRT"

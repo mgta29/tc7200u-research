@@ -9,7 +9,7 @@ build OpenWrt -> wrap initramfs -> verify size_ok=True -> serve requested CFE fi
 The single active helper is:
 
 ```sh
-~/tc7200u-research/scripts/tc7200u-auto-build-install-wrap.sh
+~/tc7200u-research/scripts/tcbuilder.sh
 ```
 
 Main modes:
@@ -33,6 +33,15 @@ default package profile is `fastboot`. To keep the larger diagnostics profile:
 
 ```sh
 TC7200U_PACKAGE_PROFILE=debug tcwrap
+```
+
+When changed or new BMIPS kernel patch files are detected under
+`target/linux/bmips/patches-*`, `tcbuilder.sh` now runs a pre-check before the
+build phase to catch patch apply/syntax issues earlier. Skip this only when
+needed:
+
+```sh
+tc wrap --skip-precheck
 ```
 
 For OpenWrt auto-wrap runs (no `--source-image`), the helper now defaults to:
@@ -69,12 +78,12 @@ records/logs/builds/
 Interactive WSL sessions should use these aliases:
 
 ```sh
-alias tc='~/tc7200u-research/scripts/tc7200u-auto-build-install-wrap.sh'
-alias tcwrap='~/tc7200u-research/scripts/tc7200u-auto-build-install-wrap.sh wrap'
-alias tccheck='~/tc7200u-research/scripts/tc7200u-auto-build-install-wrap.sh check'
-alias tcverify='~/tc7200u-research/scripts/tc7200u-auto-build-install-wrap.sh verify'
-alias tcstate='~/tc7200u-research/scripts/tc7200u-auto-build-install-wrap.sh state'
-alias tcstatus='~/tc7200u-research/scripts/tc7200u-auto-build-install-wrap.sh status'
+alias tc='~/tc7200u-research/scripts/tcbuilder.sh'
+alias tcwrap='~/tc7200u-research/scripts/tcbuilder.sh wrap'
+alias tccheck='~/tc7200u-research/scripts/tcbuilder.sh check'
+alias tcverify='~/tc7200u-research/scripts/tcbuilder.sh verify'
+alias tcstate='~/tc7200u-research/scripts/tcbuilder.sh state'
+alias tcstatus='~/tc7200u-research/scripts/tcbuilder.sh status'
 alias tcresearch='cd ~/tc7200u-research'
 alias tcopenwrt='cd ~/src/openwrt'
 alias cfe-tftp='/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -NoProfile -ExecutionPolicy Bypass -File C:\\tftp\\start-cfe-tftp-77.ps1'
@@ -93,7 +102,7 @@ wsl: Failed to translate 'U:\...'
 Use the helper below so WSL always starts from a known Linux path:
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File \\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\scripts\wsl-safe.ps1 -Command "cd ~/tc7200u-research && ./scripts/tc7200u-auto-build-install-wrap.sh paths"
+powershell -NoProfile -ExecutionPolicy Bypass -File \\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\scripts\wsl-safe.ps1 -Command "cd ~/tc7200u-research && ./scripts/tcbuilder.sh paths"
 ```
 
 Or open an interactive WSL shell cleanly:

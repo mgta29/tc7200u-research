@@ -59,7 +59,7 @@ TC7200.d / possible firmware7 clue:
 ## Current OpenWrt project rule
 
 Always build OpenWrt first.
-Always run `tcwrap` or `scripts/tc7200u-auto-build-install-wrap.sh wrap`.
+Always run `tcwrap` or `scripts/tcbuilder.sh wrap`.
 Only TFTP /mnt/c/tftp/openwrt-ps-irqfallback.bin after the manifest says size_ok=True.
 
 ## Compare from these references

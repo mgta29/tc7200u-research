@@ -1,0 +1,59 @@
+# TC7200U Gate Report
+
+generated_at=2026-06-01T21:31:56+02:00
+log_path=/home/mgta29/tc7200u-research/records/logs/serial/picocom-20260601-210242.log
+report_path=/home/mgta29/tc7200u-research/records/logs/builds/2026-06-01-213156-check-gates-picocom-20260601-210242.txt
+
+## Log metadata
+-rw-r--r-- 1 root root 14K 2026-06-01 21:22 /home/mgta29/tc7200u-research/records/logs/serial/picocom-20260601-210242.log
+7c08ba18a42ad1d6d77b0605e155343e1e7b49a89811cade82ee081ea1703416  /home/mgta29/tc7200u-research/records/logs/serial/picocom-20260601-210242.log
+
+## Marker counts
+tftp_complete=1
+signature_a825=1
+executing_image4=1
+exceptions=0
+decompression_failed=0
+nand_fail_no_replacement=0
+nand_out_of_order=0
+hs_getmsg_error=0
+hs_unexpected_error=0
+unhandled_message_lines=0
+handshake_msg_lines=0
+cfe_banner_lines=0
+openwrt_loader_lines=1
+openwrt_decompress_kernel_lines=1
+warning_initial_console_lines=1
+kernel_panic_lines=1
+panic_init_kill_lines=1
+procd_init_lines=0
+press_enter_lines=0
+busybox_shell_lines=0
+build_warning_lines=0
+build_error_lines=0
+build_patch_fail_lines=0
+build_target_time_lines=0
+executing_image4_line=107
+
+## Gate verdicts
+Gate A:  PASS (accepted)
+Gate B:  FAIL
+Gate C:  PASS (clean)
+Gate D:  PASS
+Gate E:  FAIL (userspace_console_failed)
+
+## Boot/runtime key lines
+112:OpenWrt kernel loader for BMIPS
+116:Decompressing kernel... done!
+118:Starting kernel at 80010000...
+120:[    0.000000] Linux version 6.12.91 (mgta29@CerberusNB) (mips-openwrt-linux-musl-gcc (OpenWrt GCC 14.3.0 r34703-aa96b3ad55) 14.3.0, GNU ld (GNU Binutils) 2.44) #0 SMP Sat May 30 09:20:25 2026
+143:[    0.000000] Kernel command line: console=ttyS0,115200 earlycon
+203:[  532.160783] Warning: unable to open an initial console.
+206:[  532.849156] Run /init as init process
+207:[  546.300910] do_page_fault(): sending SIGSEGV to cp for invalid write access to 00000000
+210:[  546.826586] do_page_fault(): sending SIGSEGV to switch_root for invalid write access to 00000000
+213:[  546.869193] Kernel panic - not syncing: Attempted to kill init! exitcode=0x0000000b
+214:[  546.880357] Rebooting in 1 seconds..
+215:[  548.855341] Reboot failed -- System halted
+
+## Build key lines

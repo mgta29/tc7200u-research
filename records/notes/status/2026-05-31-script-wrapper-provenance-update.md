@@ -5,7 +5,7 @@
 The helper workflow is now consolidated into one executable:
 
 ```text
-scripts/tc7200u-auto-build-install-wrap.sh
+scripts/tcbuilder.sh
 ```
 
 Older split launchers and helper scripts were removed. Use aliases from
@@ -25,10 +25,10 @@ Older split launchers and helper scripts were removed. Use aliases from
 
 ## Validation
 
-- `bash -n scripts/tc7200u-auto-build-install-wrap.sh`
-- `scripts/tc7200u-auto-build-install-wrap.sh help`
-- `scripts/tc7200u-auto-build-install-wrap.sh paths`
-- `scripts/tc7200u-auto-build-install-wrap.sh selftest`
+- `bash -n scripts/tcbuilder.sh`
+- `scripts/tcbuilder.sh help`
+- `scripts/tcbuilder.sh paths`
+- `scripts/tcbuilder.sh selftest`
 
 ## Result
 

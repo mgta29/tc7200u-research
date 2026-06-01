@@ -123,14 +123,14 @@ cd /home/mgta29/tc7200u-research/scripts
 
 # Re-wrap OpenWrt payload but preserve header control/revision/load/build/crc
 # from the known-good stage1 map image.
-./tc7200u-auto-build-install-wrap.sh \
+./tcbuilder.sh \
   --input /home/mgta29/tc7200u-research/records/reverse/openwrt-ps-irqfallback.bin/image.raw \
   --output /mnt/c/tftp/tc7200-stage2-openwrt-preserve-d60242.bin \
   --filename tc7200-stage2-openwrt-preserve-d60242.bin \
   --preserve-from /mnt/c/tftp/tc7200-stage1-map-d60242.bin
 
 # Verify wrapper correctness and load-address intent.
-./tc7200u-auto-build-install-wrap.sh \
+./tcbuilder.sh \
   --raw /home/mgta29/tc7200u-research/records/reverse/openwrt-ps-irqfallback.bin/image.raw \
   --wrapped /mnt/c/tftp/tc7200-stage2-openwrt-preserve-d60242.bin \
   --expect-load 0x80004000 \

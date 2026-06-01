@@ -27,7 +27,7 @@ Legacy A825 rescue baseline (kept for comparison):
 
 Script:
 
-- `scripts/tc7200u-auto-build-install-wrap.sh`
+- `scripts/tcbuilder.sh`
 - Auto mode defaults to `--load-addr 0x80004000` when wrapping OpenWrt
   build output (override with `--load-addr` when needed).
 

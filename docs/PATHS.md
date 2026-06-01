@@ -24,7 +24,7 @@
 | Purpose | Path |
 |---|---|
 | Active CFE/TFTP image | `/mnt/c/tftp/openwrt-ps-irqfallback.bin` |
-| Main helper script | `~/tc7200u-research/scripts/tc7200u-auto-build-install-wrap.sh` |
+| Main helper script | `~/tc7200u-research/scripts/tcbuilder.sh` |
 | Wrapper manifest output | `~/tc7200u-research/records/generated/` |
 | Host-side TFTP proof captures | `~/tc7200u-research/records/logs/tftp/` |
 | Host-side PowerShell run scripts | `~/tc7200u-research/scripts/tftp/` |

@@ -20,7 +20,7 @@ after baseline recovery.
   (`Gate A/B/C/D/E = PASS`).
 - UART RX works when `CONFIG_BCM7120_L2_IRQ=y` is enabled.
 - A825 ProgramStore wrapper generation and verification are integrated into
-  `scripts/tc7200u-auto-build-install-wrap.sh`.
+  `scripts/tcbuilder.sh`.
 - Auto-wrap baseline now defaults to `--load-addr 0x80004000` for OpenWrt
   build output while preserving dynamic output filenames.
 - Kernel-side MMIO probing with `ioremap()` and `printk()` works and is

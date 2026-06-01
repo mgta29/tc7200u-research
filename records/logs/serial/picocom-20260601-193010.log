@@ -464,3 +464,127 @@ root@OpenWrt:~# 18
 0
 root@OpenWrt:~# 
 root@OpenWrt:~# 
+root@OpenWrt:~# [H[Jroot@OpenWrt:~# [J^C
+
+root@OpenWrt:~# root@OpenWrt:~# cat /sys/class/net/eth0/statistics/tx_packets; cat /sys/class/ne
+t/eth0/statistics/rx_packets; cat /sys/class/net/eth0/statistics/tx_errors; cat 
+/sys/class/net/eth0/statistics/rx_errors; cat /sys/class/net/eth0/statistics/tx_
+dropped; cat /sys/class/net/eth0/statistics/rx_dropped[J[3Aroot@OpenWrt:~# [J
+[ 1911.529799] net_ratelimit: 11 callbacks suppressed
+[ 1911.531124] bcmgenet 12c02600.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=174 mapping=0x06e0c802 len_stat=0x00aeefc0 bd_addr=b2c05638 ring=16 write_ptr=8 prod=7 free=95251
+[ 1911.562635] bcmgenet 12c02600.ethernet eth0: TC7200U RESVTX i=0 size=174 virt=a1680000 dma=0x01680000 low20=0x80000 len_stat=0x00aeefc0
+[ 1911.584115] bcmgenet 12c02600.ethernet eth0: TC7200U ADDRDBG i=0 skb_data=86e0c802 dma=0x01680000 dma_low20=0x80000 dma_mask=0xffffffff coh_mask=0xffffffff bus_limit=0x0 range_map=00000000
+[ 1911.608983] bcmgenet 12c02600.ethernet eth0: TC7200U DESCRB i=0 wrote_len=0x00aeefc0 wrote_map=0x01680000 rb_len=0xb2c05638 rb_addr=0xb2c05638 bd_addr=b2c05638
+[ 1912.068435] bcmgenet 12c02600.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=174 mapping=0x06e0f002 len_stat=0x00aeefc0 bd_addr=b2c05640 ring=16 write_ptr=9 prod=8 free=95250
+[ 1912.094950] bcmgenet 12c02600.ethernet eth0: TC7200U RESVTX i=0 size=174 virt=a1680000 dma=0x01680000 low20=0x80000 len_stat=0x00aeefc0
+[ 1912.114964] bcmgenet 12c02600.ethernet eth0: TC7200U ADDRDBG i=0 skb_data=86e0f002 dma=0x01680000 dma_low20=0x80000 dma_mask=0xffffffff coh_mask=0xffffffff bus_limit=0x0 range_map=00000000
+[ 1912.139828] bcmgenet 12c02600.ethernet eth0: TC7200U DESCRB i=0 wrote_len=0x00aeefc0 wrote_map=0x01680000 rb_len=0xb2c05640 rb_addr=0xb2c05640 bd_addr=b2c05640
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# 20
+0
+6
+0
+root@OpenWrt:~# 
+root@OpenWrt:~# ping -c 5 -W 1 192.168.1.2.2[J7.27.2.2
+PING 192.168.77.2 (192.168.77.2): 56 data bytes
+[ 1945.359704] bcmgenet 12c02600.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=106 mapping=0x068f8282 len_stat=0x006aefc0 bd_addr=b2c05648 ring=16 write_ptr=10 prod=9 free=99062
+[ 1945.385292] bcmgenet 12c02600.ethernet eth0: TC7200U RESVTX i=0 size=106 virt=a1680000 dma=0x01680000 low20=0x80000 len_stat=0x006aefc0
+[ 1945.405216] bcmgenet 12c02600.ethernet eth0: TC7200U ADDRDBG i=0 skb_data=868f8282 dma=0x01680000 dma_low20=0x80000 dma_mask=0xffffffff coh_mask=0xffffffff bus_limit=0x0 range_map=00000000
+[ 1945.429992] bcmgenet 12c02600.ethernet eth0: TC7200U DESCRB i=0 wrote_len=0x006aefc0 wrote_map=0x01680000 rb_len=0xb2c05648 rb_addr=0xb2c05648 bd_addr=b2c05648
+[ 1946.404836] bcmgenet 12c02600.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=106 mapping=0x068f8f02 len_stat=0x006aefc0 bd_addr=b2c05650 ring=16 write_ptr=11 prod=10 free=99061
+[ 1946.429016] bcmgenet 12c02600.ethernet eth0: TC7200U RESVTX i=0 size=106 virt=a1680000 dma=0x01680000 low20=0x80000 len_stat=0x006aefc0
+[ 1946.449187] bcmgenet 12c02600.ethernet eth0: TC7200U ADDRDBG i=0 skb_data=868f8f02 dma=0x01680000 dma_low20=0x80000 dma_mask=0xffffffff coh_mask=0xffffffff bus_limit=0x0 range_map=00000000
+[ 1946.475051] bcmgenet 12c02600.ethernet eth0: TC7200U DESCRB i=0 wrote_len=0x006aefc0 wrote_map=0x01680000 rb_len=0xb2c05650 rb_addr=0xb2c05650 bd_addr=b2c05650
+[ 1947.444833] bcmgenet 12c02600.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=106 mapping=0x068f9902 len_stat=0x006aefc0 bd_addr=b2c05658 ring=16 write_ptr=12 prod=11 free=99060
+[ 1947.469009] bcmgenet 12c02600.ethernet eth0: TC7200U RESVTX i=0 size=106 virt=a1680000 dma=0x01680000 low20=0x80000 len_stat=0x006aefc0
+[ 1947.489190] bcmgenet 12c02600.ethernet eth0: TC7200U ADDRDBG i=0 skb_data=868f9902 dma=0x01680000 dma_low20=0x80000 dma_mask=0xffffffff coh_mask=0xffffffff bus_limit=0x0 range_map=00000000
+[ 1947.515067] bcmgenet 12c02600.ethernet eth0: TC7200U DESCRB i=0 wrote_len=0x006aefc0 wrote_map=0x01680000 rb_len=0xb2c05658 rb_addr=0xb2c05658 bd_addr=b2c05658
+[ 1948.579304] bcmgenet 12c02600.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=106 mapping=0x068f8a02 len_stat=0x006aefc0 bd_addr=b2c05660 ring=16 write_ptr=13 prod=12 free=99059
+[ 1948.605074] bcmgenet 12c02600.ethernet eth0: TC7200U RESVTX i=0 size=106 virt=a1680000 dma=0x01680000 low20=0x80000 len_stat=0x006aefc0
+[ 1949.604893] bcmgenet 12c02600.ethernet eth0: TC7200U RESVTX i=0 size=106 virt=a1680000 dma=0x01680000 low20=0x80000 len_stat=0x006aefc0
+[ 1950.644526] net_ratelimit: 5 callbacks suppressed
+[ 1950.645821] bcmgenet 12c02600.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=106 mapping=0x068f9b82 len_stat=0x006aefc0 bd_addr=b2c05670 ring=16 write_ptr=15 prod=14 free=99057
+[ 1950.677084] bcmgenet 12c02600.ethernet eth0: TC7200U RESVTX i=0 size=106 virt=a1680000 dma=0x01680000 low20=0x80000 len_stat=0x006aefc0
+[ 1950.697125] bcmgenet 12c02600.ethernet eth0: TC7200U ADDRDBG i=0 skb_data=868f9b82 dma=0x01680000 dma_low20=0x80000 dma_mask=0xffffffff coh_mask=0xffffffff bus_limit=0x0 range_map=00000000
+[ 1950.722118] bcmgenet 12c02600.ethernet eth0: TC7200U DESCRB i=0 wrote_len=0x006aefc0 wrote_map=0x01680000 rb_len=0xb2c05670 rb_addr=0xb2c05670 bd_addr=b2c05670
+
+--- 192.168.77.2 ping statistics ---
+5 packets transmitted, 0 packets received, 100% packet loss
+root@OpenWrt:~# [ 1965.479311] ttyS ttyS0: 3 input overrun(s)
+cat /sys/class/netx_packets; cat /sys/class/net/eth0/statistics/
+rx_packets; cat /sys/class/net/eth0/statistics_s/class/net/eth0/statistics/rx_er
+rors[J[J[J[J[1A[79C[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[1A[79C[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J
+root@OpenWrt:~# 26
+0
+6
+0
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# 0x000012AA
+0x12c00004 0x000001FF
+0x12c00008 0x00000000
+0x12c0000c 0x00000000
+0x12c00010 0x00000000
+0x12c00014 0x0000001B
+0x12c00018 0x00000000
+0x12c0001c 0x00000000
+0x12c00020 0x04000400
+0x12c00034 0x00000000
+0x12c00070 0x00030003
+0x12c00208 0x00000001
+0x12c00214 0x00000001
+0x12c004a8 0x00000001
+0x12c004e8 0x00000001
+0x12c004ec 0x00000001
+0x12c004f0 0x00000001
+0x12c00500 0x00000001
+0x12c00504 0x00000001
+0x12c00508 0x00000001
+0x12c00580 0x00000001
+0x12c00600 0x00000C01
+0x12c00604 0x00000000
+0x12c00608 0x00000000
+0x12c0060c 0x00000000
+0x12c00610 0x000005EE
+0x12c00614 0x00000000
+0x12c00618 0x00000000
+0x12c0061c 0x00000000
+root@OpenWrt:~# 
+root@OpenWrt:~# 0
+tx_packets 26
+rx_bytes 0
+tx_bytes 5083
+rx_errors 0
+tx_errors 6
+rx_dropped 0
+tx_dropped 0
+rx_crc_errors 0
+rx_frame_errors 0
+rx_length_errors 0
+rx_over_errors 0
+tx_aborted_errors 0
+tx_carrier_errors 0
+tx_fifo_errors 0
+tx_heartbeat_errors 0
+tx_window_errors 0
+root@OpenWrt:~# 
+root@OpenWrt:~# 
+root@OpenWrt:~# ÿ
+BCM3383A2 
+Sync: 0 
+MemSize:            128 M
+Chip ID:     BCM3383Z-B0
+
+BootLoader Version: 2.4.0alpha18p1 Pre-release Gnu spiboot dual-flash reduced DDR drive linux
+Build Date: Aug 14 2012
+Build Time: 09:48:58
+SPI flash ID 0xc22014, size 1MB, block size 64KB, write buffer 256, flags 0x0
+NAND flash: Device size 64 MB, Block size 16 KB, Page size 512 B
+Cust key size 128
+parameter offset is 43872
+
+Signature/PID: a825
+
+Board IP Address  [192.168.77.1]:      
