@@ -1,6 +1,6 @@
 # TC7200U OpenWrt Bring-Up Status
 
-Last updated: 2026-06-01 (evening).
+Last updated: 2026-06-01 (night).
 
 ## Current State
 
@@ -14,8 +14,9 @@ after baseline recovery.
 
 - CFE/TFTP boot reaches OpenWrt userspace.
 - OpenWrt reaches a shell over serial on `ttyS0`.
-- Gate checks are fully green on the known-good serial log:
-  `records/logs/serial/picocom-20260531-050727.log`
+- Gate checks are fully green on known-good serial logs:
+  - `records/logs/serial/picocom-20260531-050727.log`
+  - `records/logs/serial/picocom-20260601-193010.log`
   (`Gate A/B/C/D/E = PASS`).
 - UART RX works when `CONFIG_BCM7120_L2_IRQ=y` is enabled.
 - A825 ProgramStore wrapper generation and verification are integrated into
@@ -49,6 +50,24 @@ Recent known-good OpenWrt A825 boot:
   - `procd: - init -`
   - `Please press Enter to activate this console.`
 
+Latest known-good OpenWrt A825 boot:
+
+- Serial evidence: `records/logs/serial/picocom-20260601-193010.log`
+- Gate report:
+  - `records/logs/builds/2026-06-01-195304-check-gates-picocom-20260601-193010.txt`
+- Header markers:
+  - `Load Address: 82000000`
+  - `Filename: openwrt-initramfs.bin`
+  - `File Length: 6417987 bytes`
+- Userspace markers:
+  - `procd: - init -`
+  - `Please press Enter to activate this console.`
+  - `BusyBox v1.37.0 ...`
+
+Newly pinned rescue copy from that pass:
+
+- `records/artifacts/rescue/tc7200-console-good-20260601-193010.bin`
+
 Pinned known-good payload family (do not mix with newer test payloads):
 
 - Header/file markers from successful runs:
@@ -77,6 +96,10 @@ Pinned known-good payload family (do not mix with newer test payloads):
     - `tc7200-stage2-r34427-nand-ok-r1.bin`
     - `raw_sha256 d7251f8429d27521fbe45680306ae2b883d354dacd877b5e238dfb20c7cb1906`
     - `records/logs/builds/2026-05-31-223226-build-provenance.log`
+- Separate unstable-but-booting case (not init panic):
+  - `records/logs/serial/picocom-20260601-190051.log`
+  - console starts, but repeated userspace faults appear:
+    - `do_page_fault(): sending SIGSEGV to ubus ...`
 - Panic regression markers:
   - `Load Address: 82000000`
   - `Filename: tc7200u-stage2-next.bin`

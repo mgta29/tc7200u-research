@@ -1,0 +1,64 @@
+# TC7200U Gate Report
+
+generated_at=2026-06-01T19:53:04+02:00
+log_path=/home/mgta29/tc7200u-research/records/logs/serial/picocom-20260601-193010.log
+report_path=/home/mgta29/tc7200u-research/records/logs/builds/2026-06-01-195304-check-gates-picocom-20260601-193010.txt
+
+## Log metadata
+-rw-r--r-- 1 root root 34K 2026-06-01 19:53 /home/mgta29/tc7200u-research/records/logs/serial/picocom-20260601-193010.log
+c8f5a608c7e4394e880479fdaf0554ce2ac3bbf5a957a5deec9aa3b9c0b4f452  /home/mgta29/tc7200u-research/records/logs/serial/picocom-20260601-193010.log
+
+## Marker counts
+tftp_complete=1
+signature_a825=1
+executing_image4=1
+exceptions=0
+decompression_failed=0
+nand_fail_no_replacement=0
+nand_out_of_order=0
+hs_getmsg_error=0
+hs_unexpected_error=0
+unhandled_message_lines=0
+handshake_msg_lines=0
+cfe_banner_lines=0
+openwrt_loader_lines=1
+openwrt_decompress_kernel_lines=1
+warning_initial_console_lines=0
+kernel_panic_lines=0
+panic_init_kill_lines=0
+procd_init_lines=1
+press_enter_lines=1
+busybox_shell_lines=1
+build_warning_lines=0
+build_error_lines=0
+build_patch_fail_lines=0
+build_target_time_lines=0
+executing_image4_line=117
+
+## Gate verdicts
+Gate A:  PASS (accepted)
+Gate B:  PASS
+Gate C:  PASS (clean)
+Gate D:  PASS
+Gate E:  PASS (console_ready)
+
+## Boot/runtime key lines
+122:OpenWrt kernel loader for BMIPS
+126:Decompressing kernel... done!
+128:Starting kernel at 80010000...
+130:[    0.000000] Linux version 6.12.87 (mgta29@CerberusNB) (mips-openwrt-linux-musl-gcc (OpenWrt GCC 14.3.0 r34427-6865d489d2) 14.3.0, GNU ld (GNU Binutils) 2.44) #0 SMP Sun May 17 18:30:33 2026
+155:[    0.000000] Kernel command line: console=ttyS0,115200 earlycon
+225:[   41.559274] Run /init as init process
+237:[  137.924874] bcmgenet 12c02600.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2600 ms
+267:[  143.924754] bcmgenet 12c02600.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2440 ms
+274:[  146.965495] bcmgenet 12c02600.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2630 ms
+293:[  151.925005] bcmgenet 12c02600.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2720 ms
+299:[  154.965061] bcmgenet 12c02600.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2800 ms
+305:[  157.924923] bcmgenet 12c02600.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2720 ms
+312:[  162.519814] procd: - early -
+313:[  165.988140] procd: - ubus -
+314:[  168.489435] procd: - init -
+315:Please press Enter to activate this console.
+324:BusyBox v1.37.0 (2026-01-02 17:07:02 UTC) built-in shell (ash)
+
+## Build key lines

@@ -1,0 +1,96 @@
+root@OpenWrt:~# devmem 0x140002cc 32
+0x00000001
+root@OpenWrt:~# devmem 0x14e0024c 32
+0x00000000
+root@OpenWrt:~# devmem 0x14e0025c 32
+0x00000000
+root@OpenWrt:~# devmem 0x14e00264 32
+0x00000000
+root@OpenWrt:~# devmem 0x14e00288 32
+0x00000000
+root@OpenWrt:~# devmem 0x14e00004 32
+0x960F6FC3
+root@OpenWrt:~# devmem 0x14e0000c 32
+0xFFFFFFFF
+root@OpenWrt:~# devmem 0x14e000ec 32
+0x00000000
+root@OpenWrt:~# ip link set eth0 down 2>/dev/null; ip link set br-lan down 2>/de
+v/null
+
+root@OpenWrt:~#
+root@OpenWrt:~# v=$(devmem 0x140002cc 32); devmem 0x140002cc 32 $(printf '0x%08x
+' $(((v & 0xfffff3ff) | 0x400)))
+[ 1034.455437] ttyS ttyS0: 1 input overrun(s)
+
+
+
+
+v=$(devmem 0x14ev=$(devmem 0x14e000ec 32);
+
+devmem 0x14e000ec 32 $(printf '0x%08x' $((v | 0x100)))
+root@OpenWrt:~# devmem 0x140002cc 32; devmem 0x14e000ec 32
+0x00000001
+0x00000100
+root@OpenWrt:~# [ 1093.745099] ttyS ttyS0: 1 input overrun(s)
+dmesg -c >/dev/null; ip link set eth0 up; sleep 2; dmesg | tail
+-80
+[ 1102.389443] bcmgenet 12c02600.ethernet: configuring instance for external RGMII (no delay)
+[ 1102.466818] bcmgenet 12c02600.ethernet eth0: Link is Up - 1Gbps/Full - flow control off
+[ 1102.568840] bcmgenet 12c02600.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=194 mapping=0x06e0d802 len_stat=0x00c2efc0 bd_addr=b2c05600 ring=16 write_ptr=1 prod=0 free=256
+[ 1102.595108] bcmgenet 12c02600.ethernet eth0: TC7200U RESVTX i=0 size=194 virt=a1680000 dma=0x01680000 low20=0x80000 len_stat=0x00c2efc0
+[ 1102.615101] bcmgenet 12c02600.ethernet eth0: TC7200U ADDRDBG i=0 skb_data=86e0d802 dma=0x01680000 dma_low20=0x80000 dma_mask=0xffffffff coh_mask=0xffffffff bus_limit=0x0 range_map=00000000
+[ 1102.639917] bcmgenet 12c02600.ethernet eth0: TC7200U DESCRB i=0 wrote_len=0x00c2efc0 wrote_map=0x01680000 rb_len=0xb2c05600 rb_addr=0xb2c05600 bd_addr=b2c05600
+[ 1103.368194] bcmgenet 12c02600.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=150 mapping=0x068f8002 len_stat=0x0096efc0 bd_addr=b2c05608 ring=16 write_ptr=2 prod=1 free=255
+[ 1103.394525] bcmgenet 12c02600.ethernet eth0: TC7200U RESVTX i=0 size=150 virt=a1680000 dma=0x01680000 low20=0x80000 len_stat=0x0096efc0
+[ 1103.414482] bcmgenet 12c02600.ethernet eth0: TC7200U ADDRDBG i=0 skb_data=868f8002 dma=0x01680000 dma_low20=0x80000 dma_mask=0xffffffff coh_mask=0xffffffff bus_limit=0x0 range_map=00000000
+[ 1103.439462] bcmgenet 12c02600.ethernet eth0: TC7200U DESCRB i=0 wrote_len=0x0096efc0 wrote_map=0x01680000 rb_len=0xb2c05608 rb_addr=0xb2c05608 bd_addr=b2c05608
+[ 1103.507153] bcmgenet 12c02600.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=194 mapping=0x06e0e802 len_stat=0x00c2efc0 bd_addr=b2c05610 ring=16 write_ptr=3 prod=2 free=254
+[ 1103.531648] bcmgenet 12c02600.ethernet eth0: TC7200U RESVTX i=0 size=194 virt=a1680000 dma=0x01680000 low20=0x80000 len_stat=0x00c2efc0
+[ 1103.552081] bcmgenet 12c02600.ethernet eth0: TC7200U ADDRDBG i=0 skb_data=86e0e802 dma=0x01680000 dma_low20=0x80000 dma_mask=0xffffffff coh_mask=0xffffffff bus_limit=0x0 range_map=00000000
+[ 1103.578137] bcmgenet 12c02600.ethernet eth0: TC7200U DESCRB i=0 wrote_len=0x00c2efc0 wrote_map=0x01680000 rb_len=0xb2c05610 rb_addr=0xb2c05610 bd_addr=b2c05610
+[ 1104.410204] bcmgenet 12c02600.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=214 mapping=0x06e0c002 len_stat=0x00d6efc0 bd_addr=b2c05618 ring=16 write_ptr=4 prod=3 free=253
+[ 1104.435454] bcmgenet 12c02600.ethernet eth0: TC7200U RESVTX i=0 size=214 virt=a1680000 dma=0x01680000 low20=0x80000 len_stat=0x00d6efc0
+[ 1104.478001] bcmgenet 12c02600.ethernet eth0: TC7200U RESVTX i=0 size=154 virt=a1680000 dma=0x01680000 low20=0x80000 len_stat=0x009aefc0
+[ 1105.116702] bcmgenet 12c02600.ethernet eth0: TC7200U RESVTX i=0 size=154 virt=a1680000 dma=0x01680000 low20=0x80000 len_stat=0x009aefc0
+[ 1105.207207] bcmgenet 12c02600.ethernet eth0: TC7200U RESVTX i=0 size=214 virt=a1680000 dma=0x01680000 low20=0x80000 len_stat=0x00d6efc0
+[ 1102.389443] bcmgenet 12c02600.ethernet: configuring instance for external RGMII (no delay)
+[ 1102.466818] bcmgenet 12c02600.ethernet eth0: Link is Up - 1Gbps/Full - flow control off
+[ 1102.568840] bcmgenet 12c02600.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=194 mapping=0x06e0d802 len_stat=0x00c2efc0 bd_addr=b2c05600 ring=16 write_ptr=1 prod=0 free=256
+[ 1102.595108] bcmgenet 12c02600.ethernet eth0: TC7200U RESVTX i=0 size=194 virt=a1680000 dma=0x01680000 low20=0x80000 len_stat=0x00c2efc0
+[ 1102.615101] bcmgenet 12c02600.ethernet eth0: TC7200U ADDRDBG i=0 skb_data=86e0d802 dma=0x01680000 dma_low20=0x80000 dma_mask=0xffffffff coh_mask=0xffffffff bus_limit=0x0 range_map=00000000
+[ 1102.639917] bcmgenet 12c02600.ethernet eth0: TC7200U DESCRB i=0 wrote_len=0x00c2efc0 wrote_map=0x01680000 rb_len=0xb2c05600 rb_addr=0xb2c05600 bd_addr=b2c05600
+[ 1103.368194] bcmgenet 12c02600.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=150 mapping=0x068f8002 len_stat=0x0096efc0 bd_addr=b2c05608 ring=16 write_ptr=2 prod=1 free=255
+[ 1103.394525] bcmgenet 12c02600.ethernet eth0: TC7200U RESVTX i=0 size=150 virt=a1680000 dma=0x01680000 low20=0x80000 len_stat=0x0096efc0
+[ 1103.414482] bcmgenet 12c02600.ethernet eth0: TC7200U ADDRDBG i=0 skb_data=868f8002 dma=0x01680000 dma_low20=0x80000 dma_mask=0xffffffff coh_mask=0xffffffff bus_limit=0x0 range_map=00000000
+[ 1103.439462] bcmgenet 12c02600.ethernet eth0: TC7200U DESCRB i=0 wrote_len=0x0096efc0 wrote_map=0x01680000 rb_len=0xb2c05608 rb_addr=0xb2c05608 bd_addr=b2c05608
+[ 1103.507153] bcmgenet 12c02600.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=194 mapping=0x06e0e802 len_stat=0x00c2efc0 bd_addr=b2c05610 ring=16 write_ptr=3 prod=2 free=254
+[ 1103.531648] bcmgenet 12c02600.ethernet eth0: TC7200U RESVTX i=0 size=194 virt=a1680000 dma=0x01680000 low20=0x80000 len_stat=0x00c2efc0
+[ 1103.552081] bcmgenet 12c02600.ethernet eth0: TC7200U ADDRDBG i=0 skb_data=86e0e802 dma=0x01680000 dma_low20=0x80000 dma_mask=0xffffffff coh_mask=0xffffffff bus_limit=0x0 range_map=00000000
+[ 1103.578137] bcmgenet 12c02600.ethernet eth0: TC7200U DESCRB i=0 wrote_len=0x00c2efc0 wrote_map=0x01680000 rb_len=0xb2c05610 rb_addr=0xb2c05610 bd_addr=b2c05610
+[ 1104.410204] bcmgenet 12c02600.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=214 mapping=0x06e0c002 len_stat=0x00d6efc0 bd_addr=b2c05618 ring=16 write_ptr=4 prod=3 free=253
+[ 1104.435454] bcmgenet 12c02600.ethernet eth0: TC7200U RESVTX i=0 size=214 virt=a1680000 dma=0x01680000 low20=0x80000 len_stat=0x00d6efc0
+[ 1104.478001] bcmgenet 12c02600.ethernet eth0: TC7200U RESVTX i=0 size=154 virt=a1680000 dma=0x01680000 low20=0x80000 len_stat=0x009aefc0
+[ 1105.116702] bcmgenet 12c02600.ethernet eth0: TC7200U RESVTX i=0 size=154 virt=a1680000 dma=0x01680000 low20=0x80000 len_stat=0x009aefc0
+[ 1105.207207] bcmgenet 12c02600.ethernet eth0: TC7200U RESVTX i=0 size=214 virt=a1680000 dma=0x01680000 low20=0x80000 len_stat=0x00d6efc0
+root@OpenWrt:~# [ 1117.221252] ttyS ttyS0: 1 input overrun(s)
+for a in 0x14e00
+*** file: send.txt
+$ ascii-xfr -s -l000 -c 60 send.txt
+ASCII upload of "send.txt"
+Line delay: 0 ms, character delay 60 ms
+
+for a in 0x14e00118 0x12c00000 0x12c00004 0x12c0001c 0x12c00020
+0x12c00034 0x12c00070 0x12c00208 0x12c00214; do printf '%s ' "$a"; devmem "$a" 3
+2; done
+*** exit status: 0 ***
+
+0x14e00118 0x0000021D
+0x12c00000 0x000012AA
+0x12c00004 0x000001FF
+0x12c0001c 0x00000000
+0x12c00020 0x04000400
+0x12c00034 0x00000000
+0x12c00070 0x00030003
+0x12c00208 0x00000001
+0x12c00214 0x00000001
+root@OpenWrt:~#

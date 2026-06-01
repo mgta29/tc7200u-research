@@ -1,9 +1,1 @@
-ip link set eth0 up
-ip addr flush dev eth0
-ip addr add 192.168.77.1/24 dev eth0
-ip -s link show dev eth0
-cat /proc/interrupts | grep -Ei 'eth|genet|mdio'
-ethtool eth0
-ethtool -S eth0 | head -n 120
-dmesg | grep -Ei 'genet|mdio|link|dma|tx|rx|watchdog|timeout' | tail -n 200
-ping -c 5 -I eth0 192.168.77.2
+cat /sys/class/net/eth0/statistics/tx_packets; cat /sys/class/net/eth0/statistics/rx_packets; cat /sys/class/net/eth0/statistics/tx_errors; cat /sys/class/net/eth0/statistics/rx_errors; cat /sys/class/net/eth0/statistics/tx_dropped; cat /sys/class/net/eth0/statistics/rx_dropped

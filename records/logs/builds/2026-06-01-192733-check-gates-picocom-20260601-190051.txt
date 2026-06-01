@@ -1,0 +1,66 @@
+# TC7200U Gate Report
+
+generated_at=2026-06-01T19:27:33+02:00
+log_path=/home/mgta29/tc7200u-research/records/logs/serial/picocom-20260601-190051.log
+report_path=/home/mgta29/tc7200u-research/records/logs/builds/2026-06-01-192733-check-gates-picocom-20260601-190051.txt
+
+## Log metadata
+-rw-r--r-- 1 root root 33K 2026-06-01 19:15 /home/mgta29/tc7200u-research/records/logs/serial/picocom-20260601-190051.log
+64d0d8a2bd9c26c8b01cee06aeb1a2f5c57d8365a5a61089c155f2bd6ac36838  /home/mgta29/tc7200u-research/records/logs/serial/picocom-20260601-190051.log
+
+## Marker counts
+tftp_complete=1
+signature_a825=1
+executing_image4=1
+exceptions=0
+decompression_failed=0
+nand_fail_no_replacement=0
+nand_out_of_order=0
+hs_getmsg_error=0
+hs_unexpected_error=0
+unhandled_message_lines=0
+handshake_msg_lines=0
+cfe_banner_lines=0
+openwrt_loader_lines=1
+openwrt_decompress_kernel_lines=1
+warning_initial_console_lines=0
+kernel_panic_lines=0
+panic_init_kill_lines=0
+procd_init_lines=1
+press_enter_lines=1
+busybox_shell_lines=0
+build_warning_lines=0
+build_error_lines=0
+build_patch_fail_lines=0
+build_target_time_lines=0
+executing_image4_line=265
+
+## Gate verdicts
+Gate A:  PASS (accepted)
+Gate B:  PASS
+Gate C:  PASS (clean)
+Gate D:  PASS
+Gate E:  WARN (boot_not_fully_observed)
+
+## Boot/runtime key lines
+270:OpenWrt kernel loader for BMIPS
+274:Decompressing kernel... done!
+276:Starting kernel at 80010000...
+278:[    0.000000] Linux version 6.12.87 (mgta29@CerberusNB) (mips-openwrt-linux-musl-gcc (OpenWrt GCC 14.3.0 r34427-6865d489d2) 14.3.0, GNU ld (GNU Binutils) 2.44) #0 SMP Sun May 17 18:30:33 2026
+303:[    0.000000] Kernel command line: console=ttyS0,115200 earlycon
+373:[   41.600186] Run /init as init process
+385:[  137.916386] bcmgenet 12c02600.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2760 ms
+416:[  143.916749] bcmgenet 12c02600.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2210 ms
+432:[  150.956394] bcmgenet 12c02600.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2820 ms
+443:[  160.410665] procd: - early -
+444:[  163.752525] procd: - ubus -
+445:[  166.268411] procd: - init -
+446:Please press Enter to activate this console.
+447:[  186.138832] do_page_fault(): sending SIGSEGV to ubus for invalid read access from 10003328
+454:[  317.148302] do_page_fault(): sending SIGSEGV to ubus for invalid read access from 10003328
+457:[  354.501538] do_page_fault(): sending SIGSEGV to ubus for invalid read access from 10003328
+460:[  419.368620] do_page_fault(): sending SIGSEGV to ubus for invalid read access from 10003328
+463:[  423.020379] do_page_fault(): sending SIGSEGV to ubus for invalid read access from 10003328
+466:[  427.879959] do_page_fault(): sending SIGSEGV to ubus for invalid read access from 10003328
+
+## Build key lines

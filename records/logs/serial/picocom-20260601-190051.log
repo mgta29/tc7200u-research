@@ -1,0 +1,468 @@
+þ
+BCM3383A2 
+Sync: 0 
+MemSize:            128 M
+Chip ID:     BCM3383Z-B0
+
+BootLoader Version: 2.4.0alpha18p1 Pre-release Gnu spiboot dual-flash reduced DDR drive linux
+Build Date: Aug 14 2012
+Build Time: 09:48:58
+SPI flash ID 0xc22014, size 1MB, block size 64KB, write buffer 256, flags 0x0
+NAND flash: Device size 64 MB, Block size 16 KB, Page size 512 B
+Cust key size 128
+parameter offset is 43872
+
+Signature/PID: a825
+
+Board IP Address  [192.168.77.1]:      
+Board IP Mask     [255.255.255.0]:     
+Board IP Gateway  [0.0.0.0]:           
+Board MAC Address [00:c0:05:00:00:a8]: 
+
+Internal/External phy? (e/i/a)[a] 
+Switch detected: 53125
+ProbePhy: Found PHY 0, MDIO on MAC 0, data on MAC 0
+Using GMAC0, phy 0
+
+Enet link up: 1G full
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+TFTP Get Selected
+Board TFTP Server IP Address [192.168.77.2]:  
+Enter filename [tc7200-stage2-baseline-r34427-rsvmem.bin]: 
+
+
+Destination: a5f00000
+
+Destination: a5f00000
+Starting TFTP of tc7200-stage2-baseline-r34427-rsvmem.bin from 192.168.77.2
+Getting tc7200-stage2-baseline-r34427-rsvmem.bin using octet mode
+Received packet for invalid session...
+.............................................................Received packet for invalid session...
+.....................................................................................Unrecognized command.
+.
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+.....................................Received packet for invalid session...
+........................................................................................................................................................................................ÿ
+BCM3383A2 
+Sync: 0 
+MemSize:            128 M
+Chip ID:     BCM3383Z-B0
+
+BootLoader Version: 2.4.0alpha18p1 Pre-release Gnu spiboot dual-flash reduced DDR drive linux
+Build Date: Aug 14 2012
+Build Time: 09:48:58
+SPI flash ID 0xc22014, size 1MB, block size 64KB, write buffer 256, flags 0x0
+NAND flash: Device size 64 MB, Block size 16 KB, Page size 512 B
+Cust key size 128
+parameter offset is 43872
+
+Signature/PID: a825
+
+Board IP Address  [192.168.77.1]:      
+Board IP Mask     [255.255.255.0]:     
+Board IP Gateway  [0.0.0.0]:           
+Board MAC Address [00:c0:05:00:00:a8]: 
+
+Internal/External phy? (e/i/a)[a] 
+Switch detected: 53125
+ProbePhy: Found PHY 0, MDIO on MAC 0, data on MAC 0
+Using GMAC0, phy 0
+
+Enet link up: 1G full
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+Unrecognized command.
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+TFTP Get Selected
+Board TFTP Server IP Address [192.168.77.2]:  
+Enter filename [tc7200-stage2-baseline-r34427-rsvmem.bin]: tftp/tc7200-next-control.bin
+
+
+Destination: a5f00000
+
+Destination: a5f00000
+Starting TFTP of tftp/tc7200-next-control.bin from 192.168.77.2
+Getting tftp/tc7200-next-control.bin using octet mode
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Tftp timeout...
+Received packet for invalid session...
+Received packet for invalid session...
+Tftp timeout...
+Received packet for invalid session...
+Received packet for invalid session...
+Tftp timeout...
+Tftp timeout...
+Received packet for invalid session...
+Received packet for invalid session...
+Tftp timeout...
+Received packet for invalid session...
+Tftp timeout...
+Retry limit exceeded on block 1....Aborting session
+Sending "Retry limit exceeded" error packet
+Store parameters to flash? [n] n
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+TFTP Get Selected
+Board TFTP Server IP Address [192.168.77.2]:  
+Enter filename [tftp/tc7200-next-control.bin]: 
+
+
+Destination: a5f00000
+
+Destination: a5f00000
+Starting TFTP of tftp/tc7200-next-control.bin from 192.168.77.2
+Getting tftp/tc7200-next-control.bin using octet mode
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+Received packet for invalid session...
+.....................................................................................................................................................Received packet for invalid session...
+....................Received packet for invalid session...
+................................................................................................................................Received packet for invalid session...
+...............................................................Received packet for invalid session...
+..............................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+...................Received packet for invalid session...
+...............................Received packet for invalid session...
+.........................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+.......................................................................................................Received packet for invalid session...
+Received packet for invalid session...
+........................................................................................................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+...............................................................................................................................Received packet for invalid session...
+...................................................................................................................................Received packet for invalid session...
+...........................................................................................................................................................................................................................
+Tftp complete
+Received 6418079 bytes
+
+Image 3 Program Header:
+   Signature: a825
+     Control: 0000
+   Major Rev: 0100
+   Minor Rev: 04ff
+  Build Time: 2026/5/18 20:22:53 Z
+ File Length: 6417987 bytes
+Load Address: 82000000
+    Filename: openwrt-initramfs.bin
+         HCS: 1255
+         CRC: 00000000
+
+Store parameters to flash? [n] n
+Bypassing CRC Verifiction on Image 4...
+CRC time = 311
+Loading non-compressed image 4...
+Target Address: 0x82000000
+Length: 6417987
+Reading flash map at ff30, size 192
+Successfully restored flash map from SPI flash!
+Copying partition table to 0x83fffc04 180
+Copying partition table to 0x80000904 180
+
+Executing Image 4...
+
+
+
+
+OpenWrt kernel loader for BMIPS
+Copyright (C) 2011 Gabor Juhos <juhosg@openwrt.org>
+Copyright (C) 2014 Jonas Gorski <jogo@openwrt.org>
+Copyright (C) 2020 Alvaro Fernandez Rojas <noltari@gmail.com>
+Decompressing kernel... done!
+blasting from 0x80010000 to 0x01590996 (0x80010000 - 0x815a09a0)
+Starting kernel at 80010000...
+
+[    0.000000] Linux version 6.12.87 (mgta29@CerberusNB) (mips-openwrt-linux-musl-gcc (OpenWrt GCC 14.3.0 r34427-6865d489d2) 14.3.0, GNU ld (GNU Binutils) 2.44) #0 SMP Sun May 17 18:30:33 2026
+[    0.000000] CPU0 revision is: 0002a080 (Broadcom BMIPS4350)
+[    0.000000] MIPS: machine is Technicolor TC7200.U
+[    0.000000] earlycon: bcm63xx_uart0 at MMIO 0x14e00500 (options '')
+[    0.000000] printk: legacy bootconsole [bcm63xx_uart0] enabled
+[    0.000000] Kernel sections are not in the memory maps
+[    0.000000] Wasting 576 bytes for tracking 16 unused pages
+[    0.000000] Initrd not found or empty - disabling initrd
+[    0.000000] OF: reserved mem: 0x01680000..0x01680fff (4 KiB) nomap non-reusable genet-txbuf@1680000
+[    0.000000] Primary instruction cache 64kB, VIPT, 4-way, linesize 16 bytes.
+[    0.000000] Primary data cache 32kB, 2-way, VIPT, cache aliases, linesize 16 bytes
+[    0.000000] Zone ranges:
+[    0.000000]   Normal   [mem 0x0000000000010000-0x000000000fffffff]
+[    0.000000] Movable zone start for each node
+[    0.000000] Early memory node ranges
+[    0.000000]   node   0: [mem 0x0000000000010000-0x000000000167ffff]
+[    0.000000]   node   0: [mem 0x0000000001680000-0x0000000001680fff]
+[    0.000000]   node   0: [mem 0x0000000001681000-0x00000000016d7fff]
+[    0.000000]   node   0: [mem 0x0000000006000000-0x0000000007ffffff]
+[    0.000000]   node   0: [mem 0x000000000e000000-0x000000000fffffff]
+[    0.000000] Initmem setup node 0 [mem 0x0000000000010000-0x000000000fffffff]
+[    0.000000] On node 0, zone Normal: 16 pages in unavailable ranges
+[    0.000000] On node 0, zone Normal: 18728 pages in unavailable ranges
+[    0.000000] On node 0, zone Normal: 24576 pages in unavailable ranges
+[    0.000000] percpu: Embedded 12 pages/cpu s19664 r8192 d21296 u49152
+[    0.000000] Kernel command line: console=ttyS0,115200 earlycon
+[    0.000000] Dentry cache hash table entries: 8192 (order: 3, 32768 bytes, linear)
+[    0.000000] Inode-cache hash table entries: 4096 (order: 2, 16384 bytes, linear)
+[    0.000000] Built 1 zonelists, mobility grouping on.  Total pages: 22216
+[    0.000000] mem auto-init: stack:off, heap alloc:off, heap free:off
+[    0.000000] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=1, Nodes=1
+[    0.000000] rcu: Hierarchical RCU implementation.
+[    0.000000] rcu: 	RCU restricting CPUs from NR_CPUS=2 to nr_cpu_ids=1.
+[    0.000000] 	Tracing variant of Tasks RCU enabled.
+[    0.000000] rcu: RCU calculated value of scheduler-enlistment delay is 10 jiffies.
+[    0.000000] rcu: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=1
+[    0.000000] RCU Tasks Trace: Setting shift to 0 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=1.
+[    0.000000] NR_IRQS: 256
+[    0.000000] rcu: srcu_init: Setting srcu_struct sizes based on contention.
+[    0.000000] clocksource: MIPS: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 6370868154 ns
+[    0.000107] sched_clock: 32 bits at 300MHz, resolution 3ns, wraps every 7158278654ns
+[    0.019198] Calibrating delay loop... 4.42 BogoMIPS (lpj=22144)
+[    0.160693] pid_max: default: 32768 minimum: 301
+[    2.909573] Mount-cache hash table entries: 1024 (order: 0, 4096 bytes, linear)
+[    2.921290] Mountpoint-cache hash table entries: 1024 (order: 0, 4096 bytes, linear)
+[    5.040622] rcu: Hierarchical SRCU implementation.
+[    5.048231] rcu: 	Max phase no-delay instances is 1000.
+[    5.151946] smp: Bringing up secondary CPUs ...
+[    5.159257] smp: Brought up 1 node, 1 CPU
+[    5.187171] Memory: 62492K/88864K available (8395K kernel code, 660K rwdata, 1788K rodata, 12252K init, 224K bss, 25752K reserved, 0K cma-reserved)
+[    5.528971] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 19112604462750000 ns
+[    5.545530] futex hash table entries: 256 (order: 2, 16384 bytes, linear)
+[    7.337628] pinctrl core: initialized pinctrl subsystem
+[    8.046885] NET: Registered PF_NETLINK/PF_ROUTE protocol family
+[   10.166172] clocksource: Switched to clocksource MIPS
+[   13.030713] NET: Registered PF_INET protocol family
+[   13.071175] IP idents hash table entries: 2048 (order: 2, 16384 bytes, linear)
+[   13.222338] tcp_listen_portaddr_hash hash table entries: 512 (order: 0, 4096 bytes, linear)
+[   13.238806] Table-perturb hash table entries: 65536 (order: 6, 262144 bytes, linear)
+[   13.251883] TCP established hash table entries: 1024 (order: 0, 4096 bytes, linear)
+[   13.269307] TCP bind hash table entries: 1024 (order: 2, 16384 bytes, linear)
+[   13.287191] TCP: Hash tables configured (established 1024 bind 1024)
+[   13.377908] MPTCP token hash table entries: 256 (order: 0, 4096 bytes, linear)
+[   13.438196] UDP hash table entries: 256 (order: 1, 8192 bytes, linear)
+[   13.451331] UDP-Lite hash table entries: 256 (order: 1, 8192 bytes, linear)
+[   13.621400] NET: Registered PF_UNIX/PF_LOCAL protocol family
+[   13.633651] PCI: CLS 0 bytes, default 16
+[   17.782587] workingset: timestamp_bits=14 max_order=14 bucket_order=0
+[   18.536870] squashfs: version 4.0 (2009/01/31) Phillip Lougher
+[   18.546710] jffs2: version 2.2 (NAND) (SUMMARY) (LZMA) (RTIME) (CMODE_PRIORITY) (c) 2001-2006 Red Hat, Inc.
+[   21.695722] irq_bcm7120_l2: registered BCM3380 L2 intc (/ubus/periph_intc@14e00048, parent IRQ(s): 1)
+[   21.739429] irq_bcm7120_l2: registered BCM3380 L2 intc (/ubus/cmips_intc@151f8048, parent IRQ(s): 1)
+[   21.789415] irq_bcm7120_l2: registered BCM3380 L2 intc (/ubus/iop_intc@14e00050, parent IRQ(s): 1)
+[   22.037935] 14e00500.serial: ttyS0 at MMIO 0x14e00500 (irq = 8, base_baud = 1687500) is a bcm63xx_uart
+[   22.054210] printk: legacy console [ttyS0] enabled
+[   22.054210] printk: legacy console [ttyS0] enabled
+[   22.069777] printk: legacy bootconsole [bcm63xx_uart0] disabled
+[   22.069777] printk: legacy bootconsole [bcm63xx_uart0] disabled
+[   23.922249] bcm6368_nand 14e02200.nand: timeout waiting for command 0x9
+[   23.933516] bcm6368_nand 14e02200.nand: intfc status c0000000
+[   23.943171] nand: No NAND device found
+[   24.306689] bcmgenet 12c02600.ethernet: GENET 1.0 EPHY: 0x0c01
+[   24.317163] bcmgenet 12c02600.ethernet: TC7200U RESV map phys=0x01680000 virt=a1680000 size=0x1000
+[   24.333468] bcmgenet 12c02600.ethernet: using random Ethernet MAC
+[   24.349659] bcmgenet 12c02600.ethernet: unable to find MDIO bus node
+[   24.462112] unimac-mdio unimac-mdio.-19: Broadcom UniMAC MDIO bus
+[   34.589972] NET: Registered PF_INET6 protocol family
+[   35.151932] Segment Routing with IPv6
+[   35.172658] In-situ OAM (IOAM) with IPv6
+[   35.196654] NET: Registered PF_PACKET protocol family
+[   35.231644] 8021q: 802.1Q VLAN Support v1.8
+[   39.992987] clk: Disabling unused clocks
+[   40.000338] PM: genpd: Disabling unused power domains
+[   41.580049] Freeing unused kernel image (initmem) memory: 12252K
+[   41.589879] This architecture does not have kernel memory protection.
+[   41.600186] Run /init as init process
+[   75.802175] init: Console is alive
+[   76.482784] kmodloader: loading kernel modules from /etc/modules-boot.d/*
+[   76.662072] kmodloader: done loading kernel modules from /etc/modules-boot.d/*
+[   76.773060] init: - preinit -
+[  104.080792] random: crng init done
+[  134.893321] bcmgenet 12c02600.ethernet: configuring instance for external RGMII (no delay)
+[  134.972973] bcmgenet 12c02600.ethernet eth0: Link is Up - 1Gbps/Full - flow control off
+[  135.060718] bcmgenet 12c02600.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=154 mapping=0x06836002 len_stat=0x009aefc0 bd_addr=b2c05600 ring=16 write_ptr=1 prod=0 free=256
+[  135.086984] bcmgenet 12c02600.ethernet eth0: TC7200U RESVTX i=0 size=154 virt=a1680000 dma=0x01680000 low20=0x80000 len_stat=0x009aefc0
+[  135.106960] bcmgenet 12c02600.ethernet eth0: TC7200U ADDRDBG i=0 skb_data=86836002 dma=0x01680000 dma_low20=0x80000 dma_mask=0xffffffff coh_mask=0xffffffff bus_limit=0x0 range_map=00000000
+[  135.131780] bcmgenet 12c02600.ethernet eth0: TC7200U DESCRB i=0 wrote_len=0x009aefc0 wrote_map=0x01680000 rb_len=0xb2c05600 rb_addr=0xb2c05600 bd_addr=b2c05600
+[  137.916386] bcmgenet 12c02600.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2760 ms
+[  137.931499] bcmgenet 12c02600.ethernet eth0: TC7200U RAWCFG timeout clk_low=0x960f6fc3 clk_high=0xfffff9ff clk_ubus=0xffffffff reset_low=0xffffffff reset_high=0xffffffff gpio_c4=0xda492010 gpio_c8=0x00824936 gmac_238=0x00000132 gmac_5a0=0x005f2faa sys_rev=0x00000c01 sys_port=0x00000001 ext_pwr=0x00000000 rgmii=0x00010011 umac_hd=0x806463c8 umac_cmd=0x868f0000 max_frame=0x00000000 tx_flush=0x00000000 mib_ctrl=0x00000000
+[  137.983816] bcmgenet 12c02600.ethernet eth0: TC7200U RAWBUF timeout rbuf_ctrl=0x00000000 rbuf_flush=0x00000000 rbuf_status=0x00000000 rbuf_chk=0x00000000 tbuf_ctrl=0x00000000 tbuf_bp=0x00000000 tbuf_size=0x00000000
+[  138.013170] bcmgenet 12c02600.ethernet eth0: TC7200U RAWDMA timeout rdma_cfg=0x8680dbd8 rdma_ctrl=0xb2c02600 rdma_stat=0xb2c02600 rdma_scb=0xb2c02600 rdma_arb=0x868f0000 tdma_cfg=0x80596ae0 tdma_ctrl=0x00000000 tdma_stat=0xffffbff8 tdma_scb=0x00000000 tdma_arb=0x00000001 r16_read=0x86246798 r16_cons=0xb2c05e04 r16_prod=0xb2c05e08 r16_size=0xb2c05e0c r16_start=0xb2c05e10 r16_end=0xb2c05e14 r16_mbuf=0xb2c05e18 r16_flow=0xb2c05e1c r16_write=0xb2c05e20 desc0_len=0xb2c05600 desc0_addr=0xb2c05600 desc1_len=0xb2c05600 desc1_addr=0xb2c05600
+[  138.080235] bcmgenet 12c02600.ethernet eth0: TC7200U TXPOLL before_reclaim periph_stat=0x40000004 periph_mask=0x00002010 intr0_stat=0x00010003 intr0_mask=0x00000000 intr1_stat=0x00000000 intr1_mask=0x00008100 tdma_ctrl=0x00003000 tdma_stat=0x00000800 sw_prod=1 sw_c=0 hw_p=9728 hw_c=24068 free_bds=255 clean=0 write=1
+[  138.121112] bcmgenet 12c02600.ethernet eth0: TC7200U TXPOLL after_reclaim periph_stat=0x40000004 periph_mask=0x00002010 intr0_stat=0x00010003 intr0_mask=0x00000000 intr1_stat=0x00000000 intr1_mask=0x00008100 tdma_ctrl=0x00003000 tdma_stat=0x00000800 sw_prod=1 sw_c=1 hw_p=9728 hw_c=24068 free_bds=256 clean=1 write=1
+[  138.166072] bcmgenet 12c02600.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=150 mapping=0x068f8782 len_stat=0x0096efc0 bd_addr=b2c05608 ring=16 write_ptr=2 prod=1 free=256
+[  138.189886] bcmgenet 12c02600.ethernet eth0: TC7200U RESVTX i=0 size=150 virt=a1680000 dma=0x01680000 low20=0x80000 len_stat=0x0096efc0
+[  138.208873] bcmgenet 12c02600.ethernet eth0: TC7200U ADDRDBG i=0 skb_data=868f8782 dma=0x01680000 dma_low20=0x80000 dma_mask=0xffffffff coh_mask=0xffffffff bus_limit=0x0 range_map=00000000
+[  138.233829] bcmgenet 12c02600.ethernet eth0: TC7200U DESCRB i=0 wrote_len=0x0096efc0 wrote_map=0x01680000 rb_len=0xb2c05608 rb_addr=0xb2c05608 bd_addr=b2c05608
+[  138.256793] bcmgenet 12c02600.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=154 mapping=0x06e07002 len_stat=0x009aefc0 bd_addr=b2c05610 ring=16 write_ptr=3 prod=2 free=255
+[  138.280621] bcmgenet 12c02600.ethernet eth0: TC7200U RESVTX i=0 size=154 virt=a1680000 dma=0x01680000 low20=0x80000 len_stat=0x009aefc0
+[  138.301005] bcmgenet 12c02600.ethernet eth0: TC7200U ADDRDBG i=0 skb_data=86e07002 dma=0x01680000 dma_low20=0x80000 dma_mask=0xffffffff coh_mask=0xffffffff bus_limit=0x0 range_map=00000000
+[  138.327012] bcmgenet 12c02600.ethernet eth0: TC7200U DESCRB i=0 wrote_len=0x009aefc0 wrote_map=0x01680000 rb_len=0xb2c05610 rb_addr=0xb2c05610 bd_addr=b2c05610
+Press the [f] key and hit [enter] to enter failsafe mode
+[  140.948014] bcmgenet 12c02600.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=154 mapping=0x06e05002 len_stat=0x009aefc0 bd_addr=b2c05618 ring=16 write_ptr=4 prod=3 free=49653
+[  140.972135] bcmgenet 12c02600.ethernet eth0: TC7200U RESVTX i=0 size=154 virt=a1680000 dma=0x01680000 low20=0x80000 len_stat=0x009aefc0
+[  140.992575] bcmgenet 12c02600.ethernet eth0: TC7200U ADDRDBG i=0 skb_data=86e05002 dma=0x01680000 dma_low20=0x80000 dma_mask=0xffffffff coh_mask=0xffffffff bus_limit=0x0 range_map=00000000
+[  141.018637] bcmgenet 12c02600.ethernet eth0: TC7200U DESCRB i=0 wrote_len=0x009aefc0 wrote_map=0x01680000 rb_len=0xb2c05618 rb_addr=0xb2c05618 bd_addr=b2c05618
+[  141.040248] bcmgenet 12c02600.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=154 mapping=0x06e06002 len_stat=0x009aefc0 bd_addr=b2c05620 ring=16 write_ptr=5 prod=4 free=49652
+[  141.066674] bcmgenet 12c02600.ethernet eth0: TC7200U RESVTX i=0 size=154 virt=a1680000 dma=0x01680000 low20=0x80000 len_stat=0x009aefc0
+[  141.086637] bcmgenet 12c02600.ethernet eth0: TC7200U ADDRDBG i=0 skb_data=86e06002 dma=0x01680000 dma_low20=0x80000 dma_mask=0xffffffff coh_mask=0xffffffff bus_limit=0x0 range_map=00000000
+[  141.111664] bcmgenet 12c02600.ethernet eth0: TC7200U DESCRB i=0 wrote_len=0x009aefc0 wrote_map=0x01680000 rb_len=0xb2c05620 rb_addr=0xb2c05620 bd_addr=b2c05620
+[  141.135618] bcmgenet 12c02600.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=134 mapping=0x068f8c82 len_stat=0x0086efc0 bd_addr=b2c05628 ring=16 write_ptr=6 prod=5 free=49651
+[  141.159712] bcmgenet 12c02600.ethernet eth0: TC7200U RESVTX i=0 size=134 virt=a1680000 dma=0x01680000 low20=0x80000 len_stat=0x0086efc0
+[  141.178935] bcmgenet 12c02600.ethernet eth0: TC7200U ADDRDBG i=0 skb_data=868f8c82 dma=0x01680000 dma_low20=0x80000 dma_mask=0xffffffff coh_mask=0xffffffff bus_limit=0x0 range_map=00000000
+[  141.203783] bcmgenet 12c02600.ethernet eth0: TC7200U DESCRB i=0 wrote_len=0x0086efc0 wrote_map=0x01680000 rb_len=0xb2c05628 rb_addr=0xb2c05628 bd_addr=b2c05628
+[  141.226622] bcmgenet 12c02600.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=134 mapping=0x068f8f02 len_stat=0x0086efc0 bd_addr=b2c05630 ring=16 write_ptr=7 prod=6 free=49650
+[  141.250903] bcmgenet 12c02600.ethernet eth0: TC7200U RESVTX i=0 size=134 virt=a1680000 dma=0x01680000 low20=0x80000 len_stat=0x0086efc0
+[  141.689310] bcmgenet 12c02600.ethernet eth0: TC7200U RESVTX i=0 size=1107 virt=a1680000 dma=0x01680000 low20=0x80000 len_stat=0x0453efd0
+Press the [1], [2], [3] or [4] key and hit [enter] to select the debug level
+[  143.916749] bcmgenet 12c02600.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2210 ms
+[  143.931757] bcmgenet 12c02600.ethernet eth0: TC7200U RAWCFG timeout clk_low=0x960f6fc3 clk_high=0xfffff9ff clk_ubus=0xffffffff reset_low=0xffffffff reset_high=0xffffffff gpio_c4=0xda492010 gpio_c8=0x00824936 gmac_238=0x00000132 gmac_5a0=0x005f2faa sys_rev=0x00000c01 sys_port=0x00000001 ext_pwr=0x00000000 rgmii=0x00010011 umac_hd=0x806463c8 umac_cmd=0x868f0000 max_frame=0x00000000 tx_flush=0x00000000 mib_ctrl=0x00000000
+[  143.984089] bcmgenet 12c02600.ethernet eth0: TC7200U RAWBUF timeout rbuf_ctrl=0x00000000 rbuf_flush=0x00000000 rbuf_status=0x00000000 rbuf_chk=0x00000000 tbuf_ctrl=0x00000000 tbuf_bp=0x00000000 tbuf_size=0x00000000
+[  144.013293] bcmgenet 12c02600.ethernet eth0: TC7200U RAWDMA timeout rdma_cfg=0x8680dbd8 rdma_ctrl=0xb2c02600 rdma_stat=0xb2c02600 rdma_scb=0xb2c02600 rdma_arb=0x868f0000 tdma_cfg=0x80596ae0 tdma_ctrl=0x00000000 tdma_stat=0xffffc250 tdma_scb=0x00000001 tdma_arb=0x00000003 r16_read=0x86246798 r16_cons=0xb2c05e04 r16_prod=0xb2c05e08 r16_size=0xb2c05e0c r16_start=0xb2c05e10 r16_end=0xb2c05e14 r16_mbuf=0xb2c05e18 r16_flow=0xb2c05e1c r16_write=0xb2c05e20 desc0_len=0xb2c05600 desc0_addr=0xb2c05600 desc1_len=0xb2c05600 desc1_addr=0xb2c05600
+[  144.080407] bcmgenet 12c02600.ethernet eth0: TC7200U TXPOLL before_reclaim periph_stat=0x40000004 periph_mask=0x00002010 intr0_stat=0x00010003 intr0_mask=0x00000000 intr1_stat=0x00000000 intr1_mask=0x00008100 tdma_ctrl=0x00003000 tdma_stat=0x00000800 sw_prod=8 sw_c=49531 hw_p=9728 hw_c=24068 free_bds=49779 clean=123 write=8
+[  144.279339] bcmgenet 12c02600.ethernet eth0: TC7200U TXPOLL after_reclaim periph_stat=0x40000004 periph_mask=0x00002010 intr0_stat=0x00010003 intr0_mask=0x00000000 intr1_stat=0x00000000 intr1_mask=0x00008100 tdma_ctrl=0x00003000 tdma_stat=0x00000800 sw_prod=8 sw_c=3 hw_p=9728 hw_c=24068 free_bds=65787 clean=3 write=8
+[  145.183531] bcmgenet 12c02600.ethernet eth0: TC7200U RESVTX i=0 size=1107 virt=a1680000 dma=0x01680000 low20=0x80000 len_stat=0x0453efd0
+[  147.596624] net_ratelimit: 8 callbacks suppressed
+[  147.597916] bcmgenet 12c02600.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=134 mapping=0x068f8f02 len_stat=0x0086efc0 bd_addr=b2c05648 ring=16 write_ptr=10 prod=9 free=65786
+[  147.629310] bcmgenet 12c02600.ethernet eth0: TC7200U RESVTX i=0 size=134 virt=a1680000 dma=0x01680000 low20=0x80000 len_stat=0x0086efc0
+[  147.648307] bcmgenet 12c02600.ethernet eth0: TC7200U ADDRDBG i=0 skb_data=868f8f02 dma=0x01680000 dma_low20=0x80000 dma_mask=0xffffffff coh_mask=0xffffffff bus_limit=0x0 range_map=00000000
+[  147.673282] bcmgenet 12c02600.ethernet eth0: TC7200U DESCRB i=0 wrote_len=0x0086efc0 wrote_map=0x01680000 rb_len=0xb2c05648 rb_addr=0xb2c05648 bd_addr=b2c05648
+[  148.043848] bcmgenet 12c02600.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=1107 mapping=0x06e05002 len_stat=0x0453efd0 bd_addr=b2c05650 ring=16 write_ptr=11 prod=10 free=65785
+[  148.069790] bcmgenet 12c02600.ethernet eth0: TC7200U RESVTX i=0 size=1107 virt=a1680000 dma=0x01680000 low20=0x80000 len_stat=0x0453efd0
+[  148.089102] bcmgenet 12c02600.ethernet eth0: TC7200U ADDRDBG i=0 skb_data=86e05002 dma=0x01680000 dma_low20=0x80000 dma_mask=0xffffffff coh_mask=0xffffffff bus_limit=0x0 range_map=00000000
+[  148.113926] bcmgenet 12c02600.ethernet eth0: TC7200U DESCRB i=0 wrote_len=0x0453efd0 wrote_map=0x01680000 rb_len=0xb2c05650 rb_addr=0xb2c05650 bd_addr=b2c05650
+[  150.956394] bcmgenet 12c02600.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2820 ms
+[  150.971183] bcmgenet 12c02600.ethernet eth0: TC7200U RAWCFG timeout clk_low=0x960f6fc3 clk_high=0xfffff9ff clk_ubus=0xffffffff reset_low=0xffffffff reset_high=0xffffffff gpio_c4=0xda492010 gpio_c8=0x00824936 gmac_238=0x00000132 gmac_5a0=0x005f2faa sys_rev=0x00000c01 sys_port=0x00000001 ext_pwr=0x00000000 rgmii=0x00010011 umac_hd=0x806463c8 umac_cmd=0x868f0000 max_frame=0x00000000 tx_flush=0x00000000 mib_ctrl=0x00000000
+[  151.022676] bcmgenet 12c02600.ethernet eth0: TC7200U RAWBUF timeout rbuf_ctrl=0x00000000 rbuf_flush=0x00000000 rbuf_status=0x00000000 rbuf_chk=0x00000000 tbuf_ctrl=0x00000000 tbuf_bp=0x00000000 tbuf_size=0x00000000
+[  151.051231] bcmgenet 12c02600.ethernet eth0: TC7200U RAWDMA timeout rdma_cfg=0x8680dbd8 rdma_ctrl=0xb2c02600 rdma_stat=0xb2c02600 rdma_scb=0xb2c02600 rdma_arb=0x868f0000 tdma_cfg=0x80596ae0 tdma_ctrl=0x00000000 tdma_stat=0xffffc510 tdma_scb=0x00000000 tdma_arb=0x00000001 r16_read=0x86246798 r16_cons=0xb2c05e04 r16_prod=0xb2c05e08 r16_size=0xb2c05e0c r16_start=0xb2c05e10 r16_end=0xb2c05e14 r16_mbuf=0xb2c05e18 r16_flow=0xb2c05e1c r16_write=0xb2c05e20 desc0_len=0xb2c05600 desc0_addr=0xb2c05600 desc1_len=0xb2c05600 desc1_addr=0xb2c05600
+[  151.116368] bcmgenet 12c02600.ethernet eth0: TC7200U TXPOLL before_reclaim periph_stat=0x40000004 periph_mask=0x00002010 intr0_stat=0x00010003 intr0_mask=0x00000000 intr1_stat=0x00000000 intr1_mask=0x00008100 tdma_ctrl=0x00003000 tdma_stat=0x00000800 sw_prod=11 sw_c=3 hw_p=9728 hw_c=24068 free_bds=65784 clean=3 write=11
+[  151.777759] bcmgenet 12c02600.ethernet eth0: TC7200U TXPOLL after_reclaim periph_stat=0x40000004 periph_mask=0x00002010 intr0_stat=0x00010003 intr0_mask=0x00000000 intr1_stat=0x00000000 intr1_mask=0x00008100 tdma_ctrl=0x00003000 tdma_stat=0x00000800 sw_prod=11 sw_c=1 hw_p=9728 hw_c=24068 free_bds=131318 clean=1 write=11
+[  151.820746] bcmgenet 12c02600.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=1107 mapping=0x06e07002 len_stat=0x0453efd0 bd_addr=b2c05658 ring=16 write_ptr=12 prod=11 free=131318
+[  151.846850] bcmgenet 12c02600.ethernet eth0: TC7200U RESVTX i=0 size=1107 virt=a1680000 dma=0x01680000 low20=0x80000 len_stat=0x0453efd0
+[  151.866881] bcmgenet 12c02600.ethernet eth0: TC7200U ADDRDBG i=0 skb_data=86e07002 dma=0x01680000 dma_low20=0x80000 dma_mask=0xffffffff coh_mask=0xffffffff bus_limit=0x0 range_map=00000000
+[  151.891838] bcmgenet 12c02600.ethernet eth0: TC7200U DESCRB i=0 wrote_len=0x0453efd0 wrote_map=0x01680000 rb_len=0xb2c05658 rb_addr=0xb2c05658 bd_addr=b2c05658
+[  159.340797] bcmgenet 12c02600.ethernet eth0: Link is Down
+[  160.410665] procd: - early -
+[  163.752525] procd: - ubus -
+[  166.268411] procd: - init -
+Please press Enter to activate this console.
+[  186.138832] do_page_fault(): sending SIGSEGV to ubus for invalid read access from 10003328
+[  186.152316] epc = 555de030 in ubus[1030,555dd000+3000]
+[  186.163137] ra  = 77dd156c in libc.so[a556c,77d2c000+b9000]
+[  204.102366] kmodloader: loading kernel modules from /etc/modules.d/*
+[  204.730097] PPP generic driver version 2.4.2
+[  204.989378] NET: Registered PF_PPPOX protocol family
+[  205.403557] kmodloader: done loading kernel modules from /etc/modules.d/*
+[  317.148302] do_page_fault(): sending SIGSEGV to ubus for invalid read access from 10003328
+[  317.162262] epc = 555bb030 in ubus[1030,555ba000+3000]
+[  317.173081] ra  = 77e6556c in libc.so[a556c,77dc0000+b9000]
+[  354.501538] do_page_fault(): sending SIGSEGV to ubus for invalid read access from 10003328
+[  354.516381] epc = 55565030 in ubus[1030,55564000+3000]
+[  354.527415] ra  = 77ec556c in libc.so[a556c,77e20000+b9000]
+[  419.368620] do_page_fault(): sending SIGSEGV to ubus for invalid read access from 10003328
+[  419.382011] epc = 5555b030 in ubus[1030,5555a000+3000]
+[  419.392835] ra  = 77df956c in libc.so[a556c,77d54000+b9000]
+[  423.020379] do_page_fault(): sending SIGSEGV to ubus for invalid read access from 10003328
+[  423.033611] epc = 5564b030 in ubus[1030,5564a000+3000]
+[  423.045649] ra  = 77dcd56c in libc.so[a556c,77d28000+b9000]
+[  427.879959] do_page_fault(): sending SIGSEGV to ubus for invalid read access from 10003328
+[  427.893188] epc = 55631030 in ubus[1030,55630000+3000]
+[  427.904223] ra  = 77ec556c in libc.so[a556c,77e20000+b9000]
