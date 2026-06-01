@@ -249,3 +249,27 @@ Validated with `mips-linux-gnu-objdump -EB` and Ghidra (`MIPS:BE:32`, base `0x80
   - Iterates candidate blocks, checking validity/readability (`0x803f6c64`, `0x803f6398`, `0x803f62a0`).
   - Returns candidate address in `v0` on success (`move v0,v1` with nonzero `v1`).
   - Returns `0` on failure (`move v1,zero` -> `move v0,v1`).
+
+## 2026-06-01 correction: fn_enet_gmac_init_step2 / 0x12c00070
+
+Runtime OpenWrt probe after GMAC init showed:
+
+```text
+0x12c00070 0x00030003
+```
+
+Correction: earlier reading of `0x12c00070 |= 0x00003000` is likely wrong or incomplete. Treat the observed GMAC init effect as:
+
+```text
+0x12c00070 |= 0x00030000
+0x12c00070 |= 0x00000003
+final observed: 0x00030003
+```
+
+Also confirmed sticky runtime write:
+
+```text
+0x14e000ec |= 0x00000100
+```
+
+Do not patch from this alone yet. Confirm against `fn_enet_gmac_init_step2` instruction immediates and fresh-boot pre-eth0-up register state.
