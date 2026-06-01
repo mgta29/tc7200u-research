@@ -83,13 +83,12 @@
     "TC7200U_PACKAGE_PROFILE": "Use fastboot by default; set debug for the larger diagnostics profile."
   },
   "git": {
-    "branch_policy": "Main-repo-only by default. Stay in ~/tc7200u-research on main/origin/main; do not create or switch branches unless the user explicitly asks.",
+    "branch_policy": "Use the current research branch unless the user asks to switch.",
     "before_work": "Run git status --short --branch and preserve existing dirty worktree content.",
     "moves": "Use git mv for tracked path moves when practical.",
     "verification": "Run relevant helper checks, JSON validation, markdown/path audits, and git diff --cached --check before committing.",
     "commit": "After verified work, run git add -A and create a local commit with a direct research-focused message.",
-    "push": "Never push unless the user explicitly asks for a push.",
-    "worktree_policy": "Do not use git worktree, side trees, side clones, or separate scratch repositories unless the user explicitly asks."
+    "push": "Never push unless the user explicitly asks for a push."
   },
   "current_focus": {
     "platform": "Technicolor TC7200.U / BCM3383",
@@ -100,9 +99,5 @@
     ],
     "blocker": "BCM3383 GENET at 0x12c00000 probes and queues TX frames, but TDMA does not consume descriptors and RX remains zero.",
     "next_action": "Continue kernel-side GENET descriptor width, DMA window, and clock/reset probing before switch integration."
-  },
-  "rules": {
-    "log_retention": "NO DELETING OLD LOGS. Preserve existing logs and create new dated logs/records instead of overwriting or removing prior evidence.",
-    "single_repo_policy": "Use only the main tc7200u-research repository: local ~/tc7200u-research and online origin/main. Do not create side repositories, side clones, alternate trees, worktrees, or branch-based workflows unless the user explicitly asks."
   }
 }
