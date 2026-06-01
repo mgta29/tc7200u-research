@@ -1,13 +1,14 @@
 # TC7200U OpenWrt Bring-Up Status
 
-Last updated: 2026-05-31 (afternoon).
+Last updated: 2026-06-01 (evening).
 
 ## Current State
 
 This project can boot OpenWrt from CFE/TFTP and reach a serial shell on the
-Technicolor TC7200.U / BCM3383 platform on the known-good baseline. A newer
-build that includes ISP-firmware-informed changes currently regressed to a
-userspace panic; Ethernet remains the active blocker after baseline recovery.
+Technicolor TC7200.U / BCM3383 platform on the known-good baseline. Newer
+payload families built from the current mutable `openwrt-r34427` tree are
+still regressing to `init` SIGSEGV panic. Ethernet remains the active blocker
+after baseline recovery.
 
 ## Working
 
@@ -48,12 +49,34 @@ Recent known-good OpenWrt A825 boot:
   - `procd: - init -`
   - `Please press Enter to activate this console.`
 
+Pinned known-good payload family (do not mix with newer test payloads):
+
+- Header/file markers from successful runs:
+  - `Load Address: 80004000`
+  - `File Length: 6417987 bytes`
+  - `Linux version ... #0 SMP Sun May 17 18:30:33 2026`
+- Source lineage:
+  - wrapped from `openwrt-ps-irqfallback.bin` payload (`raw_sha256`
+    `a17f022f1ef947ee16f60f0481f315fc399278ca574fb73c6ddcf548efbe0deb`)
+  - see `records/logs/builds/2026-05-31-083754-verify.log`
+
 ## Not Working
 
 - Ethernet is not passing packets.
 - Newer test build with ISP-informed changes regressed to userspace panic:
   `records/logs/serial/picocom-20260531-095452.log`
   (`Gate B FAIL`, `Gate E FAIL`).
+- Current failing family (still reproducing on 2026-06-01):
+  - `records/logs/serial/picocom-20260531-215656.log`
+  - `records/logs/serial/picocom-20260531-223409.log`
+  - markers:
+    - `Run /init as init process`
+    - `do_page_fault(): sending SIGSEGV to init`
+    - `Kernel panic - not syncing: Attempted to kill init!`
+  - example payload ID:
+    - `tc7200-stage2-r34427-nand-ok-r1.bin`
+    - `raw_sha256 d7251f8429d27521fbe45680306ae2b883d354dacd877b5e238dfb20c7cb1906`
+    - `records/logs/builds/2026-05-31-223226-build-provenance.log`
 - Panic regression markers:
   - `Load Address: 82000000`
   - `Filename: tc7200u-stage2-next.bin`
@@ -149,7 +172,10 @@ not B53/DSA integration.
 1. Finalize wrapper default template to a verified `load=0x80004000` A825
    baseline and keep dynamic output names.
 2. Rebuild BMIPS-only image (not mediatek/other target), wrap, and gate-check.
-3. Only after `Gate E PASS`, resume Ethernet bring-up using the ISP-derived
+3. Pin image identity in every boot report (`filename`, `file_length`,
+   `raw_sha256`, `wrapped_sha256`) and avoid switching payload families
+   between runs.
+4. Only after `Gate E PASS`, resume Ethernet bring-up using the ISP-derived
    GMAC function map (`fn_enet_gmac_init`, `fn_enet_build_core_cmd`,
    `fn_enet_poll_or_wait_ready`) as reference for OpenWrt-side diffs.
 

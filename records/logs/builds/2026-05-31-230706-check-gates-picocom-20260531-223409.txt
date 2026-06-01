@@ -1,0 +1,57 @@
+# TC7200U Gate Report
+
+generated_at=2026-05-31T23:07:06+02:00
+log_path=/home/mgta29/tc7200u-research/records/logs/serial/picocom-20260531-223409.log
+report_path=/home/mgta29/tc7200u-research/records/logs/builds/2026-05-31-230706-check-gates-picocom-20260531-223409.txt
+
+## Log metadata
+-rw-r--r-- 1 root root 17K 2026-05-31 23:06 /home/mgta29/tc7200u-research/records/logs/serial/picocom-20260531-223409.log
+0e4221b82ed501bb7fcf56a27f3b672af174f7b0cd46b8def8e7856e7b0824cb  /home/mgta29/tc7200u-research/records/logs/serial/picocom-20260531-223409.log
+
+## Marker counts
+tftp_complete=1
+signature_a825=1
+executing_image4=1
+exceptions=0
+decompression_failed=0
+nand_fail_no_replacement=0
+nand_out_of_order=0
+hs_getmsg_error=0
+hs_unexpected_error=0
+unhandled_message_lines=0
+handshake_msg_lines=0
+cfe_banner_lines=0
+openwrt_loader_lines=1
+openwrt_decompress_kernel_lines=1
+warning_initial_console_lines=0
+kernel_panic_lines=1
+panic_init_kill_lines=1
+procd_init_lines=0
+press_enter_lines=0
+busybox_shell_lines=0
+build_warning_lines=0
+build_error_lines=0
+build_patch_fail_lines=0
+build_target_time_lines=0
+executing_image4_line=196
+
+## Gate verdicts
+Gate A:  PASS (accepted)
+Gate B:  FAIL
+Gate C:  PASS (clean)
+Gate D:  PASS
+Gate E:  FAIL (userspace_console_failed)
+
+## Boot/runtime key lines
+201:OpenWrt kernel loader for BMIPS
+205:Decompressing kernel... done!
+207:Starting kernel at 80010000...
+209:[    0.000000] Linux version 6.12.87 (mgta29@CerberusNB) (mips-openwrt-linux-musl-gcc (OpenWrt GCC 14.3.0 r34427-6865d489d2) 14.3.0, GNU ld (GNU Binutils) 2.44) #0 SMP Tue May 12 23:59:29 2026
+232:[    0.000000] Kernel command line: console=ttyS0,115200 earlycon
+299:[  653.361981] Run /init as init process
+300:[  712.351303] do_page_fault(): sending SIGSEGV to init for invalid write access to 7f322ffc
+303:[  712.390947] Kernel panic - not syncing: Attempted to kill init! exitcode=0x0000000b
+304:[  712.402165] Rebooting in 1 seconds..
+305:[  714.376561] Reboot failed -- System halted
+
+## Build key lines
