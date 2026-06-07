@@ -1,0 +1,212 @@
+þ
+BCM3383A2 
+Sync: 0 
+MemSize:            128 M
+Chip ID:     BCM3383Z-B0
+
+BootLoader Version: 2.4.0alpha18p1 Pre-release Gnu spiboot dual-flash reduced DDR drive linux
+Build Date: Aug 14 2012
+Build Time: 09:48:58
+SPI flash ID 0xc22014, size 1MB, block size 64KB, write buffer 256, flags 0x0
+NAND flash: Device size 64 MB, Block size 16 KB, Page size 512 B
+Cust key size 128
+parameter offset is 43872
+
+Signature/PID: a825
+
+Board IP Address  [192.168.77.1]:      
+Board IP Mask     [255.255.255.0]:     
+Board IP Gateway  [0.0.0.0]:           
+Board MAC Address [00:c0:05:00:00:a8]: 
+
+Internal/External phy? (e/i/a)[a] 
+Switch detected: 53125
+ProbePhy: Found PHY 0, MDIO on MAC 0, data on MAC 0
+Using GMAC0, phy 0
+
+Enet link up: 1G full
+
+
+Main Menu:
+==========
+  b) Boot from flash
+  c) Check DRAM
+  g) Download and run from RAM
+  d) Download and save to flash
+  e) Erase flash sector
+  m) Set mode
+  s) Store bootloader parameters to flash
+  i) Re-init ethernet
+  r) Read memory
+  w) Write memory
+  j) Jump to arbitrary address
+  p) Print flash partition map
+  E) Erase flash region/partition
+  X) Erase all of flash except the bootloader
+  z) Reset
+
+TFTP Get Selected
+Board TFTP Server IP Address [192.168.77.2]:  
+Enter filename [tc7200-stage2-console-good.bin]: tc7200-stage2-console-good-gmac-r1.bin
+
+
+Destination: a5f00000
+
+Destination: a5f00000
+Starting TFTP of tc7200-stage2-console-good-gmac-r1.bin from 192.168.77.2
+Getting tc7200-stage2-console-good-gmac-r1.bin using octet mode
+Received packet for invalid session...
+..................................................................................Received packet for invalid session...
+.....................................................................................................................................Received packet for invalid session...
+...................................................................................................................................Received packet for invalid session...
+.................................................................................................................................................................................................................................................................................Received packet for invalid session...
+.................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+............................................................................................................................Received packet for invalid session...
+.Received packet for invalid session...
+..........................................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+................................................................Received packet for invalid session...
+......................Received packet for invalid session...
+...................................................Received packet for invalid session...
+........................................................................................................................Received packet for invalid session...
+............Received packet for invalid session...
+................................................................................................................................................................................................................................................................................Received packet for invalid session...
+......................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................Received packet for invalid session...
+.........................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
+Tftp complete
+Received 7372502 bytes
+
+Image 3 Program Header:
+   Signature: a825
+     Control: 0000
+   Major Rev: 0100
+   Minor Rev: 04ff
+  Build Time: 2026/5/18 20:22:53 Z
+ File Length: 7372410 bytes
+Load Address: 82000000
+    Filename: tc7200-stage2-console-good-gmac-r1.bin
+         HCS: 864f
+         CRC: 00000000
+
+Store parameters to flash? [n] y
+Erasing sector at 00000000...SpiFlashWrite: Writing flash at 00000000
+Bypassing CRC Verifiction on Image 4...
+CRC time = 315
+Loading non-compressed image 4...
+Target Address: 0x82000000
+Length: 7372410
+Reading flash map at ff30, size 192
+Flash map erased in SPI flash.
+Writing flash map at ff30, size 192
+SpiFlashWrite: Writing flash at 0000ff30
+Copying partition table to 0x83fffc04 180
+Copying partition table to 0x80000904 180
+
+Executing Image 4...
+
+
+
+
+OpenWrt kernel loader for BMIPS
+Copyright (C) 2011 Gabor Juhos <juhosg@openwrt.org>
+Copyright (C) 2014 Jonas Gorski <jogo@openwrt.org>
+Copyright (C) 2020 Alvaro Fernandez Rojas <noltari@gmail.com>
+Decompressing kernel... done!
+blasting from 0x80010000 to 0x00eb78ff (0x80010000 - 0x80ec7900)
+Starting kernel at 80010000...
+
+[    0.000000] Linux version 6.12.91 (mgta29@CerberusNB) (mips-openwrt-linux-musl-gcc (OpenWrt GCC 14.3.0 r34703-aa96b3ad55) 14.3.0, GNU ld (GNU Binutils) 2.44) #0 SMP Sat May 30 09:20:25 2026
+[    0.000000] CPU0 revision is: 0002a080 (Broadcom BMIPS4350)
+[    0.000000] MIPS: machine is Technicolor TC7200.U
+[    0.000000] earlycon: bcm63xx_uart0 at MMIO 0x14e00500 (options '')
+[    0.000000] printk: legacy bootconsole [bcm63xx_uart0] enabled
+[    0.000000] Kernel sections are not in the memory maps
+[    0.000000] Wasting 576 bytes for tracking 16 unused pages
+[    0.000000] Initrd not found or empty - disabling initrd
+[    0.000000] OF: reserved mem: Reserved memory: No reserved-memory node in the DT
+[    0.000000] Primary instruction cache 64kB, VIPT, 4-way, linesize 16 bytes.
+[    0.000000] Primary data cache 32kB, 2-way, VIPT, cache aliases, linesize 16 bytes
+[    0.000000] Zone ranges:
+[    0.000000]   Normal   [mem 0x0000000000010000-0x000000000fffffff]
+[    0.000000] Movable zone start for each node
+[    0.000000] Early memory node ranges
+[    0.000000]   node   0: [mem 0x0000000000010000-0x0000000001007fff]
+[    0.000000]   node   0: [mem 0x0000000006000000-0x0000000007ffffff]
+[    0.000000]   node   0: [mem 0x000000000e000000-0x000000000fffffff]
+[    0.000000] Initmem setup node 0 [mem 0x0000000000010000-0x000000000fffffff]
+[    0.000000] On node 0, zone Normal: 16 pages in unavailable ranges
+[    0.000000] On node 0, zone Normal: 20472 pages in unavailable ranges
+[    0.000000] On node 0, zone Normal: 24576 pages in unavailable ranges
+[    0.000000] percpu: Embedded 12 pages/cpu s19664 r8192 d21296 u49152
+[    0.000000] Kernel command line: console=ttyS0,115200 earlycon
+[    0.000000] Dentry cache hash table entries: 8192 (order: 3, 32768 bytes, linear)
+[    0.000000] Inode-cache hash table entries: 4096 (order: 2, 16384 bytes, linear)
+[    0.000000] Built 1 zonelists, mobility grouping on.  Total pages: 20472
+[    0.000000] mem auto-init: stack:off, heap alloc:off, heap free:off
+[    0.000000] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=1, Nodes=1
+[    0.000000] rcu: Hierarchical RCU implementation.
+[    0.000000] rcu: 	RCU restricting CPUs from NR_CPUS=2 to nr_cpu_ids=1.
+[    0.000000] 	Tracing variant of Tasks RCU enabled.
+[    0.000000] rcu: RCU calculated value of scheduler-enlistment delay is 10 jiffies.
+[    0.000000] rcu: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=1
+[    0.000000] RCU Tasks Trace: Setting shift to 0 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=1.
+[    0.000000] NR_IRQS: 256
+[    0.000000] rcu: srcu_init: Setting srcu_struct sizes based on contention.
+[    0.000000] clocksource: MIPS: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 6370868154 ns
+[    0.000106] sched_clock: 32 bits at 300MHz, resolution 3ns, wraps every 7158278654ns
+[    0.019224] Calibrating delay loop... 4.42 BogoMIPS (lpj=22144)
+[    0.160704] pid_max: default: 32768 minimum: 301
+[    2.905910] Mount-cache hash table entries: 1024 (order: 0, 4096 bytes, linear)
+[    2.917692] Mountpoint-cache hash table entries: 1024 (order: 0, 4096 bytes, linear)
+[    5.039355] rcu: Hierarchical SRCU implementation.
+[    5.046966] rcu: 	Max phase no-delay instances is 1000.
+[    5.151476] smp: Bringing up secondary CPUs ...
+[    5.158796] smp: Brought up 1 node, 1 CPU
+[    5.186726] Memory: 62496K/81888K available (8558K kernel code, 655K rwdata, 1800K rodata, 5108K init, 226K bss, 18772K reserved, 0K cma-reserved)
+[    5.514628] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 19112604462750000 ns
+[    5.530200] futex hash table entries: 256 (order: 2, 16384 bytes, linear)
+[    7.328944] pinctrl core: initialized pinctrl subsystem
+[    8.044803] NET: Registered PF_NETLINK/PF_ROUTE protocol family
+[    8.103591] thermal_sys: Registered thermal governor 'step_wise'
+[   10.175066] clocksource: Switched to clocksource MIPS
+[   13.048090] NET: Registered PF_INET protocol family
+[   13.088771] IP idents hash table entries: 2048 (order: 2, 16384 bytes, linear)
+[   13.235481] tcp_listen_portaddr_hash hash table entries: 512 (order: 0, 4096 bytes, linear)
+[   13.250778] Table-perturb hash table entries: 65536 (order: 6, 262144 bytes, linear)
+[   13.264793] TCP established hash table entries: 1024 (order: 0, 4096 bytes, linear)
+[   13.281489] TCP bind hash table entries: 1024 (order: 2, 16384 bytes, linear)
+[   13.299016] TCP: Hash tables configured (established 1024 bind 1024)
+[   13.390340] MPTCP token hash table entries: 256 (order: 0, 4096 bytes, linear)
+[   13.450372] UDP hash table entries: 256 (order: 1, 8192 bytes, linear)
+[   13.465165] UDP-Lite hash table entries: 256 (order: 1, 8192 bytes, linear)
+[   13.630217] NET: Registered PF_UNIX/PF_LOCAL protocol family
+[   13.648769] PCI: CLS 0 bytes, default 16
+[   17.902512] workingset: timestamp_bits=14 max_order=14 bucket_order=0
+[   18.652837] squashfs: version 4.0 (2009/01/31) Phillip Lougher
+[   18.662663] jffs2: version 2.2 (NAND) (SUMMARY) (LZMA) (RTIME) (CMODE_PRIORITY) (c) 2001-2006 Red Hat, Inc.
+[   22.579147] nand: device found, Manufacturer ID: 0x20, Chip ID: 0x76
+[   22.589709] nand: ST Micro NAND 64MiB 3,3V 8-bit
+[   22.597926] nand: 64 MiB, SLC, erase size: 16 KiB, page size: 512, OOB size: 16
+[   22.611025] bcm6368_nand 14e02200.nand: detected 64MiB total, 16KiB blocks, 512B pages, 16B OOB, 8-bit, Hamming ECC
+[   22.628010] Scanning device for bad blocks
+[  256.889844] random: crng init done
+[  528.244750] NET: Registered PF_INET6 protocol family
+[  528.690677] Segment Routing with IPv6
+[  528.702695] In-situ OAM (IOAM) with IPv6
+[  528.721256] NET: Registered PF_PACKET protocol family
+[  528.747881] 8021q: 802.1Q VLAN Support v1.8
+[  532.488408] bcm63xx_uart 14e00500.serial: probe with driver bcm63xx_uart failed with error -16
+[  532.527278] clk: Disabling unused clocks
+[  532.533177] PM: genpd: Disabling unused power domains
+[  532.543079] Warning: unable to open an initial console.
+[  533.204477] Freeing unused kernel image (initmem) memory: 5108K
+[  533.212927] This architecture does not have kernel memory protection.
+[  533.224750] Run /init as init process
+[  546.666189] do_page_fault(): sending SIGSEGV to cp for invalid write access to 00000000
+[  546.679274] epc = 77e00fa8 in libc.so[34fa8,77dcc000+ba000]
+[  546.691423] ra  = 77e0110c in libc.so[3510c,77dcc000+ba000]
+[  547.188905] do_page_fault(): sending SIGSEGV to switch_root for invalid write access to 00000000
+[  547.203178] epc = 77e517e0 in libc.so[357e0,77e1c000+ba000]
+[  547.216916] ra  = 77e51650 in libc.so[35650,77e1c000+ba000]
+[  547.231635] Kernel panic - not syncing: Attempted to kill init! exitcode=0x0000000b
+[  547.242824] Rebooting in 1 seconds..
+[  549.218715] Reboot failed -- System halted

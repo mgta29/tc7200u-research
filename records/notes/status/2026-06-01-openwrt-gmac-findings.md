@@ -48,3 +48,35 @@
 3. Verify `devmem 0x14e000ec 32` returns `0x00000100` before manual writes.
 4. Verify `0x12c02814` reflects the corrected `0x00000800` style programming, not old `0x00008000`.
 5. Continue investigation in the GENET descriptor/ring path, not top-control reset bits.
+
+## 2026-06-01 build/run record: console-good based update
+
+- Built new candidate from current `~/src/openwrt` tree using the console-good image as ProgramStore preserve template:
+  - output: `/mnt/c/tftp/tc7200-stage2-console-good-gmac-r1.bin`
+  - wrapped sha256: `52f87755bd3c70c161bf2b820b48ff71d09433ddf2492ee66cca1f98845da6fe`
+  - raw sha256: `d26a3c7c82d358acfc79b776772b79636b2b303219ea08b87b176f8f00ce76e0`
+- Preserve-from baseline used:
+  - `/mnt/c/tftp/tc7200-stage2-console-good.bin`
+  - baseline sha256: `a2b9fa164d092387dc0382698cbdff940bb97cce6c41a029ac70c1b357497c4b`
+  - effective wrapped load: `0x82000000`
+- Build and wrap logs:
+  - `records/logs/builds/2026-06-01-220558-build-provenance.log`
+  - `records/logs/builds/2026-06-01-220558-target-linux-install.log`
+  - `records/logs/builds/2026-06-01-220558-wrap.log`
+  - `records/logs/builds/2026-06-01-220558-verify.log`
+- Note: default patch precheck failed for `build-mode=auto/install` due linux tree path mismatch; successful run used `--skip-precheck`:
+  - failure log: `records/logs/builds/2026-06-01-220527-patch-precheck.log`
+
+## 2026-06-01 syncconfig recovery (single-repo flow)
+
+- Failure root-cause confirmed from `records/logs/builds/2026-06-01-223648-target-linux-compile.log`:
+  - Kconfig interactive prompt at `RTC_DRV_BRCMSTB (NEW)` triggered `syncconfig` failure.
+- Recovery applied in single repo (`~/src/openwrt`):
+  - restored TC7200U files from stash (`bcm63268.mk`, TC7200U DTS files, `998-bmips-tc7200u-gmac-init.patch`)
+  - ensured kernel config contains `# CONFIG_RTC_DRV_BRCMSTB is not set`
+- Validation:
+  - `make -j16 target/linux/compile V=s` now exits `0` on commit `6865d489d2` (r34427 lineage).
+- New candidate built from recovered state, preserving console-good wrapper envelope:
+  - output: `/mnt/c/tftp/tc7200-stage2-console-good-gmac-r34427-r2.bin`
+  - build report: `records/logs/builds/2026-06-01-225438-build-provenance.log`
+  - verify log: `records/logs/builds/2026-06-01-225438-verify.log`

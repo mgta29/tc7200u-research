@@ -1,0 +1,30 @@
+=== meta ===
+timestamp_local=2026-06-01 22:06:32 CEST
+cwd=/home/mgta29/src/openwrt
+command=a825_verify --raw /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin --wrapped /mnt/c/tftp/tc7200-stage2-console-good-gmac-r1.bin --expect-load 0x82000000 --expect-name tc7200-stage2-console-good-gmac-r1.bin --expect-signature 0xa825
+=== output ===
+raw=/home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin
+wrapped=/mnt/c/tftp/tc7200-stage2-console-good-gmac-r1.bin
+raw_size=7372410
+wrapped_size=7372502
+signature=0xa825
+expected_signature=0xa825
+control=0x0000
+major=0x0100
+minor=0x04ff
+build_time=0x6a0b751d
+file_length=7372410
+load_address=0x82000000
+filename=tc7200-stage2-console-good-gmac-r1.bin
+expected_name=tc7200-stage2-console-good-gmac-r1.bin
+hcs=0x864f
+expected_hcs=0x864f
+crc=0x00000000
+size_ok=True
+raw_sha256=d26a3c7c82d358acfc79b776772b79636b2b303219ea08b87b176f8f00ce76e0
+wrapped_sha256=52f87755bd3c70c161bf2b820b48ff71d09433ddf2492ee66cca1f98845da6fe
+
+OK: wrapped image matches raw payload and expected header fields
+
+=== exit ===
+exit_code=0

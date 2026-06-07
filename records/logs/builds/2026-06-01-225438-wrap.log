@@ -1,0 +1,22 @@
+=== meta ===
+timestamp_local=2026-06-01 22:55:17 CEST
+cwd=/home/mgta29/src/openwrt
+command=a825_wrap --input /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin --output /mnt/c/tftp/tc7200-stage2-console-good-gmac-r34427-r2.bin --filename tc7200-stage2-console-good-gmac-r34427-r2.bin --preserve-from /mnt/c/tftp/tc7200-stage2-console-good.bin --load-addr 0x82000000
+=== output ===
+payload_size=7372570
+output_size=7372662
+header_size=92
+filename=tc7200-stage2-console-good-gmac-r34427-r2.bin
+control=0x0000
+major=0x0100
+minor=0x04ff
+load_addr=0x82000000
+build_time=0x6a0b751d
+crc32=0x00000000
+preserve_from=/mnt/c/tftp/tc7200-stage2-console-good.bin
+preserve_signature=0xa825
+output=/mnt/c/tftp/tc7200-stage2-console-good-gmac-r34427-r2.bin
+hcs=0xb6fc
+
+=== exit ===
+exit_code=0

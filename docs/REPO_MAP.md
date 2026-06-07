@@ -17,7 +17,6 @@
 - `scripts/tcbuilder.sh`: single helper for build,
   wrap, verify, state capture, package profile setup, serial console logging,
   gate checks, and ProgramStore reverse inspection.
-
 Supporting snippets:
 
 - `scripts/tftp/`: host-side PowerShell snippets for TFTP, packet, route,
@@ -27,9 +26,10 @@ Supporting snippets:
 
 ## Normal Aliases
 
+- `tcbuild`: canonical helper entrypoint; opens the interactive menu in a TTY.
 - `tcresearch`: enter the repo.
 - `tcstatus`: show git and helper status.
-- `tcwrap`: build/wrap/verify.
+- `tcwrap`: build/wrap/verify compatibility mode.
 - `tccheck`: build/wrap/verify compatibility mode.
 - `tcverify`: build/wrap/verify compatibility mode.
 - `tcstate`: capture current build/image state.

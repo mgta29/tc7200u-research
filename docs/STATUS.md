@@ -21,8 +21,13 @@ after baseline recovery.
 - UART RX works when `CONFIG_BCM7120_L2_IRQ=y` is enabled.
 - A825 ProgramStore wrapper generation and verification are integrated into
   `scripts/tcbuilder.sh`.
-- Auto-wrap baseline now defaults to `--load-addr 0x80004000` for OpenWrt
-  build output while preserving dynamic output filenames.
+- Canonical shell entrypoint is `tcbuild`; in a TTY it opens the interactive
+  menu by default. `tcwrap`, `tccheck`, and `tcverify` remain compatibility
+  aliases.
+- Auto-wrap baseline now preserves
+  `records/artifacts/rescue/tc7200-stage2-console-good.bin` exactly,
+  including its encoded `0x82000000` load address, while preserving dynamic
+  output filenames.
 - Kernel-side MMIO probing with `ioremap()` and `printk()` works and is
   preferred over `/dev/mem`.
 
@@ -67,6 +72,12 @@ Latest known-good OpenWrt A825 boot:
 Newly pinned rescue copy from that pass:
 
 - `records/artifacts/rescue/tc7200-console-good-20260601-193010.bin`
+
+Canonical A825 template copy:
+
+- `records/artifacts/rescue/tc7200-stage2-console-good.bin`
+- Size: `6418079` bytes
+- SHA256: `a2b9fa164d092387dc0382698cbdff940bb97cce6c41a029ac70c1b357497c4b`
 
 Pinned known-good payload family (do not mix with newer test payloads):
 
@@ -174,7 +185,8 @@ not B53/DSA integration.
 ## Recommended Next Work
 
 1. Recover the exact known-good boot baseline before further Ethernet changes:
-   force A825 wrapper template/load fields to the working `0x80004000` path,
+   force A825 wrapper template/load fields to the working
+   `tc7200-stage2-console-good.bin` path,
    then require `Gate E PASS` on each new image.
 2. Keep the known-good images under `records/artifacts/rescue/` unchanged.
 3. Keep generated wrap manifests and state captures under `records/generated/`.
@@ -192,8 +204,8 @@ not B53/DSA integration.
 
 ## Immediate Next
 
-1. Finalize wrapper default template to a verified `load=0x80004000` A825
-   baseline and keep dynamic output names.
+1. Finalize wrapper default template to the verified
+   `tc7200-stage2-console-good.bin` A825 baseline and keep dynamic output names.
 2. Rebuild BMIPS-only image (not mediatek/other target), wrap, and gate-check.
 3. Pin image identity in every boot report (`filename`, `file_length`,
    `raw_sha256`, `wrapped_sha256`) and avoid switching payload families

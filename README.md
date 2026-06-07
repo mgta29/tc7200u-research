@@ -20,6 +20,10 @@ Current constants:
 - Required wrapper validation marker: `size_ok=True`
 - Current known-good image:
   `records/artifacts/rescue/openwrt-tc7200u-known-good-ramboot-20260515-125821.bin`
+- Canonical A825 template:
+  `records/artifacts/rescue/tc7200-stage2-console-good.bin`
+- Canonical A825 SHA256:
+  `a2b9fa164d092387dc0382698cbdff940bb97cce6c41a029ac70c1b357497c4b`
 - Original A825 baseline:
   `records/artifacts/rescue/openwrt-ps-irqfallback-GOOD-5696426.bin`
 - Original A825 SHA256:

@@ -21,7 +21,7 @@ TFTP_OUT_DIR="${TFTP_OUT_DIR:-${TFTP_ROOT_DIR:-C:\\tftp\\}}"
 ALLOW_RESCUE_OVERWRITE="${ALLOW_RESCUE_OVERWRITE:-0}"
 FORCE_REWRAP_SOURCE="${FORCE_REWRAP_SOURCE:-0}"
 INTERACTIVE="${INTERACTIVE:-0}"
-MODE="${MODE:-auto}"
+MODE="${MODE:-interactive}"
 BUILD_MODE="${BUILD_MODE:-auto}"
 PATCH_PRECHECK="${PATCH_PRECHECK:-1}"
 BUILD_LOG_BASE="${BUILD_LOG_BASE:-$RESEARCH_BUILDS_DIR}"
@@ -41,7 +41,7 @@ TS="$(date +%Y-%m-%d-%H%M%S)"
 RUN_REPORT=""
 STEP=0
 TOTAL_STEPS=7
-DEFAULT_PRESERVE_FROM_IMAGE="$RECORDS_DIR/artifacts/rescue/openwrt-ps-irqfallback-GOOD-5696426.bin"
+DEFAULT_PRESERVE_FROM_IMAGE="$RECORDS_DIR/artifacts/rescue/tc7200-stage2-console-good.bin"
 
 trim_ws() {
 	printf '%s' "$1" | sed 's/^[[:space:]]*//; s/[[:space:]]*$//'
@@ -173,7 +173,8 @@ Usage:
 
 Modes:
   help            Print this help text.
-  auto            Build (if needed), wrap, verify. (default)
+  interactive     Prompt for mode and filename interactively. (default in a TTY)
+  auto            Build (if needed), wrap, verify.
   wrap            Alias for auto.
   check           Alias for auto.
   verify          Alias for auto.
@@ -200,7 +201,7 @@ Options:
   --tftp-dir C:\tftp\
   --source-image PATH
   --preserve-from PATH
-  --load-addr 0x80004000
+  --load-addr 0x<hex>
   --allow-rescue-overwrite
   --force-rewrap-source
   --skip-precheck
@@ -385,17 +386,20 @@ MODE="$(normalize_mode "$(trim_ws "$MODE")")"
 BUILD_MODE="$(printf '%s' "$BUILD_MODE" | tr '[:upper:]' '[:lower:]')"
 CHECK_LOG_PATH="$(trim_ws "$CHECK_LOG_PATH")"
 
-if [ -z "$PRESERVE_FROM_IMAGE" ] && [ "$MODE" = "auto" ] && [ -z "$SOURCE_IMAGE" ] && [ -f "$DEFAULT_PRESERVE_FROM_IMAGE" ]; then
+if [ -z "$PRESERVE_FROM_IMAGE" ] && [ -z "$SOURCE_IMAGE" ] && [ -f "$DEFAULT_PRESERVE_FROM_IMAGE" ]; then
 	PRESERVE_FROM_IMAGE="$DEFAULT_PRESERVE_FROM_IMAGE"
 fi
 
-if [ -z "$WRAP_LOAD_ADDR" ] && [ "$MODE" = "auto" ] && [ -z "$SOURCE_IMAGE" ]; then
+# Preserve the canonical template header exactly when auto mode is using a
+# preserve-from image. Only inject a default load override when there is no
+# template to preserve.
+if [ -z "$WRAP_LOAD_ADDR" ] && [ "$MODE" = "auto" ] && [ -z "$SOURCE_IMAGE" ] && [ -z "$PRESERVE_FROM_IMAGE" ]; then
 	WRAP_LOAD_ADDR="$DEFAULT_WRAP_LOAD_HEX"
 fi
 
 if [ -n "$WRAP_LOAD_ADDR" ]; then
 	if ! printf '%s' "$WRAP_LOAD_ADDR" | grep -Eq '^0[xX][0-9a-fA-F]{1,8}$'; then
-		echo "FAIL: --load-addr must be a hex value like 0x80004000 (got: $WRAP_LOAD_ADDR)" >&2
+		echo "FAIL: --load-addr must be a hex value like 0x<hex> (got: $WRAP_LOAD_ADDR)" >&2
 		exit 2
 	fi
 	WRAP_LOAD_ADDR="$(canonical_hex "$WRAP_LOAD_ADDR")"
@@ -427,7 +431,11 @@ case "$PATCH_PRECHECK" in
 esac
 
 if [ "$MODE" = "interactive" ]; then
-	INTERACTIVE=1
+	if [ -t 0 ]; then
+		INTERACTIVE=1
+	else
+		MODE="auto"
+	fi
 fi
 
 if [ "$INTERACTIVE" = "1" ] && [ -t 0 ]; then

@@ -1,0 +1,9 @@
+=== patch precheck ===
+timestamp_local=2026-06-01 22:05:33 CEST
+owrt=/home/mgta29/src/openwrt
+build_action=install
+linux_tree=/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268
+
+patch=target/linux/bmips/patches-6.12/998-bmips-tc7200u-gmac-init.patch
+error: build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/arch/mips/bmips/setup.c: No such file or directory
+FAIL: git apply --check failed for target/linux/bmips/patches-6.12/998-bmips-tc7200u-gmac-init.patch

@@ -26,10 +26,13 @@ Current Ethernet blocker:
 
 ## Resume Checklist
 
+Running `tcbuild` in a terminal opens the interactive menu by default. Choose
+`1` for the auto build/wrap/verify path.
+
 ```sh
 tcresearch
 tcstatus
-tcwrap
+tcbuild
 cfe-tftp
 tcstate
 ```

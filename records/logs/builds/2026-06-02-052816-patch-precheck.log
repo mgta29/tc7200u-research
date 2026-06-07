@@ -1,0 +1,5 @@
+=== patch precheck ===
+timestamp_local=2026-06-02 05:28:35 CEST
+owrt=/home/mgta29/src/openwrt
+build_action=install
+linux_tree=/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268

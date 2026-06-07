@@ -6,7 +6,8 @@
 build OpenWrt -> wrap initramfs -> verify size_ok=True -> serve requested CFE filename
 ```
 
-The single active helper is:
+The canonical helper entrypoint is `tcbuild`; in a TTY with no explicit mode it
+opens the interactive menu. It resolves to:
 
 ```sh
 ~/tc7200u-research/scripts/tcbuilder.sh
@@ -15,6 +16,7 @@ The single active helper is:
 Main modes:
 
 ```sh
+tcbuild
 tc paths
 tc status
 tc wrap
@@ -24,15 +26,17 @@ tc state
 tc check-gates --check-log records/logs/serial/picocom-example.log
 tc ensure-packages
 tc serial-console
-tc reverse-stage1 --source-image records/artifacts/rescue/openwrt-ps-irqfallback-GOOD-5696426.bin
+tc reverse-stage1 --source-image records/artifacts/rescue/tc7200-stage2-console-good.bin
 tc selftest
 ```
 
-`wrap`, `check`, `verify`, and `build` all run the build/wrap/verify path. The
-default package profile is `fastboot`. To keep the larger diagnostics profile:
+The `auto` path and the `wrap`, `check`, `verify`, and `build` modes all run
+the same build/wrap/verify path. Launch `tcbuild` in a terminal to open the
+menu, then choose `1` for the auto path. The default package profile is
+`fastboot`. To keep the larger diagnostics profile:
 
 ```sh
-TC7200U_PACKAGE_PROFILE=debug tcwrap
+TC7200U_PACKAGE_PROFILE=debug tcbuild auto
 ```
 
 When changed or new BMIPS kernel patch files are detected under
@@ -41,19 +45,18 @@ build phase to catch patch apply/syntax issues earlier. Skip this only when
 needed:
 
 ```sh
-tc wrap --skip-precheck
+tcbuild auto --skip-precheck
 ```
 
-For OpenWrt auto-wrap runs (no `--source-image`), the helper now defaults to:
+For OpenWrt auto-wrap runs (no `--source-image`), the helper now defaults to
+the canonical preserve-from template and keeps that header’s encoded load
+address:
 
-- `--preserve-from records/artifacts/rescue/openwrt-ps-irqfallback-GOOD-5696426.bin`
-- `--load-addr 0x80004000`
+- `--preserve-from records/artifacts/rescue/tc7200-stage2-console-good.bin`
+- preserved load address: `0x82000000`
 
-Override the load address only when intentionally testing another boot format:
-
-```sh
-tc wrap --load-addr 0x82000000
-```
+Override the load address only when intentionally testing a non-canonical boot
+format.
 
 Generated manifests, state captures, hashes, and measurements go to:
 
@@ -75,9 +78,11 @@ records/logs/builds/
 
 ## Shell Aliases
 
-Interactive WSL sessions should use these aliases:
+Interactive WSL sessions should use these aliases, with `tcbuild` as the canonical
+entrypoint:
 
 ```sh
+alias tcbuild='~/tc7200u-research/scripts/tcbuilder.sh'
 alias tc='~/tc7200u-research/scripts/tcbuilder.sh'
 alias tcwrap='~/tc7200u-research/scripts/tcbuilder.sh wrap'
 alias tccheck='~/tc7200u-research/scripts/tcbuilder.sh check'
@@ -116,7 +121,7 @@ Common resume commands:
 ```sh
 tcresearch
 tcstatus
-tcwrap
+tcbuild
 cfe-tftp
 tcstate
 ```

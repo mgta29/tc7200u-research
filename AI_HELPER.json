@@ -27,6 +27,7 @@
     "tools": "Standalone analysis tools."
   },
   "aliases": {
+    "tcbuild": "~/tc7200u-research/scripts/tcbuilder.sh",
     "tc": "~/tc7200u-research/scripts/tcbuilder.sh",
     "tcwrap": "~/tc7200u-research/scripts/tcbuilder.sh wrap",
     "tccheck": "~/tc7200u-research/scripts/tcbuilder.sh check",
@@ -44,7 +45,7 @@
   },
   "workflows": {
     "wrap": [
-      "Run tcwrap.",
+      "Run tcbuild and choose 1 for the auto build/wrap/verify path.",
       "Confirm wrapper output contains size_ok=True.",
       "Serve /mnt/c/tftp/openwrt-(version nuber in hex).bin when testing with CFE."
     ],

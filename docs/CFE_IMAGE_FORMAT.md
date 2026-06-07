@@ -17,9 +17,14 @@ OpenWrt initramfs payload.
 Known fields:
 
 - signature/PID: `a825`
-- stage-2 OpenWrt baseline control/load: `0x0000` + `0x80004000`
+- canonical preserve-from control/load: `0x0000` + `0x82000000`
 - internal header filename: `openwrt-initramfs.bin`
-- known-good total received size: `5696426` bytes
+- known-good total received size: `6417987` bytes
+
+Canonical template:
+
+- `records/artifacts/rescue/tc7200-stage2-console-good.bin`
+- SHA256: `a2b9fa164d092387dc0382698cbdff940bb97cce6c41a029ac70c1b357497c4b`
 
 Legacy A825 rescue baseline (kept for comparison):
 
@@ -28,8 +33,8 @@ Legacy A825 rescue baseline (kept for comparison):
 Script:
 
 - `scripts/tcbuilder.sh`
-- Auto mode defaults to `--load-addr 0x80004000` when wrapping OpenWrt
-  build output (override with `--load-addr` when needed).
+- Auto mode preserves the canonical A825 template header exactly.
+- Use `--load-addr` only when intentionally testing another boot format.
 
 Generated wrap manifests are written to:
 
