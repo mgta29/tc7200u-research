@@ -1,0 +1,12 @@
+load_address=0x80004000
+marker_hits:
+  - Booting Linux on TP1...: file_off=0x00fc5cb8 runtime=0x80fc9cb8
+  - Linux Boot Args:: file_off=0x010a4e80 runtime=0x810a8e80
+  - <<<<< rx_thread sent initial handshake >>>>>>: none
+  - HandShakeMsg = %08lx: none
+  - unhandled message %08lx: none
+  - Error: getHostDqmMessage(handshake) on %s: file_off=0x0109c7a0 runtime=0x810a07a0
+  - Error: handshake rx unexpected message: file_off=0x0109c7cc runtime=0x810a07cc
+  - Creating DOCSIS Control Thread...: file_off=0x00fe5278 runtime=0x80fe9278
+  - Creating TR-069 Thread...: file_off=0x00faf8fc runtime=0x80fb38fc
+  - Incompatible Firmware: none
