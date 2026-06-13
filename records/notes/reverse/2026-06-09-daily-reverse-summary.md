@@ -161,3 +161,165 @@ The maintained OpenWrt-facing extraction document remains:
 - `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\openwrt-tc7200u-enet-usable-values.md`
 
 This daily note is the dated summary snapshot for June 9.
+
+## Addendum: DQM/CP2 return path and working packet model
+
+This addendum was added after another full reread of the reverse-note set. It folds in:
+
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-09-dqm-cp2-fpm-progress-findings.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-09-ghidra-fpm-datatypes.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-09-ghidra-fpm-packet-token-rx-roundtrip.md`
+
+### Control result
+
+No contradiction was found against the current FPM-backed GENET/MBDMA model.
+
+The new notes strengthen two points:
+
+- `0x12200200` is not only a sized MBDMA endpoint value; it is also the shared token return/free port used by packet-release and DQM/CP2 token paths
+- the secondary packet allocator and packet-header layout are now coherent enough to treat as a working software model
+
+### New DQM/CP2 facts worth carrying
+
+Confirmed DQM-side FPM endpoint mirror/programming:
+
+- `0x16090038 = 0x12200200`
+- `0x16090044 = 0x12200044 & 0x0fffffff`
+- `0x16090128 = 0x12200208`
+- `0x1609012c = 0x12200210`
+- `0x16090130 = 0x12200218`
+- `0x16090068 = 0xc0001617`
+
+Confirmed DQM/CP2 event-side control registers:
+
+- `0x16045740` DQM event FIFO
+- `0x16045a80` DQM event/status
+- `0x16045a00` CP2 event pull control
+- `0x16045a04` CP2 submit trigger
+- `0x16045a08` CP2 submit token
+- `0x16045a0c` CP2 submit aux
+- `0x16045a10` CP2 result token
+- `0x16045a18` CP2 submit status
+- `0x16045a1c` CP2 pull status
+- `0x13401910` CP2/DQM ack write
+
+Operationally important token facts:
+
+- valid token is still `bit31`
+- `bit30` means mailbox side handling is needed before token return
+- token low12 is reused in DQM/CP2 logic for length, count, or mismatch handling
+
+### Runtime-overlay caution
+
+The range `0x80004040..0x800056xx` must currently be treated as mutable DQM runtime overlay or scratch RAM in this subsystem, not as immutable live boot code.
+
+High-value overlay locations:
+
+- `0x80004068` runtime service mask
+- `0x800040e8 + queue_id*4` queue class/mode table
+- `0x80004168 + queue_id*4` service timestamp/age table
+- `0x800041f8` token-or-command reject counter
+- `0x800041fc` invalid-token counter candidate
+- `0x80004220` direct-token path count
+- `0x8000423c..0x80004250` low12 mismatch patch stub words
+- `0x80005628 + queue_id*4` queue backoff table
+
+### Working packet/FPM software model
+
+Working structure sizes:
+
+- `tc7200_fpm_allocator = 0x20048`
+- `tc7200_fpm_packet_allocator = 0x24`
+- `tc7200_fpm_packet_header = 0xe0`
+- `tc7200_fpm_packet_inner_header = 0x30`
+
+Working packet-header facts:
+
+- outer packet-header slot size remains `0xe0`
+- packet-header arena allocation remains `0x700010`
+- packet-header `+0x04` and `+0x08` both point at embedded inner header `+0x20`
+- inner header `+0x18` points to outer header `+0x64`
+- RX-side workers were seen storing halfword values `0x64` and `0x78` at outer `+0x12`
+- RX-specific setup uses token low12 as payload length
+
+### Updated daily development consequence
+
+The first-pass OpenWrt compare set does not change: FPM `0x12200000` plus GENET/MBDMA `0x12c00000` remains the primary control target.
+
+If those values start to match OEM behavior but RX/TX still stalls, the next control layer should be:
+
+- whether valid tokens are actually being returned to `0x12200200`
+- whether any DQM-side mirror bank is programmed with:
+  - `0x16090038`
+  - `0x16090044`
+  - `0x16090128`
+  - `0x1609012c`
+  - `0x16090130`
+- whether the software path assumes plain linear buffers where the OEM path reconstructs packet headers and data addresses from token index, stride `0x100`, and packet-header slot size `0xe0`
+
+## Addendum: DQM queue-control surface closure
+
+This addendum was added after another full reread and folds in:
+
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-09-dqm-fpm-cp2-ghidra-progress.md`
+
+### Control result
+
+No contradiction was found against the current FPM-backed GENET/MBDMA model.
+
+The new note strengthens the interpretation that the OEM packet-movement path is not only:
+
+- GENET `0x12c00000`
+- FPM `0x12200000`
+
+It also depends on a mapped DQM/CP2 queue-control layer.
+
+### New high-value DQM control surfaces
+
+The DQM/CP2 path is now functionally mapped end-to-end at the control-flow level.
+
+Highest-value additional MMIO regions to carry:
+
+- `0x16045a00..0x16045a30` CP2 pull / submit / result / busy-status block
+- `0x16045c00..0x16045d04` per-queue CP2 pull programming block
+- `0x16082000 + queue_id*0x100` per-queue control region
+- `0x16045000`
+- `0x16045100`
+- `0x16045200`
+- `0x16001de0..0x16001dfc` DQM control mailbox input/output block
+
+Additional already-confirmed DQM-side endpoint mirror values remain:
+
+- `0x16090038 = 0x12200200`
+- `0x16090044 = 0x12200044 & 0x0fffffff`
+- `0x16090128 = 0x12200208`
+- `0x1609012c = 0x12200210`
+- `0x16090130 = 0x12200218`
+
+### Runtime-software surfaces now worth carrying
+
+The DQM note also closes several firmware-side runtime tables as meaningful, mutable state rather than static code:
+
+- `0x800040c4` event07 / CP2 pull queue mask
+- `0x800040e8 + queue_id*4` queue class/mode table
+- `0x80004168 + queue_id*4` queue service timestamp/age table
+- `0x800050a8 + queue_id*0x2c` per-queue policy/config table base
+- `0x800050b8 + queue_id*0x2c` per-queue budget limit
+- `0x800050bc + queue_id*0x2c` per-queue budget used
+- `0x800050c0 + queue_id*0x2c` per-queue budget high-water
+- `0x800050c4 + queue_id*0x2c` per-queue flags
+- `0x800050c6 + queue_id*0x2c` per-queue low12 limit
+- `0x800050cc + queue_id*0x2c` per-queue extended mode field
+- `0x800050d0 + queue_id*0x2c` per-queue overhead field
+
+### Updated daily development consequence
+
+The current layered control model is now:
+
+- first pass: FPM `0x12200000`
+- second pass: GENET/MBDMA `0x12c00000`
+- third pass if traffic still stalls: DQM/CP2 control surfaces under `0x1600xxxx`
+
+Practical implication:
+
+- if OpenWrt starts matching OEM values at `0x12200044`, `0x12c00010`, and `0x12c0004c/50/54/58/08` but packet movement still fails, the next likely missing piece is DQM/CP2 queue/token enable, pull, mailbox, or per-queue policy setup rather than plain MDIO or descriptor-ring geometry

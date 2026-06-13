@@ -795,3 +795,915 @@ If you want the shortest current control set for OpenWrt tracepoints or `devmem`
 - packet-header arena allocation: `0x700010`
 - packet-header slot size: `0xe0`
 - token stride: `0x100`
+
+## Additional usable values from DQM/CP2 and RX-token reread
+
+This section was added after another full reread of:
+
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-09-dqm-cp2-fpm-progress-findings.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-09-ghidra-fpm-datatypes.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-09-ghidra-fpm-packet-token-rx-roundtrip.md`
+
+### Second-pass MMIO values to trace if first-pass GENET/FPM values look correct
+
+DQM-side FPM endpoint mirror/programming values:
+
+- `0x16090038 = 0x12200200`
+- `0x16090044 = 0x12200044 & 0x0fffffff`
+- `0x16090128 = 0x12200208`
+- `0x1609012c = 0x12200210`
+- `0x16090130 = 0x12200218`
+- `0x16090068 = 0xc0001617`
+
+DQM/CP2 event and submit registers worth tracing:
+
+- `0x16045740`
+- `0x16045a00`
+- `0x16045a04`
+- `0x16045a08`
+- `0x16045a0c`
+- `0x16045a10`
+- `0x16045a18`
+- `0x16045a1c`
+- `0x16045a80`
+- `0x13401910`
+
+Current best meanings:
+
+- `0x16045740` = DQM event FIFO
+- `0x16045a80` = DQM event/status
+- `0x16045a00` = CP2 event pull control
+- `0x16045a04` = CP2 submit trigger
+- `0x16045a08` = CP2 token submit
+- `0x16045a0c` = CP2 aux submit
+- `0x16045a10` = CP2 result token
+- `0x16045a18` = CP2 submit status
+- `0x16045a1c` = CP2 pull status
+- `0x13401910` = CP2/DQM ack write
+
+These are not first-pass Linux driver constants. They are second-pass control points if OEM-equivalent FPM and GENET/MBDMA values are present but token or packet consumption still fails.
+
+### Additional software-side values now usable
+
+Working structure sizes:
+
+- `tc7200_fpm_allocator = 0x20048`
+- `tc7200_fpm_packet_allocator = 0x24`
+- `tc7200_fpm_packet_header = 0xe0`
+- `tc7200_fpm_packet_inner_header = 0x30`
+
+Working packet-header model values:
+
+- packet-header slot size: `0xe0`
+- packet-header arena allocation: `0x700010`
+- packet-header `+0x04 -> +0x20`
+- packet-header `+0x08 -> +0x20`
+- inner-header `+0x18 -> outer +0x64`
+- RX worker wrote outer `+0x12 = 0x64` in one path
+- RX worker wrote outer `+0x12 = 0x78` in alternate path
+- RX-specific path uses token low12 as payload length
+
+Working token/FPM values reinforced by the RX/release pass:
+
+- common token return/free port: `0x12200200`
+- valid-token bit: `0x80000000`
+- special pre-return mailbox condition: `bit30`
+- token index field: `bits27:12`
+- saved high-bits field: `bits29:28`
+- token low-size field on allocation path: `bits11:0`
+- token-indexed backing-buffer stride: `0x100`
+
+### Runtime-overlay values for correlation only
+
+Do not hardcode these into Linux. Use them only when correlating OEM runtime behavior:
+
+- `0x80004040..0x800056xx` acts as mutable DQM runtime overlay in this subsystem
+- `0x800040e8 + queue_id*4` queue class/mode table
+- `0x80004168 + queue_id*4` service timestamp/age table
+- `0x800041f8` token-or-command reject counter
+- `0x800041fc` invalid-token counter candidate
+- `0x80004220` direct-token path count
+- `0x8000423c..0x80004250` low12 mismatch patch words
+
+### Updated development use
+
+Use the existing first-pass control set first:
+
+- FPM side `0x12200000`
+- GENET/MBDMA side `0x12c00000`
+
+If those compare cleanly against OEM values and RX/TX still stalls, use this second-pass control set:
+
+- confirm tokens are actually written to `0x12200200`
+- compare DQM-side mirror programming at:
+  - `0x16090038`
+  - `0x16090044`
+  - `0x16090128`
+  - `0x1609012c`
+  - `0x16090130`
+- check whether the OpenWrt path is assuming plain linear DMA buffer ownership where OEM code reconstructs packet headers and data addresses from token index, packet-header slot size `0xe0`, and backing-buffer stride `0x100`
+
+## Third-pass DQM/CP2 control values
+
+This section was added after rereading:
+
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-09-dqm-fpm-cp2-ghidra-progress.md`
+
+### When to use this set
+
+Use this third-pass set only after:
+
+- first-pass FPM values around `0x12200000`
+- second-pass GENET/MBDMA values around `0x12c00000`
+
+already look OEM-like, but packet movement still fails.
+
+### Third-pass MMIO values to trace
+
+CP2 pull / submit / result block:
+
+- `0x16045a00`
+- `0x16045a04`
+- `0x16045a08`
+- `0x16045a0c`
+- `0x16045a10`
+- `0x16045a18`
+- `0x16045a1c`
+- `0x16045a20`
+- `0x16045a24`
+- `0x16045a28`
+- `0x16045a2c`
+- `0x16045a30`
+- `0x16045a80`
+- `0x16045a84`
+- `0x16045a88`
+- `0x16045a8c`
+
+Current best meanings:
+
+- `0x16045a00` CP2 event pull control
+- `0x16045a04` CP2 submit trigger
+- `0x16045a08` CP2 submit token
+- `0x16045a0c` CP2 submit aux
+- `0x16045a10` CP2 result token
+- `0x16045a18` CP2 submit status
+- `0x16045a1c` CP2 pull status
+- `0x16045a20` queue command word
+- `0x16045a24` queue command trigger
+- `0x16045a28` queue command result token
+- `0x16045a2c` queue command busy-mask low
+- `0x16045a30` queue command busy-mask high
+- `0x16045a80` DQM event/status
+- `0x16045a84` queue/event enable mask candidate
+- `0x16045a88` queue cfg/status candidate
+- `0x16045a8c` queue mode/control candidate
+
+Per-queue and table regions:
+
+- `0x16045c00..0x16045d04`
+- `0x16082000 + queue_id*0x100`
+- `0x16045000`
+- `0x16045100`
+- `0x16045200`
+- `0x16050000`
+- `0x16001de0..0x16001dfc`
+
+Current best meanings:
+
+- `0x16045c00..0x16045d04` per-queue CP2 pull programming
+- `0x16082000 + queue_id*0x100` per-queue control
+- `0x16045000` queue table A
+- `0x16045100` queue table B
+- `0x16045200` queue table C
+- `0x16050000` queue clear/index table region
+- `0x16001de0..0x16001dec` control-mailbox input words
+- `0x16001df0..0x16001dfc` control/event mailbox output words
+
+### Third-pass software-state values for correlation only
+
+Do not hardcode these into Linux. Use them only to correlate OEM runtime behavior:
+
+- `0x800040c4` event07 / CP2 pull queue mask
+- `0x800040e8 + queue_id*4` queue class/mode table
+- `0x80004168 + queue_id*4` queue service timestamp/age table
+- `0x800050a8 + queue_id*0x2c` per-queue policy table base
+- `0x800050b8 + queue_id*0x2c` budget limit
+- `0x800050bc + queue_id*0x2c` budget used
+- `0x800050c0 + queue_id*0x2c` budget high-water
+- `0x800050c4 + queue_id*0x2c` per-queue flags
+- `0x800050c6 + queue_id*0x2c` per-queue low12 limit
+- `0x800050cc + queue_id*0x2c` per-queue extended mode field
+- `0x800050d0 + queue_id*0x2c` per-queue overhead field
+
+### Updated OpenWrt development meaning
+
+Current best staged model for the TC7200U port:
+
+- stage 1: FPM allocator/backing-base values must look right
+- stage 2: GENET/MBDMA endpoint and control values must look right
+- stage 3: if packet movement still stalls, DQM/CP2 queue control, mailbox, per-queue pull programming, and queue-policy state become the next most likely missing OEM-specific layer
+
+## Fourth-pass DQM mailbox and slot-service control values
+
+This section was added after rereading:
+
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-11-ghidra-dqm-fpm-cp2-progress-log.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-11-ghidra-dqm-mailbox-region-progress-log.md`
+
+### When to use this set
+
+Use this fourth-pass set only after:
+
+- first-pass FPM values around `0x12200000`
+- second-pass GENET/MBDMA values around `0x12c00000`
+- third-pass DQM/CP2 queue-control values around `0x16045a00..0x16082000`
+
+already look OEM-like, but packet movement or token return still fails.
+
+### Fourth-pass MMIO values to trace
+
+Queue-profile and mailbox cluster:
+
+- `0x16001804`
+- `0x1600180c`
+- `0x16001810`
+- `0x16001818`
+- `0x16001a00 + queue_id * 0x10`
+- `0x16001d00..0x16001d0c`
+- `0x16001d10`
+- `0x16001d14`
+- `0x16001d20`
+- `0x16001d24`
+- `0x16001028`
+
+Slot-control and per-slot region cluster:
+
+- `0x16040084`
+- `0x1604008c`
+- `0x16040090`
+- `0x16040120`
+- `0x16040144`
+- `0x16040194`
+- `0x16040198`
+- `0x160401a0`
+- `0x16040500`
+- `0x16040510`
+- `0x16040700 + slot*4`
+- `0x16041000 + slot*0x20`
+- `0x16042000 + slot*0x40`
+- `0x16043000 + slot*0x40`
+- `0x16046000 + slot*0x10`
+- `0x16050000`
+- `0x16052000`
+
+Service-path control values:
+
+- `0x160400c0`
+- `0x160400c4`
+- `0x160400e0`
+- `0x160400e4`
+
+### Current best meanings
+
+- `0x16001804` = DQM queue bitmap A
+- `0x1600180c` = queue update or apply trigger
+- `0x16001810` = DQM queue bitmap B or paired mask
+- `0x16001818` = queue IRQ, status, or ack path
+- `0x16001a00 + queue_id * 0x10` = queue profile entry base
+- `0x16001d00..0x16001d0c` = mailbox command input words
+- `0x16001d10` = mailbox reply or state low word
+- `0x16001d14` = mailbox reply mode or status
+- `0x16001d20` = command or selector word used by local DQM helpers
+- `0x16001d24` = return-PC or context carry for the cmd06 helper
+- `0x16001028` = status or value sink used by small command helpers
+- `0x16040084 = 0x12200200` = shared FPM pool0 endpoint carried into DQM static init
+- `0x1604008c` = submit or busy register with observed forms:
+  - `(selector << 12) | 0x580`
+  - `slot | 0x780`
+  - `slot | 0x880`
+- `0x16040090` = ctrl580 status word, with low 7 bits consumed by slot-selection logic
+- `0x16040198` = slot commit request bitmask
+- `0x160401a0` = slot commit done or ack bitmask
+- `0x16040500` = low 16 bits behave like a free-slot bitmap
+- `0x16040510` = slot validation or service bitmap
+- `0x16040700`, `0x16041000`, `0x16042000`, `0x16043000`, and `0x16046000` = per-slot hardware region banks
+- `0x160400c0`, `0x160400c4`, `0x160400e0`, and `0x160400e4` = temporary service-control registers rewritten around the CP2 or FPM drain path
+- `0x16040144` can be mirrored into `0x12200200` during the CP2 or FPM service path
+- `0x16040120` is written with `0x13`, `0x11`, and `0x10` around slot service or finalize paths
+- `0x16040194 = 0x19151617` appears in the fixed batch queue recipe
+- `0x16050000` remains a useful queue clear or index table compare region
+- `0x16052000` receives swapped word-pair table copies
+
+### Queue-profile recipe values worth carrying
+
+The fixed direct batch recipe at `0x80c7b95c` is now worth carrying as a concrete DQM compare set.
+
+Tuple format below is:
+
+- `(queue_type_count, total_units, step_low16_or_extra)`
+
+Observed direct installs:
+
+- `queue 0x11 -> (2, 0x10, 0)`
+- `queue 0x12 -> (2, 0x10, 0)`
+- `queue 0x10 -> (4, 0x20, 0)`
+- `queue 0x13 -> (2, 0x80, 0)`
+- `queue 0x14 -> (1, 0x40, 0)`
+- `queue 0x1b -> (3, 0x0c, 0)`
+- `queue 0x15 -> (3, 0x30, 0)`
+- `queue 0x16 -> (3, 0xc0, 0)`
+- `queue 0x17 -> (3, 0xc0, 0)`
+- `queue 0x18 -> (3, 0x30, 0)`
+- `queue 0x19 -> (1, 0x10, 0)`
+- `queues 0x00..0x07 -> (2, 0x40, 0)`
+- `queues 0x08..0x0f -> (2, 0xc8, 0)` with profile limit `0x64`
+- `queue 0x1a -> (2, 0x40, 0)`
+
+Additional fixed writes seen in the same recipe:
+
+- `0x16001b5c = 0x08`
+- `0x16001b6c = 0x38`
+- `0x16001b7c = 0x38`
+- `0x16001b9c = 0x08`
+- `0x16001bac = 0x20`
+- `0x16040194 = 0x19151617`
+
+### Runtime and software values for correlation only
+
+Do not hardcode these into Linux. Use them only to correlate OEM runtime behavior:
+
+- `0x80007000` = runtime allocation cursor
+- `0x80007004` = runtime remaining free byte count
+- `((addr - 0x80004000) >> 2) & 0xffff` = DQM backing-address to word-index rule
+- `0x80007048` = serviced-slot runtime mask
+- `0x8000704c` = total active quota input for slot rebalance
+- `0x80007068 + slot*0x10` = per-slot quota table
+- `0x80007174` = mailbox command `0x70` runtime table
+- `0x8000800c bit 0x10000` = mailbox work or pending gate
+- `0x800080d4 bit 0x80` = ctrl880 busy flag
+- `0x800080e8 bit0/bit1` = CP2 or FPM drain-state flags
+- `0x80008100 + slot*4 bit 0x10` = slot needs CP2 or FPM service
+
+### Updated OpenWrt development meaning
+
+Current best staged model for the TC7200U port:
+
+- stage 1: FPM allocator/backing-base values must look right
+- stage 2: GENET/MBDMA endpoint and control values must look right
+- stage 3: DQM/CP2 queue control, mailbox, per-queue pull programming, and queue-policy state must look right
+- stage 4: if packet movement still stalls, DQM mailbox command handling, queue-profile writes, slot commit, and CP2 or FPM service plumbing become the next most likely missing OEM-specific layer
+
+Practical implication:
+
+- if OpenWrt starts matching OEM values in the first three stages but traffic still fails, check whether anything equivalent exists for:
+  - queue profile writes to `0x16001a00 + queue_id * 0x10`
+  - queue apply or ack around `0x1600180c` and `0x16001818`
+  - slot commit through `0x1604008c`, `0x16040198`, and `0x160401a0`
+  - token-return service back into `0x12200200`
+
+## Fifth-pass DQM event1800008 selector and FPM request values
+
+This section was added after rereading:
+
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-11-dqm-event1800008-path-progress-log.md`
+
+### When to use this set
+
+Use this fifth-pass set only after:
+
+- first-pass FPM values around `0x12200000`
+- second-pass GENET/MBDMA values around `0x12c00000`
+- third-pass DQM/CP2 queue-control values around `0x16045a00..0x16082000`
+- fourth-pass DQM mailbox and slot-service values around `0x160018xx`, `0x16001dxx`, and `0x160400xx`
+
+already look OEM-like, but event-driven packet movement, selector dispatch, or token request/return still fails.
+
+### Fifth-pass MMIO values to trace
+
+Event mask, ack, and selector-publish cluster:
+
+- `0x16001010`
+- `0x16001014`
+- `0x16001810`
+- `0x16001818`
+- `0x16001c00 + selector * 0x10`
+- `0x16001d30`
+- `0x16001d40`
+- `0x16001d50`
+
+Selector request and event-routing block:
+
+- `0x16001320`
+- `0x16001324`
+- `0x16001328`
+- `0x1600132c`
+- `0x16001dbc`
+- `0x16001902`
+- `0x16001906`
+- `0x1600190a`
+- `0x1600190e`
+- `0x16052000`
+
+GENET target and FPM endpoint values:
+
+- `0x12c00500`
+- `0x12c00510`
+- `0x12200218`
+- `0x12200210`
+- `0x12200208`
+- `0x12200200`
+- `0x12200224`
+
+### Current best meanings
+
+- `0x16001010` = global DQM event mask or enable side register
+- `0x16001014` = global DQM event ack or enable side register
+- `0x16001810` = queue/event mask or bitmap side register
+- `0x16001818` = queue/event ack/status side register
+- `0x16001c00 + selector * 0x10` = selector index or port publish and ack base
+- `0x16001d30`, `0x16001d40`, and `0x16001d50` = event source-index slots for three direct pending-bit helpers
+- `0x16001320` = selector request word B
+- `0x16001324` = selected FPM token or value
+- `0x16001328` = selector request context pointer
+- `0x1600132c` = payload size with flags `| 0x16000`
+- `0x16001dbc` = selector request selector latch
+- `0x16001902`, `0x16001906`, `0x1600190a`, and `0x1600190e` = queue/event halfword gates initialized to `0x40`
+- `0x16052000` = DQM pair-copy table/window loaded during runtime init
+- `0x12c00510` and `0x12c00500` = selector-routed GENET target registers for service selectors `0x0a..0x0d`
+- `0x12200218`, `0x12200210`, `0x12200208`, and `0x12200200` = size-selected FPM request/return endpoints
+- `0x12200224 = (record_word_b & 0xfffff000) | 0x801` in several selector-driven or event-driven routing paths
+
+### Event1800008 path values worth carrying
+
+Current best staged interpretation of the event `0x01800008` path:
+
+- runtime init installs queue profiles, selector state, pair-copy tables, and event masks
+- event handler masks `0x01800008`, services pending work, acknowledges DQM queue/global bits, then re-arms the event
+- central dispatcher checks pending mask `0x40383c08`
+- selector path routes selectors `0x0a..0x0d` either into CP2 `f801` GENET-target pushes or, for unexpected selectors, back into `0x12200200`
+- selector FPM request gate chooses endpoint by payload size plus `4`:
+  - `< 0x101 -> 0x12200218`
+  - `< 0x201 -> 0x12200210`
+  - `< 0x401 -> 0x12200208`
+  - otherwise `0x12200200`
+
+### Runtime and software values for correlation only
+
+Do not hardcode these into Linux. Use them only to correlate OEM runtime behavior:
+
+- `0x80007110` and `0x80007114` = runtime selector gate state
+- `0x80007118 = 0x12c00510` and `0x8000711c = 0x12c00500` = runtime GENET target pointers
+- `0x80007120` = runtime output mode for one direct pending-bit helper path
+- `0x80007128` = selector/FPM request enable gate
+- `0x8000712c` = selector/FPM request attempt counter
+- `0x80007138` = selector fallback counter
+- `0x80007148` = selector busy-return counter
+- `0x8000800c & 0x40383c08` = event pending-mask state
+- `0x80008160` bits `0x04`, `0x20`, and `0x40` = event-service wait-state bits on this path
+
+### Updated OpenWrt development meaning
+
+Current best staged model for the TC7200U port:
+
+- stage 1: FPM allocator/backing-base values must look right
+- stage 2: GENET/MBDMA endpoint and control values must look right
+- stage 3: DQM/CP2 queue control, mailbox, per-queue pull programming, and queue-policy state must look right
+- stage 4: DQM mailbox command handling, queue-profile writes, slot commit, and CP2/FPM service plumbing must look right
+- stage 5: if traffic still stalls, the `0x01800008` event path, selector dispatch, request-block programming, and size-selected FPM request/return behavior become the next most likely missing OEM-specific layer
+
+Practical implication:
+
+- if OpenWrt reproduces the earlier control surfaces but still fails to move packets, compare whether there is any OEM-equivalent behavior for:
+  - event mask and ack writes around `0x16001010/14` and `0x16001810/18`
+  - selector activity at `0x16001c00`
+  - request-block programming at `0x16001320..0x1600132c`
+  - target routing toward `0x12c00500` and `0x12c00510`
+  - size-selected token request/return use at `0x12200218/10/08/00`
+  - page-plus-flag programming at `0x12200224`
+
+## Sixth-pass selector lookup, preload, and b604 setup values
+
+This section was added after rereading:
+
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-12-dqm-cp2-fpm-selector-cleanup-log.md`
+
+### When to use this set
+
+Use this sixth-pass set only after:
+
+- first-pass FPM values around `0x12200000`
+- second-pass GENET/MBDMA values around `0x12c00000`
+- third-pass DQM/CP2 queue-control values around `0x16045a00..0x16082000`
+- fourth-pass DQM mailbox and slot-service values around `0x160018xx`, `0x16001dxx`, and `0x160400xx`
+- fifth-pass event `0x01800008` selector/request values
+
+already look OEM-like, but selector-driven packet movement or event-fed token work still fails.
+
+### Sixth-pass MMIO values to trace
+
+Queue/profile preload and selector port values:
+
+- `0x16001c00 + selector * 0x10`
+- `0x16001dc0`
+- `0x16001dd0`
+
+CP2 or DQM global and table-root values:
+
+- `0x16040010`
+- `0x1604007c`
+- `0x16040080`
+- `0x16040084`
+- `0x16040564`
+- `0x16040568`
+- `0x160405c0`
+- `0x160405c4`
+- `0x16040640`
+- `0x16040644`
+
+Related fixed target values:
+
+- `0x13401900`
+- `0x13401904`
+- `0x14201908`
+- `0x1420190c`
+- `0x12c00510`
+- `0x12c00500`
+- `0x12200200`
+- `0x12200224`
+
+### Current best meanings
+
+- `0x16001dc0` = DQM queue/profile preload port B used by queue/profile `0x1c`
+- `0x16001dd0` = DQM queue/profile preload port A used by queue/profile `0x1d`
+- `0x16040010` = packed three-enable-bit register:
+  - bit2 from arg2
+  - bit1 from arg1
+  - bit0 from arg0
+- `0x1604007c = 0x11001cef` = global CP2/DQM control word candidate
+- `0x16040080 = 1` = global enable
+- `0x16040084 = 0x12200200` = shared FPM pool0 endpoint carried into the global `b604` setup
+- `0x16040564` and `0x16040568` = selector-derived command words
+- `0x160405c0` and `0x160405c4` = low29 GENET target addresses
+- `0x16040640` and `0x16040644` = fixed CP2 command word `0x04208000`
+- `0x12c00510` and `0x12c00500` remain selector-routed GENET target registers
+- `0x12200224` remains endpoint-like but still not safe to assign a final hardware identity
+
+### Selector lookup and preload facts worth carrying
+
+Mechanically-proven selector/preload behavior:
+
+- queue/profile `0x1c` preload helper installs a small descriptor and preloads values `0..7`
+- queue/profile `0x1d` preload helper installs a descriptor and preloads `0x50` backing addresses:
+  - `0x16010000 + entry_index * 0x140`
+- selector record-field normalization rule:
+  - record field `0x0d..0x1c -> lookup index 0..15`
+  - invalid values return `0xff`
+- repeated CP2 selector command word:
+  - `0x04208000`
+- repeated bus-visible address conversion:
+  - `mapped_addr & 0x1fffffff`
+
+### Runtime and software values for correlation only
+
+Do not hardcode these into Linux. Use them only to correlate OEM runtime behavior:
+
+- `0x80007124` = selector context allocation cursor
+- `0x80007128` = selector lookup enable gate
+- selector lookup/context table base `0x8000714c`, stride `0x18`
+- table layout currently worth carrying:
+  - `+0x04` mapped context A pointer
+  - `+0x08` mapped context B pointer
+  - `+0x0c` per-entry counter
+  - `+0x10` context A backing address
+  - `+0x14` context B backing address
+- selector/FPM counters:
+  - `0x8000712c`
+  - `0x80007130`
+  - `0x80007134`
+  - `0x80007138`
+  - `0x8000713c`
+  - `0x80007140`
+  - `0x80007144`
+  - `0x80007148`
+
+### What not to hardcode yet
+
+Do not hardcode these as final Linux semantics yet:
+
+- exact row or column meanings of the table body at `0x16040400..0x160406c4`
+- final hardware identity of `0x12200224`
+- exact semantic meaning of the selector context table halfword fields at `+0x00` and `+0x02`
+- exact semantic meaning of context byte6 values `0x60` and `0x00`
+
+### Updated OpenWrt development meaning
+
+Current best staged model for the TC7200U port:
+
+- stage 1: FPM allocator/backing-base values must look right
+- stage 2: GENET/MBDMA endpoint and control values must look right
+- stage 3: DQM/CP2 queue control, mailbox, per-queue pull programming, and queue-policy state must look right
+- stage 4: DQM mailbox command handling, queue-profile writes, slot commit, and CP2/FPM service plumbing must look right
+- stage 5: the `0x01800008` event path, selector dispatch, request-block programming, and size-selected FPM request/return behavior must look right
+- stage 6: if traffic still stalls, selector lookup/context initialization, preload-port state, and selector-derived `b604` command-table setup become the next most likely missing OEM-specific layer
+
+Practical implication:
+
+- if OpenWrt reproduces the earlier control surfaces but still fails to move packets, compare whether there is any OEM-equivalent behavior for:
+  - preload writes to `0x16001dc0` and `0x16001dd0`
+  - selector lookup/context setup around `0x80007124`, `0x80007128`, and `0x8000714c + index * 0x18`
+  - `0x16040010` three-bit enable programming
+  - selector-derived globals `0x1604007c`, `0x16040080`, and `0x16040084`
+  - repeated command word `0x04208000`
+  - repeated low29 address conversion with `& 0x1fffffff`
+
+## Seventh-pass event1800008 finalize, publish, and lane-routing values
+
+This section was added after rereading:
+
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-12-dqm-event1800008-cleanup-log.md`
+
+### When to use this set
+
+Use this seventh-pass set only after:
+
+- first-pass FPM values around `0x12200000`
+- second-pass GENET/MBDMA values around `0x12c00000`
+- third-pass DQM/CP2 queue-control values around `0x16045a00..0x16082000`
+- fourth-pass DQM mailbox and slot-service values around `0x160018xx`, `0x16001dxx`, and `0x160400xx`
+- fifth-pass event `0x01800008` selector/request values
+- sixth-pass selector lookup, preload, and `b604` setup values
+
+already look OEM-like, but event-driven request submit, finalize, publish, or sideband output behavior still fails.
+
+### Seventh-pass MMIO values to trace
+
+Request engine and finalize block:
+
+- `0x16001300`
+- `0x16001304`
+- `0x16001308`
+- `0x1600130c`
+- `0x1600131c`
+- `0x16001320`
+- `0x16001324`
+- `0x16001328`
+- `0x1600132c`
+- `0x16001330`
+- `0x16001334`
+- `0x1600133c`
+- `0x16001da0`
+- `0x16001da4`
+- `0x16001da8`
+- `0x16001dac`
+
+Direct request and event-source words:
+
+- `0x16001c30`
+- `0x16001c34`
+- `0x16001d30`
+- `0x16001d40`
+- `0x16001d50`
+
+Gate and output-lane values:
+
+- `0x16001902`
+- `0x16001906`
+- `0x1600190a`
+- `0x1600190e`
+- `0x16001912`
+- `0x16001916`
+- `0x16001d60`
+- `0x16001d64`
+- `0x16001d70`
+- `0x16001d74`
+- `0x13401ca0`
+- `0x13401ca4`
+- `0x13401cd0`
+- `0x13401cd4`
+- `0x14201c00`
+- `0x14201c04`
+- `0x14201c10`
+- `0x14201c14`
+- `0x14201c80`
+- `0x14201c90`
+- `0x12200224`
+
+### Current best meanings
+
+- `0x16001300..0x1600130c` = direct/shared request engine submit words
+- `0x1600131c` = request engine result low bits
+- `0x16001320..0x1600132c` = selector request block:
+  - word B
+  - FPM token/value
+  - selected context
+  - payload size flags
+- `0x16001330..0x1600133c` = selector-request metadata/result block
+- `0x16001da0..0x16001dac` = shared request metadata block
+- `0x16001c30` and `0x16001c34` = direct request words A and B
+- `0x16001d30`, `0x16001d40`, and `0x16001d50` = source index/token words for event `0x00080000`, `0x00100000`, and `0x00200000`
+- `0x16001902` and `0x16001906` = mode1 lane gates
+- `0x1600190a` and `0x1600190e` = mode2 lane gates
+- `0x16001912` and `0x16001916` = selector16/17 special gates
+- `0x16001d60/64/70/74` = default event100000 lane words
+- `0x13401ca0/a4/cd0/cd4` = mode1 output lanes
+- `0x14201c00/04/10/14` = mode2 output lanes
+- `0x14201c80/90` = selector16/17 special output words
+- `0x12200224` = repeatedly programmed page-bits-plus-`0x801` endpoint-like target, still not safe to finalize semantically
+
+### Gate and finalize rules worth carrying
+
+Current best behavior model:
+
+- shared finalize helper rebuilds completed value from:
+  - saved page bits
+  - low result bits
+- selector finalize helper does the same for the selector-request block
+- if the selector gate value is zero, the completed value is returned to `0x12200200`
+- if the selector gate value is nonzero, the result is published into the selector table/window
+- mode1/mode2 and selector16/17 lane helpers use the same signed-positive halfword gate rule:
+  - `0x0001..0x7fff = pass`
+  - `0x0000 = fail`
+  - `0x8000..0xffff = fail`
+- after publish, several helpers write `0xffff`, likely as a consumed/busy/closed marker
+
+### Runtime and software values for correlation only
+
+Do not hardcode these into Linux. Use them only to correlate OEM runtime behavior:
+
+- `0x8000800c` = event pending/status word
+- `0x80008160` = service-state flags
+- `0x80007100` = special mode used by selector16/17 special lane path
+- `0x80007060` = forced selector/FPM gate mode
+- `0x80007064` and `0x80007068` = default selector request contexts
+- `0x80008014 + service_selector * 4` = cautious selector gate expression/value reference only
+
+### What not to hardcode yet
+
+Do not hardcode these as final Linux semantics yet:
+
+- exact data-structure identity of `0x80008014 + service_selector * 4`
+- exact final semantic identity of `0x12200224`
+- rewritten logic for the suspicious dispatcher test `(0x80008160 & 0x10) != 1` before assembly proof
+- forced-gate-mode per-index update behavior when the lookup index may remain `0xff`
+
+### Updated OpenWrt development meaning
+
+Current best staged model for the TC7200U port:
+
+- stage 1: FPM allocator/backing-base values must look right
+- stage 2: GENET/MBDMA endpoint and control values must look right
+- stage 3: DQM/CP2 queue control, mailbox, per-queue pull programming, and queue-policy state must look right
+- stage 4: DQM mailbox command handling, queue-profile writes, slot commit, and CP2/FPM service plumbing must look right
+- stage 5: the `0x01800008` event path, selector dispatch, request-block programming, and size-selected FPM request/return behavior must look right
+- stage 6: selector lookup/context initialization, preload-port state, and selector-derived `b604` command-table setup must look right
+- stage 7: if traffic still stalls, request-engine submit/finalize flow, selector-gate publish behavior, and mode-specific sideband output lanes become the next most likely missing OEM-specific layer
+
+Practical implication:
+
+- if OpenWrt reproduces the earlier control surfaces but still fails to move packets, compare whether there is any OEM-equivalent behavior for:
+  - request-engine writes around `0x16001300..0x1600133c`
+  - shared metadata writes around `0x16001da0..0x16001dac`
+  - selector-gated publish behavior around `0x16001c00` and `0x80008014 + selector * 4`
+  - direct request input at `0x16001c30` and `0x16001c34`
+  - lane-gate values at `0x16001902/06/0a/0e/12/16`
+  - default/mode1/mode2/special output words at `0x16001d60/64/70/74`, `0x13401ca0/a4/cd0/cd4`, and `0x14201c00/04/10/14/80/90`
+
+## Eighth-pass alternate 0x80c8 family registration and selector-output values
+
+This section was added after rereading:
+
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-12-dqm-event1800008-80c8-family-cleanup-log.md`
+
+### When to use this set
+
+Use this eighth-pass set only after:
+
+- first-pass FPM values around `0x12200000`
+- second-pass GENET/MBDMA values around `0x12c00000`
+- third-pass DQM/CP2 queue-control values around `0x16045a00..0x16082000`
+- fourth-pass DQM mailbox and slot-service values around `0x160018xx`, `0x16001dxx`, and `0x160400xx`
+- fifth-pass event `0x01800008` selector/request values
+- sixth-pass selector lookup, preload, and `b604` setup values
+- seventh-pass event1800008 finalize/publish/lane-routing values
+
+already look OEM-like, but the active runtime family, selector-output port behavior, or alternate activation path still appears mismatched.
+
+### Eighth-pass MMIO values to trace
+
+Alternate-family activation values:
+
+- `0x16001010`
+- `0x16001014`
+- `0x16001028`
+- `0x1600163c`
+- `0x16001640`
+- `0x16001810`
+- `0x16001818`
+- `0x16001902`
+- `0x16001906`
+- `0x1600190a`
+- `0x1600190e`
+
+Selector output and page-translate values:
+
+- `0x80008014 + selector * 4`
+- `0x16001c00 + selector * 0x10`
+- `0x16001c04 + selector * 0x10`
+- `0x16001ca0`
+- `0x16001cb0`
+- `0x16001cc0`
+- `0x16001cd0`
+- `0x16001d80`
+- `0x16001d90`
+- `0x16001408`
+- `0x1600140c`
+
+Alias-window output values:
+
+- `0x13401ca0`
+- `0x13401ca4`
+- `0x13401cd0`
+- `0x13401cd4`
+- `0x14201c00`
+- `0x14201c04`
+- `0x14201c10`
+- `0x14201c14`
+- `0x14201c80`
+- `0x14201c90`
+
+### Current best meanings
+
+- the correct alternate registered handler is `0x80c8a118`, not `0x80c9a118`
+- `0x16001640 = 0x8000003f` and `0x1600163c = 0x14` are now concrete alternate-family queue-control setup writes
+- `0x16001818 = 0x40383c08` and `0x16001014 = 0x000c0000` remain queue/global rearm or ack-side writes in the alternate family
+- `0x80008014 + selector * 4` remains a cautious selector-output gate expression/value reference
+- `0x16001c00 + selector * 0x10` and `0x16001c04 + selector * 0x10` are now clearer as selector output word0/word1 bases in the alternate publish paths
+- `0x16001408` and `0x1600140c` are the page-translate input/result pair used by direct request and selector10/11 request paths
+- `0x1340xxxx` and `0x1420xxxx` remain active output-lane MMIO aliases, not code regions
+
+### Alternate-family rules worth carrying
+
+Current best alternate-family model:
+
+- the `0x80c8` family services the same major pending bits as the earlier `0x80c7` family:
+  - `0x00000008`
+  - `0x00080000`
+  - `0x00100000`
+  - `0x00200000`
+  - `0x40000000`
+- selector A priority:
+  - pending `0x800 -> selector 0x0b`
+  - pending `0x400 -> selector 0x0a`
+  - if both pending, `0x0b` wins
+- selector B priority:
+  - pending `0x2000 -> selector 0x0d`
+  - pending `0x1000 -> selector 0x0c`
+  - if both pending, `0x0d` wins
+- fallback selector publish and selector18/19 publish use the same gate-and-publish pattern
+- selector16/17 can route either:
+  - into normal selector output word0/word1 pairs
+  - or into special `0x14201c80/90` lanes when special mode and field tests pass
+
+### Runtime and software values for correlation only
+
+Do not hardcode these into Linux. Use them only to correlate OEM runtime behavior:
+
+- alternate handler function address `0x80c8a118`
+- alternate parent init function `fn_dqm_alt_runtime_init_register_event1800008_genet500_510_80c89cb4_candidate`
+- selector A state at `0x80007110`
+- selector B state at `0x80007114`
+- active selector bitmap `0x80008000`
+- selector state word `0x80008004`
+- event pending/status `0x8000800c`
+- service-state flags `0x80008160`
+
+### What not to hardcode yet
+
+Do not hardcode these as final Linux semantics yet:
+
+- exact final semantic identity of `0x16001818` and `0x16001014` as pure ack vs enable vs mixed rearm writes
+- exact data-structure identity of `0x80008014 + selector * 4`
+- exact physical/bus meaning of the `0x1340xxxx` and `0x1420xxxx` alias windows
+- any assumption that the `0x80c8` family is definitively the only active runtime path without more runtime proof
+
+### Updated OpenWrt development meaning
+
+Current best staged model for the TC7200U port:
+
+- stage 1: FPM allocator/backing-base values must look right
+- stage 2: GENET/MBDMA endpoint and control values must look right
+- stage 3: DQM/CP2 queue control, mailbox, per-queue pull programming, and queue-policy state must look right
+- stage 4: DQM mailbox command handling, queue-profile writes, slot commit, and CP2/FPM service plumbing must look right
+- stage 5: the `0x01800008` event path, selector dispatch, request-block programming, and size-selected FPM request/return behavior must look right
+- stage 6: selector lookup/context initialization, preload-port state, and selector-derived `b604` command-table setup must look right
+- stage 7: request-engine submit/finalize flow, selector-gate publish behavior, and mode-specific sideband output lanes must look right
+- stage 8: if traffic still stalls, the alternate `0x80c8` runtime-family registration/activation writes, selector-output gating, and alias-window output paths become the next most likely missing OEM-specific layer
+
+Practical implication:
+
+- if OpenWrt reproduces the earlier control surfaces but still fails to move packets, compare whether there is any OEM-equivalent behavior for:
+  - alternate activation writes around `0x1600163c`, `0x16001640`, `0x16001810/18`, and `0x16001010/14`
+  - selector-output gating around `0x80008014 + selector * 4`
+  - selector output words at `0x16001c00 + selector * 0x10` and `0x16001c04 + selector * 0x10`
+  - page translation via `0x16001408/0x1600140c`
+  - alias-window output paths under `0x1340xxxx` and `0x1420xxxx`
