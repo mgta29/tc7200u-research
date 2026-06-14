@@ -276,6 +276,8 @@ Derived from:
 - `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-08-gmac-ghidra-findings.md`
 - `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-08-ghidra-mbdma-static-dma-findings.md`
 - `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-08-enet-gmac-step1-mdio-profile-findings.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-14-stage1-thread-record-datatype-correction.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-14-stage1-thread-exit-tsd-cleanup.md`
 
 ## Preservation
 
@@ -1969,6 +1971,7 @@ Current best staged model for the TC7200U port:
 - stage 8: alternate `0x80c8` runtime-family registration/activation writes, selector-output gating, and alias-window output paths must look right
 - stage 9: runtime-family selection and request-model behavior must look right
 - stage 10: if traffic still stalls, Host-DQM selector register blocks, dispatch-table mapping, and Stage1 event-slot wake behavior become the next most likely missing OEM-specific layer
+- stage 11: if traffic still stalls after the event-slot layer looks OEM-like, current-context ownership, thread-record linkage, per-thread signal/work-mask behavior, and worker exit/join lifecycle become the next software correlation layer
 
 Practical implication:
 
@@ -1978,4 +1981,84 @@ Practical implication:
   - dispatch-table mapping through `0x81916fd8` and `0x819172d8`
   - Stage1 event-slot wake behavior rooted at `0x81909698`
 - treat the Stage1 scheduler and post/signal globals only as reverse-side correlation aids
+- do not convert those software values into direct Linux MMIO constants
+
+## Eleventh-pass Stage1 thread-record and signal-mask owner values
+
+This section was added after rereading:
+
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-14-stage1-scheduler-post-signal-wake-chain.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-14-stage1-thread-record-datatype-correction.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-14-stage1-thread-exit-tsd-cleanup.md`
+
+### When to use this set
+
+Use this eleventh-pass set only after the earlier MMIO and Host-DQM or event-slot surfaces already look OEM-like, but workers still do not continue, signal-driven progress still appears mismatched, or the remaining gap looks more like thread ownership or wake-state follow-through than a plain ENET or DQM register mismatch.
+
+### Eleventh-pass software values for correlation only
+
+Do not hardcode these into Linux. Use them only to correlate OEM runtime behavior:
+
+- current-context and signal-state globals:
+  - `0x819dcc54`
+  - `0x81a67cec`
+
+### Current best meanings
+
+- `stage1_context_candidate +0xac` is not a detached signal-select-state pointer in the current carried model:
+  - it is `stage1_thread_record_candidate *thread_record_ac_candidate`
+- carried per-thread signal/work ownership fields now worth keeping visible:
+  - `stage1_thread_record_candidate +0x48 = pending_signal_or_work_mask_48_candidate`
+  - `stage1_thread_record_candidate +0x4c = blocked_signal_mask_or_wait_mask_4c_candidate`
+- embedded ownership relation now matters for later software correlation:
+  - `stage1_thread_record_candidate +0x50` embeds the owning `stage1_context_candidate`
+  - `embedded_context_50.thread_record_ac_candidate` points back to the containing thread record
+- current-thread helper behavior now reads better as:
+  - current-context lookup returns `g_stage1_current_context_819dcc54_candidate->thread_record_ac_candidate`
+  - the unmasked pending-signal view is better treated as `(global_signal_state | thread_pending) & ~thread_blocked`
+  - current-thread id or handle comes from `thread_record->thread_id_or_handle_04`
+- if workers appear to terminate or never complete join/teardown after wakeup, these thread-lifecycle fields are now also worth keeping visible:
+  - `stage1_thread_record_candidate +0x1c = exit_value_or_status_1c_candidate`
+  - `stage1_thread_record_candidate +0x44 = cleanup_handler_head_44_candidate`
+  - `stage1_thread_record_candidate +0x178 = embedded_join_condition_178`
+  - absolute thread-record offset `+0x180 = embedded_join_condition_178.tsd_value_slots_base_08_candidate`
+
+### What not to hardcode yet
+
+Do not hardcode these as final Linux semantics yet:
+
+- `0x819dcc54` or `0x81a67cec` as if they were MMIO registers
+- `0x81a64f18` or `0x81a64f28` as if they were MMIO registers
+- the per-thread pending or blocked masks as if they mapped directly to Linux-visible hardware status bits
+- the older detached `signal_select_state_ac_candidate` interpretation for `stage1_context_candidate +0xac`
+- the thread-exit or join-lifecycle fields as if they were direct Linux-visible hardware state
+- any assumption that OpenWrt must reproduce the OEM scheduler internals rather than only the externally-visible hardware state that those internals eventually drive
+
+### Updated OpenWrt development meaning
+
+Current best staged model for the TC7200U port:
+
+- stage 1: FPM allocator/backing-base values must look right
+- stage 2: GENET/MBDMA endpoint and control values must look right
+- stage 3: DQM/CP2 queue control, mailbox, per-queue pull programming, and queue-policy state must look right
+- stage 4: DQM mailbox command handling, queue-profile writes, slot commit, and CP2/FPM service plumbing must look right
+- stage 5: the `0x01800008` event path, selector dispatch, request-block programming, and size-selected FPM request/return behavior must look right
+- stage 6: selector lookup/context initialization, preload-port state, and selector-derived `b604` command-table setup must look right
+- stage 7: request-engine submit/finalize flow, selector-gate publish behavior, and mode-specific sideband output lanes must look right
+- stage 8: alternate `0x80c8` runtime-family registration/activation writes, selector-output gating, and alias-window output paths must look right
+- stage 9: runtime-family selection and request-model behavior must look right
+- stage 10: if traffic still stalls, Host-DQM selector register blocks, dispatch-table mapping, and Stage1 event-slot wake behavior become the next most likely missing OEM-specific layer
+- stage 11: if the stage-10 event-slot layer already looks OEM-like, current-context ownership, thread-record linkage, per-thread pending or blocked signal/work masks, and worker exit/join lifecycle become the next software correlation layer
+
+Practical implication:
+
+- if OpenWrt reproduces the earlier control surfaces and even the Host-DQM or event-slot bridge still looks OEM-like, compare whether any OEM-equivalent follow-through exists for:
+  - `current_context -> thread_record` ownership at `0x819dcc54`
+  - per-thread pending and blocked masks at `stage1_thread_record_candidate +0x48/+0x4c`
+  - the software-side unmasked pending-signal view rooted at `0x81a67cec`
+- if workers appear to terminate, never rejoin, or fail during teardown after wakeup, also compare:
+  - `stage1_thread_record_candidate +0x1c/+0x44/+0x178`
+  - absolute thread-record offset `+0x180`
+  - TSD correlation globals `0x81a64f18` and `0x81a64f28`
+- keep these as reverse-side correlation aids only
 - do not convert those software values into direct Linux MMIO constants

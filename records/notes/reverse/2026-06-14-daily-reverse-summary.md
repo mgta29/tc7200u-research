@@ -39,6 +39,16 @@ It did confirm and strengthen these June 14 points:
   - wake-side observed bits are returned to the waiter
   - outer wait-side clear is `slot->pending_mask_00 &= ~observed_mask`
 - the generic Stage1 scheduler callback, post-message, signal-pending, wake-if-waiting, and make-runnable chain is now connected enough to treat as the next software wake layer behind the event-slot path
+- the late June 14 datatype correction closes the software-ownership side of that wake layer enough to carry:
+  - `stage1_context_candidate +0xac` is `stage1_thread_record_candidate *thread_record_ac_candidate`, not a detached signal-select-state pointer
+  - per-thread pending and blocked signal or work masks live at `stage1_thread_record_candidate +0x48` and `+0x4c`
+  - the embedded context inside `stage1_thread_record_candidate` points back to its owning thread record through `+0xac`
+- the later June 14 thread-exit cleanup pass closes the terminal lifecycle side of that same software layer enough to carry:
+  - `stage1_thread_record_candidate +0x1c` is `exit_value_or_status_1c_candidate`
+  - `stage1_thread_record_candidate +0x44` is `cleanup_handler_head_44_candidate`
+  - `stage1_thread_record_candidate +0x178` is a thread-specific embedded join object
+  - absolute thread-record offset `+0x180` is `embedded_join_condition_178.tsd_value_slots_base_08_candidate`
+  - TSD destructors are called with the old slot value in `a0`
 - the context-struct offset correction is now important enough to carry:
   - `+0x60` is a `ushort` trace id
   - `+0x98` is `wait_state`
@@ -54,6 +64,8 @@ Earlier frozen notes remain valid. The main June 14 closure came from:
 - `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-13-host-dqm-msp-comms-guarded-enable-path-updated.md`
 - `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-13-stage1-event-slot-wait-chain-update.md`
 - `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-14-stage1-scheduler-post-signal-wake-chain.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-14-stage1-thread-record-datatype-correction.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-14-stage1-thread-exit-tsd-cleanup.md`
 
 ## New Host-DQM selector and dispatch facts worth carrying
 
@@ -163,6 +175,55 @@ Important caution:
 
 - these Stage1 scheduler and post/signal globals are software/runtime correlation values, not Linux MMIO constants
 
+## Late June 14 thread-record ownership and signal-mask correction facts worth carrying
+
+High-value newly-closed datatype and ownership facts:
+
+- current-context ownership anchor now worth carrying:
+  - `0x819dcc54`
+- the prior detached `signal_select_state_ac_candidate` interpretation should no longer be used for the current context carry set:
+  - `stage1_context_candidate +0xac = stage1_thread_record_candidate *thread_record_ac_candidate`
+- carried thread-record signal or work fields now worth carrying:
+  - `+0x48` pending signal or work mask
+  - `+0x4c` blocked signal mask or wait mask
+- current-thread helpers now read better as:
+  - current-context getter returns `g_stage1_current_context_819dcc54_candidate->thread_record_ac_candidate`
+  - unmasked pending-signal computation combines global signal state `0x81a67cec` with thread-record-local pending and blocked masks
+  - current-thread id or handle comes from `thread_record->thread_id_or_handle_04`
+- embedded ownership relation now worth carrying:
+  - `stage1_thread_record_candidate +0x50` embeds the owning `stage1_context_candidate`
+  - `embedded_context_50.thread_record_ac_candidate` points back to the containing thread record
+
+Practical reverse-side consequence:
+
+- if the Host-DQM or event-slot path already looks OEM-like but the worker still does not continue, the next software correlation layer is not a detached signal-select object
+- it is the `current_context -> thread_record -> pending or blocked signal/work-mask` ownership path
+
+## Late June 14 thread-exit, join-wake, and TSD cleanup facts worth carrying
+
+High-value newly-closed lifecycle and teardown facts:
+
+- terminal current-thread exit path now worth carrying:
+  - `fn_stage1_current_thread_exit_cleanup_wake_joiners_80ef3860_candidate`
+- current best high-level behavior:
+  - drains cleanup-handler list
+  - runs TSD or TLS destructors for populated per-thread slots
+  - stores thread exit value or status
+  - wakes join waiters
+  - marks the current context dead
+  - enters a final no-return safety spin
+- thread-record lifecycle fields now worth carrying:
+  - `+0x1c = exit_value_or_status_1c_candidate`
+  - `+0x44 = cleanup_handler_head_44_candidate`
+  - `+0x178 = embedded_join_condition_178`
+  - absolute `+0x180 = embedded_join_condition_178.tsd_value_slots_base_08_candidate`
+- thread-specific embedded join datatype now matters:
+  - the embedded join object inside the thread record is not just the generic `stage1_condition_object_candidate`
+  - its `+0x08` field is used as the per-thread TSD or TLS slot-base pointer
+- TSD globals now worth keeping only as reverse-side correlation values when diagnosing worker teardown:
+  - `0x81a64f18`
+  - `0x81a64f28`
+
 ## OpenWrt development consequences
 
 The current staged control model is now:
@@ -177,7 +238,7 @@ The current staged control model is now:
 - stage 8: alternate `0x80c8` runtime-family registration/activation differences, selector-output gates, and page-translate or output-lane alias windows
 - stage 9: runtime-family selection and request-model mismatches
 - stage 10 if traffic still stalls: Host-DQM selector register blocks, dispatch tables, and Stage1 event-slot bridge behavior
-- stage 11 if traffic still stalls: the Stage1 scheduler callback, post-message, signal-pending, wake-if-waiting, and make-runnable chain as software correlation
+- stage 11 if traffic still stalls: the Stage1 scheduler callback, post-message, signal-pending, wake-if-waiting, make-runnable, thread-record-owned signal/work-mask chain, and worker exit/join lifecycle are the next software correlation layer
 
 Practical implication:
 
@@ -186,7 +247,9 @@ Practical implication:
   - selector `1` / MSP register block `0xb8201814/1818/1820`
   - dispatch-table mapping through `0x81916fd8` and `0x819172d8`
   - Stage1 event-slot wake behavior rooted at `0x81909698`
-- keep the Stage1 scheduler, context, and post/signal globals as reverse-side correlation aids only
+- if the Host-DQM and Stage1 event-slot surfaces already match OEM behavior but workers still stall, compare the `current_context -> thread_record` ownership path and per-thread pending or blocked masks using `0x819dcc54` and `0x81a67cec` only as reverse-side correlation globals
+- if workers appear to terminate, fail to rejoin, or never complete teardown after wakeup, also compare thread-record lifecycle fields `+0x1c`, `+0x44`, `+0x178`, absolute `+0x180`, and the TSD correlation globals `0x81a64f18` and `0x81a64f28`
+- keep the Stage1 scheduler, context, thread-record, and post/signal globals as reverse-side correlation aids only
 - do not convert those software addresses into direct Linux hardware constants
 
 ## Repository updates recorded in this pass
@@ -194,7 +257,8 @@ Practical implication:
 Recorded modifications worth keeping:
 
 - added the new June 14 daily summary `2026-06-14-daily-reverse-summary.md`
-- refreshed the maintained OpenWrt-facing note `openwrt-tc7200u-enet-usable-values.md` with the June 13 and June 14 Host-DQM selector, Stage1 event-slot, and scheduler wake-chain findings
+- refreshed the maintained OpenWrt-facing note `important-openwrt-tc7200u-enet-usable-values.md` with the June 13 and June 14 Host-DQM selector, Stage1 event-slot, scheduler wake-chain, thread-record ownership, and worker-exit/join-lifecycle correlation findings
+- refreshed `important-reverse-structure-reference.md` to keep the carried thread-record, cleanup-handler, and embedded join/TSD structure corrections aligned with the extracted structure set and local header cross-checks
 
 ## Preservation
 
