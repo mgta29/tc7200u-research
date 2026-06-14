@@ -1707,3 +1707,275 @@ Practical implication:
   - selector output words at `0x16001c00 + selector * 0x10` and `0x16001c04 + selector * 0x10`
   - page translation via `0x16001408/0x1600140c`
   - alias-window output paths under `0x1340xxxx` and `0x1420xxxx`
+
+## Ninth-pass runtime selector and request-model values
+
+This section carries forward a prior June 13 runtime-selector and request-model extraction pass.
+
+Current control note:
+
+- the standalone June 13 source log for that pass is not currently present in `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse`
+- keep this section as maintained carry-forward reverse data, not as a claim that the current-tree June 13 note set adds new hardware values by itself
+- the current-tree June 13 note `2026-06-13-ghidra-cleanup-repair-plan.md` is process guidance only and does not change the OpenWrt MMIO or control compare set below
+
+### When to use this set
+
+Use this ninth-pass set only after:
+
+- first-pass FPM values around `0x12200000`
+- second-pass GENET/MBDMA values around `0x12c00000`
+- third-pass DQM/CP2 queue-control values around `0x16045a00..0x16082000`
+- fourth-pass DQM mailbox and slot-service values around `0x160018xx`, `0x16001dxx`, and `0x160400xx`
+- fifth-pass event `0x01800008` selector/request values
+- sixth-pass selector lookup, preload, and `b604` setup values
+- seventh-pass event1800008 finalize/publish/lane-routing values
+- eighth-pass alternate `0x80c8` registration/activation values
+
+already look OEM-like, but the active runtime family, startup path, or request-model behavior still appears mismatched.
+
+### Ninth-pass values for correlation only
+
+Do not hardcode these into Linux. Use them only to correlate OEM runtime behavior:
+
+- runtime selector split value:
+  - `0x8184006c`
+- runtime startup vector slots:
+  - `0x81917904`
+  - `0x81917908`
+  - `0x8191790c`
+  - `0x81917910`
+  - `0x81917914`
+- alternate MSG_PROC slot target:
+  - `0x8191790c = fn_dqm_alt_runtime_init_register_event1800008_genet500_510_80c89cb4_candidate`
+- selector defaults and alternate-family state:
+  - `0x80007110 = 0x0e`
+  - `0x80007114 = 0x0c`
+  - `0x80007118 = 0x12c00510`
+  - `0x8000711c = 0x12c00500`
+  - `0x80007064`
+  - `0x80007068`
+- request-model correlation surfaces:
+  - `0x16001408`
+  - `0x1600140c`
+  - `0x16001300..0x1600130c`
+  - `0x16001320..0x1600132c`
+  - `0x16001330`
+  - `0x16001334`
+  - `0x1600133c`
+  - `0x16001da0..0x16001dac`
+  - `0x16001dbc`
+  - `0x12200200`
+  - `0x12200208`
+  - `0x12200210`
+  - `0x12200218`
+  - `0x12200224`
+
+### Current best meanings
+
+- `0x8184006c` is now a concrete runtime-family threshold:
+  - `< 0x00b0 -> older or legacy vector family`
+  - `>= 0x00b0 -> alternate 0x80c8 vector family`
+- the alternate event1800008 path is now tied to the MSG_PROC startup vector slot rather than to a direct call:
+  - runtime selector writes `0x8191790c`
+  - processor start helper launches the MSG_PROC core with that slot
+- the alternate parent init helper now cleanly owns the previously-separated work for:
+  - selector defaults
+  - default selector contexts
+  - queue/profile `0x1d` selector-context preload
+  - queue/profile `0x1c` index preload
+  - selector lookup-context table init
+  - pair-copy bootstrap
+  - `b604` CP2/DQM enable and table programming
+  - lane-gate initialization
+  - queue/global IRQ mask writes
+  - event `0x01800008` registration and enable
+- the direct request pending-bit `0x00000008` path is not an FPM-allocation path:
+  - it page-translates through `0x16001408/0x1600140c`
+  - it writes the shared request-engine block and request metadata block
+  - it does not write `0x12200224`
+  - it does not read the sized FPM endpoints `0x12200218/10/08/00`
+  - it does not use the finalize helpers
+- the selector `0x10/0x11` request path remains distinct:
+  - endpoint selection uses `payload_size + 0xc0`
+  - it writes `0x12200224`
+  - it uses the shared request-engine and metadata block
+- the selector `0x0a..0x0d` request path remains distinct:
+  - endpoint selection uses `payload_size + 4`
+  - it uses the selector-request block `0x16001320..0x1600132c`
+  - it finalizes through `0x16001330/34/3c`
+- selector `0x16/0x17` special-lane handling has an important no-fallback rule:
+  - if the special condition matches but the special halfword gate is closed, the helper returns without falling back to normal selector output
+
+### What not to hardcode yet
+
+Do not hardcode these as final Linux semantics yet:
+
+- exact final identity of `0x8184006c` beyond a runtime-family threshold or profile discriminator
+- startup vector slot addresses `0x81917904..0x81917914` as if they were Linux-side hardware registers
+- exact final semantic identity of `0x12200224`
+- exact final hardware role of the `0xb340xxxx` and `0xb420xxxx` output-lane aliases
+- any assumption that OpenWrt should reproduce the OEM processor-start sequence rather than only the resulting MMIO state
+
+### Updated OpenWrt development meaning
+
+Current best staged model for the TC7200U port:
+
+- stage 1: FPM allocator/backing-base values must look right
+- stage 2: GENET/MBDMA endpoint and control values must look right
+- stage 3: DQM/CP2 queue control, mailbox, per-queue pull programming, and queue-policy state must look right
+- stage 4: DQM mailbox command handling, queue-profile writes, slot commit, and CP2/FPM service plumbing must look right
+- stage 5: the `0x01800008` event path, selector dispatch, request-block programming, and size-selected FPM request/return behavior must look right
+- stage 6: selector lookup/context initialization, preload-port state, and selector-derived `b604` command-table setup must look right
+- stage 7: request-engine submit/finalize flow, selector-gate publish behavior, and mode-specific sideband output lanes must look right
+- stage 8: alternate `0x80c8` runtime-family registration/activation writes, selector-output gating, and alias-window output paths must look right
+- stage 9: if traffic still stalls, compare whether the active OEM runtime family and request model are mismatched:
+  - runtime selector threshold at `0x8184006c`
+  - MSG_PROC startup-vector installation at `0x8191790c`
+  - direct request path versus selector `0x10/0x11` request path versus selector `0x0a..0x0d` request path
+
+Practical implication:
+
+- if OpenWrt reproduces the earlier MMIO control surfaces but still diverges from OEM behavior, do not assume that every event1800008 path:
+  - uses `0x12200224`
+  - allocates through `0x12200218/10/08/00`
+  - enters through the same request block
+  - finalizes through the same publish-or-return rule
+- keep the runtime-selector and startup-vector findings as correlation aids, not as candidate Linux constants
+
+## Tenth-pass Host-DQM selector and Stage1 wake-chain values
+
+This section was added after rereading:
+
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-13-host-dqm-msp-comms-guarded-enable-path-updated.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-13-stage1-event-slot-wait-chain-update.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-14-stage1-scheduler-post-signal-wake-chain.md`
+
+### When to use this set
+
+Use this tenth-pass set only after:
+
+- first-pass FPM values around `0x12200000`
+- second-pass GENET/MBDMA values around `0x12c00000`
+- third-pass DQM/CP2 queue-control values around `0x16045a00..0x16082000`
+- fourth-pass DQM mailbox and slot-service values around `0x160018xx`, `0x16001dxx`, and `0x160400xx`
+- fifth-pass event `0x01800008` selector/request values
+- sixth-pass selector lookup, preload, and `b604` setup values
+- seventh-pass event1800008 finalize/publish/lane-routing values
+- eighth-pass alternate `0x80c8` registration/activation values
+- ninth-pass runtime-selector and request-model values
+
+already look OEM-like, but packet workers still appear not to wake, MSG_PROC-side coordination still appears mismatched, or the remaining gap seems to be Host-DQM or Stage1 software wake plumbing rather than plain ENET/FPM register setup.
+
+### Tenth-pass MMIO values to trace
+
+Derived physical compare surfaces from the OEM KSEG1 aliases:
+
+- selector `1` / MSP Host-DQM block:
+  - `0xb8201814 -> 0x18201814`
+  - `0xb8201818 -> 0x18201818`
+  - `0xb8201820 -> 0x18201820`
+- selector `3` / MSG_PROC Host-DQM block:
+  - `0xb8601814 -> 0x18601814`
+  - `0xb8601818 -> 0x18601818`
+  - `0xb8601820 -> 0x18601820`
+
+Additional selector bases worth correlating:
+
+- `0xb8001800 -> 0x18001800`
+- `0xb8401800 -> 0x18401800`
+- `0xb8801800 -> 0x18801800`
+- `0xb8a01800 -> 0x18a01800`
+
+### Tenth-pass software values for correlation only
+
+Do not hardcode these into Linux. Use them only to correlate OEM runtime behavior:
+
+- Host-DQM dispatch tables and object list:
+  - `0x81916fd8`
+  - `0x819172d8`
+  - `0x819175d8`
+- Stage1 event-slot table base:
+  - `0x81909698`
+- Stage1 callback, unlock-callback, and post/signal state:
+  - `0x819dcc38`
+  - `0x819dcc4c`
+  - `0x81a67cd0`
+  - `0x81a67cec`
+  - `0x81a67cf0`
+  - `0x81803acc`
+
+### Current best meanings
+
+- the MSP comms channel object created by the OEM init wrapper is not selector `1` / MSP for this path:
+  - it is selector `3` / MSG_PROC
+  - queue index A is `0x1e`
+  - channel index is `0x1f`
+  - enable-path bit is `0x80000000`
+  - guarded enable waits for `0xb8601820` bit31 clear, then sets bit31 in `0xb8601818` and `0xb8601814`
+- selector-to-block mapping now worth carrying:
+  - selector `0` -> UTP -> `0xb8001800`
+  - selector `1` -> MSP -> `0xb8201800`
+  - selector `2` -> FAP -> `0xb8401800`
+  - selector `3` -> MSG_PROC -> `0xb8601800`
+  - selector `4` -> MPEG_PROC -> `0xb8a01800`
+  - selector `5` -> PMC -> `0xb8801800`
+- Host-DQM dispatch tables now have useful read-side meanings:
+  - `0x81916fd8` = dispatch table A = raise masks
+  - `0x819172d8` = dispatch table B = `1`-based Stage1 event-slot ids
+- selector `3` / MSG_PROC pending dispatch now reads:
+  - `0xb8601814`
+  - `0xb8601818`
+  - table base index `0x60`
+- selector `1` / MSP pending dispatch now reads:
+  - `0xb8201814`
+  - `0xb8201820`
+  - table base index `0x20`
+- the Host-DQM bridge is now better treated as:
+  - selector pending bit
+  - dispatch-table lookup
+  - Stage1 event-slot raise
+  - waiter wake
+- Stage1 event-slot wait and clear behavior now worth carrying:
+  - slot ids are `1`-based
+  - wake path stores the full pending-mask snapshot for the waiter
+  - outer wait-side clear is `slot->pending_mask_00 &= ~observed_mask`
+- Stage1 post/signal and wake chain now worth carrying as a software correlation model:
+  - scheduler callback can map an id to a target index
+  - post helper can set a pending signal bit
+  - wake helper can set `wait_state_98 = 0` and `resume_status_9c = 4`
+  - make-runnable can clear context block flags and return the context to readyq
+
+### What not to hardcode yet
+
+Do not hardcode these as final Linux semantics yet:
+
+- dispatch-table addresses `0x81916fd8` and `0x819172d8` as if they were hardware registers
+- Stage1 slot-table, callback-pair, post-state, or queue-node globals as if they were MMIO blocks
+- exact semantic meaning of selector `1` / MSP bits `18`, `19`, and aggregate mask `0x13f3ffff`
+- exact final semantic meaning of `context->waitq_owner_or_link_owner_28`
+- any assumption that OpenWrt must reproduce the OEM Stage1 scheduler internals rather than only the necessary externally-visible hardware state
+
+### Updated OpenWrt development meaning
+
+Current best staged model for the TC7200U port:
+
+- stage 1: FPM allocator/backing-base values must look right
+- stage 2: GENET/MBDMA endpoint and control values must look right
+- stage 3: DQM/CP2 queue control, mailbox, per-queue pull programming, and queue-policy state must look right
+- stage 4: DQM mailbox command handling, queue-profile writes, slot commit, and CP2/FPM service plumbing must look right
+- stage 5: the `0x01800008` event path, selector dispatch, request-block programming, and size-selected FPM request/return behavior must look right
+- stage 6: selector lookup/context initialization, preload-port state, and selector-derived `b604` command-table setup must look right
+- stage 7: request-engine submit/finalize flow, selector-gate publish behavior, and mode-specific sideband output lanes must look right
+- stage 8: alternate `0x80c8` runtime-family registration/activation writes, selector-output gating, and alias-window output paths must look right
+- stage 9: runtime-family selection and request-model behavior must look right
+- stage 10: if traffic still stalls, Host-DQM selector register blocks, dispatch-table mapping, and Stage1 event-slot wake behavior become the next most likely missing OEM-specific layer
+
+Practical implication:
+
+- if OpenWrt reproduces the earlier control surfaces but packet movement still fails, compare whether any OEM-equivalent coordination exists for:
+  - selector `3` / MSG_PROC block `0x18601814/18/20`
+  - selector `1` / MSP block `0x18201814/18/20`
+  - dispatch-table mapping through `0x81916fd8` and `0x819172d8`
+  - Stage1 event-slot wake behavior rooted at `0x81909698`
+- treat the Stage1 scheduler and post/signal globals only as reverse-side correlation aids
+- do not convert those software values into direct Linux MMIO constants
