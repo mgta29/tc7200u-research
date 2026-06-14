@@ -1,6 +1,0 @@
-
-DECIMAL       HEXADECIMAL     DESCRIPTION
---------------------------------------------------------------------------------
-92            0x5C            LZMA compressed data, properties: 0x5D, dictionary size: 1048576 bytes, missing uncompressed size
-1228829       0x12C01D        QNX4 Boot Block
-
