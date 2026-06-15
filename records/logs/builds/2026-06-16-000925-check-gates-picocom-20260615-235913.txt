@@ -1,0 +1,58 @@
+# TC7200U Gate Report
+
+generated_at=2026-06-16T00:09:25+02:00
+log_path=records/logs/serial/picocom-20260615-235913.log
+report_path=/home/mgta29/tc7200u-research/records/logs/builds/2026-06-16-000925-check-gates-picocom-20260615-235913.txt
+
+## Log metadata
+-rw-r--r-- 1 root root 62K 2026-06-16 00:09 records/logs/serial/picocom-20260615-235913.log
+b437f3a25bfbf8278325a25c8ede2ac6af67a062fec2fffcfa89d9c6143263a1  records/logs/serial/picocom-20260615-235913.log
+
+## Marker counts
+tftp_complete=1
+signature_a825=1
+executing_image4=1
+exceptions=0
+decompression_failed=0
+nand_fail_no_replacement=0
+nand_out_of_order=0
+hs_getmsg_error=0
+hs_unexpected_error=0
+unhandled_message_lines=0
+handshake_msg_lines=0
+cfe_banner_lines=0
+openwrt_loader_lines=1
+openwrt_decompress_kernel_lines=1
+warning_initial_console_lines=0
+kernel_panic_lines=1
+panic_init_kill_lines=1
+procd_init_lines=0
+press_enter_lines=0
+busybox_shell_lines=0
+build_warning_lines=0
+build_error_lines=0
+build_patch_fail_lines=0
+build_target_time_lines=0
+executing_image4_line=108
+
+## Gate verdicts
+Gate A:  PASS (accepted)
+Gate B:  FAIL
+Gate C:  PASS (clean)
+Gate D:  PASS
+Gate E:  FAIL (userspace_console_failed)
+
+## Boot/runtime key lines
+113:OpenWrt kernel loader for BMIPS
+117:Decompressing kernel... done!
+119:Starting kernel at 80010000...
+121:[    0.000000] Linux version 6.12.87 (mgta29@CerberusNB) (mips-openwrt-linux-musl-gcc (OpenWrt GCC 14.3.0 r34703-aa96b3ad55) 14.3.0, GNU ld (GNU Binutils) 2.44) #0 SMP Tue May 12 23:59:29 2026
+147:[    0.000000] Kernel command line: console=ttyS0,115200 earlycon ignore_loglevel loglevel=8 initcall_debug clk_ignore_unused pd_ignore_unused initramfs_async=0 panic=10
+929:[   87.663121] Run /init as init process
+935:[   95.027010] do_page_fault(): sending SIGSEGV to cp for invalid write access to 00000000
+939:[   95.589134] do_page_fault(): sending SIGSEGV to switch_root for invalid write access to 00000000
+942:[   95.630251] Kernel panic - not syncing: Attempted to kill init! exitcode=0x0000000b
+943:[   95.641483] Rebooting in 10 seconds..
+944:[  106.474407] Reboot failed -- System halted
+
+## Build key lines

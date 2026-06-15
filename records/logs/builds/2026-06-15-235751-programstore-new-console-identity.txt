@@ -1,0 +1,61 @@
+candidate=openwrt-console-procd-20260615-232607.bin
+raw=/home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin
+wrapped=/mnt/c/tftp/openwrt-console-procd-20260615-232607.bin
+raw_size=7143509
+wrapped_size=7143601
+5b3d0922764fc8fa65e934d8952819789ad14bfe65b80faab65f81a2eb32f15c  /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin
+572d77e47f24fbe4c211405f0d7462b1051e40c9071d9009644ece850fcd3919  /mnt/c/tftp/openwrt-console-procd-20260615-232607.bin
+
+## wrap log
+=== meta ===
+timestamp_local=2026-06-15 23:53:30 CEST
+cwd=/home/mgta29/tc7200u-research
+command=a825_wrap --input /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin --output /mnt/c/tftp/openwrt-console-procd-20260615-232607.bin --filename openwrt-console-procd-20260615-232607.bin --load-addr 0x82000000 --control 0x0000
+=== output ===
+payload_size=7143509
+output_size=7143601
+header_size=92
+filename=openwrt-console-procd-20260615-232607.bin
+control=0x0000
+major=0x0100
+minor=0x04ff
+load_addr=0x82000000
+build_time=0x6a30745a
+crc32=0x00000000
+output=/mnt/c/tftp/openwrt-console-procd-20260615-232607.bin
+hcs=0xed29
+
+=== exit ===
+exit_code=0
+
+## verify log
+=== meta ===
+timestamp_local=2026-06-15 23:53:30 CEST
+cwd=/home/mgta29/tc7200u-research
+command=a825_verify --raw /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin --wrapped /mnt/c/tftp/openwrt-console-procd-20260615-232607.bin --expect-load 0x82000000 --expect-name openwrt-console-procd-20260615-232607.bin --expect-signature 0xa825
+=== output ===
+raw=/home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin
+wrapped=/mnt/c/tftp/openwrt-console-procd-20260615-232607.bin
+raw_size=7143509
+wrapped_size=7143601
+signature=0xa825
+expected_signature=0xa825
+control=0x0000
+major=0x0100
+minor=0x04ff
+build_time=0x6a30745a
+file_length=7143509
+load_address=0x82000000
+filename=openwrt-console-procd-20260615-232607.bin
+expected_name=openwrt-console-procd-20260615-232607.bin
+hcs=0xed29
+expected_hcs=0xed29
+crc=0x00000000
+size_ok=True
+raw_sha256=5b3d0922764fc8fa65e934d8952819789ad14bfe65b80faab65f81a2eb32f15c
+wrapped_sha256=572d77e47f24fbe4c211405f0d7462b1051e40c9071d9009644ece850fcd3919
+
+OK: wrapped image matches raw payload and expected header fields
+
+=== exit ===
+exit_code=0

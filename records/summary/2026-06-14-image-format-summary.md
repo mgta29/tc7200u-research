@@ -182,3 +182,17 @@ For the fastest review of the image-format record:
 
 - 2026-06-14: created this summary in `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\summary` from the existing image-format records.
 - 2026-06-14: no older log or note file was edited by this summary pass.
+
+## 2026-06-15 correction: obsolete fixed-name reading
+
+This summary records `openwrt-ps-irqfallback.bin` because that was the historical filename used in the cited image-format notes.
+
+That filename is not a current fixed requirement.
+
+Current interpretation:
+
+- `openwrt-ps-irqfallback.bin` is a historical example
+- the TFTP-served image can be named arbitrarily
+- the only real requirement is that the served filename matches the filename CFE requests for that run
+
+This correction is additive only and keeps the older filename references intact for provenance.

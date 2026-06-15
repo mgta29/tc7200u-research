@@ -133,3 +133,16 @@ For someone resuming work from this directory alone, the fastest read order is:
 
 - 2026-06-14: created this summary in `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\summary` from the existing bring-up notes.
 - 2026-06-14: no older log or note file was edited by this summary pass.
+
+## 2026-06-15 correction: historical TFTP filename only
+
+The reference to `openwrt-ps-irqfallback.bin` in this summary is historical lineage only.
+
+It should not be read as a current naming requirement.
+
+Current rule:
+
+- the served TFTP filename can be any name
+- it only needs to match the filename CFE requests for that specific run
+
+Additive correction only. Earlier text is preserved for provenance.
