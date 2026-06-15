@@ -1,44 +1,0 @@
-
-~ # DIRS=$(echo *)
-[  537.660316] do_page_fault(): sending SIGSEGV to sh for invalid read access from 00000000
-[  537.674123] epc = 77e57378 in libc.so[7f378,77dd8000+b9000]
-[  537.685495] ra  = 77e5736c in libc.so[7f36c,77dd8000+b9000]
-Segmentation fault
-~ # NEW_ROOT=/new_root
-~ # mkdir -p $NEW_ROOT
-
-
-^C^C
-
-
-
-
-
-ththth
-th
-th
-t
-h ^C^C^C^C^C^C^C^C^C^C^C^C^C^C^C^C^C^C
-
-
-
-q
-
-
-ÿ
-BCM3383A2 
-Sync: 0 
-MemSize:            128 M
-Chip ID:     BCM3383Z-B0
-
-BootLoader Version: 2.4.0alpha18p1 Pre-release Gnu spiboot dual-flash reduced DDR drive linux
-Build Date: Aug 14 2012
-Build Time: 09:48:58
-SPI flash ID 0xc22014, size 1MB, block size 64KB, write buffer 256, flags 0x0
-NAND flash: Device size 64 MB, Block size 16 KB, Page size 512 B
-Cust key size 128
-parameter offset is 43872
-
-Signature/PID: a825
-
-Board IP Address  [192.168.77.1]:      

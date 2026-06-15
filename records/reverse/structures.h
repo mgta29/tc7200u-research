@@ -16,21 +16,32 @@ typedef unsigned int    undefined4;
 typedef unsigned long long    undefined6;
 typedef unsigned long long    undefined8;
 typedef unsigned short    ushort;
-typedef struct dma_allocator_global_state_81848740_candidate dma_allocator_global_state_81848740_candidate, *Pdma_allocator_global_state_81848740_candidate;
+typedef struct stage1_callback_pair_candidate stage1_callback_pair_candidate, *Pstage1_callback_pair_candidate;
 
-struct dma_allocator_global_state_81848740_candidate {
-    undefined4 field_00;
-    undefined4 header_field_04;
-    uint default_pool_size_08;
-    void *backing_fpm_pool_base_0c;
-    undefined1 pad_10[24];
-    uint pool_shift_28;
-    void *pool_class_table_ptr_2c;
-    uint max_or_largest_request_30;
-    uint timer_counter_or_state_34;
-    undefined1 pad_38[8];
-    undefined4 default_pool_sizes_copy_40;
-    undefined4 high_bits_table_48;
+struct stage1_callback_pair_candidate {
+    undefined4 callback_00; /* +0x00 function pointer */
+    undefined4 arg_04; /* +0x04 passed as callback argument */
+};
+
+typedef struct stage1_cleanup_callback_pair_candidate stage1_cleanup_callback_pair_candidate, *Pstage1_cleanup_callback_pair_candidate;
+
+struct stage1_cleanup_callback_pair_candidate {
+    void *callback_00;
+    void *callback_arg_04;
+};
+
+typedef struct stage1_id_to_value_map_entry_candidate stage1_id_to_value_map_entry_candidate, *Pstage1_id_to_value_map_entry_candidate;
+
+struct stage1_id_to_value_map_entry_candidate {
+    int key_00;
+    uint value_04;
+};
+
+typedef struct stage1_iovec_candidate stage1_iovec_candidate, *Pstage1_iovec_candidate;
+
+struct stage1_iovec_candidate {
+    void *base_00;
+    uint length_04;
 };
 
 typedef struct fap_bypass_context_candidate fap_bypass_context_candidate, *Pfap_bypass_context_candidate;
@@ -49,8 +60,8 @@ struct fap_bypass_context_candidate {
     int bypass_queue_last_index_20;
     struct host_dqm_channel_obj_candidate *cmd_dqm_obj_24;
     struct host_dqm_channel_obj_candidate *active_queue_obj_28;
-    struct host_dqm_channel_obj_candidate *data_queue_objs_2c; /* Type 'host_dqm_channel_obj_candidate *[8]' was deleted; +0x2c guessed count */
-    struct host_dqm_channel_obj_candidate *bypass_queue_objs_4c; /* Type 'host_dqm_channel_obj_candidate *[2]' was deleted; +0x4c guessed count */
+    struct host_dqm_channel_obj_candidate *data_queue_objs_2c[8]; /* Type 'host_dqm_channel_obj_candidate *[8]' was deleted; +0x2c guessed count */
+    struct host_dqm_channel_obj_candidate *bypass_queue_objs_4c[2]; /* Type 'host_dqm_channel_obj_candidate *[2]' was deleted; +0x4c guessed count */
     uint8_t data_mode_enabled_54;
 };
 
@@ -99,34 +110,83 @@ struct host_downstream_dqm_queue_obj_candidate {
     void *fpm_allocator_68; /* +0x68 DMA/FPM allocator pointer stored by downstream queue init */
 };
 
-typedef struct stage1_bcm_sem_candidate stage1_bcm_sem_candidate, *Pstage1_bcm_sem_candidate;
+typedef struct dma_allocator_global_state_81848740_candidate dma_allocator_global_state_81848740_candidate, *Pdma_allocator_global_state_81848740_candidate;
 
-struct stage1_bcm_sem_candidate {
-    undefined4 count_or_state; /* +0x00 initialized from param_2 */
-    undefined4 wait_queue_or_list; /* +0x04 wait queue/list head pointer */
+struct dma_allocator_global_state_81848740_candidate {
+    undefined4 field_00;
+    undefined4 header_field_04;
+    uint default_pool_size_08;
+    void *backing_fpm_pool_base_0c;
+    undefined1 pad_10[24];
+    uint pool_shift_28;
+    void *pool_class_table_ptr_2c;
+    uint max_or_largest_request_30;
+    uint timer_counter_or_state_34;
+    undefined1 pad_38[8];
+    undefined4 default_pool_sizes_copy_40;
+    undefined4 high_bits_table_48;
 };
 
-typedef struct stage1_callback_pair_candidate stage1_callback_pair_candidate, *Pstage1_callback_pair_candidate;
+typedef struct tc7200_fpm_allocator tc7200_fpm_allocator, *Ptc7200_fpm_allocator;
 
-struct stage1_callback_pair_candidate {
-    undefined4 callback_00; /* +0x00 function pointer */
-    undefined4 arg_04; /* +0x04 passed as callback argument */
+typedef uint uint32_t;
+
+struct tc7200_fpm_allocator {
+    uint32_t fpm_hw_base_kseg1; /* +0x00 */
+    uint32_t board_or_buffer_class; /* +0x04 */
+    uint32_t largest_default_pool_size; /* +0x08 */
+    uint32_t fpm_backing_base_aligned; /* +0x0c */
+    uint8_t embedded_flag_log_object[24]; /* +0x10..+0x27 */
+    uint8_t pool_size_shift_bits; /* +0x28 */
+    uint8_t pad_29[3]; /* +0x29..+0x2b */
+    uint32_t pool_class_lookup_table_ptr; /* +0x2c */
+    uint32_t max_largest_request_state; /* +0x30 */
+    uint32_t fpm_extra_base_offset_or_headroom_candidate; /* +0x34, Extra base/headroom offset used in FPM token-to-buffer translation.    Used as:      data_addr = allocator->fpm_backing_base_aligned                + fpm_extra_base_offset_or_headroom_candidate                + token_index * 0x100 */
+    uint32_t pool_size_table[4]; /* +0x38 */
+    uint32_t token_highbits_table[32768]; /* +0x48 */
 };
 
-typedef struct stage1_cleanup_callback_pair_candidate stage1_cleanup_callback_pair_candidate, *Pstage1_cleanup_callback_pair_candidate;
+typedef struct tc7200_fpm_packet_allocator tc7200_fpm_packet_allocator, *Ptc7200_fpm_packet_allocator;
 
-struct stage1_cleanup_callback_pair_candidate {
-    void *callback_00;
-    void *callback_arg_04;
+struct tc7200_fpm_packet_allocator {
+    uint8_t embedded_flag_log_object[24]; /* +0x00..+0x17 */
+    uint32_t packet_header_slot_size; /* +0x18 */
+    uint32_t packet_header_arena_aligned; /* +0x1c */
+    uint32_t main_fpm_allocator_ptr; /* +0x20 */
 };
 
-typedef struct stage1_condition_object_candidate stage1_condition_object_candidate, *Pstage1_condition_object_candidate;
+typedef struct tc7200_fpm_packet_header tc7200_fpm_packet_header, *Ptc7200_fpm_packet_header;
 
-typedef struct stage1_owned_wait_object_candidate stage1_owned_wait_object_candidate, *Pstage1_owned_wait_object_candidate;
+typedef struct tc7200_fpm_packet_inner_header tc7200_fpm_packet_inner_header, *Ptc7200_fpm_packet_inner_header;
+
+typedef ushort uint16_t;
+
+struct tc7200_fpm_packet_inner_header {
+    uint32_t data_addr; /* +0x00 */
+    uint32_t requested_payload_len; /* +0x04 */
+    uint8_t unknown_08[16]; /* +0x08..+0x1f */
+    void *ptr_or_list_18; /* +0x18 */
+    uint8_t unknown_1c[4]; /* +0x1c..+0x1f */
+    uint16_t flags_20; /* +0x20 */
+    uint8_t unknown_22[10]; /* +0x22..+0x2b */
+    uint32_t fpm_extra_base_offset_saved; /* +0x2c */
+};
+
+struct tc7200_fpm_packet_header {
+    void *free_callback; /* +0x00 */
+    struct tc7200_fpm_packet_inner_header *inner_header; /* +0x04 */
+    void *list_or_inner_ptr_a; /* +0x08 */
+    uint32_t active_or_refcount; /* +0x0c */
+    uint8_t unknown_10[16]; /* +0x10..+0x1f */
+    struct tc7200_fpm_packet_inner_header embedded_inner; /* +0x20..+0x4f */
+    uint8_t unknown_50[144]; /* +0x50..+0xdf */
+};
+
+typedef struct stage1_context_candidate stage1_context_candidate, *Pstage1_context_candidate;
 
 typedef struct stage1_readyq_node_candidate stage1_readyq_node_candidate, *Pstage1_readyq_node_candidate;
 
-typedef struct stage1_context_candidate stage1_context_candidate, *Pstage1_context_candidate;
+typedef struct stage1_owned_wait_object_candidate stage1_owned_wait_object_candidate, *Pstage1_owned_wait_object_candidate;
 
 typedef struct stage1_event_wait_condition_candidate stage1_event_wait_condition_candidate, *Pstage1_event_wait_condition_candidate;
 
@@ -135,6 +195,8 @@ typedef struct stage1_timeout_object_candidate stage1_timeout_object_candidate, 
 typedef struct stage1_thread_record_candidate stage1_thread_record_candidate, *Pstage1_thread_record_candidate;
 
 typedef struct stage1_timeout_queue_candidate stage1_timeout_queue_candidate, *Pstage1_timeout_queue_candidate;
+
+typedef struct stage1_condition_object_candidate stage1_condition_object_candidate, *Pstage1_condition_object_candidate;
 
 typedef struct stage1_thread_cleanup_handler_candidate stage1_thread_cleanup_handler_candidate, *Pstage1_thread_cleanup_handler_candidate;
 
@@ -273,43 +335,6 @@ typedef enum stage1_context_flags {
     STAGE1_CONTEXT_FLAG_DEAD_10=16
 } stage1_context_flags;
 
-typedef struct stage1_event_slot_candidate stage1_event_slot_candidate, *Pstage1_event_slot_candidate;
-
-struct stage1_event_slot_candidate {
-    uint pending_mask_00; /* +0x00 accumulated/raised event bits */
-    struct stage1_readyq_node_candidate *waitq_04; /* +0x04 wait queue/list head */
-};
-
-typedef struct stage1_guarded_context_lock_candidate stage1_guarded_context_lock_candidate, *Pstage1_guarded_context_lock_candidate;
-
-typedef struct stage1_semaphore_candidate stage1_semaphore_candidate, *Pstage1_semaphore_candidate;
-
-struct stage1_guarded_context_lock_candidate {
-    int refcount; /* +0x00 active holder/reference count */
-    int waiter_count; /* +0x04 waiters blocked on semaphore */
-    void *owner_context; /* +0x08 current boot/context token */
-    struct stage1_semaphore_candidate *semaphore;
-};
-
-struct stage1_semaphore_candidate {
-    int count; /* +0x00 semaphore count */
-    struct stage1_readyq_node_candidate *waitq_04; /* +0x04 queue/list field */
-};
-
-typedef struct stage1_id_to_value_map_entry_candidate stage1_id_to_value_map_entry_candidate, *Pstage1_id_to_value_map_entry_candidate;
-
-struct stage1_id_to_value_map_entry_candidate {
-    int key_00;
-    uint value_04;
-};
-
-typedef struct stage1_iovec_candidate stage1_iovec_candidate, *Pstage1_iovec_candidate;
-
-struct stage1_iovec_candidate {
-    void *base_00;
-    uint length_04;
-};
-
 typedef struct stage1_post_message_candidate stage1_post_message_candidate, *Pstage1_post_message_candidate;
 
 struct stage1_post_message_candidate {
@@ -341,6 +366,18 @@ typedef struct stage1_readyq_table_candidate stage1_readyq_table_candidate, *Pst
 struct stage1_readyq_table_candidate {
     uint nonempty_bucket_bitmap_00;
     struct stage1_readyq_node_candidate *bucket_heads_04[32];
+};
+
+typedef struct stage1_scheduler_unlock_callback_record_candidate stage1_scheduler_unlock_callback_record_candidate, *Pstage1_scheduler_unlock_callback_record_candidate;
+
+struct stage1_scheduler_unlock_callback_record_candidate {
+    undefined4 callback_arg0_00;
+    undefined4 field_04;
+    undefined4 field_08;
+    undefined4 callback_0c; /* +0x0c function pointer */
+    undefined4 callback_arg2_10;
+    undefined4 pending_count_or_arg1_14;
+    struct stage1_scheduler_unlock_callback_record_candidate *next_18;
 };
 
 typedef struct stage1_related_object_pool_a_entry_candidate stage1_related_object_pool_a_entry_candidate, *Pstage1_related_object_pool_a_entry_candidate;
@@ -418,18 +455,6 @@ struct stage1_signal_ops_or_class_candidate {
     int (*callback_14_candidate)(struct stage1_signal_object_candidate *, uint);
     int (*final_release_18)(struct stage1_signal_object_candidate *);
     int (*callback_1c_candidate)(struct stage1_signal_object_candidate *, void *);
-};
-
-typedef struct stage1_scheduler_unlock_callback_record_candidate stage1_scheduler_unlock_callback_record_candidate, *Pstage1_scheduler_unlock_callback_record_candidate;
-
-struct stage1_scheduler_unlock_callback_record_candidate {
-    undefined4 callback_arg0_00;
-    undefined4 field_04;
-    undefined4 field_08;
-    undefined4 callback_0c; /* +0x0c function pointer */
-    undefined4 callback_arg2_10;
-    undefined4 pending_count_or_arg1_14;
-    struct stage1_scheduler_unlock_callback_record_candidate *next_18;
 };
 
 typedef struct stage1_signal_handler_entry_candidate stage1_signal_handler_entry_candidate, *Pstage1_signal_handler_entry_candidate;
@@ -518,58 +543,33 @@ struct stage1_timeval32_candidate {
     int tv_usec_04;
 };
 
-typedef struct tc7200_fpm_allocator tc7200_fpm_allocator, *Ptc7200_fpm_allocator;
+typedef struct stage1_bcm_sem_candidate stage1_bcm_sem_candidate, *Pstage1_bcm_sem_candidate;
 
-typedef uint uint32_t;
-
-struct tc7200_fpm_allocator {
-    uint32_t fpm_hw_base_kseg1; /* +0x00 */
-    uint32_t board_or_buffer_class; /* +0x04 */
-    uint32_t largest_default_pool_size; /* +0x08 */
-    uint32_t fpm_backing_base_aligned; /* +0x0c */
-    uint8_t embedded_flag_log_object[24]; /* +0x10..+0x27 */
-    uint8_t pool_size_shift_bits; /* +0x28 */
-    uint8_t pad_29[3]; /* +0x29..+0x2b */
-    uint32_t pool_class_lookup_table_ptr; /* +0x2c */
-    uint32_t max_largest_request_state; /* +0x30 */
-    uint32_t fpm_extra_base_offset_or_headroom_candidate; /* +0x34, Extra base/headroom offset used in FPM token-to-buffer translation.    Used as:      data_addr = allocator->fpm_backing_base_aligned                + fpm_extra_base_offset_or_headroom_candidate                + token_index * 0x100 */
-    uint32_t pool_size_table[4]; /* +0x38 */
-    uint32_t token_highbits_table[32768]; /* +0x48 */
+struct stage1_bcm_sem_candidate {
+    undefined4 count_or_state; /* +0x00 initialized from param_2 */
+    undefined4 wait_queue_or_list; /* +0x04 wait queue/list head pointer */
 };
 
-typedef struct tc7200_fpm_packet_allocator tc7200_fpm_packet_allocator, *Ptc7200_fpm_packet_allocator;
+typedef struct stage1_event_slot_candidate stage1_event_slot_candidate, *Pstage1_event_slot_candidate;
 
-struct tc7200_fpm_packet_allocator {
-    uint8_t embedded_flag_log_object[24]; /* +0x00..+0x17 */
-    uint32_t packet_header_slot_size; /* +0x18 */
-    uint32_t packet_header_arena_aligned; /* +0x1c */
-    uint32_t main_fpm_allocator_ptr; /* +0x20 */
+struct stage1_event_slot_candidate {
+    uint pending_mask_00; /* +0x00 accumulated/raised event bits */
+    struct stage1_readyq_node_candidate *waitq_04; /* +0x04 wait queue/list head */
 };
 
-typedef struct tc7200_fpm_packet_header tc7200_fpm_packet_header, *Ptc7200_fpm_packet_header;
+typedef struct stage1_guarded_context_lock_candidate stage1_guarded_context_lock_candidate, *Pstage1_guarded_context_lock_candidate;
 
-typedef struct tc7200_fpm_packet_inner_header tc7200_fpm_packet_inner_header, *Ptc7200_fpm_packet_inner_header;
+typedef struct stage1_semaphore_candidate stage1_semaphore_candidate, *Pstage1_semaphore_candidate;
 
-typedef ushort uint16_t;
-
-struct tc7200_fpm_packet_inner_header {
-    uint32_t data_addr; /* +0x00 */
-    uint32_t requested_payload_len; /* +0x04 */
-    uint8_t unknown_08[16]; /* +0x08..+0x1f */
-    void *ptr_or_list_18; /* +0x18 */
-    uint8_t unknown_1c[4]; /* +0x1c..+0x1f */
-    uint16_t flags_20; /* +0x20 */
-    uint8_t unknown_22[10]; /* +0x22..+0x2b */
-    uint32_t fpm_extra_base_offset_saved; /* +0x2c */
+struct stage1_guarded_context_lock_candidate {
+    int refcount; /* +0x00 active holder/reference count */
+    int waiter_count; /* +0x04 waiters blocked on semaphore */
+    void *owner_context; /* +0x08 current boot/context token */
+    struct stage1_semaphore_candidate *semaphore;
 };
 
-struct tc7200_fpm_packet_header {
-    void *free_callback; /* +0x00 */
-    struct tc7200_fpm_packet_inner_header *inner_header; /* +0x04 */
-    void *list_or_inner_ptr_a; /* +0x08 */
-    uint32_t active_or_refcount; /* +0x0c */
-    uint8_t unknown_10[16]; /* +0x10..+0x1f */
-    struct tc7200_fpm_packet_inner_header embedded_inner; /* +0x20..+0x4f */
-    uint8_t unknown_50[144]; /* +0x50..+0xdf */
+struct stage1_semaphore_candidate {
+    int count; /* +0x00 semaphore count */
+    struct stage1_readyq_node_candidate *waitq_04; /* +0x04 queue/list field */
 };
 

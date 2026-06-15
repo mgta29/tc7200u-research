@@ -282,6 +282,9 @@ Derived from:
 - `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-14-stage1-readyq-owner-list-wakeup-chain.md`
 - `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-14-stage1-readyq-static-idle-timeslice.md`
 - `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-14-stage1-timeout-signal-dispatch.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-15-stage1-signal-object-path-dispatch-log.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-15-stage1-signal-object-type2-dispatcher-path.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-15-stage1-timeout-select-wait-reverse-log.md`
 
 ## Preservation
 
@@ -291,7 +294,105 @@ Maintained as a dateless important carry note. No old logs or notes were edited 
 
 This section was added after rereading the full reverse-note set under:
 
-- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse`
+
+Control correction after the 2026-06-16 reread:
+
+- the live canonical tree is `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse`
+- the old legacy path wording has been removed from this maintained carry note
+
+## Thirteenth-pass Stage1 signal-object and select-wait correlation values
+
+This section was added after rereading:
+
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-15-stage1-signal-object-path-dispatch-log.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-15-stage1-signal-object-type2-dispatcher-path.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-15-stage1-timeout-select-wait-reverse-log.md`
+
+### When to use this set
+
+Use this thirteenth-pass set only after the earlier MMIO, Host-DQM, event-slot, thread-record, readyq, PI, timeout-object, and timeslice surfaces already look OEM-like, but worker follow-through still diverges during signal-style dispatch, select or wait wakeup, or timeout-driven progress.
+
+### Thirteenth-pass software values for correlation only
+
+Do not hardcode these into Linux. Use them only to correlate OEM runtime behavior:
+
+- signal-object table and pool state:
+  - `0x81a68120`
+  - `0x81a6b508`
+  - `0x81a78138`
+  - `0x81a79528`
+- related-object and provider state:
+  - `0x8184fa18`
+  - `0x8184fa58`
+  - `0x8183fbf8`
+  - `0x8183fc18`
+- select or wait and timeout-conversion state:
+  - `0x81a6ba50`
+  - `0x81a6ba68`
+  - `0x81803adc`
+  - `0x81803ae0`
+  - `0x81802ab4`
+  - `0x81a6ba70`
+  - `0x81a6ba90`
+
+### Current best meanings
+
+- Stage1 now looks to use a descriptor-like signal-object table:
+  - table entry `0` means free
+  - table entry `1` means reserved sentinel
+  - table entry `>= 2` is a live `stage1_signal_object_candidate *`
+- the signal-object dispatch layer now suggests:
+  - `stage1_signal_object_candidate +0x0c` is a real ops or class callback table
+  - `stage1_signal_object_candidate +0x06 == 2` gates the type2 callback family
+  - `stage1_signal_object_candidate +0x18` is a type2 ops table in that path
+  - `stage1_signal_object_candidate +0x1c` remains broad as provider or related-object state, not just one narrow object kind
+- the select or wait layer now suggests:
+  - `stage1_signal_ops_or_class_candidate +0x10` is the readiness-test callback slot
+  - the main helper at `80ef6ccc` walks three class bitsets and either returns ready bits or waits
+  - `80ef71c8` is the thin public wrapper that clears the auxiliary wait argument before calling that helper
+- the timeout layer now suggests:
+  - `stage1_timeval32_candidate` is the public relative-timeout shape
+  - `0x81a6ba70` and `0x81a6ba90` are the corrected timeout-scale tables
+  - `0x81a6ba68` is adjacent select-wait condition-object state and should not be collapsed into the timeout tables
+
+### What not to hardcode yet
+
+Do not hardcode these as final Linux semantics yet:
+
+- any of the `0x81a6....`, `0x8180....`, or `0x8184....` values above as if they were ENET or Host-DQM MMIO registers
+- the Stage1 signal-object table layout as if OpenWrt must reproduce the OEM software scheduler and wait internals directly
+- any wrapper signatures that still rely on nonstandard register inputs through `t0` or `t1`
+
+### Updated OpenWrt development meaning
+
+Current best staged model for the TC7200U port:
+
+- stage 1: FPM allocator/backing-base values must look right
+- stage 2: GENET/MBDMA endpoint and control values must look right
+- stage 3: DQM/CP2 queue control, mailbox, per-queue pull programming, and queue-policy state must look right
+- stage 4: DQM mailbox command handling, queue-profile writes, slot commit, and CP2/FPM service plumbing must look right
+- stage 5: the `0x01800008` event path, selector dispatch, request-block programming, and size-selected FPM request/return behavior must look right
+- stage 6: selector lookup/context initialization, preload-port state, and selector-derived `b604` command-table setup must look right
+- stage 7: request-engine submit/finalize flow, selector-gate publish behavior, and mode-specific sideband output lanes must look right
+- stage 8: alternate `0x80c8` runtime-family registration/activation writes, selector-output gating, and alias-window output paths must look right
+- stage 9: runtime-family selection and request-model behavior must look right
+- stage 10: if traffic still stalls, Host-DQM selector register blocks, dispatch-table mapping, and Stage1 event-slot wake behavior become the next most likely missing OEM-specific layer
+- stage 11: if the stage-10 event-slot layer already looks OEM-like, current-context ownership, thread-record linkage, per-thread pending or blocked signal/work masks, and worker exit/join lifecycle become the next software correlation layer
+- stage 12: if the stage-11 layer already looks OEM-like, readyq ownership, PI restore/requeue behavior, timeout object state, same-bucket timeslice rotation, and static idle context setup become the next software correlation layer
+- stage 13: if the stage-12 layer already looks OEM-like, signal-object table state, provider/type2 callback dispatch, select-wait generation flow, and timeout-to-ticks conversion become the next software correlation layer
+
+Practical implication:
+
+- if OpenWrt reproduces the earlier control surfaces and even the Host-DQM/event-slot/thread-record/readyq layers still look OEM-like, compare whether any OEM-equivalent follow-through exists for:
+  - `g_stage1_signal_object_table_81a6b508`
+  - `g_stage1_signal_object_pool_81a79528`
+  - `g_stage1_select_wait_global_mutex_81a6ba50_candidate`
+  - `g_stage1_select_wait_generation_81803adc_candidate`
+  - `g_stage1_timeout_usec_to_ticks_scale_table_81a6ba70_candidate`
+  - `g_stage1_timeout_sec_to_ticks_scale_table_81a6ba90_candidate`
+- keep these as reverse-side correlation aids only
+- do not convert those software values into direct Linux MMIO constants
 
 ### Control values worth comparing directly in OpenWrt
 
@@ -806,9 +907,9 @@ If you want the shortest current control set for OpenWrt tracepoints or `devmem`
 
 This section was added after another full reread of:
 
-- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-09-dqm-cp2-fpm-progress-findings.md`
-- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-09-ghidra-fpm-datatypes.md`
-- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-09-ghidra-fpm-packet-token-rx-roundtrip.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-09-dqm-cp2-fpm-progress-findings.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-09-ghidra-fpm-datatypes.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-09-ghidra-fpm-packet-token-rx-roundtrip.md`
 
 ### Second-pass MMIO values to trace if first-pass GENET/FPM values look correct
 
@@ -913,7 +1014,7 @@ If those compare cleanly against OEM values and RX/TX still stalls, use this sec
 
 This section was added after rereading:
 
-- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-09-dqm-fpm-cp2-ghidra-progress.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-09-dqm-fpm-cp2-ghidra-progress.md`
 
 ### When to use this set
 
@@ -1013,8 +1114,8 @@ Current best staged model for the TC7200U port:
 
 This section was added after rereading:
 
-- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-11-ghidra-dqm-fpm-cp2-progress-log.md`
-- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-11-ghidra-dqm-mailbox-region-progress-log.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-11-ghidra-dqm-fpm-cp2-progress-log.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-11-ghidra-dqm-mailbox-region-progress-log.md`
 
 ### When to use this set
 
@@ -1171,7 +1272,7 @@ Practical implication:
 
 This section was added after rereading:
 
-- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-11-dqm-event1800008-path-progress-log.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-11-dqm-event1800008-path-progress-log.md`
 
 ### When to use this set
 
@@ -1291,7 +1392,7 @@ Practical implication:
 
 This section was added after rereading:
 
-- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-12-dqm-cp2-fpm-selector-cleanup-log.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-12-dqm-cp2-fpm-selector-cleanup-log.md`
 
 ### When to use this set
 
@@ -1426,7 +1527,7 @@ Practical implication:
 
 This section was added after rereading:
 
-- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-12-dqm-event1800008-cleanup-log.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-12-dqm-event1800008-cleanup-log.md`
 
 ### When to use this set
 
@@ -1578,7 +1679,7 @@ Practical implication:
 
 This section was added after rereading:
 
-- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-12-dqm-event1800008-80c8-family-cleanup-log.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-12-dqm-event1800008-80c8-family-cleanup-log.md`
 
 ### When to use this set
 
@@ -1720,7 +1821,7 @@ This section carries forward a prior June 13 runtime-selector and request-model 
 
 Current control note:
 
-- the standalone June 13 source log for that pass is not currently present in `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse`
+- the standalone June 13 source log for that pass is not currently present in `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse`
 - keep this section as maintained carry-forward reverse data, not as a claim that the current-tree June 13 note set adds new hardware values by itself
 - the current-tree June 13 note `2026-06-13-ghidra-cleanup-repair-plan.md` is process guidance only and does not change the OpenWrt MMIO or control compare set below
 
@@ -1852,9 +1953,9 @@ Practical implication:
 
 This section was added after rereading:
 
-- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-13-host-dqm-msp-comms-guarded-enable-path-updated.md`
-- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-13-stage1-event-slot-wait-chain-update.md`
-- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-14-stage1-scheduler-post-signal-wake-chain.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-13-host-dqm-msp-comms-guarded-enable-path-updated.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-13-stage1-event-slot-wait-chain-update.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-14-stage1-scheduler-post-signal-wake-chain.md`
 
 ### When to use this set
 

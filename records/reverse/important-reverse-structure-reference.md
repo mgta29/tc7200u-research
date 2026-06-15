@@ -21,6 +21,9 @@ This reference currently carries layouts from:
 - `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-14-stage1-readyq-owner-list-wakeup-chain.md`
 - `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-14-stage1-readyq-static-idle-timeslice.md`
 - `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-14-stage1-timeout-signal-dispatch.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-15-stage1-signal-object-path-dispatch-log.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-15-stage1-signal-object-type2-dispatcher-path.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-15-stage1-timeout-select-wait-reverse-log.md`
 
 ## Notes
 
@@ -323,6 +326,144 @@ Notes:
 - `join_condition_3c_candidate` remains the generic `stage1_condition_object_candidate *` in the current carried model.
 - only the embedded join object at `stage1_thread_record_candidate +0x178` is specialized to `stage1_thread_join_condition_candidate`, because its `+0x08` field is used as the per-thread TSD/TLS slot-base pointer.
 
+### Stage1 signal-object, related-object, and timeout-conversion structures
+
+```c
+typedef struct stage1_signal_object_candidate stage1_signal_object_candidate;
+typedef struct stage1_signal_ops_or_class_candidate stage1_signal_ops_or_class_candidate;
+typedef struct stage1_signal_object_type2_ops_candidate stage1_signal_object_type2_ops_candidate;
+typedef struct stage1_related_object_pool_a_entry_candidate stage1_related_object_pool_a_entry_candidate;
+typedef struct stage1_related_object_pool_b_entry_candidate stage1_related_object_pool_b_entry_candidate;
+
+typedef struct stage1_iovec_candidate {
+    void *base_00;
+    uint length_04;
+} stage1_iovec_candidate; /* size 0x08 */
+
+typedef struct stage1_signal_object_candidate {
+    uint flags_00;
+    ushort refcount_04;
+    ushort type_or_mode_06_candidate;
+    uint flags_08_candidate;
+    stage1_signal_ops_or_class_candidate *ops_or_class_0c;
+    undefined4 field_10;
+    undefined4 field_14;
+    stage1_signal_object_type2_ops_candidate *type2_ops_18_candidate;
+    stage1_related_object_pool_b_entry_candidate *provider_or_related_entry_1c_candidate;
+} stage1_signal_object_candidate; /* size 0x20 */
+
+typedef struct stage1_related_object_pool_a_entry_candidate {
+    undefined1 pad_00[8];
+    uint lock_flags_08_candidate;
+    undefined1 pad_0c[8];
+    undefined4 create_or_init_callback_14;
+    undefined4 field_18;
+    int (*callback_1c_candidate)(stage1_related_object_pool_b_entry_candidate *, void *, void *);
+    undefined1 pad_20[0x0c];
+    int (*callback_2c_candidate)(stage1_related_object_pool_b_entry_candidate *, void *, void *, stage1_signal_object_candidate *);
+    int (*path_context_callback_30_candidate)(stage1_related_object_pool_b_entry_candidate *, void *, char *, void **);
+    int (*callback_34_candidate)(stage1_related_object_pool_b_entry_candidate *, void *, void *, uint);
+    undefined1 pad_38[8];
+} stage1_related_object_pool_a_entry_candidate; /* size 0x40 */
+
+typedef struct stage1_related_object_pool_b_entry_candidate {
+    undefined1 pad_00[0x14];
+    stage1_related_object_pool_a_entry_candidate *pool_a_entry_14_candidate;
+    undefined1 pad_18[8];
+} stage1_related_object_pool_b_entry_candidate; /* size 0x20 */
+
+typedef struct stage1_signal_iovec_io_request_candidate {
+    stage1_iovec_candidate *iov_00;
+    int iov_count_04;
+    undefined4 field_08;
+    uint remaining_or_total_len_0c;
+    uint field_10_zero_init;
+    uint mode_index_14;
+} stage1_signal_iovec_io_request_candidate; /* size 0x18 */
+
+typedef struct stage1_signal_ops_or_class_candidate {
+    int (*io_mode1_callback_00_candidate)(stage1_signal_object_candidate *, stage1_signal_iovec_io_request_candidate *);
+    int (*io_mode2_callback_04_candidate)(stage1_signal_object_candidate *, stage1_signal_iovec_io_request_candidate *);
+    int (*callback_08_candidate)(stage1_signal_object_candidate *, void **, void *);
+    int (*callback_0c_candidate)(stage1_signal_object_candidate *, void *, void *);
+    int (*test_callback_10)(stage1_signal_object_candidate *, uint);
+    int (*callback_14_candidate)(stage1_signal_object_candidate *, uint);
+    int (*final_release_18)(stage1_signal_object_candidate *);
+    int (*callback_1c_candidate)(stage1_signal_object_candidate *, void *);
+} stage1_signal_ops_or_class_candidate; /* size 0x20 */
+
+typedef struct stage1_signal_object_provider_entry_candidate {
+    undefined4 field_00_candidate;
+    uint flags_or_mode_04_candidate;
+    undefined1 pad_08[0x10];
+    undefined4 create_callback_18;
+    undefined1 pad_1c[4];
+} stage1_signal_object_provider_entry_candidate; /* size 0x20 */
+
+typedef struct stage1_signal_object_type2_ops_candidate {
+    int (*callback_00_candidate)(stage1_signal_object_candidate *, char *, int *);
+    int (*callback_04_candidate)(stage1_signal_object_candidate *, char *, int *);
+    int (*clone_callback_08)(stage1_signal_object_candidate *, stage1_signal_object_candidate *, undefined4, undefined4);
+    int (*callback_0c_candidate)(stage1_signal_object_candidate *, char *);
+    int (*callback_10_candidate)(stage1_signal_object_candidate *, char *, int *, uint);
+    undefined4 field_14_candidate;
+    int (*callback_18_t0_candidate)(stage1_signal_object_candidate *, char *, int *, undefined4);
+    undefined4 field_1c_candidate;
+    int (*callback_20_out_candidate)(stage1_signal_object_candidate *, void *, void *, int *);
+    int (*callback_24_out_candidate)(stage1_signal_object_candidate *, undefined1 *, undefined4, int *);
+} stage1_signal_object_type2_ops_candidate; /* size at least 0x28 */
+
+typedef struct stage1_signal_object_type2_callback_20_request_candidate {
+    undefined4 field_00_from_t0_candidate;
+    undefined4 field_04_from_t1_candidate;
+    undefined4 *payload_pair_ptr_08_candidate;
+    undefined4 field_0c_const1_candidate;
+    undefined4 field_10_zero_candidate;
+    undefined4 field_14_candidate;
+    undefined4 field_18_zero_candidate;
+    undefined4 field_1c_candidate;
+    undefined4 payload_arg0_20_candidate;
+    undefined4 payload_arg1_24_candidate;
+} stage1_signal_object_type2_callback_20_request_candidate; /* size 0x28 */
+
+typedef struct stage1_signal_object_type2_callback_24_request_candidate {
+    undefined4 field_00_from_t0_candidate;
+    undefined4 field_04_from_optional_aux_deref_candidate;
+    undefined4 *payload_pair_ptr_08_candidate;
+    undefined4 field_0c_const1_candidate;
+    undefined4 field_10_zero_candidate;
+    undefined4 field_14_candidate;
+    undefined4 field_18_candidate;
+    undefined4 field_1c_candidate;
+    undefined4 payload_arg0_20_candidate;
+    undefined4 payload_arg1_24_candidate;
+} stage1_signal_object_type2_callback_24_request_candidate; /* size 0x28 */
+
+typedef struct stage1_timeout_scale_table_candidate {
+    uint word_00;
+    uint word_04;
+    uint word_08;
+    uint word_0c;
+    uint word_10;
+    uint word_14;
+    uint word_18;
+    uint word_1c;
+} stage1_timeout_scale_table_candidate; /* size 0x20 */
+
+typedef struct stage1_timeval32_candidate {
+    int tv_sec_00;
+    int tv_usec_04;
+} stage1_timeval32_candidate; /* size 0x08 */
+```
+
+Notes:
+
+- `stage1_signal_object_candidate +0x0c` is now a real ops or class callback table, not an opaque side pointer.
+- `stage1_signal_object_candidate +0x18` is a type2 ops table when `type_or_mode_06_candidate == 2`.
+- `stage1_signal_object_candidate +0x1c` must remain broad as `provider_or_related_entry_1c_candidate`, because one creation path stores a provider entry there while earlier notes tied it too narrowly to the related-object path.
+- `stage1_signal_ops_or_class_candidate +0x10` is now strong enough to carry as the select or wait readiness-test callback slot.
+- `stage1_timeout_scale_table_candidate` stays intentionally generic; the current carry only proves its role in the timeout-to-ticks conversion tables at `0x81a6ba70` and `0x81a6ba90`.
+
 ### Additional screenshot-derived structures
 
 ```c
@@ -389,9 +530,10 @@ This reference currently carries:
 - 4 Host-DQM structures
 - 2 Stage1 event-slot structures
 - 19 Stage1 scheduler and wake-chain structures
+- 12 Stage1 signal-object, related-object, and timeout-conversion structures
 - 3 additional synchronization or semaphore structures
 
-Total current carried structures: `33`
+Total current carried structures: `45`
 
 ## Header cross-check
 
@@ -402,11 +544,24 @@ Cross-checks against `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\tools\
   - `stage1_thread_cleanup_handler_candidate`
   - `stage1_thread_join_condition_candidate`
   - `stage1_thread_record_candidate +0x1c/+0x44/+0x178`
+- the same live exports now also confirm the newer June 15 signal-object carry set:
+  - `stage1_signal_object_candidate`
+  - `stage1_signal_ops_or_class_candidate`
+  - `stage1_signal_object_type2_ops_candidate`
+  - `stage1_signal_object_provider_entry_candidate`
+  - `stage1_signal_object_type2_callback_20_request_candidate`
+  - `stage1_signal_object_type2_callback_24_request_candidate`
+  - `stage1_timeout_scale_table_candidate`
+  - `stage1_timeval32_candidate`
 - the live exports also strengthen several scheduler-side field interpretations:
   - `stage1_event_slot_candidate +0x04` as a waitq pointer
   - `stage1_context_candidate +0x28` as a double-pointer owner-list head reference
   - `stage1_semaphore_candidate +0x04` as a waitq pointer
 - confirms `stage1_context_candidate +0xac` as `stage1_thread_record_candidate *thread_record_ac_candidate`
+- confirms the stronger signal-object-side field interpretations:
+  - `stage1_signal_object_candidate +0x18` as `type2_ops_18_candidate`
+  - `stage1_signal_object_candidate +0x1c` as the broader `provider_or_related_entry_1c_candidate`
+  - `stage1_signal_ops_or_class_candidate +0x10` as the `test_callback_10` slot
 - keeps `stage1_signal_select_state_candidate` only as a separate carried candidate layout; it should not replace the `thread_record_ac_candidate` interpretation at `stage1_context_candidate +0xac`
 - the exported header currently weakens some already-better carried fields:
   - `host_dqm_channel_obj_candidate +0x30/+0x3c/+0x40` are exported as unknowns
@@ -433,6 +588,7 @@ Recorded modifications worth keeping:
 - 2026-06-14: added `stage1_timeout_queue_candidate` and `stage1_timeout_object_candidate`, raised the carried set to `33` structures, and replaced the old raw `context +0x68` byte block with the structured timeout-object carry
 - 2026-06-14: refined `stage1_context_candidate +0x24/+0x48` to `scheduler_timeslice_flag_24_candidate` and `base_readyq_bucket_48_candidate`
 - 2026-06-14: cross-checked the carried note against `tools/tc7200u_stage1_custom_structs.h` and recorded header-export degradations without replacing better carried semantics
+- 2026-06-16: added the June 15 signal-object, related-object, type2-dispatch, timeout-scale, and select-wait helper layouts, and raised the carried set to `45` structures
 
 ## Preservation
 
