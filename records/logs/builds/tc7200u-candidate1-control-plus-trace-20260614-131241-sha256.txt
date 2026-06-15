@@ -1,0 +1,3 @@
+46fd6c118ba46afb1e2f9a1dc343f37dcd6da781b34251bfcb9bccafd5f9a97a  /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin
+81517654b5d9710f4eed71015a64e3a30f82607d81d7ce36f9999263b3510084  /mnt/c/tftp/tc7200u.bin
+a2b9fa164d092387dc0382698cbdff940bb97cce6c41a029ac70c1b357497c4b  records/artifacts/rescue/tc7200-stage2-console-good.bin

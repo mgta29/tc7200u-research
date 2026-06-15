@@ -1,0 +1,41 @@
+=== meta ===
+timestamp_local=2026-06-14 13:53:32 CEST
+cwd=/home/mgta29/tc7200u-research
+command=ensure_packages
+=== output ===
+== TC7200U package profile ==
+OWRT=/home/mgta29/src/openwrt
+TC7200U_PACKAGE_PROFILE=debug
+TC7200U_INCLUDE_DRIVER_PACKAGES=0
+WARNING: Makefile 'package/boot/arm-trusted-firmware-microchipsw/Makefile' has a build dependency on 'ruby/host', which does not exist
+WARNING: Makefile 'package/utils/audit/Makefile' has a dependency on 'libev', which does not exist
+WARNING: Makefile 'package/utils/busybox/Makefile' has a dependency on 'libpam', which does not exist
+WARNING: Makefile 'package/utils/busybox/Makefile' has a dependency on 'libtirpc', which does not exist
+WARNING: Makefile 'package/utils/busybox/Makefile' has a dependency on 'libpam', which does not exist
+WARNING: Makefile 'package/utils/busybox/Makefile' has a dependency on 'libtirpc', which does not exist
+WARNING: Makefile 'package/utils/busybox/Makefile' has a build dependency on 'libpam', which does not exist
+WARNING: Makefile 'package/boot/kexec-tools/Makefile' has a dependency on 'liblzma', which does not exist
+WARNING: Makefile 'package/boot/kexec-tools/Makefile' has a dependency on 'libzstd', which does not exist
+WARNING: Makefile 'package/network/services/lldpd/Makefile' has a dependency on 'libnetsnmp', which does not exist
+WARNING: Makefile 'package/utils/policycoreutils/Makefile' has a dependency on 'libpam', which does not exist
+WARNING: Makefile 'package/utils/policycoreutils/Makefile' has a dependency on 'libpam', which does not exist
+WARNING: Makefile 'package/utils/policycoreutils/Makefile' has a build dependency on 'libpam', which does not exist
+#
+# configuration written to .config
+#
+
+enabled:   ethtool
+enabled:   ip-full
+enabled:   mtd
+enabled:   nand-utils
+enabled:   ubi-utils
+enabled:   block-mount
+enabled:   blkid
+enabled:   lsblk
+enabled:   dtc
+enabled:   strace
+enabled:   tcpdump
+OK: OpenWrt .config updated for TC7200U debug profile
+
+=== exit ===
+exit_code=0

@@ -1,0 +1,30 @@
+=== meta ===
+timestamp_local=2026-06-14 13:38:39 CEST
+cwd=/home/mgta29/tc7200u-research
+command=a825_verify --raw /home/mgta29/tc7200u-research/records/logs/builds/2026-06-14-133839-source-payload.raw --wrapped /tmp/tcbuilder-fresh-header-smoke/fresh-header-smoke.bin --expect-load 0x82000000 --expect-name fresh-header-smoke.bin --expect-signature 0xa825
+=== output ===
+raw=/home/mgta29/tc7200u-research/records/logs/builds/2026-06-14-133839-source-payload.raw
+wrapped=/tmp/tcbuilder-fresh-header-smoke/fresh-header-smoke.bin
+raw_size=6417987
+wrapped_size=6418079
+signature=0xa825
+expected_signature=0xa825
+control=0x0000
+major=0x0100
+minor=0x04ff
+build_time=0x6a2e92bf
+file_length=6417987
+load_address=0x82000000
+filename=fresh-header-smoke.bin
+expected_name=fresh-header-smoke.bin
+hcs=0xf6cc
+expected_hcs=0xf6cc
+crc=0x00000000
+size_ok=True
+raw_sha256=a17f022f1ef947ee16f60f0481f315fc399278ca574fb73c6ddcf548efbe0deb
+wrapped_sha256=107c2e40e40fef2961d0dac680d4dd9d65002b4f8b97d41f143d6b8d6c65b63f
+
+OK: wrapped image matches raw payload and expected header fields
+
+=== exit ===
+exit_code=0

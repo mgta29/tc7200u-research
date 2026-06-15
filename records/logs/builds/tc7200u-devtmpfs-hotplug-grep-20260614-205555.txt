@@ -1,0 +1,155 @@
+target/linux/at91/sama7/config-6.12:134:CONFIG_DEVTMPFS=y
+target/linux/at91/sama7/config-6.12:135:CONFIG_DEVTMPFS_MOUNT=y
+target/linux/pistachio/config-6.18:137:CONFIG_HOTPLUG_CORE_SYNC=y
+target/linux/pistachio/config-6.18:138:CONFIG_HOTPLUG_CORE_SYNC_DEAD=y
+target/linux/pistachio/config-6.18:139:CONFIG_HOTPLUG_CPU=y
+target/linux/stm32/stm32mp1/config-6.12:240:CONFIG_HOTPLUG_CORE_SYNC=y
+target/linux/stm32/stm32mp1/config-6.12:241:CONFIG_HOTPLUG_CORE_SYNC_DEAD=y
+target/linux/stm32/stm32mp1/config-6.12:242:CONFIG_HOTPLUG_CPU=y
+target/linux/siflower/sf19a2890/config-6.12:101:CONFIG_HOTPLUG_CORE_SYNC=y
+target/linux/siflower/sf19a2890/config-6.12:102:CONFIG_HOTPLUG_CORE_SYNC_DEAD=y
+target/linux/siflower/sf19a2890/config-6.12:103:CONFIG_HOTPLUG_CPU=y
+target/linux/generic/config-6.12:1407:# CONFIG_DEVTMPFS is not set
+target/linux/generic/config-6.12:1408:# CONFIG_DEVTMPFS_MOUNT is not set
+target/linux/generic/config-6.12:1409:# CONFIG_DEVTMPFS_SAFE is not set
+target/linux/generic/config-6.12:2470:# CONFIG_HOTPLUG_CPU is not set
+target/linux/generic/config-6.12:2471:# CONFIG_HOTPLUG_PCI is not set
+target/linux/generic/backport-6.12/900-v6.14-driver-core-add-a-faux-bus-for-use-when-a-simple-dev.patch:58: obj-$(CONFIG_DEVTMPFS)	+= devtmpfs.o
+target/linux/generic/config-6.18:1462:# CONFIG_DEVTMPFS is not set
+target/linux/generic/config-6.18:1463:# CONFIG_DEVTMPFS_MOUNT is not set
+target/linux/generic/config-6.18:1464:# CONFIG_DEVTMPFS_SAFE is not set
+target/linux/generic/config-6.18:2581:# CONFIG_HOTPLUG_CPU is not set
+target/linux/generic/config-6.18:2582:# CONFIG_HOTPLUG_PCI is not set
+target/linux/generic/config-6.18:2583:# CONFIG_HOTPLUG_PCI_OCTEONEP is not set
+target/linux/sunxi/cortexa53/config-6.18:69:CONFIG_HOTPLUG_CORE_SYNC=y
+target/linux/sunxi/cortexa53/config-6.18:70:CONFIG_HOTPLUG_CORE_SYNC_DEAD=y
+target/linux/sunxi/config-6.18:236:CONFIG_HOTPLUG_CPU=y
+target/linux/x86/64/config-6.18:230:CONFIG_HOTPLUG_CORE_SYNC=y
+target/linux/x86/64/config-6.18:231:CONFIG_HOTPLUG_CORE_SYNC_DEAD=y
+target/linux/x86/64/config-6.18:232:CONFIG_HOTPLUG_CORE_SYNC_FULL=y
+target/linux/x86/64/config-6.18:233:CONFIG_HOTPLUG_CPU=y
+target/linux/x86/64/config-6.18:234:CONFIG_HOTPLUG_PARALLEL=y
+target/linux/x86/64/config-6.18:235:CONFIG_HOTPLUG_PCI=y
+target/linux/x86/64/config-6.18:236:CONFIG_HOTPLUG_PCI_ACPI=y
+target/linux/x86/64/config-6.18:237:# CONFIG_HOTPLUG_PCI_ACPI_IBM is not set
+target/linux/x86/64/config-6.18:238:# CONFIG_HOTPLUG_PCI_CPCI is not set
+target/linux/x86/64/config-6.18:239:# CONFIG_HOTPLUG_PCI_PCIE is not set
+target/linux/x86/64/config-6.18:240:# CONFIG_HOTPLUG_PCI_SHPC is not set
+target/linux/x86/64/config-6.18:241:CONFIG_HOTPLUG_SMT=y
+target/linux/x86/64/config-6.18:242:CONFIG_HOTPLUG_SPLIT_STARTUP=y
+target/linux/x86/generic/config-6.18:158:CONFIG_HOTPLUG_CORE_SYNC=y
+target/linux/x86/generic/config-6.18:159:CONFIG_HOTPLUG_CORE_SYNC_DEAD=y
+target/linux/x86/generic/config-6.18:160:CONFIG_HOTPLUG_CORE_SYNC_FULL=y
+target/linux/x86/generic/config-6.18:161:CONFIG_HOTPLUG_CPU=y
+target/linux/x86/generic/config-6.18:162:CONFIG_HOTPLUG_PCI=y
+target/linux/x86/generic/config-6.18:163:CONFIG_HOTPLUG_PCI_ACPI=y
+target/linux/x86/generic/config-6.18:164:# CONFIG_HOTPLUG_PCI_ACPI_IBM is not set
+target/linux/x86/generic/config-6.18:165:# CONFIG_HOTPLUG_PCI_COMPAQ is not set
+target/linux/x86/generic/config-6.18:166:# CONFIG_HOTPLUG_PCI_CPCI is not set
+target/linux/x86/generic/config-6.18:167:# CONFIG_HOTPLUG_PCI_IBM is not set
+target/linux/x86/generic/config-6.18:168:CONFIG_HOTPLUG_PCI_PCIE=y
+target/linux/x86/generic/config-6.18:169:# CONFIG_HOTPLUG_PCI_SHPC is not set
+target/linux/x86/generic/config-6.18:170:CONFIG_HOTPLUG_SMT=y
+target/linux/x86/generic/config-6.18:171:CONFIG_HOTPLUG_SPLIT_STARTUP=y
+target/linux/airoha/an7583/config-6.12:172:CONFIG_HOTPLUG_CORE_SYNC=y
+target/linux/airoha/an7583/config-6.12:173:CONFIG_HOTPLUG_CORE_SYNC_DEAD=y
+target/linux/airoha/an7583/config-6.12:174:CONFIG_HOTPLUG_CPU=y
+target/linux/airoha/an7581/config-6.12:174:CONFIG_HOTPLUG_CORE_SYNC=y
+target/linux/airoha/an7581/config-6.12:175:CONFIG_HOTPLUG_CORE_SYNC_DEAD=y
+target/linux/airoha/an7581/config-6.12:176:CONFIG_HOTPLUG_CPU=y
+target/linux/airoha/en7523/config-6.12:145:CONFIG_HOTPLUG_CORE_SYNC=y
+target/linux/airoha/en7523/config-6.12:146:CONFIG_HOTPLUG_CORE_SYNC_DEAD=y
+target/linux/airoha/en7523/config-6.12:147:CONFIG_HOTPLUG_CPU=y
+target/linux/loongarch64/config-6.12:185:CONFIG_DEVTMPFS=y
+target/linux/loongarch64/config-6.12:334:CONFIG_HOTPLUG_CPU=y
+target/linux/bcm27xx/bcm2710/config-6.12:266:CONFIG_HOTPLUG_CORE_SYNC=y
+target/linux/bcm27xx/bcm2710/config-6.12:267:CONFIG_HOTPLUG_CORE_SYNC_DEAD=y
+target/linux/bcm27xx/bcm2710/config-6.12:268:CONFIG_HOTPLUG_CPU=y
+target/linux/bcm27xx/bcm2709/config-6.12:260:CONFIG_HOTPLUG_CORE_SYNC=y
+target/linux/bcm27xx/bcm2709/config-6.12:261:CONFIG_HOTPLUG_CORE_SYNC_DEAD=y
+target/linux/bcm27xx/bcm2709/config-6.12:262:CONFIG_HOTPLUG_CPU=y
+target/linux/bcm27xx/bcm2712/config-6.12:315:CONFIG_HOTPLUG_CORE_SYNC=y
+target/linux/bcm27xx/bcm2712/config-6.12:316:CONFIG_HOTPLUG_CORE_SYNC_DEAD=y
+target/linux/bcm27xx/bcm2712/config-6.12:317:CONFIG_HOTPLUG_CPU=y
+target/linux/bcm27xx/bcm2712/config-6.12:318:CONFIG_HOTPLUG_PCI=y
+target/linux/bcm27xx/bcm2712/config-6.12:319:# CONFIG_HOTPLUG_PCI_CPCI is not set
+target/linux/bcm27xx/bcm2712/config-6.12:320:# CONFIG_HOTPLUG_PCI_PCIE is not set
+target/linux/bcm27xx/bcm2712/config-6.12:321:CONFIG_HOTPLUG_PCI_SHPC=y
+target/linux/bcm27xx/bcm2711/config-6.12:268:CONFIG_HOTPLUG_CORE_SYNC=y
+target/linux/bcm27xx/bcm2711/config-6.12:269:CONFIG_HOTPLUG_CORE_SYNC_DEAD=y
+target/linux/bcm27xx/bcm2711/config-6.12:270:CONFIG_HOTPLUG_CPU=y
+target/linux/mediatek/mt7629/config-6.18:158:CONFIG_HOTPLUG_CORE_SYNC=y
+target/linux/mediatek/mt7629/config-6.18:159:CONFIG_HOTPLUG_CORE_SYNC_DEAD=y
+target/linux/mediatek/mt7629/config-6.18:160:CONFIG_HOTPLUG_CPU=y
+target/linux/mediatek/mt7623/config-6.18:298:CONFIG_HOTPLUG_CORE_SYNC=y
+target/linux/mediatek/mt7623/config-6.18:299:CONFIG_HOTPLUG_CORE_SYNC_DEAD=y
+target/linux/mediatek/mt7623/config-6.18:300:CONFIG_HOTPLUG_CPU=y
+target/linux/mvebu/config-6.12:209:CONFIG_HOTPLUG_CORE_SYNC=y
+target/linux/mvebu/config-6.12:210:CONFIG_HOTPLUG_CORE_SYNC_DEAD=y
+target/linux/mvebu/config-6.12:211:CONFIG_HOTPLUG_CPU=y
+target/linux/mvebu/config-6.18:211:CONFIG_HOTPLUG_CORE_SYNC=y
+target/linux/mvebu/config-6.18:212:CONFIG_HOTPLUG_CORE_SYNC_DEAD=y
+target/linux/mvebu/config-6.18:213:CONFIG_HOTPLUG_CPU=y
+target/linux/rockchip/armv8/config-6.12:304:CONFIG_HOTPLUG_CORE_SYNC=y
+target/linux/rockchip/armv8/config-6.12:305:CONFIG_HOTPLUG_CORE_SYNC_DEAD=y
+target/linux/rockchip/armv8/config-6.12:306:CONFIG_HOTPLUG_CPU=y
+target/linux/rockchip/armv8/config-6.12:307:CONFIG_HOTPLUG_PCI=y
+target/linux/rockchip/armv8/config-6.12:308:# CONFIG_HOTPLUG_PCI_CPCI is not set
+target/linux/rockchip/armv8/config-6.12:309:# CONFIG_HOTPLUG_PCI_PCIE is not set
+target/linux/rockchip/armv8/config-6.12:310:# CONFIG_HOTPLUG_PCI_SHPC is not set
+target/linux/rockchip/armv8/config-6.18:310:CONFIG_HOTPLUG_CORE_SYNC=y
+target/linux/rockchip/armv8/config-6.18:311:CONFIG_HOTPLUG_CORE_SYNC_DEAD=y
+target/linux/rockchip/armv8/config-6.18:312:CONFIG_HOTPLUG_CPU=y
+target/linux/rockchip/armv8/config-6.18:313:CONFIG_HOTPLUG_PCI=y
+target/linux/rockchip/armv8/config-6.18:314:# CONFIG_HOTPLUG_PCI_CPCI is not set
+target/linux/rockchip/armv8/config-6.18:315:# CONFIG_HOTPLUG_PCI_PCIE is not set
+target/linux/rockchip/armv8/config-6.18:316:# CONFIG_HOTPLUG_PCI_SHPC is not set
+target/linux/rockchip/armv8/config-6.18:317:CONFIG_HOTPLUG_SMT=y
+target/linux/tegra/config-6.12:256:CONFIG_HOTPLUG_CORE_SYNC=y
+target/linux/tegra/config-6.12:257:CONFIG_HOTPLUG_CORE_SYNC_DEAD=y
+target/linux/tegra/config-6.12:258:CONFIG_HOTPLUG_CPU=y
+target/linux/starfive/config-6.12:135:CONFIG_DEVTMPFS=y
+target/linux/starfive/config-6.12:136:CONFIG_DEVTMPFS_MOUNT=y
+target/linux/starfive/config-6.12:246:CONFIG_HOTPLUG_CORE_SYNC=y
+target/linux/starfive/config-6.12:247:CONFIG_HOTPLUG_CORE_SYNC_DEAD=y
+target/linux/starfive/config-6.12:248:CONFIG_HOTPLUG_CPU=y
+target/linux/starfive/config-6.18:136:CONFIG_DEVTMPFS=y
+target/linux/starfive/config-6.18:137:CONFIG_DEVTMPFS_MOUNT=y
+target/linux/starfive/config-6.18:251:CONFIG_HOTPLUG_CORE_SYNC=y
+target/linux/starfive/config-6.18:252:CONFIG_HOTPLUG_CORE_SYNC_DEAD=y
+target/linux/starfive/config-6.18:253:CONFIG_HOTPLUG_CPU=y
+target/linux/zynq/config-6.12:231:CONFIG_HOTPLUG_CORE_SYNC=y
+target/linux/zynq/config-6.12:232:CONFIG_HOTPLUG_CORE_SYNC_DEAD=y
+target/linux/zynq/config-6.12:233:CONFIG_HOTPLUG_CPU=y
+target/linux/armsr/armv8/config-6.12:351:CONFIG_HOTPLUG_PCI=y
+target/linux/armsr/armv8/config-6.12:352:CONFIG_HOTPLUG_PCI_ACPI=y
+target/linux/armsr/armv8/config-6.12:353:# CONFIG_HOTPLUG_PCI_ACPI_AMPERE_ALTRA is not set
+target/linux/armsr/armv8/config-6.12:354:# CONFIG_HOTPLUG_PCI_ACPI_IBM is not set
+target/linux/armsr/armv8/config-6.12:355:# CONFIG_HOTPLUG_PCI_CPCI is not set
+target/linux/armsr/armv8/config-6.12:356:# CONFIG_HOTPLUG_PCI_PCIE is not set
+target/linux/armsr/armv8/config-6.12:357:# CONFIG_HOTPLUG_PCI_SHPC is not set
+target/linux/armsr/config-6.12:188:CONFIG_HOTPLUG_CPU=y
+target/linux/armsr/config-6.12:189:CONFIG_HOTPLUG_PCI_ACPI=y
+target/linux/armsr/armv7/config-6.12:70:CONFIG_HOTPLUG_CORE_SYNC=y
+target/linux/armsr/armv7/config-6.12:71:CONFIG_HOTPLUG_CORE_SYNC_DEAD=y
+target/linux/layerscape/armv7/config-6.12:283:CONFIG_HOTPLUG_CORE_SYNC=y
+target/linux/layerscape/armv7/config-6.12:284:CONFIG_HOTPLUG_CORE_SYNC_DEAD=y
+target/linux/layerscape/armv7/config-6.12:285:CONFIG_HOTPLUG_CPU=y
+target/linux/layerscape/armv8_64b/config-6.12:369:CONFIG_HOTPLUG_CORE_SYNC=y
+target/linux/layerscape/armv8_64b/config-6.12:370:CONFIG_HOTPLUG_CORE_SYNC_DEAD=y
+target/linux/layerscape/armv8_64b/config-6.12:371:CONFIG_HOTPLUG_CPU=y
+target/linux/bmips/bcm63268/config-6.12:306:CONFIG_DEVTMPFS=y
+target/linux/bmips/bcm63268/config-6.12:307:CONFIG_DEVTMPFS_MOUNT=y
+target/linux/bmips/bcm63268/config-6.12:308:CONFIG_DEVTMPFS_SAFE=y
+target/linux/ipq806x/config-6.12:197:CONFIG_HOTPLUG_CORE_SYNC=y
+target/linux/ipq806x/config-6.12:198:CONFIG_HOTPLUG_CORE_SYNC_DEAD=y
+target/linux/ipq806x/config-6.12:199:CONFIG_HOTPLUG_CPU=y
+target/linux/sifiveu/config-6.18:88:CONFIG_DEVTMPFS=y
+target/linux/sifiveu/config-6.18:89:CONFIG_DEVTMPFS_MOUNT=y
+target/linux/sifiveu/config-6.18:191:CONFIG_HOTPLUG_PCI=y
+target/linux/sifiveu/config-6.18:192:# CONFIG_HOTPLUG_PCI_CPCI is not set
+target/linux/sifiveu/config-6.18:193:CONFIG_HOTPLUG_PCI_PCIE=y
+target/linux/sifiveu/config-6.18:194:CONFIG_HOTPLUG_PCI_SHPC=y
+build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:358:# CONFIG_HOTPLUG_CPU is not set
+build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:1078:# CONFIG_HOTPLUG_PCI is not set
+build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:1132:# CONFIG_DEVTMPFS is not set

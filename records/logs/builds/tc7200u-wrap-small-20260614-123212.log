@@ -1,0 +1,15 @@
+      build report: /home/mgta29/tc7200u-research/records/logs/builds/2026-06-14-123833-build-provenance.log
+[1/3] Preparing custom source image
+      name map: tc7200u.bin -> tc7200u.bin
+      tftp dir: /mnt/c/tftp (/mnt/c/tftp)
+      source image: records/artifacts/test-images/20260614-123212/tc7200u-openwrt-initramfs-small-20260614-123212.bin (records/artifacts/test-images/20260614-123212/tc7200u-openwrt-initramfs-small-20260614-123212.bin)
+      source appears to be raw payload (no ProgramStore header)
+      raw: records/artifacts/test-images/20260614-123212/tc7200u-openwrt-initramfs-small-20260614-123212.bin
+[2/3] Wrapping raw initramfs with A825 header
+      log: /home/mgta29/tc7200u-research/records/logs/builds/2026-06-14-123833-wrap.log
+      wrapped: /mnt/c/tftp/tc7200u.bin
+[3/3] Verifying wrapped image
+      log: /home/mgta29/tc7200u-research/records/logs/builds/2026-06-14-123833-verify.log
+CHECK OK: size_ok=True
+OK: wrapped image matches raw payload and expected header fields
+AUTO: ready for cfe-tftp. CFE request: tc7200u.bin ; served file: /mnt/c/tftp/tc7200u.bin.

@@ -1,0 +1,51 @@
+FAIL: unknown argument: --serial-log
+Usage:
+  tcbuilder.sh [mode] [options]
+
+Modes:
+  help            Print this help text.
+  interactive     Prompt for mode and filename interactively. (default in a TTY)
+  auto            Build (if needed), wrap, verify.
+  candidate       Save a named candidate stamp/patch/log set, then run auto.
+  wrap            Alias for auto.
+  check           Alias for auto.
+  verify          Alias for auto.
+  build           Alias for auto.
+  status          Print git and helper status.
+  check-gates     Run gate checks on serial log.
+  state           Alias for capture-state.
+  capture-state   Capture current OpenWrt/wrapper state snapshot.
+  ensure-packages Apply TC7200U package profile and run defconfig.
+  serial-console  Attach USB serial and log picocom output.
+  reverse-stage1  Extract and inspect a wrapped ProgramStore image.
+  selftest        Run local A825 wrapper/verifier tests.
+  paths           Print resolved paths and effective names.
+  interactive     Prompt for mode and filename interactively.
+
+Options:
+  --mode MODE
+  --label NAME
+  --interactive
+  --fresh-header
+  --no-fresh-header
+  --build-mode auto|none|prepare|install|compile|full|clean
+  --name-map INPUT=RESULT | INPUT->RESULT | INPUT - RESULT
+  --request-name NAME
+  --result-name NAME
+  --bin-name NAME.bin
+  --tftp-dir C:\tftp\
+  --source-image PATH
+  --preserve-from PATH
+  --load-addr 0x<hex>
+  --control 0x<hex>|<int>
+  --major 0x<hex>|<int>
+  --minor 0x<hex>|<int>
+  --build-time 0x<hex>|<int>
+  --crc32 0x<hex>|<int>
+  --allow-rescue-overwrite
+  --force-rewrap-source
+  --skip-precheck
+  --check-log /abs/path/to/picocom.log
+  --log /abs/path/to/picocom.log
+  --report-out /abs/path/to/report.txt
+  --no-save

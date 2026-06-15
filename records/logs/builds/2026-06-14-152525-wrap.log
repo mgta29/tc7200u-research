@@ -1,0 +1,20 @@
+=== meta ===
+timestamp_local=2026-06-14 15:25:25 CEST
+cwd=/home/mgta29/tc7200u-research
+command=a825_wrap --input /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin --output /mnt/c/tftp/tc7200u.bin --filename tc7200u.bin
+=== output ===
+payload_size=8893382
+output_size=8893474
+header_size=92
+filename=tc7200u.bin
+control=0x0000
+major=0x0100
+minor=0x04ff
+load_addr=0x82000000
+build_time=0x6a2eabc5
+crc32=0x00000000
+output=/mnt/c/tftp/tc7200u.bin
+hcs=0xa163
+
+=== exit ===
+exit_code=0

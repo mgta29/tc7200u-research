@@ -1,0 +1,20 @@
+=== meta ===
+timestamp_local=2026-06-14 13:38:39 CEST
+cwd=/home/mgta29/tc7200u-research
+command=a825_wrap --input /home/mgta29/tc7200u-research/records/logs/builds/2026-06-14-133839-source-payload.raw --output /tmp/tcbuilder-fresh-header-smoke/fresh-header-smoke.bin --filename fresh-header-smoke.bin --load-addr 0x82000000
+=== output ===
+payload_size=6417987
+output_size=6418079
+header_size=92
+filename=fresh-header-smoke.bin
+control=0x0000
+major=0x0100
+minor=0x04ff
+load_addr=0x82000000
+build_time=0x6a2e92bf
+crc32=0x00000000
+output=/tmp/tcbuilder-fresh-header-smoke/fresh-header-smoke.bin
+hcs=0xf6cc
+
+=== exit ===
+exit_code=0

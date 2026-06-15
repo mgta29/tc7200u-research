@@ -1,0 +1,58 @@
+=== tc7200u ===
+11:		bootargs = "console=ttyS0,115200 earlycon";
+12:		stdout-path = &uart0;
+16:&uart0 {
+=== viper ===
+			#clock-cells = <0>;
+			clock-frequency = <54000000>;
+		};
+	};
+
+	aliases {
+		uart0 = &uart0;
+	};
+
+	ubus {
+		#address-cells = <1>;
+		#size-cells = <1>;
+
+		compatible = "brcm,ubus", "simple-bus";
+		ranges;
+		/* No dma-ranges on Viper. */
+
+		periph_intc: periph_intc@14e00048 {
+			compatible = "brcm,bcm3380-l2-intc";
+			reg = <0x14e00048 0x4 0x14e0004c 0x4>,
+			      <0x14e00350 0x4 0x14e00354 0x4>;
+
+			interrupt-controller;
+			#interrupt-cells = <1>;
+
+			interrupt-parent = <&cpu_intc>;
+			interrupts = <4>;
+		};
+
+		cmips_intc: cmips_intc@151f8048 {
+			compatible = "brcm,bcm3380-l2-intc";
+			reg = <0x151f8048 0x4 0x151f804c 0x4>;
+
+			interrupt-controller;
+			#interrupt-cells = <1>;
+
+			interrupt-parent = <&periph_intc>;
+			interrupts = <30>;
+			brcm,int-map-mask = <0xffffffff>;
+		};
+
+		uart0: seriale00500 {
+			compatible = "brcm,bcm6345-uart";
+			reg = <0x14e00500 0x18>;
+			interrupt-parent = <&periph_intc>;
+			interrupts = <2>;
+			clocks = <&periph_clk>;
+			status = "disabled";
+		};
+
+		ehci0: usb@15400300 {
+			compatible = "brcm,bcm3384-ehci", "generic-ehci";
+			reg = <0x15400300 0x100>;

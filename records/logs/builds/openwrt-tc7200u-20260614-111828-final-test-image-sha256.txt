@@ -1,0 +1,1 @@
+cfffa85e930bdc138eb48d506fb1249c442a7977d8e40d5a1e17cfc0318361f4  records/artifacts/test-images/20260614-111828/tc7200u-openwrt-initramfs-20260614-111828.bin

@@ -1,0 +1,682 @@
+timestamp=2026-06-15-004615
+mode=manual-new-image-preserve-current-a825-header-no-obsolete-template-no-tcbuild
+img_name=openwrt-try4.bin
+raw=/home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin
+preserve_from=/mnt/c/tftp/openwrt-try.bin
+active=/mnt/c/tftp/openwrt-try4.bin
+out=/home/mgta29/tc7200u-research/records/artifacts/test-images/2026-06-15-004615-openwrt-try4.bin
+backup=None
+load_address_preserved=0x82000000
+internal_name_preserved=openwrt-initramfs.bin
+payload_length=7373777
+wrapped_size=7373869
+expected_wrapped_size=7373869
+size_ok=True
+raw_sha256=fb2d9201b906a90060e0c9e147efdb05094f8d643708e5cc4bf156aba0a5efca
+preserve_from_sha256=7f750050dd79e35f71907e3f11f29593216f1680a039761ae1ff473f42b81b26
+wrapped_sha256=7f62d4dcec2c440aed0db79dfe322b0737698b063efa72f0db71f935b93dc426
+openwrt_git_status=## HEAD (no branch)
+MM target/linux/bmips/bcm63268/config-6.12
+AM target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+AM target/linux/bmips/dts/bcm3384_viper.dtsi
+M  target/linux/bmips/image/bcm63268.mk
+A  target/linux/bmips/patches-6.12/998-bmips-tc7200u-gmac-init.patch
+?? target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts.before-restore-earlycon-20260614-130953
+research_repo_git_status=## main...origin/main [ahead 6]
+ M README.md
+ M docs/PATHS.md
+ M docs/REPO_MAP.md
+ M docs/WORKFLOW.md
+ M records/README.md
+ M records/artifacts/invalid/HCSFAIL-openwrt-ps-irqfallback-5697776.bin
+ M records/artifacts/invalid/openwrt-initramfs-HCSFAIL-5696896-mmio.bin
+ M records/artifacts/invalid/openwrt-initramfs-HCSFAIL-5696896.bin
+ M records/artifacts/invalid/openwrt-ps-irqfallback-NOT-CFE-12byte-loader-header.bin
+ M records/artifacts/rescue/openwrt-ps-irqfallback-GOOD-5696426.bin
+ M records/artifacts/rescue/openwrt-tc7200u-known-good-ramboot-20260515-125821.bin
+ M records/artifacts/rescue/tc7200-console-good-20260601-193010.bin
+ M records/artifacts/rescue/tc7200-stage2-console-good-20260531-182309.bin
+ M records/artifacts/rescue/tc7200-stage2-console-good.bin
+ M records/artifacts/test-images/openwrt-ps-brcm-5696426.bin
+ M records/artifacts/test-images/openwrt-ps-irqfallback-before-lzma16m-test.bin
+ M records/artifacts/test-images/openwrt-ps-irqfallback-lzma16m.bin
+ M records/artifacts/test-images/openwrt-ps-irqfallback-mmio-a825-wrapped.bin
+ M records/artifacts/test-images/openwrt-ps-irqfallback-mmio-cmips-a825-wrapped.bin
+ M records/artifacts/test-images/openwrt-ps-irqfallback-mmio-cmips-a825.bin
+ M records/artifacts/test-images/openwrt-ps-irqfallback-mmio-wrapped.bin
+ D records/generated/2026-05-31-010955-verify.log
+ D records/generated/2026-05-31-010955-wrap.log
+ D records/generated/2026-05-31-011428-verify.log
+ D records/generated/2026-05-31-011428-wrap.log
+ D records/generated/2026-05-31-011805-verify.log
+ D records/generated/2026-05-31-011805-wrap.log
+ M records/logs/README.md
+ D records/logs/serial/baseline-console-ready-20260531-182309.log
+ D records/logs/serial/picocom-20260526-015344.log
+ D records/logs/serial/tc7200_uart_full.log
+ D records/notes/README.md
+ D records/notes/bring-up/2026-05-13-openwrt-console-success.txt
+ D records/notes/bring-up/2026-05-13-openwrt-first-real-boot.md
+ D records/notes/bring-up/2026-05-13-openwrt-ramboot-status.txt
+ D records/notes/bring-up/2026-05-13-ramboot-serial-ok-ethernet-missing.txt
+ D records/notes/bring-up/2026-06-01-console-pass-baseline-refresh.md
+ D records/notes/bring-up/2026-06-01-init-segv-regression-and-baseline-lineage.md
+ D records/notes/bring-up/2026-06-08-openwrt-tc7200u-enet-usable-values.md
+ D records/notes/bring-up/2026-06-09-git-organization.md
+ D records/notes/ethernet/2026-05-13-bgmac-next-path.txt
+ D records/notes/ethernet/2026-05-13-ethernet-investigation.txt
+ D records/notes/ethernet/2026-05-14-ethernet-config-present.txt
+ D records/notes/ethernet/2026-05-14-ethernet-driver-direction.txt
+ D records/notes/flash/2026-05-16-oem-flash-map-and-load-address-clues.md
+ D records/notes/image-format/2026-05-14-222622-tftp-image-manifest.txt
+ D records/notes/image-format/2026-05-14-222859-image-recipe-lzma.txt
+ D records/notes/image-format/2026-05-14-222907-image-recipe-lzma.txt
+ D records/notes/image-format/2026-05-14-222909-image-file-map.txt
+ D records/notes/image-format/2026-05-14-cfe-header-analysis.txt
+ D records/notes/image-format/2026-05-14-cfe-header-byte-diff.txt
+ D records/notes/image-format/2026-05-14-hcsfail-5696896-mmio-header.hex
+ D records/notes/image-format/2026-05-14-hcsfail-5696896-mmio.txt
+ D records/notes/image-format/2026-05-14-hcsfail-5696896.txt
+ D records/notes/image-format/2026-05-14-hcsfail-vs-good-header-cmp.txt
+ D records/notes/image-format/2026-05-14-known-good-5696426-header.hex
+ D records/notes/image-format/2026-05-14-known-good-image.json
+ D records/notes/image-format/2026-05-14-mmio-a825-wrapped-header.hex
+ D records/notes/image-format/2026-05-14-mmio-a825-wrapped-size.txt
+ D records/notes/image-format/2026-05-14-mmio-cmips-a825-header.hex
+ D records/notes/image-format/2026-05-14-mmio-cmips-a825-size.txt
+ D records/notes/image-format/2026-05-14-mmio-cmips-a825-wrapped-header.hex
+ D records/notes/image-format/2026-05-14-mmio-cmips-a825-wrapped-size.txt
+ D records/notes/image-format/2026-05-14-mmio-wrap-attempt-correction.txt
+ D records/notes/image-format/2026-05-14-mmio-wrapped-header.hex
+ D records/notes/image-format/2026-05-14-mmio-wrapped-size.txt
+ D records/notes/image-format/2026-05-14-not-cfe-12byte-loader-header.txt
+ D records/notes/image-format/2026-05-14-openwrt-wrapper-search.txt
+ D records/notes/image-format/2026-05-14-restore-8m-dictionary-image.json
+ D records/notes/image-format/2026-05-14-restored-known-good-after-mmio-hcsfail.txt
+ D records/notes/image-format/2026-05-14-test-lzma16m-image.json
+ D records/notes/reverse/2026-06-08-dma-fpm-mbdma-allocator-findings.md
+ D records/notes/reverse/2026-06-08-enet-gmac-mbdma-global-init-register-labeling.md
+ D records/notes/reverse/2026-06-08-enet-gmac-step1-mdio-profile-findings.md
+ D records/notes/reverse/2026-06-08-enet-mii-static-log-stream-followup.md
+ D records/notes/reverse/2026-06-08-enet-wrapper-flow-repair-803ad8a4.md
+ D records/notes/reverse/2026-06-08-fpm-mbdma-caller-chain-and-derived-values.md
+ D records/notes/reverse/2026-06-08-fpm-packet-allocator-heap-chain.md
+ D records/notes/reverse/2026-06-08-ghidra-dma-fpm-allocator-field-search.md
+ D records/notes/reverse/2026-06-08-ghidra-enet-genet-consolidated-summary-addendum.md
+ D records/notes/reverse/2026-06-08-ghidra-enet-genet-consolidated-summary.md
+ D records/notes/reverse/2026-06-08-ghidra-enet-phy-profile-probe-findings.md
+ D records/notes/reverse/2026-06-08-ghidra-fpm-dma-allocator-findings.md
+ D records/notes/reverse/2026-06-08-ghidra-genet-mmio-findings.md
+ D records/notes/reverse/2026-06-08-ghidra-genet-stub-patch-findings.md
+ D records/notes/reverse/2026-06-08-ghidra-gmac-dma.md
+ D records/notes/reverse/2026-06-08-ghidra-gmac-mbdma-findings.md
+ D records/notes/reverse/2026-06-08-ghidra-gmac-mbdma-global-major-findings.md
+ D records/notes/reverse/2026-06-08-ghidra-mbdma-static-dma-findings.md
+ D records/notes/reverse/2026-06-08-ghidra-mdio-read-write-findings.md
+ D records/notes/reverse/2026-06-08-gmac-ghidra-findings.md
+ D records/notes/reverse/2026-06-09-daily-reverse-summary.md
+ D records/notes/reverse/2026-06-09-dqm-cp2-fpm-progress-findings.md
+ D records/notes/reverse/2026-06-09-dqm-fpm-cp2-ghidra-progress.md
+ D records/notes/reverse/2026-06-09-fpm-dma-packet-token-findings.md
+ D records/notes/reverse/2026-06-09-fpm-token-alloc-free-path.md
+ D records/notes/reverse/2026-06-09-ghidra-fpm-datatypes.md
+ D records/notes/reverse/2026-06-09-ghidra-fpm-mbdma-labeling-next-steps.md
+ D records/notes/reverse/2026-06-09-ghidra-fpm-mbdma-packet-allocator-control-log.md
+ D records/notes/reverse/2026-06-09-ghidra-fpm-packet-token-rx-roundtrip.md
+ D records/notes/reverse/2026-06-09-gmac-mbdma-fpm-endpoint-reinterpretation.md
+ D records/notes/reverse/2026-06-11-daily-reverse-summary.md
+ D records/notes/reverse/2026-06-11-dqm-event1800008-path-progress-log.md
+ D records/notes/reverse/2026-06-11-ghidra-dqm-fpm-cp2-progress-log.md
+ D records/notes/reverse/2026-06-11-ghidra-dqm-mailbox-region-progress-log.md
+ D records/notes/reverse/2026-06-12-daily-reverse-summary.md
+ D records/notes/reverse/2026-06-12-dqm-cp2-fpm-selector-cleanup-log.md
+ D records/notes/reverse/2026-06-12-dqm-event1800008-80c8-family-cleanup-log.md
+ D records/notes/reverse/2026-06-12-dqm-event1800008-cleanup-log.md
+ D records/notes/reverse/2026-06-13-daily-reverse-summary.md
+ D records/notes/reverse/2026-06-13-ghidra-cleanup-repair-plan.md
+ D records/notes/reverse/2026-06-13-host-dqm-msp-comms-guarded-enable-path-updated.md
+ D records/notes/reverse/2026-06-13-stage1-event-slot-wait-chain-update.md
+ D records/notes/reverse/2026-06-14-daily-reverse-summary.md
+ D records/notes/reverse/2026-06-14-stage1-scheduler-post-signal-wake-chain.md
+ D records/notes/reverse/2026-06-14-stage1-thread-exit-tsd-cleanup.md
+ D records/notes/reverse/2026-06-14-stage1-thread-record-datatype-correction.md
+ D records/notes/reverse/important-openwrt-tc7200u-enet-usable-values.md
+ D records/notes/reverse/important-reverse-structure-reference.md
+ D records/notes/reverse/structures.h
+ D records/notes/runtime-probes/2026-05-13-devmem-and-net-status.txt
+ D records/notes/runtime-probes/2026-05-13-live-probe.txt
+ D records/notes/runtime-probes/2026-05-14-baseline-runtime-after-hcsfail.txt
+ D records/notes/runtime-probes/2026-05-14-boot-5696426-no-proc-config.json
+ D records/notes/runtime-probes/2026-05-14-cfe-mmio-read-results.json
+ D records/notes/runtime-probes/2026-05-14-devmem-mmio-dead.json
+ D records/notes/runtime-probes/2026-05-14-devmem-result.json
+ D records/notes/runtime-probes/2026-05-14-devmem-runtime-result.json
+ D records/notes/runtime-probes/2026-05-14-enetsw-dma-swap-negative.md
+ D records/notes/runtime-probes/2026-05-14-expanded-cmips-mmio-probe-result.txt
+ D records/notes/runtime-probes/2026-05-14-initramfs-devmem-check.txt
+ D records/notes/runtime-probes/2026-05-14-mmio-a825-boot-result.txt
+ D records/notes/runtime-probes/2026-05-14-mmio-cmips-a825-boot-result.txt
+ D records/notes/runtime-probes/2026-05-14-mmio-cmips-expanded-boot-result.txt
+ D records/notes/runtime-probes/2026-05-14-mmio-cmips-read-result.txt
+ D records/notes/runtime-probes/2026-05-14-runtime-drivers-no-ethernet.md
+ D records/notes/runtime-probes/2026-05-14-runtime-good-irqfallback.json
+ D records/notes/runtime-probes/2026-05-14-tftp-hcs44ca-image-manifest.md
+ D records/notes/runtime-probes/2026-05-14-wide-mmio-boot-result.txt
+ D records/notes/runtime-probes/2026-05-15-amac-minimal-node-hangs-before-userspace.md
+ D records/notes/runtime-probes/2026-05-15-b53-switch-1e-unsupported-device-zero.md
+ D records/notes/runtime-probes/2026-05-15-bcmgenet-12c00000-negative-result.md
+ D records/notes/runtime-probes/2026-05-15-cs-select-test-invalid-kernel-panic.md
+ D records/notes/runtime-probes/2026-05-15-debugfs-ethtool-no-extra-eth-data.md
+ D records/notes/runtime-probes/2026-05-15-enetsw-combined-swap-negative.md
+ D records/notes/runtime-probes/2026-05-15-enetsw-interrupt-swap-negative.md
+ D records/notes/runtime-probes/2026-05-15-genet-fixed-link-watchdog-no-irq.md
+ D records/notes/runtime-probes/2026-05-15-genet-internal-phy-link-down.md
+ D records/notes/runtime-probes/2026-05-15-genet-irq-name-test-negative.md
+ D records/notes/runtime-probes/2026-05-15-genet-link-up-no-packet-io.md
+ D records/notes/runtime-probes/2026-05-15-genet-mdio-node-present-tx-watchdog.md
+ D records/notes/runtime-probes/2026-05-15-nand-int-base-command-09-timeout.md
+ D records/notes/runtime-probes/2026-05-15-nand-periph-intc-negative-result.md
+ D records/notes/runtime-probes/2026-05-15-nand-timeout-restored-but-rootfs-panic.md
+ D records/notes/runtime-probes/2026-05-15-nand-v4-compatible-negative-and-cfe-geometry.md
+ D records/notes/runtime-probes/2026-05-15-nand-v5-command-09-timeout.md
+ D records/notes/runtime-probes/2026-05-15-runtime-dump-no-mdio-or-flash-evidence.md
+ D records/notes/runtime-probes/2026-05-15-spi-disabled-still-rootfs-panic.md
+ D records/notes/runtime-probes/2026-05-16-genet-irq16-only-test-plan.md
+ D records/notes/runtime-probes/2026-05-16-genet-parent-enable-irqstorm-decode-needed.md
+ D records/notes/runtime-probes/2026-05-16-gmac-init-genet-fixedlink-tftp-result.md
+ D records/notes/runtime-probes/2026-05-16-manual-periph-mask-causes-genet-irqstorm.md
+ D records/notes/runtime-probes/2026-05-17-genet-20bit-dma-mask-probe-fails.md
+ D records/notes/runtime-probes/2026-05-17-genet-corrected-devmem-slot0-no-consume.md
+ D records/notes/runtime-probes/2026-05-17-genet-desc-ram-truncates-high-bits.md
+ D records/notes/runtime-probes/2026-05-17-genet-dma-address-bounce-tdma-status.md
+ D records/notes/runtime-probes/2026-05-17-genet-dma-ranges-zephyr-test-fails.md
+ D records/notes/runtime-probes/2026-05-17-genet-ext-periphirq0-2-evidence.md
+ D records/notes/runtime-probes/2026-05-17-genet-reserved-low-buffer-status-and-swapdesc-state.md
+ D records/notes/runtime-probes/2026-05-17-genet-reserved-low-txbuf-still-no-tdma.md
+ D records/notes/runtime-probes/2026-05-17-genet-swapdesc-still-no-tdma.md
+ D records/notes/runtime-probes/2026-05-17-genet-tx-desc-present-no-tdma-consume.md
+ D records/notes/runtime-probes/2026-05-17-genet-txpoll-dma-not-consuming.md
+ D records/notes/runtime-probes/2026-05-17-genet-xmitdesc-real-frame-no-tdma-consume.md
+ D records/notes/runtime-probes/2026-05-18-genet-gmac-238-5a0-combined-negative.md
+ D records/notes/runtime-probes/2026-05-18-genet-gmac-238-candidate-negative.md
+ D records/notes/runtime-probes/2026-05-18-genet-gmac-5a0-candidate-negative.md
+ D records/notes/runtime-probes/2026-05-18-genet-gmac-bridge-snapshot.md
+ D records/notes/runtime-probes/2026-05-18-genet-gpio-c8-candidate-negative.md
+ D records/notes/runtime-probes/2026-05-18-genet-gpio14-high-ring0-partial.md
+ D records/notes/runtime-probes/2026-05-18-genet-gpio14-low-high-negative.md
+ D records/notes/runtime-probes/2026-05-18-genet-hwirq64-active-tdma-still-stuck.md
+ D records/notes/runtime-probes/2026-05-18-genet-mdio-fixed-only-raw-offset-negative.md
+ D records/notes/runtime-probes/2026-05-18-genet-mdio600-busy-no-complete.md
+ D records/notes/runtime-probes/2026-05-18-genet-mdio600-divider-bits-do-not-latch.md
+ D records/notes/runtime-probes/2026-05-18-genet-rbuf-tbuf-force-negative.md
+ D records/notes/runtime-probes/2026-05-18-genet-ring0-address-first-3word-negative.md
+ D records/notes/runtime-probes/2026-05-18-genet-safe-vendor-combined-negative.md
+ D records/notes/runtime-probes/2026-05-18-genet-viper-base-split-map-evidence.md
+ D records/notes/runtime-probes/2026-05-18-linux-technicolor-tc7200-viper-genet-findings.md
+ D records/notes/runtime-probes/2026-05-18-mdio-618-config-latches-614-command-zero.md
+ D records/notes/runtime-probes/2026-05-18-oem-boot-gmac-switch-clues.md
+ D records/notes/runtime-probes/2026-05-18-tc72xx-bfc5-deepmine-negative.md
+ D records/notes/runtime-probes/2026-05-18-tc72xx-lxg1-venet-dqm-fpm-findings.md
+ D records/notes/runtime-probes/2026-05-18-unimac-interface0-map-stable.md
+ D records/notes/runtime-probes/2026-05-19-77-subnet-ping-fails-ring-static.md
+ D records/notes/runtime-probes/2026-05-19-cycle-reinit-pointer-changes-traffic-static.md
+ D records/notes/runtime-probes/2026-05-19-inbound-77-no-rx-irq64-only.md
+ D records/notes/runtime-probes/2026-05-19-nomaster-bridge-off-negative.md
+ D records/notes/runtime-probes/2026-05-19-p0-pointer-not-desc-alias.md
+ D records/notes/runtime-probes/2026-05-19-pre-post-ring-desc-invariant.md
+ D records/notes/runtime-probes/2026-05-19-reset-baseline-12c00000-words4-negative.md
+ D records/notes/runtime-probes/2026-05-19-ring-window-c0-signature-rx0.md
+ D records/notes/runtime-probes/2026-05-19-unimac-core0-core1-link-toggle-no-delta.md
+ D records/notes/runtime-probes/2026-05-19-unimac-if0-if1-mdio-command-path-negative.md
+ D records/notes/runtime-probes/2026-05-24-flood-no-watchdog-still-no-rx.md
+ D records/notes/runtime-probes/2026-05-24-flood-watchdog-queue-stopped.md
+ D records/notes/runtime-probes/2026-05-24-host-filter-mismatch-no-unicast-proof.md
+ D records/notes/runtime-probes/2026-05-24-link100-run-214125-analysis.md
+ D records/notes/runtime-probes/2026-05-24-link10half-run-215536-analysis.md
+ D records/notes/runtime-probes/2026-05-24-next-test-rx-directed-unicast.md
+ D records/notes/runtime-probes/2026-05-24-pktmon-peer-arp-only-no-owrt-egress.md
+ D records/notes/runtime-probes/2026-05-24-progress-summary.md
+ D records/notes/runtime-probes/2026-05-24-rx-window-arp-only-204855.md
+ D records/notes/runtime-probes/2026-05-24-rx-window-host-arp-only-again.md
+ D records/notes/runtime-probes/2026-05-24-rx-window-still-arp-only-host.md
+ D records/notes/runtime-probes/2026-05-24-split-run-211146-analysis.md
+ D records/notes/runtime-probes/2026-05-24-split-run-213235-analysis.md
+ D records/notes/runtime-probes/2026-05-24-watchdog10half-run-220912-analysis.md
+ D records/notes/runtime-probes/2026-05-25-watchdog10half-bridgehold-v10-analysis.md
+ D records/notes/runtime-probes/2026-05-25-watchdog10half-bridgehold-v10-rerun-225955-analysis.md
+ D records/notes/runtime-probes/2026-05-25-watchdog10half-bridgehold-v3-analysis.md
+ D records/notes/runtime-probes/2026-05-25-watchdog10half-bridgehold-v4-analysis.md
+ D records/notes/runtime-probes/2026-05-25-watchdog10half-bridgehold-v5-analysis.md
+ D records/notes/runtime-probes/2026-05-25-watchdog10half-bridgehold-v6-analysis.md
+ D records/notes/runtime-probes/2026-05-25-watchdog10half-bridgehold-v7-analysis.md
+ D records/notes/runtime-probes/2026-05-25-watchdog10half-bridgehold-v8-analysis.md
+ D records/notes/runtime-probes/2026-05-25-watchdog10half-bridgehold-v9-analysis.md
+ D records/notes/runtime-probes/2026-05-26-watchdog10half-bridgehold-v12-analysis.md
+ D records/notes/runtime-probes/2026-05-26-watchdog10half-bridgehold-v13-analysis.md
+ D records/notes/runtime-probes/2026-05-26-watchdog10half-bridgehold-v14-rxonly-analysis.md
+ D records/notes/source-research/2026-05-15-hungarian-vodafone-upc-tc7200-firmware-versions.md
+ D records/notes/source-research/2026-05-15-jclehner-tc7200-readme-findings.md
+ D records/notes/source-research/2026-05-15-linux-technicolor-genet-finding.md
+ D records/notes/source-research/2026-05-15-linux-technicolor-tc7200-changed-files.txt
+ D records/notes/source-research/2026-05-15-linux-technicolor-tc7200-interesting-files.txt
+ D records/notes/source-research/2026-05-15-oem-bcm3383-nand-v4-clue.md
+ D records/notes/source-research/2026-05-15-src-wide-small-page-nand-search.txt
+ D records/notes/source-research/2026-05-15-tc7200-similar-firmware.md
+ D records/notes/source-research/2026-05-15-tc72xx-oem-bcm3383-nand-source-found.md
+ D records/notes/source-research/2026-05-17-openwrt-new-device-porting-guide.md
+ D records/notes/source-research/2026-05-17-similar-firmware-useful-map-data.md
+ D records/notes/source-research/2026-05-17-tc7200-family-docsis3-firmware-notes.md
+ D records/notes/source-research/2026-05-26-deep-research-report.md
+ D records/notes/status/2026-05-16-current-tc7200u-bringup-baseline.md
+ D records/notes/status/2026-05-31-openwrt-port-checklist.md
+ D records/notes/status/2026-05-31-script-wrapper-provenance-update.md
+ D records/notes/status/2026-05-31-stage1-reverse-findings.md
+ D records/notes/status/2026-06-01-openwrt-gmac-findings.md
+ D records/notes/status/2026-06-02-canonical-a825-wrapped-flow.md
+ D records/notes/status/2026-06-07-ghidra-interactive-mapping-findings.md
+ D records/notes/status/2026-06-07-ghidra-label-map-expansion-v2.md
+ D records/notes/status/2026-06-07-ghidra-label-map-expansion.md
+ D records/notes/status/2026-06-07-ghidra-label-script-mips32-guard.md
+ D records/notes/status/2026-06-07-ghidra-label-script-refresh.md
+ D records/notes/status/2026-06-07-stage1-mips32-confirmation.md
+ D records/notes/status/2026-06-07-tcbuilder-interactive-default.md
+ D records/notes/status/2026-06-08-bootlinux-mips32-remap.md
+ D records/notes/status/2026-06-08-ghidra-script-compile-fix.md
+ M records/reverse/2026-06-14-daily-reverse-summary.md
+ M records/reverse/important-openwrt-tc7200u-enet-usable-values.md
+ M records/reverse/important-reverse-structure-reference.md
+ M records/reverse/structures.h
+ D scripts/picocom-cmd/v12-send-next-watchdog-fill-10half-bridgehold.txt
+ D scripts/picocom-cmd/v13-send-next-watchdog-fill-10half-bridgehold.txt
+ D scripts/picocom-cmd/v14
+ D scripts/picocom-cmd/v14-send-next-watchdog-fill-10half-bridgehold-rxonly.txt
+ D scripts/picocom-cmd/v15
+ D scripts/picocom-cmd/v15-send-next-watchdog-fill-10half-bridgehold-rxmib.txt
+ D scripts/send.txt
+ D scripts/send2.txt
+ M scripts/tcbuilder.sh
+ D scripts/tftp/send-next-host-watchdog-fill-10half-bridgehold-v10.ps1
+ D scripts/tftp/send-next-host-watchdog-fill-10half-bridgehold-v11.ps1
+ D scripts/tftp/send-next-host-watchdog-fill-10half-bridgehold-v12.ps1
+ D scripts/tftp/send-next-host-watchdog-fill-10half-bridgehold-v13.ps1
+ D scripts/tftp/send-next-host-watchdog-fill-10half-bridgehold-v14-rxonly.ps1
+ D scripts/tftp/send-next-host-watchdog-fill-10half-bridgehold-v15-rxmib.ps1
+ D scripts/tftp/send-next-host-watchdog-fill-10half-bridgehold-v16-rxmib-dual.ps1
+ D scripts/tftp/send-next-host-watchdog-fill-10half-bridgehold-v3.ps1
+ D scripts/tftp/send-next-host-watchdog-fill-10half-bridgehold-v4.ps1
+ D scripts/tftp/send-next-host-watchdog-fill-10half-bridgehold-v5.ps1
+ D scripts/tftp/send-next-host-watchdog-fill-10half-bridgehold-v7.ps1
+ D scripts/tftp/send-next-host-watchdog-fill-10half-bridgehold-v8.ps1
+ D scripts/tftp/send-next-host-watchdog-fill-10half-bridgehold-v9.ps1
+ D tools/serial-decompress-timer.py
+ D tools/tc7200u_stage1_custom_structs.h
+?? patches/bcm3383-technicolor-tc7200u.bad-uart-order-20260614-131241.dts
+?? patches/bcm3384_viper.dtsi.before-uart500-20260614-131241
+?? patches/tc7200u-candidate1-clean-ordered-uart-20260614-131241.patch
+?? patches/tc7200u-candidate1-clean-ordered-uart-final-20260614-131241.patch
+?? patches/tc7200u-candidate1-control-plus-trace-20260614-131241.patch
+?? patches/tc7200u-candidate1-delete-inherited-uart-20260614-131241.patch
+?? patches/tc7200u-candidate1-delete-uart-labelform-20260614-131241.patch
+?? patches/tc7200u-candidate1-delete-uart-pathform-20260614-131241.patch
+?? patches/tc7200u-candidate1-fix-alias-override-20260614-131241.patch
+?? patches/tc7200u-candidate1-revert-board-uart-simple-20260614-131241.patch
+?? patches/tc7200u-candidate1-uart-alias-console-20260614-131241.patch
+?? patches/tc7200u-candidate1-uart-fresh-node-20260614-131241.patch
+?? patches/tc7200u-candidate1-viper-uart500-20260614-131241.patch
+?? patches/tc7200u-candidate1-viper-uart500-disable-nand-20260614-131241.patch
+?? patches/tc7200u-candidate1-viper-uart500-fixed-20260614-131241.patch
+?? patches/tc7200u-console-alive-initcall-debug-20260614-163754.patch
+?? patches/tc7200u-console-uart500-bcm7120-l2-20260614-154920.patch
+?? patches/tc7200u-rdinit-bin-sh-test-20260614-181853.patch
+?? patches/tc7200u-smoke-candidate-2026-06-14-132323.patch
+?? records/artifacts/test-images/2026-06-14-231908-tc7200u-console-justwrap-preserve-header.bin
+?? records/artifacts/test-images/2026-06-14-232211-previous-active-openwrt-ps-irqfallback.bin
+?? records/artifacts/test-images/2026-06-14-232211-tc7200u-new-console-manual-wrap.bin
+?? records/artifacts/test-images/2026-06-14-233141-openwrt-try.bin
+?? records/artifacts/test-images/2026-06-15-000320-openwrt-try2.bin
+?? records/artifacts/test-images/2026-06-15-002310-openwrt-try3.bin
+?? records/artifacts/test-images/2026-06-15-004615-openwrt-try4.bin
+?? records/artifacts/test-images/20260614-111828/
+?? records/artifacts/test-images/20260614-123212/
+?? records/backups/2026-06-14-232211/
+?? records/backups/2026-06-15-000320/
+?? records/backups/2026-06-15-002310/
+?? records/backups/2026-06-15-004615/
+?? records/bring-up/
+?? records/ethernet/
+?? records/flash/
+?? records/generated/2026-06-14-130422-current-state.txt
+?? records/generated/2026-06-14-133154-current-state.txt
+?? records/generated/2026-06-14-231908-manual-justwrap-preserve-header.json
+?? records/generated/2026-06-14-232211-tc7200u-new-console-manual-wrap.json
+?? records/generated/2026-06-14-233141-openwrt-try.bin.json
+?? records/generated/2026-06-15-000320-openwrt-try2.bin.json
+?? records/generated/2026-06-15-002310-openwrt-try3.bin.json
+?? records/image-format/
+?? records/logs/builds/2026-05-31-010955-verify.log
+?? records/logs/builds/2026-05-31-010955-wrap.log
+?? records/logs/builds/2026-05-31-011428-verify.log
+?? records/logs/builds/2026-05-31-011428-wrap.log
+?? records/logs/builds/2026-05-31-011805-verify.log
+?? records/logs/builds/2026-05-31-011805-wrap.log
+?? records/logs/builds/2026-06-14-113711-build-provenance.log
+?? records/logs/builds/2026-06-14-113711-ensure-debug-packages.log
+?? records/logs/builds/2026-06-14-113711-openwrt-config-after-debug-packages
+?? records/logs/builds/2026-06-14-113711-openwrt-config-before-debug-packages
+?? records/logs/builds/2026-06-14-113711-verify.log
+?? records/logs/builds/2026-06-14-113711-wrap.log
+?? records/logs/builds/2026-06-14-123833-build-provenance.log
+?? records/logs/builds/2026-06-14-123833-verify.log
+?? records/logs/builds/2026-06-14-123833-wrap.log
+?? records/logs/builds/2026-06-14-130423-check-gates-picocom-20260614-123915.txt
+?? records/logs/builds/2026-06-14-131255-build-provenance.log
+?? records/logs/builds/2026-06-14-131255-ensure-debug-packages.log
+?? records/logs/builds/2026-06-14-131255-openwrt-config-after-debug-packages
+?? records/logs/builds/2026-06-14-131255-openwrt-config-before-debug-packages
+?? records/logs/builds/2026-06-14-131255-patch-precheck.log
+?? records/logs/builds/2026-06-14-131255-target-linux-compile.log
+?? records/logs/builds/2026-06-14-131255-target-linux-install.log
+?? records/logs/builds/2026-06-14-131255-verify.log
+?? records/logs/builds/2026-06-14-131255-wrap.log
+?? records/logs/builds/2026-06-14-132323-build-provenance.log
+?? records/logs/builds/2026-06-14-132323-verify.log
+?? records/logs/builds/2026-06-14-132323-wrap.log
+?? records/logs/builds/2026-06-14-133154-check-gates-picocom-20260614-131456.txt
+?? records/logs/builds/2026-06-14-133526-build-provenance.log
+?? records/logs/builds/2026-06-14-133526-ensure-debug-packages.log
+?? records/logs/builds/2026-06-14-133526-openwrt-config-after-debug-packages
+?? records/logs/builds/2026-06-14-133526-openwrt-config-before-debug-packages
+?? records/logs/builds/2026-06-14-133526-patch-precheck.log
+?? records/logs/builds/2026-06-14-133526-target-linux-compile.log
+?? records/logs/builds/2026-06-14-133526-target-linux-install.log
+?? records/logs/builds/2026-06-14-133526-target-linux-prepare.log
+?? records/logs/builds/2026-06-14-133839-build-provenance.log
+?? records/logs/builds/2026-06-14-133839-source-payload.raw
+?? records/logs/builds/2026-06-14-133839-verify.log
+?? records/logs/builds/2026-06-14-133839-wrap.log
+?? records/logs/builds/2026-06-14-134121-build-provenance.log
+?? records/logs/builds/2026-06-14-134121-ensure-debug-packages.log
+?? records/logs/builds/2026-06-14-134121-make-full-image-fallback.log
+?? records/logs/builds/2026-06-14-134121-openwrt-config-after-debug-packages
+?? records/logs/builds/2026-06-14-134121-openwrt-config-before-debug-packages
+?? records/logs/builds/2026-06-14-134121-patch-precheck.log
+?? records/logs/builds/2026-06-14-134121-target-linux-clean.log
+?? records/logs/builds/2026-06-14-134121-target-linux-compile.log
+?? records/logs/builds/2026-06-14-134121-target-linux-install.log
+?? records/logs/builds/2026-06-14-134121-target-linux-prepare.log
+?? records/logs/builds/2026-06-14-135332-build-provenance.log
+?? records/logs/builds/2026-06-14-135332-ensure-debug-packages.log
+?? records/logs/builds/2026-06-14-135332-openwrt-config-after-debug-packages
+?? records/logs/builds/2026-06-14-135332-openwrt-config-before-debug-packages
+?? records/logs/builds/2026-06-14-135332-patch-precheck.log
+?? records/logs/builds/2026-06-14-135332-target-linux-install.log
+?? records/logs/builds/2026-06-14-135332-verify.log
+?? records/logs/builds/2026-06-14-135332-wrap.log
+?? records/logs/builds/2026-06-14-135600-build-provenance.log
+?? records/logs/builds/2026-06-14-135600-ensure-debug-packages.log
+?? records/logs/builds/2026-06-14-135600-openwrt-config-after-debug-packages
+?? records/logs/builds/2026-06-14-135600-openwrt-config-before-debug-packages
+?? records/logs/builds/2026-06-14-135600-patch-precheck.log
+?? records/logs/builds/2026-06-14-135600-target-linux-install.log
+?? records/logs/builds/2026-06-14-135600-verify.log
+?? records/logs/builds/2026-06-14-135600-wrap.log
+?? records/logs/builds/2026-06-14-135811-build-provenance.log
+?? records/logs/builds/2026-06-14-135811-verify.log
+?? records/logs/builds/2026-06-14-135811-wrap.log
+?? records/logs/builds/2026-06-14-140400-build-provenance.log
+?? records/logs/builds/2026-06-14-140400-ensure-debug-packages.log
+?? records/logs/builds/2026-06-14-140400-openwrt-config-after-debug-packages
+?? records/logs/builds/2026-06-14-140400-openwrt-config-before-debug-packages
+?? records/logs/builds/2026-06-14-140400-patch-precheck.log
+?? records/logs/builds/2026-06-14-140400-target-linux-install.log
+?? records/logs/builds/2026-06-14-140400-verify.log
+?? records/logs/builds/2026-06-14-140400-wrap.log
+?? records/logs/builds/2026-06-14-142337-build-provenance.log
+?? records/logs/builds/2026-06-14-142337-ensure-debug-packages.log
+?? records/logs/builds/2026-06-14-142337-openwrt-config-after-debug-packages
+?? records/logs/builds/2026-06-14-142337-openwrt-config-before-debug-packages
+?? records/logs/builds/2026-06-14-142419-build-provenance.log
+?? records/logs/builds/2026-06-14-142419-verify.log
+?? records/logs/builds/2026-06-14-142419-wrap.log
+?? records/logs/builds/2026-06-14-145508-build-provenance.log
+?? records/logs/builds/2026-06-14-145508-verify.log
+?? records/logs/builds/2026-06-14-145508-wrap.log
+?? records/logs/builds/2026-06-14-152525-build-provenance.log
+?? records/logs/builds/2026-06-14-152525-verify.log
+?? records/logs/builds/2026-06-14-152525-wrap.log
+?? records/logs/builds/2026-06-14-162052-build-provenance.log
+?? records/logs/builds/2026-06-14-162052-verify.log
+?? records/logs/builds/2026-06-14-162052-wrap.log
+?? records/logs/builds/2026-06-14-164028-build-provenance.log
+?? records/logs/builds/2026-06-14-164028-verify.log
+?? records/logs/builds/2026-06-14-164028-wrap.log
+?? records/logs/builds/2026-06-14-164737-build-provenance.log
+?? records/logs/builds/2026-06-14-164737-verify.log
+?? records/logs/builds/2026-06-14-164737-wrap.log
+?? records/logs/builds/2026-06-14-171434-build-provenance.log
+?? records/logs/builds/2026-06-14-171434-ensure-debug-packages.log
+?? records/logs/builds/2026-06-14-171434-openwrt-config-after-debug-packages
+?? records/logs/builds/2026-06-14-171434-openwrt-config-before-debug-packages
+?? records/logs/builds/2026-06-14-171434-patch-precheck.log
+?? records/logs/builds/2026-06-14-171434-target-linux-compile.log
+?? records/logs/builds/2026-06-14-171434-target-linux-install.log
+?? records/logs/builds/2026-06-14-171434-verify.log
+?? records/logs/builds/2026-06-14-171434-wrap.log
+?? records/logs/builds/2026-06-14-173843-build-provenance.log
+?? records/logs/builds/2026-06-14-173843-verify.log
+?? records/logs/builds/2026-06-14-173843-wrap.log
+?? records/logs/builds/2026-06-14-182426-build-provenance.log
+?? records/logs/builds/2026-06-14-182426-verify.log
+?? records/logs/builds/2026-06-14-182426-wrap.log
+?? records/logs/builds/2026-06-14-193021-build-provenance.log
+?? records/logs/builds/2026-06-14-193021-verify.log
+?? records/logs/builds/2026-06-14-193021-wrap.log
+?? records/logs/builds/2026-06-14-195610-build-provenance.log
+?? records/logs/builds/2026-06-14-195610-verify.log
+?? records/logs/builds/2026-06-14-195610-wrap.log
+?? records/logs/builds/2026-06-14-201246-build-provenance.log
+?? records/logs/builds/2026-06-14-201246-verify.log
+?? records/logs/builds/2026-06-14-201246-wrap.log
+?? records/logs/builds/2026-06-14-205815-build-provenance.log
+?? records/logs/builds/2026-06-14-205815-verify.log
+?? records/logs/builds/2026-06-14-205815-wrap.log
+?? records/logs/builds/2026-06-14-231908-manual-justwrap-preserve-header.log
+?? records/logs/builds/2026-06-14-232211-manual-new-console-clean.log
+?? records/logs/builds/2026-06-14-232211-manual-new-console-compile.log
+?? records/logs/builds/2026-06-14-232211-manual-new-console-defconfig.log
+?? records/logs/builds/2026-06-14-232211-manual-new-console-install.log
+?? records/logs/builds/2026-06-14-232211-tc7200u-new-console-manual-wrap.log
+?? records/logs/builds/2026-06-14-233141-newimg-compile.log
+?? records/logs/builds/2026-06-14-233141-newimg-defconfig.log
+?? records/logs/builds/2026-06-14-233141-newimg-install.log
+?? records/logs/builds/2026-06-14-233141-newimg-raw-sha256.log
+?? records/logs/builds/2026-06-14-233141-openwrt-try.bin-manual-newimg-wrap.log
+?? records/logs/builds/2026-06-14-default-fresh-header-auto.log
+?? records/logs/builds/2026-06-14-dts-alias-fix-target-linux-install.log
+?? records/logs/builds/2026-06-14-dts-fix-auto-rerun.log
+?? records/logs/builds/2026-06-14-dts-order-fix-target-linux-install.log
+?? records/logs/builds/2026-06-15-000320-openwrt-try2.bin-manual-wrap.log
+?? records/logs/builds/2026-06-15-000320-try2-compile.log
+?? records/logs/builds/2026-06-15-000320-try2-defconfig.log
+?? records/logs/builds/2026-06-15-000320-try2-install.log
+?? records/logs/builds/2026-06-15-000320-try2-raw-sha256.log
+?? records/logs/builds/2026-06-15-002310-openwrt-try3.bin-manual-wrap.log
+?? records/logs/builds/2026-06-15-002310-try3-compile.log
+?? records/logs/builds/2026-06-15-002310-try3-defconfig.log
+?? records/logs/builds/2026-06-15-002310-try3-install.log
+?? records/logs/builds/2026-06-15-002310-try3-raw-sha256.log
+?? records/logs/builds/2026-06-15-004615-try4-clean.log
+?? records/logs/builds/2026-06-15-004615-try4-compile.log
+?? records/logs/builds/2026-06-15-004615-try4-defconfig.log
+?? records/logs/builds/2026-06-15-004615-try4-install.log
+?? records/logs/builds/2026-06-15-004615-try4-raw-sha256.log
+?? records/logs/builds/bcm3383-technicolor-tc7200u-before-disable-nand-20260614-201058.dts
+?? records/logs/builds/bcm3384_viper-before-uart500-20260614-205008.dtsi
+?? records/logs/builds/config-6.12-before-console-fix-20260614-203242
+?? records/logs/builds/current-candidate1-control-plus-trace.stamp
+?? records/logs/builds/current-smoke-candidate.stamp
+?? records/logs/builds/openwrt-config-before-strip-extra-libs-20260614-194443
+?? records/logs/builds/openwrt-tc7200u-20260614-111828-copy-artifacts.log
+?? records/logs/builds/openwrt-tc7200u-20260614-111828-defconfig.log
+?? records/logs/builds/openwrt-tc7200u-20260614-111828-diffconfig.txt
+?? records/logs/builds/openwrt-tc7200u-20260614-111828-final-test-image-sha256.txt
+?? records/logs/builds/openwrt-tc7200u-20260614-111828-full-build.log
+?? records/logs/builds/openwrt-tc7200u-20260614-111828-select-device-defconfig.log
+?? records/logs/builds/openwrt-tc7200u-20260614-111828-sha256.txt
+?? records/logs/builds/openwrt-tc7200u-20260614-123212-small-build.log
+?? records/logs/builds/openwrt-tc7200u-20260614-123212-small-defconfig.log
+?? records/logs/builds/openwrt-tc7200u-20260614-123212-small-sha256.txt
+?? records/logs/builds/tc7200-console-known-good-retest-20260614-212418-sha256.txt
+?? records/logs/builds/tc7200-known-good-provenance-grep-20260614-213546.txt
+?? records/logs/builds/tc7200-known-good-provenance-safe-20260614-214524.txt
+?? records/logs/builds/tc7200-known-good-retest-binary-proof-20260614-213533.txt
+?? records/logs/builds/tc7200u-bcm7120-l2-compile-j1-20260614-160547.log
+?? records/logs/builds/tc7200u-bcm7120-l2-prepare-20260614-155859.log
+?? records/logs/builds/tc7200u-bcm7120-l2-prepare-20260614-160155.log
+?? records/logs/builds/tc7200u-bcm7120-l2-symbol-search.log
+?? records/logs/builds/tc7200u-before-restore-unstaged-debug-edits-20260614-192042.patch
+?? records/logs/builds/tc7200u-candidate1-clean-ordered-uart-auto-20260614-131241.log
+?? records/logs/builds/tc7200u-candidate1-clean-ordered-uart-build-verification-20260614-131241.log
+?? records/logs/builds/tc7200u-candidate1-clean-ordered-uart-clean-20260614-131241.log
+?? records/logs/builds/tc7200u-candidate1-clean-ordered-uart-defconfig-20260614-131241.log
+?? records/logs/builds/tc7200u-candidate1-clean-ordered-uart-dts-check-20260614-131241.log
+?? records/logs/builds/tc7200u-candidate1-clean-ordered-uart-fullbuild-20260614-131241.log
+?? records/logs/builds/tc7200u-candidate1-clean-ordered-uart-wrap-20260614-131241.log
+?? records/logs/builds/tc7200u-candidate1-control-plus-trace-20260614-131241-auto.log
+?? records/logs/builds/tc7200u-candidate1-control-plus-trace-20260614-131241-file.txt
+?? records/logs/builds/tc7200u-candidate1-control-plus-trace-20260614-131241-sha256.txt
+?? records/logs/builds/tc7200u-candidate1-delete-inherited-uart-dts-check-20260614-131241.log
+?? records/logs/builds/tc7200u-candidate1-delete-uart-labelform-install-j1-20260614-131241.log
+?? records/logs/builds/tc7200u-candidate1-delete-uart-pathform-dts-check-20260614-131241.log
+?? records/logs/builds/tc7200u-candidate1-delete-uart-pathform-install-j1-20260614-131241.log
+?? records/logs/builds/tc7200u-candidate1-fix-alias-override-dts-check-20260614-131241.log
+?? records/logs/builds/tc7200u-candidate1-uart-alias-console-20260614-131241-auto.log
+?? records/logs/builds/tc7200u-candidate1-uart-dts-inspect-20260614-131241.log
+?? records/logs/builds/tc7200u-candidate1-uart-fresh-node-20260614-131241-auto.log
+?? records/logs/builds/tc7200u-candidate1-uart-fresh-node-20260614-131241-sha256.txt
+?? records/logs/builds/tc7200u-candidate1-uart-fresh-node-20260614-131241-wrap.log
+?? records/logs/builds/tc7200u-candidate1-uart-fresh-node-dts-check-20260614-131241.log
+?? records/logs/builds/tc7200u-candidate1-viper-uart500-disable-nand-dts-check-20260614-131241.log
+?? records/logs/builds/tc7200u-candidate1-viper-uart500-disable-nand-install-j1-20260614-131241.log
+?? records/logs/builds/tc7200u-candidate1-viper-uart500-disable-nand-sha256-20260614-131241.txt
+?? records/logs/builds/tc7200u-candidate1-viper-uart500-disable-nand-wrap-20260614-131241.log
+?? records/logs/builds/tc7200u-candidate1-viper-uart500-dts-check-20260614-131241.log
+?? records/logs/builds/tc7200u-candidate1-viper-uart500-fixed-dts-check-20260614-131241.log
+?? records/logs/builds/tc7200u-candidate1-viper-uart500-fixed-install-j1-20260614-131241.log
+?? records/logs/builds/tc7200u-candidate1-viper-uart500-fixed-sha256-20260614-131241.txt
+?? records/logs/builds/tc7200u-candidate1-viper-uart500-fixed-wrap-20260614-131241.log
+?? records/logs/builds/tc7200u-clean-disable-nand-target-linux-compile-20260614-201204.log
+?? records/logs/builds/tc7200u-clean-disable-nand-target-linux-install-20260614-201216.log
+?? records/logs/builds/tc7200u-clean-nandoff-wrap-20260614-201246.log
+?? records/logs/builds/tc7200u-console-alive-initcall-debug-install-20260614-163826.log
+?? records/logs/builds/tc7200u-console-alive-initcall-debug-wrap-20260614-164028.log
+?? records/logs/builds/tc7200u-console-alive-initcall-debug-wrap-20260614-164737.log
+?? records/logs/builds/tc7200u-console-dts-grep-20260614-130018.log
+?? records/logs/builds/tc7200u-console-fix-l2-devtmpfs-nandoff-20260614-203242.patch
+?? records/logs/builds/tc7200u-console-fix-l2-nandoff-compile-20260614-204027.log
+?? records/logs/builds/tc7200u-console-fix-l2-nandoff-install-20260614-204228.log
+?? records/logs/builds/tc7200u-console-fix-l2-nandoff-target-linux-clean-20260614-204018.log
+?? records/logs/builds/tc7200u-console-uart500-bcm7120-clean-20260614-154924.log
+?? records/logs/builds/tc7200u-console-uart500-bcm7120-install-20260614-162006.log
+?? records/logs/builds/tc7200u-console-uart500-bcm7120-prepare-20260614-155207.log
+?? records/logs/builds/tc7200u-console-uart500-bcm7120-sha256-20260614-162056.txt
+?? records/logs/builds/tc7200u-console-uart500-bcm7120-wrap-20260614-162052.log
+?? records/logs/builds/tc7200u-current-full-dirty-diff-20260614-191327.patch
+?? records/logs/builds/tc7200u-current-openwrt-diff-20260614-191105.patch
+?? records/logs/builds/tc7200u-current-package-manifest-status-20260614-193627.txt
+?? records/logs/builds/tc7200u-current-rdinit-header-inspect-20260614-191116.log
+?? records/logs/builds/tc7200u-current-rdinit-header-inspect-20260614-191335.log
+?? records/logs/builds/tc7200u-current-rootfs-largest-files-20260614-193623.txt
+?? records/logs/builds/tc7200u-current-vs-20260601-config-diff-20260614-193610.txt
+?? records/logs/builds/tc7200u-current-vs-20260601-install-layout-20260614-193619.txt
+?? records/logs/builds/tc7200u-current-vs-20260601-package-diff-after-python-strip-20260614-194457.txt
+?? records/logs/builds/tc7200u-current-vs-20260601-package-diff-after-strip-20260614-194130.txt
+?? records/logs/builds/tc7200u-devtmpfs-hotplug-grep-20260614-205555.txt
+?? records/logs/builds/tc7200u-devtmpfs-kconfig-deps-20260614-205601.txt
+?? records/logs/builds/tc7200u-disable-nand-only-20260614-201058.patch
+?? records/logs/builds/tc7200u-fastboot-rootfs-check-gates-20260614-175530.txt
+?? records/logs/builds/tc7200u-fastboot-rootfs-check-gates-20260614-180450.txt
+?? records/logs/builds/tc7200u-full-fastboot-rootfs-rebuild-20260614-172725.log
+?? records/logs/builds/tc7200u-full-fastboot-rootfs-sha256-20260614-173851.txt
+?? records/logs/builds/tc7200u-full-fastboot-rootfs-wrap-20260614-173843.log
+?? records/logs/builds/tc7200u-generated-kernel-config-files-check.log
+?? records/logs/builds/tc7200u-known-good-header-inspect-20260614-191113.log
+?? records/logs/builds/tc7200u-known-good-header-inspect-20260614-191332.log
+?? records/logs/builds/tc7200u-rdinit-sh-openwrt-target-linux-compile-20260614-182342.log
+?? records/logs/builds/tc7200u-rdinit-sh-openwrt-target-linux-install-20260614-182355.log
+?? "records/logs/builds/tc7200u-rdinit-sh-wrap-only-20260614-182426.log\305\261"
+?? records/logs/builds/tc7200u-recover-default-fastboot-auto-20260614-171434.log
+?? records/logs/builds/tc7200u-recover-default-fastboot-defconfig-20260614-171117.log
+?? records/logs/builds/tc7200u-remove-extra-packages-defconfig-20260614-194118.log
+?? records/logs/builds/tc7200u-remove-extra-packages-defconfig-20260614-194443.log
+?? records/logs/builds/tc7200u-smoke-candidate-2026-06-14-132323-auto.log
+?? records/logs/builds/tc7200u-smoke-candidate-2026-06-14-132323-file.txt
+?? records/logs/builds/tc7200u-smoke-candidate-2026-06-14-132323-sha256.txt
+?? records/logs/builds/tc7200u-staged-diff-20260614-191705.patch
+?? records/logs/builds/tc7200u-staged-repro-clean-wrap-20260614-195610.log
+?? records/logs/builds/tc7200u-staged-repro-package-clean-full-build-20260614-194640.log
+?? records/logs/builds/tc7200u-staged-repro-package-clean-install-20260614-195021.log
+?? records/logs/builds/tc7200u-staged-repro-target-linux-clean-20260614-192717.log
+?? records/logs/builds/tc7200u-staged-repro-target-linux-compile-20260614-192743.log
+?? records/logs/builds/tc7200u-staged-repro-target-linux-install-20260614-192948.log
+?? records/logs/builds/tc7200u-staged-repro-wrap-20260614-193021.log
+?? records/logs/builds/tc7200u-uart500-l2-nandoff-20260614-205008.patch
+?? records/logs/builds/tc7200u-uart500-l2-nandoff-clean-20260614-205102.log
+?? records/logs/builds/tc7200u-uart500-l2-nandoff-compile-20260614-205108.log
+?? records/logs/builds/tc7200u-uart500-l2-nandoff-install-20260614-205306.log
+?? records/logs/builds/tc7200u-uart500-l2-nandoff-install-20260614-205740.log
+?? records/logs/builds/tc7200u-uart500-l2-nandoff-wrap-20260614-205815.log
+?? records/logs/builds/tc7200u-unstaged-diff-20260614-191705.patch
+?? records/logs/builds/tc7200u-wrap-20260614-113711.log
+?? records/logs/builds/tc7200u-wrap-small-20260614-123212.log
+?? records/logs/serial/picocom-20260614-112942.log
+?? records/logs/serial/picocom-20260614-113731.log
+?? records/logs/serial/picocom-20260614-123915.log
+?? records/logs/serial/picocom-20260614-131456.log
+?? records/logs/serial/picocom-20260614-135834.log
+?? records/logs/serial/picocom-20260614-145537.log
+?? records/logs/serial/picocom-20260614-152550.log
+?? records/logs/serial/picocom-20260614-162113.log
+?? records/logs/serial/picocom-20260614-164752.log
+?? records/logs/serial/picocom-20260614-173947.log
+?? records/logs/serial/picocom-20260614-182740.log
+?? records/logs/serial/picocom-20260614-193548.log
+?? records/logs/serial/picocom-20260614-195654.log
+?? records/logs/serial/picocom-20260614-201315.log
+?? records/logs/serial/picocom-20260614-210210.log
+?? records/logs/serial/picocom-20260614-212432.log
+?? records/logs/serial/picocom-20260614-234116.log
+?? records/logs/serial/picocom-20260615-001046.log
+?? records/logs/serial/picocom-20260615-002451.log
+?? records/runtime-probes/
+?? records/source-research/
+?? records/status/2026-05-16-current-tc7200u-bringup-baseline.md
+?? records/status/2026-05-31-openwrt-port-checklist.md
+?? records/status/2026-05-31-script-wrapper-provenance-update.md
+?? records/status/2026-05-31-stage1-reverse-findings.md
+?? records/status/2026-06-01-openwrt-gmac-findings.md
+?? records/status/2026-06-02-canonical-a825-wrapped-flow.md
+?? records/status/2026-06-07-ghidra-interactive-mapping-findings.md
+?? records/status/2026-06-07-ghidra-label-map-expansion-v2.md
+?? records/status/2026-06-07-ghidra-label-map-expansion.md
+?? records/status/2026-06-07-ghidra-label-script-mips32-guard.md
+?? records/status/2026-06-07-ghidra-label-script-refresh.md
+?? records/status/2026-06-07-stage1-mips32-confirmation.md
+?? records/status/2026-06-07-tcbuilder-interactive-default.md
+?? records/status/2026-06-08-bootlinux-mips32-remap.md
+?? records/status/2026-06-08-ghidra-script-compile-fix.md
+?? records/status/2026-06-14-bring-up-summary.md
+?? records/status/2026-06-14-console-root-cause-local-git-search.md
+?? records/status/2026-06-14-generated-dir-cleanup.md
+?? records/status/2026-06-14-guideline-next-better-working-image.md
+?? records/status/2026-06-14-repo-tree-doc-refresh.md
+?? records/status/2026-06-14-tcbuilder-candidate-mode.md
+?? records/status/2026-06-14-tcbuilder-modular-main-flow.md
+?? records/status/2026-06-14-working-settings-modes-compression-build-summary.md
+?? records/summary/2026-06-14-bring-up-summary.md
+?? records/summary/2026-06-14-ethernet-summary.md
+?? records/summary/2026-06-14-image-format-summary.md
+?? records/summary/2026-06-14-runtime-probes-summary.md
+?? records/summary/2026-06-14-source-research-summary.md
+?? records/summary/2026-06-14-status-summary.md
+?? scripts/tcbuilder/

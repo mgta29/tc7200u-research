@@ -1,0 +1,2 @@
+46fd6c118ba46afb1e2f9a1dc343f37dcd6da781b34251bfcb9bccafd5f9a97a  records/artifacts/test-images/20260614-123212/tc7200u-openwrt-initramfs-small-20260614-123212.bin
+81517654b5d9710f4eed71015a64e3a30f82607d81d7ce36f9999263b3510084  /mnt/c/tftp/tc7200u.bin

@@ -1,0 +1,15 @@
+manual justwrap console image, no tcbuild
+IMPORTANT: preserved ProgramStore internal header filename from template
+timestamp=2026-06-14-231908
+raw=/home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin
+template=/home/mgta29/tc7200u-research/records/artifacts/rescue/tc7200-stage2-console-good.bin
+output=/home/mgta29/tc7200u-research/records/artifacts/test-images/2026-06-14-231908-tc7200u-console-justwrap-preserve-header.bin
+active=/mnt/c/tftp/openwrt-ps-irqfallback.bin
+backup=None
+header_name_preserved=openwrt-initramfs.bin
+load_address_preserved=0x82000000
+raw_sha256=9d0fc5958a37bae4348fa293287e340ad0ba6bc5936afbabb35fbf61e9646921
+wrapped_sha256=7f750050dd79e35f71907e3f11f29593216f1680a039761ae1ff473f42b81b26
+file_length=7373734
+size_ok=True
+manifest=/home/mgta29/tc7200u-research/records/generated/2026-06-14-231908-manual-justwrap-preserve-header.json

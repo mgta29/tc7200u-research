@@ -1,0 +1,30 @@
+=== meta ===
+timestamp_local=2026-06-14 20:58:16 CEST
+cwd=/home/mgta29/tc7200u-research
+command=a825_verify --raw /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin --wrapped /mnt/c/tftp/tc7200u-uart500-l2-nandoff.bin --expect-load 0x82000000 --expect-name tc7200u-uart500-l2-nandoff.bin --expect-signature 0xa825
+=== output ===
+raw=/home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin
+wrapped=/mnt/c/tftp/tc7200u-uart500-l2-nandoff.bin
+raw_size=7373734
+wrapped_size=7373826
+signature=0xa825
+expected_signature=0xa825
+control=0x0000
+major=0x0100
+minor=0x04ff
+build_time=0x6a2ef9c8
+file_length=7373734
+load_address=0x82000000
+filename=tc7200u-uart500-l2-nandoff.bin
+expected_name=tc7200u-uart500-l2-nandoff.bin
+hcs=0xcea0
+expected_hcs=0xcea0
+crc=0x00000000
+size_ok=True
+raw_sha256=9d0fc5958a37bae4348fa293287e340ad0ba6bc5936afbabb35fbf61e9646921
+wrapped_sha256=b5448b778f204383ea0586aeedfa70c39f81ab0e72ed820c3317d858a381ffaa
+
+OK: wrapped image matches raw payload and expected header fields
+
+=== exit ===
+exit_code=0

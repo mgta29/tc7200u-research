@@ -1,0 +1,30 @@
+=== meta ===
+timestamp_local=2026-06-14 12:38:33 CEST
+cwd=/home/mgta29/tc7200u-research
+command=a825_verify --raw records/artifacts/test-images/20260614-123212/tc7200u-openwrt-initramfs-small-20260614-123212.bin --wrapped /mnt/c/tftp/tc7200u.bin --expect-load 0x82000000 --expect-name tc7200u.bin --expect-signature 0xa825
+=== output ===
+raw=records/artifacts/test-images/20260614-123212/tc7200u-openwrt-initramfs-small-20260614-123212.bin
+wrapped=/mnt/c/tftp/tc7200u.bin
+raw_size=7373661
+wrapped_size=7373753
+signature=0xa825
+expected_signature=0xa825
+control=0x0000
+major=0x0100
+minor=0x04ff
+build_time=0x6a2e84a9
+file_length=7373661
+load_address=0x82000000
+filename=tc7200u.bin
+expected_name=tc7200u.bin
+hcs=0xa420
+expected_hcs=0xa420
+crc=0x00000000
+size_ok=True
+raw_sha256=46fd6c118ba46afb1e2f9a1dc343f37dcd6da781b34251bfcb9bccafd5f9a97a
+wrapped_sha256=81517654b5d9710f4eed71015a64e3a30f82607d81d7ce36f9999263b3510084
+
+OK: wrapped image matches raw payload and expected header fields
+
+=== exit ===
+exit_code=0

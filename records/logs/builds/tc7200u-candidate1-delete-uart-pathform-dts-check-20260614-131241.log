@@ -1,0 +1,76 @@
+// SPDX-License-Identifier: GPL-2.0
+/dts-v1/;
+
+#include "bcm3384_viper.dtsi"
+
+/delete-node/ &{/ubus/serial@14e00520};
+
+/ {
+	compatible = "technicolor,tc7200u", "brcm,bcm3384-viper", "brcm,bcm33843-viper";
+	model = "Technicolor TC7200.U";
+
+	aliases {
+		serial0 = &tc7200_uart0;
+	};
+
+	chosen {
+		bootargs = "console=ttyS0,115200 earlycon";
+		stdout-path = "serial0:115200n8";
+	};
+};
+
+&{/ubus} {
+	tc7200_uart0: serial@14e00500 {
+		compatible = "brcm,bcm6345-uart";
+		reg = <0x14e00500 0x18>;
+		interrupt-parent = <&periph_intc>;
+		interrupts = <2>;
+		clocks = <&periph_clk>;
+		status = "okay";
+	};
+
+	spi: spi@14e01000 {
+		compatible = "brcm,bcm6328-hsspi";
+		reg = <0x14e01000 0x600>;
+
+		#address-cells = <1>;
+		#size-cells = <0>;
+
+		interrupt-parent = <&periph_intc>;
+		interrupts = <7>;
+
+		clocks = <&periph_clk>;
+		clock-names = "hsspi";
+
+		status = "disabled";
+
+		flash@0 {
+			compatible = "jedec,spi-nor";
+			reg = <0>;
+			spi-max-frequency = <10000000>;
+		};
+	};
+
+	iop_intc: iop_intc@14e00050 {
+		compatible = "brcm,bcm3380-l2-intc";
+		reg = <0x14e00050 0x4 0x14e00054 0x4>;
+
+		interrupt-controller;
+		#interrupt-cells = <1>;
+
+		interrupt-parent = <&cpu_intc>;
+		interrupts = <5>;
+	};
+
+	nand: nand@14e02200 {
+		compatible = "brcm,nand-bcm6368", "brcm,brcmnand-v4.0", "brcm,brcmnand";
+		reg-names = "nand", "nand-int-base", "nand-cache";
+		reg = <0x14e02200 0x180>, <0x14e000f0 0x10>, <0x14e02600 0x200>;
+
+		#address-cells = <1>;
+=== grep ===
+6:/delete-node/ &{/ubus/serial@14e00520};
+13:		serial0 = &tc7200_uart0;
+17:		bootargs = "console=ttyS0,115200 earlycon";
+18:		stdout-path = "serial0:115200n8";
+23:	tc7200_uart0: serial@14e00500 {

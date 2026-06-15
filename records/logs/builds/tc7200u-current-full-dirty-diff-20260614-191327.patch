@@ -1,0 +1,392 @@
+diff --git a/target/linux/bmips/bcm63268/config-6.12 b/target/linux/bmips/bcm63268/config-6.12
+index 9ecb47fcb0..a923731a2f 100644
+--- a/target/linux/bmips/bcm63268/config-6.12
++++ b/target/linux/bmips/bcm63268/config-6.12
+@@ -254,6 +254,7 @@ CONFIG_RESET_BCM6345=y
+ CONFIG_RESET_CONTROLLER=y
+ CONFIG_RFS_ACCEL=y
+ CONFIG_RPS=y
++# Keep kernel oldconfig non-interactive on BMIPS by pinning this default-m driver.
+ # CONFIG_SERIAL_8250 is not set
+ CONFIG_SERIAL_BCM63XX=y
+ CONFIG_SERIAL_BCM63XX_CONSOLE=y
+@@ -301,3 +302,8 @@ CONFIG_ZLIB_INFLATE=y
+ CONFIG_ZSTD_COMMON=y
+ CONFIG_ZSTD_COMPRESS=y
+ CONFIG_ZSTD_DECOMPRESS=y
++# CONFIG_RTC_DRV_BRCMSTB is not set
++CONFIG_DEVTMPFS=y
++CONFIG_DEVTMPFS_MOUNT=y
++CONFIG_DEVTMPFS_SAFE=y
++CONFIG_BCM7120_L2_IRQ=y
+diff --git a/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts b/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+new file mode 100644
+index 0000000000..a80682f344
+--- /dev/null
++++ b/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+@@ -0,0 +1,97 @@
++// SPDX-License-Identifier: GPL-2.0
++/dts-v1/;
++
++#include "bcm3384_viper.dtsi"
++
++/ {
++	compatible = "technicolor,tc7200u", "brcm,bcm3384-viper", "brcm,bcm33843-viper";
++	model = "Technicolor TC7200.U";
++
++	chosen {
++		bootargs = "console=ttyS0,115200 earlycon ignore_loglevel loglevel=8 rdinit=/bin/sh init=/bin/sh";
++		stdout-path = &uart0;
++	};
++};
++
++&uart0 {
++	reg = <0x14e00500 0x18>;
++	interrupt-parent = <&periph_intc>;
++	interrupts = <2>;
++	clocks = <&periph_clk>;
++	status = "okay";
++};
++
++&{/ubus} {
++	spi: spi@14e01000 {
++		compatible = "brcm,bcm6328-hsspi";
++		reg = <0x14e01000 0x600>;
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		interrupt-parent = <&periph_intc>;
++		interrupts = <7>;
++
++		clocks = <&periph_clk>;
++		clock-names = "hsspi";
++
++		status = "disabled";
++
++		flash@0 {
++			compatible = "jedec,spi-nor";
++			reg = <0>;
++			spi-max-frequency = <10000000>;
++		};
++	};
++
++	iop_intc: iop_intc@14e00050 {
++		compatible = "brcm,bcm3380-l2-intc";
++		reg = <0x14e00050 0x4 0x14e00054 0x4>;
++
++		interrupt-controller;
++		#interrupt-cells = <1>;
++
++		interrupt-parent = <&cpu_intc>;
++		interrupts = <5>;
++	};
++
++	nand: nand@14e02200 {
++		compatible = "brcm,nand-bcm6368", "brcm,brcmnand-v4.0", "brcm,brcmnand";
++		reg-names = "nand", "nand-int-base", "nand-cache";
++		reg = <0x14e02200 0x180>, <0x14e000f0 0x10>, <0x14e02600 0x200>;
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		interrupt-parent = <&periph_intc>;
++		interrupts = <3>;
++
++		status = "disabled";
++
++		nandcs@0 {
++			compatible = "brcm,nandcs";
++			reg = <0>;
++			nand-ecc-strength = <1>;
++			nand-ecc-step-size = <512>;
++
++			#address-cells = <1>;
++			#size-cells = <1>;
++		};
++	};
++
++	ethernet_test: ethernet@12c00000 {
++		compatible = "brcm,genet-v1";
++		reg = <0x12c00000 0x4000>;
++
++		interrupt-parent = <&periph_intc>;
++		interrupts = <16>, <17>;
++
++		phy-mode = "rgmii";
++		status = "okay";
++
++		fixed-link {
++			speed = <1000>;
++			full-duplex;
++		};
++	};
++};
+diff --git a/target/linux/bmips/dts/bcm3384_viper.dtsi b/target/linux/bmips/dts/bcm3384_viper.dtsi
+new file mode 100644
+index 0000000000..657770487c
+--- /dev/null
++++ b/target/linux/bmips/dts/bcm3384_viper.dtsi
+@@ -0,0 +1,109 @@
++// SPDX-License-Identifier: GPL-2.0
++/ {
++	#address-cells = <1>;
++	#size-cells = <1>;
++	compatible = "brcm,bcm3384-viper", "brcm,bcm33843-viper";
++
++	memory@0 {
++		device_type = "memory";
++
++		/* Typical ranges.  The bootloader should fill these in. */
++		reg = <0x06000000 0x02000000>,
++		      <0x0e000000 0x02000000>;
++	};
++
++	cpus {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		/* 1/2 of the CPU core clock (standard MIPS behavior) */
++		mips-hpt-frequency = <300000000>;
++
++		cpu@0 {
++			compatible = "brcm,bmips4350";
++			device_type = "cpu";
++			reg = <0>;
++		};
++	};
++
++	cpu_intc: cpu_intc {
++		#address-cells = <0>;
++		compatible = "mti,cpu-interrupt-controller";
++
++		interrupt-controller;
++		#interrupt-cells = <1>;
++	};
++
++	clocks {
++		periph_clk: periph_clk {
++			compatible = "fixed-clock";
++			#clock-cells = <0>;
++			clock-frequency = <54000000>;
++		};
++	};
++
++	aliases {
++		uart0 = &uart0;
++	};
++
++	ubus {
++		#address-cells = <1>;
++		#size-cells = <1>;
++
++		compatible = "brcm,ubus", "simple-bus";
++		ranges;
++		/* No dma-ranges on Viper. */
++
++		periph_intc: periph_intc@14e00048 {
++			compatible = "brcm,bcm3380-l2-intc";
++			reg = <0x14e00048 0x4 0x14e0004c 0x4>,
++			      <0x14e00350 0x4 0x14e00354 0x4>;
++
++			interrupt-controller;
++			#interrupt-cells = <1>;
++
++			interrupt-parent = <&cpu_intc>;
++			interrupts = <4>;
++		};
++
++		cmips_intc: cmips_intc@151f8048 {
++			compatible = "brcm,bcm3380-l2-intc";
++			reg = <0x151f8048 0x4 0x151f804c 0x4>;
++
++			interrupt-controller;
++			#interrupt-cells = <1>;
++
++			interrupt-parent = <&periph_intc>;
++			interrupts = <30>;
++			brcm,int-map-mask = <0xffffffff>;
++		};
++
++		uart0: serial@14e00500 {
++			compatible = "brcm,bcm6345-uart";
++			reg = <0x14e00500 0x18>;
++			interrupt-parent = <&periph_intc>;
++			interrupts = <2>;
++			clocks = <&periph_clk>;
++			status = "disabled";
++		};
++
++		ehci0: usb@15400300 {
++			compatible = "brcm,bcm3384-ehci", "generic-ehci";
++			reg = <0x15400300 0x100>;
++			big-endian;
++			interrupt-parent = <&periph_intc>;
++			interrupts = <41>;
++			status = "disabled";
++		};
++
++		ohci0: usb@15400400 {
++			compatible = "brcm,bcm3384-ohci", "generic-ohci";
++			reg = <0x15400400 0x100>;
++			big-endian;
++			no-big-frame-no;
++			interrupt-parent = <&periph_intc>;
++			interrupts = <40>;
++			status = "disabled";
++		};
++	};
++};
+diff --git a/target/linux/bmips/image/bcm63268.mk b/target/linux/bmips/image/bcm63268.mk
+index 49fc8626cd..97fd3eb187 100644
+--- a/target/linux/bmips/image/bcm63268.mk
++++ b/target/linux/bmips/image/bcm63268.mk
+@@ -154,3 +154,18 @@ define Device/smartrg_sr505n
+     kmod-leds-bcm6328
+ endef
+ TARGET_DEVICES += smartrg_sr505n
++
++define Device/technicolor_tc7200u
++  DEVICE_VENDOR := Technicolor
++  DEVICE_MODEL := TC7200.U
++  CHIP_ID := 3383
++  SOC := bcm3383
++  DEVICE_DTS := bcm3383-technicolor-tc7200u
++  DEVICE_PACKAGES :=
++  DEVICE_LOADADDR := 0x84010000
++  KERNEL_INITRAMFS := kernel-bin | append-dtb | lzma | loader-lzma bin
++  KERNEL_INITRAMFS_SUFFIX := .bin
++  IMAGES :=
++endef
++TARGET_DEVICES += technicolor_tc7200u
++
+diff --git a/target/linux/bmips/patches-6.12/998-bmips-tc7200u-gmac-init.patch b/target/linux/bmips/patches-6.12/998-bmips-tc7200u-gmac-init.patch
+new file mode 100644
+index 0000000000..2956c86d64
+--- /dev/null
++++ b/target/linux/bmips/patches-6.12/998-bmips-tc7200u-gmac-init.patch
+@@ -0,0 +1,124 @@
++--- a/arch/mips/bmips/setup.c
+++++ b/arch/mips/bmips/setup.c
++@@ -9,6 +9,7 @@
++ 
++ #include <linux/init.h>
++ #include <linux/bitops.h>
+++#include <linux/delay.h>
++ #include <linux/memblock.h>
++ #include <linux/ioport.h>
++ #include <linux/kernel.h>
++@@ -144,6 +145,105 @@
++ 	bmips_smp_enabled = 0;
++ }
++ 
+++
+++#define TC7200U_GPIO_MUX_REG		((void __iomem *)CKSEG1ADDR(0x14e001c0))
+++#define TC7200U_CLK_CTRL_LOW		((void __iomem *)CKSEG1ADDR(0x14e00004))
+++#define TC7200U_CLK_CTRL_HIGH		((void __iomem *)CKSEG1ADDR(0x14e00008))
+++#define TC7200U_GMAC_MISC_CTRL          ((void __iomem *)CKSEG1ADDR(0x14e000ec))
+++#define TC7200U_SOFT_RESETB_LOW		((void __iomem *)CKSEG1ADDR(0x14e0008c))
+++#define TC7200U_GMAC_CMD		((void __iomem *)CKSEG1ADDR(0x12c00070))
+++#define TC7200U_UNIMAC_IF0_BASE		((void __iomem *)CKSEG1ADDR(0x12c00600))
+++#define TC7200U_UNIMAC_IF1_BASE		((void __iomem *)CKSEG1ADDR(0x12c02600))
+++
+++static void tc7200u_bcm3383_gmac_init(void)
+++{
+++	u32 val;
+++
+++	/*
+++	 * Vendor bcm3383_pinmux_select(10):
+++	 * bcm3383_mux_data[10] = { word = 0, mask = 7, shift = 15, val = 5 }
+++	 */
+++	val = __raw_readl(TC7200U_GPIO_MUX_REG);
+++	val &= ~(0x7 << 15);
+++	val |= (0x5 << 15);
+++	__raw_writel(val, TC7200U_GPIO_MUX_REG);
+++
+++	/*
+++	 * Vendor bcm3383_init_gmac():
+++	 * clear soft_resetb_low bits 6 and 8
+++	 * enable clk_ctrl_low bit 6
+++	 * enable clk_ctrl_high bit 8
+++	 * wait 200 ms
+++	 * set soft_resetb_low bits 6 and 8
+++	 */
+++	val = __raw_readl(TC7200U_SOFT_RESETB_LOW);
+++	val &= ~((1 << 6) | (1 << 8));
+++	__raw_writel(val, TC7200U_SOFT_RESETB_LOW);
+++
+++	val = __raw_readl(TC7200U_CLK_CTRL_LOW);
+++	val |= (1 << 6);
+++	__raw_writel(val, TC7200U_CLK_CTRL_LOW);
+++
+++	val = __raw_readl(TC7200U_CLK_CTRL_HIGH);
+++	val |= (1 << 8);
+++	__raw_writel(val, TC7200U_CLK_CTRL_HIGH);
+++
+++       val = __raw_readl(TC7200U_GMAC_MISC_CTRL);
+++       val |= 0x100;
+++       __raw_writel(val, TC7200U_GMAC_MISC_CTRL);
+++
+++	mdelay(200);
+++
+++	val = __raw_readl(TC7200U_SOFT_RESETB_LOW);
+++	val |= ((1 << 6) | (1 << 8));
+++	__raw_writel(val, TC7200U_SOFT_RESETB_LOW);
+++}
+++
+++static void tc7200u_stage1_unimac_seed(void __iomem *base, u32 cmd_bits)
+++{
+++	u32 val;
+++
+++	/* fn_enet_gmac_init_step2: stage GMAC command bits per interface */
+++	val = __raw_readl(TC7200U_GMAC_CMD);
+++	val |= cmd_bits;
+++	__raw_writel(val, TC7200U_GMAC_CMD);
+++
+++	/*
+++	 * fn_enet_gmac_init_step6 register program (observed d60242):
+++	 *   reg[0x208] = (reg & 0xfefffbf3) | 0x0000000b
+++	 *   reg[0x214] = (reg & 0xffffc000) | 0x00000800
+++	 *   reg[0x01c] |= 0x00000283
+++	 *   reg[0x020] |= 0x00001800
+++	 */
+++	val = __raw_readl(base + 0x208);
+++	val &= 0xfefffbf3;
+++	val |= 0x0000000b;
+++	__raw_writel(val, base + 0x208);
+++
+++	val = __raw_readl(base + 0x214);
+++	val &= 0xffffc000;
+++	val |= 0x00000800;
+++	__raw_writel(val, base + 0x214);
+++
+++	val = __raw_readl(base + 0x01c);
+++	val |= 0x00000283;
+++	__raw_writel(val, base + 0x01c);
+++
+++	val = __raw_readl(base + 0x020);
+++	val |= 0x00001800;
+++	__raw_writel(val, base + 0x020);
+++}
+++
+++static void tc7200u_quirks(void)
+++{
+++	bcm3384_viper_quirks();
+++	tc7200u_bcm3383_gmac_init();
+++
+++	/* IF0 lower command bits + IF1 upper command bits. */
+++	tc7200u_stage1_unimac_seed(TC7200U_UNIMAC_IF0_BASE, 0x00000003);
+++	tc7200u_stage1_unimac_seed(TC7200U_UNIMAC_IF1_BASE, 0x00030000);
+++}
+++
++ static void bcm63xx_fixup_cpu1(void)
++ {
++ 	/*
++@@ -193,5 +292,6 @@
++ 
++ static const struct bmips_quirk bmips_quirk_list[] = {
++ 	{ "brcm,bcm3368",		&bcm6358_quirks			},
+++	{ "technicolor,tc7200u",	&tc7200u_quirks			},
++ 	{ "brcm,bcm3384-viper",		&bcm3384_viper_quirks		},
++ 	{ "brcm,bcm33843-viper",	&bcm3384_viper_quirks		},
++ 	{ "brcm,bcm6328",		&bcm6328_quirks			},

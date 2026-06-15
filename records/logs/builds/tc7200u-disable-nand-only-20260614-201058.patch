@@ -1,0 +1,13 @@
+diff --git a/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts b/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+index c462055b88..2413c9566d 100644
+--- a/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
++++ b/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+@@ -69,7 +69,7 @@
+ 		interrupt-parent = <&periph_intc>;
+ 		interrupts = <3>;
+ 
+-		status = "okay";
++		status = "disabled";
+ 
+ 		nandcs@0 {
+ 			compatible = "brcm,nandcs";

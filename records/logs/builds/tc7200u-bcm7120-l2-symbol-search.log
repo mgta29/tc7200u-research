@@ -1,0 +1,16 @@
+build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config.old:3187:# CONFIG_BCM7120_L2_IRQ is not set
+build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config.target:619:# CONFIG_BCM7120_L2_IRQ is not set
+build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/drivers/irqchip/Kconfig:130:config BCM7120_L2_IRQ
+build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/drivers/irqchip/Makefile:68:obj-$(CONFIG_BCM7120_L2_IRQ)		+= irq-bcm7120-l2.o
+build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config.modules.save:3197:# CONFIG_BCM7120_L2_IRQ is not set
+build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config.set:639:# CONFIG_BCM7120_L2_IRQ is not set
+build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/.config:3201:# CONFIG_BCM7120_L2_IRQ is not set
+target/linux/generic/config-6.12:609:# CONFIG_BCM7120_L2_IRQ is not set
+target/linux/generic/config-6.18:645:# CONFIG_BCM7120_L2_IRQ is not set
+target/linux/bcm27xx/bcm2712/config-6.12:79:CONFIG_BCM7120_L2_IRQ=y
+target/linux/bcm27xx/patches-6.12/950-0345-irqchip-irq-bcm2712-mip-Support-for-2712-s-MIP.patch:58: obj-$(CONFIG_BCM7120_L2_IRQ)		+= irq-bcm7120-l2.o
+target/linux/bcm27xx/patches-6.12/950-0901-irqchip-Add-Broadcom-bcm2712-MSI-X-interrupt-control.patch:58: obj-$(CONFIG_BCM7120_L2_IRQ)		+= irq-bcm7120-l2.o
+target/linux/bmips/patches-6.12/100-irqchip-add-support-for-bcm6345-style-external-inter.patch:73: obj-$(CONFIG_BCM7120_L2_IRQ)		+= irq-bcm7120-l2.o
+target/linux/bmips/patches-6.12/202-mips-bmips-tweak-Kconfig-options.patch:21:-	select BCM7120_L2_IRQ
+target/linux/bmips/patches-6.12/202-mips-bmips-tweak-Kconfig-options.patch:55: config BCM7120_L2_IRQ
+target/linux/bmips/bcm63268/config-6.12:309:CONFIG_BCM7120_L2_IRQ=y

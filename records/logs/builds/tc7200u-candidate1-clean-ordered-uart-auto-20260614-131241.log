@@ -1,0 +1,15 @@
+Enter BIN filename (example: tc7200u-test.bin):       build report: /home/mgta29/tc7200u-research/records/logs/builds/2026-06-14-142337-build-provenance.log
+[1/7] Inspecting OpenWrt build outputs
+      name map: stage1-ghidra.bin -> stage1-ghidra.bin
+      tftp dir: C:\tftp\ (/mnt/c/tftp)
+      latest vmlinux: not found yet
+[2/7] Capturing OpenWrt config before package profile
+      saved: /home/mgta29/tc7200u-research/records/logs/builds/2026-06-14-142337-openwrt-config-before-debug-packages
+[3/7] Applying TC7200U package profile
+      TC7200U_PACKAGE_PROFILE=debug (set to debug for full diagnostics tools)
+      log: /home/mgta29/tc7200u-research/records/logs/builds/2026-06-14-142337-ensure-debug-packages.log
+      saved: /home/mgta29/tc7200u-research/records/logs/builds/2026-06-14-142337-openwrt-config-after-debug-packages
+[4/7] Checking whether image rebuild is needed
+      OpenWrt .config is newer than raw initramfs
+      source newer than raw image: /home/mgta29/src/openwrt/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+      decision: install (build-mode=auto)

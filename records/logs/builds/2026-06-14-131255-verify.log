@@ -1,0 +1,30 @@
+=== meta ===
+timestamp_local=2026-06-14 13:14:08 CEST
+cwd=/home/mgta29/src/openwrt
+command=a825_verify --raw /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin --wrapped /mnt/c/tftp/stage1-ghidra.bin --expect-load 0x82000000 --expect-name stage1-ghidra.bin --expect-signature 0xa825
+=== output ===
+raw=/home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin
+wrapped=/mnt/c/tftp/stage1-ghidra.bin
+raw_size=7373661
+wrapped_size=7373753
+signature=0xa825
+expected_signature=0xa825
+control=0x0000
+major=0x0100
+minor=0x04ff
+build_time=0x6a0b751d
+file_length=7373661
+load_address=0x82000000
+filename=stage1-ghidra.bin
+expected_name=stage1-ghidra.bin
+hcs=0x94be
+expected_hcs=0x94be
+crc=0x00000000
+size_ok=True
+raw_sha256=46fd6c118ba46afb1e2f9a1dc343f37dcd6da781b34251bfcb9bccafd5f9a97a
+wrapped_sha256=b40a61907656ae7d5d164d9d9cc3ad43282cbc3e1264902241d46871b82d9910
+
+OK: wrapped image matches raw payload and expected header fields
+
+=== exit ===
+exit_code=0

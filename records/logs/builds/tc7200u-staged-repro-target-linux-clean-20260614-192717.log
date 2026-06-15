@@ -1,0 +1,25 @@
+WARNING: Makefile 'package/boot/arm-trusted-firmware-microchipsw/Makefile' has a build dependency on 'ruby/host', which does not exist
+WARNING: Makefile 'package/utils/audit/Makefile' has a dependency on 'libev', which does not exist
+WARNING: Makefile 'package/utils/busybox/Makefile' has a dependency on 'libpam', which does not exist
+WARNING: Makefile 'package/utils/busybox/Makefile' has a dependency on 'libtirpc', which does not exist
+WARNING: Makefile 'package/utils/busybox/Makefile' has a dependency on 'libpam', which does not exist
+WARNING: Makefile 'package/utils/busybox/Makefile' has a dependency on 'libtirpc', which does not exist
+WARNING: Makefile 'package/utils/busybox/Makefile' has a build dependency on 'libpam', which does not exist
+WARNING: Makefile 'package/boot/kexec-tools/Makefile' has a dependency on 'liblzma', which does not exist
+WARNING: Makefile 'package/boot/kexec-tools/Makefile' has a dependency on 'libzstd', which does not exist
+WARNING: Makefile 'package/network/services/lldpd/Makefile' has a dependency on 'libnetsnmp', which does not exist
+WARNING: Makefile 'package/utils/policycoreutils/Makefile' has a dependency on 'libpam', which does not exist
+WARNING: Makefile 'package/utils/policycoreutils/Makefile' has a dependency on 'libpam', which does not exist
+WARNING: Makefile 'package/utils/policycoreutils/Makefile' has a build dependency on 'libpam', which does not exist
+make[2]: Entering directory '/home/mgta29/src/openwrt/scripts/config'
+make[2]: 'conf' is up to date.
+make[2]: Leaving directory '/home/mgta29/src/openwrt/scripts/config'
+time: target/linux/prereq#0.08#0.02#0.11
+make[1]: Entering directory '/home/mgta29/src/openwrt'
+make[2]: Entering directory '/home/mgta29/src/openwrt/target/linux'
+make[3]: Entering directory '/home/mgta29/src/openwrt/target/linux/bmips'
+rm -rf /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268
+make[3]: Leaving directory '/home/mgta29/src/openwrt/target/linux/bmips'
+make[2]: Leaving directory '/home/mgta29/src/openwrt/target/linux'
+time: target/linux/clean#0.06#1.64#3.35
+make[1]: Leaving directory '/home/mgta29/src/openwrt'

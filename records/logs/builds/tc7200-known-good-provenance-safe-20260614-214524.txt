@@ -1,0 +1,107 @@
+docs/MEMORY_MAP.md:14:  physical address is `0x14e00500`.
+docs/MEMORY_MAP.md:50:| UART0 | `0x14e00500` | `0xb4e00500` | current serial console path |
+docs/REPO_MAP.md:128:- `patches/bcm3383-technicolor-tc7200u.dts`: current live diagnostic DTS snapshot.
+docs/STATUS.md:19:  - `records/logs/serial/picocom-20260601-193010.log`
+docs/STATUS.md:21:- UART RX works when `CONFIG_BCM7120_L2_IRQ=y` is enabled.
+docs/STATUS.md:60:- Serial evidence: `records/logs/serial/picocom-20260601-193010.log`
+docs/STATUS.md:62:  - `records/logs/builds/2026-06-01-195304-check-gates-picocom-20260601-193010.txt`
+docs/STATUS.md:74:- `records/artifacts/rescue/tc7200-console-good-20260601-193010.bin`
+docs/START_HERE.md:13:- Serial console TX/RX with `CONFIG_BCM7120_L2_IRQ=y`.
+docs/PATHS.md:19:| TC7200U DTS | `\\wsl.localhost\Ubuntu\home\mgta29\src\openwrt\target\linux\bmips\dts\bcm3383-technicolor-tc7200u.dts` |
+patches/tc7200u-candidate1-viper-uart500-20260614-131241.patch:13:+			reg = <0x14e00500 0x18>;
+patches/tc7200u-candidate1-delete-uart-labelform-20260614-131241.patch:1:diff --git a/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts b/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+patches/tc7200u-candidate1-delete-uart-labelform-20260614-131241.patch:3:--- a/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+patches/tc7200u-candidate1-delete-uart-labelform-20260614-131241.patch:4:+++ b/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+patches/tc7200u-candidate1-delete-uart-labelform-20260614-131241.patch:27:-	reg = <0x14e00500 0x18>;
+patches/tc7200u-candidate1-delete-uart-labelform-20260614-131241.patch:38:+	tc7200_uart0: serial@14e00500 {
+patches/tc7200u-candidate1-delete-uart-labelform-20260614-131241.patch:40:+		reg = <0x14e00500 0x18>;
+patches/tc7200u-candidate1-clean-ordered-uart-20260614-131241.patch:1:diff --git a/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts b/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+patches/tc7200u-candidate1-clean-ordered-uart-20260614-131241.patch:3:--- a/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+patches/tc7200u-candidate1-clean-ordered-uart-20260614-131241.patch:4:+++ b/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+patches/tc7200u-candidate1-clean-ordered-uart-20260614-131241.patch:21:-	reg = <0x14e00500 0x18>;
+patches/tc7200u-candidate1-clean-ordered-uart-20260614-131241.patch:36:+	tc7200_uart0: serial@14e00500 {
+patches/tc7200u-candidate1-clean-ordered-uart-20260614-131241.patch:38:+		reg = <0x14e00500 0x18>;
+patches/config-6.12.current:1:CONFIG_BCM7120_L2_IRQ=y
+patches/openwrt-bmips/experiments/2026-05-17-genet-current-swapdesc-state/bcm3383-technicolor-tc7200u.dts:30:	reg = <0x14e00500 0x18>;
+patches/openwrt-bmips/910-tc7200u-mmio-boot-log.patch:46:+		0x14e00500,
+patches/tc7200u-candidate1-clean-ordered-uart-final-20260614-131241.patch:1:diff --git a/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts b/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+patches/tc7200u-candidate1-clean-ordered-uart-final-20260614-131241.patch:3:--- a/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+patches/tc7200u-candidate1-clean-ordered-uart-final-20260614-131241.patch:4:+++ b/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+patches/tc7200u-candidate1-clean-ordered-uart-final-20260614-131241.patch:21:-	reg = <0x14e00500 0x18>;
+patches/tc7200u-candidate1-clean-ordered-uart-final-20260614-131241.patch:36:+	tc7200_uart0: serial@14e00500 {
+patches/tc7200u-candidate1-clean-ordered-uart-final-20260614-131241.patch:38:+		reg = <0x14e00500 0x18>;
+patches/bcm3383-technicolor-tc7200u.bad-uart-order-20260614-131241.dts:4:	tc7200_uart0: serial@14e00500 {
+patches/bcm3383-technicolor-tc7200u.bad-uart-order-20260614-131241.dts:6:		reg = <0x14e00500 0x18>;
+patches/openwrt-tc7200u-current.patch:15:+  DEVICE_DTS := bcm3383-technicolor-tc7200u
+patches/openwrt-tc7200u-current.patch:17:+  DEVICE_LOADADDR := 0x84010000
+patches/openwrt-tc7200u-current.patch:18:+  KERNEL_INITRAMFS := kernel-bin | append-dtb | lzma | loader-lzma bin
+patches/openwrt-tc7200u-current.patch:19:+  KERNEL_INITRAMFS_SUFFIX := .bin
+patches/tc7200u-candidate1-uart-alias-console-20260614-131241.patch:1:diff --git a/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts b/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+patches/tc7200u-candidate1-uart-alias-console-20260614-131241.patch:3:--- a/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+patches/tc7200u-candidate1-uart-alias-console-20260614-131241.patch:4:+++ b/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+patches/tc7200u-candidate1-revert-board-uart-simple-20260614-131241.patch:1:diff --git a/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts b/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+patches/tc7200u-candidate1-revert-board-uart-simple-20260614-131241.patch:3:--- a/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+patches/tc7200u-candidate1-revert-board-uart-simple-20260614-131241.patch:4:+++ b/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+patches/openwrt-current-devmem-net-work.patch:15:+  DEVICE_DTS := bcm3383-technicolor-tc7200u
+patches/openwrt-current-devmem-net-work.patch:17:+  DEVICE_LOADADDR := 0x84010000
+patches/openwrt-current-devmem-net-work.patch:18:+  KERNEL_INITRAMFS := kernel-bin | append-dtb | lzma | loader-lzma bin
+patches/openwrt-current-devmem-net-work.patch:19:+  KERNEL_INITRAMFS_SUFFIX := .bin
+patches/tc7200u-console-uart500-bcm7120-l2-20260614-154920.patch:21:+CONFIG_BCM7120_L2_IRQ=y
+patches/tc7200u-console-uart500-bcm7120-l2-20260614-154920.patch:22:diff --git a/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts b/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+patches/tc7200u-console-uart500-bcm7120-l2-20260614-154920.patch:24:--- a/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+patches/tc7200u-console-uart500-bcm7120-l2-20260614-154920.patch:25:+++ b/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+patches/tc7200u-console-uart500-bcm7120-l2-20260614-154920.patch:105:+		uart0: serial@14e00500 {
+patches/tc7200u-console-uart500-bcm7120-l2-20260614-154920.patch:108:+			reg = <0x14e00500 0x18>;
+patches/tc7200u-candidate1-fix-alias-override-20260614-131241.patch:1:diff --git a/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts b/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+patches/tc7200u-candidate1-fix-alias-override-20260614-131241.patch:3:--- a/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+patches/tc7200u-candidate1-fix-alias-override-20260614-131241.patch:4:+++ b/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+patches/tc7200u-candidate1-fix-alias-override-20260614-131241.patch:24:-	reg = <0x14e00500 0x18>;
+patches/tc7200u-candidate1-fix-alias-override-20260614-131241.patch:38:+	tc7200_uart0: serial@14e00500 {
+patches/tc7200u-candidate1-fix-alias-override-20260614-131241.patch:40:+		reg = <0x14e00500 0x18>;
+patches/bcm3383-technicolor-tc7200u.dts:17:	reg = <0x14e00500 0x18>;
+patches/tc7200u-candidate1-uart-fresh-node-20260614-131241.patch:1:diff --git a/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts b/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+patches/tc7200u-candidate1-uart-fresh-node-20260614-131241.patch:3:--- a/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+patches/tc7200u-candidate1-uart-fresh-node-20260614-131241.patch:4:+++ b/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+patches/tc7200u-candidate1-viper-uart500-fixed-20260614-131241.patch:1:diff --git a/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts b/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+patches/tc7200u-candidate1-viper-uart500-fixed-20260614-131241.patch:3:--- a/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+patches/tc7200u-candidate1-viper-uart500-fixed-20260614-131241.patch:4:+++ b/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+patches/tc7200u-candidate1-viper-uart500-fixed-20260614-131241.patch:75:+		uart0: serial@14e00500 {
+patches/tc7200u-candidate1-viper-uart500-fixed-20260614-131241.patch:78:+			reg = <0x14e00500 0x18>;
+patches/tc7200u-candidate1-delete-uart-pathform-20260614-131241.patch:1:diff --git a/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts b/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+patches/tc7200u-candidate1-delete-uart-pathform-20260614-131241.patch:3:--- a/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+patches/tc7200u-candidate1-delete-uart-pathform-20260614-131241.patch:4:+++ b/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+patches/tc7200u-candidate1-delete-uart-pathform-20260614-131241.patch:27:-	reg = <0x14e00500 0x18>;
+patches/tc7200u-candidate1-delete-uart-pathform-20260614-131241.patch:38:+	tc7200_uart0: serial@14e00500 {
+patches/tc7200u-candidate1-delete-uart-pathform-20260614-131241.patch:40:+		reg = <0x14e00500 0x18>;
+patches/tc7200u-rdinit-bin-sh-test-20260614-181853.patch:1:diff --git a/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts b/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+patches/tc7200u-rdinit-bin-sh-test-20260614-181853.patch:3:--- a/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+patches/tc7200u-rdinit-bin-sh-test-20260614-181853.patch:4:+++ b/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+patches/tc7200u-console-alive-initcall-debug-20260614-163754.patch:1:diff --git a/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts b/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+patches/tc7200u-console-alive-initcall-debug-20260614-163754.patch:3:--- a/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+patches/tc7200u-console-alive-initcall-debug-20260614-163754.patch:4:+++ b/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+patches/disabled/openwrt-bmips/910-tc7200u-mmio-boot-log.patch.disabled:46:+		0x14e00500,
+patches/tc7200u-candidate1-viper-uart500-disable-nand-20260614-131241.patch:1:diff --git a/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts b/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+patches/tc7200u-candidate1-viper-uart500-disable-nand-20260614-131241.patch:3:--- a/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+patches/tc7200u-candidate1-viper-uart500-disable-nand-20260614-131241.patch:4:+++ b/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+patches/tc7200u-candidate1-viper-uart500-disable-nand-20260614-131241.patch:84:+		uart0: serial@14e00500 {
+patches/tc7200u-candidate1-viper-uart500-disable-nand-20260614-131241.patch:87:+			reg = <0x14e00500 0x18>;
+patches/tc7200u-candidate1-delete-inherited-uart-20260614-131241.patch:1:diff --git a/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts b/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+patches/tc7200u-candidate1-delete-inherited-uart-20260614-131241.patch:3:--- a/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+patches/tc7200u-candidate1-delete-inherited-uart-20260614-131241.patch:4:+++ b/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+patches/tc7200u-candidate1-delete-inherited-uart-20260614-131241.patch:9:+	tc7200_uart0: serial@14e00500 {
+patches/tc7200u-candidate1-delete-inherited-uart-20260614-131241.patch:11:+		reg = <0x14e00500 0x18>;
+patches/tc7200u-candidate1-delete-inherited-uart-20260614-131241.patch:38:-	reg = <0x14e00500 0x18>;
+records/status/2026-06-14-guideline-next-better-working-image.md:107:  - `0x14e00500`
+records/status/2026-06-14-guideline-next-better-working-image.md:122:- `earlycon: bcm63xx_uart0 at MMIO 0x14e00500`
+records/status/2026-06-14-guideline-next-better-working-image.md:124:- `14e00500.serial: ttyS0 ... is a bcm63xx_uart`
+records/status/2026-06-14-working-settings-modes-compression-build-summary.md:95:- UART works on `0x14e00500`.
+records/status/2026-05-16-current-tc7200u-bringup-baseline.md:56:- PASS reference: `records/logs/builds/2026-06-01-195304-check-gates-picocom-20260601-193010.txt`
+records/status/2026-05-16-current-tc7200u-bringup-baseline.md:58:  - Gate E: PASS (`console_ready`)
+records/generated/2026-05-31-142854-current-state.txt:15:-rw-r--r-- 1 mgta29 mgta29 2.3K 2026-05-31 08:02 /home/mgta29/src/openwrt/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+records/generated/2026-05-31-142854-current-state.txt:24:6745c8a99a2e2819ac0846cb6ec6f2dd4393fffc22bb88b059302cb0eb48802b  /home/mgta29/src/openwrt/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+records/generated/2026-06-14-133154-current-state.txt:15:-rw-r--r-- 1 mgta29 mgta29 2.3K 2026-06-14 13:12 /home/mgta29/src/openwrt/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+records/generated/2026-06-14-133154-current-state.txt:24:6745c8a99a2e2819ac0846cb6ec6f2dd4393fffc22bb88b059302cb0eb48802b  /home/mgta29/src/openwrt/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+records/generated/2026-06-01-190025-current-state.txt:15:-rw-r--r-- 1 mgta29 mgta29 2.3K 2026-05-31 08:02 /home/mgta29/src/openwrt/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+records/generated/2026-06-01-190025-current-state.txt:24:6745c8a99a2e2819ac0846cb6ec6f2dd4393fffc22bb88b059302cb0eb48802b  /home/mgta29/src/openwrt/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+records/generated/2026-06-14-130422-current-state.txt:15:-rw-r--r-- 1 mgta29 mgta29 2.3K 2026-06-01 22:48 /home/mgta29/src/openwrt/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+records/generated/2026-06-14-130422-current-state.txt:24:6745c8a99a2e2819ac0846cb6ec6f2dd4393fffc22bb88b059302cb0eb48802b  /home/mgta29/src/openwrt/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts

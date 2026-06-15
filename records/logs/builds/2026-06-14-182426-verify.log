@@ -1,0 +1,30 @@
+=== meta ===
+timestamp_local=2026-06-14 18:24:26 CEST
+cwd=/home/mgta29/tc7200u-research
+command=a825_verify --raw /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin --wrapped /mnt/c/tftp/tc7200u-rdinit-sh.bin --expect-load 0x82000000 --expect-name tc7200u-rdinit-sh.bin --expect-signature 0xa825
+=== output ===
+raw=/home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin
+wrapped=/mnt/c/tftp/tc7200u-rdinit-sh.bin
+raw_size=7992922
+wrapped_size=7993014
+signature=0xa825
+expected_signature=0xa825
+control=0x0000
+major=0x0100
+minor=0x04ff
+build_time=0x6a2ed5ba
+file_length=7992922
+load_address=0x82000000
+filename=tc7200u-rdinit-sh.bin
+expected_name=tc7200u-rdinit-sh.bin
+hcs=0x8a98
+expected_hcs=0x8a98
+crc=0x00000000
+size_ok=True
+raw_sha256=cda367a849354a8110dc835a96421459e589d3a081c6663089cf9d129acaa2e9
+wrapped_sha256=854410ab9d26cde08f2c7fd230b98aceedda7f7356f5bca912d70cb931105b27
+
+OK: wrapped image matches raw payload and expected header fields
+
+=== exit ===
+exit_code=0

@@ -1,0 +1,2 @@
+usage: - [-h] --input INPUT [--out-dir OUT_DIR] [--force-load FORCE_LOAD]
+-: error: the following arguments are required: --input

@@ -1,0 +1,27 @@
+      build report: /home/mgta29/tc7200u-research/records/logs/builds/2026-06-14-132323-build-provenance.log
+[1/3] Preparing custom source image
+      name map: tc7200u-smoke.bin -> tc7200u-smoke.bin
+      tftp dir: /tmp/tcbuilder-candidate-smoke (/tmp/tcbuilder-candidate-smoke)
+      source image: records/artifacts/rescue/tc7200-stage2-console-good.bin (records/artifacts/rescue/tc7200-stage2-console-good.bin)
+      detected existing ProgramStore header
+      preserved load address: 0x82000000
+      source header filename: openwrt-initramfs.bin
+      source signature: 0xa825
+      preserving wrapped source image bytes exactly (no header rewrite)
+      raw: /home/mgta29/tc7200u-research/records/logs/builds/2026-06-14-132323-source-payload.raw
+[2/3] Copying pre-wrapped source image
+      log: /home/mgta29/tc7200u-research/records/logs/builds/2026-06-14-132323-wrap.log
+      wrapped: /tmp/tcbuilder-candidate-smoke/tc7200u-smoke.bin
+[3/3] Verifying wrapped image
+      log: /home/mgta29/tc7200u-research/records/logs/builds/2026-06-14-132323-verify.log
+CHECK OK: size_ok=True
+OK: wrapped image matches raw payload and expected header fields
+AUTO: ready for cfe-tftp. CFE request: tc7200u-smoke.bin ; served file: /tmp/tcbuilder-candidate-smoke/tc7200u-smoke.bin.
+
+== candidate sha256 ==
+a17f022f1ef947ee16f60f0481f315fc399278ca574fb73c6ddcf548efbe0deb  /home/mgta29/tc7200u-research/records/logs/builds/2026-06-14-132323-source-payload.raw
+a2b9fa164d092387dc0382698cbdff940bb97cce6c41a029ac70c1b357497c4b  /tmp/tcbuilder-candidate-smoke/tc7200u-smoke.bin
+
+== candidate wrapped image ==
+-rwxr-xr-x 1 mgta29 mgta29 6.2M Jun 14 13:23 /tmp/tcbuilder-candidate-smoke/tc7200u-smoke.bin
+/tmp/tcbuilder-candidate-smoke/tc7200u-smoke.bin: data

@@ -1,0 +1,30 @@
+=== meta ===
+timestamp_local=2026-06-14 20:12:46 CEST
+cwd=/home/mgta29/tc7200u-research
+command=a825_verify --raw /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin --wrapped /mnt/c/tftp/tc7200u-clean-nandoff.bin --expect-load 0x82000000 --expect-name tc7200u-clean-nandoff.bin --expect-signature 0xa825
+=== output ===
+raw=/home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin
+wrapped=/mnt/c/tftp/tc7200u-clean-nandoff.bin
+raw_size=7373276
+wrapped_size=7373368
+signature=0xa825
+expected_signature=0xa825
+control=0x0000
+major=0x0100
+minor=0x04ff
+build_time=0x6a2eef1e
+file_length=7373276
+load_address=0x82000000
+filename=tc7200u-clean-nandoff.bin
+expected_name=tc7200u-clean-nandoff.bin
+hcs=0xed17
+expected_hcs=0xed17
+crc=0x00000000
+size_ok=True
+raw_sha256=f669fb12d2364c7f7fbc1c87fcc91329f5941c91a1799eb75193e8805f377177
+wrapped_sha256=c64bd10005b849b335e69585fbf9a4b94ed5310266f1dddd48ae36c868bb86d6
+
+OK: wrapped image matches raw payload and expected header fields
+
+=== exit ===
+exit_code=0

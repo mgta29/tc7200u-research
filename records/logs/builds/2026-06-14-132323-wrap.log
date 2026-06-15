@@ -1,0 +1,7 @@
+mode=passthrough
+source=records/artifacts/rescue/tc7200-stage2-console-good.bin
+output=/tmp/tcbuilder-candidate-smoke/tc7200u-smoke.bin
+raw=/home/mgta29/tc7200u-research/records/logs/builds/2026-06-14-132323-source-payload.raw
+expect_load=0x82000000
+expect_name=openwrt-initramfs.bin
+expect_signature=0xa825

@@ -1,0 +1,27 @@
+target/linux/bmips/dts/bcm6362.dtsi:29:		bootargs = "earlycon";
+target/linux/bmips/dts/bcm6362.dtsi:30:		stdout-path = "serial0:115200n8";
+target/linux/bmips/dts/bcm6362.dtsi:334:		uart0: serial@10000100 {
+target/linux/bmips/dts/bcm6362.dtsi:347:		uart1: serial@10000120 {
+target/linux/bmips/dts/bcm63268.dtsi:29:		bootargs = "earlycon";
+target/linux/bmips/dts/bcm63268.dtsi:30:		stdout-path = "serial0:115200n8";
+target/linux/bmips/dts/bcm63268.dtsi:299:		uart0: serial@10000180 {
+target/linux/bmips/dts/bcm63268.dtsi:312:		uart1: serial@100001a0 {
+target/linux/bmips/dts/bcm6328.dtsi:28:		bootargs = "earlycon";
+target/linux/bmips/dts/bcm6328.dtsi:29:		stdout-path = "serial0:115200n8";
+target/linux/bmips/dts/bcm6328.dtsi:259:		uart0: serial@10000100 {
+target/linux/bmips/dts/bcm6328.dtsi:272:		uart1: serial@10000120 {
+target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts:11:		bootargs = "console=ttyS0,115200 earlycon";
+target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts:12:		stdout-path = &uart0;
+target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts:17:	reg = <0x14e00500 0x18>;
+target/linux/bmips/dts/bcm3384_viper.dtsi:81:		uart0: serial@14e00520 {
+target/linux/bmips/dts/bcm6318.dtsi:26:		bootargs = "earlycon";
+target/linux/bmips/dts/bcm6318.dtsi:27:		stdout-path = "serial0:115200n8";
+target/linux/bmips/dts/bcm6318.dtsi:271:		uart0: serial@10000100 {
+target/linux/bmips/dts/bcm6368.dtsi:28:		bootargs = "earlycon";
+target/linux/bmips/dts/bcm6368.dtsi:29:		stdout-path = "serial0:115200n8";
+target/linux/bmips/dts/bcm6368.dtsi:357:		uart0: serial@10000100 {
+target/linux/bmips/dts/bcm6368.dtsi:370:		uart1: serial@10000120 {
+target/linux/bmips/dts/bcm6358.dtsi:27:		bootargs = "earlycon";
+target/linux/bmips/dts/bcm6358.dtsi:28:		stdout-path = "serial0:115200n8";
+target/linux/bmips/dts/bcm6358.dtsi:244:		uart0: serial@fffe0100 {
+target/linux/bmips/dts/bcm6358.dtsi:257:		uart1: serial@fffe0120 {

@@ -1,0 +1,52 @@
+# TC7200U Gate Report
+
+generated_at=2026-06-14T18:04:50+02:00
+log_path=records/logs/serial/picocom-20260614-173947.log
+report_path=records/logs/builds/tc7200u-fastboot-rootfs-check-gates-20260614-180450.txt
+
+## Log metadata
+-rw-r--r-- 1 root root 63K 2026-06-14 17:53 records/logs/serial/picocom-20260614-173947.log
+fca04349485b4cc1107bc033d6beec75fe466319140b6e6ac34e8e21fd0ebafc  records/logs/serial/picocom-20260614-173947.log
+
+## Marker counts
+tftp_complete=1
+signature_a825=1
+executing_image4=1
+exceptions=0
+decompression_failed=0
+nand_fail_no_replacement=0
+nand_out_of_order=0
+hs_getmsg_error=0
+hs_unexpected_error=0
+unhandled_message_lines=0
+handshake_msg_lines=0
+cfe_banner_lines=0
+openwrt_loader_lines=1
+openwrt_decompress_kernel_lines=1
+warning_initial_console_lines=0
+kernel_panic_lines=0
+panic_init_kill_lines=0
+procd_init_lines=0
+press_enter_lines=0
+busybox_shell_lines=0
+build_warning_lines=0
+build_error_lines=0
+build_patch_fail_lines=0
+build_target_time_lines=0
+executing_image4_line=147
+
+## Gate verdicts
+Gate A:  PASS (accepted)
+Gate B:  PASS
+Gate C:  PASS (clean)
+Gate D:  PASS
+Gate E:  WARN (boot_not_fully_observed)
+
+## Boot/runtime key lines
+152:OpenWrt kernel loader for BMIPS
+156:Decompressing kernel... done!
+158:Starting kernel at 80010000...
+160:[    0.000000] Linux version 6.12.87 (mgta29@CerberusNB) (mips-openwrt-linux-musl-gcc (OpenWrt GCC 14.3.0 r34703-aa96b3ad55) 14.3.0, GNU ld (GNU Binutils) 2.44) #0 SMP Tue May 12 23:59:29 2026
+186:[    0.000000] Kernel command line: console=ttyS0,115200 earlycon ignore_loglevel loglevel=8 initcall_debug
+
+## Build key lines

@@ -1,0 +1,111 @@
+Enter BIN filename (example: tc7200u-test.bin):       build report: /home/mgta29/tc7200u-research/records/logs/builds/2026-06-14-133526-build-provenance.log
+[1/7] Inspecting OpenWrt build outputs
+      name map: stage1-ghidra-v2.bin -> stage1-ghidra-v2.bin
+      tftp dir: C:\tftp\ (/mnt/c/tftp)
+      latest vmlinux: /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/vmlinux
+[2/7] Capturing OpenWrt config before package profile
+      saved: /home/mgta29/tc7200u-research/records/logs/builds/2026-06-14-133526-openwrt-config-before-debug-packages
+[3/7] Applying TC7200U package profile
+      TC7200U_PACKAGE_PROFILE=debug (set to debug for full diagnostics tools)
+      log: /home/mgta29/tc7200u-research/records/logs/builds/2026-06-14-133526-ensure-debug-packages.log
+      saved: /home/mgta29/tc7200u-research/records/logs/builds/2026-06-14-133526-openwrt-config-after-debug-packages
+[4/7] Checking whether image rebuild is needed
+      OpenWrt .config is newer than raw initramfs
+      source newer than raw image: /home/mgta29/src/openwrt/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+      decision: install (build-mode=auto)
+      patch precheck: no modified/untracked bmips patch files
+[5/7] Building OpenWrt image if required
+      running: make -j16 target/linux/install V=s
+      log: /home/mgta29/tc7200u-research/records/logs/builds/2026-06-14-133526-target-linux-install.log
+      install failed; retrying prepare+install
+      install fail log: /home/mgta29/tc7200u-research/records/logs/builds/2026-06-14-133526-target-linux-install.log
+export MAKEFLAGS= ;make -w -C /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/relocate CACHELINE_SIZE=16 CROSS_COMPILE=mips-openwrt-linux-musl- KERNEL_ADDR=0x80010000		 LZMA_TEXT_START=0x81000000		
+make[5]: Entering directory '/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/relocate'
+mips-openwrt-linux-musl-gcc -D__KERNEL__ -Wall -Wstrict-prototypes -Wno-trigraphs -Os -fno-strict-aliasing -fno-common -fomit-frame-pointer -G 0 -mno-abicalls -fno-pic -ffunction-sections -pipe -mlong-calls -fno-common -ffreestanding -fhonour-copts -mabi=32 -march=mips32r2 -Wa,-32 -Wa,-march=mips32r2 -Wa,-mips32r2 -Wa,--trap -DCONFIG_CACHELINE_SIZE=16 -DKERNEL_ADDR=0x80010000 -D__ASSEMBLY__ -c -o head.o head.S
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/scripts/dtc/dtc -O dtb -i../dts/ -Wno-interrupt_provider -Wno-unique_unit_address -Wno-unit_address_vs_reg -Wno-avoid_unnecessary_addr_size -Wno-alias_paths -Wno-graph_child_address -Wno-simple_bus_reg    -o /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm3383-technicolor-tc7200u.dtb /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm3383-technicolor-tc7200u.dtb.tmp
+mips-openwrt-linux-musl-ld -static --gc-sections -no-warn-mismatch -e startup -T loader.lds -Ttext 0x81000000 -o loader head.o
+mips-openwrt-linux-musl-objcopy -O binary -R .reginfo -R .note -R .comment -R .mdebug -R .MIPS.abiflags -S loader loader.bin
+make[5]: Leaving directory '/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/relocate'
+Error: ../dts/bcm3383-technicolor-tc7200u.dts:10.2-82 Properties must precede subnodes
+FATAL ERROR: Unable to parse input tree
+make[4]: *** [Makefile:376: /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm3383-technicolor-tc7200u.dtb] Error 1
+make[4]: *** Waiting for unfinished jobs....
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/scripts/dtc/dtc -O dtb -i../dts/ -Wno-interrupt_provider -Wno-unique_unit_address -Wno-unit_address_vs_reg -Wno-avoid_unnecessary_addr_size -Wno-alias_paths -Wno-graph_child_address -Wno-simple_bus_reg    -o /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm63168-comtrend-vr-3032u.dtb /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm63168-comtrend-vr-3032u.dtb.tmp
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/scripts/dtc/dtc -O dtb -i../dts/ -Wno-interrupt_provider -Wno-unique_unit_address -Wno-unit_address_vs_reg -Wno-avoid_unnecessary_addr_size -Wno-alias_paths -Wno-graph_child_address -Wno-simple_bus_reg    -o /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm63167-sercomm-h500-s-lowi.dtb /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm63167-sercomm-h500-s-lowi.dtb.tmp
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/scripts/dtc/dtc -O dtb -i../dts/ -Wno-interrupt_provider -Wno-unique_unit_address -Wno-unit_address_vs_reg -Wno-avoid_unnecessary_addr_size -Wno-alias_paths -Wno-graph_child_address -Wno-simple_bus_reg    -o /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm63167-sercomm-h500-s-vfes.dtb /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm63167-sercomm-h500-s-vfes.dtb.tmp
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/scripts/dtc/dtc -O dtb -i../dts/ -Wno-interrupt_provider -Wno-unique_unit_address -Wno-unit_address_vs_reg -Wno-avoid_unnecessary_addr_size -Wno-alias_paths -Wno-graph_child_address -Wno-simple_bus_reg    -o /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm63169-comtrend-vg-8050.dtb /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm63169-comtrend-vg-8050.dtb.tmp
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/scripts/dtc/dtc -O dtb -i../dts/ -Wno-interrupt_provider -Wno-unique_unit_address -Wno-unit_address_vs_reg -Wno-avoid_unnecessary_addr_size -Wno-alias_paths -Wno-graph_child_address -Wno-simple_bus_reg    -o /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm63168-sagem-fast-3864-op.dtb /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm63168-sagem-fast-3864-op.dtb.tmp
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/scripts/dtc/dtc -O dtb -i../dts/ -Wno-interrupt_provider -Wno-unique_unit_address -Wno-unit_address_vs_reg -Wno-avoid_unnecessary_addr_size -Wno-alias_paths -Wno-graph_child_address -Wno-simple_bus_reg    -o /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm63168-actiontec-t1200h.dtb /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm63168-actiontec-t1200h.dtb.tmp
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/scripts/dtc/dtc -O dtb -i../dts/ -Wno-interrupt_provider -Wno-unique_unit_address -Wno-unit_address_vs_reg -Wno-avoid_unnecessary_addr_size -Wno-alias_paths -Wno-graph_child_address -Wno-simple_bus_reg    -o /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm63168-sercomm-shg2500.dtb /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm63168-sercomm-shg2500.dtb.tmp
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/scripts/dtc/dtc -O dtb -i../dts/ -Wno-interrupt_provider -Wno-unique_unit_address -Wno-unit_address_vs_reg -Wno-avoid_unnecessary_addr_size -Wno-alias_paths -Wno-graph_child_address -Wno-simple_bus_reg    -o /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm63168-smartrg-sr505n.dtb /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm63168-smartrg-sr505n.dtb.tmp
+rm -f /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm63168-comtrend-vr-3032u.dtb.tmp
+rm -f /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm63168-sagem-fast-3864-op.dtb.tmp
+rm -f /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm63167-sercomm-h500-s-vfes.dtb.tmp
+rm -f /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm63169-comtrend-vg-8050.dtb.tmp
+rm -f /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm63168-actiontec-t1200h.dtb.tmp
+rm -f /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm63167-sercomm-h500-s-lowi.dtb.tmp
+rm -f /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm63168-sercomm-shg2500.dtb.tmp
+rm -f /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm63168-smartrg-sr505n.dtb.tmp
+make[4]: Leaving directory '/home/mgta29/src/openwrt/target/linux/bmips/image'
+make[3]: *** [Makefile:23: install] Error 2
+make[3]: Leaving directory '/home/mgta29/src/openwrt/target/linux/bmips'
+make[2]: *** [Makefile:12: install] Error 2
+make[2]: Leaving directory '/home/mgta29/src/openwrt/target/linux'
+time: target/linux/install#20.94#6.38#20.41
+    ERROR: target/linux failed to build.
+make[1]: *** [target/Makefile:32: target/linux/install] Error 1
+make[1]: Leaving directory '/home/mgta29/src/openwrt'
+make: *** [/home/mgta29/src/openwrt/include/toplevel.mk:233: target/linux/install] Error 2
+
+=== exit ===
+exit_code=2
+      running: make -j1 target/linux/prepare V=s
+      log: /home/mgta29/tc7200u-research/records/logs/builds/2026-06-14-133526-target-linux-prepare.log
+      running: make -j16 target/linux/install V=s
+      log: /home/mgta29/tc7200u-research/records/logs/builds/2026-06-14-133526-target-linux-install.log
+      install failed after prepare; retrying compile+install
+      install fail log: /home/mgta29/tc7200u-research/records/logs/builds/2026-06-14-133526-target-linux-install.log
+make[5]: Entering directory '/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/relocate'
+mips-openwrt-linux-musl-gcc -D__KERNEL__ -Wall -Wstrict-prototypes -Wno-trigraphs -Os -fno-strict-aliasing -fno-common -fomit-frame-pointer -G 0 -mno-abicalls -fno-pic -ffunction-sections -pipe -mlong-calls -fno-common -ffreestanding -fhonour-copts -mabi=32 -march=mips32r2 -Wa,-32 -Wa,-march=mips32r2 -Wa,-mips32r2 -Wa,--trap -DCONFIG_CACHELINE_SIZE=16 -DKERNEL_ADDR=0x80010000 -D__ASSEMBLY__ -c -o head.o head.S
+mips-openwrt-linux-musl-cpp -nostdinc -x assembler-with-cpp  -I/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/arch/mips/boot/dts -I/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/arch/mips/boot/dts/include -I/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/include/ -I/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/scripts/dtc/include-prefixes -undef -D__DTS__  -o /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm3383-technicolor-tc7200u.dtb.tmp ../dts/bcm3383-technicolor-tc7200u.dts
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/scripts/dtc/dtc -O dtb -i../dts/ -Wno-interrupt_provider -Wno-unique_unit_address -Wno-unit_address_vs_reg -Wno-avoid_unnecessary_addr_size -Wno-alias_paths -Wno-graph_child_address -Wno-simple_bus_reg    -o /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm63168-actiontec-t1200h.dtb /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm63168-actiontec-t1200h.dtb.tmp
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/scripts/dtc/dtc -O dtb -i../dts/ -Wno-interrupt_provider -Wno-unique_unit_address -Wno-unit_address_vs_reg -Wno-avoid_unnecessary_addr_size -Wno-alias_paths -Wno-graph_child_address -Wno-simple_bus_reg    -o /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm63169-comtrend-vg-8050.dtb /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm63169-comtrend-vg-8050.dtb.tmp
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/scripts/dtc/dtc -O dtb -i../dts/ -Wno-interrupt_provider -Wno-unique_unit_address -Wno-unit_address_vs_reg -Wno-avoid_unnecessary_addr_size -Wno-alias_paths -Wno-graph_child_address -Wno-simple_bus_reg    -o /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm63168-comtrend-vr-3032u.dtb /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm63168-comtrend-vr-3032u.dtb.tmp
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/scripts/dtc/dtc -O dtb -i../dts/ -Wno-interrupt_provider -Wno-unique_unit_address -Wno-unit_address_vs_reg -Wno-avoid_unnecessary_addr_size -Wno-alias_paths -Wno-graph_child_address -Wno-simple_bus_reg    -o /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm63168-smartrg-sr505n.dtb /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm63168-smartrg-sr505n.dtb.tmp
+rm -f /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm63169-comtrend-vg-8050.dtb.tmp
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/scripts/dtc/dtc -O dtb -i../dts/ -Wno-interrupt_provider -Wno-unique_unit_address -Wno-unit_address_vs_reg -Wno-avoid_unnecessary_addr_size -Wno-alias_paths -Wno-graph_child_address -Wno-simple_bus_reg    -o /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm63168-sagem-fast-3864-op.dtb /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm63168-sagem-fast-3864-op.dtb.tmp
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/scripts/dtc/dtc -O dtb -i../dts/ -Wno-interrupt_provider -Wno-unique_unit_address -Wno-unit_address_vs_reg -Wno-avoid_unnecessary_addr_size -Wno-alias_paths -Wno-graph_child_address -Wno-simple_bus_reg    -o /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm63167-sercomm-h500-s-lowi.dtb /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm63167-sercomm-h500-s-lowi.dtb.tmp
+rm -f /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm63168-actiontec-t1200h.dtb.tmp
+mips-openwrt-linux-musl-ld -static --gc-sections -no-warn-mismatch -e startup -T loader.lds -Ttext 0x81000000 -o loader head.o
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/scripts/dtc/dtc -O dtb -i../dts/ -Wno-interrupt_provider -Wno-unique_unit_address -Wno-unit_address_vs_reg -Wno-avoid_unnecessary_addr_size -Wno-alias_paths -Wno-graph_child_address -Wno-simple_bus_reg    -o /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm63167-sercomm-h500-s-vfes.dtb /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm63167-sercomm-h500-s-vfes.dtb.tmp
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/scripts/dtc/dtc -O dtb -i../dts/ -Wno-interrupt_provider -Wno-unique_unit_address -Wno-unit_address_vs_reg -Wno-avoid_unnecessary_addr_size -Wno-alias_paths -Wno-graph_child_address -Wno-simple_bus_reg    -o /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm63168-sercomm-shg2500.dtb /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm63168-sercomm-shg2500.dtb.tmp
+rm -f /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm63168-comtrend-vr-3032u.dtb.tmp
+rm -f /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm63168-smartrg-sr505n.dtb.tmp
+mips-openwrt-linux-musl-objcopy -O binary -R .reginfo -R .note -R .comment -R .mdebug -R .MIPS.abiflags -S loader loader.bin
+rm -f /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm63167-sercomm-h500-s-lowi.dtb.tmp
+/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/scripts/dtc/dtc -O dtb -i../dts/ -Wno-interrupt_provider -Wno-unique_unit_address -Wno-unit_address_vs_reg -Wno-avoid_unnecessary_addr_size -Wno-alias_paths -Wno-graph_child_address -Wno-simple_bus_reg    -o /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm3383-technicolor-tc7200u.dtb /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm3383-technicolor-tc7200u.dtb.tmp
+rm -f /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm63168-sagem-fast-3864-op.dtb.tmp
+make[5]: Leaving directory '/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/relocate'
+rm -f /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm63167-sercomm-h500-s-vfes.dtb.tmp
+Error: ../dts/bcm3383-technicolor-tc7200u.dts:10.2-82 Properties must precede subnodes
+FATAL ERROR: Unable to parse input tree
+make[4]: *** [Makefile:376: /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm3383-technicolor-tc7200u.dtb] Error 1
+make[4]: *** Waiting for unfinished jobs....
+rm -f /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/image-bcm63168-sercomm-shg2500.dtb.tmp
+make[4]: Leaving directory '/home/mgta29/src/openwrt/target/linux/bmips/image'
+make[3]: *** [Makefile:23: install] Error 2
+make[3]: Leaving directory '/home/mgta29/src/openwrt/target/linux/bmips'
+make[2]: *** [Makefile:12: install] Error 2
+make[2]: Leaving directory '/home/mgta29/src/openwrt/target/linux'
+time: target/linux/install#21.03#6.31#17.27
+    ERROR: target/linux failed to build.
+make[1]: *** [target/Makefile:32: target/linux/install] Error 1
+make[1]: Leaving directory '/home/mgta29/src/openwrt'
+make: *** [/home/mgta29/src/openwrt/include/toplevel.mk:233: target/linux/install] Error 2
+
+=== exit ===
+exit_code=2
+      running: make -j16 target/linux/compile V=s
+      log: /home/mgta29/tc7200u-research/records/logs/builds/2026-06-14-133526-target-linux-compile.log
+      running: make -j16 target/linux/install V=s
+      log: /home/mgta29/tc7200u-research/records/logs/builds/2026-06-14-133526-target-linux-install.log

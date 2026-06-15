@@ -1,0 +1,22 @@
+=== meta ===
+timestamp_local=2026-06-14 13:14:08 CEST
+cwd=/home/mgta29/src/openwrt
+command=a825_wrap --input /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin --output /mnt/c/tftp/stage1-ghidra.bin --filename stage1-ghidra.bin --preserve-from /home/mgta29/tc7200u-research/records/artifacts/rescue/tc7200-stage2-console-good.bin
+=== output ===
+payload_size=7373661
+output_size=7373753
+header_size=92
+filename=stage1-ghidra.bin
+control=0x0000
+major=0x0100
+minor=0x04ff
+load_addr=0x82000000
+build_time=0x6a0b751d
+crc32=0x00000000
+preserve_from=/home/mgta29/tc7200u-research/records/artifacts/rescue/tc7200-stage2-console-good.bin
+preserve_signature=0xa825
+output=/mnt/c/tftp/stage1-ghidra.bin
+hcs=0x94be
+
+=== exit ===
+exit_code=0

@@ -1,0 +1,1 @@
+/mnt/c/tftp/tc7200u.bin: data

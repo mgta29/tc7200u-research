@@ -1,0 +1,21 @@
+=== tc7200u key nodes ===
+11:		bootargs = "console=ttyS0,115200 earlycon";
+12:		stdout-path = &uart0;
+16:&uart0 {
+21:	status = "okay";
+38:		status = "disabled";
+58:	nand: nand@14e02200 {
+69:		status = "disabled";
+90:		status = "okay";
+=== viper uart ===
+			brcm,int-map-mask = <0xffffffff>;
+		};
+
+		uart0: serial@14e00500 {
+			compatible = "brcm,bcm6345-uart";
+			reg = <0x14e00500 0x18>;
+			interrupt-parent = <&periph_intc>;
+			interrupts = <2>;
+			clocks = <&periph_clk>;
+			status = "disabled";
+		};

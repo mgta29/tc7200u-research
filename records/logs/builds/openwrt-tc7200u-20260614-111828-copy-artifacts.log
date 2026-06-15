@@ -1,0 +1,30 @@
+bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-actiontec_t1200h-squashfs-sysupgrade.bin
+'bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-actiontec_t1200h-squashfs-sysupgrade.bin' -> '/home/mgta29/tc7200u-research/records/artifacts/test-images/20260614-111828/openwrt-bmips-bcm63268-actiontec_t1200h-squashfs-sysupgrade.bin'
+bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-sagem_fast-3864-op-squashfs-sysupgrade.bin
+'bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-sagem_fast-3864-op-squashfs-sysupgrade.bin' -> '/home/mgta29/tc7200u-research/records/artifacts/test-images/20260614-111828/openwrt-bmips-bcm63268-sagem_fast-3864-op-squashfs-sysupgrade.bin'
+bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-smartrg_sr505n-squashfs-cfe.bin
+'bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-smartrg_sr505n-squashfs-cfe.bin' -> '/home/mgta29/tc7200u-research/records/artifacts/test-images/20260614-111828/openwrt-bmips-bcm63268-smartrg_sr505n-squashfs-cfe.bin'
+bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u.manifest
+'bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u.manifest' -> '/home/mgta29/tc7200u-research/records/artifacts/test-images/20260614-111828/openwrt-bmips-bcm63268-technicolor_tc7200u.manifest'
+bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-sercomm_h500-s-lowi-squashfs-sysupgrade.bin
+'bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-sercomm_h500-s-lowi-squashfs-sysupgrade.bin' -> '/home/mgta29/tc7200u-research/records/artifacts/test-images/20260614-111828/openwrt-bmips-bcm63268-sercomm_h500-s-lowi-squashfs-sysupgrade.bin'
+bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-actiontec_t1200h-squashfs-cfe.bin
+'bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-actiontec_t1200h-squashfs-cfe.bin' -> '/home/mgta29/tc7200u-research/records/artifacts/test-images/20260614-111828/openwrt-bmips-bcm63268-actiontec_t1200h-squashfs-cfe.bin'
+bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-sercomm_h500-s-vfes-squashfs-sysupgrade.bin
+'bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-sercomm_h500-s-vfes-squashfs-sysupgrade.bin' -> '/home/mgta29/tc7200u-research/records/artifacts/test-images/20260614-111828/openwrt-bmips-bcm63268-sercomm_h500-s-vfes-squashfs-sysupgrade.bin'
+bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-smartrg_sr505n-squashfs-sysupgrade.bin
+'bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-smartrg_sr505n-squashfs-sysupgrade.bin' -> '/home/mgta29/tc7200u-research/records/artifacts/test-images/20260614-111828/openwrt-bmips-bcm63268-smartrg_sr505n-squashfs-sysupgrade.bin'
+bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-sercomm_shg2500-squashfs-sysupgrade.bin
+'bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-sercomm_shg2500-squashfs-sysupgrade.bin' -> '/home/mgta29/tc7200u-research/records/artifacts/test-images/20260614-111828/openwrt-bmips-bcm63268-sercomm_shg2500-squashfs-sysupgrade.bin'
+bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-comtrend_vg-8050-squashfs-cfe.bin
+'bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-comtrend_vg-8050-squashfs-cfe.bin' -> '/home/mgta29/tc7200u-research/records/artifacts/test-images/20260614-111828/openwrt-bmips-bcm63268-comtrend_vg-8050-squashfs-cfe.bin'
+bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-comtrend_vr-3032u-squashfs-cfe.bin
+'bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-comtrend_vr-3032u-squashfs-cfe.bin' -> '/home/mgta29/tc7200u-research/records/artifacts/test-images/20260614-111828/openwrt-bmips-bcm63268-comtrend_vr-3032u-squashfs-cfe.bin'
+bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-comtrend_vg-8050-squashfs-sysupgrade.bin
+'bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-comtrend_vg-8050-squashfs-sysupgrade.bin' -> '/home/mgta29/tc7200u-research/records/artifacts/test-images/20260614-111828/openwrt-bmips-bcm63268-comtrend_vg-8050-squashfs-sysupgrade.bin'
+bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-sagem_fast-3864-op-squashfs-cfe.bin
+'bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-sagem_fast-3864-op-squashfs-cfe.bin' -> '/home/mgta29/tc7200u-research/records/artifacts/test-images/20260614-111828/openwrt-bmips-bcm63268-sagem_fast-3864-op-squashfs-cfe.bin'
+bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin
+'bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin' -> '/home/mgta29/tc7200u-research/records/artifacts/test-images/20260614-111828/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin'
+bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-comtrend_vr-3032u-squashfs-sysupgrade.bin
+'bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-comtrend_vr-3032u-squashfs-sysupgrade.bin' -> '/home/mgta29/tc7200u-research/records/artifacts/test-images/20260614-111828/openwrt-bmips-bcm63268-comtrend_vr-3032u-squashfs-sysupgrade.bin'

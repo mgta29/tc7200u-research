@@ -1,0 +1,123 @@
+
+== meta ==
+mode=auto
+script=./scripts/tcbuilder.sh
+ts=2026-06-14-123833
+research=/home/mgta29/tc7200u-research
+notes_dir=/home/mgta29/tc7200u-research/records/generated
+build_log_base=/home/mgta29/tc7200u-research/records/logs/builds
+
+== build context ==
+timestamp_local=2026-06-14 12:38:33 CEST
+owrt=/home/mgta29/src/openwrt
+raw_expected=/home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin
+source_image=records/artifacts/test-images/20260614-123212/tc7200u-openwrt-initramfs-small-20260614-123212.bin
+preserve_from=
+wrap_load_addr=
+request_name=tc7200u.bin
+result_name=tc7200u.bin
+wrapped_output=/mnt/c/tftp/tc7200u.bin
+build_mode=none
+patch_precheck=1
+jobs=16
+openwrt_config=/home/mgta29/src/openwrt/.config
+openwrt_target_lines_begin
+  CONFIG_TARGET_bmips=y
+  CONFIG_TARGET_bmips_bcm63268=y
+  CONFIG_TARGET_bmips_bcm63268_Default=y
+  CONFIG_TARGET_BOARD="bmips"
+  CONFIG_TARGET_SUBTARGET="bcm63268"
+  CONFIG_TARGET_PROFILE="Default"
+  CONFIG_TARGET_ARCH_PACKAGES="mips_mips32"
+  CONFIG_TARGET_ROOTFS_INITRAMFS=y
+  CONFIG_TARGET_INITRAMFS_COMPRESSION_XZ=y
+  CONFIG_TARGET_ROOTFS_SQUASHFS=y
+  CONFIG_TARGET_SQUASHFS_BLOCK_SIZE=256
+  CONFIG_TARGET_SQUASHFS_BLOCK_READERS=4
+  CONFIG_TARGET_SQUASHFS_SMALL_READERS=4
+  CONFIG_TARGET_UBIFS_FREE_SPACE_FIXUP=y
+  CONFIG_TARGET_UBIFS_JOURNAL_SIZE=""
+  CONFIG_TARGET_ROOTFS_DIR=""
+  CONFIG_TARGET_OPTIMIZATION="-Os -pipe -mno-branch-likely -mips32 -mtune=mips32"
+  CONFIG_TARGET_SUFFIX="musl"
+  CONFIG_TARGET_PREINIT_SUPPRESS_STDERR=y
+  CONFIG_TARGET_PREINIT_TIMEOUT=4
+  CONFIG_TARGET_PREINIT_IFNAME=""
+  CONFIG_TARGET_PREINIT_IP="192.168.1.1"
+  CONFIG_TARGET_PREINIT_NETMASK="255.255.255.0"
+  CONFIG_TARGET_PREINIT_BROADCAST="192.168.1.255"
+  CONFIG_TARGET_INIT_PATH="/usr/sbin:/usr/bin:/sbin:/bin"
+  CONFIG_TARGET_INIT_ENV=""
+  CONFIG_TARGET_INIT_CMD="/sbin/init"
+  CONFIG_TARGET_INIT_SUPPRESS_STDERR=y
+openwrt_target_lines_end
+initramfs_candidates_begin
+  /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-actiontec_t1200h-initramfs.elf
+  /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-actiontec_t1200h-squashfs-cfe.bin
+  /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-actiontec_t1200h-squashfs-sysupgrade.bin
+  /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-comtrend_vg-8050-initramfs.elf
+  /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-comtrend_vg-8050-squashfs-cfe.bin
+  /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-comtrend_vg-8050-squashfs-sysupgrade.bin
+  /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-comtrend_vr-3032u-initramfs.elf
+  /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-comtrend_vr-3032u-squashfs-cfe.bin
+  /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-comtrend_vr-3032u-squashfs-sysupgrade.bin
+  /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-sagem_fast-3864-op-initramfs.elf
+  /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-sagem_fast-3864-op-squashfs-cfe.bin
+  /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-sagem_fast-3864-op-squashfs-sysupgrade.bin
+  /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-sercomm_h500-s-lowi-initramfs.elf
+  /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-sercomm_h500-s-lowi-squashfs-sysupgrade.bin
+  /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-sercomm_h500-s-vfes-initramfs.elf
+  /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-sercomm_h500-s-vfes-squashfs-sysupgrade.bin
+  /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-sercomm_shg2500-initramfs.elf
+  /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-sercomm_shg2500-squashfs-sysupgrade.bin
+  /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-smartrg_sr505n-initramfs.elf
+  /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-smartrg_sr505n-squashfs-cfe.bin
+  /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-smartrg_sr505n-squashfs-sysupgrade.bin
+  /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin
+  /home/mgta29/src/openwrt/bin/targets/mediatek/filogic/mt7981-ram-ddr3-bl2.bin
+  /home/mgta29/src/openwrt/bin/targets/mediatek/filogic/mt7981-ram-ddr4-bl2.bin
+  /home/mgta29/src/openwrt/bin/targets/mediatek/filogic/mt7986-ram-ddr3-bl2.bin
+  /home/mgta29/src/openwrt/bin/targets/mediatek/filogic/mt7986-ram-ddr4-bl2.bin
+  /home/mgta29/src/openwrt/bin/targets/mediatek/filogic/mt7987-ram-comb-bl2.bin
+  /home/mgta29/src/openwrt/bin/targets/mediatek/filogic/mt7988-ram-comb-bl2.bin
+  /home/mgta29/src/openwrt/bin/targets/mediatek/filogic/mt7988-ram-ddr4-bl2.bin
+  /home/mgta29/src/openwrt/bin/targets/mediatek/filogic/openwrt-mediatek-filogic-openwrt_one-initramfs.itb
+  /home/mgta29/src/openwrt/bin/targets/mediatek/filogic/openwrt-mediatek-filogic-openwrt_one-nor-factory.bin
+  /home/mgta29/src/openwrt/bin/targets/mediatek/filogic/openwrt-mediatek-filogic-openwrt_one-nor-preloader.bin
+  /home/mgta29/src/openwrt/bin/targets/mediatek/filogic/openwrt-mediatek-filogic-openwrt_one-snand-factory.bin
+  /home/mgta29/src/openwrt/bin/targets/mediatek/filogic/openwrt-mediatek-filogic-openwrt_one-snand-preloader.bin
+  /home/mgta29/src/openwrt/bin/targets/mediatek/filogic/openwrt-mediatek-filogic-openwrt_one-squashfs-sysupgrade.itb
+initramfs_candidates_end
+recent_make_logs_begin
+  /home/mgta29/tc7200u-research/records/logs/builds/2026-06-07-195941-target-linux-install.log
+  /home/mgta29/tc7200u-research/records/logs/builds/2026-06-02-052816-target-linux-install.log
+  /home/mgta29/tc7200u-research/records/logs/builds/2026-06-01-232736-target-linux-install.log
+  /home/mgta29/tc7200u-research/records/logs/builds/2026-06-01-225438-target-linux-install.log
+  /home/mgta29/tc7200u-research/records/logs/builds/2026-06-01-223648-target-linux-compile.log
+  /home/mgta29/tc7200u-research/records/logs/builds/2026-06-01-220558-target-linux-install.log
+  /home/mgta29/tc7200u-research/records/logs/builds/2026-06-01-205608-target-linux-install.log
+  /home/mgta29/tc7200u-research/records/logs/builds/2026-05-31-223226-make-full-image.log
+  /home/mgta29/tc7200u-research/records/logs/builds/2026-05-31-211618-make-full-image.log
+  /home/mgta29/tc7200u-research/records/logs/builds/2026-05-31-201349-make-full-image.log
+recent_make_logs_end
+
+== flow ==
+path=source-image
+why=custom source image provided; openwrt make skipped
+command_log=/home/mgta29/tc7200u-research/records/logs/builds/2026-06-14-123833-wrap.log
+command=a825_wrap --input records/artifacts/test-images/20260614-123212/tc7200u-openwrt-initramfs-small-20260614-123212.bin --output /mnt/c/tftp/tc7200u.bin --filename tc7200u.bin
+exit_code=0
+command_log=/home/mgta29/tc7200u-research/records/logs/builds/2026-06-14-123833-verify.log
+command=a825_verify --raw records/artifacts/test-images/20260614-123212/tc7200u-openwrt-initramfs-small-20260614-123212.bin --wrapped /mnt/c/tftp/tc7200u.bin --expect-load 0x82000000 --expect-name tc7200u.bin --expect-signature 0xa825
+exit_code=0
+
+== outputs ==
+raw=records/artifacts/test-images/20260614-123212/tc7200u-openwrt-initramfs-small-20260614-123212.bin
+wrapped=/mnt/c/tftp/tc7200u.bin
+wrap_log=/home/mgta29/tc7200u-research/records/logs/builds/2026-06-14-123833-wrap.log
+verify_log=/home/mgta29/tc7200u-research/records/logs/builds/2026-06-14-123833-verify.log
+raw_sha256=46fd6c118ba46afb1e2f9a1dc343f37dcd6da781b34251bfcb9bccafd5f9a97a
+wrapped_sha256=81517654b5d9710f4eed71015a64e3a30f82607d81d7ce36f9999263b3510084
+result=ok
+ready_for_tftp_request=tc7200u.bin
+served_file=/mnt/c/tftp/tc7200u.bin

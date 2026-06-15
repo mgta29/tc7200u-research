@@ -1,0 +1,30 @@
+=== meta ===
+timestamp_local=2026-06-14 19:56:10 CEST
+cwd=/home/mgta29/tc7200u-research
+command=a825_verify --raw /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin --wrapped /mnt/c/tftp/tc7200u-staged-repro-clean.bin --expect-load 0x82000000 --expect-name tc7200u-staged-repro-clean.bin --expect-signature 0xa825
+=== output ===
+raw=/home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin
+wrapped=/mnt/c/tftp/tc7200u-staged-repro-clean.bin
+raw_size=7373275
+wrapped_size=7373367
+signature=0xa825
+expected_signature=0xa825
+control=0x0000
+major=0x0100
+minor=0x04ff
+build_time=0x6a2eeb3a
+file_length=7373275
+load_address=0x82000000
+filename=tc7200u-staged-repro-clean.bin
+expected_name=tc7200u-staged-repro-clean.bin
+hcs=0xa5b0
+expected_hcs=0xa5b0
+crc=0x00000000
+size_ok=True
+raw_sha256=9d986b2a09d49d56f39fa8aa0119eadaf73b537641b097f96c48464210642f32
+wrapped_sha256=7417dac46b80feda79a73858f2ebd577d6ee269bf56314601a863770869bcce5
+
+OK: wrapped image matches raw payload and expected header fields
+
+=== exit ===
+exit_code=0

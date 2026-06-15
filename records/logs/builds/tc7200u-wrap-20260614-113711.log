@@ -1,0 +1,27 @@
+      build report: /home/mgta29/tc7200u-research/records/logs/builds/2026-06-14-113711-build-provenance.log
+[1/7] Inspecting OpenWrt build outputs
+      name map: tc7200u.bin -> tc7200u.bin
+      tftp dir: /mnt/c/tftp (/mnt/c/tftp)
+      latest vmlinux: /home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.87/vmlinux
+[2/7] Capturing OpenWrt config before package profile
+      saved: /home/mgta29/tc7200u-research/records/logs/builds/2026-06-14-113711-openwrt-config-before-debug-packages
+[3/7] Applying TC7200U package profile
+      TC7200U_PACKAGE_PROFILE=fastboot (set to debug for full diagnostics tools)
+      log: /home/mgta29/tc7200u-research/records/logs/builds/2026-06-14-113711-ensure-debug-packages.log
+      saved: /home/mgta29/tc7200u-research/records/logs/builds/2026-06-14-113711-openwrt-config-after-debug-packages
+[4/7] Checking whether image rebuild is needed
+      OpenWrt .config is newer than raw initramfs
+      decision: none (build-mode=none)
+[5/7] Building OpenWrt image if required
+      skipped build
+      raw: /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin
+      preserve-from header template: /home/mgta29/tc7200u-research/records/artifacts/rescue/tc7200-stage2-console-good.bin (/home/mgta29/tc7200u-research/records/artifacts/rescue/tc7200-stage2-console-good.bin)
+      preserved load address from template: 0x82000000
+[6/7] Wrapping raw initramfs with A825 header
+      log: /home/mgta29/tc7200u-research/records/logs/builds/2026-06-14-113711-wrap.log
+      wrapped: /mnt/c/tftp/tc7200u.bin
+[7/7] Verifying wrapped image
+      log: /home/mgta29/tc7200u-research/records/logs/builds/2026-06-14-113711-verify.log
+CHECK OK: size_ok=True
+OK: wrapped image matches raw payload and expected header fields
+AUTO: ready for cfe-tftp. CFE request: tc7200u.bin ; served file: /mnt/c/tftp/tc7200u.bin.

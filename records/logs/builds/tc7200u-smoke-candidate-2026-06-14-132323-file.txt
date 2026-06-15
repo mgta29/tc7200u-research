@@ -1,0 +1,2 @@
+-rwxr-xr-x 1 mgta29 mgta29 6.2M Jun 14 13:23 /tmp/tcbuilder-candidate-smoke/tc7200u-smoke.bin
+/tmp/tcbuilder-candidate-smoke/tc7200u-smoke.bin: data

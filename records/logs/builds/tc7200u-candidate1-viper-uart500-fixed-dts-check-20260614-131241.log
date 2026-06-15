@@ -1,0 +1,18 @@
+=== tc7200u ===
+11:		bootargs = "console=ttyS0,115200 earlycon";
+12:		stdout-path = &uart0;
+16:&uart0 {
+=== viper uart ===
+			interrupt-parent = <&periph_intc>;
+			interrupts = <30>;
+			brcm,int-map-mask = <0xffffffff>;
+		};
+
+		uart0: serial@14e00500 {
+			compatible = "brcm,bcm6345-uart";
+			reg = <0x14e00500 0x18>;
+			interrupt-parent = <&periph_intc>;
+			interrupts = <2>;
+			clocks = <&periph_clk>;
+			status = "disabled";
+		};

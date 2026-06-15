@@ -1,0 +1,15 @@
+      build report: /home/mgta29/tc7200u-research/records/logs/builds/2026-06-14-205815-build-provenance.log
+[1/3] Preparing custom source image
+      name map: tc7200u-uart500-l2-nandoff.bin -> tc7200u-uart500-l2-nandoff.bin
+      tftp dir: /mnt/c/tftp (/mnt/c/tftp)
+      source image: /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin (/home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin)
+      source appears to be raw payload (no ProgramStore header)
+      raw: /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin
+[2/3] Wrapping raw initramfs with A825 header
+      log: /home/mgta29/tc7200u-research/records/logs/builds/2026-06-14-205815-wrap.log
+      wrapped: /mnt/c/tftp/tc7200u-uart500-l2-nandoff.bin
+[3/3] Verifying wrapped image
+      log: /home/mgta29/tc7200u-research/records/logs/builds/2026-06-14-205815-verify.log
+CHECK OK: size_ok=True
+OK: wrapped image matches raw payload and expected header fields
+AUTO: ready for cfe-tftp. CFE request: tc7200u-uart500-l2-nandoff.bin ; served file: /mnt/c/tftp/tc7200u-uart500-l2-nandoff.bin.
