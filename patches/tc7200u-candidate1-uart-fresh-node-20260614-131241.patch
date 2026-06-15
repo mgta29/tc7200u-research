@@ -1,0 +1,21 @@
+diff --git a/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts b/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+index c462055b88..c9afa7b8f4 100644
+--- a/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
++++ b/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+@@ -4,12 +4,15 @@
+ #include "bcm3384_viper.dtsi"
+ 
+ / {
++	aliases {
++		serial0 = &tc7200_uart0;
++	};
+ 	compatible = "technicolor,tc7200u", "brcm,bcm3384-viper", "brcm,bcm33843-viper";
+ 	model = "Technicolor TC7200.U";
+ 
+ 	chosen {
+ 		bootargs = "console=ttyS0,115200 earlycon";
+-		stdout-path = &uart0;
++		stdout-path = "serial0:115200n8";
+ 	};
+ };
+ 

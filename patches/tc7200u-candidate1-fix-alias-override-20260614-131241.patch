@@ -1,0 +1,97 @@
+diff --git a/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts b/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+index c462055b88..1c32757978 100644
+--- a/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
++++ b/target/linux/bmips/dts/bcm3383-technicolor-tc7200u.dts
+@@ -3,50 +3,53 @@
+ 
+ #include "bcm3384_viper.dtsi"
+ 
++/delete-node/ &uart0;
++
+ / {
+ 	compatible = "technicolor,tc7200u", "brcm,bcm3384-viper", "brcm,bcm33843-viper";
+ 	model = "Technicolor TC7200.U";
+-
+-	chosen {
++chosen {
+ 		bootargs = "console=ttyS0,115200 earlycon";
+-		stdout-path = &uart0;
++		stdout-path = "serial0:115200n8";
+ 	};
+ };
+ 
+-&uart0 {
+-	reg = <0x14e00500 0x18>;
+-	interrupt-parent = <&periph_intc>;
+-	interrupts = <2>;
+-	clocks = <&periph_clk>;
+-	status = "okay";
++&{/aliases} {
++	serial0 = &tc7200_uart0;
+ };
+-/* TC7200.U SPI NOR probe. Disabled after invalid boot/panic. RAM-boot only. */
++
+ &{/ubus} {
+-        spi: spi@14e01000 {
+-                compatible = "brcm,bcm6328-hsspi";
+-                reg = <0x14e01000 0x600>;
++	tc7200_uart0: serial@14e00500 {
++		compatible = "brcm,bcm6345-uart";
++		reg = <0x14e00500 0x18>;
++		interrupt-parent = <&periph_intc>;
++		interrupts = <2>;
++		clocks = <&periph_clk>;
++		status = "okay";
++	};
+ 
+-                #address-cells = <1>;
+-                #size-cells = <0>;
++	spi: spi@14e01000 {
++		compatible = "brcm,bcm6328-hsspi";
++		reg = <0x14e01000 0x600>;
+ 
+-                interrupt-parent = <&periph_intc>;
+-                interrupts = <7>;
++		#address-cells = <1>;
++		#size-cells = <0>;
+ 
+-                clocks = <&periph_clk>;
+-                clock-names = "hsspi";
++		interrupt-parent = <&periph_intc>;
++		interrupts = <7>;
+ 
+-                status = "disabled";
++		clocks = <&periph_clk>;
++		clock-names = "hsspi";
+ 
+-                flash@0 {
+-                        compatible = "jedec,spi-nor";
+-                        reg = <0>;
+-                        spi-max-frequency = <10000000>;
+-                };
+-        };
+-};
++		status = "disabled";
++
++		flash@0 {
++			compatible = "jedec,spi-nor";
++			reg = <0>;
++			spi-max-frequency = <10000000>;
++		};
++	};
+ 
+-/* Temporary TC7200.U NAND probe node. RAM-boot test only. Do not flash. */
+-&{/ubus} {
+ 	iop_intc: iop_intc@14e00050 {
+ 		compatible = "brcm,bcm3380-l2-intc";
+ 		reg = <0x14e00050 0x4 0x14e00054 0x4>;
+@@ -82,9 +85,6 @@
+ 		};
+ 	};
+ 
+-};
+-/* Temporary TC7200.U GENET fixed-link diagnostic. RAM-boot only. */
+-&{/ubus} {
+ 	ethernet_test: ethernet@12c00000 {
+ 		compatible = "brcm,genet-v1";
+ 		reg = <0x12c00000 0x4000>;

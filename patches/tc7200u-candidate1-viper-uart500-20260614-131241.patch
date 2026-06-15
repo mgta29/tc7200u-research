@@ -1,0 +1,16 @@
+diff --git a/target/linux/bmips/dts/bcm3384_viper.dtsi b/target/linux/bmips/dts/bcm3384_viper.dtsi
+index eb2a9c6ed6..3a6eb9538e 100644
+--- a/target/linux/bmips/dts/bcm3384_viper.dtsi
++++ b/target/linux/bmips/dts/bcm3384_viper.dtsi
+@@ -78,9 +78,9 @@
+ 			brcm,int-map-mask = <0xffffffff>;
+ 		};
+ 
+-		uart0: serial@14e00520 {
++		uart0: seriale00500 {
+ 			compatible = "brcm,bcm6345-uart";
+-			reg = <0x14e00520 0x18>;
++			reg = <0x14e00500 0x18>;
+ 			interrupt-parent = <&periph_intc>;
+ 			interrupts = <2>;
+ 			clocks = <&periph_clk>;
