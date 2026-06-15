@@ -32,9 +32,17 @@ Current constants:
 
 Top-level layout:
 
-- `records/`: notes, logs, captures, generated output, snapshots, binaries,
-  reverse-engineering output, network scans, and backups.
+- `records/`: topic-specific research notes under `bring-up/`, `ethernet/`,
+  `flash/`, `image-format/`, `reverse/`, `runtime-probes/`,
+  `source-research/`, and `status/`, plus logs, captures, generated output,
+  snapshots, binaries, network scans, and backups.
 - `docs/`: curated status, workflow, path, and topic docs.
-- `patches/`: OpenWrt patch copies and disabled patch history.
-- `scripts/`: helper script and host/serial command snippets.
-- `tools/`: standalone analysis tools.
+- `patches/`: OpenWrt patch copies, disabled patch history, and current
+  DTS/config snapshots.
+- `scripts/`: `tcbuilder.sh`, the `scripts/tcbuilder/` helper modules, and
+  `wsl-safe.ps1`.
+- `reverse/`: live Ghidra workspace kept outside `records/`.
+
+Current layout guardrail:
+
+- `records/notes/` is a wrong legacy path and should not receive new files.

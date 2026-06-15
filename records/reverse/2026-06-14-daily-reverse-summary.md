@@ -4,7 +4,7 @@
 
 This is the daily detailed summary note after a full reread of:
 
-- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse`
 
 Preserve older logs and summaries. This note is additive and exists to freeze the current June 14 reverse state in one place.
 
@@ -49,6 +49,14 @@ It did confirm and strengthen these June 14 points:
   - `stage1_thread_record_candidate +0x178` is a thread-specific embedded join object
   - absolute thread-record offset `+0x180` is `embedded_join_condition_178.tsd_value_slots_base_08_candidate`
   - TSD destructors are called with the old slot value in `a0`
+- the later June 14 readyq, PI, owner-list, timeout, and timeslice passes close more of the scheduler-side software correlation layer:
+  - lower `readyq_bucket_20` means higher scheduler priority
+  - `owner_list_head_ref_28` is a pointer to the exact external list-head slot that currently owns `readyq_node_18`
+  - `base_readyq_bucket_48_candidate` is the tracked base/requested bucket during PI handling
+  - `resume_status_9c = 7` now reads as the normal success/wake status in wait-object and PI wake paths
+  - `stage1_context_candidate +0x68` is better carried as a structured `stage1_timeout_object_candidate`, not a raw `0x30` byte block
+  - `stage1_context_candidate +0x24` is now a provisional scheduler/timeslice eligibility field
+  - the scheduler globals at `0x819dcc50`, `0x819dcc58`, and `0x819dcce0` plus the static idle area at `0x819dc308`, `0x819dc310`, and `0x819dc438` are now worth carrying as correlation-only software values
 - the context-struct offset correction is now important enough to carry:
   - `+0x60` is a `ushort` trace id
   - `+0x98` is `wait_state`
@@ -61,11 +69,15 @@ It did confirm and strengthen these June 14 points:
 
 Earlier frozen notes remain valid. The main June 14 closure came from:
 
-- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-13-host-dqm-msp-comms-guarded-enable-path-updated.md`
-- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-13-stage1-event-slot-wait-chain-update.md`
-- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-14-stage1-scheduler-post-signal-wake-chain.md`
-- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-14-stage1-thread-record-datatype-correction.md`
-- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-14-stage1-thread-exit-tsd-cleanup.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-13-host-dqm-msp-comms-guarded-enable-path-updated.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-13-stage1-event-slot-wait-chain-update.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-14-stage1-scheduler-post-signal-wake-chain.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-14-stage1-thread-record-datatype-correction.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-14-stage1-thread-exit-tsd-cleanup.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-14-stage1-pi-owned-wait-object-chain.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-14-stage1-readyq-owner-list-wakeup-chain.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-14-stage1-readyq-static-idle-timeslice.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-14-stage1-timeout-signal-dispatch.md`
 
 ## New Host-DQM selector and dispatch facts worth carrying
 
@@ -224,6 +236,39 @@ High-value newly-closed lifecycle and teardown facts:
   - `0x81a64f18`
   - `0x81a64f28`
 
+## Late June 14 readyq, owner-list, PI, timeout, and timeslice facts worth carrying
+
+High-value newly-closed scheduler and wait-side facts:
+
+- readyq and owner-list priority model now worth carrying:
+  - lower `readyq_bucket_20` means higher Stage1 scheduler priority
+  - `owner_list_head_ref_28` is not an owner object; it is a pointer to the exact external list-head slot that currently owns `context->readyq_node_18`
+  - `resume_status_9c = 7` now reads as the normal success/wake path in wait-object and PI wake flows
+- PI/owned-wait-object carry facts now worth keeping:
+  - `base_readyq_bucket_48_candidate` replaces the older saved-only interpretation at `+0x48`
+  - `owned_pi_object_list_head_3c_candidate` and `next_owned_pi_object_0c_candidate` are now part of a mostly-closed owned-PI-object chain
+- static idle and timeslice scheduler globals now worth carrying as software correlation values:
+  - `0x819dcc50`
+  - `0x819dcc58`
+  - `0x819dcc5c`
+  - `0x819dcce0`
+  - `0x819dc308`
+  - `0x819dc310`
+  - `0x819dc438`
+- current best meanings:
+  - `0x819dcc50 = g_stage1_scheduler_timeslice_or_budget_reload_819dcc50`
+  - `0x819dcc58 = g_stage1_scheduler_dispatch_needed_flag_819dcc58`
+  - `0x819dcc5c = g_stage1_scheduler_readyq_table_819dcc5c`
+  - `0x819dcce0 = g_stage1_context_switch_counter_819dcce0`
+  - `0x819dc310` is the static idle/bootstrap context record
+  - `0x819dc438` is the static idle stack/work area base for slot 0
+- context-structure refinements now worth carrying:
+  - `+0x24 = scheduler_timeslice_flag_24_candidate` (still provisional)
+  - `+0x68 = timeout_object_68_candidate`, a structured `0x30`-byte timeout/list object
+- timeout and signal object model now worth carrying:
+  - the global signal/post-state cluster is better treated as objects rooted at `0x81a67cd0`, `0x81a67ce4`, `0x81a67cec`, and `0x81a67cf0`
+  - the timeout helper chain is now structurally decoded enough to carry timeout object init, cancel/unlink, re-arm, and due-fire behavior
+
 ## OpenWrt development consequences
 
 The current staged control model is now:
@@ -239,6 +284,7 @@ The current staged control model is now:
 - stage 9: runtime-family selection and request-model mismatches
 - stage 10 if traffic still stalls: Host-DQM selector register blocks, dispatch tables, and Stage1 event-slot bridge behavior
 - stage 11 if traffic still stalls: the Stage1 scheduler callback, post-message, signal-pending, wake-if-waiting, make-runnable, thread-record-owned signal/work-mask chain, and worker exit/join lifecycle are the next software correlation layer
+- stage 12 if traffic still stalls: readyq ownership, PI requeue/restore behavior, timeout object state, same-bucket timeslice rotation, and static idle context setup become the next software correlation layer
 
 Practical implication:
 
@@ -249,6 +295,7 @@ Practical implication:
   - Stage1 event-slot wake behavior rooted at `0x81909698`
 - if the Host-DQM and Stage1 event-slot surfaces already match OEM behavior but workers still stall, compare the `current_context -> thread_record` ownership path and per-thread pending or blocked masks using `0x819dcc54` and `0x81a67cec` only as reverse-side correlation globals
 - if workers appear to terminate, fail to rejoin, or never complete teardown after wakeup, also compare thread-record lifecycle fields `+0x1c`, `+0x44`, `+0x178`, absolute `+0x180`, and the TSD correlation globals `0x81a64f18` and `0x81a64f28`
+- if wakeups appear to happen but runnable ordering, requeue behavior, or timeout-driven follow-through still diverge, compare `0x819dcc50`, `0x819dcc58`, `0x819dcc5c`, `0x819dcce0`, `0x819dc310`, `0x819dc438`, `context +0x24`, and `context +0x68` only as reverse-side scheduler correlation values
 - keep the Stage1 scheduler, context, thread-record, and post/signal globals as reverse-side correlation aids only
 - do not convert those software addresses into direct Linux hardware constants
 
@@ -257,8 +304,8 @@ Practical implication:
 Recorded modifications worth keeping:
 
 - added the new June 14 daily summary `2026-06-14-daily-reverse-summary.md`
-- refreshed the maintained OpenWrt-facing note `important-openwrt-tc7200u-enet-usable-values.md` with the June 13 and June 14 Host-DQM selector, Stage1 event-slot, scheduler wake-chain, thread-record ownership, and worker-exit/join-lifecycle correlation findings
-- refreshed `important-reverse-structure-reference.md` to keep the carried thread-record, cleanup-handler, and embedded join/TSD structure corrections aligned with the extracted structure set and local header cross-checks
+- refreshed the maintained OpenWrt-facing note `important-openwrt-tc7200u-enet-usable-values.md` with the June 13 and June 14 Host-DQM selector, Stage1 event-slot, scheduler wake-chain, thread-record ownership, worker-exit/join-lifecycle, PI/owner-list, timeout, and timeslice correlation findings
+- refreshed `important-reverse-structure-reference.md` to keep the carried thread-record, readyq/owner-list, timeout, and embedded join/TSD structure corrections aligned with the extracted structure set and local header cross-checks
 
 ## Preservation
 

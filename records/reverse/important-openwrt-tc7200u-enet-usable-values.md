@@ -270,18 +270,22 @@ Recommended next bring-up checks:
 
 Derived from:
 
-- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-08-ghidra-enet-genet-consolidated-summary.md`
-- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-08-ghidra-enet-genet-consolidated-summary-addendum.md`
-- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-08-ghidra-mdio-read-write-findings.md`
-- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-08-gmac-ghidra-findings.md`
-- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-08-ghidra-mbdma-static-dma-findings.md`
-- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-08-enet-gmac-step1-mdio-profile-findings.md`
-- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-14-stage1-thread-record-datatype-correction.md`
-- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-14-stage1-thread-exit-tsd-cleanup.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-08-ghidra-enet-genet-consolidated-summary.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-08-ghidra-enet-genet-consolidated-summary-addendum.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-08-ghidra-mdio-read-write-findings.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-08-gmac-ghidra-findings.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-08-ghidra-mbdma-static-dma-findings.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-08-enet-gmac-step1-mdio-profile-findings.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-14-stage1-thread-record-datatype-correction.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-14-stage1-thread-exit-tsd-cleanup.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-14-stage1-pi-owned-wait-object-chain.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-14-stage1-readyq-owner-list-wakeup-chain.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-14-stage1-readyq-static-idle-timeslice.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-14-stage1-timeout-signal-dispatch.md`
 
 ## Preservation
 
-Created as a new dated bring-up note. No old logs or notes were edited or deleted.
+Maintained as a dateless important carry note. No old logs or notes were edited or deleted.
 
 ## Refresh after full reverse reread
 
@@ -1987,9 +1991,9 @@ Practical implication:
 
 This section was added after rereading:
 
-- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-14-stage1-scheduler-post-signal-wake-chain.md`
-- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-14-stage1-thread-record-datatype-correction.md`
-- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-14-stage1-thread-exit-tsd-cleanup.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-14-stage1-scheduler-post-signal-wake-chain.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-14-stage1-thread-record-datatype-correction.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-14-stage1-thread-exit-tsd-cleanup.md`
 
 ### When to use this set
 
@@ -2060,5 +2064,95 @@ Practical implication:
   - `stage1_thread_record_candidate +0x1c/+0x44/+0x178`
   - absolute thread-record offset `+0x180`
   - TSD correlation globals `0x81a64f18` and `0x81a64f28`
+- keep these as reverse-side correlation aids only
+- do not convert those software values into direct Linux MMIO constants
+
+## Twelfth-pass Stage1 readyq, PI, timeout, and timeslice correlation values
+
+This section was added after rereading:
+
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-14-stage1-pi-owned-wait-object-chain.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-14-stage1-readyq-owner-list-wakeup-chain.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-14-stage1-readyq-static-idle-timeslice.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-14-stage1-timeout-signal-dispatch.md`
+
+### When to use this set
+
+Use this twelfth-pass set only after the earlier MMIO, Host-DQM, event-slot, and thread-record ownership/lifecycle surfaces already look OEM-like, but runnable ordering, wait-object wake follow-through, timeout-driven progress, same-priority round-robin behavior, or signal/timeout-driven reschedule behavior still diverge.
+
+### Twelfth-pass software values for correlation only
+
+Do not hardcode these into Linux. Use them only to correlate OEM runtime behavior:
+
+- scheduler and readyq globals:
+  - `0x819dcc50`
+  - `0x819dcc54`
+  - `0x819dcc58`
+  - `0x819dcc5c`
+  - `0x819dcce0`
+- static idle/bootstrap area:
+  - `0x819dc308`
+  - `0x819dc310`
+  - `0x819dc438`
+- timeout and signal-side globals:
+  - `0x81a67cd0`
+  - `0x81a67ce4`
+  - `0x81a67cec`
+  - `0x81a67cf0`
+
+### Current best meanings
+
+- lower `readyq_bucket_20` now reads as higher scheduler priority
+- `owner_list_head_ref_28` is not an owner object:
+  - it is a pointer to the exact external list-head slot that currently owns `context->readyq_node_18`
+- the PI and wake chain now suggests:
+  - `base_readyq_bucket_48_candidate` tracks the base/requested bucket during PI handling
+  - `resume_status_9c = 7` is the normal success/wake result in wait-object and PI wake paths
+- the timeslice chain now suggests:
+  - `scheduler_timeslice_flag_24_candidate` gates same-bucket timeslice rotation
+  - `g_stage1_scheduler_timeslice_or_budget_reload_819dcc50` reloads to `50000`
+  - timeslice expiry can rotate the same-priority readyq bucket and set `g_stage1_scheduler_dispatch_needed_flag_819dcc58`
+- the timeout and signal model now suggests:
+  - `stage1_context_candidate +0x68` is better treated as `timeout_object_68_candidate`, a structured `0x30`-byte timeout object
+  - the signal/post-state cluster is better treated as objects rather than overlapping scalar globals
+- the static idle path now suggests:
+  - `0x819dc310` is the static idle/bootstrap context record
+  - `0x819dc438` is the static idle stack/work area base for slot 0
+
+### What not to hardcode yet
+
+Do not hardcode these as final Linux semantics yet:
+
+- `0x819dcc50`, `0x819dcc58`, `0x819dcc5c`, or `0x819dcce0` as if they were MMIO registers
+- `0x819dc308`, `0x819dc310`, or `0x819dc438` as if they were hardware state instead of OEM scheduler/runtime storage
+- `context +0x24`, `context +0x28`, `context +0x48`, or `context +0x68` as if they directly mapped to Linux-visible hardware bits
+- any assumption that OpenWrt must reproduce the OEM readyq, timeout, or timeslice internals rather than only the externally-visible hardware state they eventually drive
+
+### Updated OpenWrt development meaning
+
+Current best staged model for the TC7200U port:
+
+- stage 1: FPM allocator/backing-base values must look right
+- stage 2: GENET/MBDMA endpoint and control values must look right
+- stage 3: DQM/CP2 queue control, mailbox, per-queue pull programming, and queue-policy state must look right
+- stage 4: DQM mailbox command handling, queue-profile writes, slot commit, and CP2/FPM service plumbing must look right
+- stage 5: the `0x01800008` event path, selector dispatch, request-block programming, and size-selected FPM request/return behavior must look right
+- stage 6: selector lookup/context initialization, preload-port state, and selector-derived `b604` command-table setup must look right
+- stage 7: request-engine submit/finalize flow, selector-gate publish behavior, and mode-specific sideband output lanes must look right
+- stage 8: alternate `0x80c8` runtime-family registration/activation writes, selector-output gating, and alias-window output paths must look right
+- stage 9: runtime-family selection and request-model behavior must look right
+- stage 10: if traffic still stalls, Host-DQM selector register blocks, dispatch-table mapping, and Stage1 event-slot wake behavior become the next most likely missing OEM-specific layer
+- stage 11: if the stage-10 event-slot layer already looks OEM-like, current-context ownership, thread-record linkage, per-thread pending or blocked signal/work masks, and worker exit/join lifecycle become the next software correlation layer
+- stage 12: if the stage-11 layer already looks OEM-like, readyq ownership, PI restore/requeue behavior, timeout object state, same-bucket timeslice rotation, and static idle context setup become the next software correlation layer
+
+Practical implication:
+
+- if OpenWrt reproduces the earlier control surfaces and even the Host-DQM/event-slot/thread-record layers still look OEM-like, compare whether any OEM-equivalent follow-through exists for:
+  - `g_stage1_scheduler_timeslice_or_budget_reload_819dcc50`
+  - `g_stage1_scheduler_dispatch_needed_flag_819dcc58`
+  - `g_stage1_scheduler_readyq_table_819dcc5c`
+  - `g_stage1_context_switch_counter_819dcce0`
+  - `stage1_context_candidate +0x24/+0x28/+0x48/+0x68`
+  - `0x819dc310` and `0x819dc438`
 - keep these as reverse-side correlation aids only
 - do not convert those software values into direct Linux MMIO constants

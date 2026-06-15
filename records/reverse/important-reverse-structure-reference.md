@@ -11,12 +11,16 @@ Use dated notes for discovery, rationale, and stepwise corrections. Use this fil
 This reference currently carries layouts from:
 
 - the in-thread June 14 screenshot-derived structure extraction later promoted directly into this dateless reference; no standalone dated note is currently present for that extraction
-- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-09-ghidra-fpm-datatypes.md`
-- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-13-host-dqm-msp-comms-guarded-enable-path-updated.md`
-- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-13-stage1-event-slot-wait-chain-update.md`
-- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-14-stage1-scheduler-post-signal-wake-chain.md`
-- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-14-stage1-thread-record-datatype-correction.md`
-- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\2026-06-14-stage1-thread-exit-tsd-cleanup.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-09-ghidra-fpm-datatypes.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-13-host-dqm-msp-comms-guarded-enable-path-updated.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-13-stage1-event-slot-wait-chain-update.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-14-stage1-scheduler-post-signal-wake-chain.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-14-stage1-thread-record-datatype-correction.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-14-stage1-thread-exit-tsd-cleanup.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-14-stage1-pi-owned-wait-object-chain.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-14-stage1-readyq-owner-list-wakeup-chain.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-14-stage1-readyq-static-idle-timeslice.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-14-stage1-timeout-signal-dispatch.md`
 
 ## Notes
 
@@ -117,7 +121,7 @@ typedef struct host_dqm_channel_obj_candidate {
 ```c
 typedef struct stage1_event_slot_candidate {
     uint pending_mask_00; /* +0x00 accumulated/raised event bits */
-    int waitq_04;         /* +0x04 wait queue/list head */
+    stage1_readyq_node_candidate *waitq_04; /* +0x04 wait queue/list head */
 } stage1_event_slot_candidate;
 
 typedef struct stage1_event_wait_condition_candidate {
@@ -201,13 +205,36 @@ typedef struct stage1_post_target_slot_candidate {
 
 typedef struct stage1_owned_wait_object_candidate stage1_owned_wait_object_candidate;
 typedef struct stage1_thread_record_candidate stage1_thread_record_candidate;
+typedef struct stage1_timeout_object_candidate stage1_timeout_object_candidate;
+
+typedef struct stage1_timeout_queue_candidate {
+    stage1_timeout_object_candidate *head_00;
+    undefined4 field_04_candidate;
+    uint current_time_hi_08_candidate;
+    uint current_time_lo_0c_candidate;
+} stage1_timeout_queue_candidate; /* size 0x10 */
+
+typedef struct stage1_timeout_object_candidate {
+    stage1_timeout_object_candidate *next_00;
+    stage1_timeout_object_candidate *prev_04;
+    stage1_timeout_queue_candidate *timeout_queue_08_candidate;
+    undefined4 callback_0c_candidate;
+    undefined4 callback_arg_10_candidate;
+    undefined4 field_14_candidate;
+    uint deadline_hi_18_candidate;
+    uint deadline_lo_1c_candidate;
+    uint interval_hi_20_candidate;
+    uint interval_lo_24_candidate;
+    uint active_or_registered_28_candidate;
+    struct stage1_context_candidate *owner_context_2c_candidate;
+} stage1_timeout_object_candidate; /* size 0x30 */
 
 typedef struct stage1_context_candidate {
     undefined1 pad_00[0x0c];
     undefined1 context_switch_state_0c[0x0c];
     stage1_readyq_node_candidate readyq_node_18;
     uint readyq_bucket_20;
-    undefined4 field_24;
+    uint scheduler_timeslice_flag_24_candidate; /* still provisional: timeslice/scheduler policy or eligibility field */
     stage1_readyq_node_candidate **owner_list_head_ref_28; /* header export currently flattens this to undefined4 */
     uint scheduler_callback_block_count_2c_candidate; /* header export currently names this pending_callback_block_2c */
     uint pending_callback_flag_30;
@@ -216,7 +243,7 @@ typedef struct stage1_context_candidate {
     stage1_owned_wait_object_candidate *owned_pi_object_list_head_3c_candidate;
     stage1_owned_wait_object_candidate *current_owned_wait_object_acquire_candidate;
     undefined4 field_44;
-    uint saved_base_readyq_bucket_48_candidate;
+    uint base_readyq_bucket_48_candidate;
     uint priority_inheritance_active_4c_candidate;
     uint context_flags_50;
     uint context_activation_hold_count_54_candidate;
@@ -224,7 +251,7 @@ typedef struct stage1_context_candidate {
     stage1_event_wait_condition_candidate *wait_condition_5c;
     ushort context_trace_id_60;
     undefined1 pad_62[6];
-    undefined1 timeout_list_object_68_candidate[0x30];
+    stage1_timeout_object_candidate timeout_object_68_candidate;
     uint wait_state_98;
     uint resume_status_9c;
     undefined4 extended_zero_area_a0_candidate[3];
@@ -290,6 +317,9 @@ typedef struct stage1_thread_record_candidate {
 
 Notes:
 
+- `owner_list_head_ref_28` is a pointer to the exact external list-head slot that currently owns `context->readyq_node_18`.
+- `scheduler_timeslice_flag_24_candidate` remains provisional; current evidence only proves timeslice rotation eligibility/policy gating.
+- `timeout_object_68_candidate` replaces the older raw `0x30`-byte byte-block carry at `stage1_context_candidate +0x68`.
 - `join_condition_3c_candidate` remains the generic `stage1_condition_object_candidate *` in the current carried model.
 - only the embedded join object at `stage1_thread_record_candidate +0x178` is specialized to `stage1_thread_join_condition_candidate`, because its `+0x08` field is used as the per-thread TSD/TLS slot-base pointer.
 
@@ -340,7 +370,7 @@ typedef struct stage1_bcm_sem_candidate {
 
 typedef struct stage1_semaphore_candidate {
     int count;            /* +0x00 */
-    undefined4 waitq_04;  /* +0x04 */
+    stage1_readyq_node_candidate *waitq_04;  /* +0x04 */
 } stage1_semaphore_candidate; /* size 0x8 */
 
 typedef struct stage1_guarded_context_lock_candidate {
@@ -358,20 +388,24 @@ This reference currently carries:
 - 5 FPM and allocator or packet structures
 - 4 Host-DQM structures
 - 2 Stage1 event-slot structures
-- 17 Stage1 scheduler and wake-chain structures
+- 19 Stage1 scheduler and wake-chain structures
 - 3 additional synchronization or semaphore structures
 
-Total current carried structures: `31`
+Total current carried structures: `33`
 
 ## Header cross-check
 
-Cross-checks against `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\tools\tc7200u_stage1_custom_structs.h` and `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\notes\reverse\structures.h`:
+Cross-checks against `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\tools\tc7200u_stage1_custom_structs.h`, `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\structures.h`, and `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\image.raw.h`:
 
 - confirms the carried `stage1_thread_create_attr_candidate`, `stage1_condition_object_candidate`, and `stage1_thread_record_candidate` layouts
-- the newer exported `records\\notes\\reverse\\structures.h` also confirms:
+- the newer exported `records\\reverse\\structures.h` also confirms:
   - `stage1_thread_cleanup_handler_candidate`
   - `stage1_thread_join_condition_candidate`
   - `stage1_thread_record_candidate +0x1c/+0x44/+0x178`
+- the live exports also strengthen several scheduler-side field interpretations:
+  - `stage1_event_slot_candidate +0x04` as a waitq pointer
+  - `stage1_context_candidate +0x28` as a double-pointer owner-list head reference
+  - `stage1_semaphore_candidate +0x04` as a waitq pointer
 - confirms `stage1_context_candidate +0xac` as `stage1_thread_record_candidate *thread_record_ac_candidate`
 - keeps `stage1_signal_select_state_candidate` only as a separate carried candidate layout; it should not replace the `thread_record_ac_candidate` interpretation at `stage1_context_candidate +0xac`
 - the exported header currently weakens some already-better carried fields:
@@ -395,6 +429,9 @@ Recorded modifications worth keeping:
 - 2026-06-14: added `2026-06-14-stage1-thread-record-datatype-correction.md` to the carried source set so the thread-record-owned signal/work-mask correction remains attached to the stable reference
 - 2026-06-14: added `2026-06-14-stage1-thread-exit-tsd-cleanup.md`, added `stage1_thread_cleanup_handler_candidate` and `stage1_thread_join_condition_candidate`, and raised the carried set to `31` structures
 - 2026-06-14: refined `stage1_thread_record_candidate +0x1c/+0x44/+0x178` to exit value/status, cleanup-handler head, and embedded join/TSD object semantics
+- 2026-06-14: added the later readyq/owner-list, PI, timeslice, and timeout notes to the carried source set
+- 2026-06-14: added `stage1_timeout_queue_candidate` and `stage1_timeout_object_candidate`, raised the carried set to `33` structures, and replaced the old raw `context +0x68` byte block with the structured timeout-object carry
+- 2026-06-14: refined `stage1_context_candidate +0x24/+0x48` to `scheduler_timeslice_flag_24_candidate` and `base_readyq_bucket_48_candidate`
 - 2026-06-14: cross-checked the carried note against `tools/tc7200u_stage1_custom_structs.h` and recorded header-export degradations without replacing better carried semantics
 
 ## Preservation

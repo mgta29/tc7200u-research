@@ -16,6 +16,23 @@ typedef unsigned int    undefined4;
 typedef unsigned long long    undefined6;
 typedef unsigned long long    undefined8;
 typedef unsigned short    ushort;
+typedef struct dma_allocator_global_state_81848740_candidate dma_allocator_global_state_81848740_candidate, *Pdma_allocator_global_state_81848740_candidate;
+
+struct dma_allocator_global_state_81848740_candidate {
+    undefined4 field_00;
+    undefined4 header_field_04;
+    uint default_pool_size_08;
+    void *backing_fpm_pool_base_0c;
+    undefined1 pad_10[24];
+    uint pool_shift_28;
+    void *pool_class_table_ptr_2c;
+    uint max_or_largest_request_30;
+    uint timer_counter_or_state_34;
+    undefined1 pad_38[8];
+    undefined4 default_pool_sizes_copy_40;
+    undefined4 high_bits_table_48;
+};
+
 typedef struct fap_bypass_context_candidate fap_bypass_context_candidate, *Pfap_bypass_context_candidate;
 
 typedef struct host_dqm_channel_obj_candidate host_dqm_channel_obj_candidate, *Phost_dqm_channel_obj_candidate;
@@ -111,11 +128,13 @@ typedef struct stage1_readyq_node_candidate stage1_readyq_node_candidate, *Pstag
 
 typedef struct stage1_context_candidate stage1_context_candidate, *Pstage1_context_candidate;
 
-typedef struct stage1_timeout_object_candidate stage1_timeout_object_candidate, *Pstage1_timeout_object_candidate;
-
 typedef struct stage1_event_wait_condition_candidate stage1_event_wait_condition_candidate, *Pstage1_event_wait_condition_candidate;
 
+typedef struct stage1_timeout_object_candidate stage1_timeout_object_candidate, *Pstage1_timeout_object_candidate;
+
 typedef struct stage1_thread_record_candidate stage1_thread_record_candidate, *Pstage1_thread_record_candidate;
+
+typedef struct stage1_timeout_queue_candidate stage1_timeout_queue_candidate, *Pstage1_timeout_queue_candidate;
 
 typedef struct stage1_thread_cleanup_handler_candidate stage1_thread_cleanup_handler_candidate, *Pstage1_thread_cleanup_handler_candidate;
 
@@ -131,21 +150,19 @@ struct stage1_event_wait_condition_candidate {
 struct stage1_readyq_node_candidate {
     struct stage1_readyq_node_candidate *next_00;
     struct stage1_readyq_node_candidate *prev_04;
-    struct stage1_timeout_object_candidate **queue_head_ref_08_candidate;
-    undefined1 unknown_0c[28];
-    uint active_or_registered_28_candidate;
-    struct stage1_context_candidate *owner_context_2c_candidate;
 };
 
 struct stage1_timeout_object_candidate {
     struct stage1_timeout_object_candidate *next_00;
     struct stage1_timeout_object_candidate *prev_04;
-    int *timer_queue_or_owner_08_candidate;
-    undefined1 unknown_0c[12];
-    undefined4 timeout_word_18_candidate; /* +0x18, incoming a2 */
-    undefined4 timeout_word_1c_candidate; /* +0x1c, incoming a3 */
-    undefined4 timeout_word_20_candidate; /* +0x20, incoming t0 */
-    undefined4 timeout_word_24_candidate; /* +0x24, incoming t1 */
+    struct stage1_timeout_queue_candidate *timeout_queue_08_candidate;
+    undefined4 callback_0c_candidate;
+    undefined4 callback_arg_10_candidate;
+    undefined4 field_14_candidate;
+    uint deadline_hi_18_candidate; /* +0x18, incoming a2 */
+    uint deadline_lo_1c_candidate; /* +0x1c, incoming a3 */
+    uint interval_hi_20_candidate; /* +0x20, incoming t0 */
+    uint interval_lo_24_candidate; /* +0x24, incoming t1 */
     uint active_or_registered_28_candidate;
     struct stage1_context_candidate *owner_context_2c_candidate;
 };
@@ -226,6 +243,13 @@ struct stage1_thread_cleanup_handler_candidate {
     uint arg_08;
 };
 
+struct stage1_timeout_queue_candidate {
+    struct stage1_timeout_object_candidate *head_00;
+    undefined4 field_04_candidate;
+    uint current_time_hi_08_candidate;
+    uint current_time_lo_0c_candidate;
+};
+
 struct stage1_owned_wait_object_candidate {
     byte active_or_locked_00;
     byte pad_01[3];
@@ -272,6 +296,13 @@ struct stage1_id_to_value_map_entry_candidate {
     uint value_04;
 };
 
+typedef struct stage1_iovec_candidate stage1_iovec_candidate, *Pstage1_iovec_candidate;
+
+struct stage1_iovec_candidate {
+    void *base_00;
+    uint length_04;
+};
+
 typedef struct stage1_post_message_candidate stage1_post_message_candidate, *Pstage1_post_message_candidate;
 
 struct stage1_post_message_candidate {
@@ -305,6 +336,68 @@ struct stage1_readyq_table_candidate {
     struct stage1_readyq_node_candidate *bucket_heads_04[32];
 };
 
+typedef struct stage1_related_object_pool_a_entry_candidate stage1_related_object_pool_a_entry_candidate, *Pstage1_related_object_pool_a_entry_candidate;
+
+typedef struct stage1_related_object_pool_b_entry_candidate stage1_related_object_pool_b_entry_candidate, *Pstage1_related_object_pool_b_entry_candidate;
+
+typedef struct stage1_signal_object_candidate stage1_signal_object_candidate, *Pstage1_signal_object_candidate;
+
+typedef struct stage1_signal_ops_or_class_candidate stage1_signal_ops_or_class_candidate, *Pstage1_signal_ops_or_class_candidate;
+
+typedef struct stage1_signal_iovec_io_request_candidate stage1_signal_iovec_io_request_candidate, *Pstage1_signal_iovec_io_request_candidate;
+
+struct stage1_signal_object_candidate {
+    uint flags_00;
+    ushort refcount_04;
+    ushort field_06;
+    uint flags_08_candidate;
+    struct stage1_signal_ops_or_class_candidate *ops_or_class_0c;
+    undefined4 field_10;
+    undefined4 field_14;
+    undefined4 field_18;
+    struct stage1_related_object_pool_b_entry_candidate *related_object_or_group_1c_candidate;
+};
+
+struct stage1_related_object_pool_a_entry_candidate {
+    undefined1 pad_00[8];
+    uint lock_flags_08_candidate;
+    undefined1 pad_0c[8];
+    undefined4 create_or_init_callback_14;
+    undefined4 field_18;
+    int (*callback_1c_candidate)(struct stage1_related_object_pool_b_entry_candidate *, void *, void *);
+    undefined1 pad_20[12];
+    int (*callback_2c_candidate)(struct stage1_related_object_pool_b_entry_candidate *, void *, void *, struct stage1_signal_object_candidate *);
+    int (*path_context_callback_30_candidate)(struct stage1_related_object_pool_b_entry_candidate *, void *, char *, void **);
+    int (*callback_34_candidate)(struct stage1_related_object_pool_b_entry_candidate *, void *, void *, uint);
+    undefined1 pad_38[8];
+};
+
+struct stage1_related_object_pool_b_entry_candidate {
+    undefined1 pad_00[20];
+    struct stage1_related_object_pool_a_entry_candidate *pool_a_entry_14_candidate;
+    undefined1 pad_18[8];
+};
+
+struct stage1_signal_iovec_io_request_candidate {
+    struct stage1_iovec_candidate *iov_00;
+    int iov_count_04;
+    undefined4 field_08;
+    uint remaining_or_total_len_0c;
+    uint field_10_zero_init;
+    uint mode_index_14;
+};
+
+struct stage1_signal_ops_or_class_candidate {
+    int (*io_mode1_callback_00_candidate)(struct stage1_signal_object_candidate *, struct stage1_signal_iovec_io_request_candidate *);
+    int (*io_mode2_callback_04_candidate)(struct stage1_signal_object_candidate *, struct stage1_signal_iovec_io_request_candidate *);
+    int (*callback_08_candidate)(struct stage1_signal_object_candidate *, void **, void *);
+    int (*callback_0c_candidate)(struct stage1_signal_object_candidate *, void *, void *);
+    int (*test_callback_10)(struct stage1_signal_object_candidate *, uint);
+    int (*callback_14_candidate)(struct stage1_signal_object_candidate *, uint);
+    int (*final_release_18)(struct stage1_signal_object_candidate *);
+    int (*callback_1c_candidate)(struct stage1_signal_object_candidate *, void *);
+};
+
 typedef struct stage1_scheduler_unlock_callback_record_candidate stage1_scheduler_unlock_callback_record_candidate, *Pstage1_scheduler_unlock_callback_record_candidate;
 
 struct stage1_scheduler_unlock_callback_record_candidate {
@@ -315,6 +408,15 @@ struct stage1_scheduler_unlock_callback_record_candidate {
     undefined4 callback_arg2_10;
     undefined4 pending_count_or_arg1_14;
     struct stage1_scheduler_unlock_callback_record_candidate *next_18;
+};
+
+typedef struct stage1_signal_handler_entry_candidate stage1_signal_handler_entry_candidate, *Pstage1_signal_handler_entry_candidate;
+
+struct stage1_signal_handler_entry_candidate {
+    uint additional_mask_00_candidate;
+    uint flags_04_candidate;
+    undefined4 handler_or_mode_08_candidate;
+    void *queued_record_head_0c_candidate;
 };
 
 typedef struct stage1_signal_select_state_candidate stage1_signal_select_state_candidate, *Pstage1_signal_select_state_candidate;
@@ -332,6 +434,26 @@ struct stage1_thread_create_attr_candidate {
     uint priority_or_class_04;
     uint stack_top_or_end_08;
     uint stack_size_0c;
+};
+
+typedef struct stage1_timeout_scale_table_candidate stage1_timeout_scale_table_candidate, *Pstage1_timeout_scale_table_candidate;
+
+struct stage1_timeout_scale_table_candidate {
+    uint word_00;
+    uint word_04;
+    uint word_08;
+    uint word_0c;
+    uint word_10;
+    uint word_14;
+    uint word_18;
+    uint word_1c;
+};
+
+typedef struct stage1_timeval32_candidate stage1_timeval32_candidate, *Pstage1_timeval32_candidate;
+
+struct stage1_timeval32_candidate {
+    int tv_sec_00;
+    int tv_usec_04;
 };
 
 typedef struct tc7200_fpm_allocator tc7200_fpm_allocator, *Ptc7200_fpm_allocator;
@@ -387,22 +509,5 @@ struct tc7200_fpm_packet_header {
     uint8_t unknown_10[16]; /* +0x10..+0x1f */
     struct tc7200_fpm_packet_inner_header embedded_inner; /* +0x20..+0x4f */
     uint8_t unknown_50[144]; /* +0x50..+0xdf */
-};
-
-typedef struct dma_allocator_global_state_81848740_candidate dma_allocator_global_state_81848740_candidate, *Pdma_allocator_global_state_81848740_candidate;
-
-struct dma_allocator_global_state_81848740_candidate {
-    undefined4 field_00;
-    undefined4 header_field_04;
-    uint default_pool_size_08;
-    void *backing_fpm_pool_base_0c;
-    undefined1 pad_10[24];
-    uint pool_shift_28;
-    void *pool_class_table_ptr_2c;
-    uint max_or_largest_request_30;
-    uint timer_counter_or_state_34;
-    undefined1 pad_38[8];
-    undefined4 default_pool_sizes_copy_40;
-    undefined4 high_bits_table_48;
 };
 
