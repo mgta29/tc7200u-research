@@ -1,9 +1,0 @@
-ce7893a (HEAD -> master, origin/master, origin/HEAD) first commit
-762f2ea first commit
-82eb471 first commit
-15e044f first commit
-2edfe36 first commit
-b3b7066 first commit
-dfe1602 first commit
-7082b36 first commit
-83736aa first commit

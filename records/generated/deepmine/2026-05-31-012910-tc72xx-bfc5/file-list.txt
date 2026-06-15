@@ -1,6 +1,0 @@
-/home/mgta29/src/tc72xx-bfc5/LZMA/lzma.tgz
-/home/mgta29/src/tc72xx-bfc5/ProdD30_BFC5.5.10_eCos_OpenSrc.tar.bz2
-/home/mgta29/src/tc72xx-bfc5/README.docx
-/home/mgta29/src/tc72xx-bfc5/README.md
-/home/mgta29/src/tc72xx-bfc5/build_ecos.sh
-/home/mgta29/src/tc72xx-bfc5/usr_local__ecos20.tgz

@@ -1,0 +1,30 @@
+
+~ # m[  256.581344] ttyS ttyS0: 1 input overrun(s)
+oun mount -t sysfs sysfs /sys; mount -t devtmpfs devtmpfs /dev; echo DIAG_S
+TART; uname -a; cat /proc/meminfo | head -30; cat /proc/iomem; echo FILES; ls -l
+ /bin/busybox /bin/cp /sbin/switch_root /lib/libc.so /init; echo BUSYBOX; /bin/b
+usybox | head -5; echo MALLOC_TEST_1; /bin/cp --help >/tmp/cp.help; echo CP_HELP
+_R[  257.504372] random: crng init done
+C=$?; echo MALLOC_TEST_2; /bin/cp /init /tmp/init.copy; echo CP_COPY_RC=$?; ls
+ -l /tmp/init.copy; echo SWITCHROOT_HELP; /sbin/switch_root --help; echo SWITCHR
+OOT_HELP_RC=$?; echo INIT_TRACE; s^C
+
+~ # 
+~ # mount -t proc proc /proc
+~ # mount -t sysfs sysfs /sys
+~ # mount -t devtmpfs devtmpfs /dev
+mount: mounting devtmpfs on /dev failed: No such device
+~ # echo DIAG_START
+DIAG_START
+~ # uname -a
+Linux (none) 6.12.87 #0 SMP Tue May 12 23:59:29 2026 mips GNU/Linux
+~ # cat /proc/meminfo | head -30
+[  382.010174] do_page_fault(): sending SIGSEGV to sh for invalid read access from 00000003
+[  382.022597] epc = 77e9a174 in libc.so[8e174,77e0c000+b9000]
+[  382.034257] ra  = 00426f7c in busybox[26f7c,400000+76000]
+[  382.449528] do_page_fault(): sending SIGSEGV to sh for invalid write access to 00000000
+[  382.461763] epc = 77e98fb4 in libc.so[8cfb4,77e0c000+b9000]
+[  382.473127] ra  = 77e99a9c in libc.so[8da9c,77e0c000+b9000]
+[  382.485729] Kernel panic - not syncing: Attempted to kill init! exitcode=0x0000000b
+[  382.496954] Rebooting in 10 seconds..
+[  393.327388] Reboot failed -- System halted

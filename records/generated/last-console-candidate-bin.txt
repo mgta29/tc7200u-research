@@ -1,1 +1,0 @@
-openwrt-rdinit-shell-malloc-diag-20260616-004056.bin

@@ -1,6 +1,0 @@
-* tc7200_v4.11-rc1
-  remotes/origin/HEAD -> origin/tc7200_v4.11-rc1
-  remotes/origin/master
-  remotes/origin/tc7200
-  remotes/origin/tc7200_v4.10
-  remotes/origin/tc7200_v4.11-rc1

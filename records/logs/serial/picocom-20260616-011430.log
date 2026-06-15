@@ -1,0 +1,636 @@
+Uåý
+/bin/sh: Uåý: not found
+~ # sed -n '1,220p' /init
+#!/bin/sh
+# Copyright (C) 2006 OpenWrt.org
+export INITRAMFS=1
+
+# switch to tmpfs to allow run daemons in jail on initramfs boot
+DIRS=$(echo *)
+NEW_ROOT=/new_root
+
+mkdir -p $NEW_ROOT
+mount -t tmpfs tmpfs $NEW_ROOT
+
+cp -pr $DIRS $NEW_ROOT
+
+exec switch_root $NEW_ROOT /sbin/init
+~ # ls -l /lib/preinit
+-rw-r--r--    1 root     root           338 Jan  1 00:00 [0;0m00_preinit.conf[m
+-rw-r--r--    1 root     root           100 Jan  1 00:00 [0;0m02_default_set_state[m
+-rw-r--r--    1 root     root           378 Jan  1 00:00 [0;0m02_sysinfo[m
+-rw-r--r--    1 root     root           615 Jan  1 00:00 [0;0m10_indicate_failsafe[m
+-rw-r--r--    1 root     root          4466 Jan  1 00:00 [0;0m10_indicate_preinit[m
+-rw-r--r--    1 root     root          2788 Jan  1 00:00 [0;0m30_failsafe_wait[m
+-rw-r--r--    1 root     root           370 Jan  1 00:00 [0;0m40_run_failsafe_hook[m
+-rw-r--r--    1 root     root           244 Jan  1 00:00 [0;0m50_indicate_regular_preinit[m
+-rw-r--r--    1 root     root           233 Jan  1 00:00 [0;0m70_initramfs_test[m
+-rw-r--r--    1 root     root          1485 Jan  1 00:00 [0;0m80_mount_root[m
+-rw-r--r--    1 root     root           691 Jan  1 00:00 [0;0m81_urandom_seed[m
+-rw-r--r--    1 root     root           992 Jan  1 00:00 [0;0m99_10_failsafe_dropbear[m
+-rw-r--r--    1 root     root           749 Jan  1 00:00 [0;0m99_10_failsafe_login[m
+-rw-r--r--    1 root     root           152 Jan  1 00:00 [0;0m99_10_run_init[m
+~ # for f in /lib/preinit/*; do echo "===== $f"; sed -n '1,180p' "$f"; done
+===== /lib/preinit/00_preinit.conf
+pi_suppress_stderr="y"
+fs_failsafe_wait_timeout=4
+pi_init_path="/usr/sbin:/usr/bin:/sbin:/bin"
+pi_init_env=""
+pi_init_cmd="/sbin/init"
+pi_init_suppress_stderr="y"
+pi_ifname=""
+pi_ip="192.168.1.1"
+pi_netmask="255.255.255.0"
+pi_broadcast="192.168.1.255"
+pi_preinit_net_messages=""
+pi_preinit_no_failsafe_netmsg=""
+pi_preinit_no_failsafe=""
+===== /lib/preinit/02_default_set_state
+define_default_set_state() {
+	. /etc/diag.sh
+}
+
+boot_hook_add preinit_main define_default_set_state
+===== /lib/preinit/02_sysinfo
+do_sysinfo_generic() {
+	[ -d /proc/device-tree ] || return
+	mkdir -p /tmp/sysinfo
+	[ -e /tmp/sysinfo/board_name ] || \
+		echo "$(strings /proc/device-tree/compatible | head -1)" > /tmp/sysinfo/board_name
+	[ ! -e /tmp/sysinfo/model -a -e /proc/device-tree/model ] && \
+		echo "$(cat /proc/device-tree/model)" > /tmp/sysinfo/model
+}
+
+boot_hook_add preinit_main do_sysinfo_generic
+===== /lib/preinit/10_indicate_failsafe
+# Copyright (C) 2006 OpenWrt.org
+# Copyright (C) 2010 Vertical Communications
+
+# commands for emitting messages to network in failsafe mode
+
+indicate_failsafe_led () {
+	set_state failsafe
+}
+
+indicate_failsafe() {
+	[ "$pi_preinit_no_failsafe" = "y" ] && return
+	local consoles="$(cat /sys/class/tty/console/active)"
+	[ -n "$consoles" ] || consoles=console
+	for console in $consoles; do
+		[ -c "/dev/$console" ] && echo "- failsafe -" >"/dev/$console"
+	done
+	preinit_net_echo "Entering Failsafe!\n"
+	indicate_failsafe_led
+	echo OpenWrt-failsafe > /proc/sys/kernel/hostname
+}
+
+boot_hook_add failsafe indicate_failsafe
+===== /lib/preinit/10_indicate_preinit
+# Copyright (C) 2006 OpenWrt.org
+# Copyright (C) 2010 Vertical Communications
+
+preinit_ip_config() {
+	local netdev vid
+
+	netdev=${1%\.*}
+	vid=${1#*\.}
+
+	if [ "$vid" = "$netdev" ]; then
+		vid=
+	fi
+
+	grep -q "$netdev" /proc/net/dev || return
+
+	if [ -n "$vid" ]; then
+		ip link add link $netdev name $1 type vlan id $vid
+	fi
+
+	ip link set dev $netdev up
+	if [ -n "$vid" ]; then
+		ip link set dev $1 up
+	fi
+	ip -4 address add $pi_ip/$pi_netmask broadcast $pi_broadcast dev $1
+}
+
+preinit_config_switch() {
+	local role roles ports device enable reset
+
+	local name=$1
+	local lan_if=$2
+
+	json_select switch
+	json_select $name
+
+	json_get_vars enable reset
+
+	if [ "$reset" -eq "1" ]; then
+		swconfig dev $name set reset
+	fi
+	swconfig dev $name set enable_vlan $enable
+
+	if json_is_a roles array; then
+		json_get_keys roles roles
+		json_select roles
+
+		for role in $roles; do
+			json_select "$role"
+			json_get_vars ports device
+			json_select ..
+
+			if [ "$device" = "$lan_if" ]; then
+				swconfig dev $name vlan $role set ports "$ports"
+			fi
+		done
+
+		json_select ..
+	fi
+
+	swconfig dev $name set apply
+
+	json_select ..
+	json_select ..
+}
+
+preinit_config_port() {
+	local original
+	local dev_port
+
+	local netdev="$1"
+	local path="$2"
+	local port="$3"
+
+	[ -d "/sys/devices/$path/net" ] || return
+
+	if [ -z "$port" ]; then
+		original="$(ls "/sys/devices/$path/net" | head -1)"
+	else
+		for device in /sys/devices/$path/net/*; do
+			dev_port="$(cat "$device/dev_port")"
+			if [ "$dev_port" = "$port" ]; then
+				original="${device##*/}"
+				break
+			fi
+		done
+
+		[ -z "$original" ] && return
+	fi
+
+	[ "$netdev" = "$original" ] && return
+
+	ip link set "$original" name "$netdev"
+}
+
+preinit_config_board() {
+	/bin/board_detect /tmp/board.json
+
+	[ -f "/tmp/board.json" ] || return
+
+	. /usr/share/libubox/jshn.sh
+
+	json_init
+	json_load "$(cat /tmp/board.json)"
+
+	# Find the current highest eth*
+	max_eth=$(grep -o '^ *eth[0-9]*:' /proc/net/dev | tr -dc '[0-9]\n' | sort -n | tail -1)
+	# Find and move netdevs using eth*s we are configuring
+	json_get_keys keys "network_device"
+	for netdev in $keys; do
+		json_select "network_device"
+			json_select "$netdev"
+				json_get_vars path path
+				if [ -n "$path" -a -h "/sys/class/net/$netdev" ]; then
+					ip link set "$netdev" down
+					ip link set "$netdev" name eth$((++max_eth))
+				fi
+			json_select ..
+		json_select ..
+	done
+
+	# Move interfaces by path to their netdev name
+	json_get_keys keys "network_device"
+	for netdev in $keys; do
+		json_select "network_device"
+			json_select "$netdev"
+				json_get_vars path path
+				json_get_vars port port
+				[ -n "$path" ] && preinit_config_port "$netdev" "$path" "$port"
+			json_select ..
+		json_select ..
+	done
+
+	json_select network
+		json_select "lan"
+			json_get_vars device
+			json_get_values ports ports
+		json_select ..
+	json_select ..
+
+	[ -n "$device" -o -n "$ports" ] || return
+
+	# swconfig uses $device and DSA uses ports
+	[ -z "$ports" ] && {
+		ports="$device"
+	}
+
+	# only use the first one
+	ifname=${ports%% *}
+
+	if [ -x /sbin/swconfig ]; then
+		# configure the switch, if present
+
+		json_get_keys keys switch
+		for key in $keys; do
+			preinit_config_switch $key $ifname
+		done
+	else
+		# trim any vlan ids
+		ifname=${ifname%\.*}
+		# trim any vlan modifiers like :t
+		ifname=${ifname%\:*}
+	fi
+
+	pi_ifname=$ifname
+
+	preinit_ip_config $pi_ifname
+}
+
+preinit_ip() {
+	[ "$pi_preinit_no_failsafe" = "y" ] && return
+
+	# if the preinit interface isn't specified and ifname is set in
+	# preinit.arch use that interface
+	if [ -z "$pi_ifname" ]; then
+		pi_ifname=$ifname
+	fi
+
+	if [ -n "$pi_ifname" ]; then
+		preinit_ip_config $pi_ifname
+	elif [ -d "/etc/board.d/" ]; then
+===== /lib/preinit/30_failsafe_wait
+# Copyright (C) 2006-2010 OpenWrt.org
+# Copyright (C) 2010 Vertical Communications
+
+fs_wait_for_key () {
+	local timeout=$3
+	local timer
+	local do_keypress
+	local keypress_true="$(mktemp)"
+	local keypress_wait="$(mktemp)"
+	local keypress_sec="$(mktemp)"
+	if [ -z "$keypress_wait" ]; then
+		keypress_wait=/tmp/.keypress_wait
+		touch $keypress_wait
+	fi
+	if [ -z "$keypress_true" ]; then
+		keypress_true=/tmp/.keypress_true
+		touch $keypress_true
+	fi
+	if [ -z "$keypress_sec" ]; then
+		keypress_sec=/tmp/.keypress_sec
+		touch $keypress_sec
+	fi
+
+	trap "echo 'true' >$keypress_true; lock -u $keypress_wait ; rm -f $keypress_wait 2>/dev/null" INT
+	trap "echo 'true' >$keypress_true; lock -u $keypress_wait ; rm -f $keypress_wait 2>/dev/null" USR1
+
+	[ -n "$timeout" ] || timeout=1
+	[ $timeout -ge 1 ] || timeout=1
+	timer=$timeout
+	lock $keypress_wait
+	{
+		while [ $timer -gt 0 ]; do
+			pi_failsafe_net_message=true \
+				preinit_net_echo "Please press button now to enter failsafe"
+			echo "$timer" >$keypress_sec
+			timer=$(($timer - 1))
+			sleep 1
+		done
+		lock -u $keypress_wait
+		rm -f $keypress_wait 2>/dev/null
+	} &
+
+	local consoles="$(cat /sys/class/tty/console/active)"
+	[ -n "$consoles" ] || consoles=console
+	for console in $consoles; do
+		[ -c "/dev/$console" ] || continue
+		[ "$pi_preinit_no_failsafe" != "y" ] && echo "Press the [$1] key and hit [enter] $2" > "/dev/$console"
+		echo "Press the [1], [2], [3] or [4] key and hit [enter] to select the debug level" > "/dev/$console"
+		{
+			while [ -r $keypress_wait ]; do
+				timer="$(cat $keypress_sec)"
+
+				[ -n "$timer" ] || timer=1
+				timer="${timer%%\ *}"
+				[ $timer -ge 1 ] || timer=1
+				do_keypress=""
+				{
+					read -t "$timer" do_keypress < "/dev/$console"
+					case "$do_keypress" in
+					$1)
+						echo "true" >$keypress_true
+						;;
+					1 | 2 | 3 | 4)
+						echo "$do_keypress" >/tmp/debug_level
+						;;
+					*)
+						continue;
+						;;
+					esac
+					lock -u $keypress_wait
+					rm -f $keypress_wait 2>/dev/null
+				}
+			done
+		} &
+	done
+	lock -w $keypress_wait
+
+	keypressed=1
+	[ "$(cat $keypress_true)" = "true" ] && keypressed=0
+
+	trap - INT
+	trap - USR1
+
+	rm -f $keypress_true
+	rm -f $keypress_wait
+	rm -f $keypress_sec
+
+	return $keypressed
+}
+
+failsafe_wait() {
+	FAILSAFE=
+	[ "$pi_preinit_no_failsafe" = "y" ] && {
+		fs_wait_for_key "" "" $fs_failsafe_wait_timeout
+		return
+	}
+	grep -q 'failsafe=' /proc/cmdline && FAILSAFE=true && export FAILSAFE
+	if [ "$FAILSAFE" != "true" ]; then
+		fs_wait_for_key f 'to enter failsafe mode' $fs_failsafe_wait_timeout && FAILSAFE=true
+		[ -f "/tmp/failsafe_button" ] && FAILSAFE=true && echo "- failsafe button "$(cat /tmp/failsafe_button)" was pressed -"
+		[ "$FAILSAFE" = "true" ] && export FAILSAFE && touch /tmp/failsafe
+	fi
+}
+
+boot_hook_add preinit_main failsafe_wait
+===== /lib/preinit/40_run_failsafe_hook
+# Copyright (C) 2006-2010 OpenWrt.org
+# Copyright (C) 2010 Vertical Communications
+
+run_failsafe_hook() {
+    [ "$pi_preinit_no_failsafe" = "y" ] && return
+    if [ "$FAILSAFE" = "true" ]; then
+	lock /tmp/.failsafe
+	boot_run_hook failsafe
+	while [ ! -e /tmp/sysupgrade ]; do
+	    lock -w /tmp/.failsafe
+	done
+	exit
+    fi
+}
+
+boot_hook_add preinit_main run_failsafe_hook
+===== /lib/preinit/50_indicate_regular_preinit
+# Copyright (C) 2006 OpenWrt.org
+# Copyright (C) 2010 Vertical Communications
+
+indicate_regular_preinit() {
+	preinit_net_echo "Continuing with Regular Preinit\n"
+	set_state preinit_regular
+}
+
+boot_hook_add preinit_main indicate_regular_preinit
+===== /lib/preinit/70_initramfs_test
+# Copyright (C) 2006 OpenWrt.org
+# Copyright (C) 2010 Vertical Communications
+
+initramfs_test() {
+	if [ -n "$INITRAMFS" ]; then
+		boot_run_hook initramfs
+		preinit_ip_deconfig
+		break
+	fi
+}
+
+boot_hook_add preinit_main initramfs_test
+===== /lib/preinit/80_mount_root
+# Copyright (C) 2006 OpenWrt.org
+# Copyright (C) 2010 Vertical Communications
+
+missing_lines() {
+	local file1 file2 line
+	file1="$1"
+	file2="$2"
+	oIFS="$IFS"
+	IFS=":"
+	while read line; do
+		set -- $line
+		grep -q "^$1:" "$file2" || echo "$line"
+	done < "$file1"
+	IFS="$oIFS"
+}
+
+# Rootfs mount options can be passed by declaring in the kernel
+# cmdline as much options as needed prefixed with "rootfs_mount_options."
+#
+# Example:
+# rootfs_mount_options.compress_algorithm=zstd rootfs_mount_options.noinline_data
+#
+compose_rootfs_mount_options() {
+	local mount_options
+	local cmdlinevar
+
+	for cmdlinevar in $(cat /proc/cmdline); do
+		if [ "$cmdlinevar" != "${cmdlinevar#rootfs_mount_options\.}" ]; then
+			append mount_options "${cmdlinevar#rootfs_mount_options\.}"
+		fi
+	done
+
+	echo $mount_options
+}
+
+do_mount_root() {
+	mount_root start "$(compose_rootfs_mount_options)"
+	boot_run_hook preinit_mount_root
+	[ -f /sysupgrade.tgz -o -f /tmp/sysupgrade.tar ] && {
+		echo "- config restore -"
+		cp /etc/passwd /etc/group /etc/shadow /tmp
+		cd /
+		[ -f /sysupgrade.tgz ] && tar xzf /sysupgrade.tgz
+		[ -f /tmp/sysupgrade.tar ] && tar xf /tmp/sysupgrade.tar
+		missing_lines /tmp/passwd /etc/passwd >> /etc/passwd
+		missing_lines /tmp/group /etc/group >> /etc/group
+		missing_lines /tmp/shadow /etc/shadow >> /etc/shadow
+		rm /tmp/passwd /tmp/group /tmp/shadow
+		# Prevent configuration corruption on a power loss
+		sync
+	}
+}
+
+[ "$INITRAMFS" = "1" ] || boot_hook_add preinit_main do_mount_root
+===== /lib/preinit/81_urandom_seed
+log_urandom_seed() {
+    echo "urandom-seed: $1" > /dev/kmsg
+}
+
+_do_urandom_seed() {
+    [ -f "$1" ] || { log_urandom_seed "Seed file not found ($1)"; return; }
+    [ -O "$1" -a -G "$1" -a ! -x "$1" ] || { log_urandom_seed "Wrong owner / permissions for $1"; return; }
+
+    log_urandom_seed "Seeding with $1"
+    cat "$1" > /dev/urandom
+}
+
+do_urandom_seed() {
+    [ -c /dev/urandom ] || { log_urandom_seed "Something is wrong with /dev/urandom"; return; }
+
+    _do_urandom_seed "/etc/urandom.seed"
+
+    SEED="$(uci -q get system.@system[0].urandom_seed)"
+    [ "${SEED:0:1}" = "/" -a "$SEED" != "/etc/urandom.seed" ] && _do_urandom_seed "$SEED"
+}
+
+boot_hook_add preinit_main do_urandom_seed
+===== /lib/preinit/99_10_failsafe_dropbear
+#!/bin/sh
+
+_dropbear()
+{
+	/usr/sbin/dropbear "$@" </dev/null >/dev/null 2>&1
+}
+
+_dropbearkey()
+{
+	/usr/bin/dropbearkey "$@" </dev/null >/dev/null 2>&1
+}
+
+_ensurekey()
+{
+	_dropbearkey -y -f "$1" && return
+	rm -f "$1"
+	_dropbearkey -f "$@" || {
+		rm -f "$1"
+		return 1
+	}
+}
+
+ktype_all='ed25519 ecdsa rsa'
+
+failsafe_dropbear () {
+	local kargs kcount ktype tkey
+
+	kargs=
+	kcount=0
+	for ktype in ${ktype_all} ; do
+		tkey="/tmp/dropbear_failsafe_${ktype}_host_key"
+
+		case "${ktype}" in
+		ed25519) _ensurekey "${tkey}" -t ed25519 ;;
+		ecdsa)   _ensurekey "${tkey}" -t ecdsa -s 256 ;;
+		rsa)     _ensurekey "${tkey}" -t rsa   -s 1024 ;;
+		*)
+			echo "unknown key type: ${ktype}" >&2
+			continue
+		;;
+		esac
+
+		[ -s "${tkey}" ] || {
+			rm -f "${tkey}"
+			continue
+		}
+
+		chmod 0400 "${tkey}"
+		kargs="${kargs}${kargs:+ }-r ${tkey}"
+		kcount=$((kcount+1))
+	done
+
+	[ "${kcount}" != 0 ] || {
+		echo 'DROPBEAR IS BROKEN' >&2
+		return 1
+	}
+
+	_dropbear ${kargs}
+}
+
+boot_hook_add failsafe failsafe_dropbear
+===== /lib/preinit/99_10_failsafe_login
+# Copyright (C) 2006-2015 OpenWrt.org
+# Copyright (C) 2010 Vertical Communications
+
+failsafe_shell() {
+	local consoles="$(cat /sys/class/tty/console/active)"
+	[ -n "$consoles" ] || consoles=console
+	for console in $consoles; do
+		case "$console" in
+			console|tty[0-9]*)
+				term=${TERM:-linux}
+				;;
+			*)
+				term=vt102
+				;;
+		esac
+		# Running asynchronously via the shell's & would ignore SIGINT,
+		# breaking ^C. Use start-stop-daemon instead.
+		[ -c "/dev/$console" ] && start-stop-daemon -Sb -p /dev/null -- env -i ash -c "while true; do setsid -c env -i USER=root LOGNAME=root SHELL=/bin/ash TERM="$term" ash --login <\"/dev/$console\" >\"/dev/$console\" 2>\"/dev/$console\"; sleep 1; done"
+	done
+
+}
+
+boot_hook_add failsafe failsafe_shell
+===== /lib/preinit/99_10_run_init
+# Copyright (C) 2006 OpenWrt.org
+# Copyright (C) 2010 Vertical Communications
+
+run_init() {
+	preinit_ip_deconfig
+}
+
+boot_hook_add preinit_main run_init
+~ # sh -x /init
++ export 'INITRAMFS=1'
++ echo bin dev etc init lib mnt overlay proc rom root sbin sys tmp usr var www
++ DIRS='bin dev etc init lib mnt overlay proc rom root sbin sys tmp usr var www'
++ NEW_ROOT=/new_root
++ mkdir -p /new_root
++ mount -t tmpfs tmpfs /new_root
++ cp -pr bin dev etc init lib mnt overlay proc rom root sbin sys tmp usr var www /new_root
+[  303.356245] do_page_fault(): sending SIGSEGV to cp for invalid write access to 00000000
+[  303.368823] epc = 77de1070 in libc.so[35070,77dac000+b9000]
+[  303.380177] ra  = 77de11d4 in libc.so[351d4,77dac000+b9000]
+Segmentation fault
++ exec switch_root /new_root /sbin/init
+BusyBox v1.37.0 (2026-01-02 17:07:02 UTC) multi-call binary.
+
+Usage: switch_root [-c CONSOLE_DEV] NEW_ROOT NEW_INIT [ARGS]
+
+Free initramfs and switch to another root fs:
+chroot to NEW_ROOT, delete all in /, move NEW_ROOT to /,
+execute NEW_INIT. PID must be 1. NEW_ROOT must be a mountpoint.
+
+	-c DEV	Reopen stdio to DEV after switch
+~ # cat /proc/filesystems
+nodev	sysfs
+nodev	tmpfs
+nodev	bdev
+nodev	proc
+nodev	cgroup
+nodev	cgroup2
+nodev	debugfs
+nodev	sockfs
+nodev	bpf
+nodev	pipefs
+nodev	ramfs
+nodev	devpts
+	squashfs
+nodev	jffs2
+nodev	overlay
+nodev	mqueue
+nodev	ubifs
+~ # grep devtmpfs /proc/filesystems || echo NO_DEVTMPFS
+NO_DEVTMPFS
+~ # cd ~/src/openwrt
+/bin/sh: cd: can't cd to //src/openwrt: No such file or directory
+~ # ls
+[1;34mbin[m       [1;32minit[m      [1;34mnew_root[m  [1;34mrom[m       [1;34msys[m       [1;36mvar[m
+[1;34mdev[m       [1;34mlib[m       [1;34moverlay[m   [1;34mroot[m      [1;34mtmp[m       [1;34mwww[m
+[1;34metc[m       [1;34mmnt[m       [1;34mproc[m      [1;34msbin[m      [1;34musr[m
+~ # 
