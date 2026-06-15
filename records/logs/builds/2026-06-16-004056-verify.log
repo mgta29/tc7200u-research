@@ -1,0 +1,30 @@
+=== meta ===
+timestamp_local=2026-06-16 00:40:56 CEST
+cwd=/home/mgta29/tc7200u-research
+command=a825_verify --raw /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin --wrapped /mnt/c/tftp/openwrt-rdinit-shell-malloc-diag-20260616-004056.bin --expect-load 0x82000000 --expect-name openwrt-rdinit-shell-malloc-diag-20260616-004056.bin --expect-signature 0xa825
+=== output ===
+raw=/home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin
+wrapped=/mnt/c/tftp/openwrt-rdinit-shell-malloc-diag-20260616-004056.bin
+raw_size=7143518
+wrapped_size=7143610
+signature=0xa825
+expected_signature=0xa825
+control=0x0000
+major=0x0100
+minor=0x04ff
+build_time=0x6a307f78
+file_length=7143518
+load_address=0x82000000
+filename=openwrt-rdinit-shell-malloc-diag-20260616-004056.bin
+expected_name=openwrt-rdinit-shell-malloc-diag-20260616-004056.bin
+hcs=0x905c
+expected_hcs=0x905c
+crc=0x00000000
+size_ok=True
+raw_sha256=27540e82d6fb4e1c21c38a1d60af3d2bf52417bccf7c98b91421a27e519025b3
+wrapped_sha256=5aa24a347ae4a3d5b1813efb63586501b57b2dcc8b213d1487289955a680f427
+
+OK: wrapped image matches raw payload and expected header fields
+
+=== exit ===
+exit_code=0

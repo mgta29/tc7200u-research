@@ -266,6 +266,13 @@ struct stage1_context_cleanup_callback_pair_candidate {
     undefined4 callback_arg_04;
 };
 
+typedef enum stage1_context_flags {
+    STAGE1_CONTEXT_FLAG_NONREADY_01=1,
+    STAGE1_CONTEXT_FLAG_LOWBIT_02=2,
+    STAGE1_CONTEXT_FLAG_ACTIVATION_HOLD_04=4,
+    STAGE1_CONTEXT_FLAG_DEAD_10=16
+} stage1_context_flags;
+
 typedef struct stage1_event_slot_candidate stage1_event_slot_candidate, *Pstage1_event_slot_candidate;
 
 struct stage1_event_slot_candidate {
@@ -346,16 +353,18 @@ typedef struct stage1_signal_ops_or_class_candidate stage1_signal_ops_or_class_c
 
 typedef struct stage1_signal_iovec_io_request_candidate stage1_signal_iovec_io_request_candidate, *Pstage1_signal_iovec_io_request_candidate;
 
+typedef struct stage1_signal_object_type2_ops_candidate stage1_signal_object_type2_ops_candidate, *Pstage1_signal_object_type2_ops_candidate;
+
 struct stage1_signal_object_candidate {
     uint flags_00;
     ushort refcount_04;
-    ushort field_06;
+    ushort type_or_mode_06_candidate;
     uint flags_08_candidate;
     struct stage1_signal_ops_or_class_candidate *ops_or_class_0c;
     undefined4 field_10;
     undefined4 field_14;
-    undefined4 field_18;
-    struct stage1_related_object_pool_b_entry_candidate *related_object_or_group_1c_candidate;
+    struct stage1_signal_object_type2_ops_candidate *type2_ops_18_candidate;
+    struct stage1_related_object_pool_b_entry_candidate *provider_or_related_entry_1c_candidate;
 };
 
 struct stage1_related_object_pool_a_entry_candidate {
@@ -370,6 +379,19 @@ struct stage1_related_object_pool_a_entry_candidate {
     int (*path_context_callback_30_candidate)(struct stage1_related_object_pool_b_entry_candidate *, void *, char *, void **);
     int (*callback_34_candidate)(struct stage1_related_object_pool_b_entry_candidate *, void *, void *, uint);
     undefined1 pad_38[8];
+};
+
+struct stage1_signal_object_type2_ops_candidate {
+    int (*callback_00_candidate)(struct stage1_signal_object_candidate *, char *, int *);
+    int (*callback_04_candidate)(struct stage1_signal_object_candidate *, char *, int *);
+    int (*clone_callback_08)(struct stage1_signal_object_candidate *, struct stage1_signal_object_candidate *, undefined4, undefined4);
+    int (*callback_0c_candidate)(struct stage1_signal_object_candidate *, char *);
+    int (*callback_10_candidate)(struct stage1_signal_object_candidate *, char *, int *, uint);
+    undefined4 field_14_candidate;
+    int (*callback_18_t0_candidate)(struct stage1_signal_object_candidate *, char *, int *, undefined4);
+    undefined4 field_1c_candidate;
+    int (*callback_20_out_candidate)(struct stage1_signal_object_candidate *, void *, void *, int *);
+    int (*callback_24_out_candidate)(struct stage1_signal_object_candidate *, undefined1 *, undefined4, int *);
 };
 
 struct stage1_related_object_pool_b_entry_candidate {
@@ -417,6 +439,46 @@ struct stage1_signal_handler_entry_candidate {
     uint flags_04_candidate;
     undefined4 handler_or_mode_08_candidate;
     void *queued_record_head_0c_candidate;
+};
+
+typedef struct stage1_signal_object_provider_entry_candidate stage1_signal_object_provider_entry_candidate, *Pstage1_signal_object_provider_entry_candidate;
+
+struct stage1_signal_object_provider_entry_candidate {
+    undefined4 field_00_candidate;
+    uint flags_or_mode_04_candidate; /* +0x04 copied into signal_object +0x08 on success */
+    undefined1 pad_08[16];
+    undefined4 create_callback_18; /* +0x18 call target, receives new object in t0 */
+    undefined1 pad_1c[4];
+};
+
+typedef struct stage1_signal_object_type2_callback_20_request_candidate stage1_signal_object_type2_callback_20_request_candidate, *Pstage1_signal_object_type2_callback_20_request_candidate;
+
+struct stage1_signal_object_type2_callback_20_request_candidate {
+    undefined4 field_00_from_t0_candidate;
+    undefined4 field_04_from_t1_candidate;
+    undefined4 *payload_pair_ptr_08_candidate;
+    undefined4 field_0c_const1_candidate;
+    undefined4 field_10_zero_candidate;
+    undefined4 field_14_candidate;
+    undefined4 field_18_zero_candidate;
+    undefined4 field_1c_candidate;
+    undefined4 payload_arg0_20_candidate;
+    undefined4 payload_arg1_24_candidate;
+};
+
+typedef struct stage1_signal_object_type2_callback_24_request_candidate stage1_signal_object_type2_callback_24_request_candidate, *Pstage1_signal_object_type2_callback_24_request_candidate;
+
+struct stage1_signal_object_type2_callback_24_request_candidate {
+    undefined4 field_00_from_t0_candidate;
+    undefined4 field_04_from_optional_aux_deref_candidate;
+    undefined4 *payload_pair_ptr_08_candidate; /* +0x08 -> stack +0x20 */
+    undefined4 field_0c_const1_candidate;
+    undefined4 field_10_zero_candidate;
+    undefined4 field_14_candidate; /* +0x14 not initialized here */
+    undefined4 field_18_candidate;
+    undefined4 field_1c_candidate;
+    undefined4 payload_arg0_20_candidate;
+    undefined4 payload_arg1_24_candidate;
 };
 
 typedef struct stage1_signal_select_state_candidate stage1_signal_select_state_candidate, *Pstage1_signal_select_state_candidate;
