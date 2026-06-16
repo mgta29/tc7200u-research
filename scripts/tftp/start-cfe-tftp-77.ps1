@@ -8,10 +8,11 @@ param(
   [int]$TimeoutMs = 500,
   [int]$MaxRetries = 10,
   [bool]$UseTransferPort = $true,
-  [int]$ProgressIntervalBlocks = 512,
+  [int]$ProgressIntervalBlocks = 2048,
   [int]$PreStartDelayMs = 0,
   [bool]$EnableOptionAck = $true,
-  [int]$MaxBlksize = 1428
+  [int]$MaxBlksize = 1428,
+  [bool]$UseFastTransferLoop = $true
 )
 
 $ErrorActionPreference = "Continue"
@@ -113,6 +114,7 @@ $serverArgs = @{
   ProgressIntervalBlocks = $ProgressIntervalBlocks
   EnableOptionAck = $EnableOptionAck
   MaxBlksize = $MaxBlksize
+  UseFastTransferLoop = $UseFastTransferLoop
 }
 
 if (-not [string]::IsNullOrWhiteSpace($NameMap)) {

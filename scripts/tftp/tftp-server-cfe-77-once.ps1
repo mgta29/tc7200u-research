@@ -10,9 +10,10 @@ param(
   [string]$RequestName = "",
   [string]$ResultName = "",
   [bool]$UseTransferPort = $true,
-  [int]$ProgressIntervalBlocks = 512,
+  [int]$ProgressIntervalBlocks = 2048,
   [bool]$EnableOptionAck = $true,
-  [int]$MaxBlksize = 1428
+  [int]$MaxBlksize = 1428,
+  [bool]$UseFastTransferLoop = $true
 )
 
 $ErrorActionPreference = "Stop"
@@ -97,6 +98,141 @@ function Send-TftpOack($sock, $remote, [System.Collections.IDictionary]$options)
   }
 
   Send-UdpPacket $sock $remote $pkt $pkt.Length
+}
+
+function Ensure-TftpFastTransferType {
+  if ('TftpFastTransferLoop' -as [type]) { return }
+
+  Add-Type -TypeDefinition @"
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Net.Sockets;
+
+public sealed class TftpFastTransferResult
+{
+    public int FinalBlock { get; set; }
+    public double ElapsedMilliseconds { get; set; }
+    public int LowByteAckCount { get; set; }
+    public int[] ProgressBlocks { get; set; }
+}
+
+public static class TftpFastTransferLoop
+{
+    public static TftpFastTransferResult SendFile(Socket socket, byte[] data, int blockSize, int maxRetries, int progressIntervalBlocks)
+    {
+        if (socket == null) throw new ArgumentNullException(nameof(socket));
+        if (data == null) throw new ArgumentNullException(nameof(data));
+        if (blockSize <= 0) throw new ArgumentOutOfRangeException(nameof(blockSize));
+        if (maxRetries < 0) throw new ArgumentOutOfRangeException(nameof(maxRetries));
+
+        byte[] dataPacket = new byte[4 + blockSize];
+        byte[] ack = new byte[516];
+        List<int> progressBlocks = progressIntervalBlocks > 0 ? new List<int>() : null;
+
+        int offset = 0;
+        int block = 1;
+        int retries = 0;
+        int lowByteAckCount = 0;
+
+        Stopwatch stopwatch = Stopwatch.StartNew();
+
+        while (true)
+        {
+            int remaining = data.Length - offset;
+            if (remaining < 0) remaining = 0;
+
+            int chunkLen = remaining < blockSize ? remaining : blockSize;
+
+            dataPacket[0] = 0;
+            dataPacket[1] = 3;
+            dataPacket[2] = (byte)((block >> 8) & 0xff);
+            dataPacket[3] = (byte)(block & 0xff);
+            if (chunkLen > 0)
+            {
+                Buffer.BlockCopy(data, offset, dataPacket, 4, chunkLen);
+            }
+
+            socket.Send(dataPacket, 0, chunkLen + 4, SocketFlags.None);
+            if (progressBlocks != null && (block % progressIntervalBlocks) == 0)
+            {
+                progressBlocks.Add(block);
+            }
+
+            while (true)
+            {
+                int ackLen;
+                try
+                {
+                    ackLen = socket.Receive(ack, 0, ack.Length, SocketFlags.None);
+                }
+                catch (SocketException ex) when (ex.SocketErrorCode == SocketError.TimedOut)
+                {
+                    retries++;
+                    if (retries > maxRetries)
+                    {
+                        throw new TimeoutException("Retry limit exceeded on block " + block);
+                    }
+
+                    socket.Send(dataPacket, 0, chunkLen + 4, SocketFlags.None);
+                    continue;
+                }
+
+                if (ackLen < 4)
+                {
+                    continue;
+                }
+
+                int ackOp = ((ack[0] & 0xff) << 8) | (ack[1] & 0xff);
+                if (ackOp == 5)
+                {
+                    throw new InvalidOperationException("Client ERROR packet");
+                }
+
+                if (ackOp == 1)
+                {
+                    socket.Send(dataPacket, 0, chunkLen + 4, SocketFlags.None);
+                    continue;
+                }
+
+                if (ackOp != 4)
+                {
+                    continue;
+                }
+
+                int ackBlock = ((ack[2] & 0xff) << 8) | (ack[3] & 0xff);
+                int lowByte = block & 0xff;
+
+                if (ackBlock == block || (block >= 256 && ackBlock == lowByte))
+                {
+                    if (ackBlock != block && block >= 256)
+                    {
+                        lowByteAckCount++;
+                    }
+
+                    offset += chunkLen;
+                    retries = 0;
+
+                    if (chunkLen < blockSize)
+                    {
+                        stopwatch.Stop();
+                        return new TftpFastTransferResult
+                        {
+                            FinalBlock = block,
+                            ElapsedMilliseconds = stopwatch.Elapsed.TotalMilliseconds,
+                            LowByteAckCount = lowByteAckCount,
+                            ProgressBlocks = progressBlocks != null ? progressBlocks.ToArray() : Array.Empty<int>()
+                        };
+                    }
+
+                    block++;
+                    break;
+                }
+            }
+        }
+    }
+}
+"@
 }
 
 function Parse-RRQ([byte[]]$buf) {
@@ -303,6 +439,10 @@ if ($ClearClientArp) {
   Clear-ArpEntry $ClientIP
 }
 
+if ($UseFastTransferLoop) {
+  Ensure-TftpFastTransferType
+}
+
 $sock = New-BoundUdpClient $bindAddr $Port $TimeoutMs $true
 
 Write-Host "CFE TFTP one-shot listening on ${BindIP}:$Port root=$Root client=$ClientIP timeout=${TimeoutMs}ms retries=$MaxRetries"
@@ -383,7 +523,7 @@ while ($true) {
       $xferSock = $sock
     }
 
-    $xferSock.Client.Connect($remote)
+    $xferSock.Connect($remote)
     $xferLocal = [Net.IPEndPoint]$xferSock.Client.LocalEndPoint
     Write-Host "Transfer session ${BindIP}:$($xferLocal.Port) -> $($remote.Address):$($remote.Port)"
 
@@ -436,87 +576,100 @@ while ($true) {
       }
     }
 
-    $offset = 0
-    $block = 1
-    $done = $false
-    $retries = 0
-    $transferStart = Get-Date
-
-    while (-not $done) {
-      $remaining = $data.Length - $offset
-      $chunkLen = [Math]::Min($blockSize, [Math]::Max(0, $remaining))
-      Build-TftpDataPacket $dataPacket $block $data $offset $chunkLen
-
-      Send-TftpData $xferSock $remote $dataPacket $chunkLen
-      if (($ProgressIntervalBlocks -gt 0) -and (($block % $ProgressIntervalBlocks) -eq 0)) {
-        Write-Host "sent block $block"
+    if ($UseFastTransferLoop) {
+      $result = [TftpFastTransferLoop]::SendFile($xferSock.Client, $data, $blockSize, $MaxRetries, $ProgressIntervalBlocks)
+      foreach ($progressBlock in $result.ProgressBlocks) {
+        Write-Host "sent block $progressBlock"
       }
+      if ($result.LowByteAckCount -gt 0) {
+        Write-Host "Accepted low-byte ACK count: $($result.LowByteAckCount)"
+      }
+      $elapsedSeconds = [Math]::Max(0.001, ($result.ElapsedMilliseconds / 1000.0))
+      $rateKiB = [Math]::Round(($data.Length / 1KB) / $elapsedSeconds, 1)
+      Write-Host "TFTP complete: sent $($data.Length) bytes in $([Math]::Round($elapsedSeconds, 3))s (~${rateKiB} KiB/s), block_size=$blockSize final block $($result.FinalBlock)"
+    } else {
+      $offset = 0
+      $block = 1
+      $done = $false
+      $retries = 0
+      $transferStart = Get-Date
 
-      while ($true) {
-        $ackRemote = [Net.IPEndPoint]::new([Net.IPAddress]::Any, 0)
+      while (-not $done) {
+        $remaining = $data.Length - $offset
+        $chunkLen = [Math]::Min($blockSize, [Math]::Max(0, $remaining))
+        Build-TftpDataPacket $dataPacket $block $data $offset $chunkLen
 
-        try {
-          $ack = $xferSock.Receive([ref]$ackRemote)
-        } catch {
-          $retries++
-          if ($retries -gt $MaxRetries) {
-            Write-Host "Retry limit exceeded on block $block"
+        Send-TftpData $xferSock $remote $dataPacket $chunkLen
+        if (($ProgressIntervalBlocks -gt 0) -and (($block % $ProgressIntervalBlocks) -eq 0)) {
+          Write-Host "sent block $block"
+        }
+
+        while ($true) {
+          $ackRemote = [Net.IPEndPoint]::new([Net.IPAddress]::Any, 0)
+
+          try {
+            $ack = $xferSock.Receive([ref]$ackRemote)
+          } catch {
+            $retries++
+            if ($retries -gt $MaxRetries) {
+              Write-Host "Retry limit exceeded on block $block"
+              $done = $true
+              break
+            }
+            Send-TftpData $xferSock $remote $dataPacket $chunkLen
+            continue
+          }
+
+          if (($ackRemote.Address.ToString() -ne $ClientIP) -or ($ackRemote.Port -ne $remote.Port)) {
+            Write-Host "Ignoring ACK from $($ackRemote.Address):$($ackRemote.Port)"
+            continue
+          }
+
+          if ($ack.Length -lt 4) { continue }
+
+          $ackOp = U16 $ack[0] $ack[1]
+
+          if ($ackOp -eq 5) {
+            Write-Host "Client ERROR packet; aborting"
             $done = $true
             break
           }
-          Send-TftpData $xferSock $remote $dataPacket $chunkLen
-          continue
-        }
 
-        if (($ackRemote.Address.ToString() -ne $ClientIP) -or ($ackRemote.Port -ne $remote.Port)) {
-          Write-Host "Ignoring ACK from $($ackRemote.Address):$($ackRemote.Port)"
-          continue
-        }
-
-        if ($ack.Length -lt 4) { continue }
-
-        $ackOp = U16 $ack[0] $ack[1]
-
-        if ($ackOp -eq 5) {
-          Write-Host "Client ERROR packet; aborting"
-          $done = $true
-          break
-        }
-
-        if ($ackOp -eq 1) {
-          Write-Host "Duplicate RRQ while waiting for ACK block $block; resending DATA block $block"
-          Send-TftpData $xferSock $remote $dataPacket $chunkLen
-          continue
-        }
-
-        if ($ackOp -ne 4) {
-          Write-Host "Ignoring opcode=$ackOp from $($ackRemote.Address):$($ackRemote.Port)"
-          continue
-        }
-
-        $ackBlock = U16 $ack[2] $ack[3]
-        $lowByte = $block -band 0xff
-
-        if (($ackBlock -eq $block) -or (($block -ge 256) -and ($ackBlock -eq $lowByte))) {
-          if (($ackBlock -ne $block) -and ($block -ge 256)) {
-            Write-Host "Accepted low-byte ACK blk=$ackBlock for block $block"
+          if ($ackOp -eq 1) {
+            Write-Host "Duplicate RRQ while waiting for ACK block $block; resending DATA block $block"
+            Send-TftpData $xferSock $remote $dataPacket $chunkLen
+            continue
           }
 
-          $offset += $chunkLen
-          $retries = 0
+          if ($ackOp -ne 4) {
+            Write-Host "Ignoring opcode=$ackOp from $($ackRemote.Address):$($ackRemote.Port)"
+            continue
+          }
 
-          if ($chunkLen -lt $blockSize) {
-            $elapsedSeconds = [Math]::Max(0.001, ((Get-Date) - $transferStart).TotalSeconds)
-            $rateKiB = [Math]::Round(($data.Length / 1KB) / $elapsedSeconds, 1)
-            Write-Host "TFTP complete: sent $($data.Length) bytes in $([Math]::Round($elapsedSeconds, 3))s (~${rateKiB} KiB/s), block_size=$blockSize final block $block"
-            $done = $true
+          $ackBlock = U16 $ack[2] $ack[3]
+          $lowByte = $block -band 0xff
+
+          if (($ackBlock -eq $block) -or (($block -ge 256) -and ($ackBlock -eq $lowByte))) {
+            if (($ackBlock -ne $block) -and ($block -ge 256)) {
+              Write-Host "Accepted low-byte ACK blk=$ackBlock for block $block"
+            }
+
+            $offset += $chunkLen
+            $retries = 0
+
+            if ($chunkLen -lt $blockSize) {
+              $elapsedSeconds = [Math]::Max(0.001, ((Get-Date) - $transferStart).TotalSeconds)
+              $rateKiB = [Math]::Round(($data.Length / 1KB) / $elapsedSeconds, 1)
+              Write-Host "TFTP complete: sent $($data.Length) bytes in $([Math]::Round($elapsedSeconds, 3))s (~${rateKiB} KiB/s), block_size=$blockSize final block $block"
+              $done = $true
+            } else {
+              $block++
+            }
+
+            break
           } else {
-            $block++
+            Write-Host "Ignore ACK blk=$ackBlock while waiting for block $block low=$lowByte"
           }
-
-          break
-        } else {
-          Write-Host "Ignore ACK blk=$ackBlock while waiting for block $block low=$lowByte"
         }
       }
     }
