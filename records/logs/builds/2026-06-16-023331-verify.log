@@ -1,0 +1,30 @@
+=== meta ===
+timestamp_local=2026-06-16 02:33:31 CEST
+cwd=/home/mgta29/tc7200u-research
+command=a825_verify --raw /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin --wrapped /mnt/c/tftp/openwrt-rdinit-direct-procd-no-copy-20260616-023331.bin --expect-load 0x82000000 --expect-name openwrt-rdinit-direct-procd-no-copy-20260616-023331.bin --expect-signature 0xa825
+=== output ===
+raw=/home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin
+wrapped=/mnt/c/tftp/openwrt-rdinit-direct-procd-no-copy-20260616-023331.bin
+raw_size=7141964
+wrapped_size=7142056
+signature=0xa825
+expected_signature=0xa825
+control=0x0000
+major=0x0100
+minor=0x04ff
+build_time=0x6a3099db
+file_length=7141964
+load_address=0x82000000
+filename=openwrt-rdinit-direct-procd-no-copy-20260616-023331.bin
+expected_name=openwrt-rdinit-direct-procd-no-copy-20260616-023331.bin
+hcs=0x851a
+expected_hcs=0x851a
+crc=0x00000000
+size_ok=True
+raw_sha256=1f1e3569a138e415b3bc523cf9611b5966f185ec3eac49ffea7e2e84028ca306
+wrapped_sha256=dab0e1216f6e848866c05dbc1078c8e3d13bd5fcd5f44e0dab2ed0bee04c11b3
+
+OK: wrapped image matches raw payload and expected header fields
+
+=== exit ===
+exit_code=0

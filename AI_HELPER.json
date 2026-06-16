@@ -29,6 +29,7 @@
   "aliases": {
     "tcbuild": "~/tc7200u-research/scripts/tcbuilder.sh",
     "tc": "~/tc7200u-research/scripts/tcbuilder.sh",
+    "tcserial": "~/tc7200u-research/scripts/tcbuilder.sh serial-console",
     "tcwrap": "~/tc7200u-research/scripts/tcbuilder.sh wrap",
     "tccheck": "~/tc7200u-research/scripts/tcbuilder.sh check",
     "tcverify": "~/tc7200u-research/scripts/tcbuilder.sh verify",

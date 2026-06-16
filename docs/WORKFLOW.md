@@ -108,6 +108,7 @@ entrypoint:
 ```sh
 alias tcbuild='~/tc7200u-research/scripts/tcbuilder.sh'
 alias tc='~/tc7200u-research/scripts/tcbuilder.sh'
+alias tcserial='~/tc7200u-research/scripts/tcbuilder.sh serial-console'
 alias tcwrap='~/tc7200u-research/scripts/tcbuilder.sh wrap'
 alias tccheck='~/tc7200u-research/scripts/tcbuilder.sh check'
 alias tcverify='~/tc7200u-research/scripts/tcbuilder.sh verify'

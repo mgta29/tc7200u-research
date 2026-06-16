@@ -80,6 +80,7 @@ Repo root:
 ## Normal Aliases
 
 - `tcbuild`: canonical helper entrypoint; opens the interactive menu in a TTY.
+- `tcserial`: shortcut for `tcbuild serial-console`.
 - `tcresearch`: enter the repo.
 - `tcstatus`: show git and helper status.
 - `tcwrap`: build/wrap/verify compatibility mode.
