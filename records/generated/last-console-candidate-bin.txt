@@ -1,1 +1,1 @@
-openwrt-rdinit-direct-procd-no-modules-20260616-025031.bin
+fresh-tc7200u-20260617-224158.bin

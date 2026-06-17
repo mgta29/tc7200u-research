@@ -1,0 +1,20 @@
+=== meta ===
+timestamp_local=2026-06-17 22:41:58 CEST
+cwd=/home/mgta29/tc7200u-research
+command=a825_wrap --input /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin --output /mnt/c/tftp/fresh-tc7200u-20260617-224158.bin --filename fresh-tc7200u-20260617-224158.bin --load-addr 0x82000000 --control 0x0000
+=== output ===
+payload_size=5688320
+output_size=5688412
+header_size=92
+filename=fresh-tc7200u-20260617-224158.bin
+control=0x0000
+major=0x0100
+minor=0x04ff
+load_addr=0x82000000
+build_time=0x6a330696
+crc32=0x00000000
+output=/mnt/c/tftp/fresh-tc7200u-20260617-224158.bin
+hcs=0x4c43
+
+=== exit ===
+exit_code=0
