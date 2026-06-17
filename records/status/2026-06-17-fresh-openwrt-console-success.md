@@ -4,11 +4,13 @@
 
 `fresh-tc7200u-20260617-224158.bin`
 
-## Build source
+## Result
 
-Fresh OpenWrt tree at `~/src/openwrt`.
+Fresh OpenWrt tree + fresh raw initramfs + fresh A825 ProgramStore wrapper booted successfully to interactive OpenWrt userspace console on Technicolor TC7200U.
 
-Raw initramfs:
+## Build proof
+
+Raw image:
 
 `~/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin`
 
@@ -16,9 +18,9 @@ Raw size:
 
 `5.5M`
 
-Wrapper:
+Wrapper output:
 
-Fresh A825 ProgramStore header, load address `0x82000000`, control `0x0000`.
+`C:\tftp\fresh-tc7200u-20260617-224158.bin`
 
 Wrapper verification:
 
@@ -26,52 +28,49 @@ Wrapper verification:
 
 ## Kernel config proof
 
-Built kernel config included:
+Built kernel config confirmed:
 
 - `CONFIG_DEVTMPFS=y`
 - `CONFIG_DEVTMPFS_MOUNT=y`
 - `CONFIG_BCM7120_L2_IRQ=y`
 - `CONFIG_TMPFS=y`
 
-## Serial boot proof
+## Runtime proof
 
-CFE requested and loaded the exact file:
+Device shell output confirmed:
 
-`fresh-tc7200u-20260617-224158.bin`
-
-CFE ProgramStore header reported:
-
-- Signature: `a825`
-- Control: `0000`
-- File Length: `5688320`
-- Load Address: `82000000`
-- Filename: `fresh-tc7200u-20260617-224158.bin`
-
-Boot reached:
-
-- `Executing Image 4`
-- `OpenWrt kernel loader for BMIPS`
-- `Linux version 6.12.93`
-- `MIPS: machine is Technicolor TC7200.U`
+- `/proc/cmdline`: `console=ttyS0,115200 earlycon`
+- `uname -a`: `Linux OpenWrt 6.12.93 #0 SMP Tue Jun 16 18:36:39 2026 mips GNU/Linux`
 - `earlycon: bcm63xx_uart0 at MMIO 0x14e00500`
 - `Kernel command line: console=ttyS0,115200 earlycon`
 - `irq_bcm7120_l2: registered BCM3380 L2 intc`
 - `14e00500.serial: ttyS0 at MMIO 0x14e00500`
 - `Run /init as init process`
-- `init: Console is alive`
+- `kmodloader: done loading kernel modules from /etc/modules-boot.d/*`
+- `procd: - early -`
+- `procd: - ubus -`
 - `procd: - init -`
-- `Please press Enter to activate this console.`
-- `root@OpenWrt:~#`
+- `kmodloader: done loading kernel modules from /etc/modules.d/*`
 
-## Result
+## Mount proof
 
-This is the first confirmed fresh-tree, fresh-wrapper, full userspace console boot for the TC7200U path.
+Root filesystem is initramfs/tmpfs:
 
-## Remaining issue
+- `tmpfs on / type tmpfs`
+- `proc on /proc`
+- `sysfs on /sys`
+- `tmpfs on /tmp`
+- `tmpfs on /dev`
 
-NAND still does not probe:
+## Current limitations
+
+`ip link` only shows loopback:
+
+- Ethernet/GENET/GMAC is not active in this fresh baseline.
+
+NAND still fails:
 
 - `bcm6368_nand 14e02200.nand: timeout waiting for command 0x9`
 - `nand: No NAND device found`
 
-This does not block initramfs console and should be tracked separately.
+Serial input overrun warnings appeared during pasted commands, but they did not affect boot success.
