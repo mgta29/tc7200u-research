@@ -74,3 +74,25 @@ NAND still fails:
 - `nand: No NAND device found`
 
 Serial input overrun warnings appeared during pasted commands, but they did not affect boot success.
+
+## OpenWrt release proof
+
+Runtime `/etc/openwrt_release` confirmed:
+
+- `DISTRIB_ID='OpenWrt'`
+- `DISTRIB_RELEASE='SNAPSHOT'`
+- `DISTRIB_REVISION='r34962-d6f5c2685f'`
+- `DISTRIB_TARGET='bmips/bcm63268'`
+- `DISTRIB_ARCH='mips_mips32'`
+- `DISTRIB_DESCRIPTION='OpenWrt SNAPSHOT r34962-d6f5c2685f'`
+- `DISTRIB_TAINTS='no-all'`
+
+## jshn/libubox corruption check
+
+Runtime hexdump of `/usr/share/libubox/jshn.sh` is clean ASCII text:
+
+- starts with `# functions for parsing and generating json`
+- no leading `00 00 00 01` corruption pattern
+- previous `jshn.sh` corruption is not present in the fresh build
+
+This confirms the fresh OpenWrt tree/build path removed the earlier userspace file corruption symptom.
