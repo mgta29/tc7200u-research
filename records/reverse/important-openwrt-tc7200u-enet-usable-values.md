@@ -266,6 +266,121 @@ Recommended next bring-up checks:
    - `0x00030000` for nonzero core/interface
 5. Log `0x14e001c4`, `0x14e00002`, and `0x14e00264` during early Ethernet init for board/profile gating evidence.
 
+## Runtime control pass: 2026-06-17/18 OpenWrt status comparison
+
+This section folds the current OpenWrt runtime status notes into the maintained ENET carry note:
+
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\status\2026-06-17-fresh-openwrt-console-success.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\status\2026-06-18-devmem-fpm-genet-baseline.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\status\2026-06-18-genet-fixedlink-probe-watchdog.md`
+
+### Runtime result now proven
+
+The OpenWrt image has moved past the old bring-up blockers:
+
+- fresh initramfs boots to an interactive OpenWrt userspace console
+- `CONFIG_BCMGENET=y`, `CONFIG_PHYLIB=y`, `CONFIG_FIXED_PHY=y`, `CONFIG_DEVMEM=y`, and `CONFIG_BCM7120_L2_IRQ=y` are present in the tested image
+- DTS has `ethernet@12c00000`, `compatible = "brcm,genet-v1"`, `reg = <0x12c00000 0x4000>`, `interrupts = <16>, <17>`, `phy-mode = "rgmii"`, and fixed-link 1000/full
+- BCMGENET binds and creates `eth0`
+- fixed-link reports link up at `1Gbps/Full`
+- IRQs `16` and `17` are allocated to `eth0`
+
+Current runtime failure:
+
+- `NETDEV WATCHDOG` fires on transmit queue `0`
+- `tx_packets = 10`, `tx_errors = 8`, `rx_packets = 0`
+- IRQ counts for `eth0` IRQs `16` and `17` stay at `0` during the watchdog window
+- the current blocker is TX DMA, completion, interrupt, or MBDMA/FPM integration, not basic kernel boot, driver binding, fixed-link, or IRQ allocation
+
+### Runtime GENET/MBDMA comparison
+
+The live OpenWrt `devmem` and post-probe snapshots show all sampled GENET/MBDMA registers still reading `0x00000001`:
+
+- `0x12c00004 = 0x00000001`
+- `0x12c00008 = 0x00000001`
+- `0x12c0000c = 0x00000001`
+- `0x12c00010 = 0x00000001`
+- `0x12c00040 = 0x00000001`
+- `0x12c00044 = 0x00000001`
+- `0x12c00048 = 0x00000001`
+- `0x12c0004c = 0x00000001`
+- `0x12c00050 = 0x00000001`
+- `0x12c00054 = 0x00000001`
+- `0x12c00058 = 0x00000001`
+- `0x12c00070 = 0x00000001`
+
+These runtime values do not match the OEM-derived GENET/MBDMA expectations carried in this note:
+
+- `0x12c00004 = (old & 0xffffe000) | 0x9010`
+- `0x12c00044 = 0x02020202`
+- `0x12c00048 = 0x0000000f`
+- `0x12c0004c = 0x12200218`
+- `0x12c00050 = 0x12200210`
+- `0x12c00054 = 0x12200208`
+- `0x12c00058 = 0x12200200`
+- `0x12c00008 = 0x12200200`
+- `0x12c00010 = aligned_fpm_ddr_backing_base & 0x1fffffff`
+- `0x12c00070` should show selected-core enable behavior, currently carried as `0x00000003` or `0x00030000`
+
+Interpretation:
+
+- this is a live OpenWrt mismatch against the reverse-derived control set
+- it supports the current hypothesis that the stock BCMGENET path is not yet reproducing TC7200U-specific MBDMA/FPM setup
+- do not reinterpret the OEM expected values downward to `0x00000001`; treat `0x00000001` as the current failing OpenWrt runtime observation
+
+### Runtime FPM and MDIO comparison
+
+The runtime FPM reads are nonzero and prove that the FPM address space is readable:
+
+- `0x12200010 = 0x00000000`
+- `0x12200014 = 0x00000001`
+- `0x12200040 = 0x06000000`
+- `0x12200044 = 0x00010000`
+- `0x12200050 = 0x00000000`
+- `0x12200054 = 0x18007F10`
+- `0x12200058 = 0x00000000`
+- `0x1220005c = 0x00000000`
+- `0x12200200 = 0x80130800`
+- `0x12200208 = 0x90064400`
+- `0x12200210 = 0xA01B8200`
+- `0x12200218 = 0xB01C4100`
+
+Interpretation:
+
+- FPM space is accessible from OpenWrt
+- the values at `0x12200200/208/210/218` should be treated as live endpoint or token-like reads, not as fixed expected constants
+- the important mismatch is that the GENET/MBDMA registers which should be programmed from FPM-derived addresses still read `0x00000001`
+
+The runtime MDIO baseline reads all sampled MDIO offsets as `0x0010`:
+
+- `0x12c0062c/2e/30/32 = 0x0010`
+- `0x12c0262c/2e/30/32 = 0x0010`
+
+Interpretation:
+
+- this does not invalidate the MDIO offset layout in this note
+- it only shows that the current OpenWrt runtime is not yet producing useful OEM-like MDIO command activity through those registers
+
+### Updated next action
+
+The status-backed next action is to instrument the BCMGENET TX and DMA path before applying broad old GMAC-init or switch/B53/MDIO patches.
+
+Recommended order:
+
+1. Apply the BCMGENET transmit descriptor debug patch.
+2. Apply the BCMGENET TX poll/completion debug patch.
+3. Rebuild and boot a debug initramfs.
+4. Bring `eth0` up once and capture one TX watchdog.
+5. Capture dmesg for GENET, TX, DMA, IRQ, and debug lines.
+6. Capture `/proc/interrupts` during the watchdog window.
+7. Compare what BCMGENET actually programs against the short control set in this note.
+
+Do not apply the old GMAC-init patch until the debug patches show whether BCMGENET is programming the TC7200U MBDMA/FPM-facing registers at all.
+
+Recorded modification:
+
+- 2026-06-19: folded the June 17/18 OpenWrt runtime status notes into this maintained carry note and recorded the current live mismatch between OpenWrt `0x00000001` GENET/MBDMA reads and the OEM-derived MBDMA/FPM expected values.
+
 ## Source notes
 
 Derived from:
@@ -285,6 +400,7 @@ Derived from:
 - `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-15-stage1-signal-object-path-dispatch-log.md`
 - `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-15-stage1-signal-object-type2-dispatcher-path.md`
 - `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-15-stage1-timeout-select-wait-reverse-log.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-16-stage1-socket-object-type2-setsockopt.md`
 
 ## Preservation
 
@@ -393,6 +509,95 @@ Practical implication:
   - `g_stage1_timeout_sec_to_ticks_scale_table_81a6ba90_candidate`
 - keep these as reverse-side correlation aids only
 - do not convert those software values into direct Linux MMIO constants
+
+## Fourteenth-pass Stage1 socket-object and type2 socket-option correlation values
+
+This section was added after rereading:
+
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-16-stage1-socket-object-type2-setsockopt.md`
+
+### When to use this set
+
+Use this fourteenth-pass set only after the earlier signal-object and select-wait layer already looks OEM-like, but Stage1 socket-provider object creation, option setup, or close/cleanup behavior still diverges.
+
+### Fourteenth-pass software values for correlation only
+
+Do not hardcode these into Linux. Use them only to correlate OEM runtime behavior:
+
+- socket-object vtable:
+  - `0x81825d98`
+- socket object helper functions:
+  - `808381b4`
+  - `808381f4`
+  - `808385f4`
+- type2 socket-option dispatch helpers:
+  - `80ef80a8`
+  - `80ef81ac`
+- socket-option helper candidates:
+  - `8006111c`
+  - `800611b0`
+
+### Current best meanings
+
+- `808381f4` is the Stage1 socket-object create/configure helper:
+  - it creates a Stage1 signal-object/provider handle through the provider-table path
+  - it stores that handle at `stage1_socket_object_candidate +0x04`
+  - it saves hidden incoming `t0` at `+0x0c` as create flags or option input
+  - it stores the boot-context/base pointer at `+0x10` on success
+- `80ef80a8` is now better treated as a type2 setsockopt-like dispatcher in the socket provider path:
+  - normal arguments carry handle, level, option name, and option-value pointer
+  - hidden incoming `t0` carries option length
+- observed socket-option calls include:
+  - `level 0xffff`, normalized option, optlen `4`
+  - `level 0x29`, option `0x2e`, optlen `0x14`
+  - `level 0xffff`, option `0x04`, optlen `4`
+  - `level 0`, option `0x13`, optlen `4`
+  - `level 0x29`, option `0x0e`, optlen `4`
+- `808385f4` is the Stage1 socket-object close/cleanup helper:
+  - it calls vtable `+0x38` with `level 0xffff`, option `0x1008`, and hidden `t0 = &optlen`
+  - it closes the Stage1 signal-object handle through the close-index path
+  - it clears `stage1_socket_object_candidate +0x04`
+- `808381b4` is the socket-object destroy/free wrapper:
+  - it restores the vtable at `+0x00` to `0x81825d98`
+  - it runs close/cleanup and then frees the object
+
+### What not to hardcode yet
+
+Do not hardcode these as final Linux semantics yet:
+
+- `0x81825d98` as hardware state or an MMIO register
+- the socket-object vtable layout as a Linux driver interface
+- hidden `t0` values as normal C arguments without explicitly modeling the nonstandard register input
+- the exact public meaning of option `0x1008`, `8006111c`, or `800611b0` before those helper bodies are opened
+
+### Updated OpenWrt development meaning
+
+Current best staged model for the TC7200U port:
+
+- stage 1: FPM allocator/backing-base values must look right
+- stage 2: GENET/MBDMA endpoint and control values must look right
+- stage 3: DQM/CP2 queue control, mailbox, per-queue pull programming, and queue-policy state must look right
+- stage 4: DQM mailbox command handling, queue-profile writes, slot commit, and CP2/FPM service plumbing must look right
+- stage 5: the `0x01800008` event path, selector dispatch, request-block programming, and size-selected FPM request/return behavior must look right
+- stage 6: selector lookup/context initialization, preload-port state, and selector-derived `b604` command-table setup must look right
+- stage 7: request-engine submit/finalize flow, selector-gate publish behavior, and mode-specific sideband output lanes must look right
+- stage 8: alternate `0x80c8` runtime-family registration/activation writes, selector-output gating, and alias-window output paths must look right
+- stage 9: runtime-family selection and request-model behavior must look right
+- stage 10: if traffic still stalls, Host-DQM selector register blocks, dispatch-table mapping, and Stage1 event-slot wake behavior become the next most likely missing OEM-specific layer
+- stage 11: if the stage-10 event-slot layer already looks OEM-like, current-context ownership, thread-record linkage, per-thread pending or blocked signal/work masks, and worker exit/join lifecycle become the next software correlation layer
+- stage 12: if the stage-11 layer already looks OEM-like, readyq ownership, PI restore/requeue behavior, timeout object state, same-bucket timeslice rotation, and static idle context setup become the next software correlation layer
+- stage 13: if the stage-12 layer already looks OEM-like, signal-object table state, provider/type2 callback dispatch, select-wait generation flow, and timeout-to-ticks conversion become the next software correlation layer
+- stage 14: if the stage-13 layer already looks OEM-like, socket-object wrapper state, type2 setsockopt/getsockopt dispatch, and socket close/cleanup behavior become the next software correlation layer
+
+Practical implication:
+
+- if the missing OpenWrt behavior appears only after the OEM path has reached the Stage1 socket-provider abstraction, compare whether equivalent follow-through exists for:
+  - `stage1_socket_object_candidate +0x04/+0x0c/+0x10`
+  - `g_stage1_socket_object_vtable_81825d98_candidate`
+  - `fn_stage1_signal_object_type2_setsockopt_t0_dispatch_80ef80a8`
+  - `stage1_signal_object_type2_ops_candidate +0x1c`
+- keep these as reverse-side software correlation aids only
+- do not convert these values into direct Linux MMIO constants
 
 ### Control values worth comparing directly in OpenWrt
 

@@ -1,0 +1,30 @@
+--- drivers/net/ethernet/broadcom/genet/bcmgenet.c
++++ drivers/net/ethernet/broadcom/genet/bcmgenet.c
+@@ -3576,20 +3611,25 @@
+ 
+ 	netif_dbg(priv, tx_err, dev, "bcmgenet_timeout\n");
+ 
++	tc7200u_genet_tx_timeout_dump(dev, "before_reclaim");
++
+ 	for (q = 0; q < priv->hw_params->tx_queues; q++)
+ 		bcmgenet_dump_tx_queue(&priv->tx_rings[q]);
+ 	bcmgenet_dump_tx_queue(&priv->tx_rings[DESC_INDEX]);
+ 
+ 	bcmgenet_tx_reclaim_all(dev);
+ 
++	tc7200u_genet_tx_timeout_dump(dev, "after_reclaim");
++
+ 	for (q = 0; q < priv->hw_params->tx_queues; q++)
+ 		int1_enable |= (1 << q);
+ 
+ 	int0_enable = UMAC_IRQ_TXDMA_DONE;
+ 
+ 	/* Re-enable TX interrupts if disabled */
+-	bcmgenet_intrl2_0_writel(priv, int0_enable, INTRL2_CPU_MASK_CLEAR);
+-	bcmgenet_intrl2_1_writel(priv, int1_enable, INTRL2_CPU_MASK_CLEAR);
++	/* TC7200.U TXPOLL: do not re-enable GENET TX interrupts; parent IRQ caused storm. */
++	/* bcmgenet_intrl2_0_writel(priv, int0_enable, INTRL2_CPU_MASK_CLEAR); */
++	/* bcmgenet_intrl2_1_writel(priv, int1_enable, INTRL2_CPU_MASK_CLEAR); */
+ 
+ 	netif_trans_update(dev);
+ 

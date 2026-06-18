@@ -1,1 +1,1 @@
-fresh-tc7200u-20260617-224158.bin
+fresh-genet-fixedlink-20260618-231923.bin

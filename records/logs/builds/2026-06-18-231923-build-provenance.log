@@ -1,0 +1,98 @@
+
+== meta ==
+mode=auto
+script=./scripts/tcbuilder.sh
+ts=2026-06-18-231923
+research=/home/mgta29/tc7200u-research
+notes_dir=/home/mgta29/tc7200u-research/records/generated
+build_log_base=/home/mgta29/tc7200u-research/records/logs/builds
+
+== build context ==
+timestamp_local=2026-06-18 23:19:23 CEST
+owrt=/home/mgta29/src/openwrt
+raw_expected=/home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin
+source_image=/home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin
+preserve_from=
+wrap_load_addr=0x82000000
+request_name=fresh-genet-fixedlink-20260618-231923.bin
+result_name=fresh-genet-fixedlink-20260618-231923.bin
+wrapped_output=/mnt/c/tftp/fresh-genet-fixedlink-20260618-231923.bin
+build_mode=auto
+patch_precheck=1
+fresh_header=1
+wrap_control=0x0000
+wrap_major=
+wrap_minor=
+wrap_build_time=
+wrap_crc32=
+jobs=16
+openwrt_config=/home/mgta29/src/openwrt/.config
+openwrt_target_lines_begin
+  CONFIG_TARGET_bmips=y
+  CONFIG_TARGET_bmips_bcm63268=y
+  CONFIG_TARGET_bmips_bcm63268_DEVICE_technicolor_tc7200u=y
+  CONFIG_TARGET_BOARD="bmips"
+  CONFIG_TARGET_SUBTARGET="bcm63268"
+  CONFIG_TARGET_PROFILE="DEVICE_technicolor_tc7200u"
+  CONFIG_TARGET_ARCH_PACKAGES="mips_mips32"
+  CONFIG_TARGET_ROOTFS_INITRAMFS=y
+  CONFIG_TARGET_INITRAMFS_COMPRESSION_NONE=y
+  CONFIG_TARGET_ROOTFS_SQUASHFS=y
+  CONFIG_TARGET_SQUASHFS_BLOCK_SIZE=256
+  CONFIG_TARGET_SQUASHFS_BLOCK_READERS=4
+  CONFIG_TARGET_SQUASHFS_SMALL_READERS=4
+  CONFIG_TARGET_UBIFS_FREE_SPACE_FIXUP=y
+  CONFIG_TARGET_UBIFS_JOURNAL_SIZE=""
+  CONFIG_TARGET_ROOTFS_DIR=""
+  CONFIG_TARGET_OPTIMIZATION="-Os -pipe -mno-branch-likely -mips32 -mtune=mips32"
+  CONFIG_TARGET_SUFFIX="musl"
+  CONFIG_TARGET_PREINIT_SUPPRESS_STDERR=y
+  CONFIG_TARGET_PREINIT_TIMEOUT=4
+  CONFIG_TARGET_PREINIT_IFNAME=""
+  CONFIG_TARGET_PREINIT_IP="192.168.1.1"
+  CONFIG_TARGET_PREINIT_NETMASK="255.255.255.0"
+  CONFIG_TARGET_PREINIT_BROADCAST="192.168.1.255"
+  CONFIG_TARGET_INIT_PATH="/usr/sbin:/usr/bin:/sbin:/bin"
+  CONFIG_TARGET_INIT_ENV=""
+  CONFIG_TARGET_INIT_CMD="/sbin/init"
+  CONFIG_TARGET_INIT_SUPPRESS_STDERR=y
+openwrt_target_lines_end
+initramfs_candidates_begin
+  /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin
+initramfs_candidates_end
+recent_make_logs_begin
+  /home/mgta29/tc7200u-research/records/logs/builds/2026-06-17-092707-fresh-openwrt-target-linux-install-j1.log
+  /home/mgta29/tc7200u-research/records/logs/builds/2026-06-15-232607-target-linux-install.log
+  /home/mgta29/tc7200u-research/records/logs/builds/2026-06-15-231307-target-linux-install.log
+  /home/mgta29/tc7200u-research/records/logs/builds/tc7200u-console-fix-l2-nandoff-target-linux-clean-20260614-204018.log
+  /home/mgta29/tc7200u-research/records/logs/builds/tc7200u-clean-disable-nand-target-linux-install-20260614-201216.log
+  /home/mgta29/tc7200u-research/records/logs/builds/tc7200u-clean-disable-nand-target-linux-compile-20260614-201204.log
+  /home/mgta29/tc7200u-research/records/logs/builds/tc7200u-staged-repro-target-linux-install-20260614-192948.log
+  /home/mgta29/tc7200u-research/records/logs/builds/tc7200u-staged-repro-target-linux-compile-20260614-192743.log
+  /home/mgta29/tc7200u-research/records/logs/builds/tc7200u-staged-repro-target-linux-clean-20260614-192717.log
+  /home/mgta29/tc7200u-research/records/logs/builds/tc7200u-rdinit-sh-openwrt-target-linux-install-20260614-182355.log
+recent_make_logs_end
+
+== flow ==
+path=source-image
+why=custom source image provided; openwrt make skipped
+wrap_load_addr_effective=0x82000000
+fresh_header_effective=1
+wrap_control_effective=0x0000
+command_log=/home/mgta29/tc7200u-research/records/logs/builds/2026-06-18-231923-wrap.log
+command=a825_wrap --input /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin --output /mnt/c/tftp/fresh-genet-fixedlink-20260618-231923.bin --filename fresh-genet-fixedlink-20260618-231923.bin --load-addr 0x82000000 --control 0x0000
+exit_code=0
+command_log=/home/mgta29/tc7200u-research/records/logs/builds/2026-06-18-231923-verify.log
+command=a825_verify --raw /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin --wrapped /mnt/c/tftp/fresh-genet-fixedlink-20260618-231923.bin --expect-load 0x82000000 --expect-name fresh-genet-fixedlink-20260618-231923.bin --expect-signature 0xa825
+exit_code=0
+
+== outputs ==
+raw=/home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin
+wrapped=/mnt/c/tftp/fresh-genet-fixedlink-20260618-231923.bin
+wrap_log=/home/mgta29/tc7200u-research/records/logs/builds/2026-06-18-231923-wrap.log
+verify_log=/home/mgta29/tc7200u-research/records/logs/builds/2026-06-18-231923-verify.log
+raw_sha256=978b15d376ada0ac4a300f294a8939ad395038c656566c583edbe855952332db
+wrapped_sha256=235d5806b610da90eb39ee430551b62f018942b21419790184711419484401a5
+result=ok
+ready_for_tftp_request=fresh-genet-fixedlink-20260618-231923.bin
+served_file=C:\tftp\fresh-genet-fixedlink-20260618-231923.bin

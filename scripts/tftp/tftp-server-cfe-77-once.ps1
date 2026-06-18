@@ -9,7 +9,7 @@ param(
   [string]$NameMap = "",
   [string]$RequestName = "",
   [string]$ResultName = "",
-  [bool]$UseTransferPort = $true,
+  [bool]$UseTransferPort = $false,
   [int]$ProgressIntervalBlocks = 2048,
   [bool]$EnableOptionAck = $true,
   [int]$MaxBlksize = 1428,
@@ -98,6 +98,21 @@ function Send-TftpOack($sock, $remote, [System.Collections.IDictionary]$options)
   }
 
   Send-UdpPacket $sock $remote $pkt $pkt.Length
+}
+
+function Use-ListenerTransferSocket($listenerSock, $currentSock, $remote, [string]$bindIp, [string]$reason) {
+  Write-Host $reason
+
+  if (($null -ne $currentSock) -and ($currentSock -ne $listenerSock)) {
+    try {
+      $currentSock.Close()
+    } catch {}
+  }
+
+  $listenerSock.Connect($remote)
+  $listenerLocal = [Net.IPEndPoint]$listenerSock.Client.LocalEndPoint
+  Write-Host "Transfer session fallback ${bindIp}:$($listenerLocal.Port) -> $($remote.Address):$($remote.Port)"
+  return $listenerSock
 }
 
 function Ensure-TftpFastTransferType {
@@ -456,6 +471,8 @@ if ($useNameMap) {
 }
 if ($UseTransferPort) {
   Write-Host "Dedicated transfer socket enabled."
+} else {
+  Write-Host "Using listener socket for data transfer (port 69)."
 }
 Write-Host "Waiting for RRQ..."
 
@@ -519,6 +536,7 @@ while ($true) {
   $data = [IO.File]::ReadAllBytes($path)
   $xferSock = $null
   $xferOwnsSocket = $false
+  $sessionUsedListenerFallback = $false
 
   try {
     if ($UseTransferPort) {
@@ -581,25 +599,47 @@ while ($true) {
       }
     }
 
+    $runClassicTransfer = -not $UseFastTransferLoop
+
     if ($UseFastTransferLoop) {
-      $result = [TftpFastTransferLoop]::SendFile($xferSock.Client, $data, $blockSize, $MaxRetries, $ProgressIntervalBlocks)
-      foreach ($progressBlock in $result.ProgressBlocks) {
-        Write-Host "sent block $progressBlock"
+      try {
+        $result = [TftpFastTransferLoop]::SendFile($xferSock.Client, $data, $blockSize, $MaxRetries, $ProgressIntervalBlocks)
+        foreach ($progressBlock in $result.ProgressBlocks) {
+          Write-Host "sent block $progressBlock"
+        }
+        if ($result.LowByteAckCount -gt 0) {
+          Write-Host "Accepted low-byte ACK count: $($result.LowByteAckCount)"
+        }
+        $elapsedSeconds = [Math]::Max(0.001, ($result.ElapsedMilliseconds / 1000.0))
+        $rateKiB = [Math]::Round(($data.Length / 1KB) / $elapsedSeconds, 1)
+        Write-Host "TFTP complete: sent $($data.Length) bytes in $([Math]::Round($elapsedSeconds, 3))s (~${rateKiB} KiB/s), block_size=$blockSize final block $($result.FinalBlock)"
+      } catch {
+        $fastLoopError = $_.Exception.Message
+        if ($fastLoopError -match 'block 1') {
+          if ($UseTransferPort -and $xferOwnsSocket) {
+            $xferSock = Use-ListenerTransferSocket $sock $xferSock $remote $BindIP "Fast transfer loop failed before first ACK ($fastLoopError); retrying same RRQ over listener port 69"
+            $xferOwnsSocket = $false
+            $sessionUsedListenerFallback = $true
+          } else {
+            Write-Host "Fast transfer loop failed before first ACK ($fastLoopError); retrying with classic PowerShell loop"
+          }
+          $runClassicTransfer = $true
+        } else {
+          throw
+        }
       }
-      if ($result.LowByteAckCount -gt 0) {
-        Write-Host "Accepted low-byte ACK count: $($result.LowByteAckCount)"
-      }
-      $elapsedSeconds = [Math]::Max(0.001, ($result.ElapsedMilliseconds / 1000.0))
-      $rateKiB = [Math]::Round(($data.Length / 1KB) / $elapsedSeconds, 1)
-      Write-Host "TFTP complete: sent $($data.Length) bytes in $([Math]::Round($elapsedSeconds, 3))s (~${rateKiB} KiB/s), block_size=$blockSize final block $($result.FinalBlock)"
-    } else {
+    }
+
+    if ($runClassicTransfer) {
       $offset = 0
       $block = 1
       $done = $false
       $retries = 0
       $transferStart = Get-Date
+      $restartCurrentBlock = $false
 
       while (-not $done) {
+        $restartCurrentBlock = $false
         $remaining = $data.Length - $offset
         $chunkLen = [Math]::Min($blockSize, [Math]::Max(0, $remaining))
         Build-TftpDataPacket $dataPacket $block $data $offset $chunkLen
@@ -617,6 +657,14 @@ while ($true) {
           } catch {
             $retries++
             if ($retries -gt $MaxRetries) {
+              if (($block -eq 1) -and $UseTransferPort -and $xferOwnsSocket -and (-not $sessionUsedListenerFallback)) {
+                $xferSock = Use-ListenerTransferSocket $sock $xferSock $remote $BindIP "Retry limit exceeded on block 1 over dedicated transfer port; retrying same RRQ over listener port 69"
+                $xferOwnsSocket = $false
+                $sessionUsedListenerFallback = $true
+                $retries = 0
+                $restartCurrentBlock = $true
+                break
+              }
               Write-Host "Retry limit exceeded on block $block"
               $done = $true
               break
@@ -675,6 +723,10 @@ while ($true) {
           } else {
             Write-Host "Ignore ACK blk=$ackBlock while waiting for block $block low=$lowByte"
           }
+        }
+
+        if ($restartCurrentBlock) {
+          continue
         }
       }
     }

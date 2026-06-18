@@ -24,6 +24,7 @@ This reference currently carries layouts from:
 - `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-15-stage1-signal-object-path-dispatch-log.md`
 - `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-15-stage1-signal-object-type2-dispatcher-path.md`
 - `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-15-stage1-timeout-select-wait-reverse-log.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-16-stage1-socket-object-type2-setsockopt.md`
 
 ## Notes
 
@@ -406,9 +407,9 @@ typedef struct stage1_signal_object_type2_ops_candidate {
     int (*clone_callback_08)(stage1_signal_object_candidate *, stage1_signal_object_candidate *, undefined4, undefined4);
     int (*callback_0c_candidate)(stage1_signal_object_candidate *, char *);
     int (*callback_10_candidate)(stage1_signal_object_candidate *, char *, int *, uint);
-    undefined4 field_14_candidate;
+    int (*callback_14_candidate)(stage1_signal_object_candidate *, char *);
     int (*callback_18_t0_candidate)(stage1_signal_object_candidate *, char *, int *, undefined4);
-    undefined4 field_1c_candidate;
+    int (*setsockopt_t0_callback_1c_candidate)(stage1_signal_object_candidate *, int, int, void *);
     int (*callback_20_out_candidate)(stage1_signal_object_candidate *, void *, void *, int *);
     int (*callback_24_out_candidate)(stage1_signal_object_candidate *, undefined1 *, undefined4, int *);
 } stage1_signal_object_type2_ops_candidate; /* size at least 0x28 */
@@ -454,6 +455,27 @@ typedef struct stage1_timeval32_candidate {
     int tv_sec_00;
     int tv_usec_04;
 } stage1_timeval32_candidate; /* size 0x08 */
+
+typedef struct stage1_socket_object_candidate stage1_socket_object_candidate;
+typedef struct stage1_socket_object_vtable_candidate stage1_socket_object_vtable_candidate;
+
+typedef struct stage1_socket_object_candidate {
+    stage1_socket_object_vtable_candidate *vtable_00;
+    uint signal_index_or_socket_handle_04;
+    undefined4 field_08;
+    uint create_flags_or_t0_0c_candidate;
+    undefined4 boot_context_base_10_candidate;
+} stage1_socket_object_candidate; /* size at least 0x14 */
+
+typedef struct stage1_socket_object_vtable_candidate {
+    undefined4 field_00;
+    undefined4 field_04;
+    undefined4 field_08;
+    undefined4 field_0c;
+    void (*close_or_reset_10_candidate)(stage1_socket_object_candidate *);
+    undefined1 pad_14[0x24];
+    int (*getsockopt_t0_method_38_candidate)(stage1_socket_object_candidate *, int, int, void *);
+} stage1_socket_object_vtable_candidate; /* size at least 0x3c */
 ```
 
 Notes:
@@ -462,6 +484,9 @@ Notes:
 - `stage1_signal_object_candidate +0x18` is a type2 ops table when `type_or_mode_06_candidate == 2`.
 - `stage1_signal_object_candidate +0x1c` must remain broad as `provider_or_related_entry_1c_candidate`, because one creation path stores a provider entry there while earlier notes tied it too narrowly to the related-object path.
 - `stage1_signal_ops_or_class_candidate +0x10` is now strong enough to carry as the select or wait readiness-test callback slot.
+- `stage1_signal_object_type2_ops_candidate +0x1c` is now socket-provider-aware as `setsockopt_t0_callback_1c_candidate`; hidden incoming `t0` is the option length in the observed socket path.
+- `stage1_socket_object_candidate +0x04` is the Stage1 signal-object index or socket handle created by the provider-table path.
+- `stage1_socket_object_vtable_candidate +0x38` is getsockopt-like in the close/cleanup path; hidden incoming `t0` is an option-length pointer.
 - `stage1_timeout_scale_table_candidate` stays intentionally generic; the current carry only proves its role in the timeout-to-ticks conversion tables at `0x81a6ba70` and `0x81a6ba90`.
 
 ### Additional screenshot-derived structures
@@ -530,10 +555,10 @@ This reference currently carries:
 - 4 Host-DQM structures
 - 2 Stage1 event-slot structures
 - 19 Stage1 scheduler and wake-chain structures
-- 12 Stage1 signal-object, related-object, and timeout-conversion structures
+- 14 Stage1 signal-object, related-object, socket-object, and timeout-conversion structures
 - 3 additional synchronization or semaphore structures
 
-Total current carried structures: `45`
+Total current carried structures: `47`
 
 ## Header cross-check
 
@@ -553,6 +578,12 @@ Cross-checks against `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\tools\
   - `stage1_signal_object_type2_callback_24_request_candidate`
   - `stage1_timeout_scale_table_candidate`
   - `stage1_timeval32_candidate`
+- the live export also confirms the June 16 socket-object carry set:
+  - `stage1_socket_object_candidate`
+  - `stage1_socket_object_vtable_candidate`
+  - `stage1_signal_object_type2_ops_candidate +0x14` as `callback_14_candidate`
+  - `stage1_signal_object_type2_ops_candidate +0x1c` as `setsockopt_t0_callback_1c_candidate`
+- the carried `setsockopt_t0_callback_1c_candidate` signature uses the semantic socket-option argument types from the dated note; current header export still degrades some callback argument types
 - the live exports also strengthen several scheduler-side field interpretations:
   - `stage1_event_slot_candidate +0x04` as a waitq pointer
   - `stage1_context_candidate +0x28` as a double-pointer owner-list head reference
@@ -589,6 +620,7 @@ Recorded modifications worth keeping:
 - 2026-06-14: refined `stage1_context_candidate +0x24/+0x48` to `scheduler_timeslice_flag_24_candidate` and `base_readyq_bucket_48_candidate`
 - 2026-06-14: cross-checked the carried note against `tools/tc7200u_stage1_custom_structs.h` and recorded header-export degradations without replacing better carried semantics
 - 2026-06-16: added the June 15 signal-object, related-object, type2-dispatch, timeout-scale, and select-wait helper layouts, and raised the carried set to `45` structures
+- 2026-06-18: added the June 16 socket-object and socket-vtable layouts, refined the type2 ops `+0x14/+0x1c` slots, and raised the carried set to `47` structures
 
 ## Preservation
 

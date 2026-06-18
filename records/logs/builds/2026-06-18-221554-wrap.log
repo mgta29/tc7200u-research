@@ -1,0 +1,20 @@
+=== meta ===
+timestamp_local=2026-06-18 22:15:54 CEST
+cwd=/home/mgta29/tc7200u-research
+command=a825_wrap --input /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin --output /mnt/c/tftp/fresh-devmem-20260618-221554.bin --filename fresh-devmem-20260618-221554.bin --load-addr 0x82000000 --control 0x0000
+=== output ===
+payload_size=5688952
+output_size=5689044
+header_size=92
+filename=fresh-devmem-20260618-221554.bin
+control=0x0000
+major=0x0100
+minor=0x04ff
+load_addr=0x82000000
+build_time=0x6a3451fa
+crc32=0x00000000
+output=/mnt/c/tftp/fresh-devmem-20260618-221554.bin
+hcs=0x0756
+
+=== exit ===
+exit_code=0

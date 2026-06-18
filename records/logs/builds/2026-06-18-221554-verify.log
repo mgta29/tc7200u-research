@@ -1,0 +1,30 @@
+=== meta ===
+timestamp_local=2026-06-18 22:15:54 CEST
+cwd=/home/mgta29/tc7200u-research
+command=a825_verify --raw /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin --wrapped /mnt/c/tftp/fresh-devmem-20260618-221554.bin --expect-load 0x82000000 --expect-name fresh-devmem-20260618-221554.bin --expect-signature 0xa825
+=== output ===
+raw=/home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin
+wrapped=/mnt/c/tftp/fresh-devmem-20260618-221554.bin
+raw_size=5688952
+wrapped_size=5689044
+signature=0xa825
+expected_signature=0xa825
+control=0x0000
+major=0x0100
+minor=0x04ff
+build_time=0x6a3451fa
+file_length=5688952
+load_address=0x82000000
+filename=fresh-devmem-20260618-221554.bin
+expected_name=fresh-devmem-20260618-221554.bin
+hcs=0x0756
+expected_hcs=0x0756
+crc=0x00000000
+size_ok=True
+raw_sha256=24dfad6c01fd4d1a8676bfa34f682041053404eb2d6357c4d4010191817f15e7
+wrapped_sha256=cd962a9d6cc56ebb369c32ddd13133cf6ea26f3fae87945b094c5c6a91417489
+
+OK: wrapped image matches raw payload and expected header fields
+
+=== exit ===
+exit_code=0
