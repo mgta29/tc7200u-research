@@ -1,0 +1,65 @@
+€d
+-ash: €d: not found
+root@OpenWrt:~# cat /proc/cmdline
+console=ttyS0,115200 earlycon
+root@OpenWrt:~# uname -a
+Linux OpenWrt 6.12.93 #0 SMP Tue Jun 16 18:36:39 2026 mips GNU/Linux
+root@OpenWrt:~# [  757.601390] ttyS ttyS0: 1 input overrun(s)
+dmesg | grep -E 'Linux version|Kernel command line|earlycon|ttyS
+0|irq_bcm7120_l2|Run /init|procd|kmodlops|SIGSEGV|Bus error|jshn'[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[1A[79C[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[  766.983555] ttyS ttyS0: 1 input overrun(s)
+dmesg | grep -E 'Linux versionKe|earlycon|ttyS0|irq_bcm7120_l2|R
+un /init|procd|kmodloader|nand|panic|Oops|SIGSEGV|Bus error|jshn'[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[1A[79C[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[Jdmesg | grep -E 'Linux version|Kernel command line|earlycon|ttyS
+0|irq_bcm7120_l2|Run /init|procd|kmodloader|nand|panic|Oops|SIGSEGV|Bus error|js
+hn'
+[    0.000000] Linux version 6.12.93 (mgta29@CerberusNB) (mips-openwrt-linux-musl-gcc (OpenWrt GCC 14.3.0 r34962-d6f5c2685f) 14.3.0, GNU ld (GNU Binutils) 2.44) #0 SMP Tue Jun 16 18:36:39 2026
+[    0.000000] earlycon: bcm63xx_uart0 at MMIO 0x14e00500 (options '')
+[    0.000000] Kernel command line: console=ttyS0,115200 earlycon
+[   19.479940] irq_bcm7120_l2: registered BCM3380 L2 intc (/ubus/periph_intc@14e00048, parent IRQ(s): 1)
+[   19.524495] irq_bcm7120_l2: registered BCM3380 L2 intc (/ubus/cmips_intc@151f8048, parent IRQ(s): 1)
+[   19.570870] irq_bcm7120_l2: registered BCM3380 L2 intc (/ubus/iop_intc@14e00050, parent IRQ(s): 1)
+[   20.640934] 14e00500.serial: ttyS0 at MMIO 0x14e00500 (irq = 8, base_baud = 1687500) is a bcm63xx_uart
+[   20.657193] printk: legacy console [ttyS0] enabled
+[   21.835139] bcm6368_nand 14e02200.nand: timeout waiting for command 0x9
+[   21.846433] bcm6368_nand 14e02200.nand: intfc status f0000000
+[   21.856173] nand: No NAND device found
+[   38.926744] Run /init as init process
+[   69.983372] kmodloader: loading kernel modules from /etc/modules-boot.d/*
+[   70.403912] kmodloader: done loading kernel modules from /etc/modules-boot.d/*
+[  161.925374] procd: - early -
+[  165.162559] procd: - ubus -
+[  167.623023] procd: - init -
+[  236.827833] kmodloader: loading kernel modules from /etc/modules.d/*
+[  248.120270] kmodloader: done loading kernel modules from /etc/modules.d/*
+[  757.601390] ttyS ttyS0: 1 input overrun(s)
+[  766.983555] ttyS ttyS0: 1 input overrun(s)
+root@OpenWrt:~# ip link
+1: lo: <LOOPBACK> mtu 65536 qdisc noop state DOWN qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+root@OpenWrt:~# mount
+tmpfs on / type tmpfs (rw,relatime)
+proc on /proc type proc (rw,nosuid,nodev,noexec,relatime)
+sysfs on /sys type sysfs (rw,nosuid,nodev,noexec,relatime)
+cgroup2 on /sys/fs/cgroup type cgroup2 (rw,nosuid,nodev,noexec,relatime,nsdelegate)
+tmpfs on /tmp type tmpfs (rw,nosuid,nodev,noatime)
+tmpfs on /dev type tmpfs (rw,nosuid,noexec,noatime,size=512k,mode=755)
+devpts on /dev/pts type devpts (rw,nosuid,noexec,noatime,mode=600,ptmxmode=000)
+debugfs on /sys/kernel/debug type debugfs (rw,nosuid,nodev,noexec,noatime)
+bpffs on /sys/fs/bpf type bpf (rw,nosuid,nodev,noexec,noatime,mode=700)
+root@OpenWrt:~# cat /etc/openwrt_release
+DISTRIB_ID='OpenWrt'
+DISTRIB_RELEASE='SNAPSHOT'
+DISTRIB_REVISION='r34962-d6f5c2685f'
+DISTRIB_TARGET='bmips/bcm63268'
+DISTRIB_ARCH='mips_mips32'
+DISTRIB_DESCRIPTION='OpenWrt SNAPSHOT r34962-d6f5c2685f'
+DISTRIB_TAINTS='no-all'
+root@OpenWrt:~# hexdump -C /usr/share/libubox/jshn.sh | head -8
+00000000  23 20 66 75 6e 63 74 69  6f 6e 73 20 66 6f 72 20  |# functions for |
+00000010  70 61 72 73 69 6e 67 20  61 6e 64 20 67 65 6e 65  |parsing and gene|
+00000020  72 61 74 69 6e 67 20 6a  73 6f 6e 0a 0a 5f 6a 73  |rating json.._js|
+00000030  6f 6e 5f 67 65 74 5f 76  61 72 28 29 20 7b 0a 09  |on_get_var() {..|
+00000040  23 20 64 65 73 74 3d 24  31 0a 09 23 20 76 61 72  |# dest=$1..# var|
+00000050  3d 24 32 0a 09 65 76 61  6c 20 22 24 31 3d 5c 22  |=$2..eval "$1=\"|
+00000060  5c 24 24 7b 4a 53 4f 4e  5f 50 52 45 46 49 58 7d  |\$${JSON_PREFIX}|
+00000070  24 32 5c 22 22 0a 7d 0a  0a 5f 6a 73 6f 6e 5f 73  |$2\"".}.._json_s|
+root@OpenWrt:~# 

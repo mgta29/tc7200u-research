@@ -1,0 +1,30 @@
+=== meta ===
+timestamp_local=2026-06-16 03:25:48 CEST
+cwd=/home/mgta29/tc7200u-research
+command=a825_verify --raw /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin --wrapped /mnt/c/tftp/rdjshn-nomod-20260616-032548.bin --expect-load 0x82000000 --expect-name rdjshn-nomod-20260616-032548.bin --expect-signature 0xa825
+=== output ===
+raw=/home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin
+wrapped=/mnt/c/tftp/rdjshn-nomod-20260616-032548.bin
+raw_size=7143456
+wrapped_size=7143548
+signature=0xa825
+expected_signature=0xa825
+control=0x0000
+major=0x0100
+minor=0x04ff
+build_time=0x6a30a61c
+file_length=7143456
+load_address=0x82000000
+filename=rdjshn-nomod-20260616-032548.bin
+expected_name=rdjshn-nomod-20260616-032548.bin
+hcs=0x228e
+expected_hcs=0x228e
+crc=0x00000000
+size_ok=True
+raw_sha256=642bcad0953110bbd5867a0bc1c1fc665ca7d10ed569ad2e14eee37099e5a9ef
+wrapped_sha256=a02238b06f0f93461a6147c9c6050eef829569e81ecc7cd72b129366244fa725
+
+OK: wrapped image matches raw payload and expected header fields
+
+=== exit ===
+exit_code=0

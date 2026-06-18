@@ -1,0 +1,9 @@
+=== meta ===
+timestamp_local=2026-06-16 03:21:18 CEST
+cwd=/home/mgta29/tc7200u-research
+command=a825_wrap --input /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin --output /mnt/c/tftp/openwrt-rdinit-direct-procd-jshn-dump-no-modules-20260616-032118.bin --filename openwrt-rdinit-direct-procd-jshn-dump-no-modules-20260616-032118.bin --load-addr 0x82000000 --control 0x0000
+=== output ===
+filename too long for 64-byte CFE field
+
+=== exit ===
+exit_code=1

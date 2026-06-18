@@ -121,10 +121,10 @@ public static class TftpFastTransferLoop
 {
     public static TftpFastTransferResult SendFile(Socket socket, byte[] data, int blockSize, int maxRetries, int progressIntervalBlocks)
     {
-        if (socket == null) throw new ArgumentNullException(nameof(socket));
-        if (data == null) throw new ArgumentNullException(nameof(data));
-        if (blockSize <= 0) throw new ArgumentOutOfRangeException(nameof(blockSize));
-        if (maxRetries < 0) throw new ArgumentOutOfRangeException(nameof(maxRetries));
+        if (socket == null) throw new ArgumentNullException("socket");
+        if (data == null) throw new ArgumentNullException("data");
+        if (blockSize <= 0) throw new ArgumentOutOfRangeException("blockSize");
+        if (maxRetries < 0) throw new ArgumentOutOfRangeException("maxRetries");
 
         byte[] dataPacket = new byte[4 + blockSize];
         byte[] ack = new byte[516];
@@ -166,8 +166,13 @@ public static class TftpFastTransferLoop
                 {
                     ackLen = socket.Receive(ack, 0, ack.Length, SocketFlags.None);
                 }
-                catch (SocketException ex) when (ex.SocketErrorCode == SocketError.TimedOut)
+                catch (SocketException ex)
                 {
+                    if (ex.SocketErrorCode != SocketError.TimedOut)
+                    {
+                        throw;
+                    }
+
                     retries++;
                     if (retries > maxRetries)
                     {
@@ -221,7 +226,7 @@ public static class TftpFastTransferLoop
                             FinalBlock = block,
                             ElapsedMilliseconds = stopwatch.Elapsed.TotalMilliseconds,
                             LowByteAckCount = lowByteAckCount,
-                            ProgressBlocks = progressBlocks != null ? progressBlocks.ToArray() : Array.Empty<int>()
+                            ProgressBlocks = progressBlocks != null ? progressBlocks.ToArray() : new int[0]
                         };
                     }
 

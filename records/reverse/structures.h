@@ -328,13 +328,6 @@ struct stage1_context_cleanup_callback_pair_candidate {
     undefined4 callback_arg_04;
 };
 
-typedef enum stage1_context_flags {
-    STAGE1_CONTEXT_FLAG_NONREADY_01=1,
-    STAGE1_CONTEXT_FLAG_LOWBIT_02=2,
-    STAGE1_CONTEXT_FLAG_ACTIVATION_HOLD_04=4,
-    STAGE1_CONTEXT_FLAG_DEAD_10=16
-} stage1_context_flags;
-
 typedef struct stage1_post_message_candidate stage1_post_message_candidate, *Pstage1_post_message_candidate;
 
 struct stage1_post_message_candidate {
@@ -424,9 +417,9 @@ struct stage1_signal_object_type2_ops_candidate {
     int (*clone_callback_08)(struct stage1_signal_object_candidate *, struct stage1_signal_object_candidate *, undefined4, undefined4);
     int (*callback_0c_candidate)(struct stage1_signal_object_candidate *, char *);
     int (*callback_10_candidate)(struct stage1_signal_object_candidate *, char *, int *, uint);
-    undefined4 field_14_candidate;
+    int (*callback_14_candidate)(struct stage1_signal_object_candidate *, char *);
     int (*callback_18_t0_candidate)(struct stage1_signal_object_candidate *, char *, int *, undefined4);
-    undefined4 field_1c_candidate;
+    int (*setsockopt_t0_callback_1c_candidate)(struct stage1_signal_object_candidate *, char *, int *, undefined4);
     int (*callback_20_out_candidate)(struct stage1_signal_object_candidate *, void *, void *, int *);
     int (*callback_24_out_candidate)(struct stage1_signal_object_candidate *, undefined1 *, undefined4, int *);
 };
@@ -571,5 +564,27 @@ struct stage1_guarded_context_lock_candidate {
 struct stage1_semaphore_candidate {
     int count; /* +0x00 semaphore count */
     struct stage1_readyq_node_candidate *waitq_04; /* +0x04 queue/list field */
+};
+
+typedef struct stage1_socket_object_candidate stage1_socket_object_candidate, *Pstage1_socket_object_candidate;
+
+typedef struct stage1_socket_object_vtable_candidate stage1_socket_object_vtable_candidate, *Pstage1_socket_object_vtable_candidate;
+
+struct stage1_socket_object_candidate {
+    struct stage1_socket_object_vtable_candidate *vtable_00;
+    uint signal_index_or_socket_handle_04;
+    undefined4 field_08;
+    uint create_flags_or_t0_0c_candidate;
+    undefined4 boot_context_base_10_candidate;
+};
+
+struct stage1_socket_object_vtable_candidate {
+    undefined4 field_00;
+    undefined4 field_04;
+    undefined4 field_08;
+    undefined4 field_0c;
+    void (*close_or_reset_10_candidate)(struct stage1_socket_object_candidate *);
+    undefined1 pad_14[36];
+    int (*getsockopt_t0_method_38_candidate)(struct stage1_socket_object_candidate *, int, int, void *);
 };
 
