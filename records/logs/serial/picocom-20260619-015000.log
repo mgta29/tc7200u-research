@@ -301,3 +301,21 @@ Erasing sector at 00000000...SpiFlashWrite: Writing flash at 00000000
 [   20.568331] printk: legacy console [ttyS0] enabled
 [   20.584139] printk: legacy bootconsole [bcm63xx_uart0] disabled
 [   20.584139] printk: legacy bootconsole [bcm63xx_uart0] disabled
+[   21.713964] bcmgenet 12c00000.ethernet: GENET 1.0 EPHY: 0x0000
+[   21.724043] bcmgenet: Invalid GPHY revision detected: 0x0000[   21.734601] bcmgenet 12c00000[   21.756097] bcmgenet 12c00000.ethernet: unable to find MDIO bus node
+[   21.859206] unimac-mdio unimac-mdio.-19: Broadcom UniMAC MDIO bus
+[   34.724273] NET: Registered PF_INET6 protocol family
+[   35.269452] Segment Routing with IPv6
+[   35.291310] In-situ OAM (IOAM) with IPv6
+[   35.314036] NET: Registered PF_PACKET protocol family
+[   35.344877] 8021q: 802.1Q VLAN Support v1.8
+[   40.108784] clk: Disabling unused clocks
+[   40.115920] PM: genpd: Disabling unused power domains
+[   41.318030] Freeing unused kernel image (initmem) memory: 9092K
+[   41.327902] This architecture does not have kernel memory protection.
+[   41.338177] Run /init as init process
+[   70.877636] init: Console is alive
+[   72.186395] kmodloader: loading kernel modules from /etc/modules-boot.d/*
+[   72.424821] gpio_button_hotplug: loading out-of-tree module taints kernel.
+[   72.624926] kmodloader: done loading kernel modules from /etc/modules-boot.d/*
+[   72.769529] init: - preinit -
