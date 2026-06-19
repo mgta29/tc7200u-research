@@ -59,19 +59,15 @@ function Clear-ArpEntry([string]$ip, [int]$Attempts = 3, [int]$DelayMs = 150) {
     try {
       & arp.exe -d $ip *> $null
       if ($LASTEXITCODE -eq 0) {
-        Start-Sleep -Milliseconds $DelayMs
-        if (-not (Test-ArpEntryPresent $ip)) {
-          Write-Host "ARP cache entry cleared for $ip"
-          return $true
-        }
-      } elseif (-not $isAdmin) {
+        Write-Host "ARP delete command completed for $ip"
+        return $true
+      }
+
+      if (-not $isAdmin) {
         Write-Host "ARP clear for $ip requires elevation; requesting UAC..."
         if (Invoke-ElevatedArpDelete $ip) {
-          Start-Sleep -Milliseconds $DelayMs
-          if (-not (Test-ArpEntryPresent $ip)) {
-            Write-Host "ARP cache entry cleared for $ip (elevated)"
-            return $true
-          }
+          Write-Host "ARP delete command completed for $ip (elevated)"
+          return $true
         }
       } else {
         Write-Host "ARP cache clear attempt $attempt for $ip returned exit code $LASTEXITCODE"
@@ -80,17 +76,12 @@ function Clear-ArpEntry([string]$ip, [int]$Attempts = 3, [int]$DelayMs = 150) {
       Write-Host "ARP cache clear attempt $attempt for $ip failed: $($_.Exception.Message)"
     }
 
-    if (-not (Test-ArpEntryPresent $ip)) {
-      Write-Host "ARP cache entry cleared for $ip"
-      return $true
-    }
-
     if ($attempt -lt $Attempts) {
       Start-Sleep -Milliseconds $DelayMs
     }
   }
 
-  return (-not (Test-ArpEntryPresent $ip))
+  return $false
 }
 
 function Stop-PingProcessesForTarget([string]$ip) {
@@ -130,7 +121,8 @@ if ($StopClientPing) {
 
 if ($ClearClientArp) {
   if (-not (Clear-ArpEntry $ClientIP)) {
-    throw "Failed to clear ARP cache entry for $ClientIP. Run 'arp -d $ClientIP' in an elevated Windows shell, then retry."
+    Write-Host "WARNING: failed to clear ARP cache entry for $ClientIP; continuing."
+    Write-Host "If the transfer stalls, run 'arp -d $ClientIP' in a Windows shell and retry."
   }
 }
 

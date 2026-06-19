@@ -328,6 +328,97 @@ struct stage1_context_cleanup_callback_pair_candidate {
     undefined4 callback_arg_04;
 };
 
+typedef struct stage1_default_gateway_mac_entry_candidate stage1_default_gateway_mac_entry_candidate, *Pstage1_default_gateway_mac_entry_candidate;
+
+struct stage1_default_gateway_mac_entry_candidate {
+    uint valid_00_candidate;
+    byte mac_04_candidate[6];
+    undefined1 pad_0a[2];
+};
+
+typedef struct stage1_netif_aux_context_stats_81a60b98_candidate stage1_netif_aux_context_stats_81a60b98_candidate, *Pstage1_netif_aux_context_stats_81a60b98_candidate;
+
+struct stage1_netif_aux_context_stats_81a60b98_candidate {
+    undefined1 pad_00[6];
+    ushort acquire_fail_or_reject_count_06_candidate;
+};
+
+typedef struct stage1_netif_aux_event_context_candidate stage1_netif_aux_event_context_candidate, *Pstage1_netif_aux_event_context_candidate;
+
+typedef struct stage1_netif_aux_object_candidate stage1_netif_aux_object_candidate, *Pstage1_netif_aux_object_candidate;
+
+typedef struct stage1_netif_object_candidate stage1_netif_object_candidate, *Pstage1_netif_object_candidate;
+
+struct stage1_netif_aux_event_context_candidate {
+    undefined1 pad_00[11];
+    byte state_flags_0b_candidate;
+    byte *lookup_key_blob_0c_candidate;
+    undefined4 field_10_candidate;
+    undefined1 pad_14[28];
+    undefined4 field_30_candidate;
+    uint hold_count_or_ref_34_candidate;
+    uint flags_38_candidate;
+    undefined1 pad_3c[4];
+    struct stage1_netif_aux_object_candidate *current_aux_40_candidate;
+    undefined1 pad_44[72];
+    struct stage1_netif_aux_event_context_candidate *parent_or_related_ctx_8c_candidate;
+};
+
+struct stage1_netif_aux_object_candidate {
+    byte *primary_key_blob_00_candidate;
+    byte *secondary_key_blob_04_candidate;
+    byte *key_mask_blob_08_candidate;
+    undefined1 pad_0c[80];
+    struct stage1_netif_object_candidate *parent_netif_5c_candidate;
+    struct stage1_netif_aux_object_candidate *next_60_candidate;
+    struct stage1_netif_aux_object_candidate **prev_next_slot_64_candidate;
+    void (*callback_68_candidate)(int, struct stage1_netif_aux_event_context_candidate *, undefined4);
+    undefined1 pad_6c[4];
+    uint hold_count_70_candidate;
+};
+
+struct stage1_netif_object_candidate {
+    undefined1 pad_00[4];
+    char *base_name_04_candidate;
+    struct stage1_netif_object_candidate *next_08_candidate;
+    struct stage1_netif_object_candidate **prev_next_slot_0c_candidate;
+    undefined4 aux_list_first_10_candidate;
+    undefined4 aux_list_tail_slot_14_candidate;
+    undefined1 pad_18[24];
+    ushort registration_index_30_candidate;
+    short unit_index_32_candidate;
+    undefined1 pad_34[2];
+    ushort flags_36_candidate;
+    undefined1 pad_38[12];
+    byte field_44_candidate;
+    undefined1 field_45_candidate;
+    byte name_extra_len_46_candidate;
+    undefined1 pad_47[69];
+    undefined1 lock_or_state_8c_candidate[8];
+    undefined4 field_94_candidate;
+    undefined1 pad_98[60];
+    uint default_or_timeout_d4_candidate;
+    undefined1 pad_d8[8];
+    undefined4 embedded_list2_first_e0_candidate;
+    undefined4 embedded_list2_tail_slot_e4_candidate;
+};
+
+typedef struct stage1_netif_aux_keyclass_ops_candidate stage1_netif_aux_keyclass_ops_candidate, *Pstage1_netif_aux_keyclass_ops_candidate;
+
+struct stage1_netif_aux_keyclass_ops_candidate {
+    undefined1 pad_00[28];
+    stage1_netif_aux_event_context_candidate * (*lookup_or_acquire_1c_candidate)(byte *, void *);
+    undefined1 pad_20[16];
+    undefined4 release_zero_ref_30_candidate;
+};
+
+typedef struct stage1_netif_list_head_candidate stage1_netif_list_head_candidate, *Pstage1_netif_list_head_candidate;
+
+struct stage1_netif_list_head_candidate {
+    struct stage1_netif_object_candidate *first_00;
+    struct stage1_netif_object_candidate **tail_next_slot_04_candidate;
+};
+
 typedef struct stage1_post_message_candidate stage1_post_message_candidate, *Pstage1_post_message_candidate;
 
 struct stage1_post_message_candidate {
@@ -507,6 +598,53 @@ struct stage1_signal_select_state_candidate {
     uint blocked_signal_mask_or_wait_mask_4c_candidate;
 };
 
+typedef struct stage1_socket_build_context_candidate stage1_socket_build_context_candidate, *Pstage1_socket_build_context_candidate;
+
+struct stage1_socket_build_context_candidate {
+    undefined1 pad_00[64];
+    void *option_state_record_40_candidate;
+    uint flags_44_candidate;
+    undefined1 build_state_48_candidate[148];
+    undefined4 build_context_dc_candidate;
+    undefined4 hidden_t0_arg_e0_candidate;
+};
+
+typedef struct stage1_socket_create_flag_iface_name_record_candidate stage1_socket_create_flag_iface_name_record_candidate, *Pstage1_socket_create_flag_iface_name_record_candidate;
+
+struct stage1_socket_create_flag_iface_name_record_candidate {
+    char field0_0x0[4];
+    undefined1 field1_0x4[4];
+};
+
+typedef struct stage1_socket_create_flag_option_entry_candidate stage1_socket_create_flag_option_entry_candidate, *Pstage1_socket_create_flag_option_entry_candidate;
+
+struct stage1_socket_create_flag_option_entry_candidate {
+    ushort reserved_00_candidate;
+    ushort sol_socket_option_low16_02_candidate;
+};
+
+typedef struct stage1_socket_object_candidate stage1_socket_object_candidate, *Pstage1_socket_object_candidate;
+
+typedef struct stage1_socket_object_vtable_candidate stage1_socket_object_vtable_candidate, *Pstage1_socket_object_vtable_candidate;
+
+struct stage1_socket_object_candidate {
+    struct stage1_socket_object_vtable_candidate *vtable_00;
+    uint signal_index_or_socket_handle_04;
+    undefined4 field_08;
+    uint create_flags_or_t0_0c_candidate;
+    undefined4 boot_context_base_10_candidate;
+};
+
+struct stage1_socket_object_vtable_candidate {
+    undefined4 field_00;
+    undefined4 field_04;
+    undefined4 field_08;
+    undefined4 field_0c;
+    void (*close_or_reset_10_candidate)(struct stage1_socket_object_candidate *);
+    undefined1 pad_14[36];
+    int (*getsockopt_t0_method_38_candidate)(struct stage1_socket_object_candidate *, int, int, void *);
+};
+
 typedef struct stage1_thread_create_attr_candidate stage1_thread_create_attr_candidate, *Pstage1_thread_create_attr_candidate;
 
 struct stage1_thread_create_attr_candidate {
@@ -564,27 +702,5 @@ struct stage1_guarded_context_lock_candidate {
 struct stage1_semaphore_candidate {
     int count; /* +0x00 semaphore count */
     struct stage1_readyq_node_candidate *waitq_04; /* +0x04 queue/list field */
-};
-
-typedef struct stage1_socket_object_candidate stage1_socket_object_candidate, *Pstage1_socket_object_candidate;
-
-typedef struct stage1_socket_object_vtable_candidate stage1_socket_object_vtable_candidate, *Pstage1_socket_object_vtable_candidate;
-
-struct stage1_socket_object_candidate {
-    struct stage1_socket_object_vtable_candidate *vtable_00;
-    uint signal_index_or_socket_handle_04;
-    undefined4 field_08;
-    uint create_flags_or_t0_0c_candidate;
-    undefined4 boot_context_base_10_candidate;
-};
-
-struct stage1_socket_object_vtable_candidate {
-    undefined4 field_00;
-    undefined4 field_04;
-    undefined4 field_08;
-    undefined4 field_0c;
-    void (*close_or_reset_10_candidate)(struct stage1_socket_object_candidate *);
-    undefined1 pad_14[36];
-    int (*getsockopt_t0_method_38_candidate)(struct stage1_socket_object_candidate *, int, int, void *);
 };
 

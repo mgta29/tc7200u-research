@@ -1,0 +1,30 @@
+=== meta ===
+timestamp_local=2026-06-19 01:49:36 CEST
+cwd=/home/mgta29/tc7200u-research
+command=a825_verify --raw /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin --wrapped /mnt/c/tftp/fresh-genet-txdump-20260619-014936.bin --expect-load 0x82000000 --expect-name fresh-genet-txdump-20260619-014936.bin --expect-signature 0xa825
+=== output ===
+raw=/home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin
+wrapped=/mnt/c/tftp/fresh-genet-txdump-20260619-014936.bin
+raw_size=5708384
+wrapped_size=5708476
+signature=0xa825
+expected_signature=0xa825
+control=0x0000
+major=0x0100
+minor=0x04ff
+build_time=0x6a348410
+file_length=5708384
+load_address=0x82000000
+filename=fresh-genet-txdump-20260619-014936.bin
+expected_name=fresh-genet-txdump-20260619-014936.bin
+hcs=0xce7d
+expected_hcs=0xce7d
+crc=0x00000000
+size_ok=True
+raw_sha256=93e749655f4c14c9016c3a753418b55ee6f015709e80fa69ecee06d4d9ed712c
+wrapped_sha256=9f69128a49448f521c3b63b488bb3f2cf6fd11ff31a8b40671e1eda4cbfc0312
+
+OK: wrapped image matches raw payload and expected header fields
+
+=== exit ===
+exit_code=0
