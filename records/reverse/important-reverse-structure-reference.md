@@ -25,6 +25,7 @@ This reference currently carries layouts from:
 - `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-15-stage1-signal-object-type2-dispatcher-path.md`
 - `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-15-stage1-timeout-select-wait-reverse-log.md`
 - `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-16-stage1-socket-object-type2-setsockopt.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-19-stage1-netif-aux-context-route-output.md`
 
 ## Notes
 
@@ -489,6 +490,110 @@ Notes:
 - `stage1_socket_object_vtable_candidate +0x38` is getsockopt-like in the close/cleanup path; hidden incoming `t0` is an option-length pointer.
 - `stage1_timeout_scale_table_candidate` stays intentionally generic; the current carry only proves its role in the timeout-to-ticks conversion tables at `0x81a6ba70` and `0x81a6ba90`.
 
+### Stage1 netif, socket-create-flag, aux-context, and route-output structures
+
+```c
+typedef struct stage1_socket_build_context_candidate {
+    undefined1 pad_00[0x40];                    /* +0x00 */
+    void *option_state_record_40_candidate;     /* +0x40 */
+    uint flags_44_candidate;                    /* +0x44 */
+    undefined1 build_state_48_candidate[0x94];  /* +0x48 */
+    undefined4 build_context_dc_candidate;      /* +0xdc */
+    undefined4 hidden_t0_arg_e0_candidate;      /* +0xe0 */
+} stage1_socket_build_context_candidate;        /* size at least 0xe4 */
+
+typedef struct stage1_socket_create_flag_iface_name_record_candidate {
+    char iface_name_00[4];       /* +0x00, examples: bcm0..bcm7 */
+    undefined1 nul_pad_04[4];    /* +0x04 */
+} stage1_socket_create_flag_iface_name_record_candidate; /* size 0x08 */
+
+typedef struct stage1_netif_list_head_candidate {
+    struct stage1_netif_object_candidate *first_00;              /* +0x00 */
+    struct stage1_netif_object_candidate **tail_next_slot_04_candidate; /* +0x04 */
+} stage1_netif_list_head_candidate;                              /* size 0x08 */
+
+typedef struct stage1_netif_object_candidate {
+    undefined1 pad_00[4];                                      /* +0x00 */
+    char *base_name_04_candidate;                              /* +0x04 */
+    struct stage1_netif_object_candidate *next_08_candidate;   /* +0x08 */
+    struct stage1_netif_object_candidate **prev_next_slot_0c_candidate; /* +0x0c */
+    struct stage1_netif_aux_object_candidate *aux_list_first_10_candidate; /* +0x10 */
+    struct stage1_netif_aux_object_candidate **aux_list_tail_slot_14_candidate; /* +0x14 */
+    undefined1 pad_18[0x18];                                   /* +0x18 */
+    ushort registration_index_30_candidate;                    /* +0x30 */
+    short unit_index_32_candidate;                             /* +0x32 */
+    undefined1 pad_34[2];                                      /* +0x34 */
+    ushort flags_36_candidate;                                 /* +0x36 */
+    undefined1 pad_38[0x0c];                                   /* +0x38 */
+    byte field_44_candidate;                                   /* +0x44 */
+    undefined1 field_45_candidate;                             /* +0x45 */
+    byte name_extra_len_46_candidate;                          /* +0x46 */
+    undefined1 pad_47[0x45];                                   /* +0x47 */
+    undefined1 lock_or_state_8c_candidate[8];                  /* +0x8c */
+    undefined4 field_94_candidate;                             /* +0x94 */
+    undefined1 pad_98[0x3c];                                   /* +0x98 */
+    uint default_or_timeout_d4_candidate;                      /* +0xd4 */
+    undefined1 pad_d8[8];                                      /* +0xd8 */
+    undefined4 embedded_list2_first_e0_candidate;              /* +0xe0 */
+    undefined4 embedded_list2_tail_slot_e4_candidate;          /* +0xe4 */
+} stage1_netif_object_candidate;                               /* size at least 0xe8 */
+
+typedef struct stage1_netif_aux_object_candidate {
+    byte *primary_key_blob_00_candidate;       /* +0x00 */
+    byte *secondary_key_blob_04_candidate;     /* +0x04 */
+    byte *key_mask_blob_08_candidate;          /* +0x08 */
+    undefined1 pad_0c[0x50];                   /* +0x0c */
+    stage1_netif_object_candidate *parent_netif_5c_candidate; /* +0x5c */
+    struct stage1_netif_aux_object_candidate *next_60_candidate; /* +0x60 */
+    struct stage1_netif_aux_object_candidate **prev_next_slot_64_candidate; /* +0x64 */
+    void (*callback_68_candidate)(int, struct stage1_netif_aux_event_context_candidate *, undefined4); /* +0x68 */
+    undefined4 field_6c_candidate;             /* +0x6c */
+    uint hold_count_70_candidate;              /* +0x70 */
+} stage1_netif_aux_object_candidate;           /* size at least 0x74 */
+
+typedef struct stage1_netif_aux_event_context_candidate {
+    undefined1 pad_00[0x0b];                   /* +0x00 */
+    byte state_flags_0b_candidate;             /* +0x0b */
+    byte *lookup_key_blob_0c_candidate;         /* +0x0c */
+    undefined4 field_10_candidate;             /* +0x10 */
+    undefined1 pad_14[0x1c];                   /* +0x14 */
+    undefined4 field_30_candidate;             /* +0x30 */
+    uint hold_count_or_ref_34_candidate;       /* +0x34 */
+    uint flags_38_candidate;                   /* +0x38 */
+    stage1_netif_object_candidate *parent_netif_3c_candidate; /* +0x3c */
+    stage1_netif_aux_object_candidate *current_aux_40_candidate; /* +0x40 */
+    byte *route_or_key_blob_44_candidate;      /* +0x44 */
+    undefined4 route_field_48_candidate;       /* +0x48 */
+    uint route_mask_or_state_4c_candidate;     /* +0x4c */
+    undefined1 route_state_copy_50_candidate[0x3c]; /* +0x50 */
+    struct stage1_netif_aux_event_context_candidate *parent_or_related_ctx_8c_candidate; /* +0x8c */
+} stage1_netif_aux_event_context_candidate;    /* size at least 0x90 */
+
+typedef struct stage1_netif_aux_keyclass_ops_candidate {
+    undefined1 pad_00[0x1c];                   /* +0x00 */
+    stage1_netif_aux_event_context_candidate *(*lookup_or_acquire_1c_candidate)(byte *, void *); /* +0x1c */
+    stage1_netif_aux_event_context_candidate *(*create_or_lookup_20_candidate)(byte *, void *);  /* +0x20 */
+    undefined1 pad_24[0x0c];                   /* +0x24 */
+    undefined4 release_zero_ref_30_candidate;  /* +0x30 */
+} stage1_netif_aux_keyclass_ops_candidate;     /* size at least 0x34 */
+
+typedef struct stage1_netif_aux_context_stats_81a60b98_candidate {
+    undefined1 pad_00[0x06];                   /* +0x00 */
+    ushort acquire_fail_or_reject_count_06_candidate; /* +0x06 */
+} stage1_netif_aux_context_stats_81a60b98_candidate;  /* size 0x08 */
+```
+
+Notes:
+
+- `stage1_socket_create_flag_iface_name_record_candidate[8]` lives at `0x80f99618` and carries `bcm0` through `bcm7`.
+- `0x8146f660` is the pointer table for those interface-name records.
+- `0x8146f690` is the runtime socket create-flag netif pointer table.
+- `stage1_netif_list_head_candidate` is applied at `0x81840370`.
+- `0x81802fb8` is a pointer variable to a heap netif pointer array; do not apply an embedded `stage1_netif_object_candidate *[8]` at `0x81802fb8`.
+- `stage1_netif_aux_keyclass_ops_candidate` is table-indexed by key blob byte `+0x01` from base `0x81c0cf10`.
+- `stage1_netif_aux_context_stats_81a60b98_candidate +0x06` fixes the overlapping `_DAT_81a60b9e` warning as a field, not a separate global.
+- Route-output status values observed in this layer include `0x16`, `0x145`, `0x147`, `0x149`, and `0x163`.
+- These structures describe Stage1 software state and route-output correlation, not Linux-visible MMIO state.
 ### Additional screenshot-derived structures
 
 ```c
@@ -556,9 +661,10 @@ This reference currently carries:
 - 2 Stage1 event-slot structures
 - 19 Stage1 scheduler and wake-chain structures
 - 14 Stage1 signal-object, related-object, socket-object, and timeout-conversion structures
+- 9 Stage1 netif, socket-create-flag, aux-context, and route-output structures
 - 3 additional synchronization or semaphore structures
 
-Total current carried structures: `47`
+Total current carried structures: `56`
 
 ## Header cross-check
 
@@ -583,6 +689,16 @@ Cross-checks against `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\tools\
   - `stage1_socket_object_vtable_candidate`
   - `stage1_signal_object_type2_ops_candidate +0x14` as `callback_14_candidate`
   - `stage1_signal_object_type2_ops_candidate +0x1c` as `setsockopt_t0_callback_1c_candidate`
+- the live exports and June 19 route-output note now also confirm the netif/aux carry set:
+  - `stage1_socket_build_context_candidate`
+  - `stage1_socket_create_flag_iface_name_record_candidate`
+  - `stage1_netif_list_head_candidate`
+  - `stage1_netif_object_candidate`
+  - `stage1_netif_aux_object_candidate`
+  - `stage1_netif_aux_event_context_candidate`
+  - `stage1_netif_aux_keyclass_ops_candidate`
+  - `stage1_netif_aux_context_stats_81a60b98_candidate`
+  - `0x81802fb8` remains a pointer variable to a heap netif pointer array, not an embedded array location
 - the carried `setsockopt_t0_callback_1c_candidate` signature uses the semantic socket-option argument types from the dated note; current header export still degrades some callback argument types
 - the live exports also strengthen several scheduler-side field interpretations:
   - `stage1_event_slot_candidate +0x04` as a waitq pointer
@@ -621,6 +737,7 @@ Recorded modifications worth keeping:
 - 2026-06-14: cross-checked the carried note against `tools/tc7200u_stage1_custom_structs.h` and recorded header-export degradations without replacing better carried semantics
 - 2026-06-16: added the June 15 signal-object, related-object, type2-dispatch, timeout-scale, and select-wait helper layouts, and raised the carried set to `45` structures
 - 2026-06-18: added the June 16 socket-object and socket-vtable layouts, refined the type2 ops `+0x14/+0x1c` slots, and raised the carried set to `47` structures
+- 2026-06-19: added the June 19 socket build/create-flag, netif, aux-object, aux-context, keyclass ops, and aux-context stats layouts, and raised the carried set to `56` structures
 
 ## Preservation
 

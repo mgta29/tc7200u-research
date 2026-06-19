@@ -2462,3 +2462,235 @@ Practical implication:
   - `0x819dc310` and `0x819dc438`
 - keep these as reverse-side correlation aids only
 - do not convert those software values into direct Linux MMIO constants
+
+## Fifteenth-pass Stage1 netif, aux-context, and route-output correlation values
+
+This section was added after rereading:
+
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-19-stage1-netif-aux-context-route-output.md`
+
+### When to use this set
+
+Use this fifteenth-pass set only after the earlier MMIO, Host-DQM, scheduler, signal-object, and socket-provider surfaces already look OEM-like, but the remaining gap looks like interface selection, route-output state, source-address selection, or aux object rebinding rather than a plain ENET register mismatch.
+
+### Fifteenth-pass software values for correlation only
+
+Do not hardcode these into Linux. Use them only to correlate OEM runtime behavior:
+
+- socket create-flag and interface-name tables:
+  - `0x80f99618 = stage1_socket_create_flag_iface_name_record_candidate[8]`
+  - `0x8146f660 = g_stage1_socket_create_flag_iface_name_ptr_table_8146f660_candidate`
+  - `0x8146f690 = g_stage1_socket_create_flag_netif_table_8146f690_candidate`
+- netif runtime globals:
+  - `0x81840370 = g_stage1_netif_list_head_81840370_candidate`
+  - `0x81840378 = g_stage1_netif_aux_object_array_81840378_candidate`
+  - `0x818403b4 = g_stage1_ip_id_counter_818403b4_candidate`
+  - `0x81802fb4 = g_stage1_netif_registered_count_81802fb4_candidate`
+  - `0x81802fb8 = g_stage1_netif_object_array_81802fb8_candidate`
+  - `0x81802fbc = g_stage1_netif_table_capacity_81802fbc_candidate`
+  - `0x81a60b70 = g_stage1_netif_list_initialized_81a60b70_candidate`
+- aux-context and route-output globals:
+  - `0x81a60b98 = g_stage1_netif_aux_context_stats_81a60b98_candidate`
+  - `0x81a60ba4 = g_stage1_netif_aux_active_context_count_81a60ba4_candidate`
+  - `0x81bfcf00 = g_stage1_route_output_global_level_81bfcf00_candidate`
+  - `0x81c0cf10 = g_stage1_netif_aux_keyclass_ops_table_81c0cf10_candidate`
+
+### Current best meanings
+
+- socket create-flag indexes `1..8` map to the static OEM names `bcm0` through `bcm7`
+- `bcm0` resolves as base name `bcm` plus unit `0`, not as a plain full-string compare
+- `0x81802fb8` is a pointer variable to the heap-allocated global netif pointer array; do not apply an embedded `stage1_netif_object_candidate *[8]` at that address
+- `stage1_netif_object_candidate +0x10/+0x14` carries the per-netif aux-object list head and tail slot
+- `stage1_netif_aux_object_candidate +0x00/+0x04/+0x08` carries primary, secondary, and mask key blobs
+- `stage1_netif_aux_object_candidate +0x5c` links back to the parent netif
+- `stage1_netif_aux_object_candidate +0x68` is the aux callback and `+0x70` is the aux hold count
+- `stage1_netif_aux_event_context_candidate +0x34` is the hold or ref count
+- `stage1_netif_aux_event_context_candidate +0x38` carries event/context flags
+- `stage1_netif_aux_event_context_candidate +0x40` is the current aux object
+- `stage1_netif_aux_event_context_candidate +0x44/+0x4c` carries route/key and route-mask or route-state data
+- route-output processing validates binary key class/type bytes below `0x21`, uses keyclass callbacks at `+0x1c/+0x20`, can rebind `current_aux_40_candidate`, and writes success/error status back to the route buffer
+- observed route-output status values worth keeping nearby are `0x16`, `0x145`, `0x147`, `0x149`, and `0x163`
+
+### What not to hardcode yet
+
+Do not hardcode these as final Linux semantics yet:
+
+- `0x80f99618`, `0x8146f660`, `0x8146f690`, `0x81840370`, `0x81802fb8`, `0x81a60b98`, `0x81a60ba4`, `0x81bfcf00`, or `0x81c0cf10` as if they were MMIO registers
+- `bcm0` through `bcm7` as Linux interface names that OpenWrt must expose
+- route-output error values as if they directly map to Linux errno without another translation layer
+- aux event-context refs or aux hold counts as if they were hardware queue occupancy counters
+- any assumption that OpenWrt must reproduce the OEM netif/aux object model rather than only the hardware-visible state that the OEM model eventually drives
+
+### Updated OpenWrt development meaning
+
+Current best staged model for the TC7200U port:
+
+- stage 1: FPM allocator/backing-base values must look right
+- stage 2: GENET/MBDMA endpoint and control values must look right
+- stage 3: DQM/CP2 queue control, mailbox, per-queue pull programming, and queue-policy state must look right
+- stage 4: DQM mailbox command handling, queue-profile writes, slot commit, and CP2/FPM service plumbing must look right
+- stage 5: the `0x01800008` event path, selector dispatch, request-block programming, and size-selected FPM request/return behavior must look right
+- stage 6: selector lookup/context initialization, preload-port state, and selector-derived `b604` command-table setup must look right
+- stage 7: request-engine submit/finalize flow, selector-gate publish behavior, and mode-specific sideband output lanes must look right
+- stage 8: alternate `0x80c8` runtime-family registration/activation writes, selector-output gating, and alias-window output paths must look right
+- stage 9: runtime-family selection and request-model behavior must look right
+- stage 10: if traffic still stalls, Host-DQM selector register blocks, dispatch-table mapping, and Stage1 event-slot wake behavior become the next most likely missing OEM-specific layer
+- stage 11: if the stage-10 event-slot layer already looks OEM-like, current-context ownership, thread-record linkage, per-thread pending or blocked signal/work masks, and worker exit/join lifecycle become the next software correlation layer
+- stage 12: if the stage-11 layer already looks OEM-like, readyq ownership, PI restore/requeue behavior, timeout object state, same-bucket timeslice rotation, and static idle context setup become the next software correlation layer
+- stage 13: if the stage-12 layer already looks OEM-like, signal-object table state, select or wait generation flow, provider or related-object callback dispatch, and timeout-to-ticks conversion become the next software correlation layer
+- stage 14: if the stage-13 layer already looks OEM-like, socket-object wrapper state, type2 setsockopt/getsockopt dispatch, and socket close/cleanup behavior become the next software correlation layer
+- stage 15: if the stage-14 layer already looks OEM-like, socket create-flag to netif mapping, netif aux-object lookup, keyclass ops, route-output aux-context rebinding, and route-status writeback become the next software correlation layer
+
+Practical implication:
+
+- if OpenWrt reproduces the earlier control surfaces and the socket-provider layer still looks OEM-like, compare whether any OEM-equivalent follow-through exists for:
+  - create-flag index `1..8` to `bcm0..bcm7`
+  - `g_stage1_socket_create_flag_netif_table_8146f690_candidate`
+  - `g_stage1_netif_list_head_81840370_candidate`
+  - `stage1_netif_object_candidate +0x10/+0x14`
+  - `stage1_netif_aux_object_candidate +0x00/+0x04/+0x08/+0x5c/+0x68/+0x70`
+  - `stage1_netif_aux_event_context_candidate +0x34/+0x38/+0x40/+0x44/+0x4c`
+  - `g_stage1_netif_aux_keyclass_ops_table_81c0cf10_candidate`
+- keep these as reverse-side correlation aids only
+- do not convert those software values into direct Linux MMIO constants
+
+## Runtime control pass: 2026-06-19 FPM live, MBDMA/TDMA still stuck
+
+This section was added from the current June 19 runtime status notes only:
+
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\status\2026-06-19-genet-fpm-live-mbdma-unprogrammed.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\status\2026-06-19-genet-txdump-tdma-stuck.md`
+
+The older `2026-05-31-stage1-reverse-findings.md` note is intentionally not used for this update.
+
+### Runtime result now proven
+
+The current OpenWrt image reaches the driver and fixed-link layer:
+
+- BCMGENET binds at `0x12c00000`
+- fixed-link `eth0` reports `1Gbps/Full`
+- TX descriptors are actually queued
+- descriptor addresses advance at `b2c03000`, `b2c03008`, `b2c03010`
+- descriptor mappings such as `0x06e20002`, `0x06e21802`, `0x068f2a02`, `0x06e22002`, `0x068f2282`, and `0x06e23802` are observed
+- `NETDEV WATCHDOG` still follows because TDMA does not consume/completion-process the queued descriptors
+
+This rules out the old broad blockers:
+
+- missing BCMGENET driver
+- missing DTS node
+- missing fixed-link carrier
+- missing IRQ allocation as the first-order failure
+- switch/B53 wiring as the first-order failure
+- MDIO topology as the first-order failure
+
+### FPM is live and readable
+
+The June 19 control dump proves FPM register space is not the missing MMIO window:
+
+```text
+0x12200010 = 0x00000000
+0x12200014 = 0x00000001
+0x12200040 = 0x06000000
+0x12200044 = 0x00010000
+0x12200050 = 0x00000000
+0x12200054 = 0x18007EFA
+0x12200058 = 0x00000000
+0x1220005c = 0x00000000
+0x12200200 = 0x80170800
+0x12200208 = 0x9008C400
+0x12200210 = 0xA01B8200
+0x12200218 = 0xB0324100
+```
+
+Development meaning:
+
+- keep FPM compare probes in the debug image
+- do not treat FPM address space itself as absent or unreadable
+- do not move to switch/B53/MDIO work because the TX datapath still dies before that layer matters
+
+### GENET/MBDMA state is not OEM-like
+
+The same run shows OpenWrt is still not programming the frozen GENET/MBDMA control state:
+
+```text
+0x12c00004 = 0x00000001
+0x12c00008 = 0x00000001
+0x12c0000c = 0x00000001
+0x12c00010 = 0x00000001
+0x12c00040 = 0x00000001
+0x12c00044 = 0x00000001
+0x12c00048 = 0x00000001
+0x12c0004c = 0x00000001
+0x12c00050 = 0x00000001
+0x12c00054 = 0x00000001
+0x12c00058 = 0x00000001
+0x12c00070 = 0x00000001
+0x12c00100 = 0x00000001
+0x12c00104 = 0x00000001
+0x12c00120 = 0x00000001
+0x12c00124 = 0x00000001
+0x12c00140 = 0x00000001
+0x12c00144 = 0x00000001
+0x12c00180 = 0x00000001
+0x12c00184 = 0x00000001
+```
+
+This does not match the carried OEM-like expected set:
+
+- `0x12c00008 != 0x12200200`
+- `0x12c0004c != 0x12200218`
+- `0x12c00050 != 0x12200210`
+- `0x12c00054 != 0x12200208`
+- `0x12c00058 != 0x12200200`
+- `0x12c00044 != 0x02020202`
+- `0x12c00048 != 0x0000000f`
+- `0x12c00070 != 0x00000003/0x00030000`
+
+Development meaning:
+
+- the current blocker is earlier than descriptor-width alone
+- add or keep read-only dumps around BCMGENET open and timeout for `0x12c00004/08/0c/10/44/48/4c/50/54/58/70`
+- only add a minimal TC7200U FPM/MBDMA init patch after confirming the correct placement for these writes
+
+### TDMA/ring timeout state
+
+The TX timeout dump confirms descriptor queueing is alive but TDMA consumption is not:
+
+```text
+tdma_ctrl=0x00003000
+tdma_stat=0x00000800
+hw_p=0
+hw_c=14340
+free_bds=0
+clean=0
+write=0
+```
+
+Repeated timeouts keep the same pattern. After timeout/reclaim, later TX logs report impossible software counters such as:
+
+```text
+prod=17920
+free=65792
+```
+
+Interpretation:
+
+- the TX descriptor write path is alive
+- the TDMA consume/completion path is not alive
+- `hw_c=14340` equals `0x3804`, which looks address/offset-shaped rather than like a sane consumer index
+- the debug read model or upstream ring/index layout may still not match the BCM3383/TC7200U hardware path
+
+### Updated immediate development target
+
+Current next work should stay narrow:
+
+- keep GENET base `0x12c00000`
+- keep fixed-link RGMII
+- keep no B53/DSA/MDIO child changes
+- keep parent IRQ masks untouched
+- keep read-only FPM probes at `0x12200040`, `0x12200044`, and `0x12200200/208/210/218`
+- keep read-only GENET/MBDMA probes at `0x12c00004/08/0c/10/44/48/4c/50/54/58/70`
+- test the temporary GENET_V1 `words_per_bd` branch from `2` to `3` only as a controlled descriptor-width experiment
+- compare XMITDESC, TXDUMP, and TDMA/ring state after one watchdog
+
+Do not prioritize switch/B53/DSA/MDIO work until TDMA consumes descriptors and the GENET/MBDMA control state looks OEM-like.
