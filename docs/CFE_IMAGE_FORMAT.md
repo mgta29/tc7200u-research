@@ -5,7 +5,7 @@
 - Modem/CFE: `192.168.77.1`
 - TFTP server/PC: `192.168.77.2`
 - CFE-requested filename: `openwrt-(version number in hex).bin`
-- Active TFTP path: `/mnt/c/tftp/openwrt-ps-(version number in hex).bin`
+- Active TFTP path: `/mnt/c/tftp/openwrt-ps-irqfallback.bin`
 
 Serve the filename CFE asks for.
 
@@ -17,8 +17,8 @@ OpenWrt initramfs payload.
 Known fields:
 
 - signature/PID: `a825`
-- canonical preserve-from control/load: `0x0000` + `0x82000000`
-- internal header filename: `openwrt-initramfs.bin`
+- default no-template load address: `0x82000000`
+- internal header filename default: `openwrt-initramfs.bin`
 - known-good total received size: `6417987` bytes
 
 Canonical template:
@@ -28,25 +28,37 @@ Canonical template:
 
 Legacy A825 rescue baseline (kept for comparison):
 
+- `records/artifacts/rescue/openwrt-ps-irqfallback-GOOD-5696426.bin`
 - payload load address: `0x82000000`
 
-Script:
+## Supported Script
 
-- `scripts/tcbuilder.sh`
-- Auto mode preserves the canonical A825 template header exactly.
-- Use `--load-addr` only when intentionally testing another boot format.
+- Supported command: `./scripts/wrapper.sh`
+- Removed command: `./scripts/tcbuilder.sh` now exits non-zero with a migration
+  hint.
 
-Generated wrap manifests are written to:
-
-```text
-records/generated/
-```
-
-Override:
+Recommended template-aligned invocation:
 
 ```sh
-RESEARCH_NOTES_DIR=/path/to/generated tc wrap
+./scripts/wrapper.sh \
+  --input ~/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin \
+  --output /mnt/c/tftp/openwrt-ps-irqfallback.bin \
+  --filename openwrt-initramfs.bin \
+  --preserve-from ./records/artifacts/rescue/tc7200-stage2-console-good.bin \
+  --fresh-header
 ```
+
+No-template invocation:
+
+```sh
+./scripts/wrapper.sh \
+  --input ~/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin \
+  --output /mnt/c/tftp/openwrt-ps-irqfallback.bin \
+  --filename openwrt-initramfs.bin
+```
+
+There is no public `verify` command anymore. The wrapper runs the internal A825
+verification pass automatically and emits `size_ok=True` on success.
 
 ## Known-Good Images
 
@@ -85,23 +97,7 @@ Result:
 Stored under `records/artifacts/invalid/`:
 
 - HCS-failing wrapped images.
-- Raw initramfs images without the A825 Program Header.
+- Raw initramfs images without the A825 ProgramStore header.
 - 12-byte loader-header images.
 
 These are comparison artifacts only.
-
-## Useful Records
-
-Notes:
-
-- `records/notes/image-format/2026-05-14-cfe-header-analysis.txt`
-- `records/notes/image-format/2026-05-14-hcsfail-vs-good-header-cmp.txt`
-- `records/notes/image-format/2026-05-14-known-good-image.json`
-- `records/notes/image-format/2026-05-14-openwrt-wrapper-search.txt`
-- `records/notes/runtime-probes/2026-05-14-tftp-hcs44ca-image-manifest.md`
-
-Logs:
-
-- `records/logs/cfe/2026-05-14-cfe-forced-filename.txt`
-- `records/logs/cfe/2026-05-14-hcsfail-5697264.txt`
-- `records/logs/cfe/2026-05-14-image-recovery.txt`

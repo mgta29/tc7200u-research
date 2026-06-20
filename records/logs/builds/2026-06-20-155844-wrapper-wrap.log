@@ -1,0 +1,20 @@
+=== meta ===
+timestamp_local=2026-06-20 15:58:44 CEST
+cwd=/home/mgta29/tc7200u-research
+command=a825_wrap --input /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin --output ./records/artifacts/test-images/wrapper-raw-notemplate-20260620.bin --filename openwrt-initramfs.bin
+=== output ===
+payload_size=5709238
+output_size=5709330
+header_size=92
+filename=openwrt-initramfs.bin
+control=0x0000
+major=0x0100
+minor=0x04ff
+load_addr=0x82000000
+build_time=0x6a369c94
+crc32=0x00000000
+output=records/artifacts/test-images/wrapper-raw-notemplate-20260620.bin
+hcs=0xdc9c
+
+=== exit ===
+exit_code=0

@@ -1,0 +1,11 @@
+=== meta ===
+timestamp_local=2026-06-20 15:44:35 CEST
+cwd=/home/mgta29/tc7200u-research
+command=ensure_packages
+=== output ===
+== TC7200U package profile ==
+OWRT=/home/mgta29/src/openwrt
+TC7200U_PACKAGE_PROFILE=fastboot
+TC7200U_INCLUDE_DRIVER_PACKAGES=0
+make[1]: *** Deleting file '/home/mgta29/src/openwrt/tmp/info/.files-packageinfo-1044'
+make: *** [/home/mgta29/src/openwrt/include/toplevel.mk:82: prepare-tmpinfo] Interrupt

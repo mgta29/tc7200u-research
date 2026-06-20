@@ -3,92 +3,69 @@
     "name": "tc7200u-research",
     "owner": "mgta29",
     "remote": "git@github.com:mgta29/tc7200u-research.git",
-    "local_path": "~/tc7200u-research",
-    "purpose": "Preserve TC7200U BCM3383 OpenWrt bring-up notes, logs, captures, images, reverse output, helper scripts, and patch copies for fast resumption."
+    "local_path": "\\\\wsl.localhost\\Ubuntu\\home\\mgta29\\tc7200u-research",
+    "purpose": "Preserve TC7200U BCM3383 OpenWrt bring-up notes, logs, captures, images, reverse output, patch copies, and the current wrapper-only delivery workflow."
   },
   "layout": {
     "records": "Single data bucket for notes, logs, captures, generated output, snapshots, binaries, reverse output, network scans, and backups.",
-    "records/notes": "Human research notes by topic.",
-    "records/logs/serial": "Picocom, UART, boot, and runtime serial logs.",
-    "records/logs/cfe": "CFE, HCS, and recovery logs.",
-    "records/logs/tftp": "Host TFTP, packet, route, neighbor, link, and ping proof captures in dated run folders.",
-    "records/logs/builds": "OpenWrt build, install, wrap, verify, and package-profile logs.",
+    "records/bring-up": "Bring-up and boot baseline notes.",
+    "records/ethernet": "Ethernet-focused investigation notes.",
+    "records/flash": "Flash map and load-address notes.",
+    "records/image-format": "Wrapper, header, and image-format notes.",
+    "records/runtime-probes": "Runtime experiment notes and probe analysis.",
+    "records/source-research": "External source and similar-platform research.",
+    "records/status": "Status, provenance, and repo-organization notes.",
+    "records/logs/builds": "Wrapper and validation logs.",
     "records/generated": "Manifests, state captures, hashes, generated measurements, and deep-mine output.",
-    "records/snapshots": "DTS, config, and source snapshots.",
-    "records/network-scans": "LAN, modem, and CFE/TFTP network scans.",
-    "records/backups": "Pre-edit backups.",
     "records/artifacts/rescue": "Known-good images and checksums.",
     "records/artifacts/test-images": "Experiment images retained for comparison.",
     "records/artifacts/invalid": "Failed or comparison-only images.",
     "records/reverse": "Reverse-engineering projects, labels, scripts, and extracted ProgramStore material.",
     "docs": "Curated status, workflow, path, and topic docs.",
     "patches": "OpenWrt patch copies and experiment patch sets.",
-    "scripts": "Single helper script plus host and serial command snippets.",
+    "scripts": "Wrapper-only operational scripts plus host helpers.",
     "tools": "Standalone analysis tools."
   },
-  "aliases": {
-    "tcbuild": "~/tc7200u-research/scripts/tcbuilder.sh",
-    "tc": "~/tc7200u-research/scripts/tcbuilder.sh",
-    "tcserial": "~/tc7200u-research/scripts/tcbuilder.sh serial-console",
-    "tcwrap": "~/tc7200u-research/scripts/tcbuilder.sh wrap",
-    "tccheck": "~/tc7200u-research/scripts/tcbuilder.sh check",
-    "tcverify": "~/tc7200u-research/scripts/tcbuilder.sh verify",
-    "tcstate": "~/tc7200u-research/scripts/tcbuilder.sh state",
-    "tcstatus": "~/tc7200u-research/scripts/tcbuilder.sh status",
-    "tcresearch": "cd ~/tc7200u-research",
-    "tcopenwrt": "cd ~/src/openwrt",
-    "cfe-tftp": "/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -NoProfile -ExecutionPolicy Bypass -File C:\\\\tftp\\\\start-cfe-tftp-77.ps1",
-    "cte-tftp": "cfe-tftp"
-  },
+  "aliases": {},
   "execution_policy": {
     "script_runner": "User runs scripts manually to save tokens.",
-    "ai_role": "AI provides the exact prompts/commands to run and expected verification checks. AI should avoid auto-running scripts unless the user explicitly asks."
+    "ai_role": "AI provides the exact prompts or commands to run and expected verification checks."
   },
   "workflows": {
     "wrap": [
-      "Run tcbuild and choose 1 for the auto build/wrap/verify path.",
-      "Confirm wrapper output contains size_ok=True.",
-      "Serve /mnt/c/tftp/openwrt-(version nuber in hex).bin when testing with CFE."
-    ],
-    "capture_state": [
-      "Run tcstate after a useful test.",
-      "Keep generated manifests and state captures in records/generated/.",
-      "Keep serial captures in records/logs/serial/."
-    ],
-    "gate_check": [
-      "Run tc check-gates --check-log records/logs/serial/<capture>.log.",
-      "Keep reports in records/generated/ unless a different report path is explicitly supplied."
-    ],
-    "reverse_stage1": [
-      "Run tc reverse-stage1 --source-image <wrapped-image>.",
-      "Keep reverse output under records/reverse/."
+      "Build the raw initramfs in the OpenWrt tree outside this repo.",
+      "Run ./scripts/wrapper.sh directly with --input and --output.",
+      "Use --preserve-from ./records/artifacts/rescue/tc7200-stage2-console-good.bin --fresh-header when staying aligned with the current template policy.",
+      "Confirm the wrapper output contains size_ok=True before serving it to CFE/TFTP."
     ]
   },
   "paths": {
-    "openwrt_tree": "~/src/openwrt",
-    "active_tftp_image": "/mnt/c/tftp/openwrt-(version nuber in hex).bin",
-    "cfe_filename": "openwrt-ps-irqfallback.bin",
-    "raw_initramfs": "~/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin",
-    "helper": "~/tc7200u-research/scripts/tcbuilder.sh",
-    "generated": "~/tc7200u-research/records/generated",
-    "build_logs": "~/tc7200u-research/records/logs/builds",
-    "serial_logs": "~/tc7200u-research/records/logs/serial",
-    "tftp_logs": "~/tc7200u-research/records/logs/tftp",
-    "known_good_image": "~/tc7200u-research/records/artifacts/rescue/openwrt-tc7200u-known-good-ramboot-20260515-125821.bin",
-    "original_a825_baseline": "~/tc7200u-research/records/artifacts/rescue/openwrt-ps-irqfallback-GOOD-5696426.bin"
+    "openwrt_tree": "\\\\wsl.localhost\\Ubuntu\\home\\mgta29\\src\\openwrt",
+    "active_tftp_image": "\\\\wsl.localhost\\Ubuntu\\mnt\\c\\tftp\\openwrt-ps-irqfallback.bin",
+    "cfe_filename": "openwrt-(version number in hex).bin",
+    "raw_initramfs": "\\\\wsl.localhost\\Ubuntu\\home\\mgta29\\src\\openwrt\\bin\\targets\\bmips\\bcm63268\\openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin",
+    "wrapper": "\\\\wsl.localhost\\Ubuntu\\home\\mgta29\\tc7200u-research\\scripts\\wrapper.sh",
+    "tcbuilder_stub": "\\\\wsl.localhost\\Ubuntu\\home\\mgta29\\tc7200u-research\\scripts\\tcbuilder.sh",
+    "generated": "\\\\wsl.localhost\\Ubuntu\\home\\mgta29\\tc7200u-research\\records\\generated",
+    "build_logs": "\\\\wsl.localhost\\Ubuntu\\home\\mgta29\\tc7200u-research\\records\\logs\\builds",
+    "serial_logs": "\\\\wsl.localhost\\Ubuntu\\home\\mgta29\\tc7200u-research\\records\\logs\\serial",
+    "tftp_logs": "\\\\wsl.localhost\\Ubuntu\\home\\mgta29\\tc7200u-research\\records\\logs\\tftp",
+    "known_good_image": "\\\\wsl.localhost\\Ubuntu\\home\\mgta29\\tc7200u-research\\records\\artifacts\\rescue\\openwrt-tc7200u-known-good-ramboot-20260515-125821.bin",
+    "canonical_template": "\\\\wsl.localhost\\Ubuntu\\home\\mgta29\\tc7200u-research\\records\\artifacts\\rescue\\tc7200-stage2-console-good.bin",
+    "original_a825_baseline": "\\\\wsl.localhost\\Ubuntu\\home\\mgta29\\tc7200u-research\\records\\artifacts\\rescue\\openwrt-ps-irqfallback-GOOD-5696426.bin"
   },
   "environment": {
-    "RESEARCH": "Optional helper override for repo path; default is ~/tc7200u-research.",
-    "RECORDS_DIR": "Optional helper override for records path; default is $RESEARCH/records.",
-    "RESEARCH_NOTES_DIR": "Optional helper override for generated output; default is $RECORDS_DIR/generated.",
-    "RESEARCH_BUILDS_DIR": "Optional helper override for build logs; default is $RECORDS_DIR/logs/builds.",
-    "TC7200U_PACKAGE_PROFILE": "Use fastboot by default; set debug for the larger diagnostics profile."
+    "RESEARCH": "Optional wrapper override for repo path; default is ~/tc7200u-research.",
+    "RECORDS_DIR": "Optional wrapper override for records path; default is $RESEARCH/records.",
+    "RESEARCH_BUILDS_DIR": "Optional wrapper override for wrapper log path; default is $RECORDS_DIR/logs/builds.",
+    "TC7200U_PRESERVE_FROM_IMAGE": "Optional default preserve-from image path for wrapper runs.",
+    "TC7200U_WRAP_LOAD_ADDR": "Optional default load address override for wrapper runs."
   },
   "git": {
-    "branch_policy": "Main-repo-only by default. Stay in ~/tc7200u-research on main/origin/main; do not create or switch branches unless the user explicitly asks.",
+    "branch_policy": "Main-repo-only by default. Stay in \\\\wsl.localhost\\Ubuntu\\home\\mgta29\\tc7200u-research on main/origin/main; do not create or switch branches unless the user explicitly asks.",
     "before_work": "Run git status --short --branch and preserve existing dirty worktree content.",
     "moves": "Use git mv for tracked path moves when practical.",
-    "verification": "Run relevant helper checks, JSON validation, markdown/path audits, and git diff --cached --check before committing.",
+    "verification": "Run relevant wrapper checks, JSON validation, markdown/path audits, and git diff --check before committing.",
     "commit": "After verified work, run git add -A and create a local commit with a direct research-focused message.",
     "push": "Never push unless the user explicitly asks for a push.",
     "worktree_policy": "Do not use git worktree, side trees, side clones, or separate scratch repositories unless the user explicitly asks."
@@ -98,13 +75,13 @@
     "working": [
       "CFE/TFTP boot reaches OpenWrt userspace.",
       "Serial console works.",
-      "A825 ProgramStore wrapper and verifier are integrated into the helper."
+      "A825 ProgramStore wrapping is handled by scripts/wrapper.sh and internally verifies size_ok=True."
     ],
     "blocker": "BCM3383 GENET at 0x12c00000 probes and queues TX frames, but TDMA does not consume descriptors and RX remains zero.",
     "next_action": "Continue kernel-side GENET descriptor width, DMA window, and clock/reset probing before switch integration."
   },
   "rules": {
-    "log_retention": "NO DELETING OLD LOGS. Preserve existing logs and create new dated logs/records instead of overwriting or removing prior evidence.",
-    "single_repo_policy": "Use only the main tc7200u-research repository: local ~/tc7200u-research and online origin/main. Do not create side repositories, side clones, alternate trees, worktrees, or branch-based workflows unless the user explicitly asks."
+    "log_retention": "NO DELETING OLD LOGS. Preserve existing logs and create new dated logs or records instead of overwriting or removing prior evidence.",
+    "single_repo_policy": "Use only the main tc7200u-research repository: local \\\\wsl.localhost\\Ubuntu\\home\\mgta29\\tc7200u-research and online origin/main. Do not create side repositories, side clones, alternate trees, worktrees, or branch-based workflows unless the user explicitly asks."
   }
 }

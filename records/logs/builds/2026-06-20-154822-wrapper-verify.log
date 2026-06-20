@@ -1,0 +1,30 @@
+=== meta ===
+timestamp_local=2026-06-20 15:48:22 CEST
+cwd=/home/mgta29/tc7200u-research
+command=a825_verify --raw /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin --wrapped ./records/artifacts/test-images/wrapper-raw-template-20260620.bin --expect-load 0x82000000 --expect-name openwrt-initramfs.bin --expect-signature 0xa825
+=== output ===
+raw=/home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin
+wrapped=records/artifacts/test-images/wrapper-raw-template-20260620.bin
+raw_size=5709238
+wrapped_size=5709330
+signature=0xa825
+expected_signature=0xa825
+control=0x0000
+major=0x0100
+minor=0x04ff
+build_time=0x6a369a26
+file_length=5709238
+load_address=0x82000000
+filename=openwrt-initramfs.bin
+expected_name=openwrt-initramfs.bin
+hcs=0xef28
+expected_hcs=0xef28
+crc=0x00000000
+size_ok=True
+raw_sha256=6c514494ee8a3a6c98575c162285b4bc75d3e0b55dbef49d7df5edacd3468fdf
+wrapped_sha256=3418dc81e682cc0c2560816cdac77ffa59da66777f7b88e1677668af64f830c8
+
+OK: wrapped image matches raw payload and expected header fields
+
+=== exit ===
+exit_code=0

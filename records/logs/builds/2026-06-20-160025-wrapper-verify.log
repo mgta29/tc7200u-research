@@ -1,0 +1,30 @@
+=== meta ===
+timestamp_local=2026-06-20 16:00:26 CEST
+cwd=/home/mgta29/tc7200u-research
+command=a825_verify --raw /tmp/tmp.Bq8tiPhfC0/source-payload.raw --wrapped ./records/artifacts/test-images/wrapper-fresh-rewrap-20260620.bin --expect-load 0x82000000 --expect-name openwrt-initramfs.bin --expect-signature 0xa825
+=== output ===
+raw=/tmp/tmp.Bq8tiPhfC0/source-payload.raw
+wrapped=records/artifacts/test-images/wrapper-fresh-rewrap-20260620.bin
+raw_size=6417987
+wrapped_size=6418079
+signature=0xa825
+expected_signature=0xa825
+control=0x0000
+major=0x0100
+minor=0x04ff
+build_time=0x6a369cfa
+file_length=6417987
+load_address=0x82000000
+filename=openwrt-initramfs.bin
+expected_name=openwrt-initramfs.bin
+hcs=0xca14
+expected_hcs=0xca14
+crc=0x00000000
+size_ok=True
+raw_sha256=a17f022f1ef947ee16f60f0481f315fc399278ca574fb73c6ddcf548efbe0deb
+wrapped_sha256=93081e35f2db8be7181a87f45934e8bc412986836893db6f37e500a2c45d55e0
+
+OK: wrapped image matches raw payload and expected header fields
+
+=== exit ===
+exit_code=0

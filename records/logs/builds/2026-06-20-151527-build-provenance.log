@@ -1,0 +1,105 @@
+
+== meta ==
+mode=auto
+script=./scripts/tcbuilder.sh
+ts=2026-06-20-151527
+research=/home/mgta29/tc7200u-research
+notes_dir=/home/mgta29/tc7200u-research/records/generated
+build_log_base=/home/mgta29/tc7200u-research/records/logs/builds
+
+== build context ==
+timestamp_local=2026-06-20 15:44:35 CEST
+owrt=/home/mgta29/src/openwrt
+raw_expected=/home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin
+source_image=
+preserve_from=/home/mgta29/tc7200u-research/records/artifacts/rescue/tc7200-stage2-console-good.bin
+wrap_load_addr=
+request_name=q
+result_name=q
+wrapped_output=/mnt/c/tftp/q
+build_mode=auto
+patch_precheck=1
+fresh_header=1
+wrap_control=
+wrap_major=
+wrap_minor=
+wrap_build_time=
+wrap_crc32=
+jobs=16
+openwrt_config=/home/mgta29/src/openwrt/.config
+openwrt_target_lines_begin
+  CONFIG_TARGET_bmips=y
+  CONFIG_TARGET_bmips_bcm63268=y
+  CONFIG_TARGET_bmips_bcm63268_DEVICE_technicolor_tc7200u=y
+  CONFIG_TARGET_BOARD="bmips"
+  CONFIG_TARGET_SUBTARGET="bcm63268"
+  CONFIG_TARGET_PROFILE="DEVICE_technicolor_tc7200u"
+  CONFIG_TARGET_ARCH_PACKAGES="mips_mips32"
+  CONFIG_TARGET_ROOTFS_INITRAMFS=y
+  CONFIG_TARGET_INITRAMFS_COMPRESSION_NONE=y
+  CONFIG_TARGET_ROOTFS_SQUASHFS=y
+  CONFIG_TARGET_SQUASHFS_BLOCK_SIZE=256
+  CONFIG_TARGET_SQUASHFS_BLOCK_READERS=4
+  CONFIG_TARGET_SQUASHFS_SMALL_READERS=4
+  CONFIG_TARGET_UBIFS_FREE_SPACE_FIXUP=y
+  CONFIG_TARGET_UBIFS_JOURNAL_SIZE=""
+  CONFIG_TARGET_ROOTFS_DIR=""
+  CONFIG_TARGET_OPTIMIZATION="-Os -pipe -mno-branch-likely -mips32 -mtune=mips32"
+  CONFIG_TARGET_SUFFIX="musl"
+  CONFIG_TARGET_PREINIT_SUPPRESS_STDERR=y
+  CONFIG_TARGET_PREINIT_TIMEOUT=4
+  CONFIG_TARGET_PREINIT_IFNAME=""
+  CONFIG_TARGET_PREINIT_IP="192.168.1.1"
+  CONFIG_TARGET_PREINIT_NETMASK="255.255.255.0"
+  CONFIG_TARGET_PREINIT_BROADCAST="192.168.1.255"
+  CONFIG_TARGET_INIT_PATH="/usr/sbin:/usr/bin:/sbin:/bin"
+  CONFIG_TARGET_INIT_ENV=""
+  CONFIG_TARGET_INIT_CMD="/sbin/init"
+  CONFIG_TARGET_INIT_SUPPRESS_STDERR=y
+openwrt_target_lines_end
+initramfs_candidates_begin
+  /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin
+initramfs_candidates_end
+recent_make_logs_begin
+  /home/mgta29/tc7200u-research/records/logs/builds/2026-06-20-145229-target-linux-install.log
+  /home/mgta29/tc7200u-research/records/logs/builds/2026-06-20-144829-target-linux-install.log
+  /home/mgta29/tc7200u-research/records/logs/builds/2026-06-20-142737-target-linux-install.log
+  /home/mgta29/tc7200u-research/records/logs/builds/2026-06-17-092707-fresh-openwrt-target-linux-install-j1.log
+  /home/mgta29/tc7200u-research/records/logs/builds/2026-06-15-232607-target-linux-install.log
+  /home/mgta29/tc7200u-research/records/logs/builds/2026-06-15-231307-target-linux-install.log
+  /home/mgta29/tc7200u-research/records/logs/builds/tc7200u-console-fix-l2-nandoff-target-linux-clean-20260614-204018.log
+  /home/mgta29/tc7200u-research/records/logs/builds/tc7200u-clean-disable-nand-target-linux-install-20260614-201216.log
+  /home/mgta29/tc7200u-research/records/logs/builds/tc7200u-clean-disable-nand-target-linux-compile-20260614-201204.log
+  /home/mgta29/tc7200u-research/records/logs/builds/tc7200u-staged-repro-target-linux-install-20260614-192948.log
+recent_make_logs_end
+
+== enet reference ==
+enet_values_note=\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\important-openwrt-tc7200u-enet-usable-values.md
+enet_status_note=\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\important-openwrt-tc7200u-enet-usable-status.md
+enet_control_baseline_note=\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\status\2026-06-17-fresh-openwrt-console-success.md
+enet_devmem_baseline_note=\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\status\2026-06-18-devmem-fpm-genet-baseline.md
+enet_fixedlink_watchdog_note=\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\status\2026-06-18-genet-fixedlink-probe-watchdog.md
+enet_live_mbdma_note=\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\status\2026-06-19-genet-fpm-live-mbdma-unprogrammed.md
+enet_txdump_note=\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\status\2026-06-19-genet-txdump-tdma-stuck.md
+enet_ctrlmap_note=\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\status\2026-06-19-genet-ctrlmap-debug-findings.md
+enet_compare_fpm=0x12200040 0x12200044 0x12200200 0x12200208 0x12200210 0x12200218
+enet_compare_genet=0x12c00004 0x12c00008 0x12c0000c 0x12c00010 0x12c00044 0x12c00048 0x12c0004c 0x12c00050 0x12c00054 0x12c00058 0x12c00070
+enet_compare_profile=0x14e001c4 0x14e00002 0x14e00264
+enet_compare_mdio=0x12c0062c 0x12c0062e 0x12c00630 0x12c00632 0x12c0262c 0x12c0262e 0x12c02630 0x12c02632
+enet_oem_hints_begin
+  0x12c00004=(old & 0xffffe000) | 0x9010
+  0x12c00044=0x02020202
+  0x12c00008=0x12200200
+  0x12c0004c=0x12200218
+  0x12c00050=0x12200210
+  0x12c00054=0x12200208
+  0x12c00058=0x12200200
+  0x12c00070=0x00000003 or 0x00030000
+  size0x100->0x12200218
+  size0x200->0x12200210
+  size0x400->0x12200208
+  size0x800->0x12200200
+enet_oem_hints_end
+
+== flow ==
+path=openwrt-build

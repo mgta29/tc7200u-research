@@ -1,176 +1,112 @@
-# TC7200.U Workflow
+# TC7200.U Wrapper Workflow
 
 ## Normal Flow
 
 ```text
-build OpenWrt -> wrap initramfs -> verify size_ok=True -> serve requested CFE filename
+build OpenWrt manually -> run ./scripts/wrapper.sh -> confirm size_ok=True -> serve the output file from C:\tftp
 ```
 
-The canonical helper entrypoint is `tcbuild`; in a TTY with no explicit mode it
-opens the interactive menu. It resolves to:
+The only supported operational command is:
 
 ```sh
-~/tc7200u-research/scripts/tcbuilder.sh
+./scripts/wrapper.sh
 ```
 
-Main modes:
+`tcbuilder` is retired. `./scripts/tcbuilder.sh` remains only as a failing
+migration stub and does not redirect old modes.
+
+## Canonical Raw-Payload Wrap
+
+Use the current known-good template policy when wrapping a fresh raw initramfs:
 
 ```sh
-tcbuild
-tc paths
-tc status
-tc wrap
-tc check
-tc verify
-tc state
-tc check-gates --check-log records/logs/serial/picocom-example.log
-tc ensure-packages
-tc candidate --label candidate1-control-plus-trace
-tc serial-console
-tc reverse-stage1 --source-image records/artifacts/rescue/tc7200-stage2-console-good.bin
-tc selftest
+./scripts/wrapper.sh \
+  --input ~/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin \
+  --output /mnt/c/tftp/openwrt-ps-irqfallback.bin \
+  --filename openwrt-initramfs.bin \
+  --preserve-from ./records/artifacts/rescue/tc7200-stage2-console-good.bin \
+  --fresh-header
 ```
 
-The `auto` path and the `wrap`, `check`, `verify`, and `build` modes all run
-the same build/wrap/verify path. Launch `tcbuild` in a terminal to open the
-menu, then choose `1` for the auto path. The default package profile is
-`fastboot`. To keep the larger diagnostics profile:
+That keeps the template-aligned load address while regenerating the live header
+metadata for the new payload.
+
+## Canonical No-Template Wrap
+
+When no template is supplied, the wrapper uses the canonical default load
+address directly:
 
 ```sh
-TC7200U_PACKAGE_PROFILE=debug tcbuild auto
+./scripts/wrapper.sh \
+  --input ~/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin \
+  --output /mnt/c/tftp/openwrt-ps-irqfallback.bin \
+  --filename openwrt-initramfs.bin
 ```
 
-To fold the manual candidate wrapper into the helper, use `candidate` with a
-label. It writes the current stamp file, exports the current OpenWrt diff to a
-candidate patch under `patches/`, runs the auto path, then saves the SHA256 and
-wrapped-image `file` reports under `records/logs/builds/`:
+Default no-template policy:
+
+- load address: `0x82000000`
+- signature: `0xa825`
+- internal header filename: `openwrt-initramfs.bin`
+
+## Wrapped-Source Handling
+
+Existing wrapped images are passed through byte-for-byte unless a rewrap mode is
+explicitly requested.
+
+Passthrough existing wrapped image:
 
 ```sh
-TC7200U_PACKAGE_PROFILE=debug tcbuild candidate --label candidate1-control-plus-trace
+./scripts/wrapper.sh \
+  --input ./records/artifacts/rescue/tc7200-stage2-console-good.bin \
+  --output ./records/artifacts/test-images/tc7200-stage2-console-good-copy.bin
 ```
 
-When changed or new BMIPS kernel patch files are detected under
-`target/linux/bmips/patches-*`, `tcbuilder.sh` now runs a pre-check before the
-build phase to catch patch apply/syntax issues earlier. Skip this only when
-needed:
+Force a rewrap that preserves the source ProgramStore metadata:
 
 ```sh
-tcbuild auto --skip-precheck
+./scripts/wrapper.sh \
+  --input ./records/artifacts/rescue/tc7200-stage2-console-good.bin \
+  --output ./records/artifacts/test-images/tc7200-stage2-console-good-rewrap.bin \
+  --filename openwrt-initramfs.bin \
+  --force-rewrap-source
 ```
 
-For OpenWrt auto-wrap runs (no `--source-image`), the helper now defaults to
-the canonical preserve-from template and fresh-header mode. That keeps the
-template’s encoded load address but regenerates the ProgramStore build time and
-helper-managed filename instead of inheriting stale metadata:
-
-- `--preserve-from records/artifacts/rescue/tc7200-stage2-console-good.bin`
-- preserved load address: `0x82000000`
-- effective default: `--fresh-header`
-
-Use `--no-fresh-header` or `FRESH_HEADER=0` only when intentionally testing the
-old behavior that preserves the template header metadata exactly. Override the
-load address only when intentionally testing a non-canonical boot format.
-
-To regenerate the ProgramStore header for explicit preserve-from or
-wrapped-source flows, use `--fresh-header`. This keeps the helper-managed
-filename and updates the build time. If you also want the control/revision/CRC
-fields to change from their defaults, pass them explicitly:
+Force a fresh-header rewrap from an already wrapped source:
 
 ```sh
-tcbuild auto --fresh-header
-tcbuild auto --fresh-header --control 0x0001 --major 0x0101 --minor 0x0500
-tcbuild auto --no-fresh-header
+./scripts/wrapper.sh \
+  --input ./records/artifacts/rescue/tc7200-stage2-console-good.bin \
+  --output ./records/artifacts/test-images/tc7200-stage2-console-good-fresh.bin \
+  --filename openwrt-initramfs.bin \
+  --fresh-header
 ```
 
-Generated manifests, state captures, hashes, and measurements go to:
+## Validation Behavior
 
-```text
-records/generated/
-```
-
-The output directory can be overridden:
-
-```sh
-RESEARCH_NOTES_DIR=/tmp/tc7200u-generated tc state
-```
-
-Build/install/wrap logs go to:
+There is no public `verify` or `inspect` command anymore. The wrapper runs the
+internal A825 verification pass automatically and writes logs under:
 
 ```text
 records/logs/builds/
 ```
 
-## Shell Aliases
-
-Interactive WSL sessions should use these aliases, with `tcbuild` as the canonical
-entrypoint:
-
-```sh
-alias tcbuild='~/tc7200u-research/scripts/tcbuilder.sh'
-alias tc='~/tc7200u-research/scripts/tcbuilder.sh'
-alias tcserial='~/tc7200u-research/scripts/tcbuilder.sh serial-console'
-alias tcwrap='~/tc7200u-research/scripts/tcbuilder.sh wrap'
-alias tccheck='~/tc7200u-research/scripts/tcbuilder.sh check'
-alias tcverify='~/tc7200u-research/scripts/tcbuilder.sh verify'
-alias tcstate='~/tc7200u-research/scripts/tcbuilder.sh state'
-alias tcstatus='~/tc7200u-research/scripts/tcbuilder.sh status'
-alias tcresearch='cd ~/tc7200u-research'
-alias tcopenwrt='cd ~/src/openwrt'
-alias cfe-tftp='/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -NoProfile -ExecutionPolicy Bypass -File C:\\tftp\\start-cfe-tftp-77.ps1'
-alias cte-tftp='cfe-tftp'
-```
-
-## PowerShell to WSL (No `U:\...` Translation Warning)
-
-When launching WSL from PowerShell while the current directory is `U:\...`,
-WSL can print:
-
-```text
-wsl: Failed to translate 'U:\...'
-```
-
-Use the helper below so WSL always starts from a known Linux path:
-
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File \\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\scripts\wsl-safe.ps1 -Command "cd ~/tc7200u-research && ./scripts/tcbuilder.sh paths"
-```
-
-Or open an interactive WSL shell cleanly:
-
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File \\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\scripts\wsl-safe.ps1
-```
-
-Common resume commands:
-
-```sh
-tcresearch
-tcstatus
-tcbuild
-cfe-tftp
-tcstate
-```
-
-Required wrapper marker:
+Required marker:
 
 ```text
 size_ok=True
 ```
 
-Active CFE/TFTP path:
+## PowerShell To WSL
 
-```text
-/mnt/c/tftp/openwrt-(version number in hex).bin
+Use the WSL-safe helper when launching from PowerShell:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File \\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\scripts\wsl-safe.ps1 -Command "cd ~/tc7200u-research && ./scripts/wrapper.sh --help"
 ```
 
-CFE-requested filename:
+## Active TFTP Path
 
 ```text
-openwrt-(version number in hex).bin
+/mnt/c/tftp/openwrt-ps-irqfallback.bin
 ```
-
-## Git Rule
-
-After a useful research run, inspect `git status --short --branch`, add the
-new records and docs, run the relevant checks, and create a local commit.
-Push only when explicitly requested.

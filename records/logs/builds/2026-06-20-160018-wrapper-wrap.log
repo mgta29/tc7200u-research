@@ -1,0 +1,22 @@
+=== meta ===
+timestamp_local=2026-06-20 16:00:18 CEST
+cwd=/home/mgta29/tc7200u-research
+command=a825_wrap --input /tmp/tmp.j4XNzWqO4U/source-payload.raw --output ./records/artifacts/test-images/wrapper-force-rewrap-20260620.bin --filename openwrt-initramfs.bin --preserve-from ./records/artifacts/rescue/tc7200-stage2-console-good.bin
+=== output ===
+payload_size=6417987
+output_size=6418079
+header_size=92
+filename=openwrt-initramfs.bin
+control=0x0000
+major=0x0100
+minor=0x04ff
+load_addr=0x82000000
+build_time=0x6a0b751d
+crc32=0x00000000
+preserve_from=./records/artifacts/rescue/tc7200-stage2-console-good.bin
+preserve_signature=0xa825
+output=records/artifacts/test-images/wrapper-force-rewrap-20260620.bin
+hcs=0x1255
+
+=== exit ===
+exit_code=0

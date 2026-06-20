@@ -14,19 +14,20 @@
 |---|---|
 | Raw initramfs image | `\\wsl.localhost\Ubuntu\home\mgta29\src\openwrt\bin\targets\bmips\bcm63268\openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin` |
 | Build-dir raw initramfs copy | `\\wsl.localhost\Ubuntu\home\mgta29\src\openwrt\build_dir\target-mips_mips32_musl\linux-bmips_bcm63268\tmp\openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin` |
-| Kernel ELF | `\\wsl.localhost\Ubuntu\home\mgta29\src\openwrt\build_dir\target-mips_mips32_musl\linux-bmips_bcm63268\linux-6.12.87\vmlinux` |
-| BMIPS setup source | `\\wsl.localhost\Ubuntu\home\mgta29\src\openwrt\build_dir\target-mips_mips32_musl\linux-bmips_bcm63268\linux-6.12.87\arch\mips\bmips\setup.c` |
+| Kernel ELF | `\\wsl.localhost\Ubuntu\home\mgta29\src\openwrt\build_dir\target-mips_mips32_musl\linux-bmips_bcm63268\linux-6.12.93\vmlinux` |
+| BMIPS setup source | `\\wsl.localhost\Ubuntu\home\mgta29\src\openwrt\build_dir\target-mips_mips32_musl\linux-bmips_bcm63268\linux-6.12.93\arch\mips\bmips\setup.c` |
 | TC7200U DTS | `\\wsl.localhost\Ubuntu\home\mgta29\src\openwrt\target\linux\bmips\dts\bcm3383-technicolor-tc7200u.dts` |
 | Viper DTSI | `\\wsl.localhost\Ubuntu\home\mgta29\src\openwrt\target\linux\bmips\dts\bcm3384_viper.dtsi` |
 
-## TFTP And Helper Paths
+## Wrapper And TFTP Paths
 
 | Purpose | Path |
 |---|---|
 | Active CFE/TFTP image | `\\wsl.localhost\Ubuntu\mnt\c\tftp\openwrt-ps-irqfallback.bin` |
-| Main helper script | `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\scripts\tcbuilder.sh` |
-| Helper module directory | `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\scripts\tcbuilder` |
+| Supported wrapper script | `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\scripts\wrapper.sh` |
+| Removed helper stub | `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\scripts\tcbuilder.sh` |
 | WSL-safe PowerShell wrapper | `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\scripts\wsl-safe.ps1` |
+| Wrapper log output | `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\logs\builds` |
 | Wrapper manifest output | `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\generated` |
 | Host-side TFTP proof captures | `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\logs\tftp` |
 | Live Ghidra workspace | `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\reverse\d60242_ghidra` |
@@ -47,7 +48,7 @@
 | CFE and recovery logs | `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\logs\cfe` |
 | Devmem/devmen logs | `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\logs\devmen` |
 | Host-side TFTP and packet proof logs | `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\logs\tftp\<YYYY-MM-DD-version>` |
-| Build/install/wrap/verify logs | `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\logs\builds` |
+| Wrapper build and validation logs | `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\logs\builds` |
 | Generated manifests and captures | `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\generated` |
 | DTS/config/source snapshots | `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\snapshots` |
 | Network scans | `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\network-scans` |
@@ -55,7 +56,7 @@
 | Rescue images | `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\artifacts\rescue` |
 | Test images | `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\artifacts\test-images` |
 | Invalid comparison images | `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\artifacts\invalid` |
-| Helper scripts | `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\scripts` |
+| Wrapper scripts | `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\scripts` |
 | OpenWrt patch copies | `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\patches` |
 
 `records/notes/` is a wrong legacy path and should not receive new files.

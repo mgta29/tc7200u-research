@@ -1,45 +1,47 @@
 # Technicolor TC7200.U / BCM3383 OpenWrt Research
 
 This repository preserves TC7200.U OpenWrt bring-up notes, logs, captures,
-snapshots, binary images, helper scripts, and OpenWrt patch copies. The normal
-data bucket is `records/`; current code and docs stay outside it.
+snapshots, binary images, reverse output, patch copies, and the current A825
+wrapper workflow.
 
 Start here:
 
-- [Start Here](docs/START_HERE.md): current state and next action.
+- [Start Here](docs/START_HERE.md): current state and immediate resume steps.
 - [Status](docs/STATUS.md): working state, blockers, and recommended work.
 - [Ethernet](docs/ETHERNET.md): GENET direction, failed paths, and next test.
 - [CFE Image Format](docs/CFE_IMAGE_FORMAT.md): A825 wrapper and HCS notes.
-- [Workflow](docs/WORKFLOW.md): helper command usage and aliases.
-- [Paths](docs/PATHS.md): local paths used by scripts and notes.
+- [Workflow](docs/WORKFLOW.md): wrapper-only command flow.
+- [Paths](docs/PATHS.md): local paths used by the repo and wrapper.
 - [Repo Map](docs/REPO_MAP.md): repository layout.
 - [AI Helper](AI_HELPER.json): machine-readable repo guide for future agents.
 
-Current constants:
+Current wrapper surface:
 
+- Supported command: `./scripts/wrapper.sh`
+- Removed command: `./scripts/tcbuilder.sh` now fails with a migration hint.
 - Required wrapper validation marker: `size_ok=True`
+- Default no-template load address: `0x82000000`
+- Canonical preserve-from template:
+  `records/artifacts/rescue/tc7200-stage2-console-good.bin`
+
+Known-good images:
+
 - Current known-good image:
   `records/artifacts/rescue/openwrt-tc7200u-known-good-ramboot-20260515-125821.bin`
 - Canonical A825 template:
   `records/artifacts/rescue/tc7200-stage2-console-good.bin`
-- Canonical A825 SHA256:
-  `a2b9fa164d092387dc0382698cbdff940bb97cce6c41a029ac70c1b357497c4b`
 - Original A825 baseline:
   `records/artifacts/rescue/openwrt-ps-irqfallback-GOOD-5696426.bin`
-- Original A825 SHA256:
-  `2ae4afb92e4df065e88d61bcbac9f693c6a853e1ff349e09d3c8e5cfae4ac513`
-- DO NOT DELETE OLD LOGS/MD FILES!
+- DO NOT DELETE OLD LOGS OR HISTORICAL NOTES.
 
 Top-level layout:
 
-- `records/`: topic-specific research notes under `bring-up/`, `ethernet/`,
-  `flash/`, `image-format/`, `reverse/`, `runtime-probes/`,
-  `source-research/`, and `status/`, plus logs, captures, generated output,
-  snapshots, binaries, network scans, and backups.
+- `records/`: research notes, logs, captures, generated output, snapshots,
+  binaries, reverse output, network scans, and backups.
 - `docs/`: curated status, workflow, path, and topic docs.
 - `patches/`: OpenWrt patch copies, disabled patch history, and current
   DTS/config snapshots.
-- `scripts/`: `tcbuilder.sh`, the `scripts/tcbuilder/` helper modules, and
+- `scripts/`: `wrapper.sh`, the `tcbuilder.sh` migration stub, and
   `wsl-safe.ps1`.
 - `reverse/`: live Ghidra workspace kept outside `records/`.
 
