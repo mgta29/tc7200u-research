@@ -1,0 +1,25 @@
+=== patch precheck ===
+timestamp_local=2026-06-20 14:24:29 CEST
+owrt=/home/mgta29/src/openwrt
+build_action=compile
+linux_tree=/home/mgta29/src/openwrt/build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.93
+
+patch=target/linux/bmips/patches-6.12/996-bcmgenet-tc7200u-xmit-desc-debug.patch
+error: patch failed: build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.93/drivers/net/ethernet/broadcom/genet/bcmgenet.c:2133
+error: build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.93/drivers/net/ethernet/broadcom/genet/bcmgenet.c: patch does not apply
+FAIL: git apply --check failed for target/linux/bmips/patches-6.12/996-bcmgenet-tc7200u-xmit-desc-debug.patch
+
+patch=target/linux/bmips/patches-6.12/997-bcmgenet-tc7200u-timeout-dump-debug.patch
+error: patch failed: build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.93/drivers/net/ethernet/broadcom/genet/bcmgenet.c:3469
+error: build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.93/drivers/net/ethernet/broadcom/genet/bcmgenet.c: patch does not apply
+FAIL: git apply --check failed for target/linux/bmips/patches-6.12/997-bcmgenet-tc7200u-timeout-dump-debug.patch
+
+patch=target/linux/bmips/patches-6.12/998-bcmgenet-tc7200u-control-dump-debug.patch
+error: patch failed: build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.93/drivers/net/ethernet/broadcom/genet/bcmgenet.c:3291
+error: build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.93/drivers/net/ethernet/broadcom/genet/bcmgenet.c: patch does not apply
+FAIL: git apply --check failed for target/linux/bmips/patches-6.12/998-bcmgenet-tc7200u-control-dump-debug.patch
+
+patch=target/linux/bmips/patches-6.12/999-bcm63xx-uart-tc7200u-console.patch
+error: patch failed: build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.93/drivers/tty/serial/bcm63xx_uart.c:823
+error: build_dir/target-mips_mips32_musl/linux-bmips_bcm63268/linux-6.12.93/drivers/tty/serial/bcm63xx_uart.c: patch does not apply
+FAIL: git apply --check failed for target/linux/bmips/patches-6.12/999-bcm63xx-uart-tc7200u-console.patch
