@@ -24,7 +24,7 @@
 | Purpose | Path |
 |---|---|
 | Active CFE/TFTP image | `\\wsl.localhost\Ubuntu\mnt\c\tftp\openwrt-ps-irqfallback.bin` |
-| Supported wrapper script | `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\scripts\wrapper.sh` |
+| Supported ProgramStore script | `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\scripts\programstore.sh` |
 | Removed helper stub | `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\scripts\tcbuilder.sh` |
 | WSL-safe PowerShell wrapper | `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\scripts\wsl-safe.ps1` |
 | Wrapper log output | `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\logs\builds` |
@@ -60,3 +60,5 @@
 | OpenWrt patch copies | `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\patches` |
 
 `records/notes/` is a wrong legacy path and should not receive new files.
+
+

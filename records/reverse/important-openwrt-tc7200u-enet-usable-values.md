@@ -2694,3 +2694,97 @@ Current next work should stay narrow:
 - compare XMITDESC, TXDUMP, and TDMA/ring state after one watchdog
 
 Do not prioritize switch/B53/DSA/MDIO work until TDMA consumes descriptors and the GENET/MBDMA control state looks OEM-like.
+
+## Runtime control pass: 2026-06-20/21 IRQ13, DQM mailbox, and FPM endpoint carry
+
+Source notes:
+
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-20-dqm-fpm-runtime-overlay-ghidra-log.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-20-dqm-mailbox-extphy-spi-genet-selector-ghidra-log.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-20-ghidra-isr0guard-new-data-next-steps.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-21-bcm-periph-irq-im5-ghidra-log.md`
+
+### FPM and DQM token control
+
+Confirmed FPM endpoint map:
+
+```text
+0x12200200 / 0xb2200200 = FPM_ENDPOINT_800
+0x12200208 / 0xb2200208 = FPM_ENDPOINT_400
+0x12200210 / 0xb2200210 = FPM_ENDPOINT_200
+0x12200218 / 0xb2200218 = FPM_ENDPOINT_100
+```
+
+`0x40000000` in the recovered DQM/FPM paths is a DQM/FPM token flag. It is cleared with `& 0xbfffffff` before a cleaned token or data word is returned to `B2200200`. Do not label that DQM token bit as peripheral IRQ bit30, and do not merge it with the OpenWrt runtime observation `periph_stat=0x40000004`.
+
+The `0x80004000` and `0x80008000` DQM state is runtime overlay state, not static boot code to retype in the main Ghidra image. Keep the static program intact and use a separate runtime-overlay analysis copy for those volatile objects.
+
+### DQM mailbox to GENET-adjacent selector path
+
+The DQM mailbox dispatcher at `80c7c5d0` copies four mailbox words from `b6001de0..b6001dec` and dispatches on the command byte at `sp+0x03`.
+
+Case `0x11` routes selector output toward GENET-adjacent targets:
+
+```text
+sp+0x08 == 0  -> selector 0x0c, target b2c00500
+sp+0x08 != 0  -> selector 0x0e, target b2c00510
+```
+
+Case `0x12` performs B604/B605 window programming: it clears bit `0x100` on B604 entry control/flags words, waits for B604 idle/status bits, calls the B6052000 word-pair copy helper, and restores bit `0x100`.
+
+Keep `MMIO_IOP_DQM_KSEG1_B6000000` as the broad DQM/IOP block covering `b6000000-b609ffff`; do not split a separate `MMIO_DQM_CP2_B6040000` block unless a later control pass proves it is necessary.
+
+### IRQ13 and IM5 parent dispatcher
+
+The OpenWrt ISR0 guard run proves IRQ13 reaches `bcmgenet_isr0()`. The capture did not show Data bus error, Oops, panic, NETDEV WATCHDOG, `get_swap_device`, or RCU-stall markers, but it did flood roughly 5.5k guard prints. Representative values were:
+
+```text
+irq=13
+raw_stat=0x80a11a00 early, then often 0xffffbd95
+raw_mask=0xb2c00000
+pending=0xb2c00000
+periph_stat=0x40000004
+periph_mask=0x00002000
+```
+
+Control caveat: the current OpenWrt guard re-reads registers inside the log path, so `raw_stat`, `raw_mask`, and `pending` are not coherent. Do not treat `pending=0xb2c00000` as a valid GENET status bitfield yet, and do not force an upstream GENET INTRL2 layout onto TC7200U from this capture alone.
+
+The OEM peripheral interrupt path is now a stronger lead:
+
+```text
+8002adbc  fn_bcm_periph_irq_cp0_im5_pending_dispatcher_8002adbc_candidate
+b4e00050  PERIPH_IRQ_IM5_MASK_OR_ENABLE_B4E00050_candidate
+b4e00054  PERIPH_IRQ_IM5_STATUS_OR_PENDING_B4E00054_candidate
+```
+
+`FUN_8002adbc` reads active parent interrupt bits from `b4e00050 & b4e00054`, dispatches each active parent bit through `FUN_8002ae48`, then re-enables CP0 Status bit `0x2000`. The registration block at `80860330..80860360` installs this function as CP0 interrupt-line 5 handler and enables the parent group bit with:
+
+```text
+b4e00050 |= 1u << (group_id - 0x23)
+```
+
+If the OpenWrt `periph_mask=0x00002000` bit is the same parent bank, parent bit13 maps to OEM group id `0x30` / decimal `48`.
+
+Child IRQ dispatch model:
+
+```text
+handler table root       = 0x81743214
+group 0x23 handler base  = 0x81745514
+group 0x30 handler base  = 0x81746214
+child-bank base table    = 0x81745b14 + parent_bit_index * 4
+child active bits        = *(child_base + 0x08) & *(child_base + 0x0c)
+child clear path         = clear handled bit from child_base + 0x08
+handler entry address    = 0x81743214 + ((group_id * 32) + child_bit) * 8
+```
+
+### Updated immediate development target
+
+- Fix the OpenWrt ISR guard to snapshot locals once before logging: `raw_stat`, `raw_mask`, then `status = raw_stat & ~raw_mask`.
+- Limit the guard flood with a static counter and optionally mask/disable IRQ13 after the first few lines.
+- Investigate OEM handler group `0x30` child entries and child-bank base-table values before changing the GENET interrupt register layout.
+- Keep DQM/FPM endpoint and token work separate from the TDMA descriptor-width experiment.
+- Keep B53/DSA/MDIO changes out of scope until TDMA consumption and coherent IRQ clear behavior are proven.
+
+### Modification log
+
+- 2026-06-21: added the June 20/21 DQM runtime-overlay, mailbox selector, ISR0 guard, and IM5 parent-dispatcher findings to the OpenWrt development carry document.

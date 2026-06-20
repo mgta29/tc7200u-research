@@ -34,7 +34,7 @@
   "workflows": {
     "wrap": [
       "Build the raw initramfs in the OpenWrt tree outside this repo.",
-      "Run ./scripts/wrapper.sh directly with --input and --output.",
+      "Run ./scripts/programstore.sh directly with --input and --output.",
       "Use --preserve-from ./records/artifacts/rescue/tc7200-stage2-console-good.bin --fresh-header when staying aligned with the current template policy.",
       "Confirm the wrapper output contains size_ok=True before serving it to CFE/TFTP."
     ]
@@ -44,7 +44,7 @@
     "active_tftp_image": "\\\\wsl.localhost\\Ubuntu\\mnt\\c\\tftp\\openwrt-ps-irqfallback.bin",
     "cfe_filename": "openwrt-(version number in hex).bin",
     "raw_initramfs": "\\\\wsl.localhost\\Ubuntu\\home\\mgta29\\src\\openwrt\\bin\\targets\\bmips\\bcm63268\\openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin",
-    "wrapper": "\\\\wsl.localhost\\Ubuntu\\home\\mgta29\\tc7200u-research\\scripts\\wrapper.sh",
+    "programstore": "\\\\wsl.localhost\\Ubuntu\\home\\mgta29\\tc7200u-research\\scripts\\programstore.sh",
     "tcbuilder_stub": "\\\\wsl.localhost\\Ubuntu\\home\\mgta29\\tc7200u-research\\scripts\\tcbuilder.sh",
     "generated": "\\\\wsl.localhost\\Ubuntu\\home\\mgta29\\tc7200u-research\\records\\generated",
     "build_logs": "\\\\wsl.localhost\\Ubuntu\\home\\mgta29\\tc7200u-research\\records\\logs\\builds",
@@ -75,7 +75,7 @@
     "working": [
       "CFE/TFTP boot reaches OpenWrt userspace.",
       "Serial console works.",
-      "A825 ProgramStore wrapping is handled by scripts/wrapper.sh and internally verifies size_ok=True."
+      "A825 ProgramStore wrapping is handled by scripts/programstore.sh and internally verifies size_ok=True."
     ],
     "blocker": "BCM3383 GENET at 0x12c00000 probes and queues TX frames, but TDMA does not consume descriptors and RX remains zero.",
     "next_action": "Continue kernel-side GENET descriptor width, DMA window, and clock/reset probing before switch integration."
@@ -85,3 +85,4 @@
     "single_repo_policy": "Use only the main tc7200u-research repository: local \\\\wsl.localhost\\Ubuntu\\home\\mgta29\\tc7200u-research and online origin/main. Do not create side repositories, side clones, alternate trees, worktrees, or branch-based workflows unless the user explicitly asks."
   }
 }
+

@@ -17,7 +17,7 @@ Start here:
 
 Current wrapper surface:
 
-- Supported command: `./scripts/wrapper.sh`
+- Supported command: `./scripts/programstore.sh`
 - Removed command: `./scripts/tcbuilder.sh` now fails with a migration hint.
 - Required wrapper validation marker: `size_ok=True`
 - Default no-template load address: `0x82000000`
@@ -41,10 +41,11 @@ Top-level layout:
 - `docs/`: curated status, workflow, path, and topic docs.
 - `patches/`: OpenWrt patch copies, disabled patch history, and current
   DTS/config snapshots.
-- `scripts/`: `wrapper.sh`, the `tcbuilder.sh` migration stub, and
+- `scripts/`: `programstore.sh`, the `tcbuilder.sh` migration stub, and
   `wsl-safe.ps1`.
 - `reverse/`: live Ghidra workspace kept outside `records/`.
 
 Current layout guardrail:
 
 - `records/notes/` is a wrong legacy path and should not receive new files.
+

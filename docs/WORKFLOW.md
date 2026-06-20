@@ -3,13 +3,13 @@
 ## Normal Flow
 
 ```text
-build OpenWrt manually -> run ./scripts/wrapper.sh -> confirm size_ok=True -> serve the output file from C:\tftp
+build OpenWrt manually -> run ./scripts/programstore.sh -> confirm size_ok=True -> serve the output file from C:\tftp
 ```
 
 The only supported operational command is:
 
 ```sh
-./scripts/wrapper.sh
+./scripts/programstore.sh
 ```
 
 `tcbuilder` is retired. `./scripts/tcbuilder.sh` remains only as a failing
@@ -20,7 +20,7 @@ migration stub and does not redirect old modes.
 Use the current known-good template policy when wrapping a fresh raw initramfs:
 
 ```sh
-./scripts/wrapper.sh \
+./scripts/programstore.sh \
   --input ~/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin \
   --output /mnt/c/tftp/openwrt-ps-irqfallback.bin \
   --filename openwrt-initramfs.bin \
@@ -37,7 +37,7 @@ When no template is supplied, the wrapper uses the canonical default load
 address directly:
 
 ```sh
-./scripts/wrapper.sh \
+./scripts/programstore.sh \
   --input ~/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin \
   --output /mnt/c/tftp/openwrt-ps-irqfallback.bin \
   --filename openwrt-initramfs.bin
@@ -57,7 +57,7 @@ explicitly requested.
 Passthrough existing wrapped image:
 
 ```sh
-./scripts/wrapper.sh \
+./scripts/programstore.sh \
   --input ./records/artifacts/rescue/tc7200-stage2-console-good.bin \
   --output ./records/artifacts/test-images/tc7200-stage2-console-good-copy.bin
 ```
@@ -65,7 +65,7 @@ Passthrough existing wrapped image:
 Force a rewrap that preserves the source ProgramStore metadata:
 
 ```sh
-./scripts/wrapper.sh \
+./scripts/programstore.sh \
   --input ./records/artifacts/rescue/tc7200-stage2-console-good.bin \
   --output ./records/artifacts/test-images/tc7200-stage2-console-good-rewrap.bin \
   --filename openwrt-initramfs.bin \
@@ -75,7 +75,7 @@ Force a rewrap that preserves the source ProgramStore metadata:
 Force a fresh-header rewrap from an already wrapped source:
 
 ```sh
-./scripts/wrapper.sh \
+./scripts/programstore.sh \
   --input ./records/artifacts/rescue/tc7200-stage2-console-good.bin \
   --output ./records/artifacts/test-images/tc7200-stage2-console-good-fresh.bin \
   --filename openwrt-initramfs.bin \
@@ -102,7 +102,7 @@ size_ok=True
 Use the WSL-safe helper when launching from PowerShell:
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File \\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\scripts\wsl-safe.ps1 -Command "cd ~/tc7200u-research && ./scripts/wrapper.sh --help"
+powershell -NoProfile -ExecutionPolicy Bypass -File \\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\scripts\wsl-safe.ps1 -Command "cd ~/tc7200u-research && ./scripts/programstore.sh --help"
 ```
 
 ## Active TFTP Path
@@ -110,3 +110,4 @@ powershell -NoProfile -ExecutionPolicy Bypass -File \\wsl.localhost\Ubuntu\home\
 ```text
 /mnt/c/tftp/openwrt-ps-irqfallback.bin
 ```
+

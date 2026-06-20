@@ -1,0 +1,22 @@
+raw=/home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin
+wrapped=/mnt/c/tftp/2026-06-20-5.bin
+raw_size=5709081
+wrapped_size=5709173
+signature=0xa825
+expected_signature=0xa825
+control=0x0000
+major=0x0100
+minor=0x04ff
+build_time=0x6a36a294
+file_length=5709081
+load_address=0x82000000
+filename=2026-06-20-5.bin
+expected_name=2026-06-20-5.bin
+hcs=0x5fe6
+expected_hcs=0x5fe6
+crc=0x00000000
+size_ok=True
+raw_sha256=356bb512c20d4bcf6a206764cd607b67807fc054c418b5dc07ad9f40953e3922
+wrapped_sha256=b86e59a5de7f86104d3f9bcc75779777a22ef2582c8b8ff9989ec61c67279ad7
+
+OK: wrapped image matches raw payload and expected header fields

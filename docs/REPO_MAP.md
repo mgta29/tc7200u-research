@@ -45,7 +45,7 @@ Repo root:
 │   └── d60242_ghidra/
 └── scripts/
     ├── tcbuilder.sh
-    ├── wrapper.sh
+    ├── programstore.sh
     └── wsl-safe.ps1
 ```
 
@@ -63,7 +63,7 @@ Repo root:
 
 ## Active Scripts
 
-- `scripts/wrapper.sh`: only supported user-facing command. Wraps raw or
+- `scripts/programstore.sh`: only supported user-facing command. Wraps raw or
   already wrapped payloads into A825 ProgramStore images and runs the internal
   verification pass.
 - `scripts/tcbuilder.sh`: migration stub only. Prints the removal notice and
@@ -114,3 +114,5 @@ Required wrapper marker:
 ```text
 size_ok=True
 ```
+
+

@@ -1,0 +1,2 @@
+356bb512c20d4bcf6a206764cd607b67807fc054c418b5dc07ad9f40953e3922  /home/mgta29/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin
+b86e59a5de7f86104d3f9bcc75779777a22ef2582c8b8ff9989ec61c67279ad7  /mnt/c/tftp/2026-06-20-5.bin

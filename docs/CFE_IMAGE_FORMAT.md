@@ -33,14 +33,14 @@ Legacy A825 rescue baseline (kept for comparison):
 
 ## Supported Script
 
-- Supported command: `./scripts/wrapper.sh`
+- Supported command: `./scripts/programstore.sh`
 - Removed command: `./scripts/tcbuilder.sh` now exits non-zero with a migration
   hint.
 
 Recommended template-aligned invocation:
 
 ```sh
-./scripts/wrapper.sh \
+./scripts/programstore.sh \
   --input ~/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin \
   --output /mnt/c/tftp/openwrt-ps-irqfallback.bin \
   --filename openwrt-initramfs.bin \
@@ -51,7 +51,7 @@ Recommended template-aligned invocation:
 No-template invocation:
 
 ```sh
-./scripts/wrapper.sh \
+./scripts/programstore.sh \
   --input ~/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin \
   --output /mnt/c/tftp/openwrt-ps-irqfallback.bin \
   --filename openwrt-initramfs.bin
@@ -101,3 +101,4 @@ Stored under `records/artifacts/invalid/`:
 - 12-byte loader-header images.
 
 These are comparison artifacts only.
+

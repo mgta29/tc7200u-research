@@ -10,7 +10,7 @@ remains the active blocker.
 
 The public operational surface is now wrapper-only:
 
-- supported command: `./scripts/wrapper.sh`
+- supported command: `./scripts/programstore.sh`
 - removed command: `./scripts/tcbuilder.sh` now exits non-zero with a migration
   hint
 - no public build, verify, status, state, serial, reverse, candidate, or gate
@@ -22,7 +22,7 @@ The public operational surface is now wrapper-only:
 - OpenWrt reaches a shell over serial on `ttyS0`.
 - UART RX works when `CONFIG_BCM7120_L2_IRQ=y` is enabled.
 - A825 ProgramStore wrapper generation and internal verification are available
-  through `./scripts/wrapper.sh`.
+  through `./scripts/programstore.sh`.
 - The wrapper still emits the required `size_ok=True` verification marker.
 - The canonical no-template wrapper path uses load address `0x82000000`.
 - The canonical preserve-from template remains:
@@ -81,7 +81,7 @@ Original A825 baseline:
 ## Recommended Next Work
 
 1. Build the BMIPS initramfs manually in OpenWrt.
-2. Wrap it with `./scripts/wrapper.sh`.
+2. Wrap it with `./scripts/programstore.sh`.
 3. Use `--preserve-from ./records/artifacts/rescue/tc7200-stage2-console-good.bin --fresh-header`
    when the run should stay aligned with the current known-good template policy.
 4. Confirm `size_ok=True` on every candidate before serving it via CFE/TFTP.
@@ -93,3 +93,4 @@ Original A825 baseline:
 Serial console and CFE/TFTP OpenWrt boot are solved. The project is blocked on
 GENET DMA window/init behavior: make TDMA consume TX descriptors first, then
 revisit switch wiring, then MTD/flash layout.
+

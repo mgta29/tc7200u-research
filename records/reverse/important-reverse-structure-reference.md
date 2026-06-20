@@ -653,19 +653,158 @@ typedef struct stage1_guarded_context_lock_candidate {
 } stage1_guarded_context_lock_candidate;    /* size 0x10 */
 ```
 
+### 2026-06-20/21 DQM runtime, mailbox, FPM endpoint, and IM5 IRQ structures
+
+These structures come from the June 20/21 Ghidra export and reverse-note pass. They are carried here because they affect TC7200U OpenWrt ENET bring-up and the IRQ13 investigation.
+
+```c
+typedef volatile uint16_t vuint16_t;
+typedef volatile uint32_t vuint32_t;
+
+typedef struct dqm_runtime_state_80004000_candidate {
+    uint8_t reserved_00[65];
+    uint8_t runtime_enable_or_active_byte_41_candidate;
+    uint8_t trace_disable_byte_42_candidate;
+    uint8_t reserved_43[7];
+    vuint16_t cp2_pool_class_debug_4a_candidate;
+    uint8_t reserved_4c[4];
+    vuint32_t trace_queue_mask_50_candidate;
+    uint8_t reserved_54[20];
+    vuint32_t service_mask_68_candidate;
+    uint8_t reserved_6c[72];
+    vuint32_t special_service_mask_b4_candidate;
+    uint8_t reserved_b8[4];
+    vuint32_t active_queue_mask_bc_candidate;
+    vuint32_t event1800008_mask_c0_candidate;
+    vuint32_t event07_pull_queue_mask_c4_candidate;
+} dqm_runtime_state_80004000_candidate;
+
+typedef struct dqm_runtime_event_state_80008000_candidate {
+    vuint32_t selector_active_mask_00_candidate;
+    uint8_t reserved_04[8];
+    vuint32_t event1800008_pending_status_0c_candidate;
+    uint8_t reserved_10[132];
+    vuint32_t cp2_submit_busy_or_lock_94_candidate;
+    uint8_t reserved_98[4];
+    vuint32_t cp2_return_token_9c_candidate;
+    uint8_t reserved_a0[128];
+    vuint32_t event_fifo_pending_flags_120_candidate;
+    uint8_t reserved_124[156];
+    vuint32_t event07_skip_pull_mask_1c0_candidate;
+} dqm_runtime_event_state_80008000_candidate;
+
+typedef struct tc7200_fpm_endpoint_registers_candidate {
+    uint32_t endpoint_800_200_candidate;
+    uint32_t reserved_204_candidate;
+    uint32_t endpoint_400_208_candidate;
+    uint32_t reserved_20c_candidate;
+    uint32_t endpoint_200_210_candidate;
+    uint32_t reserved_214_candidate;
+    uint32_t endpoint_100_218_candidate;
+} tc7200_fpm_endpoint_registers_candidate;
+
+typedef struct dqm_cp2_b604_selector_programming_candidate {
+    undefined field_0000[0x164];
+    vuint32_t selector_a_cmd_word_0164;
+    vuint32_t selector_b_cmd_word_0168;
+    undefined field_016c[0x54];
+    vuint32_t selector_a_target_low_01c0;
+    vuint32_t selector_b_target_low_01c4;
+} dqm_cp2_b604_selector_programming_candidate;
+
+typedef struct dqm_ctrl_mailbox_words_candidate {
+    vuint32_t word0_command_1de0;
+    vuint32_t word1_arg0_1de4;
+    vuint32_t word2_arg1_1de8;
+    vuint32_t word3_arg2_1dec;
+} dqm_ctrl_mailbox_words_candidate;
+
+typedef struct dqm_ctrl_mailbox_response_words_candidate {
+    vuint32_t response_word0_1df0;
+    vuint32_t response_word1_1df4;
+    vuint32_t response_word2_1df8;
+    vuint32_t response_word3_1dfc;
+} dqm_ctrl_mailbox_response_words_candidate;
+
+typedef struct dqm_selector_context_candidate {
+    undefined field_00[4];
+    uint8_t selector_byte_04_candidate;
+    uint8_t selector_byte_05_candidate;
+    uint8_t lane_or_mode_byte_06_candidate;
+    uint8_t enable_or_flags_byte_07_candidate;
+} dqm_selector_context_candidate;
+
+typedef void bcm_periph_irq_handler_fn_candidate(uint32_t handler_arg);
+
+typedef struct bcm_periph_irq_handler_entry_candidate {
+    bcm_periph_irq_handler_fn_candidate *handler_00;
+    uint32_t handler_arg_04;
+} bcm_periph_irq_handler_entry_candidate;
+
+typedef struct tc7200_periph_irq_im5_parent_bank_candidate {
+    vuint32_t mask_or_enable_00;
+    vuint32_t status_or_pending_04;
+} tc7200_periph_irq_im5_parent_bank_candidate;
+
+typedef struct tc7200_periph_irq_child_bank_candidate {
+    undefined field_00[8];
+    vuint32_t status_or_pending_08;
+    vuint32_t mask_or_enable_0c;
+} tc7200_periph_irq_child_bank_candidate;
+
+typedef struct tc7200_bcm34xx_serial_regs_candidate {
+    vuint32_t ctrl_000;
+    vuint32_t register_index_or_div_004_candidate;
+    vuint32_t cmd_byte0_low_008_candidate;
+    vuint32_t cmd_byte1_00c_candidate;
+    vuint32_t cmd_byte2_010_candidate;
+    vuint32_t cmd_byte3_high_014_candidate;
+    vuint32_t config_018_candidate;
+    vuint32_t config_01c_candidate;
+    vuint32_t config_020_candidate;
+    vuint32_t transfer_len_024;
+    vuint32_t opcode_028;
+    vuint32_t cmd_status_02c;
+    vuint32_t read_fifo_030;
+} tc7200_bcm34xx_serial_regs_candidate;
+
+typedef struct bcm34xx_serial_access_lock_candidate {
+    uint32_t recursion_count_00;
+    uint32_t waiter_count_04;
+    void *owner_context_08_candidate;
+    stage1_bcm_sem_candidate *semaphore_0c;
+} bcm34xx_serial_access_lock_candidate;
+```
+
+Application notes:
+
+- Apply `tc7200_fpm_endpoint_registers_candidate` at `b2200200` / physical `12200200`.
+- Apply `dqm_cp2_b604_selector_programming_candidate` at `b6040400`.
+- Apply `dqm_ctrl_mailbox_words_candidate` at `b6001de0`.
+- Apply `dqm_ctrl_mailbox_response_words_candidate` at `b6001df0`.
+- Apply `dqm_selector_context_candidate *` at `80007064` and `80007068`.
+- Apply `bcm_periph_irq_handler_entry_candidate[?]` conceptually at `81743214`; do not force a fixed full array length until table extent is proven.
+- Apply `tc7200_periph_irq_im5_parent_bank_candidate` at `b4e00050`.
+- Do not apply `tc7200_periph_irq_child_bank_candidate` globally yet; first inspect the table at `81745b14` to identify concrete child-bank bases.
+- Apply `tc7200_bcm34xx_serial_regs_candidate` at `b4e00e00`.
+- `bcm34xx_serial_access_lock_candidate` is provisional and belongs with the BCM34xx serial helper, not the IRQ13 clear path.
+
 ## Current carried status
 
 This reference currently carries:
 
-- 5 FPM and allocator or packet structures
+- 6 FPM and allocator or packet structures
 - 4 Host-DQM structures
+- 2 DQM runtime-overlay structures
+- 4 DQM mailbox and selector structures
 - 2 Stage1 event-slot structures
 - 19 Stage1 scheduler and wake-chain structures
 - 14 Stage1 signal-object, related-object, socket-object, and timeout-conversion structures
 - 9 Stage1 netif, socket-create-flag, aux-context, and route-output structures
-- 3 additional synchronization or semaphore structures
+- 4 additional synchronization or semaphore structures
+- 4 peripheral IRQ, handler-entry, and BCM34xx MMIO structures
 
-Total current carried structures: `56`
+Total current carried structures: `68`
 
 ## Header cross-check
 
@@ -718,6 +857,9 @@ Cross-checks against `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\tools\
   - `stage1_context_candidate +0x58` is exported as `undefined4 *field_58`
 - the header still contains export artifacts such as `-BAD-` array placeholders, `pointer` pseudo-types, and one truncated field name
 
+- 2026-06-21 controls use `records/reverse/exports/datatype.json` plus the June 20/21 dated notes for the newest DQM, FPM endpoint, mailbox, IM5 IRQ, and BCM34xx datatype confirmation
+- current worktree status shows the older `records/reverse/structures.h` path deleted, so do not treat that path as a current confirmation source until it is regenerated
+
 ## Maintenance log
 
 Recorded modifications worth keeping:
@@ -740,6 +882,7 @@ Recorded modifications worth keeping:
 - 2026-06-18: added the June 16 socket-object and socket-vtable layouts, refined the type2 ops `+0x14/+0x1c` slots, and raised the carried set to `47` structures
 - 2026-06-19: added the June 19 socket build/create-flag, netif, aux-object, aux-context, keyclass ops, and aux-context stats layouts, and raised the carried set to `56` structures
 - 2026-06-20: added the June 19 DMA/FPM allocator runtime-init note to the carried source set and refined the allocator field semantics at `0x81848740` without changing the carried structure count
+- 2026-06-21: added the June 20/21 DQM runtime-overlay, FPM endpoint, DQM mailbox/selector, IM5 parent/child IRQ, handler-entry, BCM34xx serial, and BCM34xx access-lock structures, and raised the carried set to `68` structures
 
 ## Preservation
 

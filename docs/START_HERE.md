@@ -12,7 +12,7 @@ Working pieces:
 - CFE/TFTP boot with the known-good image.
 - Serial console TX/RX with `CONFIG_BCM7120_L2_IRQ=y`.
 - A825 ProgramStore wrapper generation with internal verification through
-  `./scripts/wrapper.sh`.
+  `./scripts/programstore.sh`.
 - Kernel-side MMIO probing through `ioremap()` and `printk()`.
 
 Current Ethernet blocker:
@@ -33,7 +33,7 @@ Build OpenWrt manually, then wrap the payload directly.
 cd ~/src/openwrt
 make -j"$(nproc)" target/linux/install V=s
 cd ~/tc7200u-research
-./scripts/wrapper.sh \
+./scripts/programstore.sh \
   --input ~/src/openwrt/bin/targets/bmips/bcm63268/openwrt-bmips-bcm63268-technicolor_tc7200u-initramfs.bin \
   --output /mnt/c/tftp/openwrt-ps-irqfallback.bin \
   --filename openwrt-initramfs.bin \
@@ -83,3 +83,4 @@ Continue the GENET TDMA diagnostic:
   GMAC low/high clocks and reset but not the named UBUS GMAC clock bit.
 - IRQ `<13 4>` remains a separate branch and must not be combined with DMA
   address tests.
+

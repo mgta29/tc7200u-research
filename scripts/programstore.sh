@@ -41,7 +41,7 @@ WRAP_EXTRA_ARGS=()
 usage() {
 	cat <<'EOF'
 Usage:
-  ./scripts/wrapper.sh --input PATH --output PATH [options]
+  ./scripts/programstore.sh --input PATH --output PATH [options]
 
 Options:
   --input PATH
@@ -852,3 +852,4 @@ main() {
 }
 
 main "$@"
+
