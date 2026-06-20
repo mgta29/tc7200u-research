@@ -1,0 +1,33 @@
+=== meta ===
+timestamp_local=2026-06-20 14:52:48 CEST
+cwd=/home/mgta29/tc7200u-research
+command=ensure_packages
+=== output ===
+== TC7200U package profile ==
+OWRT=/home/mgta29/src/openwrt
+TC7200U_PACKAGE_PROFILE=fastboot
+TC7200U_INCLUDE_DRIVER_PACKAGES=0
+WARNING: Makefile 'package/feeds/video/sdl3/Makefile' has a build dependency on 'libwayland', which does not exist
+#
+# configuration written to .config
+#
+
+disabled:  ethtool
+disabled:  ip-full
+disabled:  mtd
+disabled:  nand-utils
+WARN: still enabled after fastboot profile: ubi-utils
+disabled:  block-mount
+disabled:  blkid
+disabled:  lsblk
+disabled:  dtc
+disabled:  strace
+disabled:  tcpdump
+disabled:  kmod-bgmac-b53
+disabled:  kmod-dsa-core
+disabled:  kmod-mdio-bcm-unimac
+WARN: fastboot profile could not disable at least one package.
+OK: OpenWrt .config updated for TC7200U fastboot profile
+
+=== exit ===
+exit_code=0
