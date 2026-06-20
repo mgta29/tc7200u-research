@@ -191,3 +191,524 @@ Erasing sector at 00000000...SpiFlashWrite: Writing flash at 00000000
 [   21.769961] bcmgenet 12c00000.ethernet: using random Ethernet MAC
 [   21.792768] bcmgenet 12c00000.ethernet: unable to find MDIO bus node
 [   21.895743] unimac-mdio unimac-mdio.-19: Broadcom UniMAC MDIO bus
+[   34.705621] NET: Registered PF_INET6 protocol family
+[   35.249269] Segment Routing with IPv6
+[   35.269789] In-situ OAM (IOAM) with IPv6
+[   35.293897] NET: Registered PF_PACKET protocol family
+[   35.326980] 8021q: 802.1Q VLAN Support v1.8
+[   40.053794] clk: Disabling unused clocks
+[   40.059740] PM: genpd: Disabling unused power domains
+[   41.276326] Freeing unused kernel image (initmem) memory: 9084K
+[   41.286054] This architecture does not have kernel memory protection.
+[   41.296373] Run /init as init process
+[   70.916461] init: Console is alive
+[   72.234795] kmodloader: loading kernel modules from /etc/modules-boot.d/*
+[   72.474320] gpio_button_hotplug: loading out-of-tree module taints kernel.
+[   72.667198] kmodloader: done loading kernel modules from /etc/modules-boot.d/*
+[   72.818397] init: - preinit -
+[  100.556988] random: crng init done
+[  131.157741] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL open_entry FPM_A 12200010=0x00000000 12200014=0x00000001 12200040=0x06000000 12200044=0x00010000
+[  131.179165] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL open_entry FPM_B 12200050=0x00000000 12200054=0x18007f04 12200058=0x00000000 1220005c=0x00000000
+[  131.201790] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL open_entry FPM_C 12200200=0x80238800 12200208=0x90094400 12200210=0xa01b8200 12200218=0xb0168100
+[  131.225029] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL open_entry GMAC_A 12c00004=0x86e0d9e0 12c00008=0x0000008e 12c0000c=0x2be183c4 12c00010=0x2be183c4
+[  131.248486] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL open_entry GMAC_B 12c00040=0x86e0d9e0 12c00044=0x0000008f 12c00048=0x2be183c4 12c0004c=0x2be183c4
+[  131.274149] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL open_entry GMAC_C 12c00050=0x86e0d9e0 12c00054=0x0000008f 12c00058=0x2be183c4 12c00070=0x2be183c4
+[  131.297443] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL open_entry GMAC_CH1 12c00100=0x86e0d9e0 12c00104=0x0000008f 12c00120=0x2be183c4 12c00124=0x2be183c4
+[  131.323980] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL open_entry GMAC_CH2 12c00140=0x86e0d9e0 12c00144=0x00000091 12c00180=0x2be183c4 12c00184=0x2be183c4
+[  131.344837] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL open_entry PROFILE 14e001c4=0xda492010 14e00002=0x00a2 14e00264=0x00000000
+[  131.732864] bcmgenet 12c00000.ethernet: configuring instance for external RGMII (no delay)
+[  131.760097] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL open_exit FPM_A 12200010=0x00000000 12200014=0x00000001 12200040=0x06000000 12200044=0x00010000
+[  131.782535] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL open_exit FPM_B 12200050=0x00000000 12200054=0x18007ef5 12200058=0x00000000 1220005c=0x00000000
+[  131.803181] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL open_exit FPM_C 12200200=0x80240800 12200208=0x90104400 12200210=0xa01ba200 12200218=0xb0169100
+[  131.826440] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL open_exit GMAC_A 12c00004=0x86e0d9e0 12c00008=0x0000008d 12c0000c=0x2be183c4 12c00010=0x2be183c4
+[  131.849778] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL open_exit GMAC_B 12c00040=0x86e0d9e0 12c00044=0x0000008e 12c00048=0x2be183c4 12c0004c=0x2be183c4
+[  131.875360] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL open_exit GMAC_C 12c00050=0x86e0d9e0 12c00054=0x0000008e 12c00058=0x2be183c4 12c00070=0x2be183c4
+[  131.898662] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL open_exit GMAC_CH1 12c00100=0x86e0d9e0 12c00104=0x0000008e 12c00120=0x2be183c4 12c00124=0x2be183c4
+[  131.925593] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL open_exit GMAC_CH2 12c00140=0x86e0d9e0 12c00144=0x00000090 12c00180=0x2be183c4 12c00184=0x2be183c4
+[  131.946355] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL open_exit PROFILE 14e001c4=0xda492010 14e00002=0x00a2 14e00264=0x00000000
+[  132.046103] bcmgenet 12c00000.ethernet eth0: Link is Up - 1Gbps/Full - flow control off
+[  132.146693] bcmgenet 12c00000.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=154 mapping=0x06834802 len_stat=0x009a6fc0 bd_addr=b2c03000 ring=0 write_ptr=1 prod=0 free=256
+[  134.952888] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2780 ms
+[  134.974708] bcmgenet 12c00000.ethernet eth0: TC7200U TXDUMP timeout_entry periph_stat=0x40030004 periph_mask=0x00002000 intr0_stat=0xffffffea intr0_mask=0x8680dcb4 intr1_stat=0x0000007d intr1_mask=0x80a2ece8 tdma_ctrl=0x00003000 tdma_stat=0x00000800 sw_prod=0 sw_c=0 hw_p=0 hw_c=14340 free_bds=0 clean=0 write=0
+[  135.014660] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry FPM_A 12200010=0x00000000 12200014=0x00000001 12200040=0x06000000 12200044=0x00010000
+[  135.035577] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry FPM_B 12200050=0x00000000 12200054=0x18007ee6 12200058=0x00000000 1220005c=0x00000000
+[  135.056278] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry FPM_C 12200200=0x80248800 12200208=0x90130400 12200210=0xa01bc200 12200218=0xb016a100
+[  135.079963] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_A 12c00004=0x8680dbc8 12c00008=0x00000091 12c0000c=0x2be183c4 12c00010=0x2be183c4
+[  135.105791] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_B 12c00040=0x8680dbc8 12c00044=0x00000092 12c00048=0x2be183c4 12c0004c=0x2be183c4
+[  135.129522] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_C 12c00050=0x8680dbc8 12c00054=0x00000092 12c00058=0x2be183c4 12c00070=0x2be183c4
+[  135.155579] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_CH1 12c00100=0x8680dbc8 12c00104=0x00000092 12c00120=0x2be183c4 12c00124=0x2be183c4
+[  135.179504] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_CH2 12c00140=0x8680dbc8 12c00144=0x00000094 12c00180=0x2be183c4 12c00184=0x2be183c4
+[  135.203022] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry PROFILE 14e001c4=0xda492010 14e00002=0x00a2 14e00264=0x00000000
+[  135.896977] bcmgenet 12c00000.ethernet eth0: TC7200U TXDUMP timeout_exit periph_stat=0x40030004 periph_mask=0x00002000 intr0_stat=0x00000000 intr0_mask=0x00000000 intr1_stat=0x00000087 intr1_mask=0x00000000 tdma_ctrl=0x00003000 tdma_stat=0x00000800 sw_prod=0 sw_c=0 hw_p=0 hw_c=14340 free_bds=0 clean=0 write=0
+[  135.936763] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit FPM_A 12200010=0x00000000 12200014=0x00000001 12200040=0x06000000 12200044=0x00010000
+[  135.957399] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit FPM_B 12200050=0x00000000 12200054=0x18007ed7 12200058=0x00000000 1220005c=0x00000000
+[  135.979208] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit FPM_C 12200200=0x80250800 12200208=0x90140400 12200210=0xa01be200 12200218=0xb016b100
+[  136.005103] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_A 12c00004=0x8680dc38 12c00008=0x00000090 12c0000c=0x2be183c4 12c00010=0x2be183c4
+[  136.028715] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_B 12c00040=0x8680dc38 12c00044=0x00000091 12c00048=0x2be183c4 12c0004c=0x2be183c4
+[  136.054815] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_C 12c00050=0x8680dc38 12c00054=0x00000091 12c00058=0x2be183c4 12c00070=0x2be183c4
+[  136.078442] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_CH1 12c00100=0x8680dc38 12c00104=0x00000091 12c00120=0x2be183c4 12c00124=0x2be183c4
+[  136.104585] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_CH2 12c00140=0x8680dc38 12c00144=0x00000093 12c00180=0x2be183c4 12c00184=0x2be183c4
+[  136.125861] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit PROFILE 14e001c4=0xda492010 14e00002=0x00a2 14e00264=0x00000000
+[  136.152910] bcmgenet 12c00000.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=154 mapping=0x06e37802 len_stat=0x009a6fc0 bd_addr=b2c03000 ring=0 write_ptr=1 prod=17920 free=65792
+[  136.179868] bcmgenet 12c00000.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=150 mapping=0x068f2782 len_stat=0x00966fc0 bd_addr=b2c03008 ring=0 write_ptr=2 prod=17921 free=65791
+[  136.206895] bcmgenet 12c00000.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=154 mapping=0x06e34002 len_stat=0x009a6fc0 bd_addr=b2c03010 ring=0 write_ptr=3 prod=17922 free=65790
+Press the [f] key and hit [enter] to enter failsafe mode
+Press the [1], [2], [3] or [4] key and hit [enter] to select the debug level
+[  138.953169] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2720 ms
+[  138.974828] bcmgenet 12c00000.ethernet eth0: TC7200U TXDUMP timeout_entry periph_stat=0x40030004 periph_mask=0x00002000 intr0_stat=0xffffffea intr0_mask=0x8680dcb4 intr1_stat=0x00000095 intr1_mask=0x80a2ece8 tdma_ctrl=0x00003000 tdma_stat=0x00000800 sw_prod=0 sw_c=0 hw_p=0 hw_c=14340 free_bds=0 clean=0 write=0
+[  139.014958] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry FPM_A 12200010=0x00000000 12200014=0x00000001 12200040=0x06000000 12200044=0x00010000
+[  139.035713] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry FPM_B 12200050=0x00000000 12200054=0x18007ec8 12200058=0x00000000 1220005c=0x00000000
+[  139.056423] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry FPM_C 12200200=0x80268800 12200208=0x9009c400 12200210=0xa0270200 12200218=0xb00e8100
+[  139.080296] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_A 12c00004=0x8680dbc8 12c00008=0x00000091 12c0000c=0x2be183c4 12c00010=0x2be183c4
+[  139.105260] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_B 12c00040=0x8680dbc8 12c00044=0x00000092 12c00048=0x2be183c4 12c0004c=0x2be183c4
+[  139.128989] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_C 12c00050=0x8680dbc8 12c00054=0x00000092 12c00058=0x2be183c4 12c00070=0x2be183c4
+[  139.155079] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_CH1 12c00100=0x8680dbc8 12c00104=0x00000092 12c00120=0x2be183c4 12c00124=0x2be183c4
+[  139.179006] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_CH2 12c00140=0x8680dbc8 12c00144=0x00000094 12c00180=0x2be183c4 12c00184=0x2be183c4
+[  139.202602] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry PROFILE 14e001c4=0xda492010 14e00002=0x00a2 14e00264=0x00000000
+[  139.232711] bcmgenet 12c00000.ethernet eth0: TC7200U TXDUMP timeout_exit periph_stat=0x40030004 periph_mask=0x00002000 intr0_stat=0xffffffea intr0_mask=0x8680dc14 intr1_stat=0x0000009f intr1_mask=0x00000000 tdma_ctrl=0x00003000 tdma_stat=0x00000800 sw_prod=0 sw_c=0 hw_p=0 hw_c=14340 free_bds=0 clean=0 write=0
+[  139.272382] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit FPM_A 12200010=0x00000000 12200014=0x00000001 12200040=0x06000000 12200044=0x00010000
+[  139.293027] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit FPM_B 12200050=0x00000000 12200054=0x18007eb9 12200058=0x00000000 1220005c=0x00000000
+[  139.313624] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit FPM_C 12200200=0x802a8800 12200208=0x900f8400 12200210=0xa0272200 12200218=0xb00e9100
+[  139.337382] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_A 12c00004=0x8680dc38 12c00008=0x00000090 12c0000c=0x2be183c4 12c00010=0x2be183c4
+[  139.363338] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_B 12c00040=0x8680dc38 12c00044=0x00000091 12c00048=0x2be183c4 12c0004c=0x2be183c4
+[  139.386968] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_C 12c00050=0x8680dc38 12c00054=0x00000091 12c00058=0x2be183c4 12c00070=0x2be183c4
+[  139.413090] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_CH1 12c00100=0x8680dc38 12c00104=0x00000091 12c00120=0x2be183c4 12c00124=0x2be183c4
+[  139.436937] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_CH2 12c00140=0x8680dc38 12c00144=0x00000093 12c00180=0x2be183c4 12c00184=0x2be183c4
+[  139.459453] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit PROFILE 14e001c4=0xda492010 14e00002=0x00a2 14e00264=0x00000000
+[  139.492644] bcmgenet 12c00000.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=154 mapping=0x06e37002 len_stat=0x009a6fc0 bd_addr=b2c03000 ring=0 write_ptr=1 prod=17920 free=65792
+[  139.518672] bcmgenet 12c00000.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=134 mapping=0x068f2c82 len_stat=0x00866fc0 bd_addr=b2c03008 ring=0 write_ptr=2 prod=17921 free=65791
+[  139.545710] bcmgenet 12c00000.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=134 mapping=0x068f2a02 len_stat=0x00866fc0 bd_addr=b2c03010 ring=0 write_ptr=3 prod=17922 free=65790
+[  141.912812] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2340 ms
+[  141.934986] bcmgenet 12c00000.ethernet eth0: TC7200U TXDUMP timeout_entry periph_stat=0x40030004 periph_mask=0x00002000 intr0_stat=0xffffffea intr0_mask=0x8680dcb4 intr1_stat=0x000000ad intr1_mask=0x80a2ece8 tdma_ctrl=0x00003000 tdma_stat=0x00000800 sw_prod=0 sw_c=0 hw_p=0 hw_c=14340 free_bds=0 clean=0 write=0
+[  141.975116] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry FPM_A 12200010=0x00000000 12200014=0x00000001 12200040=0x06000000 12200044=0x00010000
+[  141.995859] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry FPM_B 12200050=0x00000000 12200054=0x18007eaa 12200058=0x00000000 1220005c=0x00000000
+[  142.016574] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry FPM_C 12200200=0x800b8800 12200208=0x9017c400 12200210=0xa0274200 12200218=0xb00ea100
+[  142.040430] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_A 12c00004=0x8680dbc8 12c00008=0x00000091 12c0000c=0x2be183c4 12c00010=0x2be183c4
+[  142.065381] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_B 12c00040=0x8680dbc8 12c00044=0x00000092 12c00048=0x2be183c4 12c0004c=0x2be183c4
+[  142.089112] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_C 12c00050=0x8680dbc8 12c00054=0x00000092 12c00058=0x2be183c4 12c00070=0x2be183c4
+[  142.115158] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_CH1 12c00100=0x8680dbc8 12c00104=0x00000092 12c00120=0x2be183c4 12c00124=0x2be183c4
+[  142.139092] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_CH2 12c00140=0x8680dbc8 12c00144=0x00000094 12c00180=0x2be183c4 12c00184=0x2be183c4
+[  142.162598] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry PROFILE 14e001c4=0xda492010 14e00002=0x00a2 14e00264=0x00000000
+[  142.192596] bcmgenet 12c00000.ethernet eth0: TC7200U TXDUMP timeout_exit periph_stat=0x40030004 periph_mask=0x00002000 intr0_stat=0xffffffea intr0_mask=0x8680dc14 intr1_stat=0x000000b7 intr1_mask=0x00000000 tdma_ctrl=0x00003000 tdma_stat=0x00000800 sw_prod=0 sw_c=0 hw_p=0 hw_c=14340 free_bds=0 clean=0 write=0
+[  142.232295] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit FPM_A 12200010=0x00000000 12200014=0x00000001 12200040=0x06000000 12200044=0x00010000
+[  142.252940] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit FPM_B 12200050=0x00000000 12200054=0x18007e9b 12200058=0x00000000 1220005c=0x00000000
+[  142.273549] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit FPM_C 12200200=0x802f0800 12200208=0x901d0400 12200210=0xa0276200 12200218=0xb00eb100
+[  142.297308] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_A 12c00004=0x8680dc38 12c00008=0x00000090 12c0000c=0x2be183c4 12c00010=0x2be183c4
+[  142.323224] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_B 12c00040=0x8680dc38 12c00044=0x00000091 12c00048=0x2be183c4 12c0004c=0x2be183c4
+[  142.346853] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_C 12c00050=0x8680dc38 12c00054=0x00000091 12c00058=0x2be183c4 12c00070=0x2be183c4
+[  142.372937] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_CH1 12c00100=0x8680dc38 12c00104=0x00000091 12c00120=0x2be183c4 12c00124=0x2be183c4
+[  142.396772] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_CH2 12c00140=0x8680dc38 12c00144=0x00000093 12c00180=0x2be183c4 12c00184=0x2be183c4
+[  142.418048] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit PROFILE 14e001c4=0xda492010 14e00002=0x00a2 14e00264=0x00000000
+[  142.442459] bcmgenet 12c00000.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=1107 mapping=0x06e37802 len_stat=0x04536fd0 bd_addr=b2c03000 ring=0 write_ptr=1 prod=17920 free=65792
+[  144.953407] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2490 ms
+[  144.974877] bcmgenet 12c00000.ethernet eth0: TC7200U TXDUMP timeout_entry periph_stat=0x40030004 periph_mask=0x00002000 intr0_stat=0xffffffea intr0_mask=0x8680dcb4 intr1_stat=0x000000c3 intr1_mask=0x80a2ece8 tdma_ctrl=0x00003000 tdma_stat=0x00000800 sw_prod=0 sw_c=0 hw_p=0 hw_c=14340 free_bds=0 clean=0 write=0
+[  145.015154] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry FPM_A 12200010=0x00000000 12200014=0x00000001 12200040=0x06000000 12200044=0x00010000
+[  145.036076] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry FPM_B 12200050=0x00000000 12200054=0x18007e8c 12200058=0x00000000 1220005c=0x00000000
+[  145.056775] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry FPM_C 12200200=0x80318800 12200208=0x900c8400 12200210=0xa0278200 12200218=0xb00e4100
+[  145.080446] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_A 12c00004=0x8680dbc8 12c00008=0x00000091 12c0000c=0x2be183c4 12c00010=0x2be183c4
+[  145.105564] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_B 12c00040=0x8680dbc8 12c00044=0x00000092 12c00048=0x2be183c4 12c0004c=0x2be183c4
+[  145.129287] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_C 12c00050=0x8680dbc8 12c00054=0x00000092 12c00058=0x2be183c4 12c00070=0x2be183c4
+[  145.155172] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_CH1 12c00100=0x8680dbc8 12c00104=0x00000092 12c00120=0x2be183c4 12c00124=0x2be183c4
+[  145.179243] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_CH2 12c00140=0x8680dbc8 12c00144=0x00000094 12c00180=0x2be183c4 12c00184=0x2be183c4
+[  145.202589] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry PROFILE 14e001c4=0xda492010 14e00002=0x00a2 14e00264=0x00000000
+[  145.232513] bcmgenet 12c00000.ethernet eth0: TC7200U TXDUMP timeout_exit periph_stat=0x40030004 periph_mask=0x00002000 intr0_stat=0xffffffea intr0_mask=0x8680dc14 intr1_stat=0x000000cd intr1_mask=0x00000000 tdma_ctrl=0x00003000 tdma_stat=0x00000800 sw_prod=0 sw_c=0 hw_p=0 hw_c=14340 free_bds=0 clean=0 write=0
+[  145.272199] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit FPM_A 12200010=0x00000000 12200014=0x00000001 12200040=0x06000000 12200044=0x00010000
+[  145.292994] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit FPM_B 12200050=0x00000000 12200054=0x18007e7d 12200058=0x00000000 1220005c=0x00000000
+[  145.313574] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit FPM_C 12200200=0x80328800 12200208=0x900fc400 12200210=0xa027a200 12200218=0xb00e5100
+[  145.337138] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_A 12c00004=0x8680dc38 12c00008=0x00000090 12c0000c=0x2be183c4 12c00010=0x2be183c4
+[  145.363242] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_B 12c00040=0x8680dc38 12c00044=0x00000091 12c00048=0x2be183c4 12c0004c=0x2be183c4
+[  145.386852] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_C 12c00050=0x8680dc38 12c00054=0x00000091 12c00058=0x2be183c4 12c00070=0x2be183c4
+[  145.413420] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_CH1 12c00100=0x8680dc38 12c00104=0x00000091 12c00120=0x2be183c4 12c00124=0x2be183c4
+[  145.437257] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_CH2 12c00140=0x8680dc38 12c00144=0x00000093 12c00180=0x2be183c4 12c00184=0x2be183c4
+[  145.459573] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit PROFILE 14e001c4=0xda492010 14e00002=0x00a2 14e00264=0x00000000
+[  145.492453] bcmgenet 12c00000.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=1107 mapping=0x06e37002 len_stat=0x04536fd0 bd_addr=b2c03000 ring=0 write_ptr=1 prod=17920 free=65792
+[  147.912929] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2400 ms
+[  147.934627] bcmgenet 12c00000.ethernet eth0: TC7200U TXDUMP timeout_entry periph_stat=0x40030004 periph_mask=0x00002000 intr0_stat=0xffffffea intr0_mask=0x8680dcb4 intr1_stat=0x000000d9 intr1_mask=0x80a2ece8 tdma_ctrl=0x00003000 tdma_stat=0x00000800 sw_prod=0 sw_c=0 hw_p=0 hw_c=14340 free_bds=0 clean=0 write=0
+[  147.974812] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry FPM_A 12200010=0x00000000 12200014=0x00000001 12200040=0x06000000 12200044=0x00010000
+[  147.995596] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry FPM_B 12200050=0x00000000 12200054=0x18007e6e 12200058=0x00000000 1220005c=0x00000000
+[  148.016339] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry FPM_C 12200200=0x80330800 12200208=0x902dc400 12200210=0xa027c200 12200218=0xb00e6100
+[  148.040221] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_A 12c00004=0x8680dbc8 12c00008=0x00000091 12c0000c=0x2be183c4 12c00010=0x2be183c4
+[  148.065213] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_B 12c00040=0x8680dbc8 12c00044=0x00000092 12c00048=0x2be183c4 12c0004c=0x2be183c4
+[  148.088977] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_C 12c00050=0x8680dbc8 12c00054=0x00000092 12c00058=0x2be183c4 12c00070=0x2be183c4
+[  148.115079] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_CH1 12c00100=0x8680dbc8 12c00104=0x00000092 12c00120=0x2be183c4 12c00124=0x2be183c4
+[  148.139034] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_CH2 12c00140=0x8680dbc8 12c00144=0x00000094 12c00180=0x2be183c4 12c00184=0x2be183c4
+[  148.162601] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry PROFILE 14e001c4=0xda492010 14e00002=0x00a2 14e00264=0x00000000
+[  148.192447] bcmgenet 12c00000.ethernet eth0: TC7200U TXDUMP timeout_exit periph_stat=0x40030004 periph_mask=0x00002000 intr0_stat=0xffffffea intr0_mask=0x8680dc14 intr1_stat=0x000000e3 intr1_mask=0x00000000 tdma_ctrl=0x00003000 tdma_stat=0x00000800 sw_prod=0 sw_c=0 hw_p=0 hw_c=14340 free_bds=0 clean=0 write=0
+[  148.232355] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit FPM_A 12200010=0x00000000 12200014=0x00000001 12200040=0x06000000 12200044=0x00010000
+[  148.253026] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit FPM_B 12200050=0x00000000 12200054=0x18007e5f 12200058=0x00000000 1220005c=0x00000000
+[  148.273656] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit FPM_C 12200200=0x80338800 12200208=0x9030c400 12200210=0xa027e200 12200218=0xb00e7100
+[  148.297426] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_A 12c00004=0x8680dc38 12c00008=0x00000090 12c0000c=0x2be183c4 12c00010=0x2be183c4
+[  148.323459] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_B 12c00040=0x8680dc38 12c00044=0x00000091 12c00048=0x2be183c4 12c0004c=0x2be183c4
+[  148.347119] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_C 12c00050=0x8680dc38 12c00054=0x00000091 12c00058=0x2be183c4 12c00070=0x2be183c4
+[  148.373274] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_CH1 12c00100=0x8680dc38 12c00104=0x00000091 12c00120=0x2be183c4 12c00124=0x2be183c4
+[  148.397153] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_CH2 12c00140=0x8680dc38 12c00144=0x00000093 12c00180=0x2be183c4 12c00184=0x2be183c4
+[  148.419684] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit PROFILE 14e001c4=0xda492010 14e00002=0x00a2 14e00264=0x00000000
+[  148.442874] bcmgenet 12c00000.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=1107 mapping=0x06e37802 len_stat=0x04536fd0 bd_addr=b2c03000 ring=0 write_ptr=1 prod=17920 free=65792
+[  150.952790] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2490 ms
+[  150.974353] bcmgenet 12c00000.ethernet eth0: TC7200U TXDUMP timeout_entry periph_stat=0x40030004 periph_mask=0x00002000 intr0_stat=0xffffffea intr0_mask=0x8680dcb4 intr1_stat=0x000000ef intr1_mask=0x80a2ece8 tdma_ctrl=0x00003000 tdma_stat=0x00000800 sw_prod=0 sw_c=0 hw_p=0 hw_c=14340 free_bds=0 clean=0 write=0
+[  151.015167] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry FPM_A 12200010=0x00000000 12200014=0x00000001 12200040=0x06000000 12200044=0x00010000
+[  151.035921] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry FPM_B 12200050=0x00000000 12200054=0x18007e50 12200058=0x00000000 1220005c=0x00000000
+[  151.056646] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry FPM_C 12200200=0x80088800 12200208=0x90060400 12200210=0xa0280200 12200218=0xb00f4100
+[  151.080523] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_A 12c00004=0x8680dbc8 12c00008=0x00000091 12c0000c=0x2be183c4 12c00010=0x2be183c4
+[  151.105482] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_B 12c00040=0x8680dbc8 12c00044=0x00000092 12c00048=0x2be183c4 12c0004c=0x2be183c4
+[  151.129224] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_C 12c00050=0x8680dbc8 12c00054=0x00000092 12c00058=0x2be183c4 12c00070=0x2be183c4
+[  151.155290] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_CH1 12c00100=0x8680dbc8 12c00104=0x00000092 12c00120=0x2be183c4 12c00124=0x2be183c4
+[  151.179230] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_CH2 12c00140=0x8680dbc8 12c00144=0x00000094 12c00180=0x2be183c4 12c00184=0x2be183c4
+[  151.202751] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry PROFILE 14e001c4=0xda492010 14e00002=0x00a2 14e00264=0x00000000
+[  151.232557] bcmgenet 12c00000.ethernet eth0: TC7200U TXDUMP timeout_exit periph_stat=0x40030004 periph_mask=0x00002000 intr0_stat=0xffffffea intr0_mask=0x8680dc14 intr1_stat=0x000000f9 intr1_mask=0x00000000 tdma_ctrl=0x00003000 tdma_stat=0x00000800 sw_prod=0 sw_c=0 hw_p=0 hw_c=14340 free_bds=0 clean=0 write=0
+[  151.272281] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit FPM_A 12200010=0x00000000 12200014=0x00000001 12200040=0x06000000 12200044=0x00010000
+[  151.292938] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit FPM_B 12200050=0x00000000 12200054=0x18007e41 12200058=0x00000000 1220005c=0x00000000
+[  151.313554] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit FPM_C 12200200=0x80148800 12200208=0x900a8400 12200210=0xa0282200 12200218=0xb00f5100
+[  151.337328] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_A 12c00004=0x8680dc38 12c00008=0x00000090 12c0000c=0x2be183c4 12c00010=0x2be183c4
+[  151.363290] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_B 12c00040=0x8680dc38 12c00044=0x00000091 12c00048=0x2be183c4 12c0004c=0x2be183c4
+[  151.386940] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_C 12c00050=0x8680dc38 12c00054=0x00000091 12c00058=0x2be183c4 12c00070=0x2be183c4
+[  151.413072] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_CH1 12c00100=0x8680dc38 12c00104=0x00000091 12c00120=0x2be183c4 12c00124=0x2be183c4
+[  151.436927] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_CH2 12c00140=0x8680dc38 12c00144=0x00000093 12c00180=0x2be183c4 12c00184=0x2be183c4
+[  151.459445] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit PROFILE 14e001c4=0xda492010 14e00002=0x00a2 14e00264=0x00000000
+[  151.483191] bcmgenet 12c00000.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=134 mapping=0x068f2c82 len_stat=0x00866fc0 bd_addr=b2c03000 ring=0 write_ptr=1 prod=17920 free=65792
+[  151.509374] bcmgenet 12c00000.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=1107 mapping=0x06e37002 len_stat=0x04536fd0 bd_addr=b2c03008 ring=0 write_ptr=2 prod=17921 free=65791
+[  153.912824] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2380 ms
+[  153.934583] bcmgenet 12c00000.ethernet eth0: TC7200U TXDUMP timeout_entry periph_stat=0x40030004 periph_mask=0x00002000 intr0_stat=0xffffffea intr0_mask=0x8680dcb4 intr1_stat=0x00000106 intr1_mask=0x80a2ece8 tdma_ctrl=0x00003000 tdma_stat=0x00000800 sw_prod=0 sw_c=0 hw_p=0 hw_c=14340 free_bds=0 clean=0 write=0
+[  153.974592] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry FPM_A 12200010=0x00000000 12200014=0x00000001 12200040=0x06000000 12200044=0x00010000
+[  153.995542] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry FPM_B 12200050=0x00000000 12200054=0x18007e32 12200058=0x00000000 1220005c=0x00000000
+[  154.016279] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry FPM_C 12200200=0x80150800 12200208=0x900ac400 12200210=0xa0284200 12200218=0xb00f6100
+[  154.039997] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_A 12c00004=0x8680dbc8 12c00008=0x00000091 12c0000c=0x2be183c4 12c00010=0x2be183c4
+[  154.065150] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_B 12c00040=0x8680dbc8 12c00044=0x00000092 12c00048=0x2be183c4 12c0004c=0x2be183c4
+[  154.088914] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_C 12c00050=0x8680dbc8 12c00054=0x00000092 12c00058=0x2be183c4 12c00070=0x2be183c4
+[  154.115199] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_CH1 12c00100=0x8680dbc8 12c00104=0x00000092 12c00120=0x2be183c4 12c00124=0x2be183c4
+[  154.139150] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_CH2 12c00140=0x8680dbc8 12c00144=0x00000094 12c00180=0x2be183c4 12c00184=0x2be183c4
+[  154.162707] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry PROFILE 14e001c4=0xda492010 14e00002=0x00a2 14e00264=0x00000000
+[  154.192676] bcmgenet 12c00000.ethernet eth0: TC7200U TXDUMP timeout_exit periph_stat=0x40030004 periph_mask=0x00002000 intr0_stat=0xffffffea intr0_mask=0x8680dc14 intr1_stat=0x00000110 intr1_mask=0x00000000 tdma_ctrl=0x00003000 tdma_stat=0x00000800 sw_prod=0 sw_c=0 hw_p=0 hw_c=14340 free_bds=0 clean=0 write=0
+[  154.232400] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit FPM_A 12200010=0x00000000 12200014=0x00000001 12200040=0x06000000 12200044=0x00010000
+[  154.253071] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit FPM_B 12200050=0x00000000 12200054=0x18007e23 12200058=0x00000000 1220005c=0x00000000
+[  154.273701] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit FPM_C 12200200=0x80158800 12200208=0x90120400 12200210=0xa0286200 12200218=0xb00f7100
+[  154.297480] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_A 12c00004=0x8680dc38 12c00008=0x00000090 12c0000c=0x2be183c4 12c00010=0x2be183c4
+[  154.323451] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_B 12c00040=0x8680dc38 12c00044=0x00000091 12c00048=0x2be183c4 12c0004c=0x2be183c4
+[  154.347104] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_C 12c00050=0x8680dc38 12c00054=0x00000091 12c00058=0x2be183c4 12c00070=0x2be183c4
+[  154.373239] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_CH1 12c00100=0x8680dc38 12c00104=0x00000091 12c00120=0x2be183c4 12c00124=0x2be183c4
+[  154.397093] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_CH2 12c00140=0x8680dc38 12c00144=0x00000093 12c00180=0x2be183c4 12c00184=0x2be183c4
+[  154.419609] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit PROFILE 14e001c4=0xda492010 14e00002=0x00a2 14e00264=0x00000000
+- generating board file -
+[  162.313100] bcmgenet 12c00000.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=134 mapping=0x068f2c82 len_stat=0x00866fc0 bd_addr=b2c03000 ring=0 write_ptr=1 prod=17920 free=65792
+[  182.653941] bcmgenet 12c00000.ethernet eth0: Link is Down
+[  183.712813] procd: - early -
+[  186.992966] procd: - ubus -
+[  189.414666] procd: - init -
+Please press Enter to activate this console.
+
+login[398]: root login on 'ttyS0'
+
+
+BusyBox v1.38.0 (2026-05-13 02:19:59 UTC) built-in shell (ash)
+
+  _______                     ________        __
+ |       |.-----.-----.-----.|  |  |  |.----.|  |_
+ |   -   ||  _  |  -__|     ||  |  |  ||   _||   _|
+ |_______||   __|_____|__|__||________||__|  |____|
+          |__| W I R E L E S S   F R E E D O M
+ -----------------------------------------------------
+ OpenWrt SNAPSHOT, r34962-d6f5c2685f
+ -----------------------------------------------------
+
+ === WARNING! =====================================
+ There is no root password defined on this device!
+ Use the "passwd" command to set up a new password
+ in order to prevent unauthorized SSH logins.
+ --------------------------------------------------
+
+root@(none):~# d[  213.923443] ttyS ttyS0: 1 input overrun(s)
+mesg | grep -Ei 'TC7 TXDUMP|TC7200U XMITDESC|bcmgenet|eth0|watch
+dog' | tail -160[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[1A[79C[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[J[Jdmesg | grep -Ei 'TC7200U CTRL|TC7200U TXDUMP|TC7200U XMITDESC|bc
+mgenet|eth0|watchdog' | tail -160
+[  134.952888] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2780 ms
+[  134.974708] bcmgenet 12c00000.ethernet eth0: TC7200U TXDUMP timeout_entry periph_stat=0x40030004 periph_mask=0x00002000 intr0_stat=0xffffffea intr0_mask=0x8680dcb4 intr1_stat=0x0000007d intr1_mask=0x80a2ece8 tdma_ctrl=0x00003000 tdma_stat=0x00000800 sw_prod=0 sw_c=0 hw_p=0 hw_c=14340 free_bds=0 clean=0 write=0
+[  135.014660] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry FPM_A 12200010=0x00000000 12200014=0x00000001 12200040=0x06000000 12200044=0x00010000
+[  135.035577] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry FPM_B 12200050=0x00000000 12200054=0x18007ee6 12200058=0x00000000 1220005c=0x00000000
+[  135.056278] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry FPM_C 12200200=0x80248800 12200208=0x90130400 12200210=0xa01bc200 12200218=0xb016a100
+[  135.079963] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_A 12c00004=0x8680dbc8 12c00008=0x00000091 12c0000c=0x2be183c4 12c00010=0x2be183c4
+[  135.105791] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_B 12c00040=0x8680dbc8 12c00044=0x00000092 12c00048=0x2be183c4 12c0004c=0x2be183c4
+[  135.129522] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_C 12c00050=0x8680dbc8 12c00054=0x00000092 12c00058=0x2be183c4 12c00070=0x2be183c4
+[  135.155579] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_CH1 12c00100=0x8680dbc8 12c00104=0x00000092 12c00120=0x2be183c4 12c00124=0x2be183c4
+[  135.179504] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_CH2 12c00140=0x8680dbc8 12c00144=0x00000094 12c00180=0x2be183c4 12c00184=0x2be183c4
+[  135.203022] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry PROFILE 14e001c4=0xda492010 14e00002=0x00a2 14e00264=0x00000000
+[  135.896977] bcmgenet 12c00000.ethernet eth0: TC7200U TXDUMP timeout_exit periph_stat=0x40030004 periph_mask=0x00002000 intr0_stat=0x00000000 intr0_mask=0x00000000 intr1_stat=0x00000087 intr1_mask=0x00000000 tdma_ctrl=0x00003000 tdma_stat=0x00000800 sw_prod=0 sw_c=0 hw_p=0 hw_c=14340 free_bds=0 clean=0 write=0
+[  135.936763] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit FPM_A 12200010=0x00000000 12200014=0x00000001 12200040=0x06000000 12200044=0x00010000
+[  135.957399] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit FPM_B 12200050=0x00000000 12200054=0x18007ed7 12200058=0x00000000 1220005c=0x00000000
+[  135.979208] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit FPM_C 12200200=0x80250800 12200208=0x90140400 12200210=0xa01be200 12200218=0xb016b100
+[  136.005103] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_A 12c00004=0x8680dc38 12c00008=0x00000090 12c0000c=0x2be183c4 12c00010=0x2be183c4
+[  136.028715] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_B 12c00040=0x8680dc38 12c00044=0x00000091 12c00048=0x2be183c4 12c0004c=0x2be183c4
+[  136.054815] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_C 12c00050=0x8680dc38 12c00054=0x00000091 12c00058=0x2be183c4 12c00070=0x2be183c4
+[  136.078442] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_CH1 12c00100=0x8680dc38 12c00104=0x00000091 12c00120=0x2be183c4 12c00124=0x2be183c4
+[  136.104585] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_CH2 12c00140=0x8680dc38 12c00144=0x00000093 12c00180=0x2be183c4 12c00184=0x2be183c4
+[  136.125861] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit PROFILE 14e001c4=0xda492010 14e00002=0x00a2 14e00264=0x00000000
+[  136.152910] bcmgenet 12c00000.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=154 mapping=0x06e37802 len_stat=0x009a6fc0 bd_addr=b2c03000 ring=0 write_ptr=1 prod=17920 free=65792
+[  136.179868] bcmgenet 12c00000.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=150 mapping=0x068f2782 len_stat=0x00966fc0 bd_addr=b2c03008 ring=0 write_ptr=2 prod=17921 free=65791
+[  136.206895] bcmgenet 12c00000.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=154 mapping=0x06e34002 len_stat=0x009a6fc0 bd_addr=b2c03010 ring=0 write_ptr=3 prod=17922 free=65790
+[  138.953169] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2720 ms
+[  138.974828] bcmgenet 12c00000.ethernet eth0: TC7200U TXDUMP timeout_entry periph_stat=0x40030004 periph_mask=0x00002000 intr0_stat=0xffffffea intr0_mask=0x8680dcb4 intr1_stat=0x00000095 intr1_mask=0x80a2ece8 tdma_ctrl=0x00003000 tdma_stat=0x00000800 sw_prod=0 sw_c=0 hw_p=0 hw_c=14340 free_bds=0 clean=0 write=0
+[  139.014958] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry FPM_A 12200010=0x00000000 12200014=0x00000001 12200040=0x06000000 12200044=0x00010000
+[  139.035713] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry FPM_B 12200050=0x00000000 12200054=0x18007ec8 12200058=0x00000000 1220005c=0x00000000
+[  139.056423] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry FPM_C 12200200=0x80268800 12200208=0x9009c400 12200210=0xa0270200 12200218=0xb00e8100
+[  139.080296] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_A 12c00004=0x8680dbc8 12c00008=0x00000091 12c0000c=0x2be183c4 12c00010=0x2be183c4
+[  139.105260] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_B 12c00040=0x8680dbc8 12c00044=0x00000092 12c00048=0x2be183c4 12c0004c=0x2be183c4
+[  139.128989] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_C 12c00050=0x8680dbc8 12c00054=0x00000092 12c00058=0x2be183c4 12c00070=0x2be183c4
+[  139.155079] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_CH1 12c00100=0x8680dbc8 12c00104=0x00000092 12c00120=0x2be183c4 12c00124=0x2be183c4
+[  139.179006] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_CH2 12c00140=0x8680dbc8 12c00144=0x00000094 12c00180=0x2be183c4 12c00184=0x2be183c4
+[  139.202602] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry PROFILE 14e001c4=0xda492010 14e00002=0x00a2 14e00264=0x00000000
+[  139.232711] bcmgenet 12c00000.ethernet eth0: TC7200U TXDUMP timeout_exit periph_stat=0x40030004 periph_mask=0x00002000 intr0_stat=0xffffffea intr0_mask=0x8680dc14 intr1_stat=0x0000009f intr1_mask=0x00000000 tdma_ctrl=0x00003000 tdma_stat=0x00000800 sw_prod=0 sw_c=0 hw_p=0 hw_c=14340 free_bds=0 clean=0 write=0
+[  139.272382] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit FPM_A 12200010=0x00000000 12200014=0x00000001 12200040=0x06000000 12200044=0x00010000
+[  139.293027] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit FPM_B 12200050=0x00000000 12200054=0x18007eb9 12200058=0x00000000 1220005c=0x00000000
+[  139.313624] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit FPM_C 12200200=0x802a8800 12200208=0x900f8400 12200210=0xa0272200 12200218=0xb00e9100
+[  139.337382] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_A 12c00004=0x8680dc38 12c00008=0x00000090 12c0000c=0x2be183c4 12c00010=0x2be183c4
+[  139.363338] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_B 12c00040=0x8680dc38 12c00044=0x00000091 12c00048=0x2be183c4 12c0004c=0x2be183c4
+[  139.386968] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_C 12c00050=0x8680dc38 12c00054=0x00000091 12c00058=0x2be183c4 12c00070=0x2be183c4
+[  139.413090] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_CH1 12c00100=0x8680dc38 12c00104=0x00000091 12c00120=0x2be183c4 12c00124=0x2be183c4
+[  139.436937] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_CH2 12c00140=0x8680dc38 12c00144=0x00000093 12c00180=0x2be183c4 12c00184=0x2be183c4
+[  139.459453] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit PROFILE 14e001c4=0xda492010 14e00002=0x00a2 14e00264=0x00000000
+[  139.492644] bcmgenet 12c00000.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=154 mapping=0x06e37002 len_stat=0x009a6fc0 bd_addr=b2c03000 ring=0 write_ptr=1 prod=17920 free=65792
+[  139.518672] bcmgenet 12c00000.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=134 mapping=0x068f2c82 len_stat=0x00866fc0 bd_addr=b2c03008 ring=0 write_ptr=2 prod=17921 free=65791
+[  139.545710] bcmgenet 12c00000.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=134 mapping=0x068f2a02 len_stat=0x00866fc0 bd_addr=b2c03010 ring=0 write_ptr=3 prod=17922 free=65790
+[  141.912812] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2340 ms
+[  141.934986] bcmgenet 12c00000.ethernet eth0: TC7200U TXDUMP timeout_entry periph_stat=0x40030004 periph_mask=0x00002000 intr0_stat=0xffffffea intr0_mask=0x8680dcb4 intr1_stat=0x000000ad intr1_mask=0x80a2ece8 tdma_ctrl=0x00003000 tdma_stat=0x00000800 sw_prod=0 sw_c=0 hw_p=0 hw_c=14340 free_bds=0 clean=0 write=0
+[  141.975116] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry FPM_A 12200010=0x00000000 12200014=0x00000001 12200040=0x06000000 12200044=0x00010000
+[  141.995859] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry FPM_B 12200050=0x00000000 12200054=0x18007eaa 12200058=0x00000000 1220005c=0x00000000
+[  142.016574] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry FPM_C 12200200=0x800b8800 12200208=0x9017c400 12200210=0xa0274200 12200218=0xb00ea100
+[  142.040430] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_A 12c00004=0x8680dbc8 12c00008=0x00000091 12c0000c=0x2be183c4 12c00010=0x2be183c4
+[  142.065381] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_B 12c00040=0x8680dbc8 12c00044=0x00000092 12c00048=0x2be183c4 12c0004c=0x2be183c4
+[  142.089112] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_C 12c00050=0x8680dbc8 12c00054=0x00000092 12c00058=0x2be183c4 12c00070=0x2be183c4
+[  142.115158] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_CH1 12c00100=0x8680dbc8 12c00104=0x00000092 12c00120=0x2be183c4 12c00124=0x2be183c4
+[  142.139092] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_CH2 12c00140=0x8680dbc8 12c00144=0x00000094 12c00180=0x2be183c4 12c00184=0x2be183c4
+[  142.162598] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry PROFILE 14e001c4=0xda492010 14e00002=0x00a2 14e00264=0x00000000
+[  142.192596] bcmgenet 12c00000.ethernet eth0: TC7200U TXDUMP timeout_exit periph_stat=0x40030004 periph_mask=0x00002000 intr0_stat=0xffffffea intr0_mask=0x8680dc14 intr1_stat=0x000000b7 intr1_mask=0x00000000 tdma_ctrl=0x00003000 tdma_stat=0x00000800 sw_prod=0 sw_c=0 hw_p=0 hw_c=14340 free_bds=0 clean=0 write=0
+[  142.232295] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit FPM_A 12200010=0x00000000 12200014=0x00000001 12200040=0x06000000 12200044=0x00010000
+[  142.252940] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit FPM_B 12200050=0x00000000 12200054=0x18007e9b 12200058=0x00000000 1220005c=0x00000000
+[  142.273549] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit FPM_C 12200200=0x802f0800 12200208=0x901d0400 12200210=0xa0276200 12200218=0xb00eb100
+[  142.297308] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_A 12c00004=0x8680dc38 12c00008=0x00000090 12c0000c=0x2be183c4 12c00010=0x2be183c4
+[  142.323224] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_B 12c00040=0x8680dc38 12c00044=0x00000091 12c00048=0x2be183c4 12c0004c=0x2be183c4
+[  142.346853] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_C 12c00050=0x8680dc38 12c00054=0x00000091 12c00058=0x2be183c4 12c00070=0x2be183c4
+[  142.372937] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_CH1 12c00100=0x8680dc38 12c00104=0x00000091 12c00120=0x2be183c4 12c00124=0x2be183c4
+[  142.396772] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_CH2 12c00140=0x8680dc38 12c00144=0x00000093 12c00180=0x2be183c4 12c00184=0x2be183c4
+[  142.418048] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit PROFILE 14e001c4=0xda492010 14e00002=0x00a2 14e00264=0x00000000
+[  142.442459] bcmgenet 12c00000.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=1107 mapping=0x06e37802 len_stat=0x04536fd0 bd_addr=b2c03000 ring=0 write_ptr=1 prod=17920 free=65792
+[  144.953407] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2490 ms
+[  144.974877] bcmgenet 12c00000.ethernet eth0: TC7200U TXDUMP timeout_entry periph_stat=0x40030004 periph_mask=0x00002000 intr0_stat=0xffffffea intr0_mask=0x8680dcb4 intr1_stat=0x000000c3 intr1_mask=0x80a2ece8 tdma_ctrl=0x00003000 tdma_stat=0x00000800 sw_prod=0 sw_c=0 hw_p=0 hw_c=14340 free_bds=0 clean=0 write=0
+[  145.015154] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry FPM_A 12200010=0x00000000 12200014=0x00000001 12200040=0x06000000 12200044=0x00010000
+[  145.036076] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry FPM_B 12200050=0x00000000 12200054=0x18007e8c 12200058=0x00000000 1220005c=0x00000000
+[  145.056775] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry FPM_C 12200200=0x80318800 12200208=0x900c8400 12200210=0xa0278200 12200218=0xb00e4100
+[  145.080446] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_A 12c00004=0x8680dbc8 12c00008=0x00000091 12c0000c=0x2be183c4 12c00010=0x2be183c4
+[  145.105564] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_B 12c00040=0x8680dbc8 12c00044=0x00000092 12c00048=0x2be183c4 12c0004c=0x2be183c4
+[  145.129287] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_C 12c00050=0x8680dbc8 12c00054=0x00000092 12c00058=0x2be183c4 12c00070=0x2be183c4
+[  145.155172] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_CH1 12c00100=0x8680dbc8 12c00104=0x00000092 12c00120=0x2be183c4 12c00124=0x2be183c4
+[  145.179243] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_CH2 12c00140=0x8680dbc8 12c00144=0x00000094 12c00180=0x2be183c4 12c00184=0x2be183c4
+[  145.202589] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry PROFILE 14e001c4=0xda492010 14e00002=0x00a2 14e00264=0x00000000
+[  145.232513] bcmgenet 12c00000.ethernet eth0: TC7200U TXDUMP timeout_exit periph_stat=0x40030004 periph_mask=0x00002000 intr0_stat=0xffffffea intr0_mask=0x8680dc14 intr1_stat=0x000000cd intr1_mask=0x00000000 tdma_ctrl=0x00003000 tdma_stat=0x00000800 sw_prod=0 sw_c=0 hw_p=0 hw_c=14340 free_bds=0 clean=0 write=0
+[  145.272199] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit FPM_A 12200010=0x00000000 12200014=0x00000001 12200040=0x06000000 12200044=0x00010000
+[  145.292994] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit FPM_B 12200050=0x00000000 12200054=0x18007e7d 12200058=0x00000000 1220005c=0x00000000
+[  145.313574] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit FPM_C 12200200=0x80328800 12200208=0x900fc400 12200210=0xa027a200 12200218=0xb00e5100
+[  145.337138] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_A 12c00004=0x8680dc38 12c00008=0x00000090 12c0000c=0x2be183c4 12c00010=0x2be183c4
+[  145.363242] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_B 12c00040=0x8680dc38 12c00044=0x00000091 12c00048=0x2be183c4 12c0004c=0x2be183c4
+[  145.386852] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_C 12c00050=0x8680dc38 12c00054=0x00000091 12c00058=0x2be183c4 12c00070=0x2be183c4
+[  145.413420] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_CH1 12c00100=0x8680dc38 12c00104=0x00000091 12c00120=0x2be183c4 12c00124=0x2be183c4
+[  145.437257] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_CH2 12c00140=0x8680dc38 12c00144=0x00000093 12c00180=0x2be183c4 12c00184=0x2be183c4
+[  145.459573] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit PROFILE 14e001c4=0xda492010 14e00002=0x00a2 14e00264=0x00000000
+[  145.492453] bcmgenet 12c00000.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=1107 mapping=0x06e37002 len_stat=0x04536fd0 bd_addr=b2c03000 ring=0 write_ptr=1 prod=17920 free=65792
+[  147.912929] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2400 ms
+[  147.934627] bcmgenet 12c00000.ethernet eth0: TC7200U TXDUMP timeout_entry periph_stat=0x40030004 periph_mask=0x00002000 intr0_stat=0xffffffea intr0_mask=0x8680dcb4 intr1_stat=0x000000d9 intr1_mask=0x80a2ece8 tdma_ctrl=0x00003000 tdma_stat=0x00000800 sw_prod=0 sw_c=0 hw_p=0 hw_c=14340 free_bds=0 clean=0 write=0
+[  147.974812] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry FPM_A 12200010=0x00000000 12200014=0x00000001 12200040=0x06000000 12200044=0x00010000
+[  147.995596] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry FPM_B 12200050=0x00000000 12200054=0x18007e6e 12200058=0x00000000 1220005c=0x00000000
+[  148.016339] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry FPM_C 12200200=0x80330800 12200208=0x902dc400 12200210=0xa027c200 12200218=0xb00e6100
+[  148.040221] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_A 12c00004=0x8680dbc8 12c00008=0x00000091 12c0000c=0x2be183c4 12c00010=0x2be183c4
+[  148.065213] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_B 12c00040=0x8680dbc8 12c00044=0x00000092 12c00048=0x2be183c4 12c0004c=0x2be183c4
+[  148.088977] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_C 12c00050=0x8680dbc8 12c00054=0x00000092 12c00058=0x2be183c4 12c00070=0x2be183c4
+[  148.115079] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_CH1 12c00100=0x8680dbc8 12c00104=0x00000092 12c00120=0x2be183c4 12c00124=0x2be183c4
+[  148.139034] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_CH2 12c00140=0x8680dbc8 12c00144=0x00000094 12c00180=0x2be183c4 12c00184=0x2be183c4
+[  148.162601] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry PROFILE 14e001c4=0xda492010 14e00002=0x00a2 14e00264=0x00000000
+[  148.192447] bcmgenet 12c00000.ethernet eth0: TC7200U TXDUMP timeout_exit periph_stat=0x40030004 periph_mask=0x00002000 intr0_stat=0xffffffea intr0_mask=0x8680dc14 intr1_stat=0x000000e3 intr1_mask=0x00000000 tdma_ctrl=0x00003000 tdma_stat=0x00000800 sw_prod=0 sw_c=0 hw_p=0 hw_c=14340 free_bds=0 clean=0 write=0
+[  148.232355] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit FPM_A 12200010=0x00000000 12200014=0x00000001 12200040=0x06000000 12200044=0x00010000
+[  148.253026] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit FPM_B 12200050=0x00000000 12200054=0x18007e5f 12200058=0x00000000 1220005c=0x00000000
+[  148.273656] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit FPM_C 12200200=0x80338800 12200208=0x9030c400 12200210=0xa027e200 12200218=0xb00e7100
+[  148.297426] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_A 12c00004=0x8680dc38 12c00008=0x00000090 12c0000c=0x2be183c4 12c00010=0x2be183c4
+[  148.323459] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_B 12c00040=0x8680dc38 12c00044=0x00000091 12c00048=0x2be183c4 12c0004c=0x2be183c4
+[  148.347119] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_C 12c00050=0x8680dc38 12c00054=0x00000091 12c00058=0x2be183c4 12c00070=0x2be183c4
+[  148.373274] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_CH1 12c00100=0x8680dc38 12c00104=0x00000091 12c00120=0x2be183c4 12c00124=0x2be183c4
+[  148.397153] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_CH2 12c00140=0x8680dc38 12c00144=0x00000093 12c00180=0x2be183c4 12c00184=0x2be183c4
+[  148.419684] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit PROFILE 14e001c4=0xda492010 14e00002=0x00a2 14e00264=0x00000000
+[  148.442874] bcmgenet 12c00000.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=1107 mapping=0x06e37802 len_stat=0x04536fd0 bd_addr=b2c03000 ring=0 write_ptr=1 prod=17920 free=65792
+[  150.952790] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2490 ms
+[  150.974353] bcmgenet 12c00000.ethernet eth0: TC7200U TXDUMP timeout_entry periph_stat=0x40030004 periph_mask=0x00002000 intr0_stat=0xffffffea intr0_mask=0x8680dcb4 intr1_stat=0x000000ef intr1_mask=0x80a2ece8 tdma_ctrl=0x00003000 tdma_stat=0x00000800 sw_prod=0 sw_c=0 hw_p=0 hw_c=14340 free_bds=0 clean=0 write=0
+[  151.015167] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry FPM_A 12200010=0x00000000 12200014=0x00000001 12200040=0x06000000 12200044=0x00010000
+[  151.035921] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry FPM_B 12200050=0x00000000 12200054=0x18007e50 12200058=0x00000000 1220005c=0x00000000
+[  151.056646] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry FPM_C 12200200=0x80088800 12200208=0x90060400 12200210=0xa0280200 12200218=0xb00f4100
+[  151.080523] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_A 12c00004=0x8680dbc8 12c00008=0x00000091 12c0000c=0x2be183c4 12c00010=0x2be183c4
+[  151.105482] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_B 12c00040=0x8680dbc8 12c00044=0x00000092 12c00048=0x2be183c4 12c0004c=0x2be183c4
+[  151.129224] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_C 12c00050=0x8680dbc8 12c00054=0x00000092 12c00058=0x2be183c4 12c00070=0x2be183c4
+[  151.155290] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_CH1 12c00100=0x8680dbc8 12c00104=0x00000092 12c00120=0x2be183c4 12c00124=0x2be183c4
+[  151.179230] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_CH2 12c00140=0x8680dbc8 12c00144=0x00000094 12c00180=0x2be183c4 12c00184=0x2be183c4
+[  151.202751] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry PROFILE 14e001c4=0xda492010 14e00002=0x00a2 14e00264=0x00000000
+[  151.232557] bcmgenet 12c00000.ethernet eth0: TC7200U TXDUMP timeout_exit periph_stat=0x40030004 periph_mask=0x00002000 intr0_stat=0xffffffea intr0_mask=0x8680dc14 intr1_stat=0x000000f9 intr1_mask=0x00000000 tdma_ctrl=0x00003000 tdma_stat=0x00000800 sw_prod=0 sw_c=0 hw_p=0 hw_c=14340 free_bds=0 clean=0 write=0
+[  151.272281] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit FPM_A 12200010=0x00000000 12200014=0x00000001 12200040=0x06000000 12200044=0x00010000
+[  151.292938] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit FPM_B 12200050=0x00000000 12200054=0x18007e41 12200058=0x00000000 1220005c=0x00000000
+[  151.313554] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit FPM_C 12200200=0x80148800 12200208=0x900a8400 12200210=0xa0282200 12200218=0xb00f5100
+[  151.337328] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_A 12c00004=0x8680dc38 12c00008=0x00000090 12c0000c=0x2be183c4 12c00010=0x2be183c4
+[  151.363290] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_B 12c00040=0x8680dc38 12c00044=0x00000091 12c00048=0x2be183c4 12c0004c=0x2be183c4
+[  151.386940] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_C 12c00050=0x8680dc38 12c00054=0x00000091 12c00058=0x2be183c4 12c00070=0x2be183c4
+[  151.413072] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_CH1 12c00100=0x8680dc38 12c00104=0x00000091 12c00120=0x2be183c4 12c00124=0x2be183c4
+[  151.436927] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_CH2 12c00140=0x8680dc38 12c00144=0x00000093 12c00180=0x2be183c4 12c00184=0x2be183c4
+[  151.459445] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit PROFILE 14e001c4=0xda492010 14e00002=0x00a2 14e00264=0x00000000
+[  151.483191] bcmgenet 12c00000.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=134 mapping=0x068f2c82 len_stat=0x00866fc0 bd_addr=b2c03000 ring=0 write_ptr=1 prod=17920 free=65792
+[  151.509374] bcmgenet 12c00000.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=1107 mapping=0x06e37002 len_stat=0x04536fd0 bd_addr=b2c03008 ring=0 write_ptr=2 prod=17921 free=65791
+[  153.912824] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2380 ms
+[  153.934583] bcmgenet 12c00000.ethernet eth0: TC7200U TXDUMP timeout_entry periph_stat=0x40030004 periph_mask=0x00002000 intr0_stat=0xffffffea intr0_mask=0x8680dcb4 intr1_stat=0x00000106 intr1_mask=0x80a2ece8 tdma_ctrl=0x00003000 tdma_stat=0x00000800 sw_prod=0 sw_c=0 hw_p=0 hw_c=14340 free_bds=0 clean=0 write=0
+[  153.974592] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry FPM_A 12200010=0x00000000 12200014=0x00000001 12200040=0x06000000 12200044=0x00010000
+[  153.995542] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry FPM_B 12200050=0x00000000 12200054=0x18007e32 12200058=0x00000000 1220005c=0x00000000
+[  154.016279] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry FPM_C 12200200=0x80150800 12200208=0x900ac400 12200210=0xa0284200 12200218=0xb00f6100
+[  154.039997] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_A 12c00004=0x8680dbc8 12c00008=0x00000091 12c0000c=0x2be183c4 12c00010=0x2be183c4
+[  154.065150] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_B 12c00040=0x8680dbc8 12c00044=0x00000092 12c00048=0x2be183c4 12c0004c=0x2be183c4
+[  154.088914] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_C 12c00050=0x8680dbc8 12c00054=0x00000092 12c00058=0x2be183c4 12c00070=0x2be183c4
+[  154.115199] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_CH1 12c00100=0x8680dbc8 12c00104=0x00000092 12c00120=0x2be183c4 12c00124=0x2be183c4
+[  154.139150] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_CH2 12c00140=0x8680dbc8 12c00144=0x00000094 12c00180=0x2be183c4 12c00184=0x2be183c4
+[  154.162707] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry PROFILE 14e001c4=0xda492010 14e00002=0x00a2 14e00264=0x00000000
+[  154.192676] bcmgenet 12c00000.ethernet eth0: TC7200U TXDUMP timeout_exit periph_stat=0x40030004 periph_mask=0x00002000 intr0_stat=0xffffffea intr0_mask=0x8680dc14 intr1_stat=0x00000110 intr1_mask=0x00000000 tdma_ctrl=0x00003000 tdma_stat=0x00000800 sw_prod=0 sw_c=0 hw_p=0 hw_c=14340 free_bds=0 clean=0 write=0
+[  154.232400] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit FPM_A 12200010=0x00000000 12200014=0x00000001 12200040=0x06000000 12200044=0x00010000
+[  154.253071] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit FPM_B 12200050=0x00000000 12200054=0x18007e23 12200058=0x00000000 1220005c=0x00000000
+[  154.273701] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit FPM_C 12200200=0x80158800 12200208=0x90120400 12200210=0xa0286200 12200218=0xb00f7100
+[  154.297480] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_A 12c00004=0x8680dc38 12c00008=0x00000090 12c0000c=0x2be183c4 12c00010=0x2be183c4
+[  154.323451] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_B 12c00040=0x8680dc38 12c00044=0x00000091 12c00048=0x2be183c4 12c0004c=0x2be183c4
+[  154.347104] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_C 12c00050=0x8680dc38 12c00054=0x00000091 12c00058=0x2be183c4 12c00070=0x2be183c4
+[  154.373239] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_CH1 12c00100=0x8680dc38 12c00104=0x00000091 12c00120=0x2be183c4 12c00124=0x2be183c4
+[  154.397093] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_CH2 12c00140=0x8680dc38 12c00144=0x00000093 12c00180=0x2be183c4 12c00184=0x2be183c4
+[  154.419609] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit PROFILE 14e001c4=0xda492010 14e00002=0x00a2 14e00264=0x00000000
+[  162.313100] bcmgenet 12c00000.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=134 mapping=0x068f2c82 len_stat=0x00866fc0 bd_addr=b2c03000 ring=0 write_ptr=1 prod=17920 free=65792
+[  182.653941] bcmgenet 12c00000.ethernet eth0: Link is Down
+root@(none):~# [  274.397816] kmodloader: loading kernel modules from /etc/modules.d/*
+[  284.313510] PPP generic driver version 2.4.2
+[  284.684888] NET: Registered PF_PPPOX protocol family
+[  285.727936] kmodloader: done loading kernel modules from /etc/modules.d/*
+
+root@(none):~# ip link set eth0 up
+[  319.299616] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL open_entry FPM_A 12200010=0x00000000 12200014=0x00000001 12200040=0x06000000 12200044=0x00010000
+[  319.322872] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL open_entry FPM_B 12200050=0x00000000 12200054=0x18007e14 12200058=0x00000000 1220005c=0x00000000
+[  319.343249] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL open_entry FPM_C 12200200=0x80160800 12200208=0x900b0400 12200210=0xa0288200 12200218=0xb0098100
+[  319.366791] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL open_entry GMAC_A 12c00004=0x86e8d9e0 12c00008=0x0000008e 12c0000c=0x2be183c4 12c00010=0x2be183c4
+[  319.390189] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL open_entry GMAC_B 12c00040=0x86e8d9e0 12c00044=0x0000008f 12c00048=0x2be183c4 12c0004c=0x2be183c4
+[  319.415684] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL open_entry GMAC_C 12c00050=0x86e8d9e0 12c00054=0x0000008f 12c00058=0x2be183c4 12c00070=0x2be183c4
+[  319.440108] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL open_entry GMAC_CH1 12c00100=0x86e8d9e0 12c00104=0x0000008f 12c00120=0x2be183c4 12c00124=0x2be183c4
+[  319.465714] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL open_entry GMAC_CH2 12c00140=0x86e8d9e0 12c00144=0x00000091 12c00180=0x2be183c4 12c00184=0x2be183c4
+[  319.486748] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL open_entry PROFILE 14e001c4=0xda492010 14e00002=0x00a2 14e00264=0x00000000
+[  319.874387] bcmgenet 12c00000.ethernet: configuring instance for external RGMII (no delay)
+[  319.897318] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL open_exit FPM_A 12200010=0x00000000 12200014=0x00000001 12200040=0x06000000 12200044=0x00010000
+[  319.919650] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL open_exit FPM_B 12200050=0x00000000 12200054=0x18007e05 12200058=0x00000000 1220005c=0x00000000
+[  319.942345] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL open_exit FPM_C 12200200=0x801c0800 12200208=0x90124400 12200210=0xa028a200 12200218=0xb0099100
+[  319.965614] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL open_exit GMAC_A 12c00004=0x86e8d9e0 12c00008=0x0000008d 12c0000c=0x2be183c4 12c00010=0x2be183c4
+[  319.989331] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL open_exit GMAC_B 12c00040=0x86e8d9e0 12c00044=0x0000008e 12c00048=0x2be183c4 12c0004c=0x2be183c4
+[  320.014944] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL open_exit GMAC_C 12c00050=0x86e8d9e0 12c00054=0x0000008e 12c00058=0x2be183c4 12c00070=0x2be183c4
+[  320.038252] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL open_exit GMAC_CH1 12c00100=0x86e8d9e0 12c00104=0x0000008e 12c00120=0x2be183c4 12c00124=0x2be183c4
+[  320.064201] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL open_exit GMAC_CH2 12c00140=0x86e8d9e0 12c00144=0x00000090 12c00180=0x2be183c4 12c00184=0x2be183c4
+[  320.084969] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL open_exit PROFILE 14e001c4=0xda492010 14e00002=0x00a2 14e00264=0x00000000
+[  320.212332] bcmgenet 12c00000.ethernet eth0: Link is Up - 1Gbps/Full - flow control off
+[  320.405350] bcmgenet 12c00000.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=154 mapping=0x06e34002 len_stat=0x009a6fc0 bd_addr=b2c03000 ring=0 write_ptr=1 prod=0 free=256
+[  320.616920] bcmgenet 12c00000.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=150 mapping=0x068f2c82 len_stat=0x00966fc0 bd_addr=b2c03008 ring=0 write_ptr=2 prod=1 free=255
+root@(none):~# [  322.873031] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2230 ms
+[  322.894944] bcmgenet 12c00000.ethernet eth0: TC7200U TXDUMP timeout_entry periph_stat=0x40030004 periph_mask=0x00002000 intr0_stat=0xffffffea intr0_mask=0x8680dcb4 intr1_stat=0x0000013b intr1_mask=0x80a2ece8 tdma_ctrl=0x00003000 tdma_stat=0x00000800 sw_prod=0 sw_c=0 hw_p=0 hw_c=14340 free_bds=0 clean=0 write=0
+[  322.934974] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry FPM_A 12200010=0x00000000 12200014=0x00000001 12200040=0x06000000 12200044=0x00010000
+[  322.955957] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry FPM_B 12200050=0x00000000 12200054=0x18007df6 12200058=0x00000000 1220005c=0x00000000
+[  322.976725] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry FPM_C 12200200=0x801d8800 12200208=0x90144400 12200210=0xa028c200 12200218=0xb009a100
+[  323.000465] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_A 12c00004=0x8680dbc8 12c00008=0x00000091 12c0000c=0x2be183c4 12c00010=0x2be183c4
+[  323.025699] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_B 12c00040=0x8680dbc8 12c00044=0x00000092 12c00048=0x2be183c4 12c0004c=0x2be183c4
+[  323.049495] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_C 12c00050=0x8680dbc8 12c00054=0x00000092 12c00058=0x2be183c4 12c00070=0x2be183c4
+[  323.075685] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_CH1 12c00100=0x8680dbc8 12c00104=0x00000092 12c00120=0x2be183c4 12c00124=0x2be183c4
+[  323.099678] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_CH2 12c00140=0x8680dbc8 12c00144=0x00000094 12c00180=0x2be183c4 12c00184=0x2be183c4
+[  323.123327] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry PROFILE 14e001c4=0xda492010 14e00002=0x00a2 14e00264=0x00000000
+[  323.821879] bcmgenet 12c00000.ethernet eth0: TC7200U TXDUMP timeout_exit periph_stat=0x40030004 periph_mask=0x00002000 intr0_000000 intr0_mask=0x00000000 intr1_stat=0x00000145 intr1_mask=0x00000000 tdma_ctrl=0x00003000 tdma_stat=0x00000800 sw_prod=0 sw_c=0 hw_p=0 hw_c=14340 free_bds=0 clean=0 write=0
+[  323.860364] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit FPM_A 12200010=0x00000000 12200014=0x00000001 12200040=0x06000000 12200044=0x00010000
+[  323.882478] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit FPM_B 12200050=0x00000000 12200054=0x18007de7 12200058=0x00000000 1220005c=0x00000000
+[  323.903131] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit FPM_C 12200200=0x80258800 12200208=0x90170400 12200210=0xa028e200 12200218=0xb009b100
+[  323.926922] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_A 12c00004=0x8680dc38 12c00008=0x00000090 12c0000c=0x2be183c4 12c00010=0x2be183c4
+[  323.952974] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_B 12c00040=0x8680dc38 12c00044=0x00000091 12c00048=0x2be183c4 12c0004c=0x2be183c4
+[  323.976824] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_C 12c00050=0x8680dc38 12c00054=0x00000091 12c00058=0x2be183c4 12c00070=0x2be183c4
+[  324.003058] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_CH1 12c00100=0x8680dc38 12c00104=0x00000091 12c00120=0x2be183c4 12c00124=0x2be183c4
+[  324.026947] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_CH2 12c00140=0x8680dc38 12c00144=0x00000093 12c00180=0x2be183c4 12c00184=0x2be183c4
+[  324.049521] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit PROFILE 14e001c4=0xda492010 14e00002=0x00a2 14e00264=0x00000000
+[  324.082364] bcmgenet 12c00000.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=154 mapping=0x06e36002 len_stat=0x009a6fc0 bd_addr=b2c03000 ring=0 write_ptr=1 prod=17920 free=65792
+[  324.109456] bcmgenet 12c00000.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=154 mapping=0x06e35802 len_stat=0x009a6fc0 bd_addr=b2c03008 ring=0 write_ptr=2 prod=17921 free=65791
+[  324.136506] bcmgenet 12c00000.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=154 mapping=0x06e35002 len_stat=0x009a6fc0 bd_addr=b2c03010 ring=0 write_ptr=3 prod=17922 free=65790
+[  324.164634] bcmgenet 12c00000.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=134 mapping=0x068f2282 len_stat=0x00866fc0 bd_addr=b2c03018 ring=0 write_ptr=4 prod=17923 free=65789
+[  325.513219] bcmgenet 12c00000.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=134 mapping=0x068f2c82 len_stat=0x00866fc0 bd_addr=b2c03020 ring=0 write_ptr=5 prod=17924 free=65788
+[  325.672930] mm/pgtable-generic.c:54: bad pgd 86b31dd8.
+[  325.682090] ------------[ cut here ]------------
+[  325.688701] WARNING: CPU: 0 PID: 569 at mm/memory.c:3993 do_swap_page+0x6a8/0xf1c
+[  325.703239] Modules linked in: pppoe ppp_async nft_fib_inet nf_flow_table_inet pppox ppp_generic nft_reject_ipv6 nft_reject_ipv4 nft_reject_inet nft_reject nft_redir nft_quota nft_numgen nft_nat nft_masq nft_log nft_limit nft_hash nft_flow_offload nft_fib_ipv6 nft_fib_ipv4 nft_fib nft_ct nft_chain_nat nf_tables nf_nat nf_flow_table nf_conntrack slhc nfnetlink nf_reject_ipv6 nf_reject_ipv4 nf_log_syslog nf_defrag_ipv6 nf_defrag_ipv4 libcrc32c crc_ccitt gpio_button_hotplug(O) crc32c_generic
+[  325.795782] CPU: 0 UID: 0 PID: 569 Comm: S10boot Tainted: G           O       6.12.93 #0
+[  325.798332] Tainted: [O]=OOT_MODULE
+[  325.799048] Hardware name: Technicolor TC7200.U
+[  325.799897] Stack : 00000000 00000004 0000000c 809675e0 86b31ba4 80039c48 00000001 00000001
+[  325.805613]         00000000 00000000 00000000 00000000 00000000 1000b300 86b31b50 86843400
+[  325.811321]         00000000 00000000 80918750 86b319d8 00000000 00000000 ffffefff 80a2ecb8
+[  325.817116]         00000159 86b31a24 0000015b 80a2ece8 1000b301 00000000 80918750 00000000
+[  325.822972]         00000000 801dce7c 80a27598 00000002 00001044 00000000 00000000 81390000
+[  325.828726]         ...
+[  325.829973] Call Trace:
+[  325.830543] [<80016c28>] show_stack+0x28/0xf0
+[  325.833199] [<808126c8>] dump_stack_lvl+0x6c/0xac
+[  325.835188] [<8003a4d4>] __warn+0x9c/0x114
+[  325.837773] [<8003a674>] warn_slowpath_fmt+0x128/0x188
+[  325.840411] [<801dce7c>] do_swap_page+0x6a8/0xf1c
+[  325.842715] [<801de380>] handle_mm_fault+0x584/0x112c
+[  325.845070] [<801d378c>] __get_user_pages+0x2b8/0x890
+[  325.847119] [<801d3e5c>] get_user_pages_remote+0xf8/0x4c4
+[  325.849285] [<80234678>] get_arg_page+0x6c/0x1cc
+[  325.851666] [<80234910>] copy_string_kernel+0x138/0x254
+[  325.854120] [<80235bd0>] do_execveat_common+0x148/0x1f0
+[  325.856600] [<8023716c>] sys_execve+0x34/0x48
+[  325.859013] [<8001ffb8>] syscall_common+0x34/0x58
+[  325.861235] 
+[  326.019733] ---[ end trace 0000000000000000 ]---
+[  326.028607] mm/pgtable-generic.c:54: bad pgd 86b31d14.
+[  327.912195] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2380 ms
+[  327.933961] bcmgenet 12c00000.ethernet eth0: TC7200U TXDUMP timeout_entry periph_stat=0x40030004 periph_mask=0x00002000 intr0_stat=0xffffffea intr0_mask=0x8680dcb4 intr1_stat=0x00000173 intr1_mask=0x80a2ece8 tdma_ctrl=0x00003000 tdma_stat=0x00000800 sw_prod=0 sw_c=0 hw_p=0 hw_c=14340 free_bds=0 clean=0 write=0
+[  327.973921] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry FPM_A 12200010=0x00000000 12200014=0x00000001 12200040=0x06000000 12200044=0x00010000
+[  327.994857] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry FPM_B 12200050=0x00000000 12200054=0x18007dd8 12200058=0x00000000 1220005c=0x00000000
+[  328.015586] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry FPM_C 12200200=0x80260800 12200208=0x90070400 12200210=0xa0290200 12200218=0xb00b4100
+[  328.039292] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_A 12c00004=0x8680dbc8 12c00008=0x00000091 12c0000c=0x2be183c4 12c00010=0x2be183c4
+[  328.065333] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_B 12c00040=0x8680dbc8 12c00044=0x00000092 12c00048=0x2be183c4 12c0004c=0x2be183c4
+[  328.089084] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_C 12c00050=0x8680dbc8 12c00054=0x00000092 12c00058=0x2be183c4 12c00070=0x2be183c4
+[  328.115121] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_CH1 12c00100=0x8680dbc8 12c00104=0x00000092 12c00120=0x2be183c4 12c00124=0x2be183c4
+[  328.139119] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_CH2 12c00140=0x8680dbc8 12c00144=0x00000094 12c00180=0x2be183c4 12c00184=0x2be183c4
+[  328.162611] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry PROFILE 14e001c4=0xda492010 14e00002=0x00a2 14e00264=0x00000000
+[  328.192919] bcmgenet 12c00000.ethernet eth0: TC7200U TXDUMP timeout_exit periph_stat=0x40030004 periph_mask=0x00002000 intr0_stat=0xffffffea intr0_mask=0x8680dc14 intr1_stat=0x0000017d intr1_mask=0x00000000 tdma_ctrl=0x00003000 tdma_stat=0x00000800 sw_prod=0 sw_c=0 hw_p=0 hw_c=14340 free_bds=0 clean=0 write=0
+[  328.232618] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit FPM_A 12200010=0x00000000 12200014=0x00000001 12200040=0x06000000 12200044=0x00010000
+[  328.253275] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit FPM_B 12200050=0x00000000 12200054=0x18007dc9 12200058=0x00000000 1220005c=0x00000000
+[  328.273899] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit FPM_C 12200200=0x802b0800 12200208=0x900d0400 12200210=0xa0292200 12200218=0xb00b5100
+[  328.297656] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_A 12c00004=0x8680dc38 12c00008=0x00000090 12c0000c=0x2be183c4 12c00010=0x2be183c4
+[  328.323568] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_B 12c00040=0x8680dc38 12c00044=0x00000091 12c00048=0x2be183c4 12c0004c=0x2be183c4
+[  328.347211] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_C 12c00050=0x8680dc38 12c00054=0x00000091 12c00058=0x2be183c4 12c00070=0x2be183c4
+[  328.373303] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_CH1 12c00100=0x8680dc38 12c00104=0x00000091 12c00120=0x2be183c4 12c00124=0x2be183c4
+[  328.397155] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_CH2 12c00140=0x8680dc38 12c00144=0x00000093 12c00180=0x2be183c4 12c00184=0x2be183c4
+[  328.419649] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit PROFILE 14e001c4=0xda492010 14e00002=0x00a2 14e00264=0x00000000
+[  333.193195] bcmgenet 12c00000.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=134 mapping=0x068f2282 len_stat=0x00866fc0 bd_addr=b2c03000 ring=0 write_ptr=1 prod=17920 free=65792
+[  348.553193] bcmgenet 12c00000.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=134 mapping=0x068f2c82 len_stat=0x00866fc0 bd_addr=b2c03008 ring=0 write_ptr=2 prod=17921 free=65791
+[  379.273351] bcmgenet 12c00000.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=134 mapping=0x068f2782 len_stat=0x00866fc0 bd_addr=b2c03010 ring=0 write_ptr=3 prod=17922 free=65790
+[  445.193353] bcmgenet 12c00000.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=134 mapping=0x068f3902 len_stat=0x00866fc0 bd_addr=b2c03018 ring=0 write_ptr=4 prod=17923 free=65789
+[  578.313399] bcmgenet 12c00000.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=134 mapping=0x068f2a02 len_stat=0x00866fc0 bd_addr=b2c03020 ring=0 write_ptr=5 prod=17924 free=65788
+[  844.553241] bcmgenet 12c00000.ethernet eth0: TC7200U XMITDESC i=0 nr_frags=0 size=134 mapping=0x068f3402 len_stat=0x00866fc0 bd_addr=b2c03028 ring=0 write_ptr=6 prod=17925 free=65787
+[  846.872342] bcmgenet 12c00000.ethernet eth0: NETDEV WATCHDOG: CPU: 0: transmit queue 0 timed out 2300 ms
+[  846.893957] bcmgenet 12c00000.ethernet eth0: TC7200U TXDUMP timeout_entry periph_stat=0x40030004 periph_mask=0x00002000 intr0_stat=0xffffffea intr0_mask=0x8680dcb4 intr1_stat=0x0000018e intr1_mask=0x80a2ece8 tdma_ctrl=0x00003000 tdma_stat=0x00000800 sw_prod=0 sw_c=0 hw_p=0 hw_c=14340 free_bds=0 clean=0 write=0
+[  846.934099] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry FPM_A 12200010=0x00000000 12200014=0x00000001 12200040=0x06000000 12200044=0x00010000
+[  846.954860] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry FPM_B 12200050=0x00000000 12200054=0x18007dba 12200058=0x00000000 1220005c=0x00000000
+[  846.975581] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry FPM_C 12200200=0x802b8800 12200208=0x90174400 12200210=0xa0294200 12200218=0xb00b6100
+[  846.999442] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_A 12c00004=0x8680dbc8 12c00008=0x00000091 12c0000c=0x2be183c4 12c00010=0x2be183c4
+[  847.025307] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_B 12c00040=0x8680dbc8 12c00044=0x00000092 12c00048=0x2be183c4 12c0004c=0x2be183c4
+[  847.049046] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_C 12c00050=0x8680dbc8 12c00054=0x00000092 12c00058=0x2be183c4 12c00070=0x2be183c4
+[  847.075065] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_CH1 12c00100=0x8680dbc8 12c00104=0x00000092 12c00120=0x2be183c4 12c00124=0x2be183c4
+[  847.099005] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry GMAC_CH2 12c00140=0x8680dbc8 12c00144=0x00000094 12c00180=0x2be183c4 12c00184=0x2be183c4
+[  847.122501] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_entry PROFILE 14e001c4=0xda492010 14e00002=0x00a2 14e00264=0x00000000
+[  847.152941] bcmgenet 12c00000.ethernet eth0: TC7200U TXDUMP timeout_exit periph_stat=0x40030004 periph_mask=0x00002000 intr0_stat=0xffffffea intr0_mask=0x8680dc14 intr1_stat=0x00000198 intr1_mask=0x00000000 tdma_ctrl=0x00003000 tdma_stat=0x00000800 sw_prod=0 sw_c=0 hw_p=0 hw_c=14340 free_bds=0 clean=0 write=0
+[  847.192640] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit FPM_A 12200010=0x00000000 12200014=0x00000001 12200040=0x06000000 12200044=0x00010000
+[  847.213288] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit FPM_B 12200050=0x00000000 12200054=0x18007dab 12200058=0x00000000 1220005c=0x00000000
+[  847.233901] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit FPM_C 12200200=0x80110800 12200208=0x901fc400 12200210=0xa0296200 12200218=0xb00b7100
+[  847.257647] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_A 12c00004=0x8680dc38 12c00008=0x00000090 12c0000c=0x2be183c4 12c00010=0x2be183c4
+[  847.283557] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_B 12c00040=0x8680dc38 12c00044=0x00000091 12c00048=0x2be183c4 12c0004c=0x2be183c4
+[  847.307191] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_C 12c00050=0x8680dc38 12c00054=0x00000091 12c00058=0x2be183c4 12c00070=0x2be183c4
+[  847.333263] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_CH1 12c00100=0x8680dc38 12c00104=0x00000091 12c00120=0x2be183c4 12c00124=0x2be183c4
+[  847.357117] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit GMAC_CH2 12c00140=0x8680dc38 12c00144=0x00000093 12c00180=0x2be183c4 12c00184=0x2be183c4
+[  847.379602] bcmgenet 12c00000.ethernet eth0: TC7200U CTRL timeout_exit PROFILE 14e001c4=0xda492010 14e00002=0x00a2 14e00264=0x00000000
