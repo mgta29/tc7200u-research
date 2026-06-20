@@ -37,7 +37,7 @@ FRESH_HEADER="${FRESH_HEADER:-${TC7200U_FRESH_HEADER:-}}"
 CANDIDATE_LABEL="${CANDIDATE_LABEL:-${TC7200U_CANDIDATE_LABEL:-}}"
 WRAPPED=""
 A825_HEADER_BYTES=92
-DEFAULT_WRAP_LOAD_HEX="0x80004000"
+DEFAULT_WRAP_LOAD_HEX="0x82000000"
 EXPECT_LOAD_HEX="0x82000000"
 VERIFY_EXPECT_NAME=""
 VERIFY_EXPECT_SIGNATURE_HEX="0xa825"
@@ -61,6 +61,67 @@ STEP=0
 TOTAL_STEPS=7
 DEFAULT_PRESERVE_FROM_IMAGE="$RECORDS_DIR/artifacts/rescue/tc7200-stage2-console-good.bin"
 PRESERVE_FROM_DEFAULTED=0
+
+# Carried ENET references and compare sets from the maintained status/reverse notes.
+ENET_VALUES_NOTE='\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\important-openwrt-tc7200u-enet-usable-values.md'
+ENET_STATUS_NOTE='\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\important-openwrt-tc7200u-enet-usable-status.md'
+ENET_CONTROL_BASELINE_NOTE='\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\status\2026-06-17-fresh-openwrt-console-success.md'
+ENET_DEVMEM_BASELINE_NOTE='\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\status\2026-06-18-devmem-fpm-genet-baseline.md'
+ENET_FIXEDLINK_WATCHDOG_NOTE='\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\status\2026-06-18-genet-fixedlink-probe-watchdog.md'
+ENET_LIVE_MBDMA_NOTE='\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\status\2026-06-19-genet-fpm-live-mbdma-unprogrammed.md'
+ENET_TXDUMP_NOTE='\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\status\2026-06-19-genet-txdump-tdma-stuck.md'
+ENET_CTRLMAP_NOTE='\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\status\2026-06-19-genet-ctrlmap-debug-findings.md' 
+
+ENET_COMPARE_FPM_ADDRS=(
+	0x12200040
+	0x12200044
+	0x12200200
+	0x12200208
+	0x12200210
+	0x12200218
+)
+ENET_COMPARE_GENET_ADDRS=(
+	0x12c00004
+	0x12c00008
+	0x12c0000c
+	0x12c00010
+	0x12c00044
+	0x12c00048
+	0x12c0004c
+	0x12c00050
+	0x12c00054
+	0x12c00058
+	0x12c00070
+)
+ENET_COMPARE_PROFILE_ADDRS=(
+	0x14e001c4
+	0x14e00002
+	0x14e00264
+)
+ENET_COMPARE_MDIO_ADDRS=(
+	0x12c0062c
+	0x12c0062e
+	0x12c00630
+	0x12c00632
+	0x12c0262c
+	0x12c0262e
+	0x12c02630
+	0x12c02632
+)
+ENET_OEM_COMPARE_HINTS=(
+	"0x12c00004=(old & 0xffffe000) | 0x9010"
+	"0x12c00044=0x02020202"
+	"0x12c00008=0x12200200"
+	"0x12c0004c=0x12200218"
+	"0x12c00050=0x12200210"
+	"0x12c00054=0x12200208"
+	"0x12c00058=0x12200200"
+	"0x12c00070=0x00000003 or 0x00030000"
+	"size0x100->0x12200218"
+	"size0x200->0x12200210"
+	"size0x400->0x12200208"
+	"size0x800->0x12200200"
+)
 
 TCBUILDER_SCRIPT_DIR="$(
 	CDPATH= cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd

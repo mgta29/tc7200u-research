@@ -1,3 +1,24 @@
+print_enet_reference_status() {
+	echo "== enet references =="
+	echo "values_note=$ENET_VALUES_NOTE"
+	echo "status_note=$ENET_STATUS_NOTE"
+	echo "control_baseline_note=$ENET_CONTROL_BASELINE_NOTE"
+	echo "devmem_baseline_note=$ENET_DEVMEM_BASELINE_NOTE"
+	echo "fixedlink_watchdog_note=$ENET_FIXEDLINK_WATCHDOG_NOTE"
+	echo "live_mbdma_note=$ENET_LIVE_MBDMA_NOTE"
+	echo "txdump_note=$ENET_TXDUMP_NOTE"
+	echo "ctrlmap_note=$ENET_CTRLMAP_NOTE"
+	echo
+	echo "== enet compare set =="
+	echo "fpm=${ENET_COMPARE_FPM_ADDRS[*]}"
+	echo "genet=${ENET_COMPARE_GENET_ADDRS[*]}"
+	echo "profile=${ENET_COMPARE_PROFILE_ADDRS[*]}"
+	echo "mdio=${ENET_COMPARE_MDIO_ADDRS[*]}"
+	echo
+	echo "== enet oem anchors =="
+	printf '%s\n' "${ENET_OEM_COMPARE_HINTS[@]}"
+}
+
 status_mode() {
 	cd "$RESEARCH"
 	echo "== git =="
@@ -8,6 +29,8 @@ status_mode() {
 	echo
 	echo "== records =="
 	find records -maxdepth 3 -type d 2>/dev/null | sort || true
+	echo
+	print_enet_reference_status
 }
 
 capture_state() {
@@ -59,6 +82,25 @@ capture_state() {
 		echo
 		echo "## Current MMIO probe list in persistent patch"
 		grep -nA60 'static int __init __used tc7200u_mmio_boot_log' "$patch" 2>&1 || true
+		echo
+		echo "## ENET carried references"
+		echo "VALUES_NOTE=$ENET_VALUES_NOTE"
+		echo "STATUS_NOTE=$ENET_STATUS_NOTE"
+		echo "CONTROL_BASELINE_NOTE=$ENET_CONTROL_BASELINE_NOTE"
+		echo "DEVMEM_BASELINE_NOTE=$ENET_DEVMEM_BASELINE_NOTE"
+		echo "FIXEDLINK_WATCHDOG_NOTE=$ENET_FIXEDLINK_WATCHDOG_NOTE"
+		echo "LIVE_MBDMA_NOTE=$ENET_LIVE_MBDMA_NOTE"
+		echo "TXDUMP_NOTE=$ENET_TXDUMP_NOTE"
+		echo "CTRLMAP_NOTE=$ENET_CTRLMAP_NOTE"
+		echo
+		echo "## ENET compare set"
+		echo "FPM=${ENET_COMPARE_FPM_ADDRS[*]}"
+		echo "GENET=${ENET_COMPARE_GENET_ADDRS[*]}"
+		echo "PROFILE=${ENET_COMPARE_PROFILE_ADDRS[*]}"
+		echo "MDIO=${ENET_COMPARE_MDIO_ADDRS[*]}"
+		echo
+		echo "## ENET OEM comparison anchors"
+		printf '%s\n' "${ENET_OEM_COMPARE_HINTS[@]}"
 		echo
 		echo "## Network-related config"
 		grep -Rns "CONFIG_BGMAC\|CONFIG_B53\|CONFIG_NET_DSA\|CONFIG_MDIO_BCM" "$OWRT/.config" "$OWRT/target/linux/bmips/config-6.12" "$OWRT/target/linux/bmips/bcm63268/config-6.12" "$linux_dir/.config" 2>/dev/null || true
@@ -409,6 +451,7 @@ print_paths_mode() {
 	echo "PRESERVE_FROM_IMAGE=$PRESERVE_FROM_IMAGE"
 	echo "PRESERVE_FROM_PATH=$PRESERVE_FROM_PATH"
 	echo "WRAP_LOAD_ADDR=$WRAP_LOAD_ADDR"
+	echo "DEFAULT_WRAP_LOAD_HEX=$DEFAULT_WRAP_LOAD_HEX"
 	echo "WRAP_CONTROL=$WRAP_CONTROL"
 	echo "WRAP_MAJOR=$WRAP_MAJOR"
 	echo "WRAP_MINOR=$WRAP_MINOR"
@@ -418,4 +461,16 @@ print_paths_mode() {
 	echo "PATCH_PRECHECK=$PATCH_PRECHECK"
 	echo "FRESH_HEADER=$FRESH_HEADER"
 	echo "CANDIDATE_LABEL=$CANDIDATE_LABEL"
+	echo "ENET_VALUES_NOTE=$ENET_VALUES_NOTE"
+	echo "ENET_STATUS_NOTE=$ENET_STATUS_NOTE"
+	echo "ENET_CONTROL_BASELINE_NOTE=$ENET_CONTROL_BASELINE_NOTE"
+	echo "ENET_DEVMEM_BASELINE_NOTE=$ENET_DEVMEM_BASELINE_NOTE"
+	echo "ENET_FIXEDLINK_WATCHDOG_NOTE=$ENET_FIXEDLINK_WATCHDOG_NOTE"
+	echo "ENET_LIVE_MBDMA_NOTE=$ENET_LIVE_MBDMA_NOTE"
+	echo "ENET_TXDUMP_NOTE=$ENET_TXDUMP_NOTE"
+	echo "ENET_CTRLMAP_NOTE=$ENET_CTRLMAP_NOTE"
+	echo "ENET_COMPARE_FPM_ADDRS=${ENET_COMPARE_FPM_ADDRS[*]}"
+	echo "ENET_COMPARE_GENET_ADDRS=${ENET_COMPARE_GENET_ADDRS[*]}"
+	echo "ENET_COMPARE_PROFILE_ADDRS=${ENET_COMPARE_PROFILE_ADDRS[*]}"
+	echo "ENET_COMPARE_MDIO_ADDRS=${ENET_COMPARE_MDIO_ADDRS[*]}"
 }

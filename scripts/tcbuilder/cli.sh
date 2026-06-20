@@ -371,12 +371,18 @@ apply_auto_fresh_header_default() {
 }
 
 apply_auto_wrap_load_default() {
-	# Preserve the canonical template header exactly when auto mode is using a
-	# preserve-from image. Only inject a default load override when there is no
-	# template to preserve.
-	if [ -z "$WRAP_LOAD_ADDR" ] && [ "$MODE" = "auto" ] && [ -z "$SOURCE_IMAGE" ] && [ -z "$PRESERVE_FROM_IMAGE" ]; then
-		WRAP_LOAD_ADDR="$DEFAULT_WRAP_LOAD_HEX"
+	# Preserve the canonical template header exactly when auto/candidate mode is
+	# using a preserve-from image. Only inject the canonical load override when
+	# there is no template to preserve.
+	if [ -n "$WRAP_LOAD_ADDR" ] || [ -n "$SOURCE_IMAGE" ] || [ -n "$PRESERVE_FROM_IMAGE" ]; then
+		return 0
 	fi
+
+	case "$MODE" in
+		auto|candidate)
+			WRAP_LOAD_ADDR="$DEFAULT_WRAP_LOAD_HEX"
+			;;
+	esac
 }
 
 validate_wrap_load_addr() {

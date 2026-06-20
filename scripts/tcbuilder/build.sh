@@ -39,6 +39,23 @@ snapshot_build_context() {
 	report_note "recent_make_logs_begin"
 	find "$RESEARCH_BUILDS_DIR" -maxdepth 1 -type f \( -name '*target-linux-*.log' -o -name '*make-full-image*.log' \) -printf '%T@ %p\n' 2>/dev/null | sort -nr | head -n 10 | cut -d' ' -f2- | sed 's/^/  /' >>"$RUN_REPORT" || true
 	report_note "recent_make_logs_end"
+
+	report_section "enet reference"
+	report_note "enet_values_note=$ENET_VALUES_NOTE"
+	report_note "enet_status_note=$ENET_STATUS_NOTE"
+	report_note "enet_control_baseline_note=$ENET_CONTROL_BASELINE_NOTE"
+	report_note "enet_devmem_baseline_note=$ENET_DEVMEM_BASELINE_NOTE"
+	report_note "enet_fixedlink_watchdog_note=$ENET_FIXEDLINK_WATCHDOG_NOTE"
+	report_note "enet_live_mbdma_note=$ENET_LIVE_MBDMA_NOTE"
+	report_note "enet_txdump_note=$ENET_TXDUMP_NOTE"
+	report_note "enet_ctrlmap_note=$ENET_CTRLMAP_NOTE"
+	report_note "enet_compare_fpm=${ENET_COMPARE_FPM_ADDRS[*]}"
+	report_note "enet_compare_genet=${ENET_COMPARE_GENET_ADDRS[*]}"
+	report_note "enet_compare_profile=${ENET_COMPARE_PROFILE_ADDRS[*]}"
+	report_note "enet_compare_mdio=${ENET_COMPARE_MDIO_ADDRS[*]}"
+	report_note "enet_oem_hints_begin"
+	printf '  %s\n' "${ENET_OEM_COMPARE_HINTS[@]}" >>"$RUN_REPORT"
+	report_note "enet_oem_hints_end"
 }
 
 report_build_decision() {

@@ -25,6 +25,7 @@ This reference currently carries layouts from:
 - `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-15-stage1-signal-object-type2-dispatcher-path.md`
 - `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-15-stage1-timeout-select-wait-reverse-log.md`
 - `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-16-stage1-socket-object-type2-setsockopt.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-19-dma-fpm-allocator-runtime-init.md`
 - `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-19-stage1-netif-aux-context-route-output.md`
 
 ## Notes
@@ -41,16 +42,16 @@ This reference currently carries layouts from:
 ```c
 typedef struct tc7200_fpm_allocator {
     uint32_t fpm_hw_base_kseg1;                          /* +0x00 */
-    uint32_t board_or_buffer_class;                      /* +0x04 */
-    uint32_t largest_default_pool_size;                  /* +0x08 */
+    uint32_t fpm_buffer_size_hw_code;                    /* +0x04 */
+    uint32_t configured_fpm_buffer_size;                 /* +0x08 */
     uint32_t fpm_backing_base_aligned;                   /* +0x0c */
     uint8_t  embedded_flag_log_object[0x18];             /* +0x10 */
     uint8_t  pool_size_shift_bits;                       /* +0x28 */
     uint8_t  pad_29[3];                                  /* +0x29 */
     uint32_t pool_class_lookup_table_ptr;                /* +0x2c */
-    uint32_t max_largest_request_state;                  /* +0x30 */
-    uint32_t fpm_extra_base_offset_or_headroom_candidate;/* +0x34 */
-    uint32_t pool_size_table[4];                         /* +0x38 */
+    uint32_t max_alloc_size;                             /* +0x30 */
+    uint32_t fpm_extra_base_offset_candidate;            /* +0x34 */
+    uint32_t pool_size_by_token_highbits[4];             /* +0x38 */
     uint32_t token_highbits_table[32768];                /* +0x48 */
 } tc7200_fpm_allocator;                                  /* size 0x20048 */
 
@@ -598,18 +599,18 @@ Notes:
 
 ```c
 typedef struct dma_allocator_global_state_81848740_candidate {
-    undefined4 field_00;                  /* +0x00 */
-    undefined4 header_field_04;           /* +0x04 */
-    uint default_pool_size_08;            /* +0x08 */
-    void *backing_fpm_pool_base_0c;       /* +0x0c */
-    undefined1 pad_10[0x18];              /* +0x10 */
-    uint pool_shift_28;                   /* +0x28 */
-    void *pool_class_table_ptr_2c;        /* +0x2c */
-    uint max_or_largest_request_30;       /* +0x30 */
-    uint timer_counter_or_state_34;       /* +0x34 */
-    undefined1 pad_38[8];                 /* +0x38 */
-    undefined4 default_pool_sizes_copy_40;/* +0x40 */
-    undefined4 high_bits_table_48;        /* +0x44 screenshot field name kept as-is */
+    uint32_t fpm_hw_base_kseg1_00;                         /* +0x00 */
+    uint32_t fpm_buffer_size_hw_code_04;                   /* +0x04 */
+    uint32_t configured_fpm_buffer_size_08;                /* +0x08 */
+    void *fpm_backing_base_aligned_0c;                     /* +0x0c */
+    undefined1 embedded_log_or_flags_object_10_candidate[0x18]; /* +0x10 */
+    uint8_t pool_size_shift_bits_28;                       /* +0x28 */
+    undefined1 pad_29[3];                                  /* +0x29 */
+    uint8_t *pool_class_lookup_table_ptr_2c;               /* +0x2c */
+    uint32_t max_alloc_size_30;                            /* +0x30 */
+    uint32_t fpm_extra_base_offset_34_candidate;           /* +0x34 */
+    uint32_t pool_size_by_token_highbits_38[4];            /* +0x38 */
+    /* token_highbits_table begins immediately at +0x48; the full logical allocator object continues past this local header slice */
 } dma_allocator_global_state_81848740_candidate; /* size 0x48 */
 
 typedef struct fap_bypass_context_candidate {
@@ -738,6 +739,7 @@ Recorded modifications worth keeping:
 - 2026-06-16: added the June 15 signal-object, related-object, type2-dispatch, timeout-scale, and select-wait helper layouts, and raised the carried set to `45` structures
 - 2026-06-18: added the June 16 socket-object and socket-vtable layouts, refined the type2 ops `+0x14/+0x1c` slots, and raised the carried set to `47` structures
 - 2026-06-19: added the June 19 socket build/create-flag, netif, aux-object, aux-context, keyclass ops, and aux-context stats layouts, and raised the carried set to `56` structures
+- 2026-06-20: added the June 19 DMA/FPM allocator runtime-init note to the carried source set and refined the allocator field semantics at `0x81848740` without changing the carried structure count
 
 ## Preservation
 
