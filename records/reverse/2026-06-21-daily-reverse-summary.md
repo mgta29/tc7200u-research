@@ -32,6 +32,16 @@
 - Investigate OEM handler group `0x30` child entries before forcing an upstream GENET INTRL2 layout onto TC7200U.
 - Keep FPM/DQM token work separate from TDMA descriptor-width experiments and B53/MDIO work.
 
+## Second 2026-06-21 control update
+
+- Requested source path `records/notes/reverse` is still absent; the controlled live source remains `records/reverse`.
+- Control read now covers `69` reverse markdown files and `23662` reverse markdown lines before this summary update.
+- Newly carried live notes: `2026-06-21-bcm-periph-host-dqm-im5-reenable-log.md`, `2026-06-21-natp-host-dqm-ghidra-log.md`, and `2026-06-21-net-config-heap-natp-gfap-ghidra-log.md`.
+- Corrected the OpenWrt IRQ carry: the OEM Host-DQM IM5 path proves groups `0x23..0x28`; it does not prove encoded group `0x30` for Host-DQM. Treat the older group-`0x30` mapping as a hypothesis only.
+- Corrected child-bank semantics: `child_bank+0x08` is the mask/control/enable latch and `child_bank+0x0c` is the status/pending source. Do not add blind clear/ack writes until parent and child snapshots are coherent.
+- Carried Host-DQM selector facts: dispatch tables `81916fd8` and `819172d8` hold event raise masks and one-based stage1 event-slot ids, not callback pointers.
+- Carried NATP no-match Host-DQM facts: selector `4` / MPEG_PROC uses the `b8a00000` Host-DQM window, queue index `0x10`, channel index `0x11`, and windows around `b8a01800`, `b8a01d00`, `b8a01f40`, and `b8a01f44`.
+- Carried net-config/heap facts: the heap-free entry starts at `8002a280`, `0x81470000` is a high-half global anchor and not an object, and the net-config large cache requires resizing the current `8187bc60` block through `81883daf`.
 ## Documentation updates from this pass
 
 - Added this daily reverse summary.

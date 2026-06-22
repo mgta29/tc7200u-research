@@ -2788,3 +2788,123 @@ handler entry address    = 0x81743214 + ((group_id * 32) + child_bit) * 8
 ### Modification log
 
 - 2026-06-21: added the June 20/21 DQM runtime-overlay, mailbox selector, ISR0 guard, and IM5 parent-dispatcher findings to the OpenWrt development carry document.
+## Runtime control pass: 2026-06-21 late Host-DQM IM5, NATP, and net-config carry
+
+Source notes:
+
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-21-bcm-periph-host-dqm-im5-reenable-log.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-21-natp-host-dqm-ghidra-log.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-21-net-config-heap-natp-gfap-ghidra-log.md`
+
+### Superseding IRQ13 and Host-DQM correction
+
+The later IM5 re-enable pass corrects the earlier group-`0x30` hypothesis. The mapped OEM Host-DQM IM5 path currently proves encoded IRQ groups `0x23..0x28`, not `0x30`:
+
+```text
+CP0 Status IM5
+  -> fn_bcm_periph_irq_cp0_im5_pending_dispatcher_8002adbc_candidate
+  -> parent active = b4e00050 & b4e00054
+  -> fn_bcm_periph_irq_child_bank_dispatch_8002ae48_candidate(parent_bit_index)
+  -> child active = child_bank+0x08 & child_bank+0x0c
+  -> Host-DQM selector pending-bit handler
+  -> Host-DQM dispatch table bridge to stage1 event-slot raise
+  -> fn_bcm_irq_return_reenable_8003d184_candidate(encoded_irq_id)
+```
+
+Correct child-bank semantics for OpenWrt probing:
+
+```text
+child_bank+0x08  mask/control/enable latch
+child_bank+0x0c  status/pending source
+```
+
+Do not add blind ack/clear writes to the OpenWrt guard path. First snapshot parent, child, and GENET INTRL2 locals once, then print those saved locals:
+
+```text
+b4e00050  parent IM5 mask/enable candidate
+b4e00054  parent IM5 status/pending candidate
+child+08  child mask/control/enable latch
+child+0c  child status/pending source
+GENET INTRL2 stat/mask saved before printk
+```
+
+Child-bank bases now carried for the proven Host-DQM group range:
+
+```text
+parent_bit 0 / group 0x23 -> b3000000, child regs at b3001000
+parent_bit 1 / group 0x24 -> b3200000, child regs at b3201000
+parent_bit 2 / group 0x25 -> b4200000, child regs at b4201000
+parent_bit 3 / group 0x26 -> b3600000, child regs at b3601000
+parent_bit 4 / group 0x27 -> b3400000, child regs at b3401000
+parent_bit 5 / group 0x28 -> b3e00000, child regs at b3e01000
+```
+
+The Host-DQM dispatch tables are data tables, not callback pointers:
+
+```text
+81916fd8[index] = event raise mask
+819172d8[index] = 1-based stage1 event-slot id
+```
+
+### Host-DQM and NATP no-match carry
+
+Required Host-DQM MMIO windows remain:
+
+```text
+b8000000..b8001fff  UTP selector 0
+b8200000..b8201fff  MSP selector 1
+b8400000..b8401fff  FAP selector 2
+b8600000..b8601fff  MSG_PROC selector 3
+b8a00000..b8a01fff  MPEG_PROC selector 4
+b8800000..b8801fff  PMC selector 5
+```
+
+NATP/no-match RX manager creates a Host-DQM object on selector `4` / MPEG_PROC with queue index `0x10` and channel index `0x11`. Useful MMIO-derived fields for cross-checking:
+
+```text
+host_dqm_base                  = b8a00000
+register_block                 = b8a01800
+tx_submit_window_3c            = b8a01d00
+tx_credit_or_depth_ptr_40      = b8a01f40
+record_words                   = b8a01d10
+queue_index_or_cursor_ptr_44   = b8a01f44
+```
+
+No new OpenWrt memory block is required from the NATP Host-DQM object pass itself. The current high-value target is the table-population path for `81916fd8` and `819172d8`.
+
+### Net-config and heap carry for Ghidra control
+
+The NATP/GFAP manager thread is now identified at `8053d514`; do not leave that ops slot as an unknown method. The heap-free path starts at `8002a280`, not `8002a2f0`, and uses a 12-byte heap block header at `payload - 0x0c`.
+
+`0x81470000` is only a high-half global anchor. Keep precise globals on the individual words instead of typing the whole anchor as an object or MMIO block:
+
+```text
+81470008  g_net_config_cache_entry_count_81470008_candidate
+81470020  g_net_config_requested_flag_81470020_candidate
+81470024  g_net_config_indexed_cache_count_81470024_candidate
+81470028  g_net_config_context_ptr_81470028_candidate
+```
+
+The net-config large cache requires resizing the current small Ghidra block:
+
+```text
+Old name: RAM_FPM_TOKEN_MANAGER_STATE_8187BC60
+New name: RAM_STAGE1_FPM_NETCFG_RUNTIME_8187BC60_candidate
+Start:    8187bc60
+End:      81883daf
+Size:     0x8150
+```
+
+After resizing, apply `net_config_indexed_cache_entry_400_candidate[32]` at `8187bdb0`. Do not touch `81883e00..81883fff`; the large cache ends before the existing `BSS_STAGE1_FAP_BYPASS_81883E00_candidate` block.
+
+### Late-pass development target
+
+- Fix the OpenWrt ISR guard around saved local snapshots before changing interrupt clear behavior.
+- Treat `periph_mask=0x00002000 -> group 0x30` as unproven for Host-DQM until a parent/child snapshot proves it.
+- Apply corrected child-bank labels with `+0x08` as mask/control/enable and `+0x0c` as status/pending.
+- Keep NATP selector `4` / MPEG_PROC Host-DQM windows as reverse-control targets, not immediate OpenWrt driver constants.
+- Resize the `8187bc60` Ghidra block before applying the net-config indexed cache table.
+
+### Modification log
+
+- 2026-06-21: added the late Host-DQM IM5 correction, Host-DQM dispatch table semantics, NATP no-match Host-DQM selector/window facts, heap-free correction, and net-config memory-block resize requirement.

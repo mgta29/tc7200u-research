@@ -28,6 +28,9 @@ This reference currently carries layouts from:
 - `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-19-dma-fpm-allocator-runtime-init.md`
 - `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-19-stage1-netif-aux-context-route-output.md`
 
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-21-bcm-periph-host-dqm-im5-reenable-log.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-21-natp-host-dqm-ghidra-log.md`
+- `\\wsl.localhost\Ubuntu\home\mgta29\tc7200u-research\records\reverse\2026-06-21-net-config-heap-natp-gfap-ghidra-log.md`
 ## Notes
 
 - Candidate names keep `_candidate` suffix where semantics are still provisional.
@@ -84,47 +87,98 @@ typedef struct tc7200_fpm_packet_header {
 } tc7200_fpm_packet_header;                     /* size 0xe0 */
 ```
 
+
+
 ### Host-DQM structures
 
 ```c
 typedef struct host_dqm_register_block_1800_candidate {
-    byte pad_00[0x14];                 /* +0x00..+0x13 */
-    uint reg14_status_current_bits;    /* +0x14 */
-    uint reg18_enabled_pending_mask;   /* +0x18 */
-    uint reg1c_queue_bit_or_ack;       /* +0x1c */
-    uint reg20_channel_status_or_busy; /* +0x20 */
+    byte pad_00[20];
+    vuint32_t reg14_channel_status_or_current;
+    vuint32_t reg18_channel_enable_or_pending;
+    undefined4 reg1c_queue_bit_or_ack;
+    vuint32_t reg20_channel_status_or_busy;
 } host_dqm_register_block_1800_candidate;
 
+typedef void host_dqm_obj_ops_fn_candidate(void *self);
+
+typedef struct host_dqm_object_ops_candidate {
+    host_dqm_obj_ops_fn_candidate *destroy_00;
+    host_dqm_obj_ops_fn_candidate *destroy_and_free_04;
+    host_dqm_obj_ops_fn_candidate *method_08_null;
+    host_dqm_obj_ops_fn_candidate *method_0c_null;
+} host_dqm_object_ops_candidate;
+
 typedef struct host_dqm_channel_obj_candidate {
-    undefined4 *ops_table;                               /* +0x00 base ops table */
-    char *name_copy_04;                                  /* +0x04 allocated/copy of t1 string */
-    uint queue_index_a_08;                               /* +0x08 queue index A */
-    uint channel_index;                                  /* +0x0c channel/bit index */
-    uint init_flag_byte_10;                              /* +0x10 low byte init flag */
-    uint queue_or_expected_index_14;                     /* +0x14 queue/backlog expected index */
-    uint queue_a_initial_index_18;                       /* +0x18 high16 from queue-A +0x1a08 */
-    void *fpm_allocator_1c;                              /* +0x1c FPM allocator pointer */
-    uint record_word_count_or_limit;                     /* +0x20 record/payload word count */
-    uint host_dqm_selector;                              /* +0x24 selector from t0 */
-    uint host_dqm_base;                                  /* +0x28 selector MMIO base */
-    host_dqm_register_block_1800_candidate *register_block; /* +0x2c */
-    undefined4 *queue_a_window_1a00_30;                  /* +0x30 base + queue_index_a*0x10 + 0x1a00; header export currently degrades this to field_30_unknown */
-    undefined4 *queue_b_window_1a00_34;                  /* +0x34 base + channel_index*0x10 + 0x1a00 */
-    undefined4 *record_words;                            /* +0x38 base + channel_index*0x10 + 0x1c00 */
-    undefined4 *queue_a_window_1c00_3c;                  /* +0x3c base + queue_index_a*0x10 + 0x1c00; header export currently degrades this to field_3c_unknown */
-    uint *queue_a_cursor_or_index_ptr_40;                /* +0x40 base + queue_index_a*4 + 0x1f00; header export currently degrades this to field_40_unknown */
-    uint *queue_index_or_cursor_ptr_44;                  /* +0x44 base + channel_index*4 + 0x1f00 */
-    undefined4 field_48_unknown;                         /* +0x48 zeroed */
-    undefined4 field_4c_unknown;                         /* +0x4c zeroed */
-    uint ready_copy_count_50;                            /* +0x50 successful ready payload copy counter */
-    undefined4 field_54_unknown;                         /* +0x54 zeroed */
-    uint queue_delta_high_water_58;                      /* +0x58 queue/backlog high-water stat */
-} host_dqm_channel_obj_candidate;                        /* size 0x5c */
+    host_dqm_object_ops_candidate *ops_table;              /* +0x00 */
+    char *name_copy_04;                                    /* +0x04 */
+    uint32_t queue_index_a_08;                             /* +0x08 */
+    uint32_t channel_index;                                /* +0x0c */
+    uint32_t init_flag_byte_10;                            /* +0x10 */
+    uint32_t queue_or_expected_index_14;                   /* +0x14 */
+    uint32_t queue_a_initial_index_18;                     /* +0x18 */
+    dma_allocator_global_state_81848740_candidate *fpm_allocator_1c; /* +0x1c */
+    uint32_t record_word_count_or_limit;                   /* +0x20 */
+    uint32_t host_dqm_selector;                            /* +0x24 */
+    uint32_t host_dqm_base;                                /* +0x28 */
+    host_dqm_register_block_1800_candidate *register_block;/* +0x2c */
+    uint32_t *queue_a_window_1a00_30;                      /* +0x30 */
+    uint32_t *queue_b_window_1a00_34;                      /* +0x34 */
+    uint32_t *record_words;                                /* +0x38 */
+    uint32_t *tx_submit_window_3c;                         /* +0x3c */
+    uint32_t *tx_credit_or_depth_ptr_40;                   /* +0x40 */
+    uint32_t *queue_index_or_cursor_ptr_44;                /* +0x44 */
+    uint32_t tx_submit_count_48;                           /* +0x48 */
+    uint32_t tx_no_credit_error_count_4c;                  /* +0x4c */
+    uint32_t ready_copy_count_50;                          /* +0x50 */
+    uint32_t field_54_dead_len_check_candidate;            /* +0x54 */
+    uint32_t queue_delta_high_water_58;                    /* +0x58 */
+} host_dqm_channel_obj_candidate;                          /* size 0x5c */
+
+typedef struct host_downstream_dqm_queue_obj_candidate {
+    host_dqm_channel_obj_candidate base;                         /* +0x00..+0x5b */
+    uint8_t active_flag_5c;                                      /* +0x5c */
+    uint8_t pad_5d[3];                                           /* +0x5d..+0x5f */
+    uint32_t field_60_unknown;                                   /* +0x60 */
+    uint32_t field_64_unknown;                                   /* +0x64 */
+    dma_allocator_global_state_81848740_candidate *fpm_allocator_68; /* +0x68 */
+} host_downstream_dqm_queue_obj_candidate;                       /* size 0x6c */
+
+typedef struct natp_nomatch_rx_manager_candidate {
+    host_dqm_channel_obj_candidate *host_dqm_obj_00; /* +0x00 */
+    uint8_t flag_04;                                /* +0x04 */
+    uint8_t flag_05;                                /* +0x05 */
+    uint8_t flag_06;                                /* +0x06 */
+    uint8_t pad_07;                                 /* +0x07 */
+    uint32_t field_08;                              /* +0x08 */
+    void *state_block_0c;                            /* +0x0c, allocated 0xdc */
+} natp_nomatch_rx_manager_candidate;
+
+typedef struct fap_bypass_context_candidate {
+    void *ops_table_00;                                      /* +0x00 */
+    undefined4 field_04_unknown;                             /* +0x04 */
+    undefined4 field_08_unknown;                             /* +0x08 */
+    uint32_t event_raise_mask_0c;                             /* +0x0c */
+    uint32_t event_slot_id_10;                                /* +0x10 */
+    uint32_t enabled_queue_mask_14;                           /* +0x14 */
+    int32_t active_queue_index_18;                            /* +0x18 */
+    int32_t data_enabled_queue_last_index_1c;                 /* +0x1c */
+    int32_t bypass_queue_last_index_20;                       /* +0x20 */
+    host_dqm_channel_obj_candidate *command_channel_obj_24;   /* +0x24, selector 1/MSP */
+    host_downstream_dqm_queue_obj_candidate *active_queue_obj_28; /* +0x28 */
+    host_downstream_dqm_queue_obj_candidate *data_queue_objs_2c[8]; /* +0x2c */
+    host_downstream_dqm_queue_obj_candidate *bypass_queue_objs_4c[2]; /* +0x4c */
+    uint8_t data_mode_enabled_54;                             /* +0x54 */
+    uint8_t pad_55[3];                                        /* +0x55 */
+    host_downstream_dqm_queue_obj_candidate *mac_message_queue_obj_58; /* +0x58 */
+    host_dqm_channel_obj_candidate *async_message_channel_obj_5c;      /* +0x5c */
+} fap_bypass_context_candidate;
 ```
 
+Apply `host_dqm_register_block_1800_candidate` at `b8001800`, `b8201800`, `b8401800`, `b8601800`, `b8801800`, and `b8a01800`. NATP/no-match RX uses selector `4` / MPEG_PROC with base `b8a00000`, queue index `0x10`, and channel index `0x11`.
 ### Stage1 event-slot structures
 
-```c
+`c
 typedef struct stage1_event_slot_candidate {
     uint pending_mask_00; /* +0x00 accumulated/raised event bits */
     stage1_readyq_node_candidate *waitq_04; /* +0x04 wait queue/list head */
@@ -613,29 +667,7 @@ typedef struct dma_allocator_global_state_81848740_candidate {
     /* token_highbits_table begins immediately at +0x48; the full logical allocator object continues past this local header slice */
 } dma_allocator_global_state_81848740_candidate; /* size 0x48 */
 
-typedef struct fap_bypass_context_candidate {
-    undefined1 pad_00[0x14];                           /* +0x00 */
-    uint enabled_queue_mask_14;                        /* +0x14 */
-    int active_queue_index_18;                         /* +0x18 */
-    int data_enabled_queue_last_index_1c;              /* +0x1c */
-    int bypass_queue_last_index_20;                    /* +0x20 */
-    host_dqm_channel_obj_candidate *cmd_dqm_obj_24;    /* +0x24 */
-    host_dqm_channel_obj_candidate *active_queue_obj_28;/* +0x28 */
-    host_dqm_channel_obj_candidate *data_queue_objs_2c[8];/* +0x2c inferred from size/type */
-    host_dqm_channel_obj_candidate *bypass_queue_objs_4c[2];/* +0x4c inferred from size/type */
-    uint8_t data_mode_enabled_54;                      /* +0x54 */
-} fap_bypass_context_candidate;                        /* size 0x55 */
-
-typedef struct host_downstream_dqm_queue_obj_candidate {
-    host_dqm_channel_obj_candidate base; /* +0x00..+0x5b */
-    byte active_flag_5c;                 /* +0x5c */
-    byte pad_5d[3];                      /* +0x5d */
-    undefined4 field_60_unknown;         /* +0x60 */
-    undefined4 field_64_unknown;         /* +0x64 */
-    void *fpm_allocator_68;              /* +0x68 */
-} host_downstream_dqm_queue_obj_candidate; /* size 0x6c */
-
-typedef struct stage1_bcm_sem_candidate {
+/* fap_bypass_context_candidate and host_downstream_dqm_queue_obj_candidate moved to the Host-DQM structures section after the 2026-06-21 NATP control update. */typedef struct stage1_bcm_sem_candidate {
     undefined4 count_or_state;   /* +0x00 */
     undefined4 wait_queue_or_list;/* +0x04 */
 } stage1_bcm_sem_candidate;      /* size 0x8 */
@@ -746,11 +778,12 @@ typedef struct tc7200_periph_irq_im5_parent_bank_candidate {
     vuint32_t status_or_pending_04;
 } tc7200_periph_irq_im5_parent_bank_candidate;
 
-typedef struct tc7200_periph_irq_child_bank_candidate {
-    undefined field_00[8];
-    vuint32_t status_or_pending_08;
-    vuint32_t mask_or_enable_0c;
-} tc7200_periph_irq_child_bank_candidate;
+typedef struct bcm_periph_irq_child_bank_regs_candidate {
+    vuint32_t field_00_unknown;
+    vuint32_t field_04_unknown;
+    vuint32_t child_mask_or_enable_08;
+    vuint32_t child_status_or_pending_0c;
+} bcm_periph_irq_child_bank_regs_candidate;
 
 typedef struct tc7200_bcm34xx_serial_regs_candidate {
     vuint32_t ctrl_000;
@@ -789,12 +822,88 @@ Application notes:
 - Apply `tc7200_bcm34xx_serial_regs_candidate` at `b4e00e00`.
 - `bcm34xx_serial_access_lock_candidate` is provisional and belongs with the BCM34xx serial helper, not the IRQ13 clear path.
 
+### Late 2026-06-21 IM5, NATP/GFAP, heap, and net-config structures
+
+```c
+typedef struct bcm_irq_encoded_id_decode_entry_candidate {
+    uint16_t encoded_irq_id_00;
+    uint8_t group_id_02;
+    uint8_t child_id_03;
+} bcm_irq_encoded_id_decode_entry_candidate;
+
+typedef struct natp_gfap_manager_ops_candidate {
+    natp_gfap_manager_destroy_fn_candidate *destroy_00;
+    natp_gfap_manager_destroy_fn_candidate *destroy_and_free_04;
+    natp_gfap_manager_runtime_init_fn_candidate *runtime_init_08;
+    natp_gfap_manager_thread_main_fn *thread_main_0c;
+    natp_gfap_manager_timer_release_fn_candidate *release_timer_objects_10;
+} natp_gfap_manager_ops_candidate;
+
+typedef struct natp_gfap_runtime_entry_44_candidate {
+    uint8_t active_00;
+    byte pad_01[0x43];
+} natp_gfap_runtime_entry_44_candidate;
+
+typedef struct natp_gfap_u32_vector_candidate {
+    uint32_t *begin_00;
+    uint32_t *end_04;
+    uint32_t *capacity_end_08;
+} natp_gfap_u32_vector_candidate;
+
+typedef struct natp_gfap_l1_cache_entry_candidate {
+    void *session_key_or_context_00;
+} natp_gfap_l1_cache_entry_candidate;
+
+typedef struct natp_gfap_l1_cache_vector_candidate {
+    natp_gfap_l1_cache_entry_candidate **begin_00;
+    natp_gfap_l1_cache_entry_candidate **end_04;
+    natp_gfap_l1_cache_entry_candidate **capacity_end_08;
+} natp_gfap_l1_cache_vector_candidate;
+
+typedef struct stage1_heap_block_header_candidate {
+    struct stage1_heap_block_header_candidate *next_00;
+    struct stage1_heap_block_header_candidate *prev_04;
+    uint32_t size_08;
+} stage1_heap_block_header_candidate;
+
+typedef struct stage1_heap_stats_candidate {
+    uint32_t field_00_unknown;
+    uint32_t free_bytes_or_total_04;
+    uint32_t field_08_unknown;
+    uint32_t field_0c_unknown;
+    uint32_t free_block_count_10;
+    uint32_t alloc_block_count_14;
+} stage1_heap_stats_candidate;
+
+typedef struct net_config_cache_entry_24_candidate {
+    uint8_t active_00;
+    byte pad_01[3];
+    uint32_t field_04_zeroed_or_index_candidate;
+    uint32_t field_08_zeroed_or_owner_candidate;
+    byte object_0c[0x18];
+} net_config_cache_entry_24_candidate;
+
+typedef struct net_config_indexed_cache_entry_400_candidate {
+    byte raw_00[0x400];
+} net_config_indexed_cache_entry_400_candidate;
+```
+
+Apply notes:
+
+- `bcm_periph_irq_child_bank_regs_candidate` applies at `b3001000`, `b3201000`, `b4201000`, `b3601000`, `b3401000`, and `b3e01000`.
+- `bcm_irq_encoded_id_decode_entry_candidate[132]` applies at `81745b2c`.
+- `natp_gfap_runtime_entry_44_candidate[64]` applies at NATP/GFAP manager offset `0x0dec`.
+- `natp_gfap_l1_cache_vector_candidate` applies at NATP/GFAP manager offset `0x1eec`.
+- `net_config_cache_entry_24_candidate[6]` applies at `8187bcb8`.
+- `net_config_indexed_cache_entry_400_candidate[32]` applies at `8187bdb0` only after resizing the `8187bc60` block to `8187bc60..81883daf`.
+- `stage1_heap_block_header_candidate` is the 12-byte header at `heap_payload_ptr - 0x0c`; `fn_heap_free_list_block_8002a280_candidate` is the corrected heap-free entry.
+- `fn_natp_gfap_manager_thread_main_8053d514` is the corrected NATP/GFAP ops `thread_main_0c` target.
 ## Current carried status
 
 This reference currently carries:
 
 - 6 FPM and allocator or packet structures
-- 4 Host-DQM structures
+- 7 Host-DQM object, MMIO, or support layouts
 - 2 DQM runtime-overlay structures
 - 4 DQM mailbox and selector structures
 - 2 Stage1 event-slot structures
@@ -802,9 +911,12 @@ This reference currently carries:
 - 14 Stage1 signal-object, related-object, socket-object, and timeout-conversion structures
 - 9 Stage1 netif, socket-create-flag, aux-context, and route-output structures
 - 4 additional synchronization or semaphore structures
-- 4 peripheral IRQ, handler-entry, and BCM34xx MMIO structures
+- 6 peripheral IRQ, handler-entry, child-bank, decode-entry, and BCM34xx MMIO structures
+- 5 NATP/GFAP manager, runtime-entry, vector, and L1-cache structures
+- 2 heap/free-list structures
+- 2 net-config cache structures
 
-Total current carried structures: `68`
+Total current carried structures/support layouts: `82`
 
 ## Header cross-check
 
@@ -883,6 +995,8 @@ Recorded modifications worth keeping:
 - 2026-06-19: added the June 19 socket build/create-flag, netif, aux-object, aux-context, keyclass ops, and aux-context stats layouts, and raised the carried set to `56` structures
 - 2026-06-20: added the June 19 DMA/FPM allocator runtime-init note to the carried source set and refined the allocator field semantics at `0x81848740` without changing the carried structure count
 - 2026-06-21: added the June 20/21 DQM runtime-overlay, FPM endpoint, DQM mailbox/selector, IM5 parent/child IRQ, handler-entry, BCM34xx serial, and BCM34xx access-lock structures, and raised the carried set to `68` structures
+
+- 2026-06-21: added the late 2026-06-21 Host-DQM/NATP/GFAP, heap, net-config cache, corrected child-bank, and encoded IRQ decode carry, and raised the carried set to 82 structures/support layouts.
 
 ## Preservation
 
