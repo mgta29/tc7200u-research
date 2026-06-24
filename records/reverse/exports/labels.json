@@ -1,6 +1,6 @@
 {
   "program": "image.raw",
-  "exported_at": "20260621-213934",
+  "exported_at": "20260624-010405",
   "labels": [
     {
       "address": "12200200",
@@ -1019,7 +1019,7 @@
     {
       "address": "8002ab08",
       "label": "fn_dma_init_descriptor_from_context_candidate",
-      "datatype": "function: /undefined4 * (/uint param_1, /int param_2)",
+      "datatype": "function: /tc7200u/fpm_dma/dma_fpm_packet_submit_descriptor_candidate * (/stdint.h/uint32_t token_word, /void * descriptor_context)",
       "comments": "function: Initializes a DMA/FPM descriptor from token/index and context.\n   param_1 = token\n   param_2 = descriptor/FPM context\n\n   Computes:\n     descriptor = *(param_2+0x1c) + ((token >> 12) & 0xffff) * *(param_2+0x18)\n\n   Clears descriptor memory, initializes descriptor list pointers/callback,\n   writes descriptor+0x0c = 1.\n\n   The sw v0,0xc(a2) at 8002ab7c writes descriptor+0x0c,\n   not allocator object+0x0c / 0x8184874c."
     },
     {
@@ -1038,7 +1038,7 @@
       "address": "8002adbc",
       "label": "fn_bcm_periph_irq_cp0_im5_pending_dispatcher_8002adbc_candidate",
       "datatype": "function: /void ()",
-      "comments": "function:  BCM peripheral interrupt pending dispatcher for CP0 interrupt-mask bit IM5.\n\n   Behavior:\n     - reads mask/enable candidate word at {@address b4e00050}\n     - reads pending/status candidate word at {@address b4e00054}\n     - computes active = mask & status\n     - while active bits remain:\n         selects the highest active bit using clz:\n           bit_index = 31 - clz(active)\n         clears that bit from the local active mask\n         calls {@symbol 8002ae48}(bit_index)\n     - after all active bits are dispatched, re-enables CP0 Status bit 0x2000:\n         Status |= (0x100 << 5)\n\n   Current interpretation:\n     Parent/peripheral interrupt-bank dispatcher feeding CP0 hardware interrupt\n     line 5 / Status IM5. This may correspond to the Linux IRQ13 parent line.\n\n   Important:\n     This function does not itself clear the final device source. The per-parent\n     child handler / acknowledge path is in the child-bank dispatcher and registered\n     handler callbacks.\n"
+      "comments": "function: Plate comment @8002adbc:\nBCM peripheral interrupt pending dispatcher for CP0 IM5.\n\nBehavior:\n  - reads parent mask/enable at {@address b4e00050}\n  - reads parent status/pending at {@address b4e00054}\n  - active = mask & status\n  - dispatches each active parent bit through {@symbol 8002ae48}\n  - re-enables CP0 Status IM5 after local active bits are drained\n\nImportant:\n  This function does not prove Host-DQM group 0x30.\n  Proven Host-DQM IM5 groups are 0x23..0x28.\n  Do not add blind OpenWrt IRQ clear/ack writes from this function alone."
     },
     {
       "address": "8002adec",
@@ -1056,7 +1056,7 @@
       "address": "8002ae48",
       "label": "fn_bcm_periph_irq_child_bank_dispatch_8002ae48_candidate",
       "datatype": "function: /void (/stdint.h/uint32_t parent_bit_index)",
-      "comments": "function:  BCM peripheral interrupt child-bank dispatcher.\n\n   Arguments:\n     parent_bit_index = active parent bit selected by\n       {@symbol 8002adbc}\n\n   Flow:\n     - computes child handler-table base:\n         {@address 81745514} + parent_bit_index * 0x100\n     - loads child MMIO bank base from:\n         {@address 81745b14} + parent_bit_index * 4\n     - ORs selected base with 0x1000 before register access\n     - reads:\n         child_base + 0x08 = child mask/control/enable latch\n         child_base + 0x0c = child pending/status source\n     - active = +0x08 & +0x0c\n     - scans active child bits from highest to lowest using clz\n     - for each active child bit:\n         clears that bit from local active mask\n         clears that bit from child_base +0x08\n         looks up handler entry:\n           handler_table[parent_bit_index][child_bit]\n         if handler is non-NULL:\n           calls handler(handler_arg)\n\n   Important:\n     The child-bank dispatcher clears/disables the child bit in +0x08 before\n     calling the registered handler. Handler-side completion/re-enable is likely\n     done later through {@symbol 8003d184} or\n     a related helper; do not assume this function re-enables the child bit."
+      "comments": "function: Plate comment @8002ae48:\nBCM peripheral IRQ child-bank dispatcher.\n\nArguments:\n  parent_bit_index = active parent bit selected by {@symbol 8002adbc}\n\nBehavior:\n  - uses {@address 81745b14} as child-bank base table\n  - uses {@address 81743214} as handler-table root\n  - reads child_bank +0x08 as mask/control/enable\n  - reads child_bank +0x0c as status/pending\n  - active = +0x08 & +0x0c\n  - clears/disables handled child bit from +0x08 before calling handler\n  - handler-side return/re-enable is handled later, normally through {@symbol 8003d184}\n\nImportant:\n  child_bank +0x08 is not pending/status.\n  child_bank +0x0c is pending/status."
     },
     {
       "address": "8002af18",
@@ -1085,8 +1085,62 @@
     {
       "address": "8002b328",
       "label": "fn_host_dqm_mpeg_proc_pending_bit_dispatch_8002b328_candidate",
-      "datatype": "function: /stdint.h/uint32_t (/stdint.h/uint32_t handler_arg)",
-      "comments": "function:  Host-DQM MPEG_PROC pending-bit dispatch handler candidate.\n\n   Registered with encoded_irq_id 0x60.\n   Decode: group 0x25 child 3.\n   Runtime handler-table slot: {@address 8174572c}.\n   Host-DQM register block: {@address b8a01800}.\n   Child IRQ bank: {@address b4201000}.\n\n   Flow:\n     - reads:\n         +0x14 = reg14_channel_status_or_current\n         +0x18 = reg18_channel_enable_or_pending\n     - computes:\n         active = +0x18 & +0x14\n     - scans active bits from low to high\n     - for each active pending bit:\n         index = 4 * 32 + pending_bit_index\n         raise_mask = {@address 81916fd8}[index]\n         slot_id    = {@address 819172d8}[index]\n         if both are nonzero:\n           calls {@symbol 8002ad7c}\n         clears the handled bit from the local +0x14 value\n     - repeats until no active bits remain\n     - writes the remaining local +0x14 value back to {@address b8a01814}\n     - calls {@symbol 8003d184}(0x60)\n\n   Current interpretation:\n     MPEG_PROC Host-DQM pending-bit dispatcher. It bridges active MPEG_PROC\n     selector bits into stage1 event slots through the Host-DQM pending-bit\n     dispatch tables."
+      "datatype": "function: /stdint.h/uint32_t (/stdint.h/uint32_t handler_arg_unused)",
+      "comments": "function: Plate comment @8002b328:\nHost-DQM MPEG_PROC pending-bit dispatch handler.\n\nRegistered encoded IRQ:\n  encoded_irq_id = 0x60\n  decoded group  = 0x25\n  decoded child  = 3\n\nHardware/register context:\n  runtime handler-table slot: {@address 8174572c}\n  Host-DQM register block:  {@address b8a01800}\n  child IRQ bank:           {@address b4201000}\n\nBehavior:\n  - reads Host-DQM MPEG_PROC register block through {@address 8173fac8}\n  - reads:\n      +0x14 = channel status/current bits\n      +0x18 = channel enable/pending bits\n  - active = +0x18 & local +0x14\n  - scans active bits from low to high\n  - for each active pending bit:\n      table_index = 0x80 + pending_bit_index\n      raise_mask = {@address 81916fd8}[table_index]\n      slot_id    = {@address 819172d8}[table_index]\n      if both are nonzero:\n        calls {@symbol 8002ad7c}\n      clears handled bit from the local +0x14 shadow\n  - repeats until no enabled pending bits remain\n  - writes remaining local +0x14 shadow back to {@address b8a01814}\n  - calls {@symbol 8003d184}(0x60)\n  - returns 1\n\nImportant:\n  The decompiler's in_a2/in_a3 values are stale/uninitialized passthrough registers here.\n  Do not add a2/a3 to this function signature unless caller evidence later proves a custom handler ABI."
+    },
+    {
+      "address": "8002b410",
+      "label": "fn_dma_fpm_packet_token_prepare_and_submit_8002b410_candidate",
+      "datatype": "function: /stdint.h/uint32_t (/void * packet_token_context, /stdint.h/uint32_t submit_mode_or_class, /stdint.h/uint32_t unused_arg2_candidate, /stdint.h/uint32_t log_arg3_candidate)",
+      "comments": "function: Plate comment @8002b410:\nDMA/FPM packet token prepare-and-submit helper.\n\nBehavior:\n  - reads token_word from packet_token_context +0x08\n  - packet_len = token_word & 0x0fff\n  - accepts packet_len range 0x3c..0x600 inclusive\n  - translates token_word to packet backing/data address through {@symbol 8002aa3c}\n  - allocates/initializes submit descriptor through {@symbol 8002ab08}\n  - on success:\n      cache op mode 2 over packet buffer\n      descriptor +0x20 = packet buffer address\n      descriptor +0x24 = packet length\n      descriptor +0x4c = 0\n      descriptor +0x40 flags |= 0x0001\n      if submit_mode_or_class >= 3:\n        descriptor +0x40 flags |= 0x0020\n  - resolves a port/index from packet bytes at buffer +0x06\n  - clamps/adjusts port index 1..4 down to 0..3 in one fallback path\n  - uses port table at {@address 81a8d7c0}, stride 0x44\n  - writes descriptor +0x10 from port_table[index].+0x36\n  - calls port_table[index].submit_callback_10(descriptor, port_table[index].submit_callback_arg_2c)\n  - calls {@symbol 8006311c}(1)\n  - returns 0\n\nImportant:\n  Ghidra reuses the local originally named token_word as packet_len after descriptor allocation succeeds.\n  After the assignment token_word = packet_len, that local no longer holds the original FPM token.\nFailure paths:\n  - out-of-range packet length increments {@address 81a8dc1c}\n  - descriptor allocation failure logs an error\n  - both failure paths free token_word through {@symbol 8009f78c}\n\nCurrent interpretation:\n  This is a DMA/FPM packet submit bridge from token/backing buffer to a per-port packet submit callback.\n  It is useful for understanding OEM packet/FPM flow, but it is not itself a GENET TDMA ring programming routine."
+    },
+    {
+      "address": "8002b4a0",
+      "label": "fn_dma_fpm_packet_token_prepare_and_submit_8002b410_candidate::LAB_packet_token_len_out_of_range_8002b4a0",
+      "datatype": "instruction",
+      "comments": ""
+    },
+    {
+      "address": "8002b4d0",
+      "label": "fn_dma_fpm_packet_token_prepare_and_submit_8002b410_candidate::LAB_packet_token_len_ok_init_descriptor_8002b4d0",
+      "datatype": "instruction",
+      "comments": ""
+    },
+    {
+      "address": "8002b4e0",
+      "label": "fn_dma_fpm_packet_token_prepare_and_submit_8002b410_candidate::LAB_packet_descriptor_alloc_failed_8002b4e0",
+      "datatype": "instruction",
+      "comments": ""
+    },
+    {
+      "address": "8002b508",
+      "label": "fn_dma_fpm_packet_token_prepare_and_submit_8002b410_candidate::LAB_packet_descriptor_prepare_success_8002b508",
+      "datatype": "instruction",
+      "comments": ""
+    },
+    {
+      "address": "8002b544",
+      "label": "fn_dma_fpm_packet_token_prepare_and_submit_8002b410_candidate::LAB_packet_port_resolve_start_8002b544",
+      "datatype": "instruction",
+      "comments": ""
+    },
+    {
+      "address": "8002b5b8",
+      "label": "fn_dma_fpm_packet_token_prepare_and_submit_8002b410_candidate::LAB_packet_port_resolve_failed_log_8002b5b8",
+      "datatype": "instruction",
+      "comments": ""
+    },
+    {
+      "address": "8002b5d0",
+      "label": "fn_dma_fpm_packet_token_prepare_and_submit_8002b410_candidate::LAB_packet_port_submit_callback_8002b5d0",
+      "datatype": "instruction",
+      "comments": ""
+    },
+    {
+      "address": "8002b620",
+      "label": "fn_dma_fpm_packet_token_prepare_and_submit_8002b410_candidate::LAB_packet_submit_return_8002b620",
+      "datatype": "instruction",
+      "comments": ""
     },
     {
       "address": "8002b7e0",
@@ -1125,6 +1179,12 @@
       "comments": ""
     },
     {
+      "address": "8003874c",
+      "label": "fn_stage1_result_put_uint32_8003874c_candidate",
+      "datatype": "function: /types.h/int32_t (/void * out_buf, /stdint.h/uint32_t * out_len, /stdint.h/uint32_t value)",
+      "comments": ""
+    },
+    {
       "address": "8003d04c",
       "label": "fn_enet_delay_or_sched_yield_8003d04c_candidate",
       "datatype": "function: /undefined (/int param_1, /tc7200u/stage1/scheduler/stage1_readyq_node_candidate * param_2, /undefined4 param_3, /undefined4 param_4)",
@@ -1134,7 +1194,7 @@
       "address": "8003d184",
       "label": "fn_bcm_irq_return_reenable_8003d184_candidate",
       "datatype": "function: /void (/stdint.h/uint32_t encoded_irq_id)",
-      "comments": "function:  BCM IRQ return / re-enable helper.\n\n   Arguments:\n     encoded_irq_id = encoded IRQ id decoded through\n       {@symbol 8003d32c}\n\n   Flow:\n     - decodes encoded_irq_id into:\n         group_id\n         child_id\n     - enters a protected/critical section through {@symbol 80e950a4}\n     - re-enables or returns the interrupt source according to group_id\n     - leaves the protected/critical section through {@symbol 80e950bc}\n\n   Group behavior:\n     group 0x1f:\n       {@address b4e0006c} |= 1 << (child_id + 0x0c)\n\n     group 0:\n       child 0 -> {@address b4e000c2} |= 0x01\n       child 1 -> {@address b4e000c2} |= 0x02\n       child 2 -> {@address b4e000c2} |= 0x04\n\n     group 0x21:\n       CP0 Status |= 0x100 << child_id\n\n     group 0x22:\n       {@address b4e00024} |= 1 << child_id\n\n     group 0x23..0x28:\n       child_bank = {@address 81745b14}[group_id - 0x23] | 0x1000\n       *(uint32_t *)(child_bank + 0x08) |= 1 << child_id\n\n     other group_id, except 0xff:\n       {@address b4e00040} |= 1 << (group_id & 0x1f)\n\n   Important:\n     For the BCM peripheral IM5 child-bank path, this function re-enables the\n     child bit in child_bank +0x08 after the registered handler drains work."
+      "comments": "function: Plate comment @8003d184:\nBCM IRQ return / re-enable helper.\n\nBehavior:\n  - decodes encoded IRQ id through {@symbol 8003d32c}\n  - for groups 0x23..0x28, re-enables child bit in child_bank +0x08\n  - this is the return/re-arm side paired with the child-bank dispatcher at {@symbol 8002ae48}\n\nImportant:\n  Use this to understand OEM re-enable flow.\n  Do not translate it into blind Linux IRQ ack/clear writes until parent IM5, child-bank, and GENET local snapshots are coherent."
     },
     {
       "address": "8003d1b8",
@@ -1279,6 +1339,12 @@
       "label": "fn_stage1_bcm_alt_ip_output_routing_apply_80061a1c_candidate",
       "datatype": "function: /tc7200u/stage1/netif/stage1_netif_object_candidate * * (/undefined1[4] packet_or_builder, /undefined1[4] route_arg_or_context, /undefined1[4] routing_state, /uint option_mask_bits)",
       "comments": "function:  Stage1 BCM alternate IP output routing apply helper.\n\n   Behavior confirmed so far:\n     - requires hidden t2 route/context object; if hidden t2 is NULL, exits\n       through the error path\n     - optionally resolves/builds packet context through {@symbol 80ebbcbc}\n     - treats object at s1 as an IPv4 header-like buffer:\n         byte +0x00 receives version/header-length style value\n         bytes +0x04/+0x05 receive incrementing IP ID from {@address 818403b4}\n         bytes +0x0c..+0x0f receive hidden t1 source address word\n         bytes +0x10..+0x13 are read as another IPv4 address field\n     - uses option_mask_bits to preserve/select option bits from the source\n       option-low16 field\n     - error path/logging references \"BcmAltIpOutputRouting\"\n\n   Hidden register inputs:\n     - t0 = socket_context +0xe0 value from caller\n     - t1 = per-create-flag source address word\n     - t2 = per-create-flag resolved route/context object\n\n   Notes:\n     - this is high-value but not fully typed yet.\n     - do not force t0/t1/t2 into the normal C signature without a custom\n       calling convention.\n"
+    },
+    {
+      "address": "8006311c",
+      "label": "fn_packet_submit_complete_or_poll_kick_8006311c_candidate",
+      "datatype": "function: /void (/stdint.h/uint32_t mode)",
+      "comments": ""
     },
     {
       "address": "80074ab4",
@@ -1607,7 +1673,7 @@
     {
       "address": "800c5bc4",
       "label": "fn_net_config_indexed_cache_append_800c5bc4_candidate",
-      "datatype": "function: /void (/custom/net_config_indexed_cache_entry_400_candidate * src_entry)",
+      "datatype": "function: /void (/tc7200u/common/network/net_config_indexed_cache_entry_400_candidate * src_entry)",
       "comments": "function:  Append/copy one entry into the network/config indexed cache.\n\n   Arguments:\n     src_entry = source 0x400-byte cache entry\n\n   Behavior:\n     - ignores NULL source pointers\n     - refuses to append when\n         {@symbol 81470024} >= 0x20\n     - copies 0x400 bytes from src_entry into:\n         {@symbol 8187bdb0}[count]\n     - increments {@symbol 81470024}\n     - allocates/registers an index entry through {@symbol 8015d57c}\n       using {@symbol 81748e64}\n     - if registry entry creation succeeds, stores the new count at entry +0x0c\n\n   Current interpretation:\n     Adds one 0x400-byte network/config cache entry to the indexed backing table.\n"
     },
     {
@@ -1803,6 +1869,18 @@
       "comments": "function:  Platform target init: FPM, packet allocator, local boot config, Linux boot.\n\n   Flow:\n     - resolves optional platform/nonvolatile config through FUN_80400ff4\n     - stores a platform/nonvolatile boot flag at\n       {@symbol 8173e9b8}\n     - builds local FPM/platform config from:\n         {@symbol 80fc9c44}\n         {@symbol 80fc9c48}\n     - calls {@symbol 8009f6a8}\n       with:\n         requested_fpm_buffer_size = 0x100\n         fpm_hw_base_kseg1         = 0xb2200000\n     - initializes the FPM packet allocator through:\n         {@symbol 8002a4f8}\n         {@symbol 800b6b2c}\n     - prepares a local boot/config object\n     - logs \"Booting Linux on TP1...\"\n     - calls {@symbol 804c99d0}\n\n   Notes:\n     - 801431d8 is the delay slot for the FPM init wrapper call\n     - this function is broader than FPM init; keep the function name provisional\n       until the platform/nonvolatile and boot-config helpers are mapped.\n"
     },
     {
+      "address": "8014d384",
+      "label": "fn_stage1_result_put_int_8014d384_candidate",
+      "datatype": "function: /types.h/int32_t (/void * out_buf, /stdint.h/uint32_t * out_len, /stdint.h/uint32_t value)",
+      "comments": ""
+    },
+    {
+      "address": "8014d3c4",
+      "label": "fn_stage1_result_put_bool_8014d3c4_candidate",
+      "datatype": "function: /types.h/int32_t (/void * out_buf, /stdint.h/uint32_t * out_len, /stdint.h/uint32_t value)",
+      "comments": ""
+    },
+    {
       "address": "8019a264",
       "label": "fn_delay_or_wait_8019a264_candidate",
       "datatype": "function: /undefined (/int param_1)",
@@ -1935,6 +2013,174 @@
       "comments": "function:  ENET/FPM packet-header release wrapper.\n\n   Gets the secondary FPM packet allocator object, then releases the packet\n   header passed in packet_header through\n   fn_dma_fpm_packet_release_to_fpm_8002a658_candidate(..., release_fpm_buffer_flag=1).\n\n   The release helper converts packet_header->inner_header->data_addr back to\n   an FPM token using packet_header->inner_header->fpm_extra_base_offset_saved,\n   then returns that token to the FPM hardware free path.\n\n   Sets DAT_81479f58 = 1 afterward.\n\n   This is ENET-adjacent and belongs to the GMAC/FPM packet lifecycle."
     },
     {
+      "address": "803ab9b4",
+      "label": "fn_enet_managed_switch_port_active_803ab9b4_candidate",
+      "datatype": "function: /bool (/stdint.h/uint32_t port_index)",
+      "comments": "function: Plate comment @803ab9b4:\nManaged-switch port-active/link-present helper candidate.\n\nInput:\n  port_index = normalized packet-port / switch-port index\n\nCurrent use:\n  Used by {@symbol 803ac7ac}\n  in request 0x40016d08 path to choose the returned port/link enum candidate.\n\nKeep _candidate:\n  Exact port-active source is not yet proven."
+    },
+    {
+      "address": "803aba74",
+      "label": "fn_enet_extphy_switch_stat_read32_803aba74",
+      "datatype": "function: /types.h/int32_t (/stdint.h/uint32_t port_index, /stdint.h/uint32_t stat_offset, /stdint.h/uint32_t * out_value)",
+      "comments": "function: Plate comment @803aba74:\nExternal PHY/switch 32-bit statistic/register read wrapper.\n\nInputs:\n  port_index  = normalized packet-port / switch-port index\n  stat_offset = statistic/register offset requested by {@symbol 803ac7ac}\n  out_value   = receives the 32-bit read value\n\nBehavior:\n  - masks stat_offset to low 8 bits\n  - maps port_index to external PHY/switch selector:\n      selector = (port_index + 0x20) & 0xff\n  - calls {@symbol fn_enet_extphy_spi_read_offset_checked_803c5cf8}\n      a0 = selector\n      a1 = stat_offset & 0xff\n      a2 = out_value\n      a3 = 4\n\nCurrent use:\n  Called by {@symbol 803ac7ac}\n  for many managed-switch/stat request-code paths.\n\nConclusion:\n  This is not a software stat table reader.\n  It is a thin external PHY/SPI 32-bit read wrapper."
+    },
+    {
+      "address": "803aba9c",
+      "label": "fn_enet_extphy_set_reg0_bit0800_ports_11_14_803aba9c_candidate",
+      "datatype": "function: /void ()",
+      "comments": "function: Plate comment @803aba9c:\nExternal PHY/switch register-0 bit 0x0800 set helper candidate.\n\nBehavior:\n  - iterates external PHY/switch selectors 0x11..0x14\n  - for each selector:\n      reads 16-bit register/offset 0 through {@symbol 803c5cf8}\n      ORs bit 0x0800 into the local 16-bit value\n      writes the 16-bit value back through {@symbol 803c5d34}\n\nRegister access:\n  read:\n    a0 = selector 0x11..0x14\n    a1 = 0\n    a2 = stack uint16_t buffer\n    a3 = 2\n\n  write:\n    a0 = selector 0x11..0x14\n    a1 = 0\n    a2 = stack uint16_t buffer\n    a3 = 2\n\nCurrent interpretation:\n  Sets an external PHY/switch control bit across four adjacent selectors.\n  Exact meaning of bit 0x0800 is not proven yet.\n\nKeep _candidate:\n  The helper behavior is clear, but the hardware bit meaning is still provisional."
+    },
+    {
+      "address": "803ac1a4",
+      "label": "fn_packet_port_submit_table_register_and_status_dispatch_803ac1a4_candidate",
+      "datatype": "function: /stdint.h/uint32_t (/tc7200u/fpm_dma/packet_port_submit_record_34_candidate * port_record)",
+      "comments": "function: Plate comment @803ac1a4:\nPacket/FPM port submit-table register and status-dispatch helper.\n\nInput:\n  port_record = 0x34-byte packet-port submit/status record\n\nBehavior:\n  - clears {@address 81a8d7b0}..{@address 81a8d7bb}\n  - builds a local stack status/context record\n  - if {@address 81479f6c} == 1:\n      stores base port/id from port_record +0x04 into {@address 81840008}\n      copies the 0x34-byte port_record into all 16 entries of {@address 81a8d7c0}\n  - otherwise:\n      index = port_record->field_04 - {@address 81840008}\n      copies the 0x34-byte port_record into table[index]\n  - if port_record->core_cmd_args_ptr_28_candidate is non-NULL:\n      copies 12 bytes from that pointer into {@address 81a8d7b0}..{@address 81a8d7bb}\n  - normal status path:\n      index = port_record->field_04 - {@address 81840008}\n      table[index].+0x34 = port_record->field_04\n      calls table[index].status_callback_08(stack_context, table[index].callback_arg_2c)\n  - first/force path:\n      clears {@address 81479f6c}\n      table[0].+0x34 = port_record->field_04\n      calls table[0].status_callback_08(stack_context, table[0].callback_arg_2c)\n  - if status callback returns nonzero:\n      logs \"GOT BFC_STATUS_FAILURE\"\n      returns 0xc0000001\n  - otherwise returns 0\n\n- if 81479f6c == 1:\n    stores base port id from port_record->port_id_04 into 81840008\n    copies the 0x34-byte port_record into all 16 entries of 81a8d7c0\n\n- otherwise:\n    index = port_record->port_id_04 - 81840008\n    copies the 0x34-byte port_record into table[index]\n\n- normal status path:\n    index = port_record->port_id_04 - 81840008\n    table[index].registered_port_id_34 = port_record->port_id_04\n    calls table[index].status_callback_08(stack_context, table[index].callback_arg_2c)\n\n- first/force path:\n    clears 81479f6c\n    table[0].registered_port_id_34 = port_record->port_id_04\n    calls table[0].status_callback_08(stack_context, table[0].callback_arg_2c)"
+    },
+    {
+      "address": "803ac2c0",
+      "label": "LAB_packet_port_register_single_entry_803ac2c0",
+      "datatype": "instruction",
+      "comments": ""
+    },
+    {
+      "address": "803ac320",
+      "label": "LAB_packet_port_status_dispatch_803ac320",
+      "datatype": "instruction",
+      "comments": ""
+    },
+    {
+      "address": "803ac3e8",
+      "label": "LAB_packet_port_force_entry0_status_dispatch_803ac3e8",
+      "datatype": "instruction",
+      "comments": ""
+    },
+    {
+      "address": "803ac418",
+      "label": "LAB_packet_port_register_return_803ac418ű",
+      "datatype": "instruction",
+      "comments": ""
+    },
+    {
+      "address": "803ac42c",
+      "label": "fn_enet_gmac_phy_link_control_callback_803ac42c_candidate",
+      "datatype": "function: /types.h/int32_t (/stdint.h/uint32_t request_code, /stdint.h/uint32_t unused_arg1_candidate, /void * request_buf, /types.h/int32_t request_arg_or_len)",
+      "comments": ""
+    },
+    {
+      "address": "803ac4a0",
+      "label": "fn_enet_gmac_phy_link_control_callback_803ac42c_candidate::LAB_linkctl_request0_speed_803ac4a0",
+      "datatype": "instruction",
+      "comments": ""
+    },
+    {
+      "address": "803ac594",
+      "label": "fn_enet_gmac_phy_link_control_callback_803ac42c_candidate::LAB_linkctl_request1_duplex_803ac594",
+      "datatype": "instruction",
+      "comments": ""
+    },
+    {
+      "address": "803ac68c",
+      "label": "fn_enet_gmac_phy_link_control_callback_803ac42c_candidate::LAB_linkctl_request2_autoneg_803ac68c",
+      "datatype": "instruction",
+      "comments": ""
+    },
+    {
+      "address": "803ac73c",
+      "label": "LAB_linkctl_mdio_write_bmcr_803ac73c",
+      "datatype": "instruction",
+      "comments": ""
+    },
+    {
+      "address": "803ac760",
+      "label": "fn_enet_gmac_phy_link_control_callback_803ac42c_candidate::LAB_linkctl_request_400a0011_read_byte_803ac760",
+      "datatype": "instruction",
+      "comments": ""
+    },
+    {
+      "address": "803ac784",
+      "label": "LAB_linkctl_generic_failure_803ac784",
+      "datatype": "instruction",
+      "comments": ""
+    },
+    {
+      "address": "803ac78c",
+      "label": "LAB_linkctl_return_s2_803ac78c",
+      "datatype": "instruction",
+      "comments": ""
+    },
+    {
+      "address": "803ac790",
+      "label": "LAB_linkctl_epilogue_803ac790",
+      "datatype": "instruction",
+      "comments": ""
+    },
+    {
+      "address": "803ac7ac",
+      "label": "fn_enet_gmac_port_status_query_callback_803ac7ac_candidate",
+      "datatype": "function: /types.h/int32_t (/stdint.h/uint32_t request_code, /stdint.h/uint32_t port_id, /void * out_buf, /stdint.h/uint32_t * out_len)",
+      "comments": ""
+    },
+    {
+      "address": "803acab4",
+      "label": "fn_enet_gmac_port_status_query_callback_803ac7ac_candidate::LAB_enet_query_speed_mbps_803acab4",
+      "datatype": "instruction",
+      "comments": ""
+    },
+    {
+      "address": "803acbd8",
+      "label": "fn_enet_gmac_port_status_query_callback_803ac7ac_candidate::LAB_enet_query_link_present_bool_803acbd8",
+      "datatype": "instruction",
+      "comments": ""
+    },
+    {
+      "address": "803acc80",
+      "label": "fn_enet_gmac_port_status_query_callback_803ac7ac_candidate::LAB_enet_query_duplex_or_status_bool_803acc80",
+      "datatype": "instruction",
+      "comments": ""
+    },
+    {
+      "address": "803acd08",
+      "label": "fn_enet_gmac_port_status_query_callback_803ac7ac_candidate::LAB_enet_query_driver_name_string_803acd08",
+      "datatype": "instruction",
+      "comments": ""
+    },
+    {
+      "address": "803acd74",
+      "label": "fn_enet_gmac_port_status_query_callback_803ac7ac_candidate::LAB_enet_query_mtu_1500_803acd74",
+      "datatype": "instruction",
+      "comments": ""
+    },
+    {
+      "address": "803acd8c",
+      "label": "fn_enet_gmac_port_status_query_callback_803ac7ac_candidate::LAB_enet_query_speed_bps_803acd8c",
+      "datatype": "instruction",
+      "comments": ""
+    },
+    {
+      "address": "803acf24",
+      "label": "fn_enet_gmac_port_status_query_callback_803ac7ac_candidate::LAB_enet_query_port_enum_803acf24",
+      "datatype": "instruction",
+      "comments": ""
+    },
+    {
+      "address": "803ad638",
+      "label": "fn_enet_gmac_port_status_query_callback_803ac7ac_candidate::LAB_enet_query_put_u32_803ad638",
+      "datatype": "instruction",
+      "comments": ""
+    },
+    {
+      "address": "803ad6ec",
+      "label": "fn_enet_gmac_port_status_query_callback_803ac7ac_candidate::LAB_enet_query_put_bool_or_enum_803ad6ec",
+      "datatype": "instruction",
+      "comments": ""
+    },
+    {
+      "address": "803ad700",
+      "label": "LAB_enet_query_epilogue_803ad700",
+      "datatype": "instruction",
+      "comments": ""
+    },
+    {
       "address": "803ad724",
       "label": "fn_enet_gmac_precheck_or_status_803ad724_candidate",
       "datatype": "function: /undefined4 ()",
@@ -2038,15 +2284,15 @@
     },
     {
       "address": "803af8b0",
-      "label": "fn_enet_mdio_read16_wait",
+      "label": "fn_enet_mdio_read16_default_phy_wait_803af8b0_candidate",
       "datatype": "function: /stdint.h/uint16_t (/stdint.h/uint32_t phy_addr, /stdint.h/uint32_t reg_num, /stdint.h/uint32_t * wait_count, /stdint.h/uint32_t mdio_bus)",
       "comments": ""
     },
     {
-      "address": "803af8d8",
-      "label": "GENET_MDIO_BASE_12c00600",
-      "datatype": "instruction",
-      "comments": ""
+      "address": "803af8cc",
+      "label": "fn_enet_mdio_read16_wait_803af8cc_candidate",
+      "datatype": "function: /stdint.h/uint32_t (/stdint.h/uint32_t mdio_selector, /stdint.h/uint32_t reg_num, /stdint.h/uint32_t * wait_count, /stdint.h/uint32_t mdio_bus_or_unused)",
+      "comments": "function: Plate comment @803af8cc:\nGENET MDIO read16 wait core.\n\nBehavior:\n  - selects MDIO0 base {@address b2c00600} or MDIO1 base {@address b2c02600}\n  - builds MDIO read command:\n      0x20000000 | 0x08000000 |\n      ((phy_addr & 0x1f) << 21) |\n      ((reg_num  & 0x1f) << 16)\n  - writes command to base +0x2c\n  - polls base +0x32 bit0 until clear, max 0xc8 polls\n  - stores poll count to wait_count\n  - returns zero-extended 16-bit read data from base +0x2e, which is an offcut halfword inside the command/read-data word at base +0x2c\n\nImportant:\n  Hardware read data is 16-bit, but return register v0 is zero-extended to 32-bit.\n  Use uint32_t return type in Ghidra to avoid fake CONCAT22 upper-half artifacts.\n  PHY address is carried through t0 in this core path. Do not force the final ABI until the wrapper/default-PHY entry at 803af8b0 is fully cleaned."
     },
     {
       "address": "803af940",
@@ -2065,6 +2311,12 @@
       "label": "fn_enet_mii_read_command_803afdac_candidate",
       "datatype": "function: /undefined ()",
       "comments": "function: ENET MII/MDIO read command handler.\n   Searches the ethernet interface list for an interface whose +0x2c field is 6.\n   If no matching interface is found, logs \"No ethernet interface found!!!\".\n\n   If an interface is found, reads command arguments 2 and 3 from the command\n   argument container at command_context_unaff_s0 +0x20. Each argument object is\n   converted to an integer through its vtable method at +0x1c:\n     arg2 -> PHY address\n     arg3 -> register number\n\n   The MDIO bus is read from selected_interface +0x144. Then the function calls:\n     fn_enet_mdio_read_phy_reg(phy_addr, reg_num, scratch_out, mdio_bus)\n\n   If the global log/output stream pointer is nonzero, it prints the MII read\n   command and result.\n\n     This confirms the 0x81a6c26c / PTR_814c2f48 static-state path is used by\n   ENET logging/command output and is not packet-allocator-specific.\n\n   After printing the read result, calls\n   fn_enet_cli_output_finish_or_newline_803b013c_candidate, likely a CLI/output\n   finalizer such as newline, flush, or prompt update. Inspect before finalizing\n   that helper name."
+    },
+    {
+      "address": "803affac",
+      "label": "fn_enet_mdio_write_phy_reg_wait_803affac_candidate",
+      "datatype": "function: /void (/stdint.h/uint32_t phy_addr, /stdint.h/uint32_t reg_num, /stdint.h/uint32_t value, /void * scratch_or_status_out)",
+      "comments": ""
     },
     {
       "address": "803b013c",
@@ -2086,45 +2338,93 @@
     },
     {
       "address": "803c5cf8",
-      "label": "fn_enet_extphy_spi_read_offset_checked_803c5cf8_candidate",
-      "datatype": "function: /uint (/byte page_or_device, /uint offset, /void * out_buf, /uint length)",
-      "comments": "function: Checked wrapper for external PHY SPI/serial offset read.\n\nBehavior:\n  - masks page_or_device, offset, and length to low8\n  - if offset == 0xf3, returns 0 without performing the read\n  - otherwise calls {@symbol 803c5d7c}\n  - returns that helper result\n\nCurrent interpretation:\n  This is the read-side pair for the external PHY serial-management helpers.\n  Offset 0xf3 is intentionally skipped/suppressed."
+      "label": "fn_enet_extphy_spi_read_offset_checked_skip_f3_803c5cf8",
+      "datatype": "function: /stdint.h/uint32_t (/stdint.h/uint32_t extphy_selector, /stdint.h/uint32_t reg_offset, /void * out_buf, /stdint.h/uint32_t byte_count)",
+      "comments": "function: Plate comment @803c5cf8:\nExternal PHY/SPI read wrapper with reserved-offset guard.\n\nInputs:\n  extphy_selector = external PHY/switch selector or page/device id\n  reg_offset      = register/stat offset inside the selected external device/page\n  out_buf         = output buffer\n  byte_count      = number of bytes to read\n\nBehavior:\n  - masks extphy_selector to 8 bits\n  - masks reg_offset to 8 bits\n  - masks byte_count to 8 bits\n  - if reg_offset == 0xf3:\n      returns 0 without reading\n  - otherwise calls {@symbol 803c5d7c}\n\nKnown callers:\n  {@symbol 803aba74}\n    uses byte_count = 4 for 32-bit stat/register reads\n\n  {@symbol 803aba9c}\n    uses byte_count = 2 for 16-bit register-0 read/modify/write\n\nConclusion:\n  This is a guard wrapper, not the low-level bus transaction.\n  The real read transaction is in {@symbol 803c5d7c}.\n\nReserved/special offset:\n  0xf3 is skipped here and returns 0.\n  Exact hardware meaning of 0xf3 is not proven yet."
     },
     {
       "address": "803c5d34",
-      "label": "fn_enet_extphy_serial_write_if_detected_803c5d34_candidate",
-      "datatype": "function: /uint (/byte page_or_device, /uint offset, /void * src_buf, /uint length)",
-      "comments": "function: External PHY serial-management write gate.\n\nBehavior:\n  - masks page_or_device, offset, and length to low8\n  - checks {@symbol 8147a044}\n  - if detected flag == 1:\n      calls {@symbol 803c5f28}\n      returns its result\n  - otherwise returns 0xc0000001\n\nThis wrapper prevents SPI/serial writes unless the external PHY serial-management\nmode was detected by {@symbol 803c60e0}."
+      "label": "fn_enet_extphy_spi_write_offset_if_mode1_803c5d34",
+      "datatype": "function: /stdint.h/uint32_t (/stdint.h/uint32_t extphy_selector, /stdint.h/uint32_t reg_offset, /void * in_buf, /stdint.h/uint32_t byte_count)",
+      "comments": "function: Plate comment @803c5d34:\nExternal PHY/SPI write wrapper guarded by serial mode.\n\nInputs:\n  extphy_selector = external PHY/switch selector or page/device id\n  reg_offset      = register/stat offset\n  in_buf          = input buffer containing bytes to write\n  byte_count      = number of bytes to write\n\nBehavior:\n  - masks extphy_selector to 8 bits\n  - masks reg_offset to 8 bits\n  - masks byte_count to 8 bits\n  - reads {@symbol 8147a044}\n  - if mode/detected value == 1:\n      calls {@symbol 803c5f28}\n  - otherwise:\n      returns 0xc0000001\n\nKnown caller:\n  {@symbol 803aba9c}\n  reads register 0, ORs bit 0x0800, then writes the 16-bit value back here.\n\nExpected pair:\n  Read transaction helper is {@symbol 803c5d7c}.\n\nConclusion:\n  This is a mode/detection guard wrapper, not the low-level write transaction.\n  The real write transaction is in {@symbol 803c5f28}."
     },
     {
       "address": "803c5d7c",
-      "label": "fn_enet_extphy_spi_read_offset_803c5d7c_candidate",
-      "datatype": "function: /uint (/byte page_or_device, /uint offset, /void * out_buf, /uint length)",
-      "comments": "function: External PHY SPI/serial read-offset helper.\n\nBehavior:\n  - masks page_or_device, offset, and length to low8\n  - if {@symbol 8147a040} is non-NULL:\n      waits through {@symbol 8072ad3c}\n      logs and returns 0xc0000001 if wait fails\n  - selects page/device through\n    {@symbol 803c5ed4}\n  - sends an initial command buffer through\n    {@symbol g_enet_extphy_spi_transfer_fn_81a8e9ac_candidate}:\n      byte0 = 0x60\n      byte1 = requested offset low8\n      byte2 = 0\n      byte3 = 0\n  - if length is nonzero, loops over each output byte:\n      sends command byte0 = 0x60\n      sends command byte1 = (loop_index - 0x10) low8\n      uses hidden t2 = sp+0x08 as receive byte buffer\n      uses hidden t3 = 1\n      copies received byte at sp+0x08 into out_buf in reverse order:\n        out_buf[length - loop_index - 1] = received_byte\n  - if semaphore exists, posts it through\n    {@symbol fn_stage1_semaphore_post_wake_return0_wrapper_80e95e10_candidate}\n  - logs and returns 0xc0000001 if semaphore post fails\n  - returns 0 on success\n\nNotes:\n  The byte copy is reversed relative to loop order. Do not simplify this to a\n  normal forward memcpy. The underlying transfer function uses hidden t-register\n  arguments not represented in the normal C signature."
+      "label": "fn_enet_extphy_spi_read_offset_transaction_803c5d7c_candidate",
+      "datatype": "function: /stdint.h/uint32_t (/stdint.h/uint32_t extphy_selector, /stdint.h/uint32_t reg_offset, /void * out_buf, /stdint.h/uint32_t byte_count)",
+      "comments": "function: Plate comment @803c5d7c:\nExternal PHY/SPI register read transaction helper candidate.\n\nInputs:\n  extphy_selector = external PHY/switch selector or page/device id\n  reg_offset      = register/stat offset\n  out_buf         = output buffer\n  byte_count      = number of bytes to read\n\nSemaphore behavior:\n  - if {@symbol 8147a040} is non-NULL:\n      waits through {@symbol 8072ad3c}\n      logs and returns 0xc0000001 if wait fails\n  - after the transaction:\n      posts through {@symbol 8072ae10}\n      logs and returns 0xc0000001 if post fails\n\nTransaction flow:\n  - selects external PHY/switch page/device through {@symbol 803c5ed4}\n  - sends initial 2-byte command:\n      command[0] = 0x60\n      command[1] = reg_offset & 0xff\n      command[2] = 0\n      command[3] = 0\n  - calls transfer callback at {@symbol 81a8e9ac}\n  - for each requested output byte:\n      command[0] = 0x60\n      command[1] = (index - 0x10) & 0xff\n      command[2] = 0\n      command[3] remains scratch/local\n      calls transfer callback again\n      copies received byte from stack +0x08 into:\n        out_buf[(byte_count - index) - 1]\n\nImportant:\n  Output bytes are written into out_buf in reverse order.\n  For byte_count 4, the first byte read is stored at out_buf[3].\n  For byte_count 2, the first byte read is stored at out_buf[1].\n\nKnown wrapper:\n  Called by {@symbol 803c5cf8}\n  after filtering out reserved/special offset 0xf3.\n\nCurrent interpretation:\n  This is the real external PHY/SPI read transaction path.\n  The transfer callback ABI uses normal a0-a3 plus hidden t-register inputs.\n\nKeep _candidate:\n  The function role is clear, but exact low-level command byte semantics and\n  transfer callback protocol are still provisional."
     },
     {
       "address": "803c5ed4",
-      "label": "fn_enet_extphy_spi_select_page_or_device_803c5ed4_candidate",
-      "datatype": "function: /void (/byte page_or_device)",
-      "comments": "function: External PHY SPI/serial page/device selector.\n\nBehavior:\n  - builds a 3-byte command buffer:\n      byte0 = 0x61\n      byte1 = 0xff\n      byte2 = page_or_device\n  - calls {@symbol g_enet_extphy_spi_transfer_fn_81a8e9ac_candidate} with:\n      a0 = 2\n      a1 = 2\n      a2 = command buffer\n      a3 = 3\n      hidden t0/t1/t2/t3 = 0\n\nThis selects the external PHY serial-management page/device before read/write\noffset operations."
+      "label": "fn_enet_extphy_spi_select_page_or_device_803c5ed4",
+      "datatype": "function: /void (/stdint.h/uint32_t extphy_selector)",
+      "comments": "function: Plate comment @803c5ed4:\nExternal PHY/SPI page/device selector.\n\nInput:\n  extphy_selector = external PHY/switch selector or page/device id\n\nBehavior:\n  - builds 3-byte command buffer:\n      command[0] = 0x61\n      command[1] = 0xff\n      command[2] = extphy_selector & 0xff\n  - calls {@symbol 81a8e9ac}\n      a0 = 2\n      a1 = 2\n      a2 = command buffer\n      a3 = 3\n      hidden t0 = 0\n      hidden t1 = 0\n      hidden t2 = 0\n      hidden t3 = 0\n\nKnown callers:\n  {@symbol 803c5d7c}\n  {@symbol 803c5f28}\n\nConclusion:\n  This selects the external PHY/switch page/device before read or write register transactions.\n  Selector command uses write command byte 0x61 with offset/subcommand 0xff."
     },
     {
       "address": "803c5f28",
-      "label": "fn_enet_extphy_spi_write_offset_803c5f28_candidate",
-      "datatype": "function: /uint (/byte page_or_device, /uint offset, /void * src_buf, /uint length)",
-      "comments": "function: External PHY SPI/serial offset write helper.\n\nBehavior:\n  - masks page_or_device, offset, and length to low8\n  - rejects length >= 9 and returns 0xc0000001\n  - if {@symbol 8147a040} is non-NULL:\n      waits through {@symbol 8072ad3c}\n      logs and returns 0xc0000001 if wait fails\n  - selects page/device through\n    {@symbol 803c5ed4}\n  - writes offset/length/source buffer through\n    {@symbol 803c6040}\n  - the transfer helper serializes payload bytes in reverse source order\n  - logs \"FAILED SPIDriverWriteOffset ...\" if the internal failure flag path is taken\n  - posts the semaphore through\n    {@symbol fn_stage1_semaphore_post_wake_return0_wrapper_80e95e10_candidate}\n  - logs and returns 0xc0000001 if semaphore post fails\n  - returns 0 on success"
+      "label": "fn_enet_extphy_spi_write_offset_transaction_803c5f28_candidate",
+      "datatype": "function: /stdint.h/uint32_t (/stdint.h/uint32_t extphy_selector, /stdint.h/uint32_t reg_offset, /void * in_buf, /stdint.h/uint32_t byte_count)",
+      "comments": "function: Plate comment @803c5f28:\nExternal PHY/SPI register write transaction helper candidate.\n\nInputs:\n  extphy_selector = external PHY/switch selector or page/device id\n  reg_offset      = register/stat offset\n  in_buf          = input/source buffer containing bytes to write\n  byte_count      = number of bytes to write\n\nValidation:\n  - masks byte_count to low 8 bits\n  - rejects byte_count >= 9 and returns 0xc0000001\n\nSemaphore behavior:\n  - if {@symbol 8147a040} is non-NULL:\n      waits through {@symbol 8072ad3c}\n      logs and returns 0xc0000001 if wait fails\n  - after the transaction:\n      posts through {@symbol 8072ae10}\n      logs and returns 0xc0000001 if post fails\n\nTransaction flow:\n  - selects external PHY/switch page/device through {@symbol 803c5ed4}\n  - calls {@symbol 803c6040}\n      reg_offset = reg_offset & 0xff\n      byte_count = byte_count & 0xff\n      in_buf     = source bytes\n\nKnown wrapper:\n  Called by {@symbol 803c5d34}\n  only when {@symbol 8147a044} == 1.\n\nExpected pair:\n  Read transaction helper is {@symbol 803c5d7c}.\n\nCurrent interpretation:\n  This owns write validation, semaphore protection, page/device selection,\n  and error handling. The concrete write byte serialization is in\n  {@symbol 803c6040}.\n\nKeep _candidate:\n  Function role is clear, but the exact low-level write command format is still\n  controlled by the helper at {@symbol 803c6040}."
     },
     {
       "address": "803c6040",
-      "label": "fn_enet_extphy_spi_write_transfer_803c6040_candidate",
-      "datatype": "function: /uint (/uint offset, /uint length, /void * src_buf)",
-      "comments": "function: External PHY SPI/serial write transfer helper.\n\nBehavior:\n  - masks length to low8\n  - builds a command buffer beginning with:\n      byte0 = 0x61\n      byte1 = offset low8\n  - writes payload bytes into the command buffer in reverse source order:\n      if length == 1:\n        byte2 = src_buf[0]\n      else:\n        byte2.. = src_buf[length - 1], src_buf[length - 2], ...\n  - calls {@symbol g_enet_extphy_spi_transfer_fn_81a8e9ac_candidate} with:\n      a0 = 2\n      a1 = 2\n      a2 = command buffer\n      a3 = length + 2\n      hidden t0/t1/t2/t3 = 0\n  - returns the underlying transfer function result\n\nNotes:\n  The payload byte order is reversed before transfer. Keep this behavior visible\n  because higher-level callers pass 1-, 2-, and 4-byte register values."
+      "label": "fn_enet_extphy_spi_write_transfer_reversed_payload_803c6040",
+      "datatype": "function: /stdint.h/uint32_t (/stdint.h/uint32_t reg_offset, /stdint.h/uint32_t byte_count, /void * in_buf)",
+      "comments": "function: Plate comment @803c6040:\nExternal PHY/SPI write payload serialization helper.\n\nInputs:\n  reg_offset = register/stat offset\n  byte_count = number of bytes to write\n  in_buf     = source buffer containing bytes to serialize\n\nBehavior:\n  - masks byte_count to low 8 bits\n  - builds a command buffer:\n      command[0] = 0x61\n      command[1] = reg_offset & 0xff\n      command[2..] = payload bytes\n  - serializes payload bytes in reverse source order:\n      byte_count == 1:\n        command[2] = in_buf[0]\n      byte_count > 1:\n        command[2] = in_buf[byte_count - 1]\n        command[3] = in_buf[byte_count - 2]\n        ...\n  - calls {@symbol 81a8e9ac}\n      a0 = 2\n      a1 = 2\n      a2 = command buffer\n      a3 = byte_count + 2\n      hidden t0 = 0\n      hidden t1 = 0\n      hidden t2 = 0\n      hidden t3 = 0\n  - returns the transfer callback result\n\nKnown caller:\n  {@symbol 803c5f28}\n\nImportant:\n  Payload byte order is reversed before transfer.\n  Keep this visible because higher-level callers pass 1-, 2-, and 4-byte register values.\n\nConclusion:\n  This helper proves write command byte 0x61.\n  Read-side transaction uses command byte 0x60 in {@symbol 803c5d7c}."
     },
     {
       "address": "803c60e0",
       "label": "fn_enet_extphy_serial_management_detect_803c60e0_candidate",
       "datatype": "function: /uint ()",
       "comments": "function: Detect external PHY serial-management device.\n\nBehavior:\n  - calls {@symbol 80610694}\n  - reads 4 bytes through {@symbol 803c5d7c} from:\n      page/device = 0x02\n      offset      = 0x30\n      length      = 0x04\n  - accepts ID value 0x00053115\n  - accepts ID value 0x00053125\n  - when accepted:\n      logs \"SPI: External Phy Serial Management ...\"\n      returns 1\n  - otherwise returns 0\n\nThis function drives {@symbol 8147a044}."
+    },
+    {
+      "address": "803e21b4",
+      "label": "fn_flash_block_map_entry_clear_803e21b4",
+      "datatype": "function: /void (/tc7200u/stage1/flash/stage1_flash_block_map_entry_10_candidate * block_entry)",
+      "comments": "function: Plate comment @803e21b4:\nFlash block-map entry clear helper.\n\nInput:\n  block_entry = pointer to one 0x10-byte flash block-map entry\n\nBehavior:\n  Clears all fields:\n    +0x00 block_index_00\n    +0x04 block_size_04\n    +0x08 block_offset_08\n    +0x0c flash_device_0c\n\nCurrent interpretation:\n  Simple entry initializer/reset helper for the flash-device block map."
+    },
+    {
+      "address": "803e21c8",
+      "label": "fn_flash_block_map_entry_copy_803e21c8",
+      "datatype": "function: /tc7200u/stage1/flash/stage1_flash_block_map_entry_10_candidate * (/tc7200u/stage1/flash/stage1_flash_block_map_entry_10_candidate * dst_entry, /tc7200u/stage1/flash/stage1_flash_block_map_entry_10_candidate * src_entry)",
+      "comments": "function: Plate comment @803e21c8:\nFlash block-map entry copy helper.\n\nInputs:\n  dst_entry = destination flash block-map entry\n  src_entry = source flash block-map entry\n\nBehavior:\n  - copies four 32-bit fields from src_entry to dst_entry\n  - returns dst_entry\n\nCopied layout:\n  +0x00 block_index_00\n  +0x04 block_size_04\n  +0x08 block_offset_08\n  +0x0c flash_device_0c"
+    },
+    {
+      "address": "803e21f0",
+      "label": "fn_flash_block_map_entry_equal_803e21f0",
+      "datatype": "function: /stdint.h/uint32_t (/tc7200u/stage1/flash/stage1_flash_block_map_entry_10_candidate * entry_a, /tc7200u/stage1/flash/stage1_flash_block_map_entry_10_candidate * entry_b)",
+      "comments": "function: Plate comment @803e21f0:\nFlash block-map entry equality test.\n\nInputs:\n  entry_a = first 0x10-byte block-map entry\n  entry_b = second 0x10-byte block-map entry\n\nBehavior:\n  Compares:\n    +0x00 block_index_00\n    +0x04 block_size_04\n    +0x08 block_offset_08\n    +0x0c flash_device_0c\n\nReturn:\n  1 if all four fields are equal\n  0 if any field differs"
+    },
+    {
+      "address": "803e2390",
+      "label": "fn_flash_device_base_destroy_block_map_803e2390_candidate",
+      "datatype": "function: /void (/void * flash_obj)",
+      "comments": "function: Plate comment @803e2390:\nFlash device base destructor / block-map cleanup candidate.\n\nInput:\n  flash_obj = flash device object pointer\n\nBehavior:\n  - restores base flash-device vtable/object table pointer {@symbol 8180adc8}\n    at flash_obj +0x00\n  - reads flash_obj +0x38 as the block-map entry pointer\n  - if block-map entries exist:\n      entry_count = *(uint32_t *)(block_map_entries - 4)\n      entries are 0x10 bytes each\n      walks entries backward from the last entry to the first\n      calls {@symbol 803e21b4} for each block-map entry\n      frees the block-map allocation at block_map_entries - 4 through {@symbol 80f08cdc}\n      clears flash_obj +0x38\n  - clears flash_obj +0x50\n  - destroys/finalizes the embedded object/log/config area at flash_obj +0x04 through:\n      {@symbol 804ed1ac}\n      {@symbol 804ec3d4}\n\nKnown users:\n  - SPI flash factory cleanup wrapper:\n      {@symbol 80610a28}\n  - NAND flash factory cleanup path\n  - memory-window flash cleanup path\n\nCurrent interpretation:\n  Common base destructor for flash-device objects. It owns the per-block map\n  installed by the SPI/NAND/memory-window detect/build paths.\n\nImportant:\n  The decompiler shows inherited in_a1/in_a2/in_a3 values forwarded into lower\n  cleanup/free helpers. Keep this function as a one-argument destructor unless\n  caller evidence proves a wider ABI.\n\nKeep _candidate:\n  Destructor role and block-map ownership are clear, but exact base object type\n  and vtable layout are still provisional."
+    },
+    {
+      "address": "803e2420",
+      "label": "fn_flash_device_base_vtable_destroy_803e2420_candidate",
+      "datatype": "function: /void (/tc7200u/stage1/flash/stage1_flash_device_object_68_candidate * flash_obj)",
+      "comments": "function: Plate comment @803e2420:\nVtable-dispatched flash device base destructor candidate.\n\nInput:\n  flash_obj = flash device object pointer\n\nBehavior:\n  - restores base flash-device vtable/object table pointer\n    {@symbol 8180adc8}\n    at flash_obj +0x00\n  - reads flash_obj +0x38 as the block-map entry pointer\n  - if block-map entries exist:\n      entry_count = *(uint32_t *)(block_map_entries - 4)\n      entries are 0x10 bytes each\n      walks entries backward from the last entry to the first\n      calls {@symbol 803e21b4}\n      frees the block-map allocation at block_map_entries - 4 through {@symbol 80f08cdc}\n      clears flash_obj +0x38\n  - clears flash_obj +0x50\n  - destroys/finalizes the embedded object/log/config area at flash_obj +0x04 through:\n      {@symbol 804ed1ac}\n      {@symbol 804ec3d4}\n\nKnown XREF:\n  Referenced from {@symbol 8180adc8}.\n\nCurrent interpretation:\n  Virtual/base destructor entry for flash-device objects. This is the vtable\n  version of the common cleanup path also seen at\n  {@symbol 803e2390}.\n\nKeep _candidate:\n  Destructor role is clear, but exact vtable layout and object inheritance\n  model are still provisional."
+    },
+    {
+      "address": "803e24b0",
+      "label": "fn_flash_device_base_vtable_destroy_and_free_803e24b0_candidate",
+      "datatype": "function: /void (/tc7200u/stage1/flash/stage1_flash_device_object_68_candidate * flash_obj)",
+      "comments": "function: Plate comment @803e24b0:\nVtable-dispatched flash device base destroy-and-free candidate.\n\nInput:\n  flash_obj = flash device object pointer\n\nBehavior:\n  - restores base flash-device vtable/object table pointer\n    {@symbol 8180adc8}\n    at flash_obj +0x00\n  - reads flash_obj +0x38 as the block-map entry pointer\n  - if block-map entries exist:\n      entry_count = *(uint32_t *)(block_map_entries - 4)\n      entries are 0x10 bytes each\n      walks entries backward from the last entry to the first\n      calls {@symbol 803e21b4}\n      frees the block-map allocation at block_map_entries - 4 through {@symbol 80f08cdc}\n      clears flash_obj +0x38\n  - clears flash_obj +0x50\n  - destroys/finalizes the embedded object/log/config area at flash_obj +0x04 through:\n      {@symbol 804ed1ac}\n      {@symbol 804ec3d4}\n  - frees flash_obj itself through {@symbol 80f08cbc}\n\nCurrent interpretation:\n  This is the vtable destroy-and-free entry for flash-device objects. It is the\n  owning/freeing variant of {@symbol 803e2420}.\n\nImportant:\n  Ghidra incorrectly split the function at {@address 803e24c4}. The real function\n  starts at {@address 803e24b0}; {@address 803e24c4} is normal body code after\n  the prologue.\n\nKeep _candidate:\n  Role is clear, but exact vtable layout and object inheritance model are still provisional."
+    },
+    {
+      "address": "803e2548",
+      "label": "fn_flash_device_get_block_map_entry_by_index_803e2548",
+      "datatype": "function: /tc7200u/stage1/flash/stage1_flash_block_map_entry_10_candidate * (/tc7200u/stage1/flash/stage1_flash_device_object_68_candidate * flash_obj, /stdint.h/uint32_t block_index)",
+      "comments": "function: Plate comment @803e2548:\nFlash block-map entry accessor by index.\n\nInputs:\n  flash_obj = flash device object pointer\n  block_index = requested block-map entry index\n\nBehavior:\n  - reads flash_obj +0x3c as block-map entry count\n  - if block_index >= entry count:\n      returns NULL\n  - otherwise returns:\n      flash_obj->block_map_entries_38 + block_index * 0x10\n\nReturn:\n  Pointer to stage1_flash_block_map_entry_10_candidate, or NULL if out of range.\n\nCurrent interpretation:\n  Bounds-checked accessor for the flash-device block-map array."
+    },
+    {
+      "address": "803e3230",
+      "label": "fn_flash_subsystem_detect_devices_and_place_regions_803e3230_candidate",
+      "datatype": "function: /stdint.h/uint32_t ()",
+      "comments": "function: Plate comment @803e3230:\nFlash subsystem detection and region-placement initializer candidate.\n\nBehavior:\n  - if global init latch at {@address 8147a44c} is already set, returns 1\n  - clears flash region/runtime state at {@address 818ca920}, length 0x78\n  - creates a mutex/semaphore and stores it at {@address 8147a46c}\n  - attempts flash device 0 detection in this order:\n      1. SPI flash:\n          {@symbol 806109d8}\n          {@symbol 80610a84}\n          cleanup through {@symbol 80610a28}\n      2. NAND flash:\n          factory/init path through {@symbol 80515ed4}\n          detect/build path through {@symbol 80515f80}\n          cleanup through {@symbol 80515f24}\n      3. memory-window flash device 0:\n          memory-window query through {@symbol 803e5394}\n          factory/init path through {@symbol 80195774}\n          detect/build path through {@symbol 80195820}\n          cleanup through {@symbol 801957c4}\n  - validates flash device 0 size against the retrieved memory window\n  - attempts flash device 1 detection if needed:\n      NAND or memory-window flash depending on previous state\n  - validates flash device 1:\n      size must fit its memory window\n      size must match flash device 0\n      combined/dual-device sanity checks are applied\n  - places detected flash regions through {@symbol 803e5854}\n  - on failure, destroys any allocated flash device objects and clears global pointers\n  - on success, computes a clamped runtime size/limit at {@address 8147a490}\n      lower clamp: 0x10000\n      upper clamp: 0x40000\n  - sets global init latch at {@address 8147a44c}\n  - returns 1 on success, 0 on failure\n\nCurrent interpretation:\n  This is the top-level flash subsystem initializer. It connects the SPI flash\n  JEDEC path, NAND path, memory-window fallback path, device validation, and\n  region-placement stage.\n\nKeep _candidate:\n  Overall role is clear, but several NAND/memory-window helper names and\n  global field meanings are still provisional."
     },
     {
       "address": "803e64f8",
@@ -2185,6 +2485,36 @@
       "label": "fn_find_replacement_block_candidate",
       "datatype": "function: /int ()",
       "comments": "function: Resolver for out-of-order NAND block metadata; returns replacement candidate or 0."
+    },
+    {
+      "address": "8040a658",
+      "label": "fn_enet_extphy_spi_driver_init_8040a658_candidate",
+      "datatype": "function: /void ()",
+      "comments": ""
+    },
+    {
+      "address": "8040a734",
+      "label": "fn_enet_extphy_hsspi_set_profile_clock_8040a734",
+      "datatype": "function: /stdint.h/uint32_t (/stdint.h/uint32_t profile_index, /stdint.h/uint32_t clock_index)",
+      "comments": ""
+    },
+    {
+      "address": "8040a880",
+      "label": "fn_enet_extphy_hsspi_irq8_completion_handler_8040a880_candidate",
+      "datatype": "function: /stdint.h/uint32_t ()",
+      "comments": "function: Plate comment @8040a880:\nExternal PHY/SPI HSSPI IRQ 8 completion handler candidate.\n\nRegistered by:\n  {@symbol 8040a658}\n  through {@symbol fn_bcm_irq_register_handler_noarg_808603e0_candidate}\n  for IRQ 8.\n\nBehavior:\n  - checks status byte at {@address b4e0100b}, bit 0\n  - if bit 0 is not set:\n      calls {@symbol 80e93984}\n      with \"SPI ISR: Interrupt status ...\"\n  - writes 0 to {@symbol b4e01010}\n  - posts/wakes semaphore at {@symbol 8147aa0c}\n      through {@symbol 8072ae10}\n  - re-enables IRQ 8 through {@symbol 8003d184}\n  - returns 0\n\nCurrent interpretation:\n  Completion ISR for interrupt-driven HSSPI transfers used by\n  {@symbol 8040a8e0}.\n\nKeep _candidate:\n  Exact status register bit naming is not proven yet."
+    },
+    {
+      "address": "8040a8e0",
+      "label": "fn_enet_extphy_hsspi_transfer_engine_8040a8e0_candidate",
+      "datatype": "function: /stdint.h/uint32_t (/stdint.h/uint32_t transfer_mode, /stdint.h/uint32_t profile_index, /void * tx_buf, /stdint.h/uint32_t tx_len)",
+      "comments": "function: Plate comment @8040a8e0:\nExternal PHY/SPI HSSPI transfer engine candidate.\n\nNormal inputs:\n  transfer_mode = HSSPI transfer mode, must be < 8\n  profile_index = HSSPI profile/index selector, must be < 8\n  tx_buf        = primary transmit buffer\n  tx_len        = primary transmit length\n\nHidden register inputs:\n  t0 = optional secondary transmit buffer\n  t1 = optional secondary transmit length\n  t2 = receive destination buffer\n  t3 = receive length\n\nValidation:\n  - if t3 > {@symbol g_enet_extphy_hsspi_max_rx_len_81840090_candidate}:\n      returns -1\n  - if tx_len + t1 > {@symbol g_enet_extphy_hsspi_max_tx_len_8184008C_candidate}:\n      returns -2\n  - if profile_index >= 8:\n      returns -3\n  - if transfer_mode >= 8:\n      returns -8\n  - unsupported modes 0 and 4 also return -8\n\nMode handling:\n  - mode 1 / 7:\n      validates combined tx/rx sizing\n      uses rx_len-derived header length candidate\n      mode 7 enables extra setup flag\n  - mode 2 / 5:\n      transmit-oriented path\n      mode 5 enables extra setup flag\n  - mode 3 / 6:\n      receive-oriented path\n      mode 6 enables extra setup flag\n\nHSSPI/MMIO behavior:\n  - waits until active channel status low bits are clear:\n      {@address b4e01084} + active_channel * 0x40, low 3 bits == 0\n  - writes a 2-byte HSSPI message header into message RAM:\n      {@address b4e01200} + active_channel * 0x200\n  - copies tx_buf bytes after the 2-byte message header\n  - copies optional secondary tx bytes after the primary tx bytes\n  - verifies message tail:\n      channel MSG_TAIL low 10 bits must equal tx_len + t1 + 2\n  - acknowledges/arms interrupt/status through {@symbol b4e01008}\n  - toggles bit 1 of {@address b4e01001} based on profile table value\n  - programs profile control register:\n      {@address b4e01108} + profile_index * 0x20\n  - starts the selected active channel through:\n      {@address b4e01080} + active_channel * 0x40\n  - if {@symbol 8147a9f8} == 1:\n      writes {@symbol b4e01010}\n      waits on the active-channel semaphore candidate\n  - otherwise:\n      polls {@symbol b4e01008} until nonzero\n  - checks status byte at {@address b4e0100b} bit 0\n  - on success, copies RX bytes from message RAM to t2 through {@symbol 80004f40}\n\nReturn:\n  1 on successful transfer\n  negative error codes on validation/status failure:\n    -1 rx length too large\n    -2 tx length too large\n    -3 profile_index >= 8\n    -4 interrupt/status failure\n    -6 invalid combined tx/rx sizing\n    -7 derived size >= 8\n    -8 invalid/unsupported transfer mode\n    -9 active channel not idle\n\nCurrent interpretation:\n  This is the low-level HSSPI/MMIO transfer engine used by the external PHY/SPI\n  driver callback at {@symbol 8040adb8}.\n\nKeep _candidate:\n  Engine role is proven, but exact HSSPI register names and transfer-mode\n  meanings are still provisional."
+    },
+    {
+      "address": "8040adb8",
+      "label": "fn_enet_extphy_spi_transfer_dispatch_locked_8040adb8_candidate",
+      "datatype": "function: /stdint.h/uint32_t (/stdint.h/uint32_t transfer_mode, /stdint.h/uint32_t command_len, /void * command_buf, /stdint.h/uint32_t transfer_len)",
+      "comments": ""
     },
     {
       "address": "80481f88",
@@ -2405,7 +2735,7 @@
     {
       "address": "80509398",
       "label": "fn_mta_interrupt_api_register_mapped_irq_80509398_candidate",
-      "datatype": "function: /stdint.h/uint32_t (/tc7200u/mmio/bcm_periph_irq_handler_fn_candidate.conflict * handler, /stdint.h/uint32_t handler_arg, /stdint.h/uint32_t mta_interrupt_id, /stdint.h/uint32_t unused_or_caller_context_candidate)",
+      "datatype": "function: /stdint.h/uint32_t (/undefined handler, /stdint.h/uint32_t handler_arg, /stdint.h/uint32_t mta_interrupt_id, /stdint.h/uint32_t unused_or_caller_context_candidate)",
       "comments": "function:  MTA interrupt API registration wrapper.\n\n   Behavior:\n     - uses mta_interrupt_id as a key into\n       {@symbol g_mta_interrupt_id_to_encoded_irq_map_810B5C0C_candidate}\n     - entries are 8 bytes:\n         +0x00 MTA interrupt id / key\n         +0x04 encoded BCM IRQ id\n     - sentinel key is 0x0b\n     - on match:\n         calls {@symbol 808601ac}\n         with:\n           a0 = handler\n           a1 = handler_arg\n           a2 = matched_entry->encoded_irq_id_04\n     - on miss:\n         logs \"ERROR - MtaInterruptApi: Failed ...\"\n\n   Important:\n     This wrapper does not directly expose the final BCM group/child pair.\n     The encoded IRQ id must be decoded through {@symbol 8003d32c}.\n"
     },
     {
@@ -2643,6 +2973,72 @@
       "comments": ""
     },
     {
+      "address": "80610694",
+      "label": "fn_enet_extphy_hsspi_lazy_init_defaults_80610694",
+      "datatype": "function: /void ()",
+      "comments": "function: Plate comment @80610694:\nExternal PHY/SPI HSSPI lazy/default initialization helper.\n\nBehavior:\n  - sets {@symbol 8184008c} = 0x1fe\n  - sets {@symbol g_enet_extphy_hsspi_max_rx_len_81840090_candidate} = 0x200\n  - calls {@symbol 8040a658}\n\nKnown callers:\n  Used by HSSPI/profile/transfer helpers when the driver init latch is not set.\n\nConclusion:\n  This is the lazy initialization/default-limit setup path for the external PHY/SPI HSSPI driver."
+    },
+    {
+      "address": "806106c4",
+      "label": "fn_enet_extphy_hsspi_pre_transfer_hook_noop_806106c4",
+      "datatype": "function: /void ()",
+      "comments": "function: Plate comment @806106c4:\nExternal PHY/SPI HSSPI pre-transfer hook stub.\n\nBehavior:\n  returns immediately\n\nKnown caller:\n  {@symbol 8040adb8}\n  calls this when the normalized profile/index argument is zero.\n\nConclusion:\n  Stub/no-op hook in the HSSPI transfer dispatch path."
+    },
+    {
+      "address": "806106cc",
+      "label": "fn_enet_extphy_hsspi_equal_index_hook_noop_806106cc",
+      "datatype": "function: /void ()",
+      "comments": "function: Plate comment @806106cc:\nExternal PHY/SPI HSSPI dispatch hook stub.\n\nBehavior:\n  returns immediately\n\nKnown caller:\n  {@symbol 8040adb8}\n  calls this when the dispatcher comparison path matches.\n\nConclusion:\n  Stub/no-op hook in the HSSPI transfer dispatch path."
+    },
+    {
+      "address": "806106d4",
+      "label": "fn_spi_flash_read_status05_byte_806106d4_candidate",
+      "datatype": "function: /stdint.h/uint8_t (/stdint.h/uint32_t select_value)",
+      "comments": "function: Plate comment @806106d4:\nSPI flash status-register read helper candidate.\n\nInput:\n  select_value = HSSPI profile/chip-select/path selector candidate\n\nBehavior:\n  - builds one-byte command:\n      command[0] = 0x05\n  - calls {@symbol 81a8e9ac}\n      a0 = 3\n      a1 = select_value\n      a2 = stack command buffer\n      a3 = 1\n      hidden t0 = 0\n      hidden t1 = 0\n      hidden t2 = stack +0x08 receive byte\n      hidden t3 = 1\n  - returns the received status byte\n\nCurrent interpretation:\n  Sends SPI flash opcode 0x05, Read Status Register, through the shared HSSPI\n  transport path.\n\nKeep _candidate:\n  Opcode behavior is clear, but exact select_value/profile path meaning is still provisional."
+    },
+    {
+      "address": "80610720",
+      "label": "fn_spi_flash_write_enable_80610720_candidate",
+      "datatype": "function: /void (/stdint.h/uint32_t select_value)",
+      "comments": "function: Plate comment @80610720:\nSPI flash Write Enable command helper candidate.\n\nInput:\n  select_value = HSSPI profile/chip-select/path selector candidate\n\nBehavior:\n  - builds one-byte command:\n      command[0] = 0x06\n  - calls {@symbol 81a8e9a8}.transfer_fn_04\n      a0 = 2\n      a1 = select_value\n      a2 = stack command buffer\n      a3 = 1\n\nKnown caller:\n  {@symbol 80610a84}\n  calls this with select_value = 1 before reading status opcode 0x05.\n\nCurrent interpretation:\n  Sends SPI flash opcode 0x06, Write Enable / WREN, through the shared HSSPI\n  transport path.\n\nKeep _candidate:\n  Opcode behavior is clear, but exact select_value/profile path meaning is still provisional."
+    },
+    {
+      "address": "80610768",
+      "label": "fn_spi_flash_write_disable_80610768_candidate",
+      "datatype": "function: /void (/stdint.h/uint32_t select_value)",
+      "comments": "function: Plate comment @80610768:\nSPI flash Write Disable command helper candidate.\n\nInput:\n  select_value = HSSPI profile/chip-select/path selector candidate\n\nBehavior:\n  - builds one-byte command:\n      command[0] = 0x04\n  - calls {@symbol 81a8e9a8}.transfer_fn_04\n      a0 = 2\n      a1 = select_value\n      a2 = stack command buffer\n      a3 = 1\n\nKnown caller:\n  {@symbol 80610a84}\n  calls this with select_value = 1 after the status opcode 0x05 check.\n\nCurrent interpretation:\n  Sends SPI flash opcode 0x04, Write Disable / WRDI, through the shared HSSPI\n  transport path.\n\nKeep _candidate:\n  Opcode behavior is clear, but exact select_value/profile path meaning is still provisional."
+    },
+    {
+      "address": "806107b0",
+      "label": "fn_spi_flash_read_jedec_id_806107b0_candidate",
+      "datatype": "function: /stdint.h/uint32_t (/stdint.h/uint32_t read_select)",
+      "comments": "function: Plate comment @806107b0:\nSPI flash JEDEC ID read helper candidate.\n\nInput:\n  read_select = HSSPI profile/chip-select/path selector candidate\n\nBehavior:\n  - builds one-byte command:\n      command[0] = 0x9f\n  - calls {@symbol 81a8e9ac}\n      a0 = 3\n      a1 = read_select\n      a2 = stack command buffer\n      a3 = 1\n      hidden t0 = 0\n      hidden t1 = 0\n      hidden t2 = stack +0x08 receive buffer\n      hidden t3 = 3\n  - if transfer status is negative:\n      returns 0\n  - otherwise builds a 24-bit JEDEC ID:\n      id = rx[0] << 16 | rx[1] << 8 | rx[2]\n  - if id == 0x00ffffff:\n      returns 0\n  - otherwise:\n      returns id\n\nKnown caller:\n  {@symbol 80610a84}\n  calls this with read_select 0 and 1.\n\nCurrent interpretation:\n  Reads SPI flash JEDEC ID using opcode 0x9f.\n  read_select likely chooses HSSPI profile/chip-select/path.\n\nKeep _candidate:\n  Opcode and return behavior are clear, but read_select meaning is still provisional."
+    },
+    {
+      "address": "80610830",
+      "label": "fn_spi_flash_probe_cfi_from_jedec_buffer_80610830_candidate",
+      "datatype": "function: /stdint.h/uint32_t (/stdint.h/uint32_t select_value)",
+      "comments": "function: Plate comment @80610830:\nSPI flash extended JEDEC/CFI-style probe helper candidate.\n\nInput:\n  select_value = HSSPI profile/chip-select/path selector candidate\n\nBehavior:\n  - builds one-byte command:\n      command[0] = 0x9f\n  - calls {@symbol 81a8e9a8}.transfer_fn_04\n      a0 = 3\n      a1 = select_value\n      a2 = stack command buffer\n      a3 = 1\n      hidden t0 = 0\n      hidden t1 = 0\n      hidden t2 = stack +0x08 receive buffer\n      hidden t3 = 0x80\n  - if transfer status is negative:\n      returns 0\n  - builds 24-bit JEDEC ID from receive bytes 0..2\n  - if JEDEC ID is 0 or 0x00ffffff:\n      returns 0\n  - stores JEDEC ID into {@symbol 818e7170}.jedec_id_00\n  - checks for ASCII QRY signature in the returned buffer\n  - if QRY is present:\n      fills {@symbol 818e7170}:\n        +0x04 total_size = 1 << buffer[0x2f]\n        +0x0c page/write-buffer size from buffer[0x54]:\n            0 -> 1\n            1 -> 4\n            2 -> 8\n            3 -> 0x100\n            4 -> 0x200\n            other -> 1\n        +0x08 erase/block size = max erase-region size derived from region descriptors\n  - returns 1 after a valid nonblank JEDEC response\n\nCurrent interpretation:\n  Extended SPI flash probe helper. It seeds the CFI/probe-result structure used\n  by {@symbol 80610a84}.\n\nKeep _candidate:\n  JEDEC extraction and QRY parsing are clear, but exact probe-protocol naming is still provisional."
+    },
+    {
+      "address": "806109d8",
+      "label": "fn_spi_flash_device_factory_init_806109d8_candidate",
+      "datatype": "function: /void (/void * factory_obj)",
+      "comments": "function: Plate comment @806109d8:\nSPI flash device factory object initialization candidate.\n\nInput:\n  factory_obj = factory/object pointer\n\nBehavior:\n  - initializes base object with name \"SPI Flash Device Factory\"\n  - stores vtable/object table pointer {@address 8180f948} at factory_obj +0x00\n  - sets object name at factory_obj +0x04 to \"BcmSpiFlashDevice\"\n\nKnown XREF:\n  Called from {@address 803e32dc}\n\nKeep _candidate:\n  Object/vtable type is not fully decoded yet."
+    },
+    {
+      "address": "80610a28",
+      "label": "fn_spi_flash_device_factory_cleanup_80610a28_candidate",
+      "datatype": "function: /void (/void * factory_ctx)",
+      "comments": "function: Plate comment @80610a28:\nSPI flash device factory cleanup/destructor wrapper candidate.\n\nInput:\n  factory_ctx = factory/object pointer\n\nBehavior:\n  - restores vtable/object table pointer {@address 8180f948} at factory_ctx +0x00\n    - calls {@symbol 803e2390}\n    to perform common flash-device cleanup/destruction\n\nKnown caller:\n  {@symbol 803e3230}\n  calls this after the SPI flash detect/build attempt.\n\nImportant:\n  The decompiler shows inherited in_a1/in_a2/in_a3 values passed into\n  {@symbol 803e2390}. The direct caller only sets a0, so keep this function\n  as a one-argument cleanup wrapper unless later caller evidence proves a wider ABI.\n\nKeep _candidate:\n  Cleanup role is clear, but the common destructor helper and exact object type\n  are still provisional."
+    },
+    {
+      "address": "80610a84",
+      "label": "fn_spi_flash_detect_jedec_build_device_80610a84_candidate",
+      "datatype": "function: /tc7200u/stage1/flash/stage1_flash_device_object_68_candidate * (/tc7200u/stage1/spi_flash/spi_flash_detect_context_candidate * detect_ctx)",
+      "comments": "function: Plate comment @80610a84:\nSPI flash JEDEC/CFI detection and flash-device construction candidate.\n\nInput:\n  detect_ctx = SPI flash detection/controller context candidate\n\nBehavior:\n  - initializes detect_ctx:\n      +0x28 = 0\n      +0x29 = 0\n      +0x2c = 1\n  - calls {@symbol 81a8e9a8}.return1_callback_08\n  - reads primary and secondary JEDEC IDs through {@symbol 806107b0}\n  - scans {@symbol 814c3eec}\n  - supports wildcard-style JEDEC table entries where the middle byte is 0xff\n  - compares matched JEDEC entry against {@symbol 818e7170}\n  - logs and updates table block/page-size values when CFI values are more specific\n  - allocates and initializes a flash device object\n  - writes detected geometry into detect_ctx:\n      +0x30 = page/write-buffer size\n      +0x38 = temporary block map pointer\n      +0x3c = erase/block count\n      +0x4c = total flash size\n  - returns flash device object pointer or NULL\n    - if primary and secondary JEDEC IDs match:\n      sends Write Enable opcode 0x06 through {@symbol 80610720}\n      reads status opcode 0x05 through {@symbol 806106d4}\n      if status bit 1 is clear, ORs flag 0x4 into the matched table flags\n      sends Write Disable opcode 0x04 through {@symbol 80610768}\n      calls {@symbol 806106c4}\n  - probes extended JEDEC/CFI-style data through\n    {@symbol 80610830}\n  - compares matched JEDEC table parameters against\n    {@symbol 818e7170}\n\nCurrent interpretation:\n  SPI flash detection path using the shared HSSPI transport driver.\n  This is separate from external PHY register access but uses the same HSSPI callback table.\n\nKeep _candidate:\n  Detection role is clear, but several helper names and object/vtable types are still provisional.\n\n"
+    },
+    {
       "address": "80681ab8",
       "label": "fn_bootlinux_init_slot2_once",
       "datatype": "function: /undefined (/undefined4 param_1, /undefined4 param_2, /undefined4 param_3, /undefined4 param_4)",
@@ -2765,7 +3161,7 @@
     {
       "address": "80843c28",
       "label": "fn_host_dqm_register_selector_dispatch_80843c28_candidate",
-      "datatype": "function: /void (/stdint.h/uint32_t encoded_irq_id, /tc7200u/mmio/bcm_periph_irq_handler_fn_candidate.conflict * dispatch_callback, /stdint.h/uint32_t host_dqm_base, /char * manager_name_or_log_string)",
+      "datatype": "function: /void (/stdint.h/uint32_t encoded_irq_id, /undefined dispatch_callback, /stdint.h/uint32_t host_dqm_base, /char * manager_name_or_log_string)",
       "comments": "function:  Register Host-DQM selector dispatch handler.\n\n   Arguments:\n     encoded_irq_id             = encoded BCM IRQ id for this Host-DQM selector\n     dispatch_callback          = handler registered for the decoded IRQ\n     host_dqm_base              = Host-DQM selector MMIO base\n     manager_name_or_log_string = selector manager/debug string\n\n   Flow:\n     - derives register block at host_dqm_base + 0x1800\n     - derives control/status block at host_dqm_base | 0x1000\n     - clears register_block +0x14\n     - performs cleanup for encoded_irq_id through\n       {@symbol 8085fff0}\n     - registers dispatch_callback through\n       {@symbol 808603ec}\n       with:\n         handler        = dispatch_callback\n         encoded_irq_id = encoded_irq_id\n     - sets bit 3 in control/status block +0x08\n     - calls {@symbol 8003d184}\n     - logs manager/debug string and first 8 words from the control/status block\n\n   Confirmed Host-DQM selector encoded IRQ ids:\n     0x88 UTP       -> group 0x23 child 3, bank 0xb3000000\n     0x7e MSP       -> group 0x24 child 3, bank 0xb3200000\n     0x74 FAP       -> group 0x27 child 3, bank 0xb3400000\n     0x6a MSG_PROC  -> group 0x26 child 3, bank 0xb3600000\n     0x60 MPEG_PROC -> group 0x25 child 3, bank 0xb4200000\n     0x56 PMC       -> group 0x28 child 3, bank 0xb3e00000"
     },
     {
@@ -3131,7 +3527,7 @@
     {
       "address": "808601ac",
       "label": "fn_bcm_irq_register_handler_808601ac_candidate",
-      "datatype": "function: /stdint.h/uint32_t (/tc7200u/mmio/bcm_periph_irq_handler_fn_candidate.conflict * handler, /stdint.h/uint32_t handler_arg, /stdint.h/uint32_t encoded_irq_id)",
+      "datatype": "function: /stdint.h/uint32_t (/undefined handler, /stdint.h/uint32_t handler_arg, /stdint.h/uint32_t encoded_irq_id)",
       "comments": "function:  BCM IRQ handler registration helper candidate.\n\n   Observed behavior:\n     - stores callback pair {handler, handler_arg} into one of several IRQ\n       handler tables depending on irq_group_id\n     - group 0 uses table at {@address 817453c4} and registers\n       {@symbol 8085fd7c} through {@symbol 80ea3eb4}\n     - group 0x22 uses table at {@address 81745414} and registers\n       {@symbol 8085ff24} on CP0 interrupt line 2 through\n       {@symbol 80ea4108}\n     - groups 0x23..0x28 use the BCM peripheral IM5 child-handler table:\n         full table root = {@address 81743214}\n         group 0x23 alias = {@address 81745514}\n         entry = root + ((group_id * 32) + child_bit) * 8\n     - for groups 0x23..0x28, registers\n       {@symbol 8002adbc}\n       on CP0 interrupt line 5 and enables:\n         {@address b4e00050} |= 1 << (group_id - 0x23)\n\n   Important:\n     The accepted IM5 group range is 0x23..0x28 only.\n     Do not treat group 0x30 / {@address 81746214} as a valid handler group\n     for this registration path.\n\n Confirmed direct callers:\n     {@address 805093ec}\n       MTA interrupt API wrapper. Forwards a0/a1/a3 and supplies a2 from\n       table {@address 810b5c0c}.\n\n     {@address 808603f8}\n       Thin group child-0 registration wrapper. Calls with a1 = 0 and\n       a2 = caller-supplied handler.\n\n   Therefore:\n     The runtime table at {@address 81745514} is populated only through these\n     wrapper paths in this image. To identify real group/child registrations,\n     inspect their callers, not the zero-initialized table bytes.\n Registration flow:\n     encoded_irq_id is decoded through\n     {@symbol 8003d32c}\n     into:\n       local_20 = group_id\n       local_1f = child_id\n\n   For group_id 0x23..0x28:\n     parent_bit_index = group_id - 0x23\n     entry_index      = parent_bit_index * 32 + child_id\n     entry            = {@address 81745514} + entry_index * 8\n\n   It then:\n     - stores handler and handler_arg into the runtime table\n     - registers {@symbol 8002adbc}\n       on CP0 interrupt line 5\n     - enables the parent group bit in {@address b4e00050}\n\n   Important:\n     Runtime clue bit 13 is not explained by this registration path.\n     This path enables only group bits 0..5 for decoded groups 0x23..0x28.\n"
     },
     {
@@ -3149,7 +3545,7 @@
     {
       "address": "808603ec",
       "label": "fn_bcm_irq_register_handler_noarg_808603ec_candidate",
-      "datatype": "function: /stdint.h/uint32_t (/tc7200u/mmio/bcm_periph_irq_handler_fn_candidate.conflict * handler, /stdint.h/uint32_t encoded_irq_id)",
+      "datatype": "function: /stdint.h/uint32_t (/undefined handler, /stdint.h/uint32_t encoded_irq_id)",
       "comments": "function:  Thin BCM IRQ registration wrapper.\n\n   Calls {@symbol 808601ac} with:\n     a0 = handler\n     a1 = 0\n     a2 = encoded_irq_id\n\n   Meaning:\n     registers a handler with handler_arg = 0 for the supplied encoded IRQ id.\n\n   Not ENET-specific by itself; callers must prove subsystem ownership.\n"
     },
     {
@@ -4421,7 +4817,7 @@
     {
       "address": "80ddd178",
       "label": "fn_mta_interrupt_api_register_80ddd178_candidate",
-      "datatype": "function: /stdint.h/uint32_t (/stdint.h/uint32_t mta_interrupt_id, /tc7200u/mmio/bcm_periph_irq_handler_fn_candidate.conflict * handler, /stdint.h/uint32_t handler_arg)",
+      "datatype": "function: /stdint.h/uint32_t (/stdint.h/uint32_t mta_interrupt_id, /undefined handler, /stdint.h/uint32_t handler_arg)",
       "comments": "function:  MTA interrupt API public registration wrapper candidate.\n\n   Reorders arguments and calls\n   {@symbol 80509398}:\n\n     input param_1 -> mta_interrupt_id\n     input param_2 -> handler\n     input param_3 -> handler_arg\n\n   The MTA id is translated through\n   {@symbol g_mta_interrupt_id_to_encoded_irq_map_810B5C0C_candidate}\n   before reaching the BCM IRQ registration helper.\n"
     },
     {
@@ -6087,6 +6483,12 @@
       "comments": ""
     },
     {
+      "address": "8107d840",
+      "label": "g_enet_extphy_hsspi_clock_divider_table_8107D840_candidate",
+      "datatype": "/stdint.h/uint16_t[12]",
+      "comments": ""
+    },
+    {
       "address": "810a074c",
       "label": "str_tp_handshake_init_fmt",
       "datatype": "/string",
@@ -6537,9 +6939,21 @@
       "comments": ""
     },
     {
+      "address": "81479f6c",
+      "label": "g_packet_port_table_first_register_latch_81479F6C_candidate",
+      "datatype": "/stdint.h/uint8_t",
+      "comments": ""
+    },
+    {
       "address": "81479f70",
       "label": "g_enet_init_in_progress_or_started_81479f70_candidate",
       "datatype": "/undefined1",
+      "comments": ""
+    },
+    {
+      "address": "81479f71",
+      "label": "g_enet_phy_link_control_enable_81479F71_candidate",
+      "datatype": "/stdint.h/uint8_t",
       "comments": ""
     },
     {
@@ -6550,14 +6964,20 @@
     },
     {
       "address": "81479f80",
-      "label": "g_enet_managed_switch_link_monitor_enable_81479f80_candidate",
-      "datatype": "/undefined1",
+      "label": "g_enet_managed_switch_link_monitor_enable_81479F80_candidate",
+      "datatype": "/stdint.h/uint8_t",
       "comments": ""
     },
     {
       "address": "81479f81",
       "label": "g_enet_gmac_init_once_latch_81479f81_candidate",
       "datatype": "/undefined1",
+      "comments": ""
+    },
+    {
+      "address": "81479f84",
+      "label": "g_dma_static_allocator_object_81479F84_candidate",
+      "datatype": "/undefined4",
       "comments": ""
     },
     {
@@ -6629,13 +7049,97 @@
     {
       "address": "8147a044",
       "label": "g_enet_extphy_serial_mode_detected_8147a044_candidate",
-      "datatype": "/uint",
+      "datatype": "/stdint.h/uint32_t",
       "comments": ""
     },
     {
       "address": "8147a048",
       "label": "g_enet_extphy_serial_mode_configured_8147a048_candidate",
       "datatype": "/uint",
+      "comments": ""
+    },
+    {
+      "address": "8147a44c",
+      "label": "g_flash_subsystem_init_done_8147A44C_candidate",
+      "datatype": "/stdint.h/uint8_t",
+      "comments": ""
+    },
+    {
+      "address": "8147a450",
+      "label": "g_flash_device0_8147A450_candidate",
+      "datatype": "/void *",
+      "comments": ""
+    },
+    {
+      "address": "8147a454",
+      "label": "g_flash_device1_8147A454_candidate",
+      "datatype": "/void *",
+      "comments": ""
+    },
+    {
+      "address": "8147a458",
+      "label": "g_flash_primary_or_active_device_8147A458_candidate",
+      "datatype": "/void *",
+      "comments": ""
+    },
+    {
+      "address": "8147a46c",
+      "label": "g_flash_subsystem_mutex_sem_8147A46C_candidate",
+      "datatype": "/tc7200u/stage1/wait_sync/stage1_bcm_sem_candidate *",
+      "comments": ""
+    },
+    {
+      "address": "8147a490",
+      "label": "g_flash_runtime_clamped_limit_8147A490_candidate",
+      "datatype": "/stdint.h/uint32_t",
+      "comments": ""
+    },
+    {
+      "address": "8147a498",
+      "label": "g_flash_spi_device0_detected_8147A498_candidate",
+      "datatype": "/stdint.h/uint8_t",
+      "comments": ""
+    },
+    {
+      "address": "8147a499",
+      "label": "g_flash_nand_detected_8147A499_candidate",
+      "datatype": "/stdint.h/uint8_t",
+      "comments": ""
+    },
+    {
+      "address": "8147a9f8",
+      "label": "g_enet_extphy_spi_transfer_state_8147A9F8_candidate",
+      "datatype": "/stdint.h/uint32_t",
+      "comments": ""
+    },
+    {
+      "address": "8147a9fc",
+      "label": "g_enet_extphy_spi_driver_init_done_8147A9FC_candidate",
+      "datatype": "/stdint.h/uint32_t",
+      "comments": ""
+    },
+    {
+      "address": "8147aa00",
+      "label": "g_enet_extphy_hsspi_channel_state_array_8147AA00_candidate",
+      "datatype": "/stdint.h/uint32_t[2]",
+      "comments": ""
+    },
+    {
+      "address": "8147aa08",
+      "label": "g_enet_extphy_spi_transfer_lock_8147AA08_candidate",
+      "datatype": "/stdint.h/uint32_t",
+      "comments": ""
+    },
+    {
+      "address": "8147aa0c",
+      "label": "g_enet_extphy_hsspi_channel_sem_array_8147AA0C_candidate",
+      "datatype": "/tc7200u/stage1/wait_sync/stage1_bcm_sem_candidate *[2]",
+      "comments": ""
+    },
+    {
+      "address": "8147aa14",
+      "label": "g_enet_extphy_hsspi_active_channel_8147AA14_candidate",
+      "datatype": "/stdint.h/uint32_t",
       "comments": ""
     },
     {
@@ -6648,6 +7152,12 @@
       "address": "814c327c",
       "label": "g_natp_gfap_manager_814C327C_candidate",
       "datatype": "/tc7200u/dqm_host_fap/natp_gfap_manager_candidate *",
+      "comments": ""
+    },
+    {
+      "address": "814c3eec",
+      "label": "g_spi_flash_jedec_table_814C3EEC_candidate",
+      "datatype": "/tc7200u/stage1/spi_flash/spi_flash_jedec_table_entry_14_candidate",
       "comments": ""
     },
     {
@@ -6839,7 +7349,7 @@
     {
       "address": "81745514",
       "label": "g_bcm_periph_irq_handler_table_group23_to_28_81745514_candidate",
-      "datatype": "/tc7200u/common/bcm_periph_irq_handler_entry_candidate.conflict[192]",
+      "datatype": "/tc7200u/common/bcm_periph_irq_handler_entry_candidate[192]",
       "comments": ""
     },
     {
@@ -6981,9 +7491,27 @@
       "comments": ""
     },
     {
+      "address": "8180adc8",
+      "label": "g_flash_device_base_vtable_8180ADC8_candidate",
+      "datatype": "/tc7200u/stage1/flash/stage1_flash_device_base_vtable_candidate",
+      "comments": ""
+    },
+    {
+      "address": "8180adcc",
+      "label": "g_flash_device_base_vtable_destroy_and_free_8180ADCC_candidate",
+      "datatype": "/tc7200u/stage1/flash/stage1_flash_device_base_vtable_candidate +0x4",
+      "comments": ""
+    },
+    {
       "address": "8180e4d8",
       "label": "g_natp_gfap_manager_ops_8180E4D8_candidate",
-      "datatype": "/custom/natp_gfap_manager_ops_candidate",
+      "datatype": "/tc7200u/dqm_host_fap/natp_gfap_manager_ops_candidate",
+      "comments": ""
+    },
+    {
+      "address": "8180f948",
+      "label": "g_spi_flash_device_factory_vtable_8180F948_candidate",
+      "datatype": "/void *",
       "comments": ""
     },
     {
@@ -7060,8 +7588,8 @@
     },
     {
       "address": "81840008",
-      "label": "g_enet_init_result_or_state_81840008_candidate",
-      "datatype": "/undefined4",
+      "label": "g_packet_port_table_base_port_id_81840008_candidate",
+      "datatype": "/stdint.h/uint32_t",
       "comments": ""
     },
     {
@@ -7085,7 +7613,7 @@
     {
       "address": "81840028",
       "label": "g_enet_unimac_or_gmac_regs_base_ptr_81840028_candidate",
-      "datatype": "/uint *",
+      "datatype": "/tc7200u/mmio/vuint32_t *",
       "comments": ""
     },
     {
@@ -7139,6 +7667,18 @@
     {
       "address": "8184006c",
       "label": "g_dtp_runtime_profile_or_chip_rev_8184006c_candidate",
+      "datatype": "/stdint.h/uint32_t",
+      "comments": ""
+    },
+    {
+      "address": "8184008c",
+      "label": "g_enet_extphy_hsspi_max_tx_len_8184008C_candidate",
+      "datatype": "/stdint.h/uint32_t",
+      "comments": ""
+    },
+    {
+      "address": "81840090",
+      "label": "g_enet_extphy_hsspi_max_rx_len_81840090_candidate",
       "datatype": "/stdint.h/uint32_t",
       "comments": ""
     },
@@ -7301,7 +7841,7 @@
     {
       "address": "8187bdb0",
       "label": "g_net_config_large_cache_table_8187BDB0_candidate",
-      "datatype": "/custom/net_config_indexed_cache_entry_400_candidate[32]",
+      "datatype": "/tc7200u/common/network/net_config_indexed_cache_entry_400_candidate[32]",
       "comments": ""
     },
     {
@@ -7314,6 +7854,24 @@
       "address": "81883e20",
       "label": "g_fap_bypass_context_81883E20_candidate",
       "datatype": "/tc7200u/dqm_host_fap/fap_bypass_context_candidate",
+      "comments": ""
+    },
+    {
+      "address": "818d03b0",
+      "label": "g_enet_extphy_hsspi_profile_clock_index_table_818D03B0_candidate",
+      "datatype": "/stdint.h/uint32_t[8]",
+      "comments": ""
+    },
+    {
+      "address": "818e7168",
+      "label": "g_spi_flash_cfi_static_state_818E7168_candidate",
+      "datatype": "/stdint.h/uint32_t[2]",
+      "comments": ""
+    },
+    {
+      "address": "818e7170",
+      "label": "g_spi_flash_cfi_probe_result_818E7170_candidate",
+      "datatype": "/tc7200u/stage1/spi_flash/spi_flash_cfi_probe_result_10_candidate",
       "comments": ""
     },
     {
@@ -7683,27 +8241,45 @@
       "comments": ""
     },
     {
+      "address": "81a8d7b0",
+      "label": "g_enet_core_cmd_arg0_81A8D7B0_candidate",
+      "datatype": "/stdint.h/uint32_t",
+      "comments": ""
+    },
+    {
       "address": "81a8d7b4",
-      "label": "g_enet_core_cmd_arg1_81a8d7b4_candidate",
-      "datatype": "/undefined4",
+      "label": "g_enet_core_cmd_arg1_81A8D7B4_candidate",
+      "datatype": "/float",
       "comments": ""
     },
     {
       "address": "81a8d7b5",
       "label": "g_enet_core_cmd_arg3_81a8d7b5_candidate",
-      "datatype": "/undefined4 +0x1",
+      "datatype": "/float +0x1",
       "comments": ""
     },
     {
       "address": "81a8d7b6",
       "label": "g_enet_core_cmd_arg2_81a8d7b6_candidate",
-      "datatype": "/undefined4 +0x2",
+      "datatype": "/float +0x2",
+      "comments": ""
+    },
+    {
+      "address": "81a8d7b8",
+      "label": "g_enet_core_cmd_arg2_81A8D7B8_candidate",
+      "datatype": "/stdint.h/uint32_t",
+      "comments": ""
+    },
+    {
+      "address": "81a8d7c0",
+      "label": "g_packet_port_submit_table_81A8D7C0_candidate",
+      "datatype": "/tc7200u/fpm_dma/packet_port_submit_table_entry_44_candidate[16]",
       "comments": ""
     },
     {
       "address": "81a8dc00",
-      "label": "g_enet_gmac_init_state_81a8dc00_candidate",
-      "datatype": "/undefined[184]",
+      "label": "g_enet_gmac_init_state_81A8DC00_candidate",
+      "datatype": "/tc7200u/fpm_dma/enet_gmac_init_state_b8_candidate",
       "comments": ""
     },
     {
@@ -7720,14 +8296,14 @@
     },
     {
       "address": "81a8e9a8",
-      "label": "g_enet_extphy_spi_driver_table_81a8e9a8_candidate",
-      "datatype": "/tc7200u/mmio/enet_extphy_spi_transfer_fn_candidate *",
+      "label": "g_enet_extphy_spi_driver_table_81A8E9A8_candidate",
+      "datatype": "/tc7200u/stage1/netif/enet_extphy_spi_driver_table_candidate",
       "comments": ""
     },
     {
       "address": "81a8e9ac",
       "label": "g_enet_extphy_spi_transfer_fn_81a8e9ac_candidate",
-      "datatype": "/undefined4",
+      "datatype": "/tc7200u/stage1/netif/enet_extphy_spi_driver_table_candidate +0x4",
       "comments": ""
     },
     {
@@ -7984,62 +8560,62 @@
     },
     {
       "address": "b2c00600",
-      "label": "GENET_MDIO_BASE_12c00600",
+      "label": "GENET_MDIO0_BASE_B2C00600",
       "datatype": "/undefined",
       "comments": ""
     },
     {
       "address": "b2c0062c",
-      "label": "GENET_MDIO0_CMD_12c0062c",
-      "datatype": "/undefined4",
+      "label": "GENET_MDIO0_CMD_B2C0062C",
+      "datatype": "/tc7200u/mmio/vuint32_t",
       "comments": ""
     },
     {
       "address": "b2c0062e",
-      "label": "GENET_MDIO0_RDATA_12c0062e",
-      "datatype": "/undefined4 +0x2",
+      "label": "GENET_MDIO0_CMD_B2C0062C",
+      "datatype": "/tc7200u/mmio/vuint32_t +0x2",
       "comments": ""
     },
     {
       "address": "b2c00630",
-      "label": "GENET_MDIO0_WDATA_12c00630",
-      "datatype": "/undefined4",
+      "label": "GENET_MDIO0_STATUS_B2C00632",
+      "datatype": "/tc7200u/mmio/vuint16_t",
       "comments": ""
     },
     {
       "address": "b2c00632",
-      "label": "GENET_MDIO0_STATUS_12c00632",
-      "datatype": "/undefined4 +0x2",
+      "label": "GENET_MDIO0_STATUS_B2C00632",
+      "datatype": "/tc7200u/mmio/vuint16_t",
       "comments": ""
     },
     {
       "address": "b2c02600",
-      "label": "GENET_MDIO_BASE_12c02600",
+      "label": "GENET_MDIO1_BASE_B2C02600",
       "datatype": "/undefined4",
       "comments": ""
     },
     {
       "address": "b2c0262c",
-      "label": "GENET_MDIO1_CMD_12c0262c",
-      "datatype": "/undefined4",
+      "label": "GENET_MDIO1_CMD_B2C0262C",
+      "datatype": "/tc7200u/mmio/vuint32_t",
       "comments": ""
     },
     {
       "address": "b2c0262e",
-      "label": "GENET_MDIO1_RDATA_12c0262e",
-      "datatype": "/undefined4 +0x2",
+      "label": "GENET_MDIO0_CMD_B2C0062C",
+      "datatype": "/tc7200u/mmio/vuint32_t +0x2",
       "comments": ""
     },
     {
       "address": "b2c02630",
-      "label": "GENET_MDIO1_WDATA_12c02630",
-      "datatype": "/undefined4",
+      "label": "GENET_MDIO1_WDATA_B2C02630",
+      "datatype": "/tc7200u/mmio/vuint16_t",
       "comments": ""
     },
     {
       "address": "b2c02632",
-      "label": "GENET_MDIO1_STATUS_12c02632",
-      "datatype": "/undefined4 +0x2",
+      "label": "GENET_MDIO1_STATUS_B2C02632",
+      "datatype": "/tc7200u/mmio/vuint16_t",
       "comments": ""
     },
     {
@@ -8106,6 +8682,12 @@
       "address": "b4200000",
       "label": "MMIO_1420_KSEG1_b4200000_candidate",
       "datatype": "/undefined",
+      "comments": ""
+    },
+    {
+      "address": "b4201000",
+      "label": "HOST_DQM_MPEG_PROC_CHILD_IRQ_BANK_B4201000_candidate",
+      "datatype": "/tc7200u/mmio/bcm_periph_irq_child_bank_regs_candidate",
       "comments": ""
     },
     {
@@ -8286,6 +8868,78 @@
       "address": "b4e00e33",
       "label": "BCM3422_SERIAL_READ_BYTE_LANE3_B4E00E33_candidate",
       "datatype": "/tc7200u/mmio/tc7200_bcm34xx_serial_regs_candidate +0x33",
+      "comments": ""
+    },
+    {
+      "address": "b4e01000",
+      "label": "HSSPI_OR_SPI_BASE_B4E01000_candidate",
+      "datatype": "/undefined",
+      "comments": ""
+    },
+    {
+      "address": "b4e01001",
+      "label": "HSSPI_OR_SPI_GLOBAL_CTRL_BYTE_B4E01001_candidate",
+      "datatype": "/tc7200u/mmio/vuint8_t",
+      "comments": ""
+    },
+    {
+      "address": "b4e01008",
+      "label": "HSSPI_OR_SPI_STATUS_ACK_B4E01008_candidate",
+      "datatype": "/tc7200u/mmio/vuint32_t",
+      "comments": ""
+    },
+    {
+      "address": "b4e01010",
+      "label": "HSSPI_OR_SPI_CONTROL_CLEAR_B4E01010_candidate",
+      "datatype": "/tc7200u/mmio/vuint32_t",
+      "comments": ""
+    },
+    {
+      "address": "b4e01080",
+      "label": "HSSPI_OR_SPI_CHANNEL_COMMAND_BASE_B4E01080_candidate",
+      "datatype": "/tc7200u/mmio/vuint32_t",
+      "comments": ""
+    },
+    {
+      "address": "b4e01084",
+      "label": "HSSPI_OR_SPI_CHANNEL_STATUS_BASE_B4E01084_candidate",
+      "datatype": "/tc7200u/mmio/vuint32_t",
+      "comments": ""
+    },
+    {
+      "address": "b4e01088",
+      "label": "HSSPI_OR_SPI_CHANNEL_MSG_TAIL_BASE_B4E01088_candidate",
+      "datatype": "/tc7200u/mmio/vuint32_t",
+      "comments": ""
+    },
+    {
+      "address": "b4e01100",
+      "label": "HSSPI_OR_SPI_PROFILE_BASE_B4E01100_candidate",
+      "datatype": "/undefined",
+      "comments": ""
+    },
+    {
+      "address": "b4e01102",
+      "label": "HSSPI_OR_SPI_PROFILE_CLOCK_DIV_BASE_B4E01102_candidate",
+      "datatype": "/tc7200u/mmio/vuint16_t",
+      "comments": ""
+    },
+    {
+      "address": "b4e01104",
+      "label": "HSSPI_OR_SPI_PROFILE_CONFIG_WORD_BASE_B4E01104_candidate",
+      "datatype": "/tc7200u/mmio/vuint32_t",
+      "comments": ""
+    },
+    {
+      "address": "b4e01108",
+      "label": "HSSPI_OR_SPI_PROFILE_CTRL_BASE_B4E01108_candidate",
+      "datatype": "/tc7200u/mmio/vuint32_t",
+      "comments": ""
+    },
+    {
+      "address": "b4e01200",
+      "label": "HSSPI_OR_SPI_MESSAGE_RAM_B4E01200_candidate",
+      "datatype": "/byte[0]",
       "comments": ""
     },
     {
@@ -9352,96 +10006,12 @@
     },
     {
       "address": "b8a01800",
-      "label": "g_host_dqm_mpeg_proc_register_block_0xb8a01800_candidate",
+      "label": "HOST_DQM_MPEG_PROC_REG_BLOCK_B8A01800_candidate",
       "datatype": "/tc7200u/dqm_host_fap/host_dqm_register_block_1800_candidate",
       "comments": ""
     }
   ],
   "datatypes": [
-    {
-      "path": "/custom/natp_gfap_manager_ops_candidate",
-      "category": "/custom",
-      "name": "natp_gfap_manager_ops_candidate",
-      "kind": "StructureDB",
-      "length": 20,
-      "description": "",
-      "fields": [
-        {
-          "datatype": "/custom/natp_gfap_manager_ops_fn_candidate *",
-          "comments": "-> 8053c2e8",
-          "name": "destroy_00",
-          "length": 4,
-          "ordinal": 0,
-          "offset": "0x0"
-        },
-        {
-          "datatype": "/custom/natp_gfap_manager_ops_fn_candidate *",
-          "comments": "-> 8053c5c4",
-          "name": "destroy_and_free_04",
-          "length": 4,
-          "ordinal": 1,
-          "offset": "0x4"
-        },
-        {
-          "datatype": "/tc7200u/dqm_host_fap/natp_gfap_manager_runtime_init_fn_candidate *",
-          "comments": "-> 8053c904",
-          "name": "runtime_init_08",
-          "length": 4,
-          "ordinal": 2,
-          "offset": "0x8"
-        },
-        {
-          "datatype": "/tc7200u/dqm_host_fap/natp_gfap_manager_thread_main_fn *",
-          "comments": "",
-          "name": "thread_main_0c",
-          "length": 4,
-          "ordinal": 3,
-          "offset": "0xc"
-        },
-        {
-          "datatype": "/tc7200u/dqm_host_fap/natp_gfap_manager_timer_release_fn_candidate *",
-          "comments": "-> 80542020",
-          "name": "release_timer_objects_10",
-          "length": 4,
-          "ordinal": 4,
-          "offset": "0x10"
-        }
-      ]
-    },
-    {
-      "path": "/custom/natp_gfap_manager_ops_fn_candidate",
-      "category": "/custom",
-      "name": "natp_gfap_manager_ops_fn_candidate",
-      "kind": "FunctionDefinitionDB",
-      "length": -1,
-      "description": "Function Signature Data Type",
-      "return_type": "/void",
-      "arguments": [
-        {
-          "datatype": "/tc7200u/dqm_host_fap/natp_gfap_manager_candidate *",
-          "comments": "",
-          "name": "mgr"
-        }
-      ]
-    },
-    {
-      "path": "/custom/net_config_indexed_cache_entry_400_candidate",
-      "category": "/custom",
-      "name": "net_config_indexed_cache_entry_400_candidate",
-      "kind": "StructureDB",
-      "length": 1024,
-      "description": "",
-      "fields": [
-        {
-          "datatype": "/byte[1024]",
-          "comments": "",
-          "name": "raw_00",
-          "length": 1024,
-          "ordinal": 0,
-          "offset": "0x0"
-        }
-      ]
-    },
     {
       "path": "/tc7200u/common/bcm34xx_serial_access_lock_candidate",
       "category": "/tc7200u/common",
@@ -9519,6 +10089,17 @@
       ]
     },
     {
+      "path": "/tc7200u/common/bcm_irq_encoded_id_decode_entry_candidate[132]",
+      "category": "/tc7200u/common",
+      "name": "bcm_irq_encoded_id_decode_entry_candidate[132]",
+      "kind": "ArrayDB",
+      "length": 528,
+      "description": "Array of ",
+      "element_type": "/tc7200u/common/bcm_irq_encoded_id_decode_entry_candidate",
+      "element_count": 132,
+      "element_length": 4
+    },
+    {
       "path": "/tc7200u/common/bcm_periph_irq_handler_entry_candidate",
       "category": "/tc7200u/common",
       "name": "bcm_periph_irq_handler_entry_candidate",
@@ -9545,30 +10126,26 @@
       ]
     },
     {
-      "path": "/tc7200u/common/bcm_periph_irq_handler_entry_candidate.conflict",
+      "path": "/tc7200u/common/bcm_periph_irq_handler_entry_candidate[192]",
       "category": "/tc7200u/common",
-      "name": "bcm_periph_irq_handler_entry_candidate.conflict",
-      "kind": "StructureDB",
-      "length": 8,
-      "description": "",
-      "fields": [
-        {
-          "datatype": "/tc7200u/mmio/bcm_periph_irq_handler_fn_candidate *",
-          "comments": "",
-          "name": "handler_00",
-          "length": 4,
-          "ordinal": 0,
-          "offset": "0x0"
-        },
-        {
-          "datatype": "/stdint.h/uint32_t",
-          "comments": "",
-          "name": "handler_arg_04",
-          "length": 4,
-          "ordinal": 1,
-          "offset": "0x4"
-        }
-      ]
+      "name": "bcm_periph_irq_handler_entry_candidate[192]",
+      "kind": "ArrayDB",
+      "length": 1536,
+      "description": "Array of ",
+      "element_type": "/tc7200u/common/bcm_periph_irq_handler_entry_candidate",
+      "element_count": 192,
+      "element_length": 8
+    },
+    {
+      "path": "/tc7200u/common/bcm_periph_irq_handler_entry_candidate[32]",
+      "category": "/tc7200u/common",
+      "name": "bcm_periph_irq_handler_entry_candidate[32]",
+      "kind": "ArrayDB",
+      "length": 256,
+      "description": "Array of ",
+      "element_type": "/tc7200u/common/bcm_periph_irq_handler_entry_candidate",
+      "element_count": 32,
+      "element_length": 8
     },
     {
       "path": "/tc7200u/common/heap/stage1_heap_block_header_candidate",
@@ -9689,6 +10266,17 @@
       ]
     },
     {
+      "path": "/tc7200u/common/mta_interrupt_id_map_entry_candidate[9]",
+      "category": "/tc7200u/common",
+      "name": "mta_interrupt_id_map_entry_candidate[9]",
+      "kind": "ArrayDB",
+      "length": 72,
+      "description": "Array of ",
+      "element_type": "/tc7200u/common/mta_interrupt_id_map_entry_candidate",
+      "element_count": 9,
+      "element_length": 8
+    },
+    {
       "path": "/tc7200u/common/network/net_config_cache_entry_24_candidate",
       "category": "/tc7200u/common/network",
       "name": "net_config_cache_entry_24_candidate",
@@ -9737,6 +10325,46 @@
           "offset": "0xc"
         }
       ]
+    },
+    {
+      "path": "/tc7200u/common/network/net_config_cache_entry_24_candidate[6]",
+      "category": "/tc7200u/common/network",
+      "name": "net_config_cache_entry_24_candidate[6]",
+      "kind": "ArrayDB",
+      "length": 216,
+      "description": "Array of ",
+      "element_type": "/tc7200u/common/network/net_config_cache_entry_24_candidate",
+      "element_count": 6,
+      "element_length": 36
+    },
+    {
+      "path": "/tc7200u/common/network/net_config_indexed_cache_entry_400_candidate",
+      "category": "/tc7200u/common/network",
+      "name": "net_config_indexed_cache_entry_400_candidate",
+      "kind": "StructureDB",
+      "length": 1024,
+      "description": "",
+      "fields": [
+        {
+          "datatype": "/byte[1024]",
+          "comments": "",
+          "name": "raw_00",
+          "length": 1024,
+          "ordinal": 0,
+          "offset": "0x0"
+        }
+      ]
+    },
+    {
+      "path": "/tc7200u/common/network/net_config_indexed_cache_entry_400_candidate[32]",
+      "category": "/tc7200u/common/network",
+      "name": "net_config_indexed_cache_entry_400_candidate[32]",
+      "kind": "ArrayDB",
+      "length": 32768,
+      "description": "Array of ",
+      "element_type": "/tc7200u/common/network/net_config_indexed_cache_entry_400_candidate",
+      "element_count": 32,
+      "element_length": 1024
     },
     {
       "path": "/tc7200u/common/stage1_callback_pair_candidate",
@@ -9789,6 +10417,17 @@
           "offset": "0x4"
         }
       ]
+    },
+    {
+      "path": "/tc7200u/common/stage1_cleanup_callback_pair_candidate[8]",
+      "category": "/tc7200u/common",
+      "name": "stage1_cleanup_callback_pair_candidate[8]",
+      "kind": "ArrayDB",
+      "length": 64,
+      "description": "Array of ",
+      "element_type": "/tc7200u/common/stage1_cleanup_callback_pair_candidate",
+      "element_count": 8,
+      "element_length": 8
     },
     {
       "path": "/tc7200u/common/stage1_id_to_value_map_entry_candidate",
@@ -10307,6 +10946,28 @@
       ]
     },
     {
+      "path": "/tc7200u/dqm_host_fap/host_dqm_channel_obj_candidate *[2]",
+      "category": "/tc7200u/dqm_host_fap",
+      "name": "host_dqm_channel_obj_candidate *[2]",
+      "kind": "ArrayDB",
+      "length": 8,
+      "description": "Array of pointer to host_dqm_channel_obj_candidate",
+      "element_type": "/tc7200u/dqm_host_fap/host_dqm_channel_obj_candidate *",
+      "element_count": 2,
+      "element_length": 4
+    },
+    {
+      "path": "/tc7200u/dqm_host_fap/host_dqm_channel_obj_candidate *[8]",
+      "category": "/tc7200u/dqm_host_fap",
+      "name": "host_dqm_channel_obj_candidate *[8]",
+      "kind": "ArrayDB",
+      "length": 32,
+      "description": "Array of pointer to host_dqm_channel_obj_candidate",
+      "element_type": "/tc7200u/dqm_host_fap/host_dqm_channel_obj_candidate *",
+      "element_count": 8,
+      "element_length": 4
+    },
+    {
       "path": "/tc7200u/dqm_host_fap/host_dqm_command_record_5word_candidate",
       "category": "/tc7200u/dqm_host_fap",
       "name": "host_dqm_command_record_5word_candidate",
@@ -10617,7 +11278,7 @@
       "description": "",
       "fields": [
         {
-          "datatype": "/custom/natp_gfap_manager_ops_candidate *",
+          "datatype": "/tc7200u/dqm_host_fap/natp_gfap_manager_ops_candidate *",
           "comments": "",
           "name": "ops_table_00",
           "length": 4,
@@ -11203,6 +11864,72 @@
       ]
     },
     {
+      "path": "/tc7200u/dqm_host_fap/natp_gfap_manager_ops_candidate",
+      "category": "/tc7200u/dqm_host_fap",
+      "name": "natp_gfap_manager_ops_candidate",
+      "kind": "StructureDB",
+      "length": 20,
+      "description": "",
+      "fields": [
+        {
+          "datatype": "/tc7200u/dqm_host_fap/natp_gfap_manager_ops_fn_candidate *",
+          "comments": "-> 8053c2e8",
+          "name": "destroy_00",
+          "length": 4,
+          "ordinal": 0,
+          "offset": "0x0"
+        },
+        {
+          "datatype": "/tc7200u/dqm_host_fap/natp_gfap_manager_ops_fn_candidate *",
+          "comments": "-> 8053c5c4",
+          "name": "destroy_and_free_04",
+          "length": 4,
+          "ordinal": 1,
+          "offset": "0x4"
+        },
+        {
+          "datatype": "/tc7200u/dqm_host_fap/natp_gfap_manager_runtime_init_fn_candidate *",
+          "comments": "-> 8053c904",
+          "name": "runtime_init_08",
+          "length": 4,
+          "ordinal": 2,
+          "offset": "0x8"
+        },
+        {
+          "datatype": "/tc7200u/dqm_host_fap/natp_gfap_manager_thread_main_fn *",
+          "comments": "",
+          "name": "thread_main_0c",
+          "length": 4,
+          "ordinal": 3,
+          "offset": "0xc"
+        },
+        {
+          "datatype": "/tc7200u/dqm_host_fap/natp_gfap_manager_timer_release_fn_candidate *",
+          "comments": "-> 80542020",
+          "name": "release_timer_objects_10",
+          "length": 4,
+          "ordinal": 4,
+          "offset": "0x10"
+        }
+      ]
+    },
+    {
+      "path": "/tc7200u/dqm_host_fap/natp_gfap_manager_ops_fn_candidate",
+      "category": "/tc7200u/dqm_host_fap",
+      "name": "natp_gfap_manager_ops_fn_candidate",
+      "kind": "FunctionDefinitionDB",
+      "length": -1,
+      "description": "Function Signature Data Type",
+      "return_type": "/void",
+      "arguments": [
+        {
+          "datatype": "/tc7200u/dqm_host_fap/natp_gfap_manager_candidate *",
+          "comments": "",
+          "name": "mgr"
+        }
+      ]
+    },
+    {
       "path": "/tc7200u/dqm_host_fap/natp_gfap_manager_runtime_init_fn_candidate",
       "category": "/tc7200u/dqm_host_fap",
       "name": "natp_gfap_manager_runtime_init_fn_candidate",
@@ -11275,6 +12002,17 @@
           "offset": "0x1"
         }
       ]
+    },
+    {
+      "path": "/tc7200u/dqm_host_fap/natp_gfap_runtime_entry_44_candidate[64]",
+      "category": "/tc7200u/dqm_host_fap",
+      "name": "natp_gfap_runtime_entry_44_candidate[64]",
+      "kind": "ArrayDB",
+      "length": 4352,
+      "description": "Array of ",
+      "element_type": "/tc7200u/dqm_host_fap/natp_gfap_runtime_entry_44_candidate",
+      "element_count": 64,
+      "element_length": 68
     },
     {
       "path": "/tc7200u/dqm_host_fap/natp_gfap_u32_vector_candidate",
@@ -11533,6 +12271,330 @@
       ]
     },
     {
+      "path": "/tc7200u/fpm_dma/dma_fpm_packet_submit_descriptor_candidate",
+      "category": "/tc7200u/fpm_dma",
+      "name": "dma_fpm_packet_submit_descriptor_candidate",
+      "kind": "StructureDB",
+      "length": 80,
+      "description": "",
+      "fields": [
+        {
+          "datatype": "/byte[16]",
+          "comments": "",
+          "name": "raw_00",
+          "length": 16,
+          "ordinal": 0,
+          "offset": "0x0"
+        },
+        {
+          "datatype": "/stdint.h/uint16_t",
+          "comments": "",
+          "name": "port_or_profile_10",
+          "length": 2,
+          "ordinal": 1,
+          "offset": "0x10"
+        },
+        {
+          "datatype": "/byte[14]",
+          "comments": "",
+          "name": "raw_12",
+          "length": 14,
+          "ordinal": 2,
+          "offset": "0x12"
+        },
+        {
+          "datatype": "/void *",
+          "comments": "",
+          "name": "buffer_addr_20",
+          "length": 4,
+          "ordinal": 3,
+          "offset": "0x20"
+        },
+        {
+          "datatype": "/stdint.h/uint32_t",
+          "comments": "",
+          "name": "packet_len_24",
+          "length": 4,
+          "ordinal": 4,
+          "offset": "0x24"
+        },
+        {
+          "datatype": "/byte[24]",
+          "comments": "",
+          "name": "raw_28",
+          "length": 24,
+          "ordinal": 5,
+          "offset": "0x28"
+        },
+        {
+          "datatype": "/stdint.h/uint16_t",
+          "comments": "",
+          "name": "flags_40",
+          "length": 2,
+          "ordinal": 6,
+          "offset": "0x40"
+        },
+        {
+          "datatype": "/byte[10]",
+          "comments": "",
+          "name": "raw_42",
+          "length": 10,
+          "ordinal": 7,
+          "offset": "0x42"
+        },
+        {
+          "datatype": "/stdint.h/uint32_t",
+          "comments": "",
+          "name": "field_4c_zeroed",
+          "length": 4,
+          "ordinal": 8,
+          "offset": "0x4c"
+        }
+      ]
+    },
+    {
+      "path": "/tc7200u/fpm_dma/enet_gmac_init_state_b8_candidate",
+      "category": "/tc7200u/fpm_dma",
+      "name": "enet_gmac_init_state_b8_candidate",
+      "kind": "StructureDB",
+      "length": 184,
+      "description": "",
+      "fields": [
+        {
+          "datatype": "/byte[28]",
+          "comments": "",
+          "name": "raw_00",
+          "length": 28,
+          "ordinal": 0,
+          "offset": "0x0"
+        },
+        {
+          "datatype": "/stdint.h/uint32_t",
+          "comments": "",
+          "name": "packet_len_or_error_counter_1c_candidate",
+          "length": 4,
+          "ordinal": 1,
+          "offset": "0x1c"
+        },
+        {
+          "datatype": "/byte[28]",
+          "comments": "",
+          "name": "raw_20",
+          "length": 28,
+          "ordinal": 2,
+          "offset": "0x20"
+        },
+        {
+          "datatype": "/stdint.h/uint8_t",
+          "comments": "",
+          "name": "link_or_port_state_3c_candidate",
+          "length": 1,
+          "ordinal": 3,
+          "offset": "0x3c"
+        },
+        {
+          "datatype": "/byte[123]",
+          "comments": "",
+          "name": "raw_3d",
+          "length": 123,
+          "ordinal": 4,
+          "offset": "0x3d"
+        }
+      ]
+    },
+    {
+      "path": "/tc7200u/fpm_dma/enet_port_link_control_callback_fn_candidate",
+      "category": "/tc7200u/fpm_dma",
+      "name": "enet_port_link_control_callback_fn_candidate",
+      "kind": "FunctionDefinitionDB",
+      "length": -1,
+      "description": "Function Signature Data Type",
+      "return_type": "/types.h/int32_t",
+      "arguments": [
+        {
+          "datatype": "/stdint.h/uint32_t",
+          "comments": "",
+          "name": "request_code"
+        },
+        {
+          "datatype": "/stdint.h/uint32_t",
+          "comments": "",
+          "name": "unused_arg1_candidate"
+        },
+        {
+          "datatype": "/void *",
+          "comments": "",
+          "name": "request_buf"
+        },
+        {
+          "datatype": "/types.h/int32_t",
+          "comments": "",
+          "name": "request_arg_or_len"
+        }
+      ]
+    },
+    {
+      "path": "/tc7200u/fpm_dma/enet_port_status_context_38_candidate",
+      "category": "/tc7200u/fpm_dma",
+      "name": "enet_port_status_context_38_candidate",
+      "kind": "StructureDB",
+      "length": 56,
+      "description": "",
+      "fields": [
+        {
+          "datatype": "/stdint.h/uint16_t",
+          "comments": "",
+          "name": "field_00",
+          "length": 2,
+          "ordinal": 0,
+          "offset": "0x0"
+        },
+        {
+          "datatype": "/stdint.h/uint16_t",
+          "comments": "",
+          "name": "field_02",
+          "length": 2,
+          "ordinal": 1,
+          "offset": "0x2"
+        },
+        {
+          "datatype": "/void *",
+          "comments": "-> {@symbol fn_enet_gmac_init_main_803ad874_candidate}",
+          "name": "init_main_04",
+          "length": 4,
+          "ordinal": 2,
+          "offset": "0x4"
+        },
+        {
+          "datatype": "/stdint.h/uint32_t",
+          "comments": "",
+          "name": "field_08_uninit_candidate",
+          "length": 4,
+          "ordinal": 3,
+          "offset": "0x8"
+        },
+        {
+          "datatype": "/stdint.h/uint32_t",
+          "comments": "",
+          "name": "field_0c_zero",
+          "length": 4,
+          "ordinal": 4,
+          "offset": "0xc"
+        },
+        {
+          "datatype": "/stdint.h/uint32_t",
+          "comments": "",
+          "name": "field_10_uninit_candidate",
+          "length": 4,
+          "ordinal": 5,
+          "offset": "0x10"
+        },
+        {
+          "datatype": "/stdint.h/uint32_t",
+          "comments": "",
+          "name": "field_14_uninit_candidate",
+          "length": 4,
+          "ordinal": 6,
+          "offset": "0x14"
+        },
+        {
+          "datatype": "/tc7200u/fpm_dma/enet_port_link_control_callback_fn_candidate *",
+          "comments": "-> {@symbol fn_enet_gmac_phy_link_control_callback_803ac42c_candidate}",
+          "name": "link_control_callback_18",
+          "length": 4,
+          "ordinal": 7,
+          "offset": "0x18"
+        },
+        {
+          "datatype": "/tc7200u/fpm_dma/enet_port_status_query_callback_fn_candidate *",
+          "comments": "-> {@symbol fn_enet_gmac_port_status_query_callback_803ac7ac_candidate}",
+          "name": "status_query_callback_1c",
+          "length": 4,
+          "ordinal": 8,
+          "offset": "0x1c"
+        },
+        {
+          "datatype": "/void *",
+          "comments": "-> {@symbol FUN_803aedd4}",
+          "name": "callback_20_candidate",
+          "length": 4,
+          "ordinal": 9,
+          "offset": "0x20"
+        },
+        {
+          "datatype": "/void *",
+          "comments": "-> {@symbol FUN_803aeeb0}4",
+          "name": "callback_24_candidate",
+          "length": 4,
+          "ordinal": 10,
+          "offset": "0x24"
+        },
+        {
+          "datatype": "/stdint.h/uint32_t",
+          "comments": "",
+          "name": "field_28_zero",
+          "length": 4,
+          "ordinal": 11,
+          "offset": "0x28"
+        },
+        {
+          "datatype": "/void *",
+          "comments": "-> {@symbol fn_dma_fpm_packet_free_callback_8002a4ac_candidate}",
+          "name": "packet_free_callback_2c",
+          "length": 4,
+          "ordinal": 12,
+          "offset": "0x2c"
+        },
+        {
+          "datatype": "/stdint.h/uint32_t",
+          "comments": "",
+          "name": "field_30_zero",
+          "length": 4,
+          "ordinal": 13,
+          "offset": "0x30"
+        },
+        {
+          "datatype": "/void *",
+          "comments": "-> {@symbol FUN_80032f28}",
+          "name": "callback_34_candidate",
+          "length": 4,
+          "ordinal": 14,
+          "offset": "0x34"
+        }
+      ]
+    },
+    {
+      "path": "/tc7200u/fpm_dma/enet_port_status_query_callback_fn_candidate",
+      "category": "/tc7200u/fpm_dma",
+      "name": "enet_port_status_query_callback_fn_candidate",
+      "kind": "FunctionDefinitionDB",
+      "length": -1,
+      "description": "Function Signature Data Type",
+      "return_type": "/types.h/int32_t",
+      "arguments": [
+        {
+          "datatype": "/stdint.h/uint32_t",
+          "comments": "",
+          "name": "request_code"
+        },
+        {
+          "datatype": "/stdint.h/uint32_t",
+          "comments": "",
+          "name": "port_id"
+        },
+        {
+          "datatype": "/void *",
+          "comments": "",
+          "name": "out_buf"
+        },
+        {
+          "datatype": "/stdint.h/uint32_t *",
+          "comments": "",
+          "name": "out_len"
+        }
+      ]
+    },
+    {
       "path": "/tc7200u/fpm_dma/fn_dma_fpm_packet_alloc_get_or_init_8002a4f8_candidate",
       "category": "/tc7200u/fpm_dma",
       "name": "fn_dma_fpm_packet_alloc_get_or_init_8002a4f8_candidate",
@@ -11541,6 +12603,274 @@
       "description": "Function Signature Data Type",
       "return_type": "/void *",
       "arguments": []
+    },
+    {
+      "path": "/tc7200u/fpm_dma/packet_port_status_callback_fn_candidate",
+      "category": "/tc7200u/fpm_dma",
+      "name": "packet_port_status_callback_fn_candidate",
+      "kind": "FunctionDefinitionDB",
+      "length": -1,
+      "description": "Function Signature Data Type",
+      "return_type": "/stdint.h/uint32_t",
+      "arguments": [
+        {
+          "datatype": "/void *",
+          "comments": "",
+          "name": "stack_context"
+        },
+        {
+          "datatype": "/void *",
+          "comments": "",
+          "name": "callback_arg"
+        }
+      ]
+    },
+    {
+      "path": "/tc7200u/fpm_dma/packet_port_submit_callback_fn_candidate",
+      "category": "/tc7200u/fpm_dma",
+      "name": "packet_port_submit_callback_fn_candidate",
+      "kind": "FunctionDefinitionDB",
+      "length": -1,
+      "description": "Function Signature Data Type",
+      "return_type": "/void",
+      "arguments": [
+        {
+          "datatype": "/tc7200u/fpm_dma/dma_fpm_packet_submit_descriptor_candidate *",
+          "comments": "",
+          "name": "submit_desc"
+        },
+        {
+          "datatype": "/void *",
+          "comments": "",
+          "name": "callback_arg"
+        }
+      ]
+    },
+    {
+      "path": "/tc7200u/fpm_dma/packet_port_submit_record_34_candidate",
+      "category": "/tc7200u/fpm_dma",
+      "name": "packet_port_submit_record_34_candidate",
+      "kind": "StructureDB",
+      "length": 52,
+      "description": "",
+      "fields": [
+        {
+          "datatype": "/stdint.h/uint16_t",
+          "comments": "",
+          "name": "field_00_candidate",
+          "length": 2,
+          "ordinal": 0,
+          "offset": "0x0"
+        },
+        {
+          "datatype": "/stdint.h/uint16_t",
+          "comments": "",
+          "name": "field_02_candidate",
+          "length": 2,
+          "ordinal": 1,
+          "offset": "0x2"
+        },
+        {
+          "datatype": "/stdint.h/uint32_t",
+          "comments": "",
+          "name": "port_id_04",
+          "length": 4,
+          "ordinal": 2,
+          "offset": "0x4"
+        },
+        {
+          "datatype": "/tc7200u/fpm_dma/packet_port_status_callback_fn_candidate *",
+          "comments": "",
+          "name": "status_callback_08",
+          "length": 4,
+          "ordinal": 3,
+          "offset": "0x8"
+        },
+        {
+          "datatype": "/stdint.h/uint32_t",
+          "comments": "",
+          "name": "field_0c_candidate",
+          "length": 4,
+          "ordinal": 4,
+          "offset": "0xc"
+        },
+        {
+          "datatype": "/tc7200u/fpm_dma/packet_port_submit_callback_fn_candidate *",
+          "comments": "",
+          "name": "submit_callback_10",
+          "length": 4,
+          "ordinal": 5,
+          "offset": "0x10"
+        },
+        {
+          "datatype": "/byte[20]",
+          "comments": "",
+          "name": "raw_14",
+          "length": 20,
+          "ordinal": 6,
+          "offset": "0x14"
+        },
+        {
+          "datatype": "/stdint.h/uint32_t *",
+          "comments": "",
+          "name": "core_cmd_args_ptr_28_candidate",
+          "length": 4,
+          "ordinal": 7,
+          "offset": "0x28"
+        },
+        {
+          "datatype": "/void *",
+          "comments": "",
+          "name": "callback_arg_2c",
+          "length": 4,
+          "ordinal": 8,
+          "offset": "0x2c"
+        },
+        {
+          "datatype": "/stdint.h/uint32_t",
+          "comments": "",
+          "name": "field_30_candidate",
+          "length": 4,
+          "ordinal": 9,
+          "offset": "0x30"
+        }
+      ]
+    },
+    {
+      "path": "/tc7200u/fpm_dma/packet_port_submit_table_entry_44_candidate",
+      "category": "/tc7200u/fpm_dma",
+      "name": "packet_port_submit_table_entry_44_candidate",
+      "kind": "StructureDB",
+      "length": 68,
+      "description": "",
+      "fields": [
+        {
+          "datatype": "/stdint.h/uint16_t",
+          "comments": "",
+          "name": "field_00_candidate",
+          "length": 2,
+          "ordinal": 0,
+          "offset": "0x0"
+        },
+        {
+          "datatype": "/stdint.h/uint16_t",
+          "comments": "",
+          "name": "field_02_candidate",
+          "length": 2,
+          "ordinal": 1,
+          "offset": "0x2"
+        },
+        {
+          "datatype": "/stdint.h/uint32_t",
+          "comments": "",
+          "name": "port_id_04",
+          "length": 4,
+          "ordinal": 2,
+          "offset": "0x4"
+        },
+        {
+          "datatype": "/tc7200u/fpm_dma/packet_port_status_callback_fn_candidate *",
+          "comments": "",
+          "name": "status_callback_08",
+          "length": 4,
+          "ordinal": 3,
+          "offset": "0x8"
+        },
+        {
+          "datatype": "/stdint.h/uint32_t",
+          "comments": "",
+          "name": "field_0c_candidate",
+          "length": 4,
+          "ordinal": 4,
+          "offset": "0xc"
+        },
+        {
+          "datatype": "/tc7200u/fpm_dma/packet_port_submit_callback_fn_candidate *",
+          "comments": "",
+          "name": "submit_callback_10",
+          "length": 4,
+          "ordinal": 5,
+          "offset": "0x10"
+        },
+        {
+          "datatype": "/byte[20]",
+          "comments": "",
+          "name": "raw_14",
+          "length": 20,
+          "ordinal": 6,
+          "offset": "0x14"
+        },
+        {
+          "datatype": "/void *",
+          "comments": "",
+          "name": "core_cmd_args_ptr_28_candidate",
+          "length": 4,
+          "ordinal": 7,
+          "offset": "0x28"
+        },
+        {
+          "datatype": "/void *",
+          "comments": "",
+          "name": "callback_arg_2c",
+          "length": 4,
+          "ordinal": 8,
+          "offset": "0x2c"
+        },
+        {
+          "datatype": "/stdint.h/uint32_t",
+          "comments": "",
+          "name": "field_30_candidate",
+          "length": 4,
+          "ordinal": 9,
+          "offset": "0x30"
+        },
+        {
+          "datatype": "/stdint.h/uint16_t",
+          "comments": "Upper/copy halfword of the 32-bit registered port id written by {@symbol fn_packet_port_submit_table_register_and_status_dispatch_803ac1a4_candidate}. The full write spans +0x34..+0x37. The low halfword at +0x36 is separately used as descriptor_port_value_36 by {@symbol fn_dma_fpm_packet_token_prepare_and_submit_8002b410_candidate}.",
+          "name": "registered_port_id_hi_or_copy_34_candidate",
+          "length": 2,
+          "ordinal": 10,
+          "offset": "0x34"
+        },
+        {
+          "datatype": "/stdint.h/uint16_t",
+          "comments": "Low 16 bits of the registered port id. Later used as descriptor_port_value_36 by {@symbol fn_dma_fpm_packet_token_prepare_and_submit_8002b410_candidate}.",
+          "name": "descriptor_port_value_36",
+          "length": 2,
+          "ordinal": 11,
+          "offset": "0x36"
+        },
+        {
+          "datatype": "/byte[12]",
+          "comments": "",
+          "name": "raw_38",
+          "length": 12,
+          "ordinal": 12,
+          "offset": "0x38"
+        }
+      ]
+    },
+    {
+      "path": "/tc7200u/fpm_dma/packet_port_submit_table_entry_44_candidate[16]",
+      "category": "/tc7200u/fpm_dma",
+      "name": "packet_port_submit_table_entry_44_candidate[16]",
+      "kind": "ArrayDB",
+      "length": 1088,
+      "description": "Array of ",
+      "element_type": "/tc7200u/fpm_dma/packet_port_submit_table_entry_44_candidate",
+      "element_count": 16,
+      "element_length": 68
+    },
+    {
+      "path": "/tc7200u/fpm_dma/packet_port_submit_table_entry_44_candidate[5]",
+      "category": "/tc7200u/fpm_dma",
+      "name": "packet_port_submit_table_entry_44_candidate[5]",
+      "kind": "ArrayDB",
+      "length": 340,
+      "description": "Array of ",
+      "element_type": "/tc7200u/fpm_dma/packet_port_submit_table_entry_44_candidate",
+      "element_count": 5,
+      "element_length": 68
     },
     {
       "path": "/tc7200u/fpm_dma/tc7200_fpm_allocator",
@@ -11942,22 +13272,6 @@
       "path": "/tc7200u/mmio/bcm_periph_irq_handler_fn_candidate",
       "category": "/tc7200u/mmio",
       "name": "bcm_periph_irq_handler_fn_candidate",
-      "kind": "FunctionDefinitionDB",
-      "length": -1,
-      "description": "Function Signature Data Type",
-      "return_type": "/void",
-      "arguments": [
-        {
-          "datatype": "/stdint.h/uint32_t",
-          "comments": "",
-          "name": "handler_arg"
-        }
-      ]
-    },
-    {
-      "path": "/tc7200u/mmio/bcm_periph_irq_handler_fn_candidate.conflict",
-      "category": "/tc7200u/mmio",
-      "name": "bcm_periph_irq_handler_fn_candidate.conflict",
       "kind": "FunctionDefinitionDB",
       "length": -1,
       "description": "Function Signature Data Type",
@@ -12441,37 +13755,6 @@
       "description": "Function Signature Data Type",
       "return_type": "/undefined4",
       "arguments": []
-    },
-    {
-      "path": "/tc7200u/mmio/enet_extphy_spi_transfer_fn_candidate",
-      "category": "/tc7200u/mmio",
-      "name": "enet_extphy_spi_transfer_fn_candidate",
-      "kind": "FunctionDefinitionDB",
-      "length": -1,
-      "description": "Function Signature Data Type",
-      "return_type": "/uint",
-      "arguments": [
-        {
-          "datatype": "/uint",
-          "comments": "",
-          "name": "bus_or_channel"
-        },
-        {
-          "datatype": "/uint",
-          "comments": "",
-          "name": "command_class"
-        },
-        {
-          "datatype": "/void *",
-          "comments": "",
-          "name": "transfer_buf"
-        },
-        {
-          "datatype": "/uint",
-          "comments": "",
-          "name": "transfer_len"
-        }
-      ]
     },
     {
       "path": "/tc7200u/mmio/fn_chiphal_pinmux_entry_get_8019a138_candidate",
@@ -13061,6 +14344,270 @@
       ]
     },
     {
+      "path": "/tc7200u/stage1/flash/stage1_flash_block_map_entry_10_candidate",
+      "category": "/tc7200u/stage1/flash",
+      "name": "stage1_flash_block_map_entry_10_candidate",
+      "kind": "StructureDB",
+      "length": 16,
+      "description": "",
+      "fields": [
+        {
+          "datatype": "/stdint.h/uint32_t",
+          "comments": "",
+          "name": "block_index_00",
+          "length": 4,
+          "ordinal": 0,
+          "offset": "0x0"
+        },
+        {
+          "datatype": "/stdint.h/uint32_t",
+          "comments": "",
+          "name": "block_size_04",
+          "length": 4,
+          "ordinal": 1,
+          "offset": "0x4"
+        },
+        {
+          "datatype": "/stdint.h/uint32_t",
+          "comments": "",
+          "name": "block_offset_08",
+          "length": 4,
+          "ordinal": 2,
+          "offset": "0x8"
+        },
+        {
+          "datatype": "/void *",
+          "comments": "",
+          "name": "flash_device_0c",
+          "length": 4,
+          "ordinal": 3,
+          "offset": "0xc"
+        }
+      ]
+    },
+    {
+      "path": "/tc7200u/stage1/flash/stage1_flash_device_base_vtable_candidate",
+      "category": "/tc7200u/stage1/flash",
+      "name": "stage1_flash_device_base_vtable_candidate",
+      "kind": "StructureDB",
+      "length": 8,
+      "description": "",
+      "fields": [
+        {
+          "datatype": "/tc7200u/stage1/flash/stage1_flash_device_destroy_fn_candidate *",
+          "comments": "Points to {@symbol fn_flash_device_base_vtable_destroy_803e2420_candidate}. Destroys flash-device base state without freeing the object itself.",
+          "name": "destroy_00",
+          "length": 4,
+          "ordinal": 0,
+          "offset": "0x0"
+        },
+        {
+          "datatype": "/tc7200u/stage1/flash/stage1_flash_device_destroy_fn_candidate *",
+          "comments": "Points to {@symbol fn_flash_device_base_vtable_destroy_and_free_803e24b0_candidate}. Destroys flash-device base state and then frees the object itself.",
+          "name": "destroy_and_free_04",
+          "length": 4,
+          "ordinal": 1,
+          "offset": "0x4"
+        }
+      ]
+    },
+    {
+      "path": "/tc7200u/stage1/flash/stage1_flash_device_destroy_fn_candidate",
+      "category": "/tc7200u/stage1/flash",
+      "name": "stage1_flash_device_destroy_fn_candidate",
+      "kind": "FunctionDefinitionDB",
+      "length": -1,
+      "description": "Function Signature Data Type",
+      "return_type": "/void",
+      "arguments": [
+        {
+          "datatype": "/tc7200u/stage1/flash/stage1_flash_device_object_68_candidate *",
+          "comments": "",
+          "name": "flash_obj"
+        }
+      ]
+    },
+    {
+      "path": "/tc7200u/stage1/flash/stage1_flash_device_object_68_candidate",
+      "category": "/tc7200u/stage1/flash",
+      "name": "stage1_flash_device_object_68_candidate",
+      "kind": "StructureDB",
+      "length": 104,
+      "description": "",
+      "fields": [
+        {
+          "datatype": "/tc7200u/stage1/flash/stage1_flash_device_base_vtable_candidate *",
+          "comments": "",
+          "name": "vtable_00",
+          "length": 4,
+          "ordinal": 0,
+          "offset": "0x0"
+        },
+        {
+          "datatype": "/undefined[52]",
+          "comments": "",
+          "name": "object_or_config_04",
+          "length": 52,
+          "ordinal": 1,
+          "offset": "0x4"
+        },
+        {
+          "datatype": "/tc7200u/stage1/flash/stage1_flash_block_map_entry_10_candidate *",
+          "comments": "",
+          "name": "block_map_entries_38",
+          "length": 4,
+          "ordinal": 2,
+          "offset": "0x38"
+        },
+        {
+          "datatype": "/stdint.h/uint32_t",
+          "comments": "",
+          "name": "block_map_entry_count_3c",
+          "length": 4,
+          "ordinal": 3,
+          "offset": "0x3c"
+        },
+        {
+          "datatype": "/undefined[16]",
+          "comments": "",
+          "name": "field_40",
+          "length": 16,
+          "ordinal": 4,
+          "offset": "0x40"
+        },
+        {
+          "datatype": "/stdint.h/uint32_t",
+          "comments": "",
+          "name": "field_50_zeroed_on_destroy",
+          "length": 4,
+          "ordinal": 5,
+          "offset": "0x50"
+        },
+        {
+          "datatype": "/undefined[20]",
+          "comments": "",
+          "name": "field_54",
+          "length": 20,
+          "ordinal": 6,
+          "offset": "0x54"
+        }
+      ]
+    },
+    {
+      "path": "/tc7200u/stage1/flash/stage1_flash_runtime_state_candidate",
+      "category": "/tc7200u/stage1/flash",
+      "name": "stage1_flash_runtime_state_candidate",
+      "kind": "StructureDB",
+      "length": 80,
+      "description": "",
+      "fields": [
+        {
+          "datatype": "/stdint.h/uint8_t",
+          "comments": "",
+          "name": "init_done_00",
+          "length": 1,
+          "ordinal": 0,
+          "offset": "0x0"
+        },
+        {
+          "datatype": "/undefined[3]",
+          "comments": "",
+          "name": "field_01",
+          "length": 3,
+          "ordinal": 1,
+          "offset": "0x1"
+        },
+        {
+          "datatype": "/void *",
+          "comments": "",
+          "name": "flash_device0_04",
+          "length": 4,
+          "ordinal": 2,
+          "offset": "0x4"
+        },
+        {
+          "datatype": "/void *",
+          "comments": "",
+          "name": "flash_device1_08",
+          "length": 4,
+          "ordinal": 3,
+          "offset": "0x8"
+        },
+        {
+          "datatype": "/void *",
+          "comments": "",
+          "name": "primary_or_active_device_0c",
+          "length": 4,
+          "ordinal": 4,
+          "offset": "0xc"
+        },
+        {
+          "datatype": "/undefined[16]",
+          "comments": "",
+          "name": "field_10",
+          "length": 16,
+          "ordinal": 5,
+          "offset": "0x10"
+        },
+        {
+          "datatype": "/void *",
+          "comments": "",
+          "name": "mutex_sem_20",
+          "length": 4,
+          "ordinal": 6,
+          "offset": "0x20"
+        },
+        {
+          "datatype": "/undefined[32]",
+          "comments": "",
+          "name": "field_24",
+          "length": 32,
+          "ordinal": 7,
+          "offset": "0x24"
+        },
+        {
+          "datatype": "/stdint.h/uint32_t",
+          "comments": "",
+          "name": "clamped_runtime_limit_44",
+          "length": 4,
+          "ordinal": 8,
+          "offset": "0x44"
+        },
+        {
+          "datatype": "/undefined[4]",
+          "comments": "",
+          "name": "field_48",
+          "length": 4,
+          "ordinal": 9,
+          "offset": "0x48"
+        },
+        {
+          "datatype": "/stdint.h/uint8_t",
+          "comments": "",
+          "name": "spi_device0_detected_4c",
+          "length": 1,
+          "ordinal": 10,
+          "offset": "0x4c"
+        },
+        {
+          "datatype": "/stdint.h/uint8_t",
+          "comments": "",
+          "name": "nand_detected_4d",
+          "length": 1,
+          "ordinal": 11,
+          "offset": "0x4d"
+        },
+        {
+          "datatype": "/undefined[2]",
+          "comments": "",
+          "name": "field_4e",
+          "length": 2,
+          "ordinal": 12,
+          "offset": "0x4e"
+        }
+      ]
+    },
+    {
       "path": "/tc7200u/stage1/lifecycle/stage1_shutdown_cleanup_cb",
       "category": "/tc7200u/stage1/lifecycle",
       "name": "stage1_shutdown_cleanup_cb",
@@ -13069,6 +14616,92 @@
       "description": "Function Signature Data Type",
       "return_type": "/void",
       "arguments": []
+    },
+    {
+      "path": "/tc7200u/stage1/netif/enet_extphy_hsspi_set_profile_clock_fn",
+      "category": "/tc7200u/stage1/netif",
+      "name": "enet_extphy_hsspi_set_profile_clock_fn",
+      "kind": "FunctionDefinitionDB",
+      "length": -1,
+      "description": "Function Signature Data Type",
+      "return_type": "/stdint.h/uint32_t",
+      "arguments": [
+        {
+          "datatype": "/stdint.h/uint32_t",
+          "comments": "",
+          "name": "profile_index"
+        },
+        {
+          "datatype": "/stdint.h/uint32_t",
+          "comments": "",
+          "name": "clock_index"
+        }
+      ]
+    },
+    {
+      "path": "/tc7200u/stage1/netif/enet_extphy_spi_driver_table_candidate",
+      "category": "/tc7200u/stage1/netif",
+      "name": "enet_extphy_spi_driver_table_candidate",
+      "kind": "StructureDB",
+      "length": 12,
+      "description": "",
+      "fields": [
+        {
+          "datatype": "/tc7200u/stage1/netif/enet_extphy_hsspi_set_profile_clock_fn *",
+          "comments": "HSSPI profile clock/config callback. Installed target: {@symbol fn_enet_extphy_hsspi_set_profile_clock_8040a734}.",
+          "name": "set_profile_clock_fn_00",
+          "length": 4,
+          "ordinal": 0,
+          "offset": "0x0"
+        },
+        {
+          "datatype": "/tc7200u/stage1/netif/enet_extphy_spi_transfer_fn_candidate *",
+          "comments": "External PHY/SPI transfer callback slot. Installed target: {@symbol fn_enet_extphy_spi_transfer_dispatch_locked_8040adb8_candidate}. ",
+          "name": "transfer_fn_04",
+          "length": 4,
+          "ordinal": 1,
+          "offset": "0x4"
+        },
+        {
+          "datatype": "/void *",
+          "comments": "Driver table callback returning constant 1. Installed target: {@symbol fn_enet_extphy_spi_return1_callback_8040aee0_candidate}.",
+          "name": "return1_callback_08",
+          "length": 4,
+          "ordinal": 2,
+          "offset": "0x8"
+        }
+      ]
+    },
+    {
+      "path": "/tc7200u/stage1/netif/enet_extphy_spi_transfer_fn_candidate",
+      "category": "/tc7200u/stage1/netif",
+      "name": "enet_extphy_spi_transfer_fn_candidate",
+      "kind": "FunctionDefinitionDB",
+      "length": -1,
+      "description": "Function Signature Data Type",
+      "return_type": "/stdint.h/uint32_t",
+      "arguments": [
+        {
+          "datatype": "/stdint.h/uint32_t",
+          "comments": "",
+          "name": "transfer_mode"
+        },
+        {
+          "datatype": "/stdint.h/uint32_t",
+          "comments": "",
+          "name": "profile_index"
+        },
+        {
+          "datatype": "/void *",
+          "comments": "",
+          "name": "tx_buf"
+        },
+        {
+          "datatype": "/stdint.h/uint32_t",
+          "comments": "",
+          "name": "tx_len"
+        }
+      ]
     },
     {
       "path": "/tc7200u/stage1/netif/fn_stage1_netif_aux_resolve_by_key_and_netif_80eac374_candidate",
@@ -13124,6 +14757,17 @@
           "offset": "0xa"
         }
       ]
+    },
+    {
+      "path": "/tc7200u/stage1/netif/stage1_default_gateway_mac_entry_candidate[8]",
+      "category": "/tc7200u/stage1/netif",
+      "name": "stage1_default_gateway_mac_entry_candidate[8]",
+      "kind": "ArrayDB",
+      "length": 96,
+      "description": "Array of ",
+      "element_type": "/tc7200u/stage1/netif/stage1_default_gateway_mac_entry_candidate",
+      "element_count": 8,
+      "element_length": 12
     },
     {
       "path": "/tc7200u/stage1/netif/stage1_netif_aux_context_stats_81a60b98_candidate",
@@ -13345,6 +14989,17 @@
           "offset": "0x30"
         }
       ]
+    },
+    {
+      "path": "/tc7200u/stage1/netif/stage1_netif_aux_keyclass_ops_candidate *[33]",
+      "category": "/tc7200u/stage1/netif",
+      "name": "stage1_netif_aux_keyclass_ops_candidate *[33]",
+      "kind": "ArrayDB",
+      "length": 132,
+      "description": "Array of pointer to stage1_netif_aux_keyclass_ops_candidate",
+      "element_type": "/tc7200u/stage1/netif/stage1_netif_aux_keyclass_ops_candidate *",
+      "element_count": 33,
+      "element_length": 4
     },
     {
       "path": "/tc7200u/stage1/netif/stage1_netif_aux_object_candidate",
@@ -13657,6 +15312,17 @@
       ]
     },
     {
+      "path": "/tc7200u/stage1/netif/stage1_netif_object_candidate *[8]",
+      "category": "/tc7200u/stage1/netif",
+      "name": "stage1_netif_object_candidate *[8]",
+      "kind": "ArrayDB",
+      "length": 32,
+      "description": "Array of pointer to stage1_netif_object_candidate",
+      "element_type": "/tc7200u/stage1/netif/stage1_netif_object_candidate *",
+      "element_count": 8,
+      "element_length": 4
+    },
+    {
       "path": "/tc7200u/stage1/post/stage1_post_message_candidate",
       "category": "/tc7200u/stage1/post",
       "name": "stage1_post_message_candidate",
@@ -13830,6 +15496,17 @@
           "offset": "0x4"
         }
       ]
+    },
+    {
+      "path": "/tc7200u/stage1/scheduler/stage1_readyq_node_candidate *[32]",
+      "category": "/tc7200u/stage1/scheduler",
+      "name": "stage1_readyq_node_candidate *[32]",
+      "kind": "ArrayDB",
+      "length": 128,
+      "description": "Array of pointer to stage1_readyq_node_candidate",
+      "element_type": "/tc7200u/stage1/scheduler/stage1_readyq_node_candidate *",
+      "element_count": 32,
+      "element_length": 4
     },
     {
       "path": "/tc7200u/stage1/scheduler/stage1_readyq_table_candidate",
@@ -14141,6 +15818,17 @@
       ]
     },
     {
+      "path": "/tc7200u/stage1/signal/stage1_related_object_pool_a_entry_candidate[1]",
+      "category": "/tc7200u/stage1/signal",
+      "name": "stage1_related_object_pool_a_entry_candidate[1]",
+      "kind": "ArrayDB",
+      "length": 64,
+      "description": "Array of ",
+      "element_type": "/tc7200u/stage1/signal/stage1_related_object_pool_a_entry_candidate",
+      "element_count": 1,
+      "element_length": 64
+    },
+    {
       "path": "/tc7200u/stage1/signal/stage1_related_object_pool_b_entry_candidate",
       "category": "/tc7200u/stage1/signal",
       "name": "stage1_related_object_pool_b_entry_candidate",
@@ -14173,6 +15861,17 @@
           "offset": "0x18"
         }
       ]
+    },
+    {
+      "path": "/tc7200u/stage1/signal/stage1_related_object_pool_b_entry_candidate[1]",
+      "category": "/tc7200u/stage1/signal",
+      "name": "stage1_related_object_pool_b_entry_candidate[1]",
+      "kind": "ArrayDB",
+      "length": 32,
+      "description": "Array of ",
+      "element_type": "/tc7200u/stage1/signal/stage1_related_object_pool_b_entry_candidate",
+      "element_count": 1,
+      "element_length": 32
     },
     {
       "path": "/tc7200u/stage1/signal/stage1_signal_handler_entry_candidate",
@@ -14451,25 +16150,31 @@
       ]
     },
     {
+      "path": "/tc7200u/stage1/signal/stage1_signal_object_candidate *[255]",
+      "category": "/tc7200u/stage1/signal",
+      "name": "stage1_signal_object_candidate *[255]",
+      "kind": "ArrayDB",
+      "length": 1020,
+      "description": "Array of pointer to stage1_signal_object_candidate",
+      "element_type": "/tc7200u/stage1/signal/stage1_signal_object_candidate *",
+      "element_count": 255,
+      "element_length": 4
+    },
+    {
+      "path": "/tc7200u/stage1/signal/stage1_signal_object_candidate[255]",
+      "category": "/tc7200u/stage1/signal",
+      "name": "stage1_signal_object_candidate[255]",
+      "kind": "ArrayDB",
+      "length": 8160,
+      "description": "Array of ",
+      "element_type": "/tc7200u/stage1/signal/stage1_signal_object_candidate",
+      "element_count": 255,
+      "element_length": 32
+    },
+    {
       "path": "/tc7200u/stage1/signal/stage1_signal_object_final_release_cb",
       "category": "/tc7200u/stage1/signal",
       "name": "stage1_signal_object_final_release_cb",
-      "kind": "FunctionDefinitionDB",
-      "length": -1,
-      "description": "Function Signature Data Type",
-      "return_type": "/int",
-      "arguments": [
-        {
-          "datatype": "/tc7200u/stage1/signal/stage1_signal_object_candidate *",
-          "comments": "",
-          "name": "signal_object"
-        }
-      ]
-    },
-    {
-      "path": "/tc7200u/stage1/signal/stage1_signal_object_final_release_cb.conflict",
-      "category": "/tc7200u/stage1/signal",
-      "name": "stage1_signal_object_final_release_cb.conflict",
       "kind": "FunctionDefinitionDB",
       "length": -1,
       "description": "Function Signature Data Type",
@@ -14552,6 +16257,17 @@
           "offset": "0x1c"
         }
       ]
+    },
+    {
+      "path": "/tc7200u/stage1/signal/stage1_signal_object_provider_entry_candidate[1]",
+      "category": "/tc7200u/stage1/signal",
+      "name": "stage1_signal_object_provider_entry_candidate[1]",
+      "kind": "ArrayDB",
+      "length": 32,
+      "description": "Array of ",
+      "element_type": "/tc7200u/stage1/signal/stage1_signal_object_provider_entry_candidate",
+      "element_count": 1,
+      "element_length": 32
     },
     {
       "path": "/tc7200u/stage1/signal/stage1_signal_object_test_callback_10_cb",
@@ -15364,6 +17080,28 @@
       ]
     },
     {
+      "path": "/tc7200u/stage1/socket/stage1_socket_create_flag_iface_name_record_candidate *[8]",
+      "category": "/tc7200u/stage1/socket",
+      "name": "stage1_socket_create_flag_iface_name_record_candidate *[8]",
+      "kind": "ArrayDB",
+      "length": 32,
+      "description": "Array of pointer to stage1_socket_create_flag_iface_name_record_candidate",
+      "element_type": "/tc7200u/stage1/socket/stage1_socket_create_flag_iface_name_record_candidate *",
+      "element_count": 8,
+      "element_length": 4
+    },
+    {
+      "path": "/tc7200u/stage1/socket/stage1_socket_create_flag_iface_name_record_candidate[8]",
+      "category": "/tc7200u/stage1/socket",
+      "name": "stage1_socket_create_flag_iface_name_record_candidate[8]",
+      "kind": "ArrayDB",
+      "length": 64,
+      "description": "Array of ",
+      "element_type": "/tc7200u/stage1/socket/stage1_socket_create_flag_iface_name_record_candidate",
+      "element_count": 8,
+      "element_length": 8
+    },
+    {
       "path": "/tc7200u/stage1/socket/stage1_socket_create_flag_option_entry_candidate",
       "category": "/tc7200u/stage1/socket",
       "name": "stage1_socket_create_flag_option_entry_candidate",
@@ -15388,6 +17126,17 @@
           "offset": "0x2"
         }
       ]
+    },
+    {
+      "path": "/tc7200u/stage1/socket/stage1_socket_create_flag_option_entry_candidate[9]",
+      "category": "/tc7200u/stage1/socket",
+      "name": "stage1_socket_create_flag_option_entry_candidate[9]",
+      "kind": "ArrayDB",
+      "length": 36,
+      "description": "Array of ",
+      "element_type": "/tc7200u/stage1/socket/stage1_socket_create_flag_option_entry_candidate",
+      "element_count": 9,
+      "element_length": 4
     },
     {
       "path": "/tc7200u/stage1/socket/stage1_socket_getsockopt_t0_method_38_cb",
@@ -15533,6 +17282,212 @@
           "length": 4,
           "ordinal": 6,
           "offset": "0x38"
+        }
+      ]
+    },
+    {
+      "path": "/tc7200u/stage1/spi_flash/spi_flash_cfi_probe_result_10_candidate",
+      "category": "/tc7200u/stage1/spi_flash",
+      "name": "spi_flash_cfi_probe_result_10_candidate",
+      "kind": "StructureDB",
+      "length": 16,
+      "description": "",
+      "fields": [
+        {
+          "datatype": "/stdint.h/uint32_t",
+          "comments": "",
+          "name": "jedec_id_00",
+          "length": 4,
+          "ordinal": 0,
+          "offset": "0x0"
+        },
+        {
+          "datatype": "/stdint.h/uint32_t",
+          "comments": "",
+          "name": "total_size_04",
+          "length": 4,
+          "ordinal": 1,
+          "offset": "0x4"
+        },
+        {
+          "datatype": "/stdint.h/uint32_t",
+          "comments": "",
+          "name": "erase_block_size_08",
+          "length": 4,
+          "ordinal": 2,
+          "offset": "0x8"
+        },
+        {
+          "datatype": "/stdint.h/uint32_t",
+          "comments": "",
+          "name": "page_or_write_buffer_size_0c",
+          "length": 4,
+          "ordinal": 3,
+          "offset": "0xc"
+        }
+      ]
+    },
+    {
+      "path": "/tc7200u/stage1/spi_flash/spi_flash_detect_context_candidate",
+      "category": "/tc7200u/stage1/spi_flash",
+      "name": "spi_flash_detect_context_candidate",
+      "kind": "StructureDB",
+      "length": 80,
+      "description": "",
+      "fields": [
+        {
+          "datatype": "/undefined[4]",
+          "comments": "",
+          "name": "field_00",
+          "length": 4,
+          "ordinal": 0,
+          "offset": "0x0"
+        },
+        {
+          "datatype": "/undefined[36]",
+          "comments": "",
+          "name": "log_or_config_object_04",
+          "length": 36,
+          "ordinal": 1,
+          "offset": "0x4"
+        },
+        {
+          "datatype": "/stdint.h/uint8_t",
+          "comments": "",
+          "name": "mode_byte_28",
+          "length": 1,
+          "ordinal": 2,
+          "offset": "0x28"
+        },
+        {
+          "datatype": "/stdint.h/uint8_t",
+          "comments": "",
+          "name": "option_byte_29",
+          "length": 1,
+          "ordinal": 3,
+          "offset": "0x29"
+        },
+        {
+          "datatype": "/undefined[2]",
+          "comments": "",
+          "name": "field_2a",
+          "length": 2,
+          "ordinal": 4,
+          "offset": "0x2a"
+        },
+        {
+          "datatype": "/stdint.h/uint32_t",
+          "comments": "",
+          "name": "detect_state_2c",
+          "length": 4,
+          "ordinal": 5,
+          "offset": "0x2c"
+        },
+        {
+          "datatype": "/stdint.h/uint32_t",
+          "comments": "",
+          "name": "page_or_write_buffer_size_30",
+          "length": 4,
+          "ordinal": 6,
+          "offset": "0x30"
+        },
+        {
+          "datatype": "/stdint.h/uint8_t",
+          "comments": "",
+          "name": "field_34",
+          "length": 1,
+          "ordinal": 7,
+          "offset": "0x34"
+        },
+        {
+          "datatype": "/undefined[3]",
+          "comments": "",
+          "name": "field_35",
+          "length": 3,
+          "ordinal": 8,
+          "offset": "0x35"
+        },
+        {
+          "datatype": "/void *",
+          "comments": "",
+          "name": "block_map_38",
+          "length": 4,
+          "ordinal": 9,
+          "offset": "0x38"
+        },
+        {
+          "datatype": "/stdint.h/uint32_t",
+          "comments": "",
+          "name": "erase_block_count_3c",
+          "length": 4,
+          "ordinal": 10,
+          "offset": "0x3c"
+        },
+        {
+          "datatype": "/undefined[12]",
+          "comments": "",
+          "name": "field_40",
+          "length": 12,
+          "ordinal": 11,
+          "offset": "0x40"
+        },
+        {
+          "datatype": "/stdint.h/uint32_t",
+          "comments": "",
+          "name": "total_size_4c",
+          "length": 4,
+          "ordinal": 12,
+          "offset": "0x4c"
+        }
+      ]
+    },
+    {
+      "path": "/tc7200u/stage1/spi_flash/spi_flash_jedec_table_entry_14_candidate",
+      "category": "/tc7200u/stage1/spi_flash",
+      "name": "spi_flash_jedec_table_entry_14_candidate",
+      "kind": "StructureDB",
+      "length": 20,
+      "description": "",
+      "fields": [
+        {
+          "datatype": "/stdint.h/uint32_t",
+          "comments": "",
+          "name": "jedec_id_or_mask_00",
+          "length": 4,
+          "ordinal": 0,
+          "offset": "0x0"
+        },
+        {
+          "datatype": "/stdint.h/uint32_t",
+          "comments": "",
+          "name": "total_size_04",
+          "length": 4,
+          "ordinal": 1,
+          "offset": "0x4"
+        },
+        {
+          "datatype": "/stdint.h/uint32_t",
+          "comments": "",
+          "name": "erase_block_size_08",
+          "length": 4,
+          "ordinal": 2,
+          "offset": "0x8"
+        },
+        {
+          "datatype": "/stdint.h/uint32_t",
+          "comments": "",
+          "name": "page_or_write_buffer_size_0c",
+          "length": 4,
+          "ordinal": 3,
+          "offset": "0xc"
+        },
+        {
+          "datatype": "/stdint.h/uint32_t",
+          "comments": "",
+          "name": "flags_10",
+          "length": 4,
+          "ordinal": 4,
+          "offset": "0x10"
         }
       ]
     },
@@ -15851,6 +17806,17 @@
       ]
     },
     {
+      "path": "/tc7200u/stage1/thread/stage1_tsd_key_destructor_callback_candidate *[128]",
+      "category": "/tc7200u/stage1/thread",
+      "name": "stage1_tsd_key_destructor_callback_candidate *[128]",
+      "kind": "ArrayDB",
+      "length": 512,
+      "description": "Array of pointer to stage1_tsd_key_destructor_callback_candidate",
+      "element_type": "/tc7200u/stage1/thread/stage1_tsd_key_destructor_callback_candidate *",
+      "element_count": 128,
+      "element_length": 4
+    },
+    {
       "path": "/tc7200u/stage1/timeout/fn_stage1_signal_timeout_arg_to_ticks64_80ef6a54_candidate",
       "category": "/tc7200u/stage1/timeout",
       "name": "fn_stage1_signal_timeout_arg_to_ticks64_80ef6a54_candidate",
@@ -16141,6 +18107,17 @@
       ]
     },
     {
+      "path": "/tc7200u/stage1/wait_sync/stage1_bcm_sem_candidate *[2]",
+      "category": "/tc7200u/stage1/wait_sync",
+      "name": "stage1_bcm_sem_candidate *[2]",
+      "kind": "ArrayDB",
+      "length": 8,
+      "description": "Array of pointer to stage1_bcm_sem_candidate",
+      "element_type": "/tc7200u/stage1/wait_sync/stage1_bcm_sem_candidate *",
+      "element_count": 2,
+      "element_length": 4
+    },
+    {
       "path": "/tc7200u/stage1/wait_sync/stage1_condition_object_candidate",
       "category": "/tc7200u/stage1/wait_sync",
       "name": "stage1_condition_object_candidate",
@@ -16341,6 +18318,28 @@
           "offset": "0x10"
         }
       ]
+    },
+    {
+      "path": "/tc7200u/stage1/wait_sync/stage1_owned_wait_object_candidate[255]",
+      "category": "/tc7200u/stage1/wait_sync",
+      "name": "stage1_owned_wait_object_candidate[255]",
+      "kind": "ArrayDB",
+      "length": 5100,
+      "description": "Array of ",
+      "element_type": "/tc7200u/stage1/wait_sync/stage1_owned_wait_object_candidate",
+      "element_count": 255,
+      "element_length": 20
+    },
+    {
+      "path": "/tc7200u/stage1/wait_sync/stage1_owned_wait_object_candidate[4]",
+      "category": "/tc7200u/stage1/wait_sync",
+      "name": "stage1_owned_wait_object_candidate[4]",
+      "kind": "ArrayDB",
+      "length": 80,
+      "description": "Array of ",
+      "element_type": "/tc7200u/stage1/wait_sync/stage1_owned_wait_object_candidate",
+      "element_count": 4,
+      "element_length": 20
     },
     {
       "path": "/tc7200u/stage1/wait_sync/stage1_semaphore_candidate",

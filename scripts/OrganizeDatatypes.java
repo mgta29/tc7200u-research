@@ -14,18 +14,21 @@ import ghidra.program.model.data.DataTypeManager;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class OrganizeDatatypes extends GhidraScript {
 
     private static final String[] CATEGORY_PATHS = {
         "/tc7200u",
         "/tc7200u/common",
+        "/tc7200u/common/heap",
+        "/tc7200u/common/network",
         "/tc7200u/mmio",
 
         "/tc7200u/dqm_host_fap",
@@ -42,12 +45,14 @@ public class OrganizeDatatypes extends GhidraScript {
         "/tc7200u/stage1/lifecycle",
         "/tc7200u/stage1/socket",
         "/tc7200u/stage1/netif",
+        "/tc7200u/stage1/spi_flash",
     };
 
     private static final Map<String, String> EXACT_TYPE_TO_CATEGORY = new HashMap<>();
 
     static {
         addExact("/tc7200u/common", new String[] {
+            "bcm34xx_serial_access_lock_candidate",
             "stage1_callback_pair_candidate",
             "stage1_cleanup_callback_pair_candidate",
             "stage1_id_to_value_map_entry_candidate",
@@ -55,6 +60,16 @@ public class OrganizeDatatypes extends GhidraScript {
             "bcm_irq_encoded_id_decode_entry_candidate",
             "bcm_periph_irq_handler_entry_candidate",
             "mta_interrupt_id_map_entry_candidate",
+        });
+
+        addExact("/tc7200u/common/heap", new String[] {
+            "stage1_heap_block_header_candidate",
+            "stage1_heap_stats_candidate",
+        });
+
+        addExact("/tc7200u/common/network", new String[] {
+            "net_config_cache_entry_24_candidate",
+            "net_config_indexed_cache_entry_400_candidate",
         });
 
         addExact("/tc7200u/mmio", new String[] {
@@ -126,11 +141,24 @@ public class OrganizeDatatypes extends GhidraScript {
             "host_dqm_channel_obj_candidate",
             "host_dqm_register_block_1800_candidate",
             "host_downstream_dqm_queue_obj_candidate",
+            "natp_gfap_manager_ops_candidate",
+            "natp_gfap_manager_ops_fn_candidate",
         });
 
         addExact("/tc7200u/fpm_dma", new String[] {
             "dma_allocator_global_state_81848740_candidate",
+            "dma_fpm_packet_submit_descriptor_candidate",
+            "enet_gmac_init_state_b8_candidate",
+            "enet_port_link_control_callback_fn_candidate",
+            "enet_port_status_context_38_candidate",
+            "enet_port_status_query_callback_fn_candidate",
+            "fn_dma_fpm_packet_alloc_get_or_init_8002a4f8_candidate",
+            "packet_port_status_callback_fn_candidate",
+            "packet_port_submit_callback_fn_candidate",
+            "packet_port_submit_record_34_candidate",
+            "packet_port_submit_table_entry_44_candidate",
             "tc7200_fpm_allocator",
+            "tc7200_fpm_endpoint_registers_candidate",
             "tc7200_fpm_packet_allocator",
             "tc7200_fpm_packet_header",
             "tc7200_fpm_packet_inner_header",
@@ -152,6 +180,12 @@ public class OrganizeDatatypes extends GhidraScript {
         addExact("/tc7200u/stage1/lifecycle", new String[] {
             "stage1_shutdown_cleanup_cb",
             "stage1_shutdown_cleanup_cb *",
+        });
+
+        addExact("/tc7200u/stage1/spi_flash", new String[] {
+            "spi_flash_cfi_probe_result_10_candidate",
+            "spi_flash_detect_context_candidate",
+            "spi_flash_jedec_table_entry_14_candidate",
         });
 
         addExact("/tc7200u/stage1/signal", new String[] {
@@ -194,12 +228,13 @@ public class OrganizeDatatypes extends GhidraScript {
         DataTypeManager dtm = currentProgram.getDataTypeManager();
         DataTypeConflictHandler handler = getConflictHandler();
 
-        int tx = dtm.startTransaction("TC7200U organize Data Type Manager categories v3.2");
+        int tx = dtm.startTransaction("TC7200U organize Data Type Manager categories v3.5");
         boolean commit = false;
 
         int categoriesEnsured = 0;
         MoveStats exactStats = null;
         MoveStats inferredStats = null;
+        AuditStats auditStats = null;
 
         try {
             Map<String, Category> categoryByPath = new HashMap<>();
@@ -211,7 +246,8 @@ public class OrganizeDatatypes extends GhidraScript {
 
             Map<String, List<DataType>> nameIndex = buildNameIndex(dtm);
             exactStats = moveExactKnownTypes(nameIndex, categoryByPath, handler, EXACT_TYPE_TO_CATEGORY);
-            inferredStats = moveInferredFutureTypes(dtm, categoryByPath, handler);
+            inferredStats = moveInferredFutureTypes(dtm, nameIndex, categoryByPath, handler);
+            auditStats = auditManagedConflictsAndDuplicates(buildNameIndex(dtm));
 
             commit = true;
         }
@@ -222,9 +258,12 @@ public class OrganizeDatatypes extends GhidraScript {
         List<String> failedMoves = new ArrayList<>();
         failedMoves.addAll(exactStats.failed);
         failedMoves.addAll(inferredStats.failed);
+        List<String> duplicateSkipped = new ArrayList<>();
+        duplicateSkipped.addAll(exactStats.duplicateSkipped);
+        duplicateSkipped.addAll(inferredStats.duplicateSkipped);
 
         println("");
-        println("TC7200U datatype category organization v3.2 finished");
+        println("TC7200U datatype category organization v3.5 finished");
         println("conflict handler:                  " + String.valueOf(handler));
         println("categories ensured:               " + categoriesEnsured);
         println("exact known types moved:          " + exactStats.moved);
@@ -232,7 +271,10 @@ public class OrganizeDatatypes extends GhidraScript {
         println("inferred future types moved:      " + inferredStats.moved);
         println("inferred future types placed:     " + inferredStats.inPlace);
         println("missing exact known types:        " + exactStats.missing.size());
-        println("unmatched custom tc7200u/stage1:  " + inferredStats.unmatchedCustom.size());
+        println("unmatched custom managed names:   " + inferredStats.unmatchedCustom.size());
+        println("conflict-marked datatypes:        " + auditStats.conflictTypes.size());
+        println("duplicate managed name groups:    " + auditStats.duplicateGroups.size());
+        println("misplaced duplicates skipped:     " + duplicateSkipped.size());
         println("failed moves:                     " + failedMoves.size());
 
         if (!exactStats.missing.isEmpty()) {
@@ -250,6 +292,31 @@ public class OrganizeDatatypes extends GhidraScript {
             Collections.sort(inferredStats.unmatchedCustom);
             for (String name : inferredStats.unmatchedCustom) {
                 println("  " + name);
+            }
+        }
+
+        if (!auditStats.conflictTypes.isEmpty()) {
+            println("");
+            println("Conflict datatypes (.conflict); keep the real base type and clean these manually after Find Uses:");
+            for (String item : auditStats.conflictTypes) {
+                println("  " + item);
+            }
+        }
+
+        if (!auditStats.duplicateGroups.isEmpty()) {
+            println("");
+            println("Duplicate managed datatype names across categories; inspect stale copies before delete/replace:");
+            for (String item : auditStats.duplicateGroups) {
+                println(item);
+            }
+        }
+
+        if (!duplicateSkipped.isEmpty()) {
+            println("");
+            println("Misplaced duplicates skipped to avoid creating new .conflict datatypes in the target category:");
+            Collections.sort(duplicateSkipped);
+            for (String item : duplicateSkipped) {
+                println("  " + item);
             }
         }
 
@@ -322,14 +389,38 @@ public class OrganizeDatatypes extends GhidraScript {
         if (name.startsWith("dqm_host_")) {
             return "/tc7200u/dqm_host_fap";
         }
+        if (name.startsWith("natp_")) {
+            return "/tc7200u/dqm_host_fap";
+        }
+        if (name.startsWith("fn_natp_")) {
+            return "/tc7200u/dqm_host_fap";
+        }
 
         if (name.startsWith("tc7200_fpm_")) {
+            return "/tc7200u/fpm_dma";
+        }
+        if (name.startsWith("dma_fpm_")) {
+            return "/tc7200u/fpm_dma";
+        }
+        if (name.startsWith("fn_dma_fpm_")) {
             return "/tc7200u/fpm_dma";
         }
         if (name.startsWith("dma_allocator_")) {
             return "/tc7200u/fpm_dma";
         }
         if (name.startsWith("fpm_")) {
+            return "/tc7200u/fpm_dma";
+        }
+        if (name.startsWith("packet_port_")) {
+            return "/tc7200u/fpm_dma";
+        }
+        if (name.startsWith("fn_packet_port_")) {
+            return "/tc7200u/fpm_dma";
+        }
+        if (name.startsWith("enet_port_")) {
+            return "/tc7200u/fpm_dma";
+        }
+        if (name.startsWith("enet_gmac_init_state_")) {
             return "/tc7200u/fpm_dma";
         }
 
@@ -362,6 +453,12 @@ public class OrganizeDatatypes extends GhidraScript {
         if (name.startsWith("stage1_default_gateway_")) {
             return "/tc7200u/stage1/netif";
         }
+        if (name.startsWith("spi_flash_")) {
+            return "/tc7200u/stage1/spi_flash";
+        }
+        if (name.startsWith("fn_spi_flash_")) {
+            return "/tc7200u/stage1/spi_flash";
+        }
 
         if (name.startsWith("stage1_iovec")) {
             return "/tc7200u/common";
@@ -373,6 +470,18 @@ public class OrganizeDatatypes extends GhidraScript {
             return "/tc7200u/common";
         }
         if (name.startsWith("stage1_cleanup_callback_pair")) {
+            return "/tc7200u/common";
+        }
+        if (name.startsWith("stage1_heap_")) {
+            return "/tc7200u/common/heap";
+        }
+        if (name.startsWith("net_config_")) {
+            return "/tc7200u/common/network";
+        }
+        if (name.startsWith("fn_net_config_")) {
+            return "/tc7200u/common/network";
+        }
+        if (name.startsWith("bcm34xx_")) {
             return "/tc7200u/common";
         }
 
@@ -518,18 +627,109 @@ public class OrganizeDatatypes extends GhidraScript {
         return out;
     }
 
+    private boolean isConflictTypeName(String typeName) {
+        return normalizeTypeName(typeName).endsWith(".conflict");
+    }
+
+    private boolean isManagedAuditDatatype(DataType dt) {
+        String categoryPath = String.valueOf(dt.getCategoryPath());
+        if (categoryPath.startsWith("/tc7200u")) {
+            return true;
+        }
+        return "/custom".equals(categoryPath) && isTc7200uLikeCustomName(dt.getName());
+    }
+
+    private String formatDatatypeLocation(DataType dt) {
+        return String.valueOf(dt.getCategoryPath()) + "/" + dt.getName();
+    }
+
+    private boolean hasTargetDuplicate(DataType dt, String targetPath, Map<String, List<DataType>> nameIndex) {
+        List<DataType> found = nameIndex.get(dt.getName());
+        if (found == null) {
+            return false;
+        }
+
+        for (DataType other : found) {
+            if (other == dt) {
+                continue;
+            }
+            if (targetPath.equals(String.valueOf(other.getCategoryPath()))) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private AuditStats auditManagedConflictsAndDuplicates(Map<String, List<DataType>> nameIndex) {
+        AuditStats stats = new AuditStats();
+        List<String> typeNames = new ArrayList<>(nameIndex.keySet());
+        Collections.sort(typeNames);
+
+        for (String typeName : typeNames) {
+            List<DataType> found = nameIndex.get(typeName);
+            if (found == null || found.isEmpty()) {
+                continue;
+            }
+
+            List<String> managedLocations = new ArrayList<>();
+            Set<String> managedCategories = new HashSet<>();
+
+            for (DataType dt : found) {
+                if (!isManagedAuditDatatype(dt)) {
+                    continue;
+                }
+
+                String categoryPath = String.valueOf(dt.getCategoryPath());
+                managedLocations.add(formatDatatypeLocation(dt));
+                managedCategories.add(categoryPath);
+
+                if (isConflictTypeName(typeName)) {
+                    stats.conflictTypes.add(formatDatatypeLocation(dt));
+                }
+            }
+
+            if (managedCategories.size() > 1) {
+                Collections.sort(managedLocations);
+                StringBuilder sb = new StringBuilder();
+                sb.append(typeName);
+                for (String location : managedLocations) {
+                    sb.append("\n  ").append(location);
+                }
+                stats.duplicateGroups.add(sb.toString());
+            }
+        }
+
+        Collections.sort(stats.conflictTypes);
+        Collections.sort(stats.duplicateGroups);
+        return stats;
+    }
+
     private boolean isTc7200uLikeCustomName(String typeName) {
         String name = normalizeTypeName(typeName);
 
         return name.startsWith("stage1_")
             || name.startsWith("fn_stage1_")
             || name.startsWith("tc7200_")
+            || name.startsWith("dma_fpm_")
+            || name.startsWith("fn_dma_fpm_")
+            || name.startsWith("packet_port_")
+            || name.startsWith("fn_packet_port_")
+            || name.startsWith("enet_port_")
+            || name.startsWith("enet_gmac_init_state_")
+            || name.startsWith("spi_flash_")
+            || name.startsWith("fn_spi_flash_")
             || name.startsWith("vuint")
             || name.startsWith("bcm_irq_")
+            || name.startsWith("bcm34xx_")
             || name.startsWith("bcm_periph_irq_")
             || name.startsWith("host_dqm_")
             || name.startsWith("dqm_host_")
             || name.startsWith("mta_interrupt_")
+            || name.startsWith("natp_")
+            || name.startsWith("fn_natp_")
+            || name.startsWith("net_config_")
+            || name.startsWith("fn_net_config_")
             || name.startsWith("fap_")
             || name.startsWith("dma_allocator_")
             || name.startsWith("fpm_");
@@ -538,6 +738,7 @@ public class OrganizeDatatypes extends GhidraScript {
     private void moveDatatype(
         DataType dt,
         String targetPath,
+        Map<String, List<DataType>> nameIndex,
         Map<String, Category> categoryByPath,
         DataTypeConflictHandler handler,
         String groupLabel,
@@ -546,8 +747,19 @@ public class OrganizeDatatypes extends GhidraScript {
         String typeName = dt.getName();
 
         try {
+            if (isConflictTypeName(typeName)) {
+                return;
+            }
+
             if (String.valueOf(dt.getCategoryPath()).equals(targetPath)) {
                 stats.inPlace++;
+                return;
+            }
+
+            if (hasTargetDuplicate(dt, targetPath, nameIndex)) {
+                stats.duplicateSkipped.add(
+                    formatDatatypeLocation(dt) + " -> " + targetPath + " [duplicate target copy already exists]"
+                );
                 return;
             }
 
@@ -580,7 +792,7 @@ public class OrganizeDatatypes extends GhidraScript {
             }
 
             for (DataType dt : found) {
-                moveDatatype(dt, mapping.get(typeName), categoryByPath, handler, "exact", stats);
+                moveDatatype(dt, mapping.get(typeName), nameIndex, categoryByPath, handler, "exact", stats);
             }
         }
 
@@ -589,6 +801,7 @@ public class OrganizeDatatypes extends GhidraScript {
 
     private MoveStats moveInferredFutureTypes(
         DataTypeManager dtm,
+        Map<String, List<DataType>> nameIndex,
         Map<String, Category> categoryByPath,
         DataTypeConflictHandler handler
     ) throws Exception {
@@ -610,10 +823,15 @@ public class OrganizeDatatypes extends GhidraScript {
                 continue;
             }
 
-            moveDatatype(dt, targetPath, categoryByPath, handler, "inferred", stats);
+            moveDatatype(dt, targetPath, nameIndex, categoryByPath, handler, "inferred", stats);
         }
 
         return stats;
+    }
+
+    private static final class AuditStats {
+        private final List<String> conflictTypes = new ArrayList<>();
+        private final List<String> duplicateGroups = new ArrayList<>();
     }
 
     private static final class MoveStats {
@@ -621,6 +839,7 @@ public class OrganizeDatatypes extends GhidraScript {
         private int inPlace;
         private final List<String> missing = new ArrayList<>();
         private final List<String> failed = new ArrayList<>();
+        private final List<String> duplicateSkipped = new ArrayList<>();
         private final List<String> unmatchedCustom = new ArrayList<>();
     }
 }

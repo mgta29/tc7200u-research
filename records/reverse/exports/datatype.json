@@ -1,193 +1,6 @@
 {
   "datatypes_in_target_categories": [
     {
-      "category_path": "/custom",
-      "data": {
-        "endian": "big",
-        "format": null,
-        "mnemonic-style": null,
-        "mutability": null,
-        "padding": false
-      },
-      "function_signature": {
-        "arguments": [
-          {
-            "comment": null,
-            "datatype": "natp_gfap_manager_candidate *",
-            "datatype_path": "/tc7200u/dqm_host_fap/natp_gfap_manager_candidate *",
-            "name": "mgr",
-            "ordinal": 0,
-            "storage": null
-          }
-        ],
-        "calling_convention": "default",
-        "no_return": false,
-        "return_type": "void",
-        "return_type_path": "/void",
-        "signature": "void natp_gfap_manager_ops_fn_candidate(natp_gfap_manager_candidate * mgr)"
-      },
-      "kind": "function_definition",
-      "length": -1,
-      "name": "natp_gfap_manager_ops_fn_candidate",
-      "path_name": "/custom/natp_gfap_manager_ops_fn_candidate"
-    },
-    {
-      "category_path": "/custom",
-      "data": {
-        "endian": "big",
-        "format": null,
-        "mnemonic-style": null,
-        "mutability": null,
-        "padding": false
-      },
-      "kind": "other",
-      "length": 32768,
-      "name": "net_config_indexed_cache_entry_400_candidate[32]",
-      "path_name": "/custom/net_config_indexed_cache_entry_400_candidate[32]"
-    },
-    {
-      "category_path": "/custom",
-      "data": {
-        "endian": "big",
-        "format": null,
-        "mnemonic-style": null,
-        "mutability": "normal",
-        "padding": false
-      },
-      "kind": "pointer",
-      "length": 4,
-      "name": "natp_gfap_manager_ops_candidate *",
-      "path_name": "/custom/natp_gfap_manager_ops_candidate *"
-    },
-    {
-      "category_path": "/custom",
-      "data": {
-        "endian": "big",
-        "format": null,
-        "mnemonic-style": null,
-        "mutability": "normal",
-        "padding": false
-      },
-      "kind": "pointer",
-      "length": 4,
-      "name": "natp_gfap_manager_ops_fn_candidate *",
-      "path_name": "/custom/natp_gfap_manager_ops_fn_candidate *"
-    },
-    {
-      "category_path": "/custom",
-      "data": {
-        "endian": "big",
-        "format": null,
-        "mnemonic-style": null,
-        "mutability": "normal",
-        "padding": false
-      },
-      "kind": "pointer",
-      "length": 4,
-      "name": "net_config_indexed_cache_entry_400_candidate *",
-      "path_name": "/custom/net_config_indexed_cache_entry_400_candidate *"
-    },
-    {
-      "category_path": "/custom",
-      "data": {
-        "endian": "big",
-        "format": null,
-        "mnemonic-style": null,
-        "mutability": null,
-        "padding": false
-      },
-      "kind": "structure",
-      "length": 20,
-      "name": "natp_gfap_manager_ops_candidate",
-      "path_name": "/custom/natp_gfap_manager_ops_candidate",
-      "structure": {
-        "component_count": 5,
-        "components": [
-          {
-            "comment": "-> 8053c2e8",
-            "datatype": "natp_gfap_manager_ops_fn_candidate *",
-            "datatype_path": "/custom/natp_gfap_manager_ops_fn_candidate *",
-            "length": 4,
-            "name": "destroy_00",
-            "offset": 0,
-            "offset_hex": "0x0",
-            "padding": false
-          },
-          {
-            "comment": "-> 8053c5c4",
-            "datatype": "natp_gfap_manager_ops_fn_candidate *",
-            "datatype_path": "/custom/natp_gfap_manager_ops_fn_candidate *",
-            "length": 4,
-            "name": "destroy_and_free_04",
-            "offset": 4,
-            "offset_hex": "0x4",
-            "padding": false
-          },
-          {
-            "comment": "-> 8053c904",
-            "datatype": "natp_gfap_manager_runtime_init_fn_candidate *",
-            "datatype_path": "/tc7200u/dqm_host_fap/natp_gfap_manager_runtime_init_fn_candidate *",
-            "length": 4,
-            "name": "runtime_init_08",
-            "offset": 8,
-            "offset_hex": "0x8",
-            "padding": false
-          },
-          {
-            "comment": null,
-            "datatype": "natp_gfap_manager_thread_main_fn *",
-            "datatype_path": "/tc7200u/dqm_host_fap/natp_gfap_manager_thread_main_fn *",
-            "length": 4,
-            "name": "thread_main_0c",
-            "offset": 12,
-            "offset_hex": "0xc",
-            "padding": false
-          },
-          {
-            "comment": "-> 80542020",
-            "datatype": "natp_gfap_manager_timer_release_fn_candidate *",
-            "datatype_path": "/tc7200u/dqm_host_fap/natp_gfap_manager_timer_release_fn_candidate *",
-            "length": 4,
-            "name": "release_timer_objects_10",
-            "offset": 16,
-            "offset_hex": "0x10",
-            "padding": false
-          }
-        ],
-        "length": 20
-      }
-    },
-    {
-      "category_path": "/custom",
-      "data": {
-        "endian": "big",
-        "format": null,
-        "mnemonic-style": null,
-        "mutability": null,
-        "padding": false
-      },
-      "kind": "structure",
-      "length": 1024,
-      "name": "net_config_indexed_cache_entry_400_candidate",
-      "path_name": "/custom/net_config_indexed_cache_entry_400_candidate",
-      "structure": {
-        "component_count": 1,
-        "components": [
-          {
-            "comment": null,
-            "datatype": "byte[1024]",
-            "datatype_path": "/byte[1024]",
-            "length": 1024,
-            "name": "raw_00",
-            "offset": 0,
-            "offset_hex": "0x0",
-            "padding": false
-          }
-        ],
-        "length": 1024
-      }
-    },
-    {
       "category_path": "/tc7200u/common",
       "data": {
         "endian": "big",
@@ -212,8 +25,8 @@
       },
       "kind": "other",
       "length": 1536,
-      "name": "bcm_periph_irq_handler_entry_candidate.conflict[192]",
-      "path_name": "/tc7200u/common/bcm_periph_irq_handler_entry_candidate.conflict[192]"
+      "name": "bcm_periph_irq_handler_entry_candidate[192]",
+      "path_name": "/tc7200u/common/bcm_periph_irq_handler_entry_candidate[192]"
     },
     {
       "category_path": "/tc7200u/common",
@@ -436,46 +249,6 @@
       "length": 8,
       "name": "bcm_periph_irq_handler_entry_candidate",
       "path_name": "/tc7200u/common/bcm_periph_irq_handler_entry_candidate",
-      "structure": {
-        "component_count": 2,
-        "components": [
-          {
-            "comment": null,
-            "datatype": "bcm_periph_irq_handler_fn_candidate *",
-            "datatype_path": "/tc7200u/mmio/bcm_periph_irq_handler_fn_candidate *",
-            "length": 4,
-            "name": "handler_00",
-            "offset": 0,
-            "offset_hex": "0x0",
-            "padding": false
-          },
-          {
-            "comment": null,
-            "datatype": "uint32_t",
-            "datatype_path": "/stdint.h/uint32_t",
-            "length": 4,
-            "name": "handler_arg_04",
-            "offset": 4,
-            "offset_hex": "0x4",
-            "padding": false
-          }
-        ],
-        "length": 8
-      }
-    },
-    {
-      "category_path": "/tc7200u/common",
-      "data": {
-        "endian": "big",
-        "format": null,
-        "mnemonic-style": null,
-        "mutability": null,
-        "padding": false
-      },
-      "kind": "structure",
-      "length": 8,
-      "name": "bcm_periph_irq_handler_entry_candidate.conflict",
-      "path_name": "/tc7200u/common/bcm_periph_irq_handler_entry_candidate.conflict",
       "structure": {
         "component_count": 2,
         "components": [
@@ -870,6 +643,34 @@
         "mutability": null,
         "padding": false
       },
+      "kind": "other",
+      "length": 32768,
+      "name": "net_config_indexed_cache_entry_400_candidate[32]",
+      "path_name": "/tc7200u/common/network/net_config_indexed_cache_entry_400_candidate[32]"
+    },
+    {
+      "category_path": "/tc7200u/common/network",
+      "data": {
+        "endian": "big",
+        "format": null,
+        "mnemonic-style": null,
+        "mutability": "normal",
+        "padding": false
+      },
+      "kind": "pointer",
+      "length": 4,
+      "name": "net_config_indexed_cache_entry_400_candidate *",
+      "path_name": "/tc7200u/common/network/net_config_indexed_cache_entry_400_candidate *"
+    },
+    {
+      "category_path": "/tc7200u/common/network",
+      "data": {
+        "endian": "big",
+        "format": null,
+        "mnemonic-style": null,
+        "mutability": null,
+        "padding": false
+      },
       "kind": "structure",
       "length": 36,
       "name": "net_config_cache_entry_24_candidate",
@@ -929,6 +730,36 @@
           }
         ],
         "length": 36
+      }
+    },
+    {
+      "category_path": "/tc7200u/common/network",
+      "data": {
+        "endian": "big",
+        "format": null,
+        "mnemonic-style": null,
+        "mutability": null,
+        "padding": false
+      },
+      "kind": "structure",
+      "length": 1024,
+      "name": "net_config_indexed_cache_entry_400_candidate",
+      "path_name": "/tc7200u/common/network/net_config_indexed_cache_entry_400_candidate",
+      "structure": {
+        "component_count": 1,
+        "components": [
+          {
+            "comment": null,
+            "datatype": "byte[1024]",
+            "datatype_path": "/byte[1024]",
+            "length": 1024,
+            "name": "raw_00",
+            "offset": 0,
+            "offset_hex": "0x0",
+            "padding": false
+          }
+        ],
+        "length": 1024
       }
     },
     {
@@ -1023,6 +854,37 @@
       "length": -1,
       "name": "natp_gfap_manager_method_0c_fn_candidate",
       "path_name": "/tc7200u/dqm_host_fap/natp_gfap_manager_method_0c_fn_candidate"
+    },
+    {
+      "category_path": "/tc7200u/dqm_host_fap",
+      "data": {
+        "endian": "big",
+        "format": null,
+        "mnemonic-style": null,
+        "mutability": null,
+        "padding": false
+      },
+      "function_signature": {
+        "arguments": [
+          {
+            "comment": null,
+            "datatype": "natp_gfap_manager_candidate *",
+            "datatype_path": "/tc7200u/dqm_host_fap/natp_gfap_manager_candidate *",
+            "name": "mgr",
+            "ordinal": 0,
+            "storage": null
+          }
+        ],
+        "calling_convention": "default",
+        "no_return": false,
+        "return_type": "void",
+        "return_type_path": "/void",
+        "signature": "void natp_gfap_manager_ops_fn_candidate(natp_gfap_manager_candidate * mgr)"
+      },
+      "kind": "function_definition",
+      "length": -1,
+      "name": "natp_gfap_manager_ops_fn_candidate",
+      "path_name": "/tc7200u/dqm_host_fap/natp_gfap_manager_ops_fn_candidate"
     },
     {
       "category_path": "/tc7200u/dqm_host_fap",
@@ -1326,6 +1188,34 @@
       "length": 4,
       "name": "natp_gfap_manager_method_0c_fn_candidate *",
       "path_name": "/tc7200u/dqm_host_fap/natp_gfap_manager_method_0c_fn_candidate *"
+    },
+    {
+      "category_path": "/tc7200u/dqm_host_fap",
+      "data": {
+        "endian": "big",
+        "format": null,
+        "mnemonic-style": null,
+        "mutability": "normal",
+        "padding": false
+      },
+      "kind": "pointer",
+      "length": 4,
+      "name": "natp_gfap_manager_ops_candidate *",
+      "path_name": "/tc7200u/dqm_host_fap/natp_gfap_manager_ops_candidate *"
+    },
+    {
+      "category_path": "/tc7200u/dqm_host_fap",
+      "data": {
+        "endian": "big",
+        "format": null,
+        "mnemonic-style": null,
+        "mutability": "normal",
+        "padding": false
+      },
+      "kind": "pointer",
+      "length": 4,
+      "name": "natp_gfap_manager_ops_fn_candidate *",
+      "path_name": "/tc7200u/dqm_host_fap/natp_gfap_manager_ops_fn_candidate *"
     },
     {
       "category_path": "/tc7200u/dqm_host_fap",
@@ -2422,7 +2312,7 @@
           {
             "comment": null,
             "datatype": "natp_gfap_manager_ops_candidate *",
-            "datatype_path": "/custom/natp_gfap_manager_ops_candidate *",
+            "datatype_path": "/tc7200u/dqm_host_fap/natp_gfap_manager_ops_candidate *",
             "length": 4,
             "name": "ops_table_00",
             "offset": 0,
@@ -3123,6 +3013,76 @@
         "padding": false
       },
       "kind": "structure",
+      "length": 20,
+      "name": "natp_gfap_manager_ops_candidate",
+      "path_name": "/tc7200u/dqm_host_fap/natp_gfap_manager_ops_candidate",
+      "structure": {
+        "component_count": 5,
+        "components": [
+          {
+            "comment": "-> 8053c2e8",
+            "datatype": "natp_gfap_manager_ops_fn_candidate *",
+            "datatype_path": "/tc7200u/dqm_host_fap/natp_gfap_manager_ops_fn_candidate *",
+            "length": 4,
+            "name": "destroy_00",
+            "offset": 0,
+            "offset_hex": "0x0",
+            "padding": false
+          },
+          {
+            "comment": "-> 8053c5c4",
+            "datatype": "natp_gfap_manager_ops_fn_candidate *",
+            "datatype_path": "/tc7200u/dqm_host_fap/natp_gfap_manager_ops_fn_candidate *",
+            "length": 4,
+            "name": "destroy_and_free_04",
+            "offset": 4,
+            "offset_hex": "0x4",
+            "padding": false
+          },
+          {
+            "comment": "-> 8053c904",
+            "datatype": "natp_gfap_manager_runtime_init_fn_candidate *",
+            "datatype_path": "/tc7200u/dqm_host_fap/natp_gfap_manager_runtime_init_fn_candidate *",
+            "length": 4,
+            "name": "runtime_init_08",
+            "offset": 8,
+            "offset_hex": "0x8",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "natp_gfap_manager_thread_main_fn *",
+            "datatype_path": "/tc7200u/dqm_host_fap/natp_gfap_manager_thread_main_fn *",
+            "length": 4,
+            "name": "thread_main_0c",
+            "offset": 12,
+            "offset_hex": "0xc",
+            "padding": false
+          },
+          {
+            "comment": "-> 80542020",
+            "datatype": "natp_gfap_manager_timer_release_fn_candidate *",
+            "datatype_path": "/tc7200u/dqm_host_fap/natp_gfap_manager_timer_release_fn_candidate *",
+            "length": 4,
+            "name": "release_timer_objects_10",
+            "offset": 16,
+            "offset_hex": "0x10",
+            "padding": false
+          }
+        ],
+        "length": 20
+      }
+    },
+    {
+      "category_path": "/tc7200u/dqm_host_fap",
+      "data": {
+        "endian": "big",
+        "format": null,
+        "mnemonic-style": null,
+        "mutability": null,
+        "padding": false
+      },
+      "kind": "structure",
       "length": 68,
       "name": "natp_gfap_runtime_entry_44_candidate",
       "path_name": "/tc7200u/dqm_host_fap/natp_gfap_runtime_entry_44_candidate",
@@ -3373,6 +3333,116 @@
         "padding": false
       },
       "function_signature": {
+        "arguments": [
+          {
+            "comment": null,
+            "datatype": "uint32_t",
+            "datatype_path": "/stdint.h/uint32_t",
+            "name": "request_code",
+            "ordinal": 0,
+            "storage": null
+          },
+          {
+            "comment": null,
+            "datatype": "uint32_t",
+            "datatype_path": "/stdint.h/uint32_t",
+            "name": "unused_arg1_candidate",
+            "ordinal": 1,
+            "storage": null
+          },
+          {
+            "comment": null,
+            "datatype": "void *",
+            "datatype_path": "/void *",
+            "name": "request_buf",
+            "ordinal": 2,
+            "storage": null
+          },
+          {
+            "comment": null,
+            "datatype": "int32_t",
+            "datatype_path": "/types.h/int32_t",
+            "name": "request_arg_or_len",
+            "ordinal": 3,
+            "storage": null
+          }
+        ],
+        "calling_convention": "default",
+        "no_return": false,
+        "return_type": "int32_t",
+        "return_type_path": "/types.h/int32_t",
+        "signature": "int32_t enet_port_link_control_callback_fn_candidate(uint32_t request_code, uint32_t unused_arg1_candidate, void * request_buf, int32_t request_arg_or_len)"
+      },
+      "kind": "function_definition",
+      "length": -1,
+      "name": "enet_port_link_control_callback_fn_candidate",
+      "path_name": "/tc7200u/fpm_dma/enet_port_link_control_callback_fn_candidate"
+    },
+    {
+      "category_path": "/tc7200u/fpm_dma",
+      "data": {
+        "endian": "big",
+        "format": null,
+        "mnemonic-style": null,
+        "mutability": null,
+        "padding": false
+      },
+      "function_signature": {
+        "arguments": [
+          {
+            "comment": null,
+            "datatype": "uint32_t",
+            "datatype_path": "/stdint.h/uint32_t",
+            "name": "request_code",
+            "ordinal": 0,
+            "storage": null
+          },
+          {
+            "comment": null,
+            "datatype": "uint32_t",
+            "datatype_path": "/stdint.h/uint32_t",
+            "name": "port_id",
+            "ordinal": 1,
+            "storage": null
+          },
+          {
+            "comment": null,
+            "datatype": "void *",
+            "datatype_path": "/void *",
+            "name": "out_buf",
+            "ordinal": 2,
+            "storage": null
+          },
+          {
+            "comment": null,
+            "datatype": "uint32_t *",
+            "datatype_path": "/stdint.h/uint32_t *",
+            "name": "out_len",
+            "ordinal": 3,
+            "storage": null
+          }
+        ],
+        "calling_convention": "default",
+        "no_return": false,
+        "return_type": "int32_t",
+        "return_type_path": "/types.h/int32_t",
+        "signature": "int32_t enet_port_status_query_callback_fn_candidate(uint32_t request_code, uint32_t port_id, void * out_buf, uint32_t * out_len)"
+      },
+      "kind": "function_definition",
+      "length": -1,
+      "name": "enet_port_status_query_callback_fn_candidate",
+      "path_name": "/tc7200u/fpm_dma/enet_port_status_query_callback_fn_candidate"
+    },
+    {
+      "category_path": "/tc7200u/fpm_dma",
+      "data": {
+        "endian": "big",
+        "format": null,
+        "mnemonic-style": null,
+        "mutability": null,
+        "padding": false
+      },
+      "function_signature": {
         "arguments": [],
         "calling_convention": "default",
         "no_return": false,
@@ -3391,6 +3461,112 @@
         "endian": "big",
         "format": null,
         "mnemonic-style": null,
+        "mutability": null,
+        "padding": false
+      },
+      "function_signature": {
+        "arguments": [
+          {
+            "comment": null,
+            "datatype": "void *",
+            "datatype_path": "/void *",
+            "name": "stack_context",
+            "ordinal": 0,
+            "storage": null
+          },
+          {
+            "comment": null,
+            "datatype": "void *",
+            "datatype_path": "/void *",
+            "name": "callback_arg",
+            "ordinal": 1,
+            "storage": null
+          }
+        ],
+        "calling_convention": "default",
+        "no_return": false,
+        "return_type": "uint32_t",
+        "return_type_path": "/stdint.h/uint32_t",
+        "signature": "uint32_t packet_port_status_callback_fn_candidate(void * stack_context, void * callback_arg)"
+      },
+      "kind": "function_definition",
+      "length": -1,
+      "name": "packet_port_status_callback_fn_candidate",
+      "path_name": "/tc7200u/fpm_dma/packet_port_status_callback_fn_candidate"
+    },
+    {
+      "category_path": "/tc7200u/fpm_dma",
+      "data": {
+        "endian": "big",
+        "format": null,
+        "mnemonic-style": null,
+        "mutability": null,
+        "padding": false
+      },
+      "function_signature": {
+        "arguments": [
+          {
+            "comment": null,
+            "datatype": "dma_fpm_packet_submit_descriptor_candidate *",
+            "datatype_path": "/tc7200u/fpm_dma/dma_fpm_packet_submit_descriptor_candidate *",
+            "name": "submit_desc",
+            "ordinal": 0,
+            "storage": null
+          },
+          {
+            "comment": null,
+            "datatype": "void *",
+            "datatype_path": "/void *",
+            "name": "callback_arg",
+            "ordinal": 1,
+            "storage": null
+          }
+        ],
+        "calling_convention": "default",
+        "no_return": false,
+        "return_type": "void",
+        "return_type_path": "/void",
+        "signature": "void packet_port_submit_callback_fn_candidate(dma_fpm_packet_submit_descriptor_candidate * submit_desc, void * callback_arg)"
+      },
+      "kind": "function_definition",
+      "length": -1,
+      "name": "packet_port_submit_callback_fn_candidate",
+      "path_name": "/tc7200u/fpm_dma/packet_port_submit_callback_fn_candidate"
+    },
+    {
+      "category_path": "/tc7200u/fpm_dma",
+      "data": {
+        "endian": "big",
+        "format": null,
+        "mnemonic-style": null,
+        "mutability": null,
+        "padding": false
+      },
+      "kind": "other",
+      "length": 1088,
+      "name": "packet_port_submit_table_entry_44_candidate[16]",
+      "path_name": "/tc7200u/fpm_dma/packet_port_submit_table_entry_44_candidate[16]"
+    },
+    {
+      "category_path": "/tc7200u/fpm_dma",
+      "data": {
+        "endian": "big",
+        "format": null,
+        "mnemonic-style": null,
+        "mutability": null,
+        "padding": false
+      },
+      "kind": "other",
+      "length": 340,
+      "name": "packet_port_submit_table_entry_44_candidate[5]",
+      "path_name": "/tc7200u/fpm_dma/packet_port_submit_table_entry_44_candidate[5]"
+    },
+    {
+      "category_path": "/tc7200u/fpm_dma",
+      "data": {
+        "endian": "big",
+        "format": null,
+        "mnemonic-style": null,
         "mutability": "normal",
         "padding": false
       },
@@ -3398,6 +3574,90 @@
       "length": 4,
       "name": "dma_allocator_global_state_81848740_candidate *",
       "path_name": "/tc7200u/fpm_dma/dma_allocator_global_state_81848740_candidate *"
+    },
+    {
+      "category_path": "/tc7200u/fpm_dma",
+      "data": {
+        "endian": "big",
+        "format": null,
+        "mnemonic-style": null,
+        "mutability": "normal",
+        "padding": false
+      },
+      "kind": "pointer",
+      "length": 4,
+      "name": "dma_fpm_packet_submit_descriptor_candidate *",
+      "path_name": "/tc7200u/fpm_dma/dma_fpm_packet_submit_descriptor_candidate *"
+    },
+    {
+      "category_path": "/tc7200u/fpm_dma",
+      "data": {
+        "endian": "big",
+        "format": null,
+        "mnemonic-style": null,
+        "mutability": "normal",
+        "padding": false
+      },
+      "kind": "pointer",
+      "length": 4,
+      "name": "enet_port_link_control_callback_fn_candidate *",
+      "path_name": "/tc7200u/fpm_dma/enet_port_link_control_callback_fn_candidate *"
+    },
+    {
+      "category_path": "/tc7200u/fpm_dma",
+      "data": {
+        "endian": "big",
+        "format": null,
+        "mnemonic-style": null,
+        "mutability": "normal",
+        "padding": false
+      },
+      "kind": "pointer",
+      "length": 4,
+      "name": "enet_port_status_query_callback_fn_candidate *",
+      "path_name": "/tc7200u/fpm_dma/enet_port_status_query_callback_fn_candidate *"
+    },
+    {
+      "category_path": "/tc7200u/fpm_dma",
+      "data": {
+        "endian": "big",
+        "format": null,
+        "mnemonic-style": null,
+        "mutability": "normal",
+        "padding": false
+      },
+      "kind": "pointer",
+      "length": 4,
+      "name": "packet_port_status_callback_fn_candidate *",
+      "path_name": "/tc7200u/fpm_dma/packet_port_status_callback_fn_candidate *"
+    },
+    {
+      "category_path": "/tc7200u/fpm_dma",
+      "data": {
+        "endian": "big",
+        "format": null,
+        "mnemonic-style": null,
+        "mutability": "normal",
+        "padding": false
+      },
+      "kind": "pointer",
+      "length": 4,
+      "name": "packet_port_submit_callback_fn_candidate *",
+      "path_name": "/tc7200u/fpm_dma/packet_port_submit_callback_fn_candidate *"
+    },
+    {
+      "category_path": "/tc7200u/fpm_dma",
+      "data": {
+        "endian": "big",
+        "format": null,
+        "mnemonic-style": null,
+        "mutability": "normal",
+        "padding": false
+      },
+      "kind": "pointer",
+      "length": 4,
+      "name": "packet_port_submit_record_34_candidate *",
+      "path_name": "/tc7200u/fpm_dma/packet_port_submit_record_34_candidate *"
     },
     {
       "category_path": "/tc7200u/fpm_dma",
@@ -3593,6 +3853,626 @@
           }
         ],
         "length": 76
+      }
+    },
+    {
+      "category_path": "/tc7200u/fpm_dma",
+      "data": {
+        "endian": "big",
+        "format": null,
+        "mnemonic-style": null,
+        "mutability": null,
+        "padding": false
+      },
+      "kind": "structure",
+      "length": 80,
+      "name": "dma_fpm_packet_submit_descriptor_candidate",
+      "path_name": "/tc7200u/fpm_dma/dma_fpm_packet_submit_descriptor_candidate",
+      "structure": {
+        "component_count": 9,
+        "components": [
+          {
+            "comment": null,
+            "datatype": "byte[16]",
+            "datatype_path": "/byte[16]",
+            "length": 16,
+            "name": "raw_00",
+            "offset": 0,
+            "offset_hex": "0x0",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "uint16_t",
+            "datatype_path": "/stdint.h/uint16_t",
+            "length": 2,
+            "name": "port_or_profile_10",
+            "offset": 16,
+            "offset_hex": "0x10",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "byte[14]",
+            "datatype_path": "/byte[14]",
+            "length": 14,
+            "name": "raw_12",
+            "offset": 18,
+            "offset_hex": "0x12",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "void *",
+            "datatype_path": "/void *",
+            "length": 4,
+            "name": "buffer_addr_20",
+            "offset": 32,
+            "offset_hex": "0x20",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "uint32_t",
+            "datatype_path": "/stdint.h/uint32_t",
+            "length": 4,
+            "name": "packet_len_24",
+            "offset": 36,
+            "offset_hex": "0x24",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "byte[24]",
+            "datatype_path": "/byte[24]",
+            "length": 24,
+            "name": "raw_28",
+            "offset": 40,
+            "offset_hex": "0x28",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "uint16_t",
+            "datatype_path": "/stdint.h/uint16_t",
+            "length": 2,
+            "name": "flags_40",
+            "offset": 64,
+            "offset_hex": "0x40",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "byte[10]",
+            "datatype_path": "/byte[10]",
+            "length": 10,
+            "name": "raw_42",
+            "offset": 66,
+            "offset_hex": "0x42",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "uint32_t",
+            "datatype_path": "/stdint.h/uint32_t",
+            "length": 4,
+            "name": "field_4c_zeroed",
+            "offset": 76,
+            "offset_hex": "0x4c",
+            "padding": false
+          }
+        ],
+        "length": 80
+      }
+    },
+    {
+      "category_path": "/tc7200u/fpm_dma",
+      "data": {
+        "endian": "big",
+        "format": null,
+        "mnemonic-style": null,
+        "mutability": null,
+        "padding": false
+      },
+      "kind": "structure",
+      "length": 184,
+      "name": "enet_gmac_init_state_b8_candidate",
+      "path_name": "/tc7200u/fpm_dma/enet_gmac_init_state_b8_candidate",
+      "structure": {
+        "component_count": 5,
+        "components": [
+          {
+            "comment": null,
+            "datatype": "byte[28]",
+            "datatype_path": "/byte[28]",
+            "length": 28,
+            "name": "raw_00",
+            "offset": 0,
+            "offset_hex": "0x0",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "uint32_t",
+            "datatype_path": "/stdint.h/uint32_t",
+            "length": 4,
+            "name": "packet_len_or_error_counter_1c_candidate",
+            "offset": 28,
+            "offset_hex": "0x1c",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "byte[28]",
+            "datatype_path": "/byte[28]",
+            "length": 28,
+            "name": "raw_20",
+            "offset": 32,
+            "offset_hex": "0x20",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "uint8_t",
+            "datatype_path": "/stdint.h/uint8_t",
+            "length": 1,
+            "name": "link_or_port_state_3c_candidate",
+            "offset": 60,
+            "offset_hex": "0x3c",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "byte[123]",
+            "datatype_path": "/byte[123]",
+            "length": 123,
+            "name": "raw_3d",
+            "offset": 61,
+            "offset_hex": "0x3d",
+            "padding": false
+          }
+        ],
+        "length": 184
+      }
+    },
+    {
+      "category_path": "/tc7200u/fpm_dma",
+      "data": {
+        "endian": "big",
+        "format": null,
+        "mnemonic-style": null,
+        "mutability": null,
+        "padding": false
+      },
+      "kind": "structure",
+      "length": 56,
+      "name": "enet_port_status_context_38_candidate",
+      "path_name": "/tc7200u/fpm_dma/enet_port_status_context_38_candidate",
+      "structure": {
+        "component_count": 15,
+        "components": [
+          {
+            "comment": null,
+            "datatype": "uint16_t",
+            "datatype_path": "/stdint.h/uint16_t",
+            "length": 2,
+            "name": "field_00",
+            "offset": 0,
+            "offset_hex": "0x0",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "uint16_t",
+            "datatype_path": "/stdint.h/uint16_t",
+            "length": 2,
+            "name": "field_02",
+            "offset": 2,
+            "offset_hex": "0x2",
+            "padding": false
+          },
+          {
+            "comment": "-> {@symbol fn_enet_gmac_init_main_803ad874_candidate}",
+            "datatype": "void *",
+            "datatype_path": "/void *",
+            "length": 4,
+            "name": "init_main_04",
+            "offset": 4,
+            "offset_hex": "0x4",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "uint32_t",
+            "datatype_path": "/stdint.h/uint32_t",
+            "length": 4,
+            "name": "field_08_uninit_candidate",
+            "offset": 8,
+            "offset_hex": "0x8",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "uint32_t",
+            "datatype_path": "/stdint.h/uint32_t",
+            "length": 4,
+            "name": "field_0c_zero",
+            "offset": 12,
+            "offset_hex": "0xc",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "uint32_t",
+            "datatype_path": "/stdint.h/uint32_t",
+            "length": 4,
+            "name": "field_10_uninit_candidate",
+            "offset": 16,
+            "offset_hex": "0x10",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "uint32_t",
+            "datatype_path": "/stdint.h/uint32_t",
+            "length": 4,
+            "name": "field_14_uninit_candidate",
+            "offset": 20,
+            "offset_hex": "0x14",
+            "padding": false
+          },
+          {
+            "comment": "-> {@symbol fn_enet_gmac_phy_link_control_callback_803ac42c_candidate}",
+            "datatype": "enet_port_link_control_callback_fn_candidate *",
+            "datatype_path": "/tc7200u/fpm_dma/enet_port_link_control_callback_fn_candidate *",
+            "length": 4,
+            "name": "link_control_callback_18",
+            "offset": 24,
+            "offset_hex": "0x18",
+            "padding": false
+          },
+          {
+            "comment": "-> {@symbol fn_enet_gmac_port_status_query_callback_803ac7ac_candidate}",
+            "datatype": "enet_port_status_query_callback_fn_candidate *",
+            "datatype_path": "/tc7200u/fpm_dma/enet_port_status_query_callback_fn_candidate *",
+            "length": 4,
+            "name": "status_query_callback_1c",
+            "offset": 28,
+            "offset_hex": "0x1c",
+            "padding": false
+          },
+          {
+            "comment": "-> {@symbol FUN_803aedd4}",
+            "datatype": "void *",
+            "datatype_path": "/void *",
+            "length": 4,
+            "name": "callback_20_candidate",
+            "offset": 32,
+            "offset_hex": "0x20",
+            "padding": false
+          },
+          {
+            "comment": "-> {@symbol FUN_803aeeb0}4",
+            "datatype": "void *",
+            "datatype_path": "/void *",
+            "length": 4,
+            "name": "callback_24_candidate",
+            "offset": 36,
+            "offset_hex": "0x24",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "uint32_t",
+            "datatype_path": "/stdint.h/uint32_t",
+            "length": 4,
+            "name": "field_28_zero",
+            "offset": 40,
+            "offset_hex": "0x28",
+            "padding": false
+          },
+          {
+            "comment": "-> {@symbol fn_dma_fpm_packet_free_callback_8002a4ac_candidate}",
+            "datatype": "void *",
+            "datatype_path": "/void *",
+            "length": 4,
+            "name": "packet_free_callback_2c",
+            "offset": 44,
+            "offset_hex": "0x2c",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "uint32_t",
+            "datatype_path": "/stdint.h/uint32_t",
+            "length": 4,
+            "name": "field_30_zero",
+            "offset": 48,
+            "offset_hex": "0x30",
+            "padding": false
+          },
+          {
+            "comment": "-> {@symbol FUN_80032f28}",
+            "datatype": "void *",
+            "datatype_path": "/void *",
+            "length": 4,
+            "name": "callback_34_candidate",
+            "offset": 52,
+            "offset_hex": "0x34",
+            "padding": false
+          }
+        ],
+        "length": 56
+      }
+    },
+    {
+      "category_path": "/tc7200u/fpm_dma",
+      "data": {
+        "endian": "big",
+        "format": null,
+        "mnemonic-style": null,
+        "mutability": null,
+        "padding": false
+      },
+      "kind": "structure",
+      "length": 52,
+      "name": "packet_port_submit_record_34_candidate",
+      "path_name": "/tc7200u/fpm_dma/packet_port_submit_record_34_candidate",
+      "structure": {
+        "component_count": 10,
+        "components": [
+          {
+            "comment": null,
+            "datatype": "uint16_t",
+            "datatype_path": "/stdint.h/uint16_t",
+            "length": 2,
+            "name": "field_00_candidate",
+            "offset": 0,
+            "offset_hex": "0x0",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "uint16_t",
+            "datatype_path": "/stdint.h/uint16_t",
+            "length": 2,
+            "name": "field_02_candidate",
+            "offset": 2,
+            "offset_hex": "0x2",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "uint32_t",
+            "datatype_path": "/stdint.h/uint32_t",
+            "length": 4,
+            "name": "port_id_04",
+            "offset": 4,
+            "offset_hex": "0x4",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "packet_port_status_callback_fn_candidate *",
+            "datatype_path": "/tc7200u/fpm_dma/packet_port_status_callback_fn_candidate *",
+            "length": 4,
+            "name": "status_callback_08",
+            "offset": 8,
+            "offset_hex": "0x8",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "uint32_t",
+            "datatype_path": "/stdint.h/uint32_t",
+            "length": 4,
+            "name": "field_0c_candidate",
+            "offset": 12,
+            "offset_hex": "0xc",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "packet_port_submit_callback_fn_candidate *",
+            "datatype_path": "/tc7200u/fpm_dma/packet_port_submit_callback_fn_candidate *",
+            "length": 4,
+            "name": "submit_callback_10",
+            "offset": 16,
+            "offset_hex": "0x10",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "byte[20]",
+            "datatype_path": "/byte[20]",
+            "length": 20,
+            "name": "raw_14",
+            "offset": 20,
+            "offset_hex": "0x14",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "uint32_t *",
+            "datatype_path": "/stdint.h/uint32_t *",
+            "length": 4,
+            "name": "core_cmd_args_ptr_28_candidate",
+            "offset": 40,
+            "offset_hex": "0x28",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "void *",
+            "datatype_path": "/void *",
+            "length": 4,
+            "name": "callback_arg_2c",
+            "offset": 44,
+            "offset_hex": "0x2c",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "uint32_t",
+            "datatype_path": "/stdint.h/uint32_t",
+            "length": 4,
+            "name": "field_30_candidate",
+            "offset": 48,
+            "offset_hex": "0x30",
+            "padding": false
+          }
+        ],
+        "length": 52
+      }
+    },
+    {
+      "category_path": "/tc7200u/fpm_dma",
+      "data": {
+        "endian": "big",
+        "format": null,
+        "mnemonic-style": null,
+        "mutability": null,
+        "padding": false
+      },
+      "kind": "structure",
+      "length": 68,
+      "name": "packet_port_submit_table_entry_44_candidate",
+      "path_name": "/tc7200u/fpm_dma/packet_port_submit_table_entry_44_candidate",
+      "structure": {
+        "component_count": 13,
+        "components": [
+          {
+            "comment": null,
+            "datatype": "uint16_t",
+            "datatype_path": "/stdint.h/uint16_t",
+            "length": 2,
+            "name": "field_00_candidate",
+            "offset": 0,
+            "offset_hex": "0x0",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "uint16_t",
+            "datatype_path": "/stdint.h/uint16_t",
+            "length": 2,
+            "name": "field_02_candidate",
+            "offset": 2,
+            "offset_hex": "0x2",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "uint32_t",
+            "datatype_path": "/stdint.h/uint32_t",
+            "length": 4,
+            "name": "port_id_04",
+            "offset": 4,
+            "offset_hex": "0x4",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "packet_port_status_callback_fn_candidate *",
+            "datatype_path": "/tc7200u/fpm_dma/packet_port_status_callback_fn_candidate *",
+            "length": 4,
+            "name": "status_callback_08",
+            "offset": 8,
+            "offset_hex": "0x8",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "uint32_t",
+            "datatype_path": "/stdint.h/uint32_t",
+            "length": 4,
+            "name": "field_0c_candidate",
+            "offset": 12,
+            "offset_hex": "0xc",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "packet_port_submit_callback_fn_candidate *",
+            "datatype_path": "/tc7200u/fpm_dma/packet_port_submit_callback_fn_candidate *",
+            "length": 4,
+            "name": "submit_callback_10",
+            "offset": 16,
+            "offset_hex": "0x10",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "byte[20]",
+            "datatype_path": "/byte[20]",
+            "length": 20,
+            "name": "raw_14",
+            "offset": 20,
+            "offset_hex": "0x14",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "void *",
+            "datatype_path": "/void *",
+            "length": 4,
+            "name": "core_cmd_args_ptr_28_candidate",
+            "offset": 40,
+            "offset_hex": "0x28",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "void *",
+            "datatype_path": "/void *",
+            "length": 4,
+            "name": "callback_arg_2c",
+            "offset": 44,
+            "offset_hex": "0x2c",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "uint32_t",
+            "datatype_path": "/stdint.h/uint32_t",
+            "length": 4,
+            "name": "field_30_candidate",
+            "offset": 48,
+            "offset_hex": "0x30",
+            "padding": false
+          },
+          {
+            "comment": "Upper/copy halfword of the 32-bit registered port id written by {@symbol fn_packet_port_submit_table_register_and_status_dispatch_803ac1a4_candidate}. The full write spans +0x34..+0x37. The low halfword at +0x36 is separately used as descriptor_port_value_36 by {@symbol fn_dma_fpm_packet_token_prepare_and_submit_8002b410_candidate}.",
+            "datatype": "uint16_t",
+            "datatype_path": "/stdint.h/uint16_t",
+            "length": 2,
+            "name": "registered_port_id_hi_or_copy_34_candidate",
+            "offset": 52,
+            "offset_hex": "0x34",
+            "padding": false
+          },
+          {
+            "comment": "Low 16 bits of the registered port id. Later used as descriptor_port_value_36 by {@symbol fn_dma_fpm_packet_token_prepare_and_submit_8002b410_candidate}.",
+            "datatype": "uint16_t",
+            "datatype_path": "/stdint.h/uint16_t",
+            "length": 2,
+            "name": "descriptor_port_value_36",
+            "offset": 54,
+            "offset_hex": "0x36",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "byte[12]",
+            "datatype_path": "/byte[12]",
+            "length": 12,
+            "name": "raw_38",
+            "offset": 56,
+            "offset_hex": "0x38",
+            "padding": false
+          }
+        ],
+        "length": 68
       }
     },
     {
@@ -4116,37 +4996,6 @@
         "padding": false
       },
       "function_signature": {
-        "arguments": [
-          {
-            "comment": null,
-            "datatype": "uint32_t",
-            "datatype_path": "/stdint.h/uint32_t",
-            "name": "handler_arg",
-            "ordinal": 0,
-            "storage": null
-          }
-        ],
-        "calling_convention": "default",
-        "no_return": false,
-        "return_type": "void",
-        "return_type_path": "/void",
-        "signature": "void bcm_periph_irq_handler_fn_candidate.conflict(uint32_t handler_arg)"
-      },
-      "kind": "function_definition",
-      "length": -1,
-      "name": "bcm_periph_irq_handler_fn_candidate.conflict",
-      "path_name": "/tc7200u/mmio/bcm_periph_irq_handler_fn_candidate.conflict"
-    },
-    {
-      "category_path": "/tc7200u/mmio",
-      "data": {
-        "endian": "big",
-        "format": null,
-        "mnemonic-style": null,
-        "mutability": null,
-        "padding": false
-      },
-      "function_signature": {
         "arguments": [],
         "calling_convention": "default",
         "no_return": false,
@@ -4158,61 +5007,6 @@
       "length": -1,
       "name": "dtp_runtime_init_fn",
       "path_name": "/tc7200u/mmio/dtp_runtime_init_fn"
-    },
-    {
-      "category_path": "/tc7200u/mmio",
-      "data": {
-        "endian": "big",
-        "format": null,
-        "mnemonic-style": null,
-        "mutability": null,
-        "padding": false
-      },
-      "function_signature": {
-        "arguments": [
-          {
-            "comment": null,
-            "datatype": "uint",
-            "datatype_path": "/uint",
-            "name": "bus_or_channel",
-            "ordinal": 0,
-            "storage": null
-          },
-          {
-            "comment": null,
-            "datatype": "uint",
-            "datatype_path": "/uint",
-            "name": "command_class",
-            "ordinal": 1,
-            "storage": null
-          },
-          {
-            "comment": null,
-            "datatype": "void *",
-            "datatype_path": "/void *",
-            "name": "transfer_buf",
-            "ordinal": 2,
-            "storage": null
-          },
-          {
-            "comment": null,
-            "datatype": "uint",
-            "datatype_path": "/uint",
-            "name": "transfer_len",
-            "ordinal": 3,
-            "storage": null
-          }
-        ],
-        "calling_convention": "default",
-        "no_return": false,
-        "return_type": "uint",
-        "return_type_path": "/uint",
-        "signature": "uint enet_extphy_spi_transfer_fn_candidate(uint bus_or_channel, uint command_class, void * transfer_buf, uint transfer_len)"
-      },
-      "kind": "function_definition",
-      "length": -1,
-      "name": "enet_extphy_spi_transfer_fn_candidate",
-      "path_name": "/tc7200u/mmio/enet_extphy_spi_transfer_fn_candidate"
     },
     {
       "category_path": "/tc7200u/mmio",
@@ -4292,20 +5086,6 @@
       },
       "kind": "pointer",
       "length": 4,
-      "name": "bcm_periph_irq_handler_fn_candidate.conflict *",
-      "path_name": "/tc7200u/mmio/bcm_periph_irq_handler_fn_candidate.conflict *"
-    },
-    {
-      "category_path": "/tc7200u/mmio",
-      "data": {
-        "endian": "big",
-        "format": null,
-        "mnemonic-style": null,
-        "mutability": "normal",
-        "padding": false
-      },
-      "kind": "pointer",
-      "length": 4,
       "name": "chiphal_pinmux_entry_candidate *",
       "path_name": "/tc7200u/mmio/chiphal_pinmux_entry_candidate *"
     },
@@ -4350,20 +5130,6 @@
       "length": 4,
       "name": "dtp_runtime_init_fn *",
       "path_name": "/tc7200u/mmio/dtp_runtime_init_fn *"
-    },
-    {
-      "category_path": "/tc7200u/mmio",
-      "data": {
-        "endian": "big",
-        "format": null,
-        "mnemonic-style": null,
-        "mutability": "normal",
-        "padding": false
-      },
-      "kind": "pointer",
-      "length": 4,
-      "name": "enet_extphy_spi_transfer_fn_candidate *",
-      "path_name": "/tc7200u/mmio/enet_extphy_spi_transfer_fn_candidate *"
     },
     {
       "category_path": "/tc7200u/mmio",
@@ -5886,6 +6652,433 @@
       }
     },
     {
+      "category_path": "/tc7200u/stage1/flash",
+      "data": {
+        "endian": "big",
+        "format": null,
+        "mnemonic-style": null,
+        "mutability": null,
+        "padding": false
+      },
+      "function_signature": {
+        "arguments": [
+          {
+            "comment": null,
+            "datatype": "stage1_flash_device_object_68_candidate *",
+            "datatype_path": "/tc7200u/stage1/flash/stage1_flash_device_object_68_candidate *",
+            "name": "flash_obj",
+            "ordinal": 0,
+            "storage": null
+          }
+        ],
+        "calling_convention": "default",
+        "no_return": false,
+        "return_type": "void",
+        "return_type_path": "/void",
+        "signature": "void stage1_flash_device_destroy_fn_candidate(stage1_flash_device_object_68_candidate * flash_obj)"
+      },
+      "kind": "function_definition",
+      "length": -1,
+      "name": "stage1_flash_device_destroy_fn_candidate",
+      "path_name": "/tc7200u/stage1/flash/stage1_flash_device_destroy_fn_candidate"
+    },
+    {
+      "category_path": "/tc7200u/stage1/flash",
+      "data": {
+        "endian": "big",
+        "format": null,
+        "mnemonic-style": null,
+        "mutability": "normal",
+        "padding": false
+      },
+      "kind": "pointer",
+      "length": 4,
+      "name": "stage1_flash_block_map_entry_10_candidate *",
+      "path_name": "/tc7200u/stage1/flash/stage1_flash_block_map_entry_10_candidate *"
+    },
+    {
+      "category_path": "/tc7200u/stage1/flash",
+      "data": {
+        "endian": "big",
+        "format": null,
+        "mnemonic-style": null,
+        "mutability": "normal",
+        "padding": false
+      },
+      "kind": "pointer",
+      "length": 4,
+      "name": "stage1_flash_device_base_vtable_candidate *",
+      "path_name": "/tc7200u/stage1/flash/stage1_flash_device_base_vtable_candidate *"
+    },
+    {
+      "category_path": "/tc7200u/stage1/flash",
+      "data": {
+        "endian": "big",
+        "format": null,
+        "mnemonic-style": null,
+        "mutability": "normal",
+        "padding": false
+      },
+      "kind": "pointer",
+      "length": 4,
+      "name": "stage1_flash_device_destroy_fn_candidate *",
+      "path_name": "/tc7200u/stage1/flash/stage1_flash_device_destroy_fn_candidate *"
+    },
+    {
+      "category_path": "/tc7200u/stage1/flash",
+      "data": {
+        "endian": "big",
+        "format": null,
+        "mnemonic-style": null,
+        "mutability": "normal",
+        "padding": false
+      },
+      "kind": "pointer",
+      "length": 4,
+      "name": "stage1_flash_device_object_68_candidate *",
+      "path_name": "/tc7200u/stage1/flash/stage1_flash_device_object_68_candidate *"
+    },
+    {
+      "category_path": "/tc7200u/stage1/flash",
+      "data": {
+        "endian": "big",
+        "format": null,
+        "mnemonic-style": null,
+        "mutability": null,
+        "padding": false
+      },
+      "kind": "structure",
+      "length": 16,
+      "name": "stage1_flash_block_map_entry_10_candidate",
+      "path_name": "/tc7200u/stage1/flash/stage1_flash_block_map_entry_10_candidate",
+      "structure": {
+        "component_count": 4,
+        "components": [
+          {
+            "comment": null,
+            "datatype": "uint32_t",
+            "datatype_path": "/stdint.h/uint32_t",
+            "length": 4,
+            "name": "block_index_00",
+            "offset": 0,
+            "offset_hex": "0x0",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "uint32_t",
+            "datatype_path": "/stdint.h/uint32_t",
+            "length": 4,
+            "name": "block_size_04",
+            "offset": 4,
+            "offset_hex": "0x4",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "uint32_t",
+            "datatype_path": "/stdint.h/uint32_t",
+            "length": 4,
+            "name": "block_offset_08",
+            "offset": 8,
+            "offset_hex": "0x8",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "void *",
+            "datatype_path": "/void *",
+            "length": 4,
+            "name": "flash_device_0c",
+            "offset": 12,
+            "offset_hex": "0xc",
+            "padding": false
+          }
+        ],
+        "length": 16
+      }
+    },
+    {
+      "category_path": "/tc7200u/stage1/flash",
+      "data": {
+        "endian": "big",
+        "format": null,
+        "mnemonic-style": null,
+        "mutability": null,
+        "padding": false
+      },
+      "kind": "structure",
+      "length": 8,
+      "name": "stage1_flash_device_base_vtable_candidate",
+      "path_name": "/tc7200u/stage1/flash/stage1_flash_device_base_vtable_candidate",
+      "structure": {
+        "component_count": 2,
+        "components": [
+          {
+            "comment": "Points to {@symbol fn_flash_device_base_vtable_destroy_803e2420_candidate}. Destroys flash-device base state without freeing the object itself.",
+            "datatype": "stage1_flash_device_destroy_fn_candidate *",
+            "datatype_path": "/tc7200u/stage1/flash/stage1_flash_device_destroy_fn_candidate *",
+            "length": 4,
+            "name": "destroy_00",
+            "offset": 0,
+            "offset_hex": "0x0",
+            "padding": false
+          },
+          {
+            "comment": "Points to {@symbol fn_flash_device_base_vtable_destroy_and_free_803e24b0_candidate}. Destroys flash-device base state and then frees the object itself.",
+            "datatype": "stage1_flash_device_destroy_fn_candidate *",
+            "datatype_path": "/tc7200u/stage1/flash/stage1_flash_device_destroy_fn_candidate *",
+            "length": 4,
+            "name": "destroy_and_free_04",
+            "offset": 4,
+            "offset_hex": "0x4",
+            "padding": false
+          }
+        ],
+        "length": 8
+      }
+    },
+    {
+      "category_path": "/tc7200u/stage1/flash",
+      "data": {
+        "endian": "big",
+        "format": null,
+        "mnemonic-style": null,
+        "mutability": null,
+        "padding": false
+      },
+      "kind": "structure",
+      "length": 104,
+      "name": "stage1_flash_device_object_68_candidate",
+      "path_name": "/tc7200u/stage1/flash/stage1_flash_device_object_68_candidate",
+      "structure": {
+        "component_count": 7,
+        "components": [
+          {
+            "comment": null,
+            "datatype": "stage1_flash_device_base_vtable_candidate *",
+            "datatype_path": "/tc7200u/stage1/flash/stage1_flash_device_base_vtable_candidate *",
+            "length": 4,
+            "name": "vtable_00",
+            "offset": 0,
+            "offset_hex": "0x0",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "undefined[52]",
+            "datatype_path": "/undefined[52]",
+            "length": 52,
+            "name": "object_or_config_04",
+            "offset": 4,
+            "offset_hex": "0x4",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "stage1_flash_block_map_entry_10_candidate *",
+            "datatype_path": "/tc7200u/stage1/flash/stage1_flash_block_map_entry_10_candidate *",
+            "length": 4,
+            "name": "block_map_entries_38",
+            "offset": 56,
+            "offset_hex": "0x38",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "uint32_t",
+            "datatype_path": "/stdint.h/uint32_t",
+            "length": 4,
+            "name": "block_map_entry_count_3c",
+            "offset": 60,
+            "offset_hex": "0x3c",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "undefined[16]",
+            "datatype_path": "/undefined[16]",
+            "length": 16,
+            "name": "field_40",
+            "offset": 64,
+            "offset_hex": "0x40",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "uint32_t",
+            "datatype_path": "/stdint.h/uint32_t",
+            "length": 4,
+            "name": "field_50_zeroed_on_destroy",
+            "offset": 80,
+            "offset_hex": "0x50",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "undefined[20]",
+            "datatype_path": "/undefined[20]",
+            "length": 20,
+            "name": "field_54",
+            "offset": 84,
+            "offset_hex": "0x54",
+            "padding": false
+          }
+        ],
+        "length": 104
+      }
+    },
+    {
+      "category_path": "/tc7200u/stage1/flash",
+      "data": {
+        "endian": "big",
+        "format": null,
+        "mnemonic-style": null,
+        "mutability": null,
+        "padding": false
+      },
+      "kind": "structure",
+      "length": 80,
+      "name": "stage1_flash_runtime_state_candidate",
+      "path_name": "/tc7200u/stage1/flash/stage1_flash_runtime_state_candidate",
+      "structure": {
+        "component_count": 13,
+        "components": [
+          {
+            "comment": null,
+            "datatype": "uint8_t",
+            "datatype_path": "/stdint.h/uint8_t",
+            "length": 1,
+            "name": "init_done_00",
+            "offset": 0,
+            "offset_hex": "0x0",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "undefined[3]",
+            "datatype_path": "/undefined[3]",
+            "length": 3,
+            "name": "field_01",
+            "offset": 1,
+            "offset_hex": "0x1",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "void *",
+            "datatype_path": "/void *",
+            "length": 4,
+            "name": "flash_device0_04",
+            "offset": 4,
+            "offset_hex": "0x4",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "void *",
+            "datatype_path": "/void *",
+            "length": 4,
+            "name": "flash_device1_08",
+            "offset": 8,
+            "offset_hex": "0x8",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "void *",
+            "datatype_path": "/void *",
+            "length": 4,
+            "name": "primary_or_active_device_0c",
+            "offset": 12,
+            "offset_hex": "0xc",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "undefined[16]",
+            "datatype_path": "/undefined[16]",
+            "length": 16,
+            "name": "field_10",
+            "offset": 16,
+            "offset_hex": "0x10",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "void *",
+            "datatype_path": "/void *",
+            "length": 4,
+            "name": "mutex_sem_20",
+            "offset": 32,
+            "offset_hex": "0x20",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "undefined[32]",
+            "datatype_path": "/undefined[32]",
+            "length": 32,
+            "name": "field_24",
+            "offset": 36,
+            "offset_hex": "0x24",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "uint32_t",
+            "datatype_path": "/stdint.h/uint32_t",
+            "length": 4,
+            "name": "clamped_runtime_limit_44",
+            "offset": 68,
+            "offset_hex": "0x44",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "undefined[4]",
+            "datatype_path": "/undefined[4]",
+            "length": 4,
+            "name": "field_48",
+            "offset": 72,
+            "offset_hex": "0x48",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "uint8_t",
+            "datatype_path": "/stdint.h/uint8_t",
+            "length": 1,
+            "name": "spi_device0_detected_4c",
+            "offset": 76,
+            "offset_hex": "0x4c",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "uint8_t",
+            "datatype_path": "/stdint.h/uint8_t",
+            "length": 1,
+            "name": "nand_detected_4d",
+            "offset": 77,
+            "offset_hex": "0x4d",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "undefined[2]",
+            "datatype_path": "/undefined[2]",
+            "length": 2,
+            "name": "field_4e",
+            "offset": 78,
+            "offset_hex": "0x4e",
+            "padding": false
+          }
+        ],
+        "length": 80
+      }
+    },
+    {
       "category_path": "/tc7200u/stage1/lifecycle",
       "data": {
         "endian": "big",
@@ -5920,6 +7113,100 @@
       "length": 4,
       "name": "stage1_shutdown_cleanup_cb *",
       "path_name": "/tc7200u/stage1/lifecycle/stage1_shutdown_cleanup_cb *"
+    },
+    {
+      "category_path": "/tc7200u/stage1/netif",
+      "data": {
+        "endian": "big",
+        "format": null,
+        "mnemonic-style": null,
+        "mutability": null,
+        "padding": false
+      },
+      "function_signature": {
+        "arguments": [
+          {
+            "comment": null,
+            "datatype": "uint32_t",
+            "datatype_path": "/stdint.h/uint32_t",
+            "name": "profile_index",
+            "ordinal": 0,
+            "storage": null
+          },
+          {
+            "comment": null,
+            "datatype": "uint32_t",
+            "datatype_path": "/stdint.h/uint32_t",
+            "name": "clock_index",
+            "ordinal": 1,
+            "storage": null
+          }
+        ],
+        "calling_convention": "default",
+        "no_return": false,
+        "return_type": "uint32_t",
+        "return_type_path": "/stdint.h/uint32_t",
+        "signature": "uint32_t enet_extphy_hsspi_set_profile_clock_fn(uint32_t profile_index, uint32_t clock_index)"
+      },
+      "kind": "function_definition",
+      "length": -1,
+      "name": "enet_extphy_hsspi_set_profile_clock_fn",
+      "path_name": "/tc7200u/stage1/netif/enet_extphy_hsspi_set_profile_clock_fn"
+    },
+    {
+      "category_path": "/tc7200u/stage1/netif",
+      "data": {
+        "endian": "big",
+        "format": null,
+        "mnemonic-style": null,
+        "mutability": null,
+        "padding": false
+      },
+      "function_signature": {
+        "arguments": [
+          {
+            "comment": null,
+            "datatype": "uint32_t",
+            "datatype_path": "/stdint.h/uint32_t",
+            "name": "transfer_mode",
+            "ordinal": 0,
+            "storage": null
+          },
+          {
+            "comment": null,
+            "datatype": "uint32_t",
+            "datatype_path": "/stdint.h/uint32_t",
+            "name": "profile_index",
+            "ordinal": 1,
+            "storage": null
+          },
+          {
+            "comment": null,
+            "datatype": "void *",
+            "datatype_path": "/void *",
+            "name": "tx_buf",
+            "ordinal": 2,
+            "storage": null
+          },
+          {
+            "comment": null,
+            "datatype": "uint32_t",
+            "datatype_path": "/stdint.h/uint32_t",
+            "name": "tx_len",
+            "ordinal": 3,
+            "storage": null
+          }
+        ],
+        "calling_convention": "default",
+        "no_return": false,
+        "return_type": "uint32_t",
+        "return_type_path": "/stdint.h/uint32_t",
+        "signature": "uint32_t enet_extphy_spi_transfer_fn_candidate(uint32_t transfer_mode, uint32_t profile_index, void * tx_buf, uint32_t tx_len)"
+      },
+      "kind": "function_definition",
+      "length": -1,
+      "name": "enet_extphy_spi_transfer_fn_candidate",
+      "path_name": "/tc7200u/stage1/netif/enet_extphy_spi_transfer_fn_candidate"
     },
     {
       "category_path": "/tc7200u/stage1/netif",
@@ -6099,6 +7386,34 @@
       },
       "kind": "pointer",
       "length": 4,
+      "name": "enet_extphy_hsspi_set_profile_clock_fn *",
+      "path_name": "/tc7200u/stage1/netif/enet_extphy_hsspi_set_profile_clock_fn *"
+    },
+    {
+      "category_path": "/tc7200u/stage1/netif",
+      "data": {
+        "endian": "big",
+        "format": null,
+        "mnemonic-style": null,
+        "mutability": "normal",
+        "padding": false
+      },
+      "kind": "pointer",
+      "length": 4,
+      "name": "enet_extphy_spi_transfer_fn_candidate *",
+      "path_name": "/tc7200u/stage1/netif/enet_extphy_spi_transfer_fn_candidate *"
+    },
+    {
+      "category_path": "/tc7200u/stage1/netif",
+      "data": {
+        "endian": "big",
+        "format": null,
+        "mnemonic-style": null,
+        "mutability": "normal",
+        "padding": false
+      },
+      "kind": "pointer",
+      "length": 4,
       "name": "stage1_netif_aux_event_callback_68_cb *",
       "path_name": "/tc7200u/stage1/netif/stage1_netif_aux_event_callback_68_cb *"
     },
@@ -6199,6 +7514,56 @@
       "length": 4,
       "name": "stage1_netif_object_candidate * *",
       "path_name": "/tc7200u/stage1/netif/stage1_netif_object_candidate * *"
+    },
+    {
+      "category_path": "/tc7200u/stage1/netif",
+      "data": {
+        "endian": "big",
+        "format": null,
+        "mnemonic-style": null,
+        "mutability": null,
+        "padding": false
+      },
+      "kind": "structure",
+      "length": 12,
+      "name": "enet_extphy_spi_driver_table_candidate",
+      "path_name": "/tc7200u/stage1/netif/enet_extphy_spi_driver_table_candidate",
+      "structure": {
+        "component_count": 3,
+        "components": [
+          {
+            "comment": "HSSPI profile clock/config callback. Installed target: {@symbol fn_enet_extphy_hsspi_set_profile_clock_8040a734}.",
+            "datatype": "enet_extphy_hsspi_set_profile_clock_fn *",
+            "datatype_path": "/tc7200u/stage1/netif/enet_extphy_hsspi_set_profile_clock_fn *",
+            "length": 4,
+            "name": "set_profile_clock_fn_00",
+            "offset": 0,
+            "offset_hex": "0x0",
+            "padding": false
+          },
+          {
+            "comment": "External PHY/SPI transfer callback slot. Installed target: {@symbol fn_enet_extphy_spi_transfer_dispatch_locked_8040adb8_candidate}. ",
+            "datatype": "enet_extphy_spi_transfer_fn_candidate *",
+            "datatype_path": "/tc7200u/stage1/netif/enet_extphy_spi_transfer_fn_candidate *",
+            "length": 4,
+            "name": "transfer_fn_04",
+            "offset": 4,
+            "offset_hex": "0x4",
+            "padding": false
+          },
+          {
+            "comment": "Driver table callback returning constant 1. Installed target: {@symbol fn_enet_extphy_spi_return1_callback_8040aee0_candidate}.",
+            "datatype": "void *",
+            "datatype_path": "/void *",
+            "length": 4,
+            "name": "return1_callback_08",
+            "offset": 8,
+            "offset_hex": "0x8",
+            "padding": false
+          }
+        ],
+        "length": 12
+      }
     },
     {
       "category_path": "/tc7200u/stage1/netif",
@@ -7807,37 +9172,6 @@
       "length": -1,
       "name": "stage1_signal_object_final_release_cb",
       "path_name": "/tc7200u/stage1/signal/stage1_signal_object_final_release_cb"
-    },
-    {
-      "category_path": "/tc7200u/stage1/signal",
-      "data": {
-        "endian": "big",
-        "format": null,
-        "mnemonic-style": null,
-        "mutability": null,
-        "padding": false
-      },
-      "function_signature": {
-        "arguments": [
-          {
-            "comment": null,
-            "datatype": "stage1_signal_object_candidate *",
-            "datatype_path": "/tc7200u/stage1/signal/stage1_signal_object_candidate *",
-            "name": "signal_object",
-            "ordinal": 0,
-            "storage": null
-          }
-        ],
-        "calling_convention": "default",
-        "no_return": false,
-        "return_type": "int",
-        "return_type_path": "/int",
-        "signature": "int stage1_signal_object_final_release_cb.conflict(stage1_signal_object_candidate * signal_object)"
-      },
-      "kind": "function_definition",
-      "length": -1,
-      "name": "stage1_signal_object_final_release_cb.conflict",
-      "path_name": "/tc7200u/stage1/signal/stage1_signal_object_final_release_cb.conflict"
     },
     {
       "category_path": "/tc7200u/stage1/signal",
@@ -10507,6 +11841,300 @@
       }
     },
     {
+      "category_path": "/tc7200u/stage1/spi_flash",
+      "data": {
+        "endian": "big",
+        "format": null,
+        "mnemonic-style": null,
+        "mutability": "normal",
+        "padding": false
+      },
+      "kind": "pointer",
+      "length": 4,
+      "name": "spi_flash_detect_context_candidate *",
+      "path_name": "/tc7200u/stage1/spi_flash/spi_flash_detect_context_candidate *"
+    },
+    {
+      "category_path": "/tc7200u/stage1/spi_flash",
+      "data": {
+        "endian": "big",
+        "format": null,
+        "mnemonic-style": null,
+        "mutability": null,
+        "padding": false
+      },
+      "kind": "structure",
+      "length": 16,
+      "name": "spi_flash_cfi_probe_result_10_candidate",
+      "path_name": "/tc7200u/stage1/spi_flash/spi_flash_cfi_probe_result_10_candidate",
+      "structure": {
+        "component_count": 4,
+        "components": [
+          {
+            "comment": null,
+            "datatype": "uint32_t",
+            "datatype_path": "/stdint.h/uint32_t",
+            "length": 4,
+            "name": "jedec_id_00",
+            "offset": 0,
+            "offset_hex": "0x0",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "uint32_t",
+            "datatype_path": "/stdint.h/uint32_t",
+            "length": 4,
+            "name": "total_size_04",
+            "offset": 4,
+            "offset_hex": "0x4",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "uint32_t",
+            "datatype_path": "/stdint.h/uint32_t",
+            "length": 4,
+            "name": "erase_block_size_08",
+            "offset": 8,
+            "offset_hex": "0x8",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "uint32_t",
+            "datatype_path": "/stdint.h/uint32_t",
+            "length": 4,
+            "name": "page_or_write_buffer_size_0c",
+            "offset": 12,
+            "offset_hex": "0xc",
+            "padding": false
+          }
+        ],
+        "length": 16
+      }
+    },
+    {
+      "category_path": "/tc7200u/stage1/spi_flash",
+      "data": {
+        "endian": "big",
+        "format": null,
+        "mnemonic-style": null,
+        "mutability": null,
+        "padding": false
+      },
+      "kind": "structure",
+      "length": 80,
+      "name": "spi_flash_detect_context_candidate",
+      "path_name": "/tc7200u/stage1/spi_flash/spi_flash_detect_context_candidate",
+      "structure": {
+        "component_count": 13,
+        "components": [
+          {
+            "comment": null,
+            "datatype": "undefined[4]",
+            "datatype_path": "/undefined[4]",
+            "length": 4,
+            "name": "field_00",
+            "offset": 0,
+            "offset_hex": "0x0",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "undefined[36]",
+            "datatype_path": "/undefined[36]",
+            "length": 36,
+            "name": "log_or_config_object_04",
+            "offset": 4,
+            "offset_hex": "0x4",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "uint8_t",
+            "datatype_path": "/stdint.h/uint8_t",
+            "length": 1,
+            "name": "mode_byte_28",
+            "offset": 40,
+            "offset_hex": "0x28",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "uint8_t",
+            "datatype_path": "/stdint.h/uint8_t",
+            "length": 1,
+            "name": "option_byte_29",
+            "offset": 41,
+            "offset_hex": "0x29",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "undefined[2]",
+            "datatype_path": "/undefined[2]",
+            "length": 2,
+            "name": "field_2a",
+            "offset": 42,
+            "offset_hex": "0x2a",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "uint32_t",
+            "datatype_path": "/stdint.h/uint32_t",
+            "length": 4,
+            "name": "detect_state_2c",
+            "offset": 44,
+            "offset_hex": "0x2c",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "uint32_t",
+            "datatype_path": "/stdint.h/uint32_t",
+            "length": 4,
+            "name": "page_or_write_buffer_size_30",
+            "offset": 48,
+            "offset_hex": "0x30",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "uint8_t",
+            "datatype_path": "/stdint.h/uint8_t",
+            "length": 1,
+            "name": "field_34",
+            "offset": 52,
+            "offset_hex": "0x34",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "undefined[3]",
+            "datatype_path": "/undefined[3]",
+            "length": 3,
+            "name": "field_35",
+            "offset": 53,
+            "offset_hex": "0x35",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "void *",
+            "datatype_path": "/void *",
+            "length": 4,
+            "name": "block_map_38",
+            "offset": 56,
+            "offset_hex": "0x38",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "uint32_t",
+            "datatype_path": "/stdint.h/uint32_t",
+            "length": 4,
+            "name": "erase_block_count_3c",
+            "offset": 60,
+            "offset_hex": "0x3c",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "undefined[12]",
+            "datatype_path": "/undefined[12]",
+            "length": 12,
+            "name": "field_40",
+            "offset": 64,
+            "offset_hex": "0x40",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "uint32_t",
+            "datatype_path": "/stdint.h/uint32_t",
+            "length": 4,
+            "name": "total_size_4c",
+            "offset": 76,
+            "offset_hex": "0x4c",
+            "padding": false
+          }
+        ],
+        "length": 80
+      }
+    },
+    {
+      "category_path": "/tc7200u/stage1/spi_flash",
+      "data": {
+        "endian": "big",
+        "format": null,
+        "mnemonic-style": null,
+        "mutability": null,
+        "padding": false
+      },
+      "kind": "structure",
+      "length": 20,
+      "name": "spi_flash_jedec_table_entry_14_candidate",
+      "path_name": "/tc7200u/stage1/spi_flash/spi_flash_jedec_table_entry_14_candidate",
+      "structure": {
+        "component_count": 5,
+        "components": [
+          {
+            "comment": null,
+            "datatype": "uint32_t",
+            "datatype_path": "/stdint.h/uint32_t",
+            "length": 4,
+            "name": "jedec_id_or_mask_00",
+            "offset": 0,
+            "offset_hex": "0x0",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "uint32_t",
+            "datatype_path": "/stdint.h/uint32_t",
+            "length": 4,
+            "name": "total_size_04",
+            "offset": 4,
+            "offset_hex": "0x4",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "uint32_t",
+            "datatype_path": "/stdint.h/uint32_t",
+            "length": 4,
+            "name": "erase_block_size_08",
+            "offset": 8,
+            "offset_hex": "0x8",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "uint32_t",
+            "datatype_path": "/stdint.h/uint32_t",
+            "length": 4,
+            "name": "page_or_write_buffer_size_0c",
+            "offset": 12,
+            "offset_hex": "0xc",
+            "padding": false
+          },
+          {
+            "comment": null,
+            "datatype": "uint32_t",
+            "datatype_path": "/stdint.h/uint32_t",
+            "length": 4,
+            "name": "flags_10",
+            "offset": 16,
+            "offset_hex": "0x10",
+            "padding": false
+          }
+        ],
+        "length": 20
+      }
+    },
+    {
       "category_path": "/tc7200u/stage1/thread",
       "data": {
         "endian": "big",
@@ -11463,6 +13091,20 @@
         "endian": "big",
         "format": null,
         "mnemonic-style": null,
+        "mutability": "normal",
+        "padding": false
+      },
+      "kind": "other",
+      "length": 8,
+      "name": "stage1_bcm_sem_candidate *[2]",
+      "path_name": "/tc7200u/stage1/wait_sync/stage1_bcm_sem_candidate *[2]"
+    },
+    {
+      "category_path": "/tc7200u/stage1/wait_sync",
+      "data": {
+        "endian": "big",
+        "format": null,
+        "mnemonic-style": null,
         "mutability": null,
         "padding": false
       },
@@ -11996,7 +13638,7 @@
       }
     }
   ],
-  "exported_at": "2026-06-21T21:39:30.8684583",
+  "exported_at": "2026-06-24T01:04:01.9831604",
   "missing_category_paths": [],
   "output_dir": "\\\\wsl.localhost\\Ubuntu\\home\\mgta29\\tc7200u-research\\records\\reverse\\exports",
   "output_filename": "datatype.json",
@@ -12005,12 +13647,12 @@
   "script_version": "2026-06-21-v7-java-json-typedef-base",
   "summary": {
     "enums": 1,
-    "function_definitions": 49,
-    "other": 25,
-    "pointers": 108,
-    "structure_components_total": 621,
-    "structures": 94,
-    "total": 280,
+    "function_definitions": 53,
+    "other": 28,
+    "pointers": 119,
+    "structure_components_total": 722,
+    "structures": 106,
+    "total": 310,
     "typedefs": 3,
     "unions": 0
   },

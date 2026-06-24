@@ -319,7 +319,7 @@ public class ExportUserLabelsComments extends GhidraScript {
         if ("BuiltInDataType".equals(kind) || "DefaultDataType".equals(kind)) {
             return true;
         }
-        if (dt instanceof Pointer || dt instanceof Array) {
+        if (dt instanceof Pointer) {
             return true;
         }
 
@@ -348,6 +348,13 @@ public class ExportUserLabelsComments extends GhidraScript {
             FunctionDefinition fd = (FunctionDefinition) dt;
             row.put("return_type", datatypePath(fd.getReturnType()));
             row.put("arguments", functionDefArgs(fd));
+        }
+
+        if (dt instanceof Array) {
+            Array arr = (Array) dt;
+            row.put("element_type", datatypePath(arr.getDataType()));
+            row.put("element_count", Integer.valueOf(arr.getNumElements()));
+            row.put("element_length", Integer.valueOf(arr.getElementLength()));
         }
 
         if (dt instanceof TypeDef) {
